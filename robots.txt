@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /components/
+
+Sitemap: https://www.powercabs.ie/sitemap.xml
