@@ -1,0 +1,308 @@
+<?php
+$pageTitle       = $pageTitle ?? 'PowerCabs | Reliable Cab Booking Service in Ireland';
+$pageDescription = $pageDescription ?? 'Book a reliable, affordable cab in Ireland with PowerCabs. Airport transfers, city rides, business travel and driver opportunities, available 24/7.';
+$assetPath       = $assetPath ?? '';
+$currentPage     = basename($_SERVER['PHP_SELF']);
+
+$navActive = static fn(string $page): string => $currentPage === $page ? 'active' : '';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?= htmlspecialchars($pageTitle) ?></title>
+  <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
+  <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
+
+  <!-- Bootstrap 5 (CDN for now; swap to self-hosted /vendor build before production) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?= $assetPath ?>assets/css/variables.css?v=<?= @filemtime(__DIR__ . '/../assets/css/variables.css') ?>">
+  <link rel="stylesheet" href="<?= $assetPath ?>assets/css/base.css?v=<?= @filemtime(__DIR__ . '/../assets/css/base.css') ?>">
+  <link rel="stylesheet" href="<?= $assetPath ?>assets/css/components.css?v=<?= @filemtime(__DIR__ . '/../assets/css/components.css') ?>">
+
+  <style>
+    .pc-navbar {
+      background: rgba(252, 251, 247, .92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .16), 0 12px 28px rgba(0, 0, 0, .1), 0 4px 10px rgba(0, 0, 0, .06);
+    }
+    .pc-navbar-links-pill {
+      background: linear-gradient(135deg, #fcfbf7 0%, #ffffff 100%);
+      box-shadow: 0 2px 10px rgba(28, 20, 16, .06);
+    }
+    .pc-navbar .nav-link {
+      position: relative;
+      transition: color .2s ease, background-color .2s ease;
+    }
+    .pc-navbar .nav-link:hover {
+      color: var(--pc-orange);
+      border-radius: var(--pc-radius-pill);
+    }
+    .pc-navbar .nav-link:focus,
+    .pc-navbar .nav-link:focus-visible {
+      outline: none;
+      box-shadow: none;
+      border-radius: var(--pc-radius-pill);
+    }
+    .pc-navbar .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--pc-orange);
+      transform: translateX(-50%) scale(0);
+      transition: transform .25s cubic-bezier(.34, 1.56, .64, 1);
+    }
+    .pc-navbar .nav-link.active::after {
+      transform: translateX(-50%) scale(1);
+    }
+    @media (min-width: 992px) {
+      .pc-navbar-links-pill {
+        padding-top: .15rem !important;
+        padding-bottom: .15rem !important;
+      }
+      .pc-navbar-links-pill .nav-link {
+        font-size: .9rem;
+      }
+    }
+    @media (max-width: 991.98px) {
+      .pc-navbar-links-pill {
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+      }
+      .pc-navbar .nav-link::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body data-page="<?= htmlspecialchars($currentPage) ?>">
+
+<header class="position-fixed top-0 start-0 w-100" style="z-index: 1030;">
+  <div class="container px-2 px-lg-3 pt-2 pt-lg-2">
+    <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
+      <div class="container-fluid px-0">
+        <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>index.php">
+          <img src="<?= $assetPath ?>assets/img/powercabs-logo-black.svg" alt="PowerCabs" height="42" class="d-block">
+        </a>
+
+        <button class="navbar-toggler pc-navbar-toggler border-0 p-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="pc-toggler-bar"></span>
+          <span class="pc-toggler-bar"></span>
+          <span class="pc-toggler-bar"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav pc-navbar-links-pill mx-auto gap-lg-4 align-items-lg-center py-2 py-lg-1 px-lg-3 rounded-pill">
+            <li class="nav-item">
+              <a class="nav-link fw-normal <?= $navActive('index.php') ?>" data-page="index.php" href="<?= $assetPath ?>index.php">Home</a>
+            </li>
+
+            <!-- ============ About: hover mega menu ============ -->
+            <li class="nav-item dropdown pc-mega-parent">
+              <a class="nav-link fw-normal dropdown-toggle d-flex align-items-center gap-1" href="#"
+                 id="aboutMegaToggle" role="button" data-bs-toggle="dropdown" data-bs-display="static" data-bs-auto-close="outside" aria-expanded="false">
+                About
+                <i class="bi bi-chevron-down pc-mega-caret"></i>
+              </a>
+
+              <div class="dropdown-menu pc-mega-menu p-0 border-0 shadow-lg" aria-labelledby="aboutMegaToggle">
+                <div class="pc-mega-inner">
+                  <div class="row g-4">
+
+                    <!-- Col 1: Get Started -->
+                    <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
+                      <p class="pc-mega-col-title">Get Started</p>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/book-ride-online.php">
+                        <span class="pc-mega-item-title">Book Ride Online</span>
+                        <span class="pc-mega-item-desc">Instant online cab booking</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/download-app.php">
+                        <span class="pc-mega-item-title">Download App</span>
+                        <span class="pc-mega-item-desc">Get the PowerCabs app</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/about-us.php">
+                        <span class="pc-mega-item-title">About Us</span>
+                        <span class="pc-mega-item-desc">Our story and mission</span>
+                      </a>
+                    </div>
+
+                    <!-- Col 2: Business -->
+                    <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
+                      <p class="pc-mega-col-title">Business</p>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/corporate-services.php">
+                        <span class="pc-mega-item-title">Corporate Services</span>
+                        <span class="pc-mega-item-desc">Business travel accounts Ireland</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/business-solutions.php">
+                        <span class="pc-mega-item-title">PowerCabs Business Solutions</span>
+                        <span class="pc-mega-item-desc">Card terminals and payments</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/wheelchair-accessible-taxis.php">
+                        <span class="pc-mega-item-title">Wheelchair Accessible Taxis</span>
+                        <span class="pc-mega-item-desc">Inclusive rides for everyone</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/airport-transfers.php">
+                        <span class="pc-mega-item-title">Meet &amp; Greet</span>
+                        <span class="pc-mega-item-desc">Airport pickups, done right</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/city-tours.php">
+                        <span class="pc-mega-item-title">City Tours</span>
+                        <span class="pc-mega-item-desc">See Ireland with a local driver</span>
+                      </a>
+                    </div>
+
+                    <!-- Col 3: Drivers -->
+                    <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
+                      <p class="pc-mega-col-title">Drivers</p>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/ambassador-programme.php">
+                        <span class="pc-mega-item-title">Ambassador Programme</span>
+                        <span class="pc-mega-item-desc">Exclusive perks for drivers</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/partner-programme.php">
+                        <span class="pc-mega-item-title">Partner Programme</span>
+                        <span class="pc-mega-item-desc">Earn as a partner</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/loyalty-program.php">
+                        <span class="pc-mega-item-title">Loyalty Program</span>
+                        <span class="pc-mega-item-desc">Earn rewards every trip</span>
+                      </a>
+
+                      <div class="pc-mega-nested">
+                        <button type="button" class="pc-mega-item pc-mega-item-parent">
+                          <span class="pc-mega-item-title d-flex align-items-center justify-content-between">
+                            Training
+                            <i class="bi bi-chevron-right pc-mega-chevron"></i>
+                          </span>
+                          <span class="pc-mega-item-desc">Licensing and onboarding resources</span>
+                        </button>
+                        <div class="pc-mega-submenu">
+                          <div class="pc-mega-submenu-inner">
+                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/index.php">Driver Training</a>
+                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/index.php">SPSV Manual</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Col 4: Policies & Safety -->
+                    <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
+                      <p class="pc-mega-col-title">Policies &amp; Safety</p>
+
+                      <div class="pc-mega-nested">
+                        <button type="button" class="pc-mega-item pc-mega-item-parent">
+                          <span class="pc-mega-item-title d-flex align-items-center justify-content-between">
+                            Safety
+                            <i class="bi bi-chevron-right pc-mega-chevron"></i>
+                          </span>
+                          <span class="pc-mega-item-desc">Tips for staying safe</span>
+                        </button>
+                        <div class="pc-mega-submenu">
+                          <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-drivers.php">Driver Safety</a>
+                          <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-riders.php">Rider Safety</a>
+                        </div>
+                      </div>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/terms-conditions.php">
+                        <span class="pc-mega-item-title">Terms &amp; Conditions</span>
+                        <span class="pc-mega-item-desc">Rider and driver agreements</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/privacy-policy.php">
+                        <span class="pc-mega-item-title">Cookies &amp; Privacy Policy</span>
+                        <span class="pc-mega-item-desc">How we handle data</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/sustainability.php">
+                        <span class="pc-mega-item-title">Sustainability &amp; Environment</span>
+                        <span class="pc-mega-item-desc">Our environmental commitment explained</span>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link fw-normal <?= $navActive('drive.php') ?>" data-page="drive.php" href="<?= $assetPath ?>/drive.php">Drive</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-normal <?= $navActive('ride.php') ?>" data-page="ride.php" href="<?= $assetPath ?>/ride.php">Ride</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-normal <?= $navActive('business.php') ?>" data-page="business.php" href="<?= $assetPath ?>/business.php">Business</a>
+            </li>
+
+            <!-- ============ Contact: hover mega menu (single column) ============ -->
+            <li class="nav-item dropdown pc-mega-parent">
+              <a class="nav-link fw-normal dropdown-toggle d-flex align-items-center gap-1" href="#"
+                 id="contactMegaToggle" role="button" data-bs-toggle="dropdown" data-bs-display="static" data-bs-auto-close="outside" aria-expanded="false">
+                Contact
+                <i class="bi bi-chevron-down pc-mega-caret"></i>
+              </a>
+
+              <div class="dropdown-menu pc-mega-menu pc-mega-menu-narrow p-0 border-0 shadow-lg" aria-labelledby="contactMegaToggle">
+                <div class="pc-mega-inner">
+                  <div class="row g-4">
+                    <div class="col-12 pc-mega-col">
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/contact-us.php">
+                        <span class="pc-mega-item-title">Contact Us</span>
+                        <span class="pc-mega-item-desc">Reach our support team</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/complaint-form.php">
+                        <span class="pc-mega-item-title">Complaint Form</span>
+                        <span class="pc-mega-item-desc">Report an issue</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/positive-feedback-form.php">
+                        <span class="pc-mega-item-title">Positive Feedback Form</span>
+                        <span class="pc-mega-item-desc">Share a great experience</span>
+                      </a>
+
+                      <a class="pc-mega-item" href="<?= $assetPath ?>/lost-item-report.php">
+                        <span class="pc-mega-item-title">Lost an Item Report</span>
+                        <span class="pc-mega-item-desc">Left something in your ride?</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <div class="mt-2 mt-lg-0 d-flex align-items-center pc-nav-actions">
+            <a class="btn btn-pc-dark pc-nav-cta rounded-pill d-inline-flex align-items-center gap-2 fw-medium" href="<?= $assetPath ?>/book-ride-online.php">
+              <i class="bi bi-car-front-fill"></i>
+              <span class="pc-nav-cta-word">Book Online</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>

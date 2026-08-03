@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--pc-font-family);
+  background-color: #fff;
+  color: var(--pc-dark);
+}
+
+main {
+  background-color: #fff;
+  background-clip: content-box;
+}
+
+@media (min-width: 992px) {
+  html.pc-footer-reveal main {
+    position: relative;
+    z-index: 1;
+    padding-bottom: var(--pc-footer-h, 460px);
+    pointer-events: none;
+  }
+
+  html.pc-footer-reveal main > * {
+    pointer-events: auto;
+  }
+
+  html.pc-footer-reveal footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+a {
+  text-decoration: none;
+}
+
+.text-muted-pc {
+  color: var(--pc-text-muted);
+}
+
+.btn-pc-primary {
+  background-color: var(--pc-orange-light);
+  border-color: var(--pc-orange-light);
+  color: var(--pc-white);
+  border-radius: var(--pc-radius-pill);
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-pc-primary:hover,
+.btn-pc-primary:focus-visible {
+  background-color: var(--pc-orange);
+  border-color: var(--pc-orange);
+  color: var(--pc-white);
+}
+
+.btn-pc-dark {
+  background-color: var(--pc-dark);
+  border-color: var(--pc-dark);
+  color: var(--pc-white);
+  border-radius: var(--pc-radius-pill);
+  font-weight: 600;
+}
+
+.btn-pc-dark:hover,
+.btn-pc-dark:focus-visible {
+  background-color: #000;
+  border-color: #000;
+  color: var(--pc-white);
+}
+
+.section-pc {
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--pc-orange);
+  outline-offset: 2px;
+}

@@ -1,0 +1,39 @@
+:root {
+  /* Brand colors */
+  --pc-orange: #e8590c;
+  --pc-orange-light: #ff7a00;
+  --pc-orange-dark: #a34406;
+  --pc-cream: #f4efe8;
+  --pc-cream-soft: #f9f4ed;
+  --pc-peach: #fbe4cf;
+  --pc-dark: #1c1410;
+  --pc-dark-soft: #160f0a;
+  --pc-white: #ffffff;
+
+  /* Text */
+  --pc-text-muted: rgba(28, 20, 16, 0.65);
+  --pc-text-on-dark-muted: rgba(250, 246, 241, 0.75);
+
+  /* Typography */
+  --pc-font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Radius scale */
+  --pc-radius-sm: 10px;
+  --pc-radius-md: 16px;
+  --pc-radius-lg: 20px;
+  --pc-radius-xl: 28px;
+  --pc-radius-pill: 999px;
+
+  /* Shadows */
+  --pc-shadow-sm: 0 8px 20px rgba(28, 20, 16, 0.12);
+  --pc-shadow-md: 0 24px 48px rgba(232, 89, 12, 0.14);
+  --pc-shadow-lg: 0 30px 70px rgba(28, 20, 16, 0.18);
+
+  /* Bootstrap overrides (Bootstrap 5.3 reads these CSS variables) */
+  --bs-primary: var(--pc-orange);
+  --bs-primary-rgb: 232, 89, 12;
+  --bs-body-font-family: var(--pc-font-family);
+  --bs-body-color: var(--pc-dark);
+  --bs-link-color: var(--pc-orange);
+  --bs-link-hover-color: var(--pc-orange-light);
+}
