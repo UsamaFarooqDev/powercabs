@@ -62,7 +62,7 @@ $heroTitleLight  = 'Book Ride';
 $heroTitleBold   = 'Online.';
 $heroDescription = 'Booking a ride with PowerCabs is now easier than ever. Use our simple and efficient online booking system to schedule your next trip in just a few steps.';
 $heroBgImage     = $assetPath . 'assets/img/services-corporate.jpg';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Booking Steps ============ -->
@@ -93,7 +93,7 @@ require __DIR__ . '/components/inner-hero.php';
         <?php $isLast = $i === $totalSteps - 1; ?>
         <div class="col-md-6 col-lg-3 position-relative">
 
-          <div class="pc-story-card rounded-4 p-5 bg-white h-100 text-start position-relative overflow-hidden border-0" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-5 bg-white h-100 text-start position-relative overflow-hidden border-0">
 
             <!-- ghost number watermark -->
             <span
@@ -229,6 +229,6 @@ require __DIR__ . '/components/inner-hero.php';
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

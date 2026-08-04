@@ -11,7 +11,7 @@ $heroTitleBold   = 'for Riders.';
 $heroDescription = 'A few simple habits make every PowerCabs trip safer -- before you get in, while you ride, and after you arrive.';
 $heroBgImage     = 'https://images.pexels.com/photos/13343433/pexels-photo-13343433.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Rider Safety';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $beforeRide = [
   ['icon' => 'bi-patch-check-fill', 'title' => 'Verify the Driver and Vehicle', 'desc' => "Check the driver's photo, vehicle model, and license plate against the details shown in the app before getting in."],
@@ -153,6 +153,6 @@ $additionalTips = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

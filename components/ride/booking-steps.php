@@ -169,7 +169,7 @@ $rideSteps = [
               $mockupNotch = true;
               $mockupFloat = true;
               $mockupImgId = 'pcBookStepScreen';
-              require __DIR__ . '/phone-mockup.php';
+              require __DIR__ . '/../shared/app-mockup.php';
             ?>
           </div>
         </div>

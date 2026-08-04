@@ -55,7 +55,7 @@ $heroTitleLight  = 'Become a PowerCabs';
 $heroTitleBold   = 'Ambassador.';
 $heroDescription = "Earn More. Spend Less. Be Valued. Join Ireland's most driver-focused ride platform.";
 $heroBgImage     = $assetPath . 'assets/img/ambassador-program.png';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $benefits = [
   ['icon' => 'bi-credit-card-2-front-fill', 'title' => 'Free Card Terminals',       'items' => ['Save &euro;120/year', '0.8% transaction fee', 'Accept more card payments', 'Increase earnings']],
@@ -77,7 +77,7 @@ $benefits = [
     <div class="row g-4">
       <?php foreach ($benefits as $b): ?>
         <div class="col-md-6 col-lg-4">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100">
             <i class="bi <?= $b['icon'] ?> fs-3 mb-3 d-block" style="color: var(--pc-orange);"></i>
             <h3 class="fs-5 fw-bold mb-3"><?= htmlspecialchars($b['title']) ?></h3>
             <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
@@ -148,6 +148,6 @@ $benefits = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

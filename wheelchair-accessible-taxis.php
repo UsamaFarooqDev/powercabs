@@ -10,7 +10,7 @@ $heroTitleLight  = 'Wheelchair';
 $heroTitleBold   = 'Accessible Taxis.';
 $heroDescription = 'PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers with mobility needs. The service focuses on reliability, trained drivers, and vehicles equipped to safely transport wheelchair users.';
 $heroBgImage     = 'https://images.pexels.com/photos/35831412/pexels-photo-35831412.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $keyFeatures = [
   ['icon' => 'bi-universal-access-circle', 'label' => 'Fully Accessible Vehicles'],
@@ -57,7 +57,7 @@ $whyChoose = [
     <div class="row row-cols-2 row-cols-md-5 g-3">
       <?php foreach ($keyFeatures as $item): ?>
         <div class="col">
-          <div class="pc-story-card rounded-4 p-3 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-3 bg-white h-100 text-center">
             <i class="bi <?= $item['icon'] ?> fs-3 mb-2 d-block" style="color: var(--pc-orange);"></i>
             <span class="d-block small fw-semibold"><?= $item['label'] ?></span>
           </div>
@@ -97,6 +97,6 @@ $whyChoose = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

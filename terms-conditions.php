@@ -11,7 +11,7 @@ $heroTitleBold   = 'Conditions.';
 $heroDescription = "Our agreements with Passengers and Drivers who use PowerCabs Services -- please read the version that applies to you.";
 $heroBgImage     = 'https://images.pexels.com/photos/8939052/pexels-photo-8939052.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Terms & Conditions';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $passengerNav = [
   ['id' => 'p-offerings',    'label' => '1. PowerCabs Offerings'],
@@ -304,6 +304,6 @@ $driverNav = [
 <script src="<?= $assetPath ?>assets/js/components/terms-conditions.js"></script>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

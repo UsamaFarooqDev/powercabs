@@ -80,14 +80,13 @@ $heroTitleLight  = "Let's Find";
 $heroTitleBold   = 'Your Item.';
 $heroDescription = 'Give us as much detail as you can about your journey and the item, and we\'ll reach out to your driver to help locate it.';
 $heroBgImage     = 'https://images.pexels.com/photos/12092769/pexels-photo-12092769.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <section class="section-pc">
   <div class="container">
-    <div class="row gy-5">
+    <div class="row gy-5 align-items-center">
       <div class="col-lg-5">
-        <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Before You Start</p>
         <h2 class="mb-3" style="font-size: clamp(1.5rem, 2.5vw, 2rem);">What to Include</h2>
         <p class="text-muted-pc mb-4">
           The more detail you give us, the faster we can match your report to the right
@@ -155,7 +154,7 @@ require __DIR__ . '/components/inner-hero.php';
             </div>
             <div class="col-12 pt-2">
               <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
-                <span>Report Lost Item</span>
+                <span>Submit Report</span>
                 <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
               </button>
             </div>
@@ -173,6 +172,6 @@ require __DIR__ . '/components/inner-hero.php';
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

@@ -100,7 +100,7 @@
       </div>
       <?php
     };
-    require __DIR__ . '/phone-mockup.php';
+    require __DIR__ . '/../shared/app-mockup.php';
   ?>
 </div>
     </div>

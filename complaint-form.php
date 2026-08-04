@@ -162,7 +162,7 @@ $heroTitleLight  = 'Tell Us';
 $heroTitleBold   = 'What Went Wrong.';
 $heroDescription = "We're sorry your experience didn't meet our standards. Share the details below and our support team will review it and follow up.";
 $heroBgImage     = 'https://images.pexels.com/photos/6830863/pexels-photo-6830863.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $categoryLabels = [
     'catRoadworthy'     => 'Condition, roadworthiness and cleanliness of the vehicle',
@@ -380,6 +380,6 @@ $categoryModes = [
 <script src="<?= $assetPath ?>assets/js/components/complaint-form.js"></script>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

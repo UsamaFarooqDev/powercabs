@@ -54,7 +54,7 @@ $heroTitleLight  = 'Share A';
 $heroTitleBold   = 'Great Experience.';
 $heroDescription = "Great service deserves a shout-out. Tell us what stood out and we'll make sure the right people hear about it.";
 $heroBgImage     = 'https://images.pexels.com/photos/36763587/pexels-photo-36763587.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <style>
@@ -81,8 +81,6 @@ require __DIR__ . '/components/inner-hero.php';
   .btn-check:checked + .pc-rating-star ~ .pc-rating-star {
     background: #ffc107;
     color: var(--pc-white);
-    /* transform: scale(1.08); */
-    box-shadow: 0 4px 10px rgba(255, 193, 7, .4);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -195,6 +193,6 @@ require __DIR__ . '/components/inner-hero.php';
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

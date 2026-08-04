@@ -58,7 +58,7 @@ $heroTitleLight  = 'City';
 $heroTitleBold   = 'Tours.';
 $heroDescription = "Explore Ireland's most iconic destinations with PowerCabs. Whether you're visiting historic landmarks, breathtaking coastal scenery, charming villages, or famous attractions, enjoy comfortable private transportation with professional local drivers.";
 $heroBgImage     = 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $destinations = [
   ['name' => 'Dublin City',       'desc' => "Explore Dublin's rich history, museums, Georgian architecture, Temple Bar, Trinity College and vibrant shopping districts.",   'duration' => 'Half-Day Tour', 'img' => 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60'],
@@ -157,7 +157,7 @@ $tourBookingSteps = [
     <div class="row g-3">
       <?php foreach ($tourBookingSteps as $step): ?>
         <div class="col-md-6 col-lg-3">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -242,6 +242,6 @@ $tourBookingSteps = [
 <script src="<?= $assetPath ?>assets/js/components/city-tours.js"></script>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

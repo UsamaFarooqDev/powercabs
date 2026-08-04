@@ -5,10 +5,10 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/header.php';
 
-require __DIR__ . '/components/hero.php';
-require __DIR__ . '/components/trusted-by.php';
-require __DIR__ . '/components/why-choose-us.php';
-require __DIR__ . '/components/our-services.php';
-require __DIR__ . '/components/welcome.php';
-require __DIR__ . '/components/download-app.php';
+require __DIR__ . '/components/home/hero.php';
+require __DIR__ . '/components/home/trusted-by.php';
+require __DIR__ . '/components/home/why-choose-us.php';
+require __DIR__ . '/components/home/our-services.php';
+require __DIR__ . '/components/home/welcome.php';
+require __DIR__ . '/components/home/download-app.php';
 require __DIR__ . '/includes/footer.php';

@@ -56,7 +56,7 @@ $heroTitleLight  = 'Partner';
 $heroTitleBold   = 'Programme.';
 $heroDescription = 'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
 $heroBgImage     = 'https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $partnerBenefits = ['Grow your business', 'Increased bookings', 'Dedicated support', 'Driver management', 'Fleet management', 'Marketing support', 'Technology platform', 'Weekly payments', 'Business growth'];
 $whoCanJoin = [
@@ -133,7 +133,7 @@ $joinProcess = [
     <div class="row g-3">
       <?php foreach ($joinProcess as $step): ?>
         <div class="col-6 col-lg-3">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -196,6 +196,6 @@ $joinProcess = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

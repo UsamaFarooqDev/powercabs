@@ -10,7 +10,7 @@ $heroTitleLight  = 'Privacy';
 $heroTitleBold   = 'Policy.';
 $heroDescription = 'How we collect, use, disclose and safeguard your personal information when you visit the PowerCabs website, and your rights regarding that information.';
 $heroBgImage     = 'https://images.pexels.com/photos/4973899/pexels-photo-4973899.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $ppNav = [
   ['id' => 'pp-info',      'label' => 'Information We Collect'],
@@ -131,6 +131,6 @@ $ppNav = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

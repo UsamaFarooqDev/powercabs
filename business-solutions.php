@@ -56,7 +56,7 @@ $heroTitleLight  = 'PowerCabs';
 $heroTitleBold   = 'Business Solutions.';
 $heroDescription = 'Business transportation solutions for companies seeking reliable, professional, and efficient travel services for employees and clients.';
 $heroBgImage     = 'https://images.pexels.com/photos/7108210/pexels-photo-7108210.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $bizServices = ['Corporate Travel', 'Executive Transportation', 'Airport Transfers', 'Client Meetings', 'Event Transportation', 'Chauffeur Services', 'Luxury Vehicles'];
 $bizWhy = [
@@ -126,7 +126,7 @@ $bizProcess = [
     <div class="row g-3">
       <?php foreach ($bizProcess as $step): ?>
         <div class="col-6 col-lg">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -189,6 +189,6 @@ $bizProcess = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

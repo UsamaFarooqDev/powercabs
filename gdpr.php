@@ -11,7 +11,7 @@ $heroTitleBold   = 'Protection Regulation.';
 $heroDescription = 'PowerCabs is committed to protecting customer privacy and processing personal data in compliance with GDPR.';
 $heroBgImage     = 'https://images.pexels.com/photos/11391947/pexels-photo-11391947.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'GDPR';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <section class="section-pc">
@@ -96,6 +96,6 @@ require __DIR__ . '/components/inner-hero.php';
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

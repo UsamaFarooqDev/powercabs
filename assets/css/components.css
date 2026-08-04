@@ -228,21 +228,6 @@
   font-size: 1.3rem;
 }
 
-.pc-ride-type-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.pc-ride-type-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--pc-shadow-sm);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-ride-type-card {
-    transition: none;
-  }
-}
-
 /* ---------- Drive page: "Why Drive With Us" square cards ---------- */
 .pc-drive-blob {
   position: absolute;
@@ -268,69 +253,6 @@
   background: radial-gradient(circle, rgba(17, 24, 39, 0.32), transparent 70%);
 }
 
-.pc-ride-pin-section {
-  padding-block: clamp(3.5rem, 6vw, 6rem);
-  background: var(--pc-white);
-  overflow: hidden;
-}
-
-.pc-ride-track-viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-}
-
-.pc-ride-track-viewport.pc-ride-js-active {
-  overflow: hidden;
-}
-
-.pc-ride-track {
-  display: flex;
-  gap: 1.5rem;
-  width: max-content;
-  padding-inline: max(1rem, calc((100vw - 1200px) / 2 + 1rem));
-  padding-bottom: 0.5rem;
-  will-change: transform;
-}
-
-.pc-ride-card {
-  flex: 0 0 auto;
-  width: clamp(280px, 24vw, 360px);
-  scroll-snap-align: start;
-  background: var(--pc-white);
-  border-radius: var(--pc-radius-lg);
-  box-shadow: var(--pc-shadow-sm);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pc-ride-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--pc-shadow-md);
-}
-
-.pc-ride-card-img {
-  aspect-ratio: 4 / 3;
-  background: var(--pc-cream-soft);
-}
-
-.pc-ride-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pc-ride-card-body {
-  padding: 1.25rem 1.4rem 1.5rem;
-}
-
-.pc-ride-card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
 .pc-ride-spec {
   display: inline-flex;
   align-items: center;
@@ -351,18 +273,6 @@
   color: var(--pc-orange);
   font-size: 0.85rem;
   flex-shrink: 0;
-}
-
-@media (max-width: 767.98px) {
-  .pc-ride-card {
-    width: 78vw;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-ride-card {
-    transition: none;
-  }
 }
 
 /* ---------- App store badges (Download App section) ---------- */
@@ -1082,12 +992,6 @@
   padding: 0.45rem 1.1rem;
 }
 
-.pc-nav-call {
-  width: 36px;
-  height: 36px;
-  font-size: 0.85rem;
-}
-
 .pc-nav-cta-word {
   display: inline-block;
   transition: transform 0.25s ease;
@@ -1157,29 +1061,6 @@
   .pc-hero-text {
     padding-top: 1.25rem;
   }
-}
-
-.pc-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--pc-radius-pill);
-  padding: 0.45rem 1rem 0.45rem 0.75rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 1.75rem;
-}
-
-.pc-hero-badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--pc-orange-light);
-  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.22);
-  flex-shrink: 0;
 }
 
 .pc-hero-title {
@@ -1268,7 +1149,6 @@
   color: var(--pc-orange-light);
 }
 
-.pc-hero-badge,
 .pc-hero-title,
 .pc-hero-lead,
 .pc-hero-ctas,
@@ -1327,33 +1207,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pc-hero-badge,
   .pc-hero-title,
   .pc-hero-lead,
   .pc-hero-ctas,
   .pc-hero-download,
   .pc-hero-glow i {
     animation: none;
-  }
-}
-
-.pc-app-strip-card {
-  border: 1px solid rgba(28, 20, 16, 0.08);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.pc-app-strip-card i {
-  transition: transform 0.25s ease;
-}
-
-.pc-app-strip-card:hover i {
-  transform: translateX(4px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-app-strip-card,
-  .pc-app-strip-card i {
-    transition: none;
   }
 }
 
