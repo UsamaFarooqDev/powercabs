@@ -93,42 +93,47 @@ require __DIR__ . '/components/inner-hero.php';
         </div>
       </div>
 
-      <div class="col-lg-6 px-3 px-md-5">
-        <?php if ($formStatus === 'success'): ?>
-          <div class="alert alert-success" role="alert">Thanks -- your message has been sent. We'll get back to you shortly.</div>
-        <?php elseif ($formStatus === 'error'): ?>
-          <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-        <?php endif; ?>
+      <div class="col-lg-6">
+        <div class="bg-white rounded-5 p-3 p-md-5" style="box-shadow: var(--pc-shadow-md);">
+          <form method="post" action="" class="row g-2">
+            <div class="col-md-6">
+              <label class="form-label mb-1" for="cuFirstName">First Name</label>
+              <input type="text" class="form-control" id="cuFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label mb-1" for="cuLastName">Last Name</label>
+              <input type="text" class="form-control" id="cuLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label mb-1" for="cuEmail">Email Address</label>
+              <input type="email" class="form-control" id="cuEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label mb-1" for="cuPhone">Phone Number</label>
+              <input type="tel" class="form-control" id="cuPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>">
+            </div>
+            <div class="col-12">
+              <label class="form-label mb-1" for="cuSubject">Subject</label>
+              <input type="text" class="form-control" id="cuSubject" name="subject" value="<?= htmlspecialchars($old['subject']) ?>" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label mb-1" for="cuMessage">Message</label>
+              <textarea class="form-control" id="cuMessage" name="message" rows="3" required><?= htmlspecialchars($old['message']) ?></textarea>
+            </div>
+            <div class="col-12 pt-1">
+              <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+                <span>Send Message</span>
+                <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+              </button>
+            </div>
 
-        <form method="post" action="" class="row g-2">
-          <div class="col-md-6">
-            <label class="form-label mb-1" for="cuFirstName">First Name</label>
-            <input type="text" class="form-control" id="cuFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label mb-1" for="cuLastName">Last Name</label>
-            <input type="text" class="form-control" id="cuLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label mb-1" for="cuEmail">Email Address</label>
-            <input type="email" class="form-control" id="cuEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label mb-1" for="cuPhone">Phone Number</label>
-            <input type="tel" class="form-control" id="cuPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>">
-          </div>
-          <div class="col-12">
-            <label class="form-label mb-1" for="cuSubject">Subject</label>
-            <input type="text" class="form-control" id="cuSubject" name="subject" value="<?= htmlspecialchars($old['subject']) ?>" required>
-          </div>
-          <div class="col-12">
-            <label class="form-label mb-1" for="cuMessage">Message</label>
-            <textarea class="form-control" id="cuMessage" name="message" rows="3" required><?= htmlspecialchars($old['message']) ?></textarea>
-          </div>
-          <div class="col-12 pt-1">
-            <button type="submit" class="btn btn-pc-primary px-4">Send Message</button>
-          </div>
-        </form>
+            <?php if ($formStatus === 'success'): ?>
+              <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your message has been sent. We'll get back to you shortly.</div></div>
+            <?php elseif ($formStatus === 'error'): ?>
+              <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+            <?php endif; ?>
+          </form>
+        </div>
       </div>
     </div>
   </div>

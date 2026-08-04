@@ -32,9 +32,6 @@ $trustedLogos = [
     </div>
 
   <div class="section-pc container">
-
-
-    <!-- <p class="small fw-semibold text-uppercase text-muted-pc mb-2" style="letter-spacing: .05em;">/ Our Partners</p> -->
     <h2 class="mb-5">Trusted by Leading Irish Brands.</h2>
 
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 align-items-center justify-content-center">

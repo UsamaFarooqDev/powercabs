@@ -361,9 +361,10 @@ $categoryModes = [
       </div>
 
       <div id="complaintSubmitWrapper" class="d-none">
-        <button type="submit" id="complaintSubmitBtn" class="btn btn-pc-primary px-4">
+        <button type="submit" id="complaintSubmitBtn" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
           <span id="complaintSubmitSpinner" class="spinner-border spinner-border-sm me-2 d-none" aria-hidden="true"></span>
           <span id="complaintSubmitLabel">Submit Complaint</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
         </button>
       </div>
 

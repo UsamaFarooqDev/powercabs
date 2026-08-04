@@ -408,13 +408,13 @@
 .pc-app-promo {
   position: relative;
   z-index: 2;
-  background: linear-gradient(90deg, #ffb347 0%, #ffa52e 25%, #f58220 65%, #e86a00 100%);
+  background: linear-gradient(90deg, #feab38 0%, #fb9e24 25%, #f58220 65%, #e86a00 100%);
   clip-path: polygon(
     0 6%, 8% 3%, 16% 9%, 50% 5%, 56% 11%, 90% 11%, 96% 18%, 100% 17%,
     100% 85%,
     0 100%
   );
-  margin-top: clamp(-135px, -8vw, -175px);
+  margin-top: clamp(-145px, -4vw, -195px);
   padding-block: 120px;
 }
 
@@ -433,6 +433,24 @@
     );
     margin-top: clamp(-40px, -7vw, -60px);
     padding-block: 64px;
+  }
+}
+
+/* Standalone variant (components/app-download-banner.php): used as a
+   plain footer CTA strip on every inner page, right before whatever
+   section happens to precede it -- unlike the home page's hero-transition
+   banner, it can't rely on a negative margin-top to overlap into a
+   specific dark section above, so it sits in normal flow with its own
+   top gap and a little extra inside padding instead. */
+.pc-app-promo.pc-app-promo-standalone {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding-block: 140px;
+}
+
+@media (max-width: 767.98px) {
+  .pc-app-promo.pc-app-promo-standalone {
+    margin-top: clamp(1.25rem, 4vw, 2rem);
+    padding-block: 80px;
   }
 }
 
@@ -695,7 +713,7 @@
 
 /* ---------- Phone mockup (used in Simple Steps + Download App sections) ---------- */
 .pc-phone-frame {
-  width: 240px;
+  width: 260px;
   max-width: 100%;
   background: var(--pc-dark);
   border-radius: 2.25rem;
@@ -705,7 +723,7 @@
 
 .pc-phone-screen {
   position: relative;
-  min-height: 420px;
+  min-height: 360px;
   background: var(--pc-white);
   border-radius: 1.65rem;
   overflow: hidden;
@@ -1660,29 +1678,7 @@ label.btn-outline-primary:focus,
   }
 }
 
-/* ---------- Corporate Services: photo hero + mission band ---------- */
-.pc-corp-hero {
-  padding-top: calc(var(--pc-navbar-h, 110px) + 3rem);
-  padding-bottom: clamp(6rem, 12vw, 9rem);
-}
-
-.pc-corp-hero-bg {
-  object-fit: cover;
-  z-index: 0;
-}
-
-.pc-corp-hero-scrim {
-  background: linear-gradient(100deg, rgba(10, 7, 5, 0.88) 0%, rgba(10, 7, 5, 0.65) 55%, rgba(10, 7, 5, 0.4) 100%);
-  z-index: 0;
-}
-
-.pc-corp-hero-title {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
+/* ---------- Corporate Services: mission band ---------- */
 .pc-corp-mission {
   padding-block: clamp(4rem, 8vw, 6rem);
 }

@@ -66,13 +66,11 @@ require __DIR__ . '/components/inner-hero.php';
   <div class="container">
     <div class="row align-items-center gy-5">
       <div class="col-lg-6">
-        <div class="pc-app-showcase position-relative mx-auto" style="max-width: 280px;">
-          <div class="pc-phone-frame mx-auto position-relative">
-            <div class="pc-phone-screen">
-              <img src="<?= $assetPath ?>assets/img/DRIVER-RIDES.jpeg" alt="PowerCabs Driver App screen" class="w-100 h-100" style="object-fit: cover;" loading="lazy">
-            </div>
-          </div>
-        </div>
+        <?php
+          $mockupImage = 'DRIVER-RIDES.jpeg';
+          $mockupAlt   = 'PowerCabs Driver App screen';
+          require __DIR__ . '/components/phone-mockup.php';
+        ?>
       </div>
 
       <div class="col-lg-6">
@@ -218,18 +216,6 @@ require __DIR__ . '/components/inner-hero.php';
     <h2 class="mb-3">Still Have Questions?</h2>
     <p class="text-muted-pc mx-auto mb-4" style="max-width: 56ch;">Find quick answers to the most common driver questions -- documents, payouts, ratings and more.</p>
     <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/faqs.php">Visit FAQ's</a>
-  </div>
-</section>
-
-<!-- ============ Download Section ============ -->
-<section class="position-relative overflow-hidden text-center text-white" style="padding-block: clamp(3.5rem, 7vw, 5.5rem);">
-  <img src="https://images.pexels.com/photos/7144232/pexels-photo-7144232.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 0;" loading="lazy">
-  <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true" style="background: rgba(10, 7, 5, 0.78); z-index: 0;"></span>
-  <div class="container position-relative">
-    <h2 class="text-white mb-2">Download the App</h2>
-    <p class="mb-4" style="color: rgba(255,255,255,.8);">Download the Driver App from Google Play or the App Store.</p>
-    <h3 class="text-white mb-4">Get Ready to Ride Ireland!</h3>
-    <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/download-app.php">Download</a>
   </div>
 </section>
 

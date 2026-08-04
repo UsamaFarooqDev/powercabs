@@ -50,19 +50,37 @@ a {
 }
 
 .btn-pc-primary {
-  background-color: var(--pc-orange-light);
-  border-color: var(--pc-orange-light);
+  position: relative;
+  background: var(--pc-orange-light);
+  border: 1px solid var(--pc-orange-light);
   color: var(--pc-white);
   border-radius: var(--pc-radius-pill);
-  font-weight: 600;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-pc-primary::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--pc-orange-light);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
 }
 
 .btn-pc-primary:hover,
+.btn-pc-primary:focus,
 .btn-pc-primary:focus-visible {
-  background-color: var(--pc-orange);
-  border-color: var(--pc-orange);
-  color: var(--pc-white);
+  background: var(--pc-orange-light) !important;
+  border-color: var(--pc-orange-light) !important;
+  color: var(--pc-white) !important;
+  box-shadow: none;
+}
+
+.btn-pc-primary:hover::after,
+.btn-pc-primary:focus-visible::after {
+  opacity: 100;
 }
 
 .btn-pc-dark {

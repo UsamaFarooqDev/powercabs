@@ -6,7 +6,7 @@ $assetPath       = '';
 require __DIR__ . '/includes/mail-config.php';
 require __DIR__ . '/includes/mailer.php';
 
-$rideTypeOptions = ['Standard', 'Executive', 'XL / Group', 'Wheelchair Accessible', 'Airport', 'Corporate', 'Minibus', 'Night & Safety'];
+$rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pets Taxi', 'Courier / Parcel', 'Business', 'Business XL'];
 
 $formStatus = null;
 $formError  = '';
@@ -136,16 +136,11 @@ require __DIR__ . '/components/inner-hero.php';
     </div>
 </div>
 
-<div class="col-lg-6 px-2 px-md-5">
+<div class="col-lg-6">
+  <div class="bg-white rounded-5 p-2 p-md-5" style="box-shadow: var(--pc-shadow-md);">
     <div class="text-left mb-4">
       <h3 class="mb-0">Please Fill Out the Form</h3>
     </div>
-
-    <?php if ($formStatus === 'success'): ?>
-      <div class="alert alert-success" role="alert">Thanks -- your booking request has been sent. We'll confirm shortly.</div>
-    <?php elseif ($formStatus === 'error'): ?>
-      <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-    <?php endif; ?>
 
     <form method="post" action="" class="row g-3">
       <div class="col-md-6">
@@ -186,10 +181,20 @@ require __DIR__ . '/components/inner-hero.php';
         <input type="time" class="form-control" id="brTime" name="ride_time" value="<?= htmlspecialchars($old['ride_time']) ?>" required>
       </div>
       <div class="col-12 pt-2">
-        <button type="submit" class="btn btn-pc-primary px-4">Confirm Booking</button>
+        <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+          <span>Confirm Booking</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+        </button>
       </div>
+
+      <?php if ($formStatus === 'success'): ?>
+        <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your booking request has been sent. We'll confirm shortly.</div></div>
+      <?php elseif ($formStatus === 'error'): ?>
+        <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+      <?php endif; ?>
     </form>
-    </div>
+  </div>
+</div>
   </div>
 </section>
 

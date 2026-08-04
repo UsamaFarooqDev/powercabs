@@ -87,41 +87,39 @@ $rideTypes = [
 <section class="section-pc bg-white">
   <div class="container">
     <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <div class="rounded-4 overflow-hidden">
+          <img src="<?= $assetPath ?>assets/img/book-your-cab.gif" alt="Booking a PowerCabs ride from the app" class="w-100 h-100 object-fit-cover" loading="lazy">
+        </div>
+      </div>
+
       <div class="col-lg-6 ps-lg-5">
         <h2 class="mb-3">Built Around Every Journey.</h2>
-        <p class="text-muted-pc mb-4">
+        <p class="text-muted-pc mb-4" style="font-size:1.1rem">
           From instant bookings to trusted drivers, every detail is designed
           to make travelling across Ireland effortless, reliable and affordable.
         </p>
 
         <div class="row row-cols-2 g-0 pc-feature-grid">
           <div class="col pe-4 pb-4 border-end border-bottom">
-            <span class="d-block fw-bold mb-1" style="font-size: 1.4rem; color: #fee8da;">01</span>
             <h5 class="fw-bold mb-2">Instant Booking</h5>
-            <p class="text-secondary mb-0 small">Book a ride in seconds through the app or website.</p>
+            <p class="text-secondary mb-0">Book a ride in seconds through the app or website.</p>
           </div>
           <div class="col ps-4 pb-4 border-bottom">
-            <span class="d-block fw-bold mb-1" style="font-size: 1.4rem; color: #fee8da;">02</span>
             <h5 class="fw-bold mb-2">Trusted Drivers</h5>
-            <p class="text-secondary mb-0 small">Fully licensed, Garda-vetted professionals.</p>
+            <p class="text-secondary mb-0">Fully licensed, Garda-vetted professionals.</p>
           </div>
           <div class="col pe-4 pt-4 border-end">
-            <span class="d-block fw-bold mb-1" style="font-size: 1.4rem;color: #fee8da;">03</span>
             <h5 class="fw-bold mb-2">Fair Pricing</h5>
-            <p class="text-secondary mb-0 small">Transparent fares with no hidden charges.</p>
+            <p class="text-secondary mb-0">Transparent fares with no hidden charges.</p>
           </div>
           <div class="col ps-4 pt-4">
-            <span class="d-block fw-bold mb-1" style="font-size: 1.4rem; color: #fee8da;">04</span>
             <h5 class="fw-bold mb-2">Available 24/7</h5>
-            <p class="text-secondary mb-0 small">Your ride is ready whenever you need it.</p>
+            <p class="text-secondary mb-0">Your ride is ready whenever you need it.</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="rounded-4 overflow-hidden">
-          <img src="<?= $assetPath ?>assets/img/book-your-cab.gif" alt="Booking a PowerCabs ride from the app" class="w-100 h-100 object-fit-cover" loading="lazy">
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -172,16 +170,6 @@ $rideTypes = [
 <script src="<?= $assetPath ?>assets/js/components/rides-parallax.js"></script>
 
 <?php require __DIR__ . '/components/simple-steps.php'; ?>
-
-<!-- ============ Final CTA ============ -->
-<section class="position-relative overflow-hidden text-center text-white" style="padding-block: clamp(3.5rem, 7vw, 5.5rem);">
-  <img src="https://images.pexels.com/photos/15067166/pexels-photo-15067166.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 0;" loading="lazy">
-  <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true" style="background: rgba(10, 7, 5, 0.78); z-index: 0;"></span>
-  <div class="container position-relative">
-    <h2 class="text-white mb-4">Get Ready to Ride Ireland!</h2>
-    <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/download-app.php">Download the App</a>
-  </div>
-</section>
 
 <?php
 require __DIR__ . '/components/app-download-banner.php';

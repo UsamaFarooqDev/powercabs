@@ -114,54 +114,59 @@ require __DIR__ . '/components/inner-hero.php';
         </p>
       </div>
 
-      <div class="col-lg-7 px-3 px-md-5">
-        <?php if ($formStatus === 'success'): ?>
-          <div class="alert alert-success" role="alert">Thanks -- your report has been sent. We'll be in touch as soon as we hear back from your driver.</div>
-        <?php elseif ($formStatus === 'error'): ?>
-          <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-        <?php endif; ?>
+      <div class="col-lg-7">
+        <div class="bg-white rounded-5 p-3 p-md-5" style="box-shadow: var(--pc-shadow-md);">
+          <form method="post" action="" enctype="multipart/form-data" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="liName">Full Name</label>
+              <input type="text" class="form-control" id="liName" name="name" value="<?= htmlspecialchars($old['name']) ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liEmail">Email Address</label>
+              <input type="email" class="form-control" id="liEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liPhone">Phone Number</label>
+              <input type="tel" class="form-control" id="liPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liTaxiNumber">Taxi Number</label>
+              <input type="text" class="form-control" id="liTaxiNumber" name="taxi_number" value="<?= htmlspecialchars($old['taxi_number']) ?>">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liPickup">Pickup Location</label>
+              <input type="text" class="form-control" id="liPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liDropoff">Destination Location</label>
+              <input type="text" class="form-control" id="liDropoff" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liDate">Date / Time</label>
+              <input type="datetime-local" class="form-control" id="liDate" name="journey_datetime" value="<?= htmlspecialchars($old['journey_datetime']) ?>">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="liReceipt">Upload Receipt <span class="text-muted-pc fw-normal">(optional, JPG/PNG/PDF)</span></label>
+              <input type="file" class="form-control" id="liReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf">
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="liItem">Item Lost Details</label>
+              <textarea class="form-control" id="liItem" name="item_description" rows="4" required><?= htmlspecialchars($old['item_description']) ?></textarea>
+            </div>
+            <div class="col-12 pt-2">
+              <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+                <span>Report Lost Item</span>
+                <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+              </button>
+            </div>
 
-        <form method="post" action="" enctype="multipart/form-data" class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label" for="liName">Full Name</label>
-            <input type="text" class="form-control" id="liName" name="name" value="<?= htmlspecialchars($old['name']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liEmail">Email Address</label>
-            <input type="email" class="form-control" id="liEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liPhone">Phone Number</label>
-            <input type="tel" class="form-control" id="liPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liTaxiNumber">Taxi Number</label>
-            <input type="text" class="form-control" id="liTaxiNumber" name="taxi_number" value="<?= htmlspecialchars($old['taxi_number']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liPickup">Pickup Location</label>
-            <input type="text" class="form-control" id="liPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liDropoff">Destination Location</label>
-            <input type="text" class="form-control" id="liDropoff" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liDate">Date / Time</label>
-            <input type="datetime-local" class="form-control" id="liDate" name="journey_datetime" value="<?= htmlspecialchars($old['journey_datetime']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="liReceipt">Upload Receipt <span class="text-muted-pc fw-normal">(optional, JPG/PNG/PDF)</span></label>
-            <input type="file" class="form-control" id="liReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf">
-          </div>
-          <div class="col-12">
-            <label class="form-label" for="liItem">Item Lost Details</label>
-            <textarea class="form-control" id="liItem" name="item_description" rows="4" required><?= htmlspecialchars($old['item_description']) ?></textarea>
-          </div>
-          <div class="col-12 pt-2">
-            <button type="submit" class="btn btn-pc-primary px-4">Report Lost Item</button>
-          </div>
-        </form>
+            <?php if ($formStatus === 'success'): ?>
+              <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your report has been sent. We'll be in touch as soon as we hear back from your driver.</div></div>
+            <?php elseif ($formStatus === 'error'): ?>
+              <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+            <?php endif; ?>
+          </form>
+        </div>
       </div>
     </div>
   </div>

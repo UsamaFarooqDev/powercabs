@@ -189,12 +189,6 @@ $tourBookingSteps = [
         <p class="small fw-semibold mb-4"><i class="bi bi-clock" style="color: var(--pc-orange);"></i> <span id="tourModalDuration"><?= htmlspecialchars($reopenDestination['duration'] ?? '') ?></span></p>
 
         <div id="tourBookingForm">
-          <?php if ($formStatus === 'success'): ?>
-            <div class="alert alert-success" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div>
-          <?php elseif ($formStatus === 'error'): ?>
-            <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-          <?php endif; ?>
-
           <h3 class="fs-6 fw-bold mb-3">Book This Tour</h3>
           <form method="post" action="" class="row g-3">
             <input type="hidden" name="destination" id="tourDestinationInput" value="<?= htmlspecialchars($old['destination'] !== '' ? $old['destination'] : $reopenDestinationName) ?>">
@@ -227,8 +221,17 @@ $tourBookingSteps = [
               <textarea class="form-control" id="ctRequests" name="special_requests" rows="3"><?= htmlspecialchars($old['special_requests']) ?></textarea>
             </div>
             <div class="col-12 pt-2">
-              <button type="submit" class="btn btn-pc-primary px-4">Submit Booking</button>
+              <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+                <span>Submit Booking</span>
+                <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+              </button>
             </div>
+
+            <?php if ($formStatus === 'success'): ?>
+              <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div></div>
+            <?php elseif ($formStatus === 'error'): ?>
+              <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+            <?php endif; ?>
           </form>
         </div>
       </div>

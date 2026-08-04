@@ -150,12 +150,6 @@ $joinProcess = [
       <h2 class="mb-0">Enquire About Partnering</h2>
     </div>
 
-    <?php if ($formStatus === 'success'): ?>
-      <div class="alert alert-success" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div>
-    <?php elseif ($formStatus === 'error'): ?>
-      <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-    <?php endif; ?>
-
     <form method="post" action="" class="row g-3">
       <div class="col-md-6">
         <label class="form-label" for="ptName">Name</label>
@@ -186,8 +180,17 @@ $joinProcess = [
         <textarea class="form-control" id="ptMessage" name="message" rows="4"><?= htmlspecialchars($old['message']) ?></textarea>
       </div>
       <div class="col-12 pt-2">
-        <button type="submit" class="btn btn-pc-primary px-4">Submit</button>
+        <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+          <span>Submit</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+        </button>
       </div>
+
+      <?php if ($formStatus === 'success'): ?>
+        <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div></div>
+      <?php elseif ($formStatus === 'error'): ?>
+        <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+      <?php endif; ?>
     </form>
   </div>
 </section>
