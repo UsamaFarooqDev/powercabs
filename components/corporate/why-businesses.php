@@ -1,9 +1,3 @@
-<?php
-/**
- * Corporate Services page: "Why Businesses Choose PowerCabs" -- copy +
- * connecting-line feature timeline.
- */
-?>
 <section class="section-pc">
   <div class="container">
     <div class="row gy-5 align-items-center">

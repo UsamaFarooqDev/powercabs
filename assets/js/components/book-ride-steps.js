@@ -1,9 +1,3 @@
-/**
- * Ride page: "Book Your Ride" interactive step tabs. Clicking a step
- * updates the active tab (title + description expand in place) and
- * crossfades the phone mockup screenshot to match -- no page reload,
- * no carousel.
- */
 document.addEventListener("DOMContentLoaded", () => {
   const widget = document.getElementById("pcBookSteps");
   if (!widget) return;

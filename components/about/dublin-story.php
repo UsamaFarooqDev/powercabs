@@ -1,9 +1,3 @@
-<?php
-/**
- * About page: "Our Dublin Story" masonry grid.
- * Requires $assetPath from the including page.
- */
-?>
 <section class="section-pc">
   <div class="container">
     <div class="mb-4">

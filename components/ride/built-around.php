@@ -1,9 +1,3 @@
-<?php
-/**
- * Ride page: "Built Around Every Journey" -- gif + feature grid.
- * Requires $assetPath from the including page.
- */
-?>
 <section class="section-pc bg-white">
   <div class="container">
     <div class="row align-items-center gy-5">

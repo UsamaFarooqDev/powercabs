@@ -1,9 +1,3 @@
-<?php
-/**
- * Business page: "Airport Assistance" premium CTA panel.
- * Requires $assetPath from the including page.
- */
-?>
 <section class="section-pc pt-0">
   <div class="container">
     <div class="pc-panel rounded-4 p-4 p-md-5">

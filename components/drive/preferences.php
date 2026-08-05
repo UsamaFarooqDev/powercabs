@@ -1,8 +1,3 @@
-<?php
-/**
- * Drive page: "You're In Control" -- driver preference toggle grid.
- */
-?>
 <section class="section-pc bg-white">
   <div class="container">
     <div class="text-center mb-5">

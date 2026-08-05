@@ -1,9 +1,3 @@
-<?php
-/**
- * Corporate Services page: "Everything Your Business Needs" -- corporate
- * benefits icon grid.
- */
-?>
 <section class="section-pc bg-white position-relative overflow-hidden">
   <div class="container position-relative">
     <div class="text-center mb-5">

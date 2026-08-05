@@ -13,9 +13,6 @@ window.addEventListener("resize", syncNavbarHeightVar);
 window.addEventListener("resize", syncFooterHeightVar);
 window.addEventListener("load", syncFooterHeightVar);
 
-/**
- * Adds `active` + aria-current to the navbar link matching the current page.
- */
 function highlightActiveNavLink() {
   const currentPath = window.location.pathname.split("/").pop() || "index.php";
   document.querySelectorAll(".navbar-nav .nav-link[data-page]").forEach((link) => {
@@ -132,16 +129,7 @@ function initHeroParallax() {
   );
 }
 
-/**
- * Global header scroll behavior (every page, via .pc-header in
- * header.php): hides on scroll-down / reveals on scroll-up while still
- * within the first section, then docks permanently visible once the
- * user has scrolled past roughly one viewport height -- same "corporate
- * site" nav pattern reversed on the way back up, since dropping back
- * below the dock threshold while scrolling up simply re-shows it (moving
- * up never hides), and only hides again once scrolling down inside that
- * near-top zone.
- */
+/* Global header scroll */
 function initHeaderScrollReveal() {
   const header = document.querySelector("header.pc-header");
   if (!header) return;
@@ -182,12 +170,7 @@ function initHeaderScrollReveal() {
   );
 }
 
-/**
- * Home page "Why Choose PowerCabs" cards: reveals each card as it enters
- * the viewport and un-reveals it when it leaves, so scrolling back up
- * past the section replays the same animation on re-entry rather than
- * only ever firing once.
- */
+/* Home page "Why Choose PowerCabs" cards */
 function initWhyChooseReveal() {
   const items = document.querySelectorAll("#why-choose .pc-why-item");
   if (!items.length) return;

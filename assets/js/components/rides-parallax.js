@@ -1,21 +1,3 @@
-/**
- * Ride page: pinned scroll-through ride showcase. The section holds in
- * place (position: sticky, pure CSS, added via the .pc-rides-enhanced
- * class below) while the user scrolls through a bank of invisible
- * trigger elements beneath it; progress is computed straight from the
- * section's current scroll position on every frame rather than fired
- * once per ride, so scrolling back up unwinds exactly the same way it
- * played forward.
- *
- * Each ride is one opaque, full-width card (.pc-ride-stack-card,
- * z-index = its own index + 1) sliding fully up from below to cover the
- * previous one -- only ever one card resting in view at a time, no
- * permanent overlap.
- *
- * Skipped entirely under prefers-reduced-motion -- components.css's own
- * media query already shows every ride as a plain, unpinned card list
- * in that case, so there's nothing here for JS to enhance.
- */
 document.addEventListener("DOMContentLoaded", () => {
   const section = document.getElementById("pcRidesParallax");
   if (!section) return;

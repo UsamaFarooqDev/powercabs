@@ -1,14 +1,3 @@
-/*
-  Global page loader: a full-viewport glassy overlay shown while the page
-  itself is loading, and re-shown when the user navigates to another
-  internal page or submits a form, so page-to-page transitions never show
-  a blank/half-rendered screen in between.
-
-  The overlay markup (components/shared/page-loader.php) is visible by
-  default in the raw HTML -- no JS needed to show it on first paint --
-  this script's only job is to hide it once the page is actually ready,
-  and to bring it back right before an outgoing navigation/submit.
-*/
 (function () {
   var overlay = document.getElementById('pcPageLoader');
   if (!overlay) return;
@@ -21,9 +10,6 @@
     overlay.classList.remove('pc-loader-hidden');
   }
 
-  // Hide once the page (including images/CSS/third-party scripts) has
-  // fully loaded. If 'load' already fired by the time this script runs
-  // (fast cached loads), hide immediately instead of waiting forever.
   if (document.readyState === 'complete') {
     hideLoader();
   } else {

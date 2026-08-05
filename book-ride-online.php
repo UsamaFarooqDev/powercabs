@@ -76,13 +76,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
 <!-- ============ Booking Steps ============ -->
 <section class="section-pc position-relative overflow-hidden">
-
-  <!-- soft gradient blob, bleeding off the top-right corner -->
-  <!-- <div
-    class="position-absolute top-50 end-0 rounded-circle"
-    style="width: 420px; height: 420px; margin-top: -180px; margin-left: -160px; background: radial-gradient(circle at 35% 35%, var(--pc-orange), transparent 70%); opacity: .12; filter: blur(60px); pointer-events: none;"
-  ></div> -->
-
   <div class="container position-relative" style="z-index: 1;">
     <div class="text-center mb-5">
       <h2 class="mb-0">Booking in Four Simple Steps</h2>
@@ -131,9 +124,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
 <!-- ============ Booking Form (floating over a full-bleed map) ============ -->
 <style>
-  /* Map fills the section edge-to-edge behind the floating form card at
-     lg+; below that it's just a normal-height block stacked above the
-     form, since an overlapping card doesn't have room to breathe there. */
   .pc-ride-map-bleed {
     width: 100%;
     height: 280px;
@@ -202,7 +192,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
         <input type="time" class="form-control" id="brTime" name="ride_time" value="<?= htmlspecialchars($old['ride_time']) ?>" required>
       </div>
 
-      <!-- Live fare estimate: hidden until both a pickup and drop-off are set -->
       <div class="col-12 d-none" id="pcFareEstimate">
         <div class="d-flex align-items-center flex-wrap gap-3 rounded-4 px-3 py-3" style="background: rgba(25, 135, 84, .1); border: 1px solid rgba(25, 135, 84, .25);">
           <span class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 40px; height: 40px; background: #198754;">

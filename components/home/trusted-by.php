@@ -18,7 +18,6 @@ $trustedLogos = [
   ['file' => 'tallaght-logo.svg',      'alt' => 'Tallaght'],
 ];
 ?>
-<!-- ============ Trusted By ============ -->
 
 <section class="bg-white">
       <div class="position-relative overflow-hidden mb-5" style="aspect-ratio: 2460 / 1128;">

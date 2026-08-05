@@ -1,10 +1,3 @@
-<?php
-/**
- * Corporate Services page: "What We Do" occasions + the corporate
- * account registration form.
- * Requires $formStatus, $formError, $old from the including page.
- */
-?>
 <section class="section-pc" id="corporate-account-form" style="scroll-margin-top: 6rem;">
   <div class="container">
     <div class="row gy-5 align-items-center">

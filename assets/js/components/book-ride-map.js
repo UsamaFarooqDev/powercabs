@@ -1,17 +1,3 @@
-/**
- * Book Ride Online: Google Maps-powered pickup/drop-off autocomplete
- * restricted to the Dublin area, a live route + markers, and a real-time
- * fare estimate. Loaded via the Google Maps JS API's own
- * `callback=initGoogleMaps` query param, so `initGoogleMaps` must stay a
- * global function -- if the script fails to load (blocked, bad key,
- * offline) this file simply never runs and the form degrades to plain
- * text inputs with no JS errors.
- */
-
-// Greater Dublin Area -- covers Dublin Airport, the city centre, Dun
-// Laoghaire, Tallaght and Swords. Used both to restrict the autocomplete
-// dropdown (bounds + strictBounds) and as a hard geofence on whatever
-// place actually gets selected.
 const PC_DUBLIN_BOUNDS = { north: 53.45, south: 53.15, east: -6.05, west: -6.55 };
 
 // Mirrors the passenger app's ride_selection.dart multiplier table.
@@ -74,10 +60,6 @@ function initGoogleMaps() {
   const formColEl = document.getElementById("pcRideFormCol");
 
   // The form floats over the right side of the map at lg+ (>=992px) --
-  // reserve that much width plus a little breathing room so markers and
-  // routes always land in the clear area on the left, never underneath
-  // the card. Below lg the form sits in normal flow below the map, so no
-  // reservation is needed.
   function getFormOverlayPx() {
     if (window.innerWidth < 992 || !formColEl) return 0;
     return formColEl.getBoundingClientRect().width + 24;
@@ -237,9 +219,6 @@ function initGoogleMaps() {
       resetEstimate();
     });
 
-    // Autocomplete's place_changed only fires on an actual selection --
-    // catch the case where someone types an address and tabs/clicks away
-    // without ever picking a suggestion, so it doesn't silently fail.
     input.addEventListener("blur", () => {
       if (input.value.trim() !== "" && !state[key]) {
         warningEl?.classList.remove("d-none");

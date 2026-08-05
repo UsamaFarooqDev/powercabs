@@ -1,10 +1,3 @@
-<?php
-/**
- * Drive page: "Built for Drivers Who Want More" -- payout/earnings
- * stats band + "Drive Every Ride Type" category grid.
- * Requires $assetPath from the including page.
- */
-?>
 <section class="section-pc text-white position-relative overflow-hidden" style="background: linear-gradient(165deg, #0a0807 0%, #14100c 60%, #0a0807 100%);">
   <div class="container position-relative">
     <div class="text-center mb-5">
@@ -58,6 +51,5 @@
         </div>
       <?php endforeach; ?>
     </div>
-
   </div>
 </section>

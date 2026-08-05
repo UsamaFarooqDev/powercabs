@@ -1,12 +1,3 @@
-<?php
-/**
- * Home page: "Download the PowerCabs App" -- full-bleed orange gradient
- * promo (no .container wrapping the section, same pattern as .pc-hero)
- * with a faceted top/bottom edge cut via clip-path, phone mockup on the
- * left showing a real in-app screenshot, copy + store badges on the right.
- */
-?>
-
 <style>
   @keyframes pcLiveTrackPulse {
     0%   { transform: scale(1);   opacity: .55; }

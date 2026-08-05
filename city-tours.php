@@ -168,14 +168,6 @@ $tourBookingSteps = [
 </section>
 
 <!-- ============ Shared Tour Modal (Explore + Book Tour) ============ -->
-<!-- No static aria-hidden here -- Bootstrap's modal JS adds/removes it
-     (along with aria-modal/role) as part of show()/hide(); a hardcoded
-     aria-hidden="true" on this element races with focus being moved
-     into it (both on a normal open and on the auto-reopen-after-submit
-     path in city-tours.js), which is what the browser's "aria-hidden on
-     an element that retains focus" warning was flagging. display:none
-     (the .modal class's own default state) already keeps it out of the
-     accessibility tree while closed, so nothing is lost by dropping it. -->
 <div class="modal fade" id="tourModal" tabindex="-1" aria-labelledby="tourModalName">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content rounded-4 border-0">

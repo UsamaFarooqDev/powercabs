@@ -1,10 +1,3 @@
-<?php
-/**
- * Drive page: "How to Get Started" / "Behind the Wheel" -- driver app
- * mockup + numbered onboarding steps + store badges.
- * Requires $assetPath from the including page.
- */
-?>
 <section class="section-pc" style="background: var(--pc-cream);">
   <div class="container">
     <div class="row align-items-center gy-5">

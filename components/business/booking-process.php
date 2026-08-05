@@ -1,10 +1,3 @@
-<?php
-/**
- * Business page: "How to Book Our Business Rides" -- app mockup +
- * business account benefits grid.
- * Requires $assetPath from the including page.
- */
-?>
 <section class="section-pc">
   <div class="container">
     <div class="row align-items-center gy-5">

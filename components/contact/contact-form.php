@@ -1,9 +1,3 @@
-<?php
-/**
- * Contact page: office info column + contact form.
- * Requires $assetPath, $formStatus, $formError, $old from the including page.
- */
-?>
 <section class="section-pc">
   <div class="container">
     <div class="row gy-5 align-items-center">

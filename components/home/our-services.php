@@ -1,16 +1,3 @@
-<?php
-/**
- * Home page: "Our Services" -- 3 premium SaaS-style photo cards.
- * Expects $assetPath to already be set by the including page.
- * Card images are supplied assets (assets/img/service-*.jpg). Layout,
- * spacing, radius, border and shadow are Bootstrap utilities + inline
- * style; only the hover interaction (lift/scale/colour transitions) and
- * the glass panel's backdrop-blur genuinely need real CSS -- see
- * pc-service-card in components.css, since :hover states and
- * backdrop-filter simply can't be expressed as utility classes.
- */
-?>
-<!-- ============ Our Services ============ -->
 <section class="section-pc" style="background-color: var(--pc-cream);">
   <div class="container">
     <div class="row align-items-end mb-5 gy-3">

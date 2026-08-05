@@ -49,8 +49,7 @@ a {
   color: var(--pc-text-muted);
 }
 
-/* Red asterisk appended to a required field's label, e.g.
-   <label class="form-label pc-required" for="...">. */
+/* Red asterisk  */
 .pc-required::after {
   content: " *";
   color: #dc3545;
@@ -118,12 +117,7 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* ============ Global page loader ============
-   Full-viewport glassy overlay, present in the raw HTML of every page
-   (see components/shared/page-loader.php) so it's visible from first
-   paint with no JS needed to show it. assets/js/components/page-loader.js
-   hides it once the page is ready and re-shows it on outgoing internal
-   navigation / form submits. */
+/* ============ Global page loader ============ */
 .pc-loader-overlay {
   position: fixed;
   inset: 0;
