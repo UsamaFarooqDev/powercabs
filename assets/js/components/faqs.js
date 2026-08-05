@@ -1,10 +1,3 @@
-/*
-  FAQ page: Passenger/Driver segmented switch swaps both which accordion
-  is visible AND which video tutorial grid is visible, with a short fade
-  so the swap doesn't feel like a hard cut. Each accordion keeps
-  Bootstrap's own "only one item open" behaviour via its own
-  data-bs-parent, so there's nothing else to wire up for those.
-*/
 document.addEventListener("DOMContentLoaded", () => {
   const passengerToggle = document.getElementById("faqAudiencePassenger");
   const driverToggle = document.getElementById("faqAudienceDriver");

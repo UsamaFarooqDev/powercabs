@@ -3,7 +3,7 @@ $pageTitle       = 'PowerCabs Business Solutions | PowerCabs';
 $pageDescription = 'Business transportation solutions for companies seeking reliable, professional, and efficient travel services for employees and clients.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;
@@ -55,8 +55,8 @@ $heroEyebrow     = '/ Business Solutions';
 $heroTitleLight  = 'PowerCabs';
 $heroTitleBold   = 'Business Solutions.';
 $heroDescription = 'Business transportation solutions for companies seeking reliable, professional, and efficient travel services for employees and clients.';
-$heroBgImage     = 'https://images.pexels.com/photos/29443801/pexels-photo-29443801.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+$heroBgImage     = 'https://images.pexels.com/photos/7108210/pexels-photo-7108210.jpeg?auto=format&fit=crop&w=1600&q=60';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $bizServices = ['Corporate Travel', 'Executive Transportation', 'Airport Transfers', 'Client Meetings', 'Event Transportation', 'Chauffeur Services', 'Luxury Vehicles'];
 $bizWhy = [
@@ -126,7 +126,7 @@ $bizProcess = [
     <div class="row g-3">
       <?php foreach ($bizProcess as $step): ?>
         <div class="col-6 col-lg">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -142,12 +142,6 @@ $bizProcess = [
     <div class="text-center mb-4">
       <h2 class="mb-0">Register a Corporate Account</h2>
     </div>
-
-    <?php if ($formStatus === 'success'): ?>
-      <div class="alert alert-success" role="alert">Thanks -- your enquiry has been sent. Our Business Team will be in touch shortly.</div>
-    <?php elseif ($formStatus === 'error'): ?>
-      <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-    <?php endif; ?>
 
     <form method="post" action="" class="row g-3">
       <div class="col-md-6">
@@ -179,13 +173,22 @@ $bizProcess = [
         <textarea class="form-control" id="bsRequirements" name="requirements" rows="4"><?= htmlspecialchars($old['requirements']) ?></textarea>
       </div>
       <div class="col-12 pt-2">
-        <button type="submit" class="btn btn-pc-primary px-4">Submit</button>
+        <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+          <span>Submit</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+        </button>
       </div>
+
+      <?php if ($formStatus === 'success'): ?>
+        <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your enquiry has been sent. Our Business Team will be in touch shortly.</div></div>
+      <?php elseif ($formStatus === 'error'): ?>
+        <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+      <?php endif; ?>
     </form>
   </div>
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

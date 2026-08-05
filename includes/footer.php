@@ -12,7 +12,7 @@
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/complaint-form.php">Complaint Form</a></li>
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/positive-feedback-form.php">Positive Feedback Form</a></li>
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/lost-item-report.php">Lost an Item Report</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/faqs.php">FAQs</a></li>
+
         </ul>
       </div>
 
@@ -49,9 +49,8 @@
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-drivers.php">Driver Safety</a></li>
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-riders.php">Rider Safety</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/terms-conditions.php">Terms &amp; Conditions</a></li>
-          <!-- <li><a class="pc-footer-link" href="<?= $assetPath ?>/privacy-policy.php">Cookies &amp; Privacy Policy</a></li> -->
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/sustainability.php">Sustainability &amp; Environment</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/faqs.php">FAQs</a></li>
         </ul>
       </div>
 
@@ -82,7 +81,7 @@
 
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
       <p class="small pc-footer-copyright mb-0">
-        &copy; 2024&ndash;2026 Powercabs Ireland Limited.
+        &copy; 2024&ndash;<?php echo date('Y'); ?> Powercabs Ireland Limited.
       </p>
       <div class="d-flex gap-4">
         <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/privacy-policy.php">Privacy Policy</a>
@@ -112,5 +111,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= $assetPath ?>assets/js/main.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/page-loader.js"></script>
 </body>
 </html>

@@ -55,7 +55,7 @@ $heroTitleBold   = 'Need to Know.';
 $heroDescription = "Whether you're booking a ride or driving with us, find quick answers to the most common questions from passengers and drivers alike.";
 $heroBgImage     = $assetPath . 'assets/img/services-corporate.jpg';
 $heroBreadcrumbLabel = 'FAQs';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Demo Video ============ -->
@@ -169,6 +169,6 @@ require __DIR__ . '/components/inner-hero.php';
 <script src="<?= $assetPath ?>assets/js/components/video-tutorials.js"></script>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

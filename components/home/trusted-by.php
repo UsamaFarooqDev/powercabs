@@ -18,12 +18,11 @@ $trustedLogos = [
   ['file' => 'tallaght-logo.svg',      'alt' => 'Tallaght'],
 ];
 ?>
-<!-- ============ Trusted By ============ -->
 
 <section class="bg-white">
-      <div class="position-relative overflow-hidden mb-5">
+      <div class="position-relative overflow-hidden mb-5" style="aspect-ratio: 2460 / 1128;">
       <img src="<?= $assetPath ?>assets/img/trusted-bg.svg" alt="" aria-hidden="true"
-           class="w-100" loading="lazy">
+           class="w-100 h-100" style="object-fit: cover; object-position: top; display: block;" loading="lazy">
 
       <p class="pc-trusted-banner-text-mobile position-absolute top-50 start-50 translate-middle text-center mb-0 d-md-none">Powering Every Journey,<br>Every Driver</p>
       <p class="pc-trusted-banner-text pc-trusted-banner-text-tl position-absolute mb-0 d-none d-md-block">Powering</p>
@@ -32,9 +31,6 @@ $trustedLogos = [
     </div>
 
   <div class="section-pc container">
-
-
-    <!-- <p class="small fw-semibold text-uppercase text-muted-pc mb-2" style="letter-spacing: .05em;">/ Our Partners</p> -->
     <h2 class="mb-5">Trusted by Leading Irish Brands.</h2>
 
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 align-items-center justify-content-center">

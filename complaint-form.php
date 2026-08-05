@@ -3,7 +3,7 @@ $pageTitle       = 'Complaint Form | PowerCabs';
 $pageDescription = 'Let us know if something went wrong on a recent PowerCabs journey -- we take every complaint seriously and follow up quickly.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $criminalCategories = [
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // so this only fires if complaint_category was tampered with.
         $formStatus = 'error';
         $formError  = 'Please select a valid complaint category.';
-    } elseif ($isFullForm && ($old['email'] === '' || $old['phone'] === '' || $old['pickup_location'] === '' || $old['destination_location'] === '' || $old['journey_date'] === '' || $old['journey_time'] === '')) {
+    } elseif ($isFullForm && ($old['email'] === '' || $old['phone'] === '' || $old['pickup_location'] === '' || $old['destination_location'] === '' || $old['journey_date'] === '' || $old['journey_time'] === '' || $old['experience_description'] === '' || $old['experience_name'] === '' || $old['experience_date'] === '')) {
         $formStatus = 'error';
         $formError  = 'Please fill in all required fields.';
     } elseif ($isFullForm && !filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
@@ -162,7 +162,7 @@ $heroTitleLight  = 'Tell Us';
 $heroTitleBold   = 'What Went Wrong.';
 $heroDescription = "We're sorry your experience didn't meet our standards. Share the details below and our support team will review it and follow up.";
 $heroBgImage     = 'https://images.pexels.com/photos/6830863/pexels-photo-6830863.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $categoryLabels = [
     'catRoadworthy'     => 'Condition, roadworthiness and cleanliness of the vehicle',
@@ -240,12 +240,12 @@ $categoryModes = [
             <input type="text" class="form-control" id="cfLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>">
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="cfEmail">Email *</label>
-            <input type="email" class="form-control" id="cfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>">
+            <label class="form-label pc-required" for="cfEmail">Email</label>
+            <input type="email" class="form-control" id="cfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="cfPhone">Phone / Mobile *</label>
-            <input type="tel" class="form-control" id="cfPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>">
+            <label class="form-label pc-required" for="cfPhone">Phone / Mobile</label>
+            <input type="tel" class="form-control" id="cfPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
           </div>
           <div class="col-12">
             <label class="form-label" for="cfPostalAddress">Postal Address</label>
@@ -255,28 +255,28 @@ $categoryModes = [
 
         <div class="row g-3 mb-4">
           <div class="col-md-6">
-            <label class="form-label" for="cfPickup">Pickup Location *</label>
-            <input type="text" class="form-control" id="cfPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>">
+            <label class="form-label pc-required" for="cfPickup">Pickup Location</label>
+            <input type="text" class="form-control" id="cfPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
           </div>
           <div class="col-md-6">
-            <label class="form-label" for="cfDestination">Destination Location *</label>
-            <input type="text" class="form-control" id="cfDestination" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>">
+            <label class="form-label pc-required" for="cfDestination">Destination Location</label>
+            <input type="text" class="form-control" id="cfDestination" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>" required>
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="cfDate">Date *</label>
-            <input type="date" class="form-control" id="cfDate" name="journey_date" value="<?= htmlspecialchars($old['journey_date']) ?>">
+            <label class="form-label pc-required" for="cfDate">Date</label>
+            <input type="date" class="form-control" id="cfDate" name="journey_date" value="<?= htmlspecialchars($old['journey_date']) ?>" required>
           </div>
           <div class="col-md-4">
-            <label class="form-label" for="cfTime">Time *</label>
-            <input type="time" class="form-control" id="cfTime" name="journey_time" value="<?= htmlspecialchars($old['journey_time']) ?>">
+            <label class="form-label pc-required" for="cfTime">Time</label>
+            <input type="time" class="form-control" id="cfTime" name="journey_time" value="<?= htmlspecialchars($old['journey_time']) ?>" required>
           </div>
           <div class="col-md-4">
             <label class="form-label" for="cfPassengers">Number of Passengers</label>
             <input type="number" min="1" class="form-control" id="cfPassengers" name="passengers" value="<?= htmlspecialchars($old['passengers']) ?>">
           </div>
           <div class="col-12">
-            <label class="form-label" for="cfReceipt">Upload Receipt *</label>
-            <input type="file" class="form-control" id="cfReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf">
+            <label class="form-label pc-required" for="cfReceipt">Upload Receipt</label>
+            <input type="file" class="form-control" id="cfReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf" required>
             <div class="form-text">JPG, PNG, WEBP or PDF, max 5MB.</div>
           </div>
         </div>
@@ -338,16 +338,16 @@ $categoryModes = [
           <p class="text-muted-pc small mb-3">e.g. comments made by driver, description of vehicle condition, total fare charged</p>
           <div class="row g-3">
             <div class="col-12">
-              <label class="form-label" for="cfExperienceDescription">Describe Your Experience</label>
-              <textarea class="form-control" id="cfExperienceDescription" name="experience_description" rows="4"><?= htmlspecialchars($old['experience_description']) ?></textarea>
+              <label class="form-label pc-required" for="cfExperienceDescription">Describe Your Experience</label>
+              <textarea class="form-control" id="cfExperienceDescription" name="experience_description" rows="4" required><?= htmlspecialchars($old['experience_description']) ?></textarea>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="cfExperienceName">Your Name</label>
-              <input type="text" class="form-control" id="cfExperienceName" name="experience_name" value="<?= htmlspecialchars($old['experience_name']) ?>">
+              <label class="form-label pc-required" for="cfExperienceName">Your Name</label>
+              <input type="text" class="form-control" id="cfExperienceName" name="experience_name" value="<?= htmlspecialchars($old['experience_name']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="cfExperienceDate">Date</label>
-              <input type="date" class="form-control" id="cfExperienceDate" name="experience_date" value="<?= htmlspecialchars($old['experience_date']) ?>">
+              <label class="form-label pc-required" for="cfExperienceDate">Date</label>
+              <input type="date" class="form-control" id="cfExperienceDate" name="experience_date" value="<?= htmlspecialchars($old['experience_date']) ?>" required>
             </div>
           </div>
         </div>
@@ -361,9 +361,10 @@ $categoryModes = [
       </div>
 
       <div id="complaintSubmitWrapper" class="d-none">
-        <button type="submit" id="complaintSubmitBtn" class="btn btn-pc-primary px-4">
+        <button type="submit" id="complaintSubmitBtn" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
           <span id="complaintSubmitSpinner" class="spinner-border spinner-border-sm me-2 d-none" aria-hidden="true"></span>
           <span id="complaintSubmitLabel">Submit Complaint</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
         </button>
       </div>
 
@@ -379,6 +380,6 @@ $categoryModes = [
 <script src="<?= $assetPath ?>assets/js/components/complaint-form.js"></script>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

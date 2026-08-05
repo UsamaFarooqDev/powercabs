@@ -3,7 +3,7 @@ $pageTitle       = 'City Tours | PowerCabs';
 $pageDescription = "Explore Ireland's most iconic destinations with PowerCabs -- private transportation with professional local drivers to Dublin, the Cliffs of Moher, Giant's Causeway and more.";
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;
@@ -58,7 +58,7 @@ $heroTitleLight  = 'City';
 $heroTitleBold   = 'Tours.';
 $heroDescription = "Explore Ireland's most iconic destinations with PowerCabs. Whether you're visiting historic landmarks, breathtaking coastal scenery, charming villages, or famous attractions, enjoy comfortable private transportation with professional local drivers.";
 $heroBgImage     = 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $destinations = [
   ['name' => 'Dublin City',       'desc' => "Explore Dublin's rich history, museums, Georgian architecture, Temple Bar, Trinity College and vibrant shopping districts.",   'duration' => 'Half-Day Tour', 'img' => 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60'],
@@ -103,9 +103,9 @@ $tourBookingSteps = [
       <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Featured Destinations</p>
       <h2 class="mb-0">Where Would You Like to Go?</h2>
     </div>
-    <div class="row g-4">
+    <div class="row g-4 row-cols-2 row-cols-lg-4">
       <?php foreach ($destinations as $d): ?>
-        <div class="col-md-6 col-lg-4">
+        <div class="col">
           <div class="pc-tour-card bg-white h-100 overflow-hidden">
             <div class="pc-tour-card-img-wrap overflow-hidden position-relative">
               <img src="<?= htmlspecialchars($d['img']) ?>" alt="<?= htmlspecialchars($d['name']) ?>" class="pc-tour-card-img w-100 h-100 object-fit-cover" loading="lazy">
@@ -157,7 +157,7 @@ $tourBookingSteps = [
     <div class="row g-3">
       <?php foreach ($tourBookingSteps as $step): ?>
         <div class="col-md-6 col-lg-3">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -168,14 +168,6 @@ $tourBookingSteps = [
 </section>
 
 <!-- ============ Shared Tour Modal (Explore + Book Tour) ============ -->
-<!-- No static aria-hidden here -- Bootstrap's modal JS adds/removes it
-     (along with aria-modal/role) as part of show()/hide(); a hardcoded
-     aria-hidden="true" on this element races with focus being moved
-     into it (both on a normal open and on the auto-reopen-after-submit
-     path in city-tours.js), which is what the browser's "aria-hidden on
-     an element that retains focus" warning was flagging. display:none
-     (the .modal class's own default state) already keeps it out of the
-     accessibility tree while closed, so nothing is lost by dropping it. -->
 <div class="modal fade" id="tourModal" tabindex="-1" aria-labelledby="tourModalName">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content rounded-4 border-0">
@@ -189,12 +181,6 @@ $tourBookingSteps = [
         <p class="small fw-semibold mb-4"><i class="bi bi-clock" style="color: var(--pc-orange);"></i> <span id="tourModalDuration"><?= htmlspecialchars($reopenDestination['duration'] ?? '') ?></span></p>
 
         <div id="tourBookingForm">
-          <?php if ($formStatus === 'success'): ?>
-            <div class="alert alert-success" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div>
-          <?php elseif ($formStatus === 'error'): ?>
-            <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-          <?php endif; ?>
-
           <h3 class="fs-6 fw-bold mb-3">Book This Tour</h3>
           <form method="post" action="" class="row g-3">
             <input type="hidden" name="destination" id="tourDestinationInput" value="<?= htmlspecialchars($old['destination'] !== '' ? $old['destination'] : $reopenDestinationName) ?>">
@@ -227,8 +213,17 @@ $tourBookingSteps = [
               <textarea class="form-control" id="ctRequests" name="special_requests" rows="3"><?= htmlspecialchars($old['special_requests']) ?></textarea>
             </div>
             <div class="col-12 pt-2">
-              <button type="submit" class="btn btn-pc-primary px-4">Submit Booking</button>
+              <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+                <span>Submit Booking</span>
+                <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+              </button>
             </div>
+
+            <?php if ($formStatus === 'success'): ?>
+              <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div></div>
+            <?php elseif ($formStatus === 'error'): ?>
+              <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+            <?php endif; ?>
           </form>
         </div>
       </div>
@@ -239,6 +234,6 @@ $tourBookingSteps = [
 <script src="<?= $assetPath ?>assets/js/components/city-tours.js"></script>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

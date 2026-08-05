@@ -10,7 +10,7 @@ $heroTitleLight  = 'Loyalty';
 $heroTitleBold   = 'Program.';
 $heroDescription = 'Rewarding your commitment and hard work -- PowerCabs rewards drivers for their dedication through a points-based loyalty program.';
 $heroBgImage     = 'https://images.pexels.com/photos/35119581/pexels-photo-35119581.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $howItWorks = [
   ['n' => 1, 'title' => 'Sign Up'],
@@ -53,7 +53,7 @@ $requirements = ['Enroll in the program', 'Complete rides', 'Redeem incentives',
     <div class="row g-3">
       <?php foreach ($howItWorks as $step): ?>
         <div class="col-6 col-lg-3">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -122,6 +122,6 @@ $requirements = ['Enroll in the program', 'Complete rides', 'Redeem incentives',
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

@@ -11,7 +11,7 @@ $heroTitleBold   = 'for Drivers.';
 $heroDescription = 'Practical guidance to help you stay safe, confident and prepared on every trip -- before you set off, while you drive, and after you drop off.';
 $heroBgImage     = 'https://images.pexels.com/photos/5834950/pexels-photo-5834950.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Driver Safety';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $beforeRide = [
   ['icon' => 'bi-person-vcard-fill', 'title' => 'Verify Passenger Identity',      'desc' => "Check the passenger's name and profile photo (if available) before allowing them into your vehicle."],
@@ -156,6 +156,6 @@ $additionalTips = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

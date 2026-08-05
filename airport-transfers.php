@@ -11,7 +11,7 @@ $heroTitleBold   = 'Greet.';
 $heroDescription = "Start or end your journey stress-free with PowerCabs' professional airport Meet & Greet service. Whether you're arriving for business or leisure, our experienced drivers monitor your flight, greet you at arrivals, assist with your luggage, and ensure a smooth, comfortable transfer to your destination. We also accommodate last-minute airport bookings whenever possible.";
 $heroBgImage     = 'https://images.pexels.com/photos/36498953/pexels-photo-36498953.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Meet & Greet';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $meetGreetServices = [
   ['icon' => 'bi-airplane-engines-fill', 'title' => 'Flight Tracking',            'desc' => 'Your driver monitors your flight in real time to adjust for delays or early arrivals.'],
@@ -42,7 +42,7 @@ $bookingSteps = [
     <div class="row g-4">
       <?php foreach ($meetGreetServices as $s): ?>
         <div class="col-md-6 col-lg-4">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100">
             <i class="bi <?= $s['icon'] ?> fs-3 mb-3 d-block" style="color: var(--pc-orange);"></i>
             <h3 class="fs-5 fw-bold mb-2"><?= htmlspecialchars($s['title']) ?></h3>
             <p class="small text-muted-pc mb-0"><?= htmlspecialchars($s['desc']) ?></p>
@@ -92,7 +92,7 @@ $bookingSteps = [
     <div class="row g-3">
       <?php foreach ($bookingSteps as $step): ?>
         <div class="col-md-6 col-lg-3">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -115,6 +115,6 @@ $bookingSteps = [
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

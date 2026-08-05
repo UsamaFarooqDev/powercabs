@@ -1,7 +1,3 @@
-/*
-  Terms & Conditions page: Passenger/Driver segmented switch swaps which
-  terms document is visible, same pattern as the FAQ page's toggle.
-*/
 document.addEventListener("DOMContentLoaded", () => {
   const passengerToggle = document.getElementById("tcAudiencePassenger");
   const driverToggle = document.getElementById("tcAudienceDriver");

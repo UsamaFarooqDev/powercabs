@@ -1,9 +1,3 @@
-/*
-  Shared site behaviors. Component-specific scripts (booking widget,
-  FAQ accordion, form validation, etc.) live in assets/js/components/
-  and are included per-page only where needed.
-*/
-
 document.addEventListener("DOMContentLoaded", () => {
   highlightActiveNavLink();
   initMegaMenuHover();
@@ -11,18 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
   syncNavbarHeightVar();
   syncFooterHeightVar();
   initHeroParallax();
+  initHeaderScrollReveal();
+  initWhyChooseReveal();
 });
 
 window.addEventListener("resize", syncNavbarHeightVar);
 window.addEventListener("resize", syncFooterHeightVar);
-// Images loading in late (particularly the ones inside inner-hero.php)
-// can grow a short page's height after DOMContentLoaded already ran --
-// re-checked once everything has actually finished loading.
 window.addEventListener("load", syncFooterHeightVar);
 
-/**
- * Adds `active` + aria-current to the navbar link matching the current page.
- */
 function highlightActiveNavLink() {
   const currentPath = window.location.pathname.split("/").pop() || "index.php";
   document.querySelectorAll(".navbar-nav .nav-link[data-page]").forEach((link) => {
@@ -33,17 +23,7 @@ function highlightActiveNavLink() {
   });
 }
 
-/**
- * Opens/closes the "About" mega menu on mouse hover (with a short intent
- * delay) at desktop widths, using Bootstrap's own Dropdown API so
- * aria-expanded, outside-click-to-close and Escape-to-close all keep
- * working exactly as they do for a click-triggered dropdown.
- *
- * Below the lg breakpoint we do nothing here: Bootstrap's default
- * click-to-toggle behavior (wired up by data-bs-toggle="dropdown" in the
- * markup) takes over unchanged, which is what makes it behave as a normal
- * tap-to-expand accordion item inside the collapsed hamburger nav.
- */
+/** Opens/closes the "About" mega menu on mouse hover */
 function initMegaMenuHover() {
   if (typeof bootstrap === "undefined" || !bootstrap.Dropdown) return;
 
@@ -73,19 +53,7 @@ function initMegaMenuHover() {
   });
 }
 
-/**
- * Explicit tap-to-open for the "Training" / "Safety" nested flyouts
- * inside the About mega menu. CSS already opens them on :hover and on
- * :focus-within (see components.css), which covers mouse and keyboard
- * use, but a tap's focus behavior on a nested, non-form-like control is
- * inconsistent enough across mobile browsers that it can't be trusted
- * alone -- this makes it explicit and reliable everywhere by toggling a
- * plain class instead. Clicking a second parent closes the first, same
- * "only one open" behaviour Bootstrap's own dropdowns/accordions use.
- * The mega menu's own outside-click-to-close (Bootstrap's Dropdown API)
- * still applies on top of this unchanged, since it only ever looks at
- * clicks outside the whole panel, not inside it.
- */
+/** Explicit tap-to-open for the "Training" / "Safety" nested flyouts */
 function initMegaMenuNestedToggle() {
   const nestedGroups = document.querySelectorAll(".pc-mega-nested");
   if (!nestedGroups.length) return;
@@ -103,9 +71,6 @@ function initMegaMenuNestedToggle() {
     });
   });
 
-  // Collapsing the hamburger nav (navigating away, tapping the toggler
-  // again, resizing past the breakpoint) should reset any nested
-  // flyout left open, so reopening the menu always starts closed.
   const mainNav = document.getElementById("mainNav");
   if (mainNav) {
     mainNav.addEventListener("hidden.bs.collapse", () => {
@@ -115,43 +80,14 @@ function initMegaMenuNestedToggle() {
 }
 
 /**
- * Keeps --pc-navbar-h in sync with the fixed header's real rendered
- * height (the whole <header> box -- the pill's own top offset included,
- * not just the pill itself), so anything that needs to know exactly how
- * much space the floating navbar occupies stays accurate automatically
- * instead of relying on a guessed fallback: the "About" mega menu's
- * `top` offset, and every hero's own self-compensating padding-top
- * (both in components.css).
- */
+ * Keeps --pc-navbar-h in sync with the fixed header's real rendered */
 function syncNavbarHeightVar() {
   const navbar = document.querySelector("header");
   if (!navbar) return;
   document.documentElement.style.setProperty("--pc-navbar-h", `${navbar.getBoundingClientRect().height}px`);
 }
 
-/**
- * Keeps --pc-footer-h in sync with the footer's real rendered height, so
- * <main>'s reserved padding-bottom (base.css, the fixed-footer "reveal"
- * effect) always matches exactly -- footer height varies a lot by
- * breakpoint (its link columns stack differently), so a static fallback
- * alone would be wrong most of the time.
- *
- * Also decides whether the reveal effect should run at all, via the
- * html.pc-footer-reveal class base.css's rules key off. The footer is
- * position: fixed and rendered at every scroll position -- that only
- * looks right because the page's own content is normally opaque and
- * tall enough to fully hide it until the user scrolls close to the
- * bottom. On a short inner page (a hero plus one or two brief sections,
- * shorter than the viewport on its own), there's nothing opaque left to
- * cover it with, and the footer bleeds into view immediately --
- * sometimes right behind the hero, with no scrolling at all.
- *
- * The reveal effect is reserved for the home page only (by design --
- * every other page just shows the footer in plain, normal flow). Even
- * on the home page it only switches on once the page's real content
- * (measured before any reveal padding is added) already fills at least
- * one full viewport, for the short-page reason above.
- */
+/** Keeps --pc-footer-h in sync with the footer's real rendered height */
 function syncFooterHeightVar() {
   const footer = document.querySelector("footer");
   const main = document.querySelector("main");
@@ -159,19 +95,12 @@ function syncFooterHeightVar() {
 
   document.documentElement.style.setProperty("--pc-footer-h", `${footer.getBoundingClientRect().height}px`);
 
-  const isHome = document.body.dataset.page === "index.php";
   const currentPaddingBottom = parseFloat(getComputedStyle(main).paddingBottom) || 0;
   const naturalMainHeight = main.getBoundingClientRect().height - currentPaddingBottom;
-  document.documentElement.classList.toggle("pc-footer-reveal", isHome && naturalMainHeight >= window.innerHeight);
+  document.documentElement.classList.toggle("pc-footer-reveal", naturalMainHeight >= window.innerHeight);
 }
 
-/**
- * Home hero: as the hero scrolls out of view, the background canvas (map
- * lines, glow, sparks) drifts at a different rate than the rest of the
- * section (classic parallax depth cue). Owns .pc-hero-canvas's transform
- * exclusively -- the canvas itself has no CSS transform-animation of its
- * own (only its children do), so there's nothing for this to fight.
- */
+/** Home hero */
 function initHeroParallax() {
   const hero = document.querySelector(".pc-hero");
   if (!hero) return;
@@ -198,4 +127,64 @@ function initHeroParallax() {
     },
     { passive: true }
   );
+}
+
+/* Global header scroll */
+function initHeaderScrollReveal() {
+  const header = document.querySelector("header.pc-header");
+  if (!header) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const TOP_OFFSET = 80;
+  const isMenuOpen = () =>
+    header.querySelector(".pc-mega-menu.show") || document.getElementById("mainNav")?.classList.contains("show");
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function update() {
+    const currentY = window.scrollY;
+    const dockThreshold = window.innerHeight;
+    const scrollingDown = currentY > lastScrollY;
+
+    if (isMenuOpen() || currentY < TOP_OFFSET || currentY >= dockThreshold) {
+      header.classList.remove("pc-header-hidden");
+    } else if (scrollingDown) {
+      header.classList.add("pc-header-hidden");
+    } else {
+      header.classList.remove("pc-header-hidden");
+    }
+
+    lastScrollY = currentY;
+    ticking = false;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true }
+  );
+}
+
+/* Home page "Why Choose PowerCabs" cards */
+function initWhyChooseReveal() {
+  const items = document.querySelectorAll("#why-choose .pc-why-item");
+  if (!items.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  items.forEach((item) => observer.observe(item));
 }

@@ -3,7 +3,7 @@ $pageTitle       = 'Ambassador Programme | PowerCabs';
 $pageDescription = 'Join the PowerCabs Ambassador Programme -- free card terminals, exclusive vehicle branding, fuel discounts, extra loyalty points and dedicated support.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;
@@ -55,7 +55,7 @@ $heroTitleLight  = 'Become a PowerCabs';
 $heroTitleBold   = 'Ambassador.';
 $heroDescription = "Earn More. Spend Less. Be Valued. Join Ireland's most driver-focused ride platform.";
 $heroBgImage     = $assetPath . 'assets/img/ambassador-program.png';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $benefits = [
   ['icon' => 'bi-credit-card-2-front-fill', 'title' => 'Free Card Terminals',       'items' => ['Save &euro;120/year', '0.8% transaction fee', 'Accept more card payments', 'Increase earnings']],
@@ -77,7 +77,7 @@ $benefits = [
     <div class="row g-4">
       <?php foreach ($benefits as $b): ?>
         <div class="col-md-6 col-lg-4">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100">
             <i class="bi <?= $b['icon'] ?> fs-3 mb-3 d-block" style="color: var(--pc-orange);"></i>
             <h3 class="fs-5 fw-bold mb-3"><?= htmlspecialchars($b['title']) ?></h3>
             <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
@@ -101,12 +101,6 @@ $benefits = [
     <div class="text-center mb-4">
       <h2 class="mb-0">Register as an Ambassador</h2>
     </div>
-
-    <?php if ($formStatus === 'success'): ?>
-      <div class="alert alert-success" role="alert">Thanks -- your registration has been sent. Our team will be in touch shortly.</div>
-    <?php elseif ($formStatus === 'error'): ?>
-      <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-    <?php endif; ?>
 
     <form method="post" action="" class="row g-3">
       <div class="col-md-6">
@@ -138,13 +132,22 @@ $benefits = [
         <input type="text" class="form-control" id="apLicense" name="license_number" value="<?= htmlspecialchars($old['license_number']) ?>" required>
       </div>
       <div class="col-12 pt-2">
-        <button type="submit" class="btn btn-pc-primary px-4">Submit</button>
+        <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+          <span>Submit</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+        </button>
       </div>
+
+      <?php if ($formStatus === 'success'): ?>
+        <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your registration has been sent. Our team will be in touch shortly.</div></div>
+      <?php elseif ($formStatus === 'error'): ?>
+        <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+      <?php endif; ?>
     </form>
   </div>
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

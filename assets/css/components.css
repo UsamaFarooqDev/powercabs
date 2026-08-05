@@ -228,21 +228,6 @@
   font-size: 1.3rem;
 }
 
-.pc-ride-type-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.pc-ride-type-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--pc-shadow-sm);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-ride-type-card {
-    transition: none;
-  }
-}
-
 /* ---------- Drive page: "Why Drive With Us" square cards ---------- */
 .pc-drive-blob {
   position: absolute;
@@ -268,69 +253,6 @@
   background: radial-gradient(circle, rgba(17, 24, 39, 0.32), transparent 70%);
 }
 
-.pc-ride-pin-section {
-  padding-block: clamp(3.5rem, 6vw, 6rem);
-  background: var(--pc-white);
-  overflow: hidden;
-}
-
-.pc-ride-track-viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-}
-
-.pc-ride-track-viewport.pc-ride-js-active {
-  overflow: hidden;
-}
-
-.pc-ride-track {
-  display: flex;
-  gap: 1.5rem;
-  width: max-content;
-  padding-inline: max(1rem, calc((100vw - 1200px) / 2 + 1rem));
-  padding-bottom: 0.5rem;
-  will-change: transform;
-}
-
-.pc-ride-card {
-  flex: 0 0 auto;
-  width: clamp(280px, 24vw, 360px);
-  scroll-snap-align: start;
-  background: var(--pc-white);
-  border-radius: var(--pc-radius-lg);
-  box-shadow: var(--pc-shadow-sm);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pc-ride-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--pc-shadow-md);
-}
-
-.pc-ride-card-img {
-  aspect-ratio: 4 / 3;
-  background: var(--pc-cream-soft);
-}
-
-.pc-ride-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pc-ride-card-body {
-  padding: 1.25rem 1.4rem 1.5rem;
-}
-
-.pc-ride-card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
 .pc-ride-spec {
   display: inline-flex;
   align-items: center;
@@ -351,18 +273,6 @@
   color: var(--pc-orange);
   font-size: 0.85rem;
   flex-shrink: 0;
-}
-
-@media (max-width: 767.98px) {
-  .pc-ride-card {
-    width: 78vw;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-ride-card {
-    transition: none;
-  }
 }
 
 /* ---------- App store badges (Download App section) ---------- */
@@ -408,13 +318,13 @@
 .pc-app-promo {
   position: relative;
   z-index: 2;
-  background: linear-gradient(90deg, #ffb347 0%, #ffa52e 25%, #f58220 65%, #e86a00 100%);
+  background: linear-gradient(90deg, #feab38 0%, #fb9e24 25%, #f58220 65%, #e86a00 100%);
   clip-path: polygon(
     0 6%, 8% 3%, 16% 9%, 50% 5%, 56% 11%, 90% 11%, 96% 18%, 100% 17%,
     100% 85%,
     0 100%
   );
-  margin-top: clamp(-135px, -8vw, -175px);
+  margin-top: clamp(-145px, -4vw, -195px);
   padding-block: 120px;
 }
 
@@ -433,6 +343,24 @@
     );
     margin-top: clamp(-40px, -7vw, -60px);
     padding-block: 64px;
+  }
+}
+
+/* Standalone variant (components/app-download-banner.php): used as a
+   plain footer CTA strip on every inner page, right before whatever
+   section happens to precede it -- unlike the home page's hero-transition
+   banner, it can't rely on a negative margin-top to overlap into a
+   specific dark section above, so it sits in normal flow with its own
+   top gap and a little extra inside padding instead. */
+.pc-app-promo.pc-app-promo-standalone {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding-block: 140px;
+}
+
+@media (max-width: 767.98px) {
+  .pc-app-promo.pc-app-promo-standalone {
+    margin-top: clamp(1.25rem, 4vw, 2rem);
+    padding-block: 80px;
   }
 }
 
@@ -501,6 +429,36 @@
 /* ---------- Why Choose PowerCabs ---------- */
 #why-choose {
   padding-block: clamp(5rem, 9vw, 8rem);
+}
+
+/* Scroll-reveal on the 4 feature cards (initWhyChooseReveal in main.js
+   toggles .is-visible via IntersectionObserver both ways, so scrolling
+   back up past the section replays the same reveal on re-entry).
+   Scoped to #why-choose only -- .pc-why-item's bordered-grid look is
+   reused on many other pages that don't get this JS, and must stay
+   visible by default there. */
+#why-choose .pc-why-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#why-choose .pc-why-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#why-choose .pc-why-item:nth-child(1) { transition-delay: 0s; }
+#why-choose .pc-why-item:nth-child(2) { transition-delay: 0.08s; }
+#why-choose .pc-why-item:nth-child(3) { transition-delay: 0.16s; }
+#why-choose .pc-why-item:nth-child(4) { transition-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #why-choose .pc-why-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .pc-why-bg {
@@ -695,7 +653,7 @@
 
 /* ---------- Phone mockup (used in Simple Steps + Download App sections) ---------- */
 .pc-phone-frame {
-  width: 240px;
+  width: 260px;
   max-width: 100%;
   background: var(--pc-dark);
   border-radius: 2.25rem;
@@ -705,7 +663,7 @@
 
 .pc-phone-screen {
   position: relative;
-  min-height: 420px;
+  min-height: 360px;
   background: var(--pc-white);
   border-radius: 1.65rem;
   overflow: hidden;
@@ -795,6 +753,24 @@
 @media (max-width: 991.98px) {
   .pc-navbar {
     padding-block: 0.15rem;
+  }
+}
+
+/* ---------- Header: scroll-aware hide/reveal (global) ----------
+   Hides on scroll-down / reveals on scroll-up while still within the
+   first section, then docks permanently visible once scrolled past it
+   (see initHeaderScrollReveal in main.js). */
+.pc-header {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pc-header.pc-header-hidden {
+  transform: translateY(-120%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-header {
+    transition: none;
   }
 }
 
@@ -1064,12 +1040,6 @@
   padding: 0.45rem 1.1rem;
 }
 
-.pc-nav-call {
-  width: 36px;
-  height: 36px;
-  font-size: 0.85rem;
-}
-
 .pc-nav-cta-word {
   display: inline-block;
   transition: transform 0.25s ease;
@@ -1139,29 +1109,6 @@
   .pc-hero-text {
     padding-top: 1.25rem;
   }
-}
-
-.pc-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--pc-radius-pill);
-  padding: 0.45rem 1rem 0.45rem 0.75rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 1.75rem;
-}
-
-.pc-hero-badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--pc-orange-light);
-  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.22);
-  flex-shrink: 0;
 }
 
 .pc-hero-title {
@@ -1250,7 +1197,6 @@
   color: var(--pc-orange-light);
 }
 
-.pc-hero-badge,
 .pc-hero-title,
 .pc-hero-lead,
 .pc-hero-ctas,
@@ -1309,33 +1255,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pc-hero-badge,
   .pc-hero-title,
   .pc-hero-lead,
   .pc-hero-ctas,
   .pc-hero-download,
   .pc-hero-glow i {
     animation: none;
-  }
-}
-
-.pc-app-strip-card {
-  border: 1px solid rgba(28, 20, 16, 0.08);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.pc-app-strip-card i {
-  transition: transform 0.25s ease;
-}
-
-.pc-app-strip-card:hover i {
-  transform: translateX(4px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-app-strip-card,
-  .pc-app-strip-card i {
-    transition: none;
   }
 }
 
@@ -1660,29 +1585,7 @@ label.btn-outline-primary:focus,
   }
 }
 
-/* ---------- Corporate Services: photo hero + mission band ---------- */
-.pc-corp-hero {
-  padding-top: calc(var(--pc-navbar-h, 110px) + 3rem);
-  padding-bottom: clamp(6rem, 12vw, 9rem);
-}
-
-.pc-corp-hero-bg {
-  object-fit: cover;
-  z-index: 0;
-}
-
-.pc-corp-hero-scrim {
-  background: linear-gradient(100deg, rgba(10, 7, 5, 0.88) 0%, rgba(10, 7, 5, 0.65) 55%, rgba(10, 7, 5, 0.4) 100%);
-  z-index: 0;
-}
-
-.pc-corp-hero-title {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
+/* ---------- Corporate Services: mission band ---------- */
 .pc-corp-mission {
   padding-block: clamp(4rem, 8vw, 6rem);
 }

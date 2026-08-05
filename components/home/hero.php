@@ -1,10 +1,3 @@
-<?php
-/**
- * Home page: hero.
- * Expects $assetPath to already be set by the including page.
- */
-?>
-<!-- ============ Hero ============ -->
 <section class="pc-hero">
   <div class="pc-hero-canvas" aria-hidden="true">
     <svg class="pc-hero-road" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">

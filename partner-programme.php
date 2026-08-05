@@ -3,7 +3,7 @@ $pageTitle       = 'Partner Programme | PowerCabs';
 $pageDescription = 'Join the PowerCabs Partner Programme -- taxi operators, fleet owners and transport companies can grow their business on the PowerCabs network.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;
@@ -56,7 +56,7 @@ $heroTitleLight  = 'Partner';
 $heroTitleBold   = 'Programme.';
 $heroDescription = 'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
 $heroBgImage     = 'https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1600&q=60';
-require __DIR__ . '/components/inner-hero.php';
+require __DIR__ . '/components/shared/inner-hero.php';
 
 $partnerBenefits = ['Grow your business', 'Increased bookings', 'Dedicated support', 'Driver management', 'Fleet management', 'Marketing support', 'Technology platform', 'Weekly payments', 'Business growth'];
 $whoCanJoin = [
@@ -133,7 +133,7 @@ $joinProcess = [
     <div class="row g-3">
       <?php foreach ($joinProcess as $step): ?>
         <div class="col-6 col-lg-3">
-          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center" style="box-shadow: var(--pc-shadow-sm);">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <span class="pc-story-star-icon mx-auto mb-3"><?= $step['n'] ?></span>
             <h3 class="fs-6 fw-bold mb-0"><?= htmlspecialchars($step['title']) ?></h3>
           </div>
@@ -149,12 +149,6 @@ $joinProcess = [
     <div class="text-center mb-4">
       <h2 class="mb-0">Enquire About Partnering</h2>
     </div>
-
-    <?php if ($formStatus === 'success'): ?>
-      <div class="alert alert-success" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div>
-    <?php elseif ($formStatus === 'error'): ?>
-      <div class="alert alert-danger" role="alert"><?= htmlspecialchars($formError) ?></div>
-    <?php endif; ?>
 
     <form method="post" action="" class="row g-3">
       <div class="col-md-6">
@@ -186,13 +180,22 @@ $joinProcess = [
         <textarea class="form-control" id="ptMessage" name="message" rows="4"><?= htmlspecialchars($old['message']) ?></textarea>
       </div>
       <div class="col-12 pt-2">
-        <button type="submit" class="btn btn-pc-primary px-4">Submit</button>
+        <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+          <span>Submit</span>
+          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+        </button>
       </div>
+
+      <?php if ($formStatus === 'success'): ?>
+        <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div></div>
+      <?php elseif ($formStatus === 'error'): ?>
+        <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars($formError) ?></div></div>
+      <?php endif; ?>
     </form>
   </div>
 </section>
 
 <?php
-require __DIR__ . '/components/app-download-banner.php';
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

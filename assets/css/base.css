@@ -49,20 +49,44 @@ a {
   color: var(--pc-text-muted);
 }
 
+/* Red asterisk  */
+.pc-required::after {
+  content: " *";
+  color: #dc3545;
+}
+
 .btn-pc-primary {
-  background-color: var(--pc-orange-light);
-  border-color: var(--pc-orange-light);
+  position: relative;
+  background: var(--pc-orange-light);
+  border: 1px solid var(--pc-orange-light);
   color: var(--pc-white);
   border-radius: var(--pc-radius-pill);
-  font-weight: 600;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-pc-primary::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--pc-orange-light);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
 }
 
 .btn-pc-primary:hover,
+.btn-pc-primary:focus,
 .btn-pc-primary:focus-visible {
-  background-color: var(--pc-orange);
-  border-color: var(--pc-orange);
-  color: var(--pc-white);
+  background: var(--pc-orange-light) !important;
+  border-color: var(--pc-orange-light) !important;
+  color: var(--pc-white) !important;
+  box-shadow: none;
+}
+
+.btn-pc-primary:hover::after,
+.btn-pc-primary:focus-visible::after {
+  opacity: 100;
 }
 
 .btn-pc-dark {
@@ -91,4 +115,55 @@ select:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--pc-orange);
   outline-offset: 2px;
+}
+
+/* ============ Global page loader ============ */
+.pc-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(10, 8, 6, .55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .35s ease, visibility 0s linear 0s;
+}
+
+.pc-loader-overlay.pc-loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .35s ease, visibility 0s linear .35s;
+}
+
+.pc-loader-spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, .25);
+  border-top-color: var(--pc-orange-light);
+  animation: pc-loader-spin .7s linear infinite;
+}
+
+.pc-loader-text {
+  color: var(--pc-white);
+  font-weight: 500;
+  font-size: .9rem;
+  letter-spacing: .03em;
+}
+
+@keyframes pc-loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-loader-spinner {
+    animation-duration: 1.6s;
+  }
 }

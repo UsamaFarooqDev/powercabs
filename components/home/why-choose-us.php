@@ -1,16 +1,3 @@
-<?php
-/**
- * Home page: "Why Choose PowerCabs" feature grid.
- * Grid/spacing/typography use Bootstrap utility classes directly in the
- * markup; .pc-why-item in components.css only supplies the hover
- * border/glow and the section-specific vertical padding, which need real
- * CSS transitions/an ID-scoped override Bootstrap utilities can't give.
- * The background wireframe car + path lines reuse the same proven line
- * art as the hero, just very faded (5-8% opacity) since this is a light
- * section, not glowing on dark -- decoration only, aria-hidden.
- */
-?>
-<!-- ============ Why Choose PowerCabs ============ -->
 <section id="why-choose" class="section-pc bg-white position-relative overflow-hidden">
   <svg class="pc-why-bg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g fill="none" stroke-linecap="round">
