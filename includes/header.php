@@ -88,7 +88,9 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
 </head>
 <body data-page="<?= htmlspecialchars($currentPage) ?>">
 
-<header class="position-fixed top-0 start-0 w-100" style="z-index: 1030;">
+<?php require __DIR__ . '/../components/shared/page-loader.php'; ?>
+
+<header class="pc-header position-fixed top-0 start-0 w-100" style="z-index: 1030;">
   <div class="container px-2 px-lg-3 pt-2 pt-lg-2">
     <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
       <div class="container-fluid px-0">

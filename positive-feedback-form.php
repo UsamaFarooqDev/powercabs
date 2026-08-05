@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $old['rating']  = trim($_POST['rating'] ?? '');
     $old['message'] = trim($_POST['message'] ?? '');
 
-    if ($old['name'] === '' || $old['email'] === '' || $old['message'] === '') {
+    if ($old['name'] === '' || $old['email'] === '' || $old['rating'] === '') {
         $formStatus = 'error';
         $formError  = 'Please fill in all required fields.';
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               . "Email: {$old['email']}\n"
               . "Submitted as: " . ucfirst($old['role']) . "\n"
               . "Rating: " . ($old['rating'] !== '' ? $old['rating'] . ' / 5' : '-') . "\n\n"
-              . "Feedback:\n{$old['message']}\n";
+              . "Feedback:\n" . ($old['message'] !== '' ? $old['message'] : '-') . "\n";
 
         $result = pc_send_mail(
             'Positive feedback: ' . $old['name'],
@@ -101,7 +101,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
   <div class="container">
     <div class="row gy-5 align-items-center">
       <div class="col-lg-6">
-        <!-- <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Why It Matters</p> -->
         <h2 class="mb-3" style="font-size: clamp(1.5rem, 2.5vw, 2rem);">Great Service Deserves Recognition</h2>
         <p class="text-muted-pc mb-4">
           Whether it was a driver who went the extra mile or a smooth, stress-free
@@ -138,15 +137,15 @@ require __DIR__ . '/components/shared/inner-hero.php';
               </div>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="pfName">Full Name</label>
+              <label class="form-label pc-required" for="pfName">Full Name</label>
               <input type="text" class="form-control" id="pfName" name="name" value="<?= htmlspecialchars($old['name']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="pfEmail">Email Address</label>
+              <label class="form-label pc-required" for="pfEmail">Email Address</label>
               <input type="email" class="form-control" id="pfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
             </div>
             <div class="col-12">
-              <label class="form-label mb-3">Rate Your Experience</label>
+              <label class="form-label mb-3 pc-required">Rate Your Experience</label>
               <div class="d-flex flex-row-reverse justify-content-end align-items-center gap-2">
                 <?php for ($i = 5; $i >= 1; $i--): ?>
                   <input
@@ -155,6 +154,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
                     name="rating"
                     id="rating<?= $i ?>"
                     value="<?= $i ?>"
+                    required
                     <?= $old['rating'] === (string) $i ? 'checked' : '' ?>
                   >
                   <label
@@ -171,7 +171,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
             <div class="col-12">
               <label class="form-label" for="pfMessage">Your Message</label>
-              <textarea class="form-control" id="pfMessage" name="message" rows="5" required><?= htmlspecialchars($old['message']) ?></textarea>
+              <textarea class="form-control" id="pfMessage" name="message" rows="5"><?= htmlspecialchars($old['message']) ?></textarea>
             </div>
             <div class="col-12 pt-2">
               <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">

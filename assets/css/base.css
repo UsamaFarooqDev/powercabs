@@ -49,6 +49,13 @@ a {
   color: var(--pc-text-muted);
 }
 
+/* Red asterisk appended to a required field's label, e.g.
+   <label class="form-label pc-required" for="...">. */
+.pc-required::after {
+  content: " *";
+  color: #dc3545;
+}
+
 .btn-pc-primary {
   position: relative;
   background: var(--pc-orange-light);
@@ -109,4 +116,60 @@ select:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--pc-orange);
   outline-offset: 2px;
+}
+
+/* ============ Global page loader ============
+   Full-viewport glassy overlay, present in the raw HTML of every page
+   (see components/shared/page-loader.php) so it's visible from first
+   paint with no JS needed to show it. assets/js/components/page-loader.js
+   hides it once the page is ready and re-shows it on outgoing internal
+   navigation / form submits. */
+.pc-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(10, 8, 6, .55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .35s ease, visibility 0s linear 0s;
+}
+
+.pc-loader-overlay.pc-loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .35s ease, visibility 0s linear .35s;
+}
+
+.pc-loader-spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, .25);
+  border-top-color: var(--pc-orange-light);
+  animation: pc-loader-spin .7s linear infinite;
+}
+
+.pc-loader-text {
+  color: var(--pc-white);
+  font-weight: 500;
+  font-size: .9rem;
+  letter-spacing: .03em;
+}
+
+@keyframes pc-loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-loader-spinner {
+    animation-duration: 1.6s;
+  }
 }

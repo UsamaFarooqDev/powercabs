@@ -19,27 +19,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $old[$key] = trim($_POST[$key] ?? '');
     }
 
-    if ($old['name'] === '' || $old['email'] === '' || $old['phone'] === '' || $old['item_description'] === '') {
+    if ($old['name'] === '' || $old['email'] === '' || $old['phone'] === '' || $old['taxi_number'] === '' || $old['pickup_location'] === '' || $old['destination_location'] === '' || $old['journey_datetime'] === '' || $old['item_description'] === '') {
         $formStatus = 'error';
         $formError  = 'Please fill in all required fields.';
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif (empty($_FILES['receipt']['tmp_name']) || $_FILES['receipt']['error'] !== UPLOAD_ERR_OK) {
+        $formStatus = 'error';
+        $formError  = 'Please upload a receipt or booking confirmation.';
     } else {
         $attachments = [];
-        if (!empty($_FILES['receipt']['tmp_name']) && $_FILES['receipt']['error'] === UPLOAD_ERR_OK) {
-            $allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-            $mime = mime_content_type($_FILES['receipt']['tmp_name']);
-            if (in_array($mime, $allowedMime, true) && $_FILES['receipt']['size'] <= 5 * 1024 * 1024) {
-                $attachments[] = [
-                    'tmp_path' => $_FILES['receipt']['tmp_name'],
-                    'filename' => basename($_FILES['receipt']['name']),
-                    'mime'     => $mime,
-                ];
-            } else {
-                $formStatus = 'error';
-                $formError  = 'Receipt upload must be a JPG, PNG, WEBP or PDF under 5MB.';
-            }
+        $allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+        $mime = mime_content_type($_FILES['receipt']['tmp_name']);
+        if (!in_array($mime, $allowedMime, true) || $_FILES['receipt']['size'] > 5 * 1024 * 1024) {
+            $formStatus = 'error';
+            $formError  = 'Receipt upload must be a JPG, PNG, WEBP or PDF under 5MB.';
+        } else {
+            $attachments[] = [
+                'tmp_path' => $_FILES['receipt']['tmp_name'],
+                'filename' => basename($_FILES['receipt']['name']),
+                'mime'     => $mime,
+            ];
         }
 
         if ($formStatus !== 'error') {
@@ -117,39 +118,39 @@ require __DIR__ . '/components/shared/inner-hero.php';
         <div class="bg-white rounded-5 p-3 p-md-5" style="box-shadow: var(--pc-shadow-md);">
           <form method="post" action="" enctype="multipart/form-data" class="row g-3">
             <div class="col-md-6">
-              <label class="form-label" for="liName">Full Name</label>
+              <label class="form-label pc-required" for="liName">Full Name</label>
               <input type="text" class="form-control" id="liName" name="name" value="<?= htmlspecialchars($old['name']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liEmail">Email Address</label>
+              <label class="form-label pc-required" for="liEmail">Email Address</label>
               <input type="email" class="form-control" id="liEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liPhone">Phone Number</label>
+              <label class="form-label pc-required" for="liPhone">Phone Number</label>
               <input type="tel" class="form-control" id="liPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liTaxiNumber">Taxi Number</label>
-              <input type="text" class="form-control" id="liTaxiNumber" name="taxi_number" value="<?= htmlspecialchars($old['taxi_number']) ?>">
+              <label class="form-label pc-required" for="liTaxiNumber">Taxi Number</label>
+              <input type="text" class="form-control" id="liTaxiNumber" name="taxi_number" value="<?= htmlspecialchars($old['taxi_number']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liPickup">Pickup Location</label>
-              <input type="text" class="form-control" id="liPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>">
+              <label class="form-label pc-required" for="liPickup">Pickup Location</label>
+              <input type="text" class="form-control" id="liPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liDropoff">Destination Location</label>
-              <input type="text" class="form-control" id="liDropoff" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>">
+              <label class="form-label pc-required" for="liDropoff">Destination Location</label>
+              <input type="text" class="form-control" id="liDropoff" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liDate">Date / Time</label>
-              <input type="datetime-local" class="form-control" id="liDate" name="journey_datetime" value="<?= htmlspecialchars($old['journey_datetime']) ?>">
+              <label class="form-label pc-required" for="liDate">Date / Time</label>
+              <input type="datetime-local" class="form-control" id="liDate" name="journey_datetime" value="<?= htmlspecialchars($old['journey_datetime']) ?>" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label" for="liReceipt">Upload Receipt <span class="text-muted-pc fw-normal">(optional, JPG/PNG/PDF)</span></label>
-              <input type="file" class="form-control" id="liReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf">
+              <label class="form-label pc-required" for="liReceipt">Upload Receipt <span class="text-muted-pc fw-normal">(JPG/PNG/PDF)</span></label>
+              <input type="file" class="form-control" id="liReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf" required>
             </div>
             <div class="col-12">
-              <label class="form-label" for="liItem">Item Lost Details</label>
+              <label class="form-label pc-required" for="liItem">Item Lost Details</label>
               <textarea class="form-control" id="liItem" name="item_description" rows="4" required><?= htmlspecialchars($old['item_description']) ?></textarea>
             </div>
             <div class="col-12 pt-2">

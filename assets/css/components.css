@@ -431,6 +431,36 @@
   padding-block: clamp(5rem, 9vw, 8rem);
 }
 
+/* Scroll-reveal on the 4 feature cards (initWhyChooseReveal in main.js
+   toggles .is-visible via IntersectionObserver both ways, so scrolling
+   back up past the section replays the same reveal on re-entry).
+   Scoped to #why-choose only -- .pc-why-item's bordered-grid look is
+   reused on many other pages that don't get this JS, and must stay
+   visible by default there. */
+#why-choose .pc-why-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#why-choose .pc-why-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#why-choose .pc-why-item:nth-child(1) { transition-delay: 0s; }
+#why-choose .pc-why-item:nth-child(2) { transition-delay: 0.08s; }
+#why-choose .pc-why-item:nth-child(3) { transition-delay: 0.16s; }
+#why-choose .pc-why-item:nth-child(4) { transition-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #why-choose .pc-why-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .pc-why-bg {
   position: absolute;
   inset: 0;
@@ -723,6 +753,24 @@
 @media (max-width: 991.98px) {
   .pc-navbar {
     padding-block: 0.15rem;
+  }
+}
+
+/* ---------- Header: scroll-aware hide/reveal (global) ----------
+   Hides on scroll-down / reveals on scroll-up while still within the
+   first section, then docks permanently visible once scrolled past it
+   (see initHeaderScrollReveal in main.js). */
+.pc-header {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pc-header.pc-header-hidden {
+  transform: translateY(-120%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-header {
+    transition: none;
   }
 }
 

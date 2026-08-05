@@ -15,24 +15,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $old[$key] = trim($_POST[$key] ?? '');
     }
 
-    if ($old['first_name'] === '' || $old['last_name'] === '' || $old['email'] === '' || $old['subject'] === '' || $old['message'] === '') {
+    if ($old['email'] === '' || $old['message'] === '') {
         $formStatus = 'error';
         $formError  = 'Please fill in all required fields.';
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
     } else {
+        $fullName = trim($old['first_name'] . ' ' . $old['last_name']);
+
         $body = "New contact form submission from the PowerCabs website.\n\n"
-              . "Name: {$old['first_name']} {$old['last_name']}\n"
+              . "Name: " . ($fullName !== '' ? $fullName : '-') . "\n"
               . "Email: {$old['email']}\n"
               . "Phone: " . ($old['phone'] !== '' ? $old['phone'] : '-') . "\n"
-              . "Subject: {$old['subject']}\n\n"
+              . "Subject: " . ($old['subject'] !== '' ? $old['subject'] : '-') . "\n\n"
               . "Message:\n{$old['message']}\n";
 
         $result = pc_send_mail(
-            'Contact form: ' . $old['subject'],
+            'Contact form: ' . ($old['subject'] !== '' ? $old['subject'] : 'General enquiry'),
             $body,
-            ['name' => $old['first_name'] . ' ' . $old['last_name'], 'email' => $old['email']]
+            ['name' => $fullName !== '' ? $fullName : $old['email'], 'email' => $old['email']]
         );
 
         if ($result['success']) {

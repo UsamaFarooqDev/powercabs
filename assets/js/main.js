@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   syncNavbarHeightVar();
   syncFooterHeightVar();
   initHeroParallax();
+  initHeaderScrollReveal();
+  initWhyChooseReveal();
 });
 
 window.addEventListener("resize", syncNavbarHeightVar);
@@ -128,4 +130,78 @@ function initHeroParallax() {
     },
     { passive: true }
   );
+}
+
+/**
+ * Global header scroll behavior (every page, via .pc-header in
+ * header.php): hides on scroll-down / reveals on scroll-up while still
+ * within the first section, then docks permanently visible once the
+ * user has scrolled past roughly one viewport height -- same "corporate
+ * site" nav pattern reversed on the way back up, since dropping back
+ * below the dock threshold while scrolling up simply re-shows it (moving
+ * up never hides), and only hides again once scrolling down inside that
+ * near-top zone.
+ */
+function initHeaderScrollReveal() {
+  const header = document.querySelector("header.pc-header");
+  if (!header) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const TOP_OFFSET = 80;
+  const isMenuOpen = () =>
+    header.querySelector(".pc-mega-menu.show") || document.getElementById("mainNav")?.classList.contains("show");
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function update() {
+    const currentY = window.scrollY;
+    const dockThreshold = window.innerHeight;
+    const scrollingDown = currentY > lastScrollY;
+
+    if (isMenuOpen() || currentY < TOP_OFFSET || currentY >= dockThreshold) {
+      header.classList.remove("pc-header-hidden");
+    } else if (scrollingDown) {
+      header.classList.add("pc-header-hidden");
+    } else {
+      header.classList.remove("pc-header-hidden");
+    }
+
+    lastScrollY = currentY;
+    ticking = false;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true }
+  );
+}
+
+/**
+ * Home page "Why Choose PowerCabs" cards: reveals each card as it enters
+ * the viewport and un-reveals it when it leaves, so scrolling back up
+ * past the section replays the same animation on re-entry rather than
+ * only ever firing once.
+ */
+function initWhyChooseReveal() {
+  const items = document.querySelectorAll("#why-choose .pc-why-item");
+  if (!items.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  items.forEach((item) => observer.observe(item));
 }

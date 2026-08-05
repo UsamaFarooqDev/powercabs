@@ -19,6 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalEl = document.getElementById('tourModal');
   if (!modalEl) return;
 
+  // Move the modal out from inside <main> to be a direct child of <body>,
+  // matching where Bootstrap itself appends .modal-backdrop. <main> gets
+  // position:relative + z-index:1 for the site-wide fixed-footer "reveal"
+  // effect (see base.css / main.js), which creates its own stacking
+  // context -- anything left nested inside it, even position:fixed
+  // content like this modal, gets capped at that context's z-index and
+  // ends up rendered *underneath* the backdrop (which lives outside it,
+  // at the real z-index:1050), making the modal look open but swallow no
+  // clicks. Moving it to <body> sidesteps that entirely.
+  document.body.appendChild(modalEl);
+
   const nameEl = document.getElementById('tourModalName');
   const descEl = document.getElementById('tourModalDesc');
   const durationEl = document.getElementById('tourModalDuration');

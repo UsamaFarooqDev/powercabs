@@ -44,14 +44,14 @@
           <form method="post" action="" class="row g-2">
             <div class="col-md-6">
               <label class="form-label mb-1" for="cuFirstName">First Name</label>
-              <input type="text" class="form-control" id="cuFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>" required>
+              <input type="text" class="form-control" id="cuFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>">
             </div>
             <div class="col-md-6">
               <label class="form-label mb-1" for="cuLastName">Last Name</label>
-              <input type="text" class="form-control" id="cuLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>" required>
+              <input type="text" class="form-control" id="cuLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>">
             </div>
             <div class="col-md-6">
-              <label class="form-label mb-1" for="cuEmail">Email Address</label>
+              <label class="form-label mb-1 pc-required" for="cuEmail">Email Address</label>
               <input type="email" class="form-control" id="cuEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
             </div>
             <div class="col-md-6">
@@ -60,10 +60,10 @@
             </div>
             <div class="col-12">
               <label class="form-label mb-1" for="cuSubject">Subject</label>
-              <input type="text" class="form-control" id="cuSubject" name="subject" value="<?= htmlspecialchars($old['subject']) ?>" required>
+              <input type="text" class="form-control" id="cuSubject" name="subject" value="<?= htmlspecialchars($old['subject']) ?>">
             </div>
             <div class="col-12">
-              <label class="form-label mb-1" for="cuMessage">Message</label>
+              <label class="form-label mb-1 pc-required" for="cuMessage">Message</label>
               <textarea class="form-control" id="cuMessage" name="message" rows="3" required><?= htmlspecialchars($old['message']) ?></textarea>
             </div>
             <div class="col-12 pt-1">

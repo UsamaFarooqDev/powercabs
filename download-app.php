@@ -24,5 +24,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php require __DIR__ . '/components/download/app-cards.php'; ?>
 
 <?php
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

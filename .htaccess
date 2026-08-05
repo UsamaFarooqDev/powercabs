@@ -1,0 +1,4 @@
+# Custom 404 page for any mistyped/missing URL. Requires Apache (or an
+# Apache-compatible host) -- ErrorDocument is a core directive supported
+# on virtually every standard PHP/shared host, no mod_rewrite needed.
+ErrorDocument 404 /404.php
