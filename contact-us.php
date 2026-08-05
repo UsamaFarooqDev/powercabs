@@ -3,7 +3,7 @@ $pageTitle       = 'Contact Us | PowerCabs';
 $pageDescription = 'Get in touch with the PowerCabs team -- general enquiries, support and business questions, answered fast.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null; // 'success' | 'error' | null

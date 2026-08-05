@@ -3,9 +3,8 @@ $pageTitle       = 'Book Ride Online | PowerCabs';
 $pageDescription = 'Book your next PowerCabs ride online in a few simple steps -- no extra charge for pre-booking, no cancellation fee.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
-require __DIR__ . '/includes/maps-config.php';
 
 $rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pets Taxi', 'Courier / Parcel', 'Business', 'Business XL'];
 

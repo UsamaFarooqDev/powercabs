@@ -3,7 +3,7 @@ $pageTitle       = 'Ambassador Programme | PowerCabs';
 $pageDescription = 'Join the PowerCabs Ambassador Programme -- free card terminals, exclusive vehicle branding, fuel discounts, extra loyalty points and dedicated support.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;

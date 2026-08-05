@@ -1,3 +1,8 @@
+<?php
+$old ??= ['name' => '', 'email' => '', 'business_name' => '', 'employee_count' => '', 'mobile' => '', 'address' => ''];
+$formStatus ??= null;
+$formError ??= '';
+?>
 <section class="section-pc" id="corporate-account-form" style="scroll-margin-top: 6rem;">
   <div class="container">
     <div class="row gy-5 align-items-center">

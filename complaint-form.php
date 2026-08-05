@@ -3,7 +3,7 @@ $pageTitle       = 'Complaint Form | PowerCabs';
 $pageDescription = 'Let us know if something went wrong on a recent PowerCabs journey -- we take every complaint seriously and follow up quickly.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $criminalCategories = [

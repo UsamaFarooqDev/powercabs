@@ -3,7 +3,7 @@ $pageTitle       = 'Lost an Item Report | PowerCabs';
 $pageDescription = 'Left something behind in a PowerCabs vehicle? Report it here with your journey details and we\'ll help track it down.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;

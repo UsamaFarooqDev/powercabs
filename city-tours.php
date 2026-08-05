@@ -3,7 +3,7 @@ $pageTitle       = 'City Tours | PowerCabs';
 $pageDescription = "Explore Ireland's most iconic destinations with PowerCabs -- private transportation with professional local drivers to Dublin, the Cliffs of Moher, Giant's Causeway and more.";
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;

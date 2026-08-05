@@ -3,7 +3,7 @@ $pageTitle       = 'PowerCabs Business Solutions | PowerCabs';
 $pageDescription = 'Business transportation solutions for companies seeking reliable, professional, and efficient travel services for employees and clients.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;

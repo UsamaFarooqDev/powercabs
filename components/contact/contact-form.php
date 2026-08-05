@@ -1,3 +1,8 @@
+<?php
+$old ??= ['first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'subject' => '', 'message' => ''];
+$formStatus ??= null;
+$formError ??= '';
+?>
 <section class="section-pc">
   <div class="container">
     <div class="row gy-5 align-items-center">

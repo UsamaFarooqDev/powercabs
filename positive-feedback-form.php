@@ -3,7 +3,7 @@ $pageTitle       = 'Positive Feedback Form | PowerCabs';
 $pageDescription = 'Had a great ride with PowerCabs? Tell us about it -- your feedback helps us recognise excellent drivers and service.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;

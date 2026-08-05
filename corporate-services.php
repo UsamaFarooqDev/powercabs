@@ -3,7 +3,7 @@ $pageTitle       = 'Corporate Services | PowerCabs';
 $pageDescription = 'Reliable, flexible, safe corporate transportation from PowerCabs -- business travel, event transportation and ongoing corporate accounts, available 24/7.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;

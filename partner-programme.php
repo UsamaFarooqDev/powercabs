@@ -3,7 +3,7 @@ $pageTitle       = 'Partner Programme | PowerCabs';
 $pageDescription = 'Join the PowerCabs Partner Programme -- taxi operators, fleet owners and transport companies can grow their business on the PowerCabs network.';
 $assetPath       = '';
 
-require __DIR__ . '/includes/mail-config.php';
+require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 $formStatus = null;
