@@ -3,3 +3,6 @@
 .env
 .env.*
 !.env.example
+
+# Dev tooling only (Prettier + PHP plugin) -- no build step for the site itself.
+node_modules/

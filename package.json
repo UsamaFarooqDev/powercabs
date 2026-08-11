@@ -1,0 +1,9 @@
+{
+  "name": "pw-website",
+  "private": true,
+  "description": "PowerCabs website -- dev tooling only (Prettier + PHP plugin). No build step; the site is plain PHP served directly.",
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "@prettier/plugin-php": "^0.25.0"
+  }
+}

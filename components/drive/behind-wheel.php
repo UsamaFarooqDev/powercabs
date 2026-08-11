@@ -3,9 +3,9 @@
     <div class="row align-items-center gy-5">
       <div class="col-lg-6">
         <?php
-          $mockupImage = 'DRIVER-RIDES.jpeg';
-          $mockupAlt   = 'PowerCabs Driver App screen';
-          require __DIR__ . '/../shared/app-mockup.php';
+        $mockupImage = 'driver-ride.jpeg';
+        $mockupAlt = 'PowerCabs Driver App screen';
+        require __DIR__ . '/../shared/app-mockup.php';
         ?>
       </div>
 
@@ -34,14 +34,17 @@
 
 
         <div class="d-flex flex-wrap gap-2 mt-4 mb-4">
-          <a class="pc-store-badge pc-store-badge-lg" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.driver&pcampaignid=web_share" target="_blank" rel="noopener">
+          <a class="pc-store-badge pc-store-badge-lg"
+            href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.driver&pcampaignid=web_share"
+            target="_blank" rel="noopener">
             <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="22" height="22" aria-hidden="true">
             <span class="d-flex flex-column text-start">
               <span class="pc-store-badge-eyebrow">Get it on</span>
               <span class="pc-store-badge-title">Google Play</span>
             </span>
           </a>
-          <a class="pc-store-badge pc-store-badge-lg" href="https://apps.apple.com/us/app/powercabs-driver/id6648774168" target="_blank" rel="noopener">
+          <a class="pc-store-badge pc-store-badge-lg" href="https://apps.apple.com/us/app/powercabs-driver/id6648774168"
+            target="_blank" rel="noopener">
             <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
             <span class="d-flex flex-column text-start">
               <span class="pc-store-badge-eyebrow">Download on the</span>

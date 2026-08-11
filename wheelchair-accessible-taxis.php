@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Wheelchair Accessible Taxis | PowerCabs';
-$pageDescription = 'Safe, comfortable, fully accessible taxi services from PowerCabs -- trained drivers, secure wheelchair vehicles, and 24/7 availability across Ireland.';
+$pageDescription =
+  'Safe, comfortable, fully accessible taxi services from PowerCabs -- trained drivers, secure wheelchair vehicles, and 24/7 availability across Ireland.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -8,16 +9,37 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = '/ Accessibility';
 $heroTitleLight = 'Wheelchair';
 $heroTitleBold = 'Accessible Taxis.';
-$heroDescription = 'PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers with mobility needs. The service focuses on reliability, trained drivers, and vehicles equipped to safely transport wheelchair users.';
+$heroDescription =
+  'PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers with mobility needs. The service focuses on reliability, trained drivers, and vehicles equipped to safely transport wheelchair users.';
 $heroBgImage = 'https://images.pexels.com/photos/35831412/pexels-photo-35831412.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $whyChoose = [
-  ['icon' => 'bi-shield-fill-check', 'title' => 'Safety First', 'desc' => 'Every accessible vehicle and driver meets strict safety standards.'],
-  ['icon' => 'bi-clock-history', 'title' => 'Reliable Service', 'desc' => 'Punctual pickups you can plan appointments and travel around.'],
-  ['icon' => 'bi-phone-fill', 'title' => 'Easy Booking', 'desc' => 'Book in seconds through the app, website, or a quick phone call.'],
-  ['icon' => 'bi-hand-thumbs-up-fill', 'title' => 'Friendly Assistance', 'desc' => 'Drivers trained to help confidently and respectfully, every trip.'],
-  ['icon' => 'bi-people-fill', 'title' => 'Accessible for Everyone', 'desc' => 'Inclusive transportation, wherever and whenever you need it.'],
+  [
+    'icon' => 'bi-shield-fill-check',
+    'title' => 'Safety First',
+    'desc' => 'Every accessible vehicle and driver meets strict safety standards.',
+  ],
+  [
+    'icon' => 'bi-clock-history',
+    'title' => 'Reliable Service',
+    'desc' => 'Punctual pickups you can plan appointments and travel around.',
+  ],
+  [
+    'icon' => 'bi-phone-fill',
+    'title' => 'Easy Booking',
+    'desc' => 'Book in seconds through the app, website, or a quick phone call.',
+  ],
+  [
+    'icon' => 'bi-hand-thumbs-up-fill',
+    'title' => 'Friendly Assistance',
+    'desc' => 'Drivers trained to help confidently and respectfully, every trip.',
+  ],
+  [
+    'icon' => 'bi-people-fill',
+    'title' => 'Accessible for Everyone',
+    'desc' => 'Inclusive transportation, wherever and whenever you need it.',
+  ],
 ];
 ?>
 
@@ -35,7 +57,8 @@ $whyChoose = [
   </div>
 </section>
 
-<section class="section-pc position-relative overflow-hidden" style="background: var(--pc-cream);">
+<section class="section-pc position-relative overflow-hidden"
+  style="background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream) 15%, var(--pc-cream) 85%, #ffffff 100%);">
   <div class="position-absolute rounded-circle" aria-hidden="true" style="
       width: 24rem;
       height: 24rem;
@@ -51,106 +74,42 @@ $whyChoose = [
   <div class="container position-relative">
 
     <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6 p-2 p-lg-5">
 
-      <div class="col-lg-7">
-        <div class="position-relative" style="padding: 12px 12px 12px 0;">
+        <div class="position-relative mx-auto">
+
+          <!-- Decorative orange shape -->
           <div class="position-absolute rounded-5" aria-hidden="true" style="
-              inset: 35px 0 0 35px;
+              width: 150px;
+              height: 150px;
+              right: -20px;
+              bottom: -20px;
               background: var(--pc-orange);
               opacity: .12;
-              filter: blur(18px);
+              filter: blur(2px);
             "></div>
 
+          <!-- Image -->
           <div class="position-relative overflow-hidden rounded-5" style="
-              min-height: 460px;
-              box-shadow: 0 24px 60px rgba(25, 30, 40, .16);
-              background: #eee;
+              min-height: 420px;
+              box-shadow: var(--pc-shadow-lg);
             ">
+
             <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.png"
-              alt="A wheelchair user boarding a PowerCabs accessible vehicle via a lift, assisted by a driver"
-              class="w-100 h-100" loading="lazy" style="
-                position: absolute;
-                inset: 0;
-                object-fit: cover;
-                object-position: center;
-              "></img>
-
-            <div class="position-absolute bottom-0 start-0 w-100" aria-hidden="true" style="
-                height: 45%;
-                background: linear-gradient(
-                  to top,
-                  rgba(0,0,0,.45),
-                  transparent
-                );
-              "></div>
-
-            <div class="position-absolute bottom-0 start-0 m-3 m-md-4" style="
-                padding: 12px 16px;
-                border-radius: 16px;
-                background: rgba(255,255,255,.88);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                box-shadow: 0 8px 25px rgba(0,0,0,.12);
-              ">
-
-              <div class="d-flex align-items-center gap-2">
-
-                <span class="d-flex align-items-center justify-content-center rounded-circle" style="
-                    width: 36px;
-                    height: 36px;
-                    background: rgba(232,89,12,.10);
-                    color: var(--pc-orange);
-                  ">
-                  <i class="bi bi-universal-access fs-5"></i>
-                </span>
-
-                <div>
-                  <span class="d-block fw-bold small">
-                    Accessible Travel
-                  </span>
-
-                  <span class="d-block text-muted-pc" style="font-size: 11px;">
-                    Designed for comfortable journeys
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
+              alt="PowerCabs Meet and Greet airport transfer" class="w-100 h-100" loading="lazy" style="
+                            position: absolute;
+                            inset: 0;
+                            object-fit: cover;
+                            object-position: center;
+                          ">
 
           </div>
 
         </div>
-
       </div>
-
-
       <!-- ================= CONTENT ================= -->
-      <div class="col-lg-5">
-
+      <div class="col-lg-6 p-2 p-lg-5">
         <div class="ps-lg-3">
-
-          <!-- Eyebrow -->
-          <div class="d-inline-flex align-items-center gap-2 mb-3" style="
-              color: var(--pc-orange);
-              font-size: 12px;
-              font-weight: 700;
-              letter-spacing: .08em;
-              text-transform: uppercase;
-            ">
-            <span style="
-                display: inline-block;
-                width: 24px;
-                height: 2px;
-                border-radius: 5px;
-                background: var(--pc-orange);
-              "></span>
-
-            Key Features
-          </div>
-
-
-          <!-- Heading -->
           <h2 class="fw-bold mb-3" style="
               font-size: clamp(32px, 4vw, 48px);
               line-height: 1.08;
@@ -162,8 +121,6 @@ $whyChoose = [
             </span>
           </h2>
 
-
-          <!-- Description -->
           <p class="text-muted-pc mb-4" style="
               font-size: 16px;
               line-height: 1.75;
@@ -227,7 +184,7 @@ $whyChoose = [
           </div>
 
           <div class="d-flex flex-wrap align-items-center gap-3">
-            <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/book-ride-online.php">Book an Accessible
+            <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online.php">Book an Accessible
               Ride</a>
           </div>
         </div>
@@ -273,4 +230,6 @@ $whyChoose = [
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

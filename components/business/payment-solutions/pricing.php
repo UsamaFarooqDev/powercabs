@@ -1,4 +1,4 @@
-<section class="section-pc" style="background: var(--pc-cream);">
+<section class="section-pc" style="background: linear-gradient(180deg, var(--pc-cream) 0%, var(--pc-cream) 85%, #ffffff 100%);">
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="mb-3">Ready to Take Your Card Machine Journey to the Next Level?</h2>

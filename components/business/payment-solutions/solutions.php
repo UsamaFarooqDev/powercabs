@@ -1,4 +1,4 @@
-<section class="section-pc" style="background: var(--pc-cream);">
+<section class="section-pc" style="background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream) 15%, var(--pc-cream) 100%);">
   <div class="container">
     <div class="text-center mb-5">
       <!-- <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Solutions</p> -->

@@ -3,14 +3,16 @@
 function pc_route_pattern_svg()
 {
   ?>
-  <svg class="position-absolute top-50 start-50 translate-middle pe-none" width="340" height="340" viewBox="0 0 320 320" fill="none" aria-hidden="true" style="max-width: 150%; opacity: .4;">
+  <svg class="position-absolute top-50 start-50 translate-middle pe-none" width="340" height="340" viewBox="0 0 320 320"
+    fill="none" aria-hidden="true" style="max-width: 150%; opacity: .4;">
     <g stroke="rgba(28, 20, 16, .07)" stroke-width="4">
       <path d="M0,110 L320,90"></path>
       <path d="M0,250 L320,270"></path>
       <path d="M90,0 L110,320"></path>
       <path d="M230,0 L210,320"></path>
     </g>
-    <path d="M40,270 L60,190 L150,180 L165,110 L260,90 L250,30" fill="none" stroke="var(--pc-orange)" stroke-opacity=".25" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"></path>
+    <path d="M40,270 L60,190 L150,180 L165,110 L260,90 L250,30" fill="none" stroke="var(--pc-orange)" stroke-opacity=".25"
+      stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"></path>
     <circle cx="40" cy="270" r="8" fill="#fff" stroke="var(--pc-orange)" stroke-opacity=".35" stroke-width="4"></circle>
     <circle cx="250" cy="30" r="8" fill="#fff" stroke="var(--pc-dark)" stroke-opacity=".25" stroke-width="4"></circle>
   </svg>
@@ -19,39 +21,39 @@ function pc_route_pattern_svg()
 
 $rideSteps = [
   [
-    'n'     => '01',
+    'n' => '01',
     'title' => 'Enter Your Ride Details',
-    'desc'  => 'Provide your pickup and drop-off locations to get started.',
-    'img'   => 'enter-your-details.jpeg',
-    'alt'   => 'PowerCabs app screen for entering pickup and drop-off details',
+    'desc' => 'Provide your pickup and drop-off locations to get started.',
+    'img' => 'ride-details.jpeg',
+    'alt' => 'PowerCabs app screen for entering pickup and drop-off details',
   ],
   [
-    'n'     => '02',
+    'n' => '02',
     'title' => 'Select Ride Type',
-    'desc'  => 'Choose a range of vehicles to suit your needs and budget.',
-    'img'   => 'selec-ride-type.jpeg',
-    'alt'   => 'PowerCabs app screen for selecting a ride type',
+    'desc' => 'Choose a range of vehicles to suit your needs and budget.',
+    'img' => 'ride-type.jpeg',
+    'alt' => 'PowerCabs app screen for selecting a ride type',
   ],
   [
-    'n'     => '03',
+    'n' => '03',
     'title' => 'Find Your Driver',
-    'desc'  => 'We match you with the closest available driver near you.',
-    'img'   => 'findng-driver.jpeg',
-    'alt'   => 'PowerCabs app screen finding a nearby driver',
+    'desc' => 'We match you with the closest available driver near you.',
+    'img' => 'finding-driver.jpeg',
+    'alt' => 'PowerCabs app screen finding a nearby driver',
   ],
   [
-    'n'     => '04',
+    'n' => '04',
     'title' => 'Confirm Booking',
-    'desc'  => 'Review & confirm your booking in a couple of taps.',
-    'img'   => 'confirm-booking.jpeg',
-    'alt'   => 'PowerCabs app screen confirming a ride booking',
+    'desc' => 'Review & confirm your booking in a couple of taps.',
+    'img' => 'booking-confirm.jpeg',
+    'alt' => 'PowerCabs app screen confirming a ride booking',
   ],
   [
-    'n'     => '05',
+    'n' => '05',
     'title' => 'Track Your Ride',
-    'desc'  => 'Follow your driver in real time, from pickup to drop-off.',
-    'img'   => 'track-ride.jpeg',
-    'alt'   => 'PowerCabs app screen tracking a ride in progress',
+    'desc' => 'Follow your driver in real time, from pickup to drop-off.',
+    'img' => 'track-ride.jpeg',
+    'alt' => 'PowerCabs app screen tracking a ride in progress',
   ],
 ];
 ?>
@@ -114,6 +116,7 @@ $rideSteps = [
   }
 
   @media (prefers-reduced-motion: reduce) {
+
     .pc-book-step-tab,
     .pc-book-step-title,
     .pc-book-step-check,
@@ -139,15 +142,13 @@ $rideSteps = [
       <div class="col-lg-5">
         <div class="d-flex flex-column gap-3" role="tablist" aria-label="Book Your Ride steps">
           <?php foreach ($rideSteps as $i => $step): ?>
-            <button
-              type="button"
+            <button type="button"
               class="pc-book-step-tab d-flex align-items-center gap-3 text-start rounded-4 p-3<?= $i === 0 ? ' is-active' : '' ?>"
               data-image="<?= $assetPath ?>assets/img/<?= htmlspecialchars($step['img']) ?>"
-              data-alt="<?= htmlspecialchars($step['alt']) ?>"
-              role="tab"
-              aria-selected="<?= $i === 0 ? 'true' : 'false' ?>"
-            >
-              <span class="pc-book-step-num flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle fw-medium"><?= htmlspecialchars($step['n']) ?></span>
+              data-alt="<?= htmlspecialchars($step['alt']) ?>" role="tab"
+              aria-selected="<?= $i === 0 ? 'true' : 'false' ?>">
+              <span
+                class="pc-book-step-num flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle fw-medium"><?= htmlspecialchars($step['n']) ?></span>
               <span class="flex-grow-1">
                 <span class="pc-book-step-title d-block fw-bold"><?= htmlspecialchars($step['title']) ?></span>
                 <span class="pc-book-step-desc d-block text-muted-pc"><?= htmlspecialchars($step['desc']) ?></span>
@@ -163,12 +164,12 @@ $rideSteps = [
           <?php pc_route_pattern_svg(); ?>
           <div class="position-relative z-1">
             <?php
-              $mockupImage = $rideSteps[0]['img'];
-              $mockupAlt   = $rideSteps[0]['alt'];
-              $mockupNotch = true;
-              $mockupFloat = true;
-              $mockupImgId = 'pcBookStepScreen';
-              require __DIR__ . '/../shared/app-mockup.php';
+            $mockupImage = $rideSteps[0]['img'];
+            $mockupAlt = $rideSteps[0]['alt'];
+            $mockupNotch = true;
+            $mockupFloat = true;
+            $mockupImgId = 'pcBookStepScreen';
+            require __DIR__ . '/../shared/app-mockup.php';
             ?>
           </div>
         </div>

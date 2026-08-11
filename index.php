@@ -1,7 +1,7 @@
 <?php
-$pageTitle       = 'PowerCabs | Reliable Cab Booking Service in Ireland';
+$pageTitle = 'PowerCabs | Reliable Cab Booking Service in Ireland';
 $pageDescription = 'Book a reliable, affordable cab in Ireland with PowerCabs. Airport transfers, city rides, business travel and driver opportunities, available 24/7.';
-$assetPath       = '';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
