@@ -346,12 +346,7 @@
   }
 }
 
-/* Standalone variant (components/app-download-banner.php): used as a
-   plain footer CTA strip on every inner page, right before whatever
-   section happens to precede it -- unlike the home page's hero-transition
-   banner, it can't rely on a negative margin-top to overlap into a
-   specific dark section above, so it sits in normal flow with its own
-   top gap and a little extra inside padding instead. */
+/* Standalone variant (components/app-download-banner.php) */
 .pc-app-promo.pc-app-promo-standalone {
   margin-top: clamp(2rem, 5vw, 3.5rem);
   padding-block: 140px;
@@ -431,12 +426,6 @@
   padding-block: clamp(5rem, 9vw, 8rem);
 }
 
-/* Scroll-reveal on the 4 feature cards (initWhyChooseReveal in main.js
-   toggles .is-visible via IntersectionObserver both ways, so scrolling
-   back up past the section replays the same reveal on re-entry).
-   Scoped to #why-choose only -- .pc-why-item's bordered-grid look is
-   reused on many other pages that don't get this JS, and must stay
-   visible by default there. */
 #why-choose .pc-why-item {
   opacity: 0;
   transform: translateY(28px);
@@ -756,10 +745,7 @@
   }
 }
 
-/* ---------- Header: scroll-aware hide/reveal (global) ----------
-   Hides on scroll-down / reveals on scroll-up while still within the
-   first section, then docks permanently visible once scrolled past it
-   (see initHeaderScrollReveal in main.js). */
+/* ---------- Header: scroll-aware hide/reveal */
 .pc-header {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1020,7 +1006,6 @@
     left: 0.1rem;
     right: 0.1rem;
     z-index: 1030;
-    /* margin-top: 0.1rem; */
     max-height: calc(100vh - var(--pc-navbar-h, 76px) - 1.5rem);
     overflow-y: auto;
     background: var(--pc-white);
@@ -1552,9 +1537,6 @@ label.btn-outline-primary:focus,
   box-shadow: var(--pc-shadow-lg);
 }
 
-/* Tablet: same vertically-centered placement as desktop, just smaller,
-   with a taller map box (vs. desktop's wide 21:9) so the card overlaps
-   noticeably less of it. */
 @media (max-width: 991.98px) {
   .pc-dublin-map {
     aspect-ratio: 16 / 9;
@@ -1567,8 +1549,6 @@ label.btn-outline-primary:focus,
   }
 }
 
-/* Mobile: Google Maps-style info card, bottom-center over the map. Comes
-   after the tablet block so its narrower max-width wins the cascade. */
 @media (max-width: 767.98px) {
   .pc-dublin-map {
     aspect-ratio: 3 / 4;
@@ -1734,4 +1714,130 @@ label.btn-outline-primary:focus,
 
 .pc-tour-modal-header {
   z-index: 5;
+}
+
+/* ---------- Home: Payment Solutions ---------- */
+.pc-pricing-card {
+  border-radius: var(--pc-radius-lg);
+  box-shadow: var(--pc-shadow-sm);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.pc-pricing-card:hover {
+  box-shadow: var(--pc-shadow-md);
+  /* transform: translateY(-4px); */
+}
+
+.pc-pricing-card-featured {
+  border-color: var(--pc-orange);
+  box-shadow: var(--pc-shadow-md);
+}
+
+.pc-pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.pc-testimonial-card {
+  border-radius: var(--pc-radius-lg);
+  box-shadow: var(--pc-shadow-sm);
+}
+
+.pc-testimonial-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-size: 1.4rem;
+}
+
+/* Frosted-glass "mat" wrapped around a product photo -- translucent white +
+   backdrop-blur + soft shadow, so the image reads as floating behind glass
+   rather than sitting flush against the card. */
+.pc-glass-frame {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--pc-shadow-md);
+}
+
+/* Testimonials marquee: track holds the card set duplicated once (see
+   testimonials.php), animated exactly -50% so the loop seam is invisible. */
+.pc-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.pc-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: pc-marquee-scroll 36s linear infinite;
+}
+
+.pc-marquee:hover .pc-marquee-track {
+  animation-play-state: paused;
+}
+
+.pc-marquee-card {
+  width: min(88vw, 420px);
+  flex-shrink: 0;
+}
+
+@keyframes pc-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Vertical variant: same seamless-loop technique, scrolling up instead of
+   sideways -- used where testimonials sit in a column next to a form
+   (see testimonials-apply.php) rather than spanning the full section width. */
+.pc-marquee-vertical {
+  /* Explicit height (not flex-grow) so overflow:hidden always has a fixed
+     viewport to clip against, regardless of the sibling column's height. */
+  height: 460px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.pc-marquee-vertical-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: pc-marquee-scroll-y 26s linear infinite;
+}
+
+.pc-marquee-vertical:hover .pc-marquee-vertical-track {
+  animation-play-state: paused;
+}
+
+@keyframes pc-marquee-scroll-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-pricing-card {
+    transition: none;
+  }
+  .pc-pricing-card:hover {
+    transform: none;
+  }
+  .pc-marquee-track,
+  .pc-marquee-vertical-track {
+    animation: none;
+  }
+  .pc-marquee {
+    overflow-x: auto;
+  }
+  .pc-marquee-vertical {
+    overflow-y: auto;
+  }
 }

@@ -101,7 +101,7 @@ require __DIR__ . '/components/corporate/why-businesses.php';
   </div>
 </section>
 
-<?php require __DIR__ . '/components/corporate/benefits.php'; ?>
+<?php require __DIR__ . '/components/corporate/account-form.php'; ?>
 
 <!-- ============ Mission ============ -->
 <section class="pc-corp-mission position-relative overflow-hidden text-white text-center">
@@ -117,8 +117,10 @@ require __DIR__ . '/components/corporate/why-businesses.php';
   </div>
 </section>
 
+<?php require __DIR__ . '/components/corporate/benefits.php'; ?>
+
 <?php
-require __DIR__ . '/components/corporate/account-form.php';
+// require __DIR__ . '/components/corporate/account-form.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

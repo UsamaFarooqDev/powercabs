@@ -1,45 +1,33 @@
 <?php
-$pageTitle       = 'Wheelchair Accessible Taxis | PowerCabs';
+$pageTitle = 'Wheelchair Accessible Taxis | PowerCabs';
 $pageDescription = 'Safe, comfortable, fully accessible taxi services from PowerCabs -- trained drivers, secure wheelchair vehicles, and 24/7 availability across Ireland.';
-$assetPath       = '';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Accessibility';
-$heroTitleLight  = 'Wheelchair';
-$heroTitleBold   = 'Accessible Taxis.';
+$heroEyebrow = '/ Accessibility';
+$heroTitleLight = 'Wheelchair';
+$heroTitleBold = 'Accessible Taxis.';
 $heroDescription = 'PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers with mobility needs. The service focuses on reliability, trained drivers, and vehicles equipped to safely transport wheelchair users.';
-$heroBgImage     = 'https://images.pexels.com/photos/35831412/pexels-photo-35831412.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroBgImage = 'https://images.pexels.com/photos/35831412/pexels-photo-35831412.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
-$keyFeatures = [
-  ['icon' => 'bi-universal-access-circle', 'label' => 'Fully Accessible Vehicles'],
-  ['icon' => 'bi-person-badge-fill',        'label' => 'Trained Drivers'],
-  ['icon' => 'bi-shield-check',             'label' => 'Secure Wheelchair Fastening'],
-  ['icon' => 'bi-arrows-angle-expand',      'label' => 'Spacious Interiors'],
-  ['icon' => 'bi-emoji-smile',              'label' => 'Comfortable Travel'],
-  ['icon' => 'bi-calendar-check',           'label' => 'Advance &amp; On-Demand Booking'],
-  ['icon' => 'bi-airplane-fill',            'label' => 'Airport Transfers'],
-  ['icon' => 'bi-heart-pulse-fill',         'label' => 'Hospital &amp; Medical Visits'],
-  ['icon' => 'bi-signpost-split-fill',      'label' => 'Local &amp; Long-Distance'],
-  ['icon' => 'bi-clock-fill',               'label' => '24/7 Availability'],
-];
-
 $whyChoose = [
-  ['icon' => 'bi-shield-fill-check', 'title' => 'Safety First',    'desc' => 'Every accessible vehicle and driver meets strict safety standards.'],
-  ['icon' => 'bi-clock-history',     'title' => 'Reliable Service', 'desc' => 'Punctual pickups you can plan appointments and travel around.'],
-  ['icon' => 'bi-phone-fill',        'title' => 'Easy Booking',     'desc' => 'Book in seconds through the app, website, or a quick phone call.'],
-  ['icon' => 'bi-hand-thumbs-up-fill','title' => 'Friendly Assistance', 'desc' => 'Drivers trained to help confidently and respectfully, every trip.'],
-  ['icon' => 'bi-people-fill',       'title' => 'Accessible for Everyone', 'desc' => 'Inclusive transportation, wherever and whenever you need it.'],
+  ['icon' => 'bi-shield-fill-check', 'title' => 'Safety First', 'desc' => 'Every accessible vehicle and driver meets strict safety standards.'],
+  ['icon' => 'bi-clock-history', 'title' => 'Reliable Service', 'desc' => 'Punctual pickups you can plan appointments and travel around.'],
+  ['icon' => 'bi-phone-fill', 'title' => 'Easy Booking', 'desc' => 'Book in seconds through the app, website, or a quick phone call.'],
+  ['icon' => 'bi-hand-thumbs-up-fill', 'title' => 'Friendly Assistance', 'desc' => 'Drivers trained to help confidently and respectfully, every trip.'],
+  ['icon' => 'bi-people-fill', 'title' => 'Accessible for Everyone', 'desc' => 'Inclusive transportation, wherever and whenever you need it.'],
 ];
 ?>
 
 <!-- ============ Overview ============ -->
 <section class="section-pc text-center">
   <div class="container" style="max-width: 780px;">
-    <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Overview</p>
+    <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Overview
+    </p>
     <h2 class="mb-3">Reliable, Dignified Travel for Every Passenger</h2>
-    <p class="text-muted-pc mb-0">
+    <p class="text-muted-pc mb-0" style="font-size: 1.2rem; line-height: 1.7;">
       PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers
       with mobility needs. The service focuses on reliability, trained drivers, and vehicles
       equipped to safely transport wheelchair users, on every kind of journey.
@@ -47,22 +35,203 @@ $whyChoose = [
   </div>
 </section>
 
-<!-- ============ Key Features ============ -->
-<section class="section-pc" style="background: var(--pc-cream);">
-  <div class="container">
-    <div class="text-center mb-5">
-      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Key Features</p>
-      <h2 class="mb-0">Built for Comfort and Confidence</h2>
-    </div>
-    <div class="row row-cols-2 row-cols-md-5 g-3">
-      <?php foreach ($keyFeatures as $item): ?>
-        <div class="col">
-          <div class="pc-story-card rounded-4 p-3 bg-white h-100 text-center">
-            <i class="bi <?= $item['icon'] ?> fs-3 mb-2 d-block" style="color: var(--pc-orange);"></i>
-            <span class="d-block small fw-semibold"><?= $item['label'] ?></span>
+<section class="section-pc position-relative overflow-hidden" style="background: var(--pc-cream);">
+  <div class="position-absolute rounded-circle" aria-hidden="true" style="
+      width: 24rem;
+      height: 24rem;
+      top: -8rem;
+      right: -7rem;
+      background: radial-gradient(
+        circle,
+        rgba(232, 89, 12, .16),
+        transparent 68%
+      );
+    "></div>
+
+  <div class="container position-relative">
+
+    <div class="row align-items-center g-4 g-lg-5">
+
+      <div class="col-lg-7">
+        <div class="position-relative" style="padding: 12px 12px 12px 0;">
+          <div class="position-absolute rounded-5" aria-hidden="true" style="
+              inset: 35px 0 0 35px;
+              background: var(--pc-orange);
+              opacity: .12;
+              filter: blur(18px);
+            "></div>
+
+          <div class="position-relative overflow-hidden rounded-5" style="
+              min-height: 460px;
+              box-shadow: 0 24px 60px rgba(25, 30, 40, .16);
+              background: #eee;
+            ">
+            <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.png"
+              alt="A wheelchair user boarding a PowerCabs accessible vehicle via a lift, assisted by a driver"
+              class="w-100 h-100" loading="lazy" style="
+                position: absolute;
+                inset: 0;
+                object-fit: cover;
+                object-position: center;
+              "></img>
+
+            <div class="position-absolute bottom-0 start-0 w-100" aria-hidden="true" style="
+                height: 45%;
+                background: linear-gradient(
+                  to top,
+                  rgba(0,0,0,.45),
+                  transparent
+                );
+              "></div>
+
+            <div class="position-absolute bottom-0 start-0 m-3 m-md-4" style="
+                padding: 12px 16px;
+                border-radius: 16px;
+                background: rgba(255,255,255,.88);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                box-shadow: 0 8px 25px rgba(0,0,0,.12);
+              ">
+
+              <div class="d-flex align-items-center gap-2">
+
+                <span class="d-flex align-items-center justify-content-center rounded-circle" style="
+                    width: 36px;
+                    height: 36px;
+                    background: rgba(232,89,12,.10);
+                    color: var(--pc-orange);
+                  ">
+                  <i class="bi bi-universal-access fs-5"></i>
+                </span>
+
+                <div>
+                  <span class="d-block fw-bold small">
+                    Accessible Travel
+                  </span>
+
+                  <span class="d-block text-muted-pc" style="font-size: 11px;">
+                    Designed for comfortable journeys
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= CONTENT ================= -->
+      <div class="col-lg-5">
+
+        <div class="ps-lg-3">
+
+          <!-- Eyebrow -->
+          <div class="d-inline-flex align-items-center gap-2 mb-3" style="
+              color: var(--pc-orange);
+              font-size: 12px;
+              font-weight: 700;
+              letter-spacing: .08em;
+              text-transform: uppercase;
+            ">
+            <span style="
+                display: inline-block;
+                width: 24px;
+                height: 2px;
+                border-radius: 5px;
+                background: var(--pc-orange);
+              "></span>
+
+            Key Features
+          </div>
+
+
+          <!-- Heading -->
+          <h2 class="fw-bold mb-3" style="
+              font-size: clamp(32px, 4vw, 48px);
+              line-height: 1.08;
+              letter-spacing: -.9px;
+            ">
+            Mobility for
+            <span style="color: var(--pc-orange);">
+              everyone.
+            </span>
+          </h2>
+
+
+          <!-- Description -->
+          <p class="text-muted-pc mb-4" style="
+              font-size: 16px;
+              line-height: 1.75;
+              max-width: 500px;
+            ">
+            At PowerCabs, we're committed to making every journey
+            comfortable, safe and accessible. Our wheelchair-accessible
+            taxis are designed to provide dependable transportation
+            for passengers with mobility needs.
+          </p>
+
+
+          <!-- Feature highlights -->
+          <div class="d-flex flex-column gap-3 mb-4">
+
+            <div class="d-flex align-items-start gap-3">
+
+              <span class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-circle" style="
+                  width: 40px;
+                  height: 40px;
+                  background: rgba(232,89,12,.10);
+                  color: var(--pc-orange);
+                ">
+                <i class="bi bi-universal-access"></i>
+              </span>
+
+              <div>
+                <h3 class="h6 fw-bold mb-1">
+                  Wheelchair Accessible
+                </h3>
+
+                <p class="text-muted-pc small mb-0">
+                  Vehicles equipped to accommodate wheelchair users
+                  comfortably.
+                </p>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3">
+
+              <span class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-circle" style="
+                  width: 40px;
+                  height: 40px;
+                  background: rgba(232,89,12,.10);
+                  color: var(--pc-orange);
+                ">
+                <i class="bi bi-shield-check"></i>
+              </span>
+
+              <div>
+                <h3 class="h6 fw-bold mb-1">
+                  Safe & Comfortable
+                </h3>
+
+                <p class="text-muted-pc small mb-0">
+                  Supportive journeys with accessibility and passenger
+                  comfort in mind.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/book-ride-online.php">Book an Accessible
+              Ride</a>
           </div>
         </div>
-      <?php endforeach; ?>
+      </div>
     </div>
   </div>
 </section>
@@ -71,28 +240,33 @@ $whyChoose = [
 <section class="section-pc bg-white position-relative overflow-hidden">
   <div class="container position-relative">
     <div class="text-center mb-5">
-      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Why Choose PowerCabs</p>
+      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Why
+        Choose PowerCabs</p>
       <h2 class="mb-0">Accessible Travel, Done Right</h2>
     </div>
-    <div class="px-2 px-md-5">
-      <div class="row row-cols-2 row-cols-lg-5 g-0 border-top border-start">
-        <?php foreach ($whyChoose as $item): ?>
-          <div class="col pc-why-item position-relative border-end border-bottom text-center px-3 py-4 py-md-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-4">
+      <?php foreach (array_slice($whyChoose, 0, 3) as $item): ?>
+        <div class="col">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
             <i class="bi <?= $item['icon'] ?> fs-2 mb-3 d-block" style="color: var(--pc-orange);"></i>
-            <h3 class="fs-6 fw-bold mb-2 pc-why-item-title"><?= htmlspecialchars($item['title']) ?></h3>
+            <h3 class="fs-6 fw-bold mb-2"><?= htmlspecialchars($item['title']) ?></h3>
             <p class="small text-muted-pc mb-0"><?= htmlspecialchars($item['desc']) ?></p>
           </div>
-        <?php endforeach; ?>
-      </div>
+        </div>
+      <?php endforeach; ?>
     </div>
-  </div>
-</section>
 
-<!-- ============ CTA ============ -->
-<section class="section-pc text-center">
-  <div class="container">
-    <h2 class="mb-4">Book a Wheelchair Accessible Ride</h2>
-    <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/book-ride-online.php">Book Online</a>
+    <div class="row row-cols-1 row-cols-sm-2 g-4 justify-content-center" style="max-width: 700px; margin-inline: auto;">
+      <?php foreach (array_slice($whyChoose, 3, 2) as $item): ?>
+        <div class="col">
+          <div class="pc-story-card rounded-4 p-4 bg-white h-100 text-center">
+            <i class="bi <?= $item['icon'] ?> fs-2 mb-3 d-block" style="color: var(--pc-orange);"></i>
+            <h3 class="fs-6 fw-bold mb-2"><?= htmlspecialchars($item['title']) ?></h3>
+            <p class="small text-muted-pc mb-0"><?= htmlspecialchars($item['desc']) ?></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 </section>
 

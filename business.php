@@ -3,6 +3,55 @@ $pageTitle       = 'Business Travel | PowerCabs';
 $pageDescription = 'Reliable, discreet, and professional Business Rides and Limousine Services from PowerCabs -- built for executives, teams, and corporate travel across Dublin.';
 $assetPath       = '';
 
+require __DIR__ . '/includes/env.php';
+require __DIR__ . '/includes/mailer.php';
+
+$formStatus = null;
+$formError  = '';
+$old = [
+    'contact_name' => '', 'business_name' => '', 'business_email' => '', 'phone' => '',
+    'vat_number' => '', 'employee_count' => '', 'message' => '',
+];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    foreach ($old as $key => $default) {
+        $old[$key] = trim($_POST[$key] ?? '');
+    }
+
+    if ($old['contact_name'] === '' || $old['business_name'] === '' || $old['business_email'] === '' || $old['phone'] === '') {
+        $formStatus = 'error';
+        $formError  = 'Please fill in all required fields.';
+    } elseif (!filter_var($old['business_email'], FILTER_VALIDATE_EMAIL)) {
+        $formStatus = 'error';
+        $formError  = 'Please enter a valid email address.';
+    } else {
+        $body = "New business ride enquiry from the PowerCabs website.\n\n"
+              . "Contact Name: {$old['contact_name']}\n"
+              . "Business Name: {$old['business_name']}\n"
+              . "Business Email: {$old['business_email']}\n"
+              . "Phone Number: {$old['phone']}\n"
+              . "VAT / Tax Number: " . ($old['vat_number'] !== '' ? $old['vat_number'] : '-') . "\n"
+              . "Number of Employees: " . ($old['employee_count'] !== '' ? $old['employee_count'] : '-') . "\n\n"
+              . "Additional Details:\n" . ($old['message'] !== '' ? $old['message'] : '-') . "\n";
+
+        $result = pc_send_mail(
+            'Business account request: ' . $old['business_name'],
+            $body,
+            ['name' => $old['contact_name'], 'email' => $old['business_email']]
+        );
+
+        if ($result['success']) {
+            $formStatus = 'success';
+            foreach ($old as $key => $default) {
+                $old[$key] = '';
+            }
+        } else {
+            $formStatus = 'error';
+            $formError  = 'Sorry, something went wrong sending your request. Please try again or call us directly.';
+        }
+    }
+}
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow     = '/ Business';

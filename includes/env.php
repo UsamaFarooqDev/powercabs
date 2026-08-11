@@ -1,12 +1,4 @@
 <?php
-/**
- * Minimal, dependency-free .env loader (no Composer/vendor package).
- * Reads KEY=VALUE pairs from the project-root .env file into getenv() /
- * $_ENV once per request, then defines the same PC_* constants every page
- * already uses -- so nothing that reads PC_SMTP_HOST, PC_GOOGLE_MAPS_API_KEY
- * etc. needs to change. All real credentials live only in .env (gitignored);
- * see .env.example for the documented, secret-free template.
- */
 
 function pc_load_env(string $path): void {
     static $loaded = false;
