@@ -8,9 +8,9 @@ $welcomeBgImage = $assetPath . 'assets/img/welcome-section-bg.jpg';
   <div class="container position-relative">
     <div class="row">
       <div class="col-lg-8 col-xl-7 pc-welcome-text">
-        <h1 class="fw-bold text-white mb-4 pc-welcome-heading">
+        <h2 class="fw-bold text-white mb-4 pc-welcome-heading">
           Power Your Every Journey.
-        </h1>
+        </h2>
         <p class="mb-0 pc-welcome-lead">
           Fast, reliable and professional rides across Ireland. Book licensed drivers
           anytime for airport transfers, business travel, family trips, parcels and much more.

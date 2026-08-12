@@ -17,9 +17,9 @@ $appStoreQrSrc  = 'https://api.qrserver.com/v1/create-qr-code/?size=140x140&marg
   <div class="pc-app-promo-container position-relative">
     <div class="row align-items-center gy-5">
       <div class="col-lg-9 order-lg-2">
-        <h1 class="mb-3" style="color: var(--pc-dark); font-size: clamp(1.85rem, 4.5vw, 2.6rem);">
+        <h2 class="mb-3" style="color: var(--pc-dark); font-size: clamp(1.85rem, 4.5vw, 2.6rem);">
           Download the PowerCabs App for Instant Access
-        </h1>
+        </h2>
         <p class="mb-4" style="max-width: 46ch; color: rgba(28, 20, 16, 0.72); font-size: 1.1rem;">
           Booking a cab with PowerCabs is now easier than ever. Download our app today
           from the App Store or Google Play and enjoy the convenience of booking a cab

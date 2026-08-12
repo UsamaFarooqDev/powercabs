@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Book Ride Online | PowerCabs';
-$pageDescription = 'Book your next PowerCabs ride online in a few simple steps -- no extra charge for pre-booking, no cancellation fee.';
+$pageTitle = 'Book a Taxi Online in Dublin | PowerCabs';
+$pageDescription = 'Book a taxi online in Dublin with PowerCabs in a few simple steps -- no extra charge for pre-booking, no cancellation fee.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';

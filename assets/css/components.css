@@ -1973,3 +1973,77 @@ label.btn-outline-primary:focus,
     overflow-y: auto;
   }
 }
+
+/* ---------- Floating scroll-progress indicator ---------- */
+.pc-scroll-indicator {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1035;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s;
+}
+
+.pc-scroll-indicator.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pc-scroll-indicator-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.pc-scroll-indicator-track,
+.pc-scroll-indicator-progress {
+  fill: none;
+  stroke-width: 2;
+}
+
+.pc-scroll-indicator-track {
+  stroke: rgba(28, 20, 16, 0.18);
+}
+
+.pc-scroll-indicator-progress {
+  stroke: var(--pc-dark);
+  stroke-linecap: round;
+  stroke-dasharray: 119.4;
+  stroke-dashoffset: 119.4;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.pc-scroll-indicator-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pc-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-scroll-indicator {
+    transition: none;
+  }
+  .pc-scroll-indicator-progress {
+    transition: none;
+  }
+}

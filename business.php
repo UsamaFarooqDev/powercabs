@@ -1,5 +1,5 @@
 <?php
-$pageTitle = 'Business Travel | PowerCabs';
+$pageTitle = 'Business Travel & Chauffeur Cars in Dublin | PowerCabs';
 $pageDescription = 'Reliable, discreet, and professional Business Rides and Limousine Services from PowerCabs -- built for executives, teams, and corporate travel across Dublin.';
 $assetPath = '';
 

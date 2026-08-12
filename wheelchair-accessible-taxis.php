@@ -1,7 +1,7 @@
 <?php
-$pageTitle = 'Wheelchair Accessible Taxis | PowerCabs';
+$pageTitle = 'Wheelchair Accessible Taxis in Dublin | PowerCabs';
 $pageDescription =
-  'Safe, comfortable, fully accessible taxi services from PowerCabs -- trained drivers, secure wheelchair vehicles, and 24/7 availability across Ireland.';
+  'Wheelchair accessible taxis in Dublin from PowerCabs -- safe, comfortable rides with trained drivers, secure wheelchair vehicles, and 24/7 availability across Ireland.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -96,7 +96,7 @@ $whyChoose = [
             ">
 
             <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.png"
-              alt="PowerCabs Meet and Greet airport transfer" class="w-100 h-100" loading="lazy" style="
+              alt="PowerCabs wheelchair accessible taxi in Dublin" class="w-100 h-100" loading="lazy" style="
                             position: absolute;
                             inset: 0;
                             object-fit: cover;

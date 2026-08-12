@@ -1,5 +1,5 @@
 <?php
-$pageTitle       = 'Drive with PowerCabs | Join the PowerCabs Family';
+$pageTitle       = 'Become a Taxi Driver in Dublin | PowerCabs';
 $pageDescription = 'Drive with PowerCabs -- flexible hours, competitive earnings and 24/7 driver support. Apply through the Driver App and start earning on your own schedule.';
 $assetPath       = '';
 

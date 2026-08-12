@@ -1,5 +1,5 @@
 <?php
-$pageTitle = 'PowerCabs Business Solutions | PowerCabs';
+$pageTitle = 'Card Payment Terminals for Taxi Drivers | PowerCabs';
 $pageDescription =
   'Business transportation solutions for companies seeking reliable, professional, and efficient travel services for employees and clients.';
 $assetPath = '';

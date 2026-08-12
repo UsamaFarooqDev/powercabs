@@ -1,6 +1,6 @@
 <?php
-$pageTitle       = 'Corporate Services | PowerCabs';
-$pageDescription = 'Reliable, flexible, safe corporate transportation from PowerCabs -- business travel, event transportation and ongoing corporate accounts, available 24/7.';
+$pageTitle       = 'Corporate Taxi Accounts in Dublin | PowerCabs';
+$pageDescription = 'Reliable, flexible, safe corporate transportation in Dublin from PowerCabs -- business travel, event transportation and ongoing corporate accounts, available 24/7.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';

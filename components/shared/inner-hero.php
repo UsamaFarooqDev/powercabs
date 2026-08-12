@@ -4,7 +4,20 @@ $heroTitle = trim(($heroTitleLight ?? '') . ' ' . ($heroTitleBold ?? ''));
 if (!isset($heroBreadcrumbLabel)) {
   $heroBreadcrumbLabel = ucwords(str_replace('-', ' ', preg_replace('/\.php$/', '', $currentPage ?? '')));
 }
+
+$breadcrumbSiteUrl = $siteUrl ?? 'https://www.powercabs.ie/';
+$breadcrumbPageUrl = $canonicalUrl ?? $breadcrumbSiteUrl . ($currentPage ?? '');
+
+$breadcrumbSchema = [
+  '@context' => 'https://schema.org',
+  '@type' => 'BreadcrumbList',
+  'itemListElement' => [
+    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => $breadcrumbSiteUrl],
+    ['@type' => 'ListItem', 'position' => 2, 'name' => $heroBreadcrumbLabel, 'item' => $breadcrumbPageUrl],
+  ],
+];
 ?>
+<script type="application/ld+json"><?= json_encode($breadcrumbSchema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES) ?></script>
 <!-- ============ Inner Page Hero ============ -->
 <section class="position-relative overflow-hidden d-flex align-items-center"
   style="min-height: clamp(260px, 29vw, 340px); padding-top: calc(var(--pc-navbar-h, 110px) + 2.5rem); padding-bottom: clamp(2.5rem, 5.5vw, 4rem);">

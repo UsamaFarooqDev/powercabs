@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroParallax();
   initHeaderScrollReveal();
   initWhyChooseReveal();
+  initScrollIndicator();
 });
 
 window.addEventListener("resize", syncNavbarHeightVar);
@@ -187,4 +188,51 @@ function initWhyChooseReveal() {
   );
 
   items.forEach((item) => observer.observe(item));
+}
+
+/**
+ * Floating circular scroll-progress indicator (replaces the native
+ * scrollbar): grey track ring plus a black ring that fills in as the
+ * page scrolls. Click scrolls back to top.
+ */
+function initScrollIndicator() {
+  const el = document.getElementById("pcScrollIndicator");
+  if (!el) return;
+
+  const progressRing = el.querySelector(".pc-scroll-indicator-progress");
+  if (!progressRing) return;
+
+  const radius = progressRing.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
+  progressRing.style.strokeDasharray = `${circumference}`;
+
+  const SHOW_AFTER_PX = 240;
+  let ticking = false;
+
+  function update() {
+    const scrollTop = window.scrollY;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollable > 0 ? Math.min(Math.max(scrollTop / scrollable, 0), 1) : 0;
+
+    progressRing.style.strokeDashoffset = `${circumference * (1 - progress)}`;
+    el.classList.toggle("is-visible", scrollTop > SHOW_AFTER_PX);
+    ticking = false;
+  }
+
+  update();
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    },
+    { passive: true }
+  );
+  window.addEventListener("resize", update);
+
+  el.addEventListener("click", () => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
 }

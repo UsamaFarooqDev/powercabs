@@ -1,7 +1,7 @@
 <?php
-$pageTitle = 'Meet & Greet | Airport Transfers | PowerCabs';
+$pageTitle = 'Dublin Airport Transfers & Meet and Greet | PowerCabs';
 $pageDescription =
-  "PowerCabs's Meet & Greet airport service -- flight tracking, a personal greeting at arrivals, luggage assistance and a smooth transfer to your destination.";
+  'Reliable Dublin Airport taxi transfers with PowerCabs -- flight tracking, a personal Meet & Greet at arrivals, luggage assistance and a smooth transfer to your destination.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -72,7 +72,7 @@ $bookingSteps = [
   <div class="container">
     <div class="row align-items-center g-4 g-lg-5 p-3 p-lg-5">
       <div class="col-lg-6 p-2 p-lg-5">
-        <h1 class="fw-bold mb-3" style="
+        <h2 class="fw-bold mb-3" style="
             font-size: clamp(2.2rem, 4vw, 3.6rem);
             line-height: 1.1;
             letter-spacing: -.04em;
@@ -81,7 +81,7 @@ $bookingSteps = [
           <span style="color: var(--pc-orange);">
             from the moment you arrive.
           </span>
-        </h1>
+        </h2>
         <p class="text-muted-pc mb-4" style="
             max-width: 540px;
             font-size: 1.05rem;
@@ -343,10 +343,10 @@ $bookingSteps = [
   <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"
     style="background: rgba(10, 7, 5, 0.65); z-index: 0;"></span>
   <div class="container position-relative d-flex align-items-center justify-content-center" style="min-height: 520px;">
-    <h1 class="fw-bold text-white mb-0" style="max-width: 46ch; font-size: clamp(1.85rem, 5vw, 3.5rem);">From the terminal to the car,<br>
+    <h2 class="fw-bold text-white mb-0" style="max-width: 46ch; font-size: clamp(1.85rem, 5vw, 3.5rem);">From the terminal to the car,<br>
       we've got your
       bags
-      covered.</h1>
+      covered.</h2>
   </div>
 </section>
 

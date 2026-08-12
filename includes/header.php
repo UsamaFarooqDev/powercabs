@@ -4,6 +4,10 @@ $pageDescription = $pageDescription ?? 'Book a reliable, affordable cab in Irela
 $assetPath = $assetPath ?? '';
 $currentPage = basename($_SERVER['PHP_SELF']);
 
+$siteUrl = 'https://www.powercabs.ie/';
+$canonicalUrl = $siteUrl . ($currentPage === 'index.php' ? '' : $currentPage);
+$ogImage = $ogImage ?? $siteUrl . 'assets/img/meet-and-greet.png';
+
 $navActive = static fn(string $page): string => $currentPage === $page ? 'active' : '';
 ?>
 <!DOCTYPE html>
@@ -14,9 +18,57 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= htmlspecialchars($pageTitle) ?></title>
   <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
+  <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">
+
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PowerCabs">
+  <meta property="og:locale" content="en_IE">
   <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
   <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
+  <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl) ?>">
+  <meta property="og:image" content="<?= htmlspecialchars($ogImage) ?>">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?= htmlspecialchars($pageTitle) ?>">
+  <meta name="twitter:description" content="<?= htmlspecialchars($pageDescription) ?>">
+  <meta name="twitter:image" content="<?= htmlspecialchars($ogImage) ?>">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "additionalType": "https://schema.org/TaxiService",
+    "name": "PowerCabs",
+    "image": "<?= $ogImage ?>",
+    "url": "<?= $siteUrl ?>",
+    "telephone": "+353899728089",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kylmore Road, Inchicore",
+      "addressLocality": "Dublin",
+      "postalCode": "D10 K729",
+      "addressCountry": "IE"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Dublin"
+    },
+    "sameAs": [
+      "https://www.facebook.com/powercabs.ie/",
+      "https://www.instagram.com/powercabs.ie/",
+      "https://x.com/powercabsie",
+      "https://youtube.com/@powercabs",
+      "https://vm.tiktok.com/ZSYUyT1fd/"
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    }
+  }
+  </script>
 
   <!-- Bootstrap 5 (CDN for now; swap to self-hosted /vendor build before production) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
