@@ -12,13 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   section.classList.add("pc-rides-enhanced");
 
-  function update() {
+  // Raw scroll -> where the stack SHOULD be right now.
+  let targetProgress = 0;
+  // What's actually painted, eased toward the target each frame instead of
+  // snapping straight to it -- smooths out choppy wheel/trackpad scroll
+  // deltas into fluid card transitions.
+  let currentProgress = 0;
+  let rafId = null;
+  const EASE = 0.16;
+
+  function computeTarget() {
     const rect = section.getBoundingClientRect();
     const stickyHeight = sticky.offsetHeight;
     const total = section.offsetHeight - stickyHeight;
     const scrolled = Math.min(Math.max(-rect.top, 0), total);
-    const progress = total > 0 ? (scrolled / total) * (count - 1) : 0;
+    targetProgress = total > 0 ? (scrolled / total) * (count - 1) : 0;
+  }
 
+  function render(progress) {
     const activeIndex = Math.min(Math.floor(progress), count - 1);
     const localT = progress - activeIndex;
     const cardHeight = stack.offsetHeight || 1;
@@ -42,17 +53,28 @@ document.addEventListener("DOMContentLoaded", () => {
     dots.forEach((dot, i) => dot.classList.toggle("is-active", i === dotIndex));
   }
 
-  let ticking = false;
+  function tick() {
+    currentProgress += (targetProgress - currentProgress) * EASE;
+
+    if (Math.abs(targetProgress - currentProgress) > 0.001) {
+      render(currentProgress);
+      rafId = requestAnimationFrame(tick);
+    } else {
+      currentProgress = targetProgress;
+      render(currentProgress);
+      rafId = null;
+    }
+  }
+
   function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      update();
-      ticking = false;
-    });
+    computeTarget();
+    if (rafId === null) rafId = requestAnimationFrame(tick);
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
-  update();
+
+  computeTarget();
+  currentProgress = targetProgress;
+  render(currentProgress);
 });

@@ -61,7 +61,7 @@
       <?php foreach ($marqueeItems as $i => $t): ?>
         <div class="pc-marquee-card px-2" <?= $i >= count($paymentTestimonials) ? 'aria-hidden="true"' : '' ?>>
           <article class="card h-100 border-0 bg-white position-relative overflow-hidden" style="
-              width: 360px;
+              width: min(360px, 100%);
               min-height: 290px;
               border-radius: 22px;
               box-shadow: 0 4px 14px rgba(20,25,35,.045);">

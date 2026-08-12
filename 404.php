@@ -23,7 +23,7 @@ $pageDescription = "The page you're looking for doesn't exist or may have been m
 
 <main class="d-flex align-items-center justify-content-center px-3" style="min-height: 100vh; background: var(--pc-cream-soft);">
   <div class="text-center py-5" style="max-width: 560px;">
-    <img src="/assets/img/not-found.svg" alt="" aria-hidden="true" class="img-fluid mb-4" style="max-width: 520px;">
+    <img src="/assets/img/not-found.svg" alt="" aria-hidden="true" class="img-fluid mb-4" style="max-width: min(520px, 100%);">
 
     <h1 class="fw-bold mb-4" style="font-size: clamp(1.6rem, 3.5vw, 2.25rem); color: var(--pc-dark);">Oops! Page Not Found</h1>
     <p class="text-muted-pc mb-5" style="font-size: 1.2rem;"><?= htmlspecialchars($pageDescription) ?></p>

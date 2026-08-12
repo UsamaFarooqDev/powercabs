@@ -23,19 +23,19 @@
     <div class="px-2 px-md-5">
       <div class="row row-cols-2 row-cols-md-4 g-0 border-top border-start">
         <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-3 fw-bold mb-2 pc-why-item-title">Easy Booking</h3>
+          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">Easy Booking</h3>
           <p class="text-muted-pc mb-0">Enter your pickup and drop-off locations, select your ride, you're all set.</p>
         </div>
         <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-3 fw-bold mb-2 pc-why-item-title">Affordable Rates</h3>
+          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">Affordable Rates</h3>
           <p class="text-muted-pc mb-0">Competitive rates for all our rides, ensuring great value for your money.</p>
         </div>
         <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-3 fw-bold mb-2 pc-why-item-title">Safe and Reliable</h3>
+          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">Safe and Reliable</h3>
           <p class="text-muted-pc mb-0">All drivers are licensed and experienced; vehicles are regularly inspected.</p>
         </div>
         <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-3 fw-bold mb-2 pc-why-item-title">24/7 Service</h3>
+          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">24/7 Service</h3>
           <p class="text-muted-pc mb-0">Need a ride any time of day or night? We're always here for you.</p>
         </div>
       </div>

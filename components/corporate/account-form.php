@@ -9,7 +9,7 @@ $formError ??= '';
       <div class="col-lg-6">
         <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ What We Do</p>
         <h2 class="mb-3">Occasions We Cover</h2>
-        <p class="text-muted-pc mb-4" style="max-width: 46ch;" style="font-size: 1.1rem;">
+        <p class="text-muted-pc mb-4" style="max-width: 46ch; font-size: 1.1rem;">
           From seminars to state visits, PowerCabs handles the transportation
           so your team can stay focused on the event itself.
         </p>

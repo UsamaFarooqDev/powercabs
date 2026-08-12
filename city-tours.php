@@ -103,7 +103,7 @@ $tourBookingSteps = [
       <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Featured Destinations</p>
       <h2 class="mb-0">Where Would You Like to Go?</h2>
     </div>
-    <div class="row g-4 row-cols-2 row-cols-lg-4">
+    <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-4">
       <?php foreach ($destinations as $d): ?>
         <div class="col">
           <div class="pc-tour-card bg-white h-100 overflow-hidden">

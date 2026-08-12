@@ -1,6 +1,6 @@
 <section class="section-pc" id="payment-solutions">
   <div class="container">
-<div class="row align-items-center justify-content-center g-5 p-5">
+<div class="row align-items-center justify-content-center g-4 g-lg-5 p-0 p-lg-5">
 
  <div class="col-lg-6 order-2 order-lg-1 d-flex justify-content-center align-items-center">
   <div

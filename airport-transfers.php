@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Meet & Greet | Airport Transfers | PowerCabs';
-$pageDescription = "PowerCabs's Meet & Greet airport service -- flight tracking, a personal greeting at arrivals, luggage assistance and a smooth transfer to your destination.";
+$pageDescription =
+  "PowerCabs's Meet & Greet airport service -- flight tracking, a personal greeting at arrivals, luggage assistance and a smooth transfer to your destination.";
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -8,21 +9,55 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = '/ Airport Service';
 $heroTitleLight = 'Meet &';
 $heroTitleBold = 'Greet.';
-$heroDescription = "Start or end your journey stress-free with PowerCabs' professional airport Meet & Greet service. Whether you're arriving for business or leisure, our experienced drivers monitor your flight, greet you at arrivals, assist with your luggage, and ensure a smooth, comfortable transfer to your destination. We also accommodate last-minute airport bookings whenever possible.";
+$heroDescription =
+  "Start or end your journey stress-free with PowerCabs' professional airport Meet & Greet service. Whether you're arriving for business or leisure, our experienced drivers monitor your flight, greet you at arrivals, assist with your luggage, and ensure a smooth, comfortable transfer to your destination. We also accommodate last-minute airport bookings whenever possible.";
 $heroBgImage = 'https://images.pexels.com/photos/36498953/pexels-photo-36498953.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Meet & Greet';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $meetGreetServices = [
-  ['icon' => 'bi-person-badge-fill', 'title' => 'Personal Meet & Greet', 'desc' => 'Your driver waits inside the arrivals terminal with a personalized name board.'],
-  ['icon' => 'bi-bag-check-fill', 'title' => 'Luggage Assistance', 'desc' => 'Professional assistance with luggage from the terminal to the vehicle.'],
-  ['icon' => 'bi-award-fill', 'title' => 'Executive Airport Transfers', 'desc' => 'Premium, comfortable vehicles for business and leisure travelers.'],
-  ['icon' => 'bi-people-fill', 'title' => 'Family Airport Transfers', 'desc' => 'Spacious vehicles for families with children and extra luggage.'],
-  ['icon' => 'bi-briefcase-fill', 'title' => 'Business Travel', 'desc' => 'Reliable airport transportation for corporate clients.'],
-  ['icon' => 'bi-clock-history', 'title' => 'Last-Minute Bookings', 'desc' => "We've got you covered even for last-minute airport bookings."],
+  [
+    'icon' => 'bi-person-badge-fill',
+    'title' => 'Personal Meet & Greet',
+    'desc' => 'Your driver waits inside the arrivals terminal with a personalized name board.',
+  ],
+  [
+    'icon' => 'bi-bag-check-fill',
+    'title' => 'Luggage Assistance',
+    'desc' => 'Professional assistance with luggage from the terminal to the vehicle.',
+  ],
+  [
+    'icon' => 'bi-award-fill',
+    'title' => 'Executive Airport Transfers',
+    'desc' => 'Premium, comfortable vehicles for business and leisure travelers.',
+  ],
+  [
+    'icon' => 'bi-people-fill',
+    'title' => 'Family Airport Transfers',
+    'desc' => 'Spacious vehicles for families with children and extra luggage.',
+  ],
+  [
+    'icon' => 'bi-briefcase-fill',
+    'title' => 'Business Travel',
+    'desc' => 'Reliable airport transportation for corporate clients.',
+  ],
+  [
+    'icon' => 'bi-clock-history',
+    'title' => 'Last-Minute Bookings',
+    'desc' => "We've got you covered even for last-minute airport bookings.",
+  ],
 ];
 
-$whyChoose = ['Professional licensed drivers', 'Flight monitoring', 'Fixed transparent pricing', 'No hidden charges', '24/7 availability', 'Comfortable vehicles', 'Online booking', 'Safe & reliable transportation'];
+$whyChoose = [
+  'Professional licensed drivers',
+  'Flight monitoring',
+  'Fixed transparent pricing',
+  'No hidden charges',
+  '24/7 availability',
+  'Comfortable vehicles',
+  'Online booking',
+  'Safe & reliable transportation',
+];
 
 $bookingSteps = [
   ['n' => 1, 'title' => 'Enter Flight Details'],
@@ -42,7 +77,7 @@ $bookingSteps = [
             line-height: 1.1;
             letter-spacing: -.04em;
           ">
-          Welcome!
+          Welcome
           <span style="color: var(--pc-orange);">
             from the moment you arrive.
           </span>
@@ -308,7 +343,7 @@ $bookingSteps = [
   <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"
     style="background: rgba(10, 7, 5, 0.65); z-index: 0;"></span>
   <div class="container position-relative d-flex align-items-center justify-content-center" style="min-height: 520px;">
-    <h1 class="fw-bold text-white mb-0" style="max-width: 46ch; font-size: 3.5rem;">From the terminal to the car,<br>
+    <h1 class="fw-bold text-white mb-0" style="max-width: 46ch; font-size: clamp(1.85rem, 5vw, 3.5rem);">From the terminal to the car,<br>
       we've got your
       bags
       covered.</h1>
@@ -685,4 +720,5 @@ $bookingSteps = [
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
 ?>
