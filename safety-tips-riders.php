@@ -148,7 +148,7 @@ $additionalTips = [
 <!-- ============ CTA ============ -->
 <section class="section-pc pt-0 text-center">
   <div class="container">
-    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/safety-tips-drivers.php">See Safety Tips for Drivers &rarr;</a>
+    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/safety-tips-drivers">See Safety Tips for Drivers &rarr;</a>
   </div>
 </section>
 

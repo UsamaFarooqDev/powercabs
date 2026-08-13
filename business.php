@@ -100,7 +100,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
         <div class="pc-panel rounded-4 p-3 mb-4">
           <p class="mb-0">
             If your company has more than 7 employees, please visit our
-            <a class="pc-form-link fw-semibold" href="<?= $assetPath ?>/corporate-services.php">Corporate page</a>
+            <a class="pc-form-link fw-semibold" href="<?= $assetPath ?>/corporate-services">Corporate page</a>
             to explore our corporate travel solutions.
           </p>
         </div>

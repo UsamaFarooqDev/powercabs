@@ -117,7 +117,7 @@ $requirements = ['Enroll in the program', 'Complete rides', 'Redeem incentives',
 <section class="section-pc text-center">
   <div class="container">
     <h2 class="mb-4">Start Earning Loyalty Points Today</h2>
-    <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/download-app.php">Download the Driver App</a>
+    <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/download-our-app">Download the Driver App</a>
   </div>
 </section>
 

@@ -184,7 +184,7 @@ $whyChoose = [
           </div>
 
           <div class="d-flex flex-wrap align-items-center gap-3">
-            <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online.php">Book an Accessible
+            <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online">Book an Accessible
               Ride</a>
           </div>
         </div>

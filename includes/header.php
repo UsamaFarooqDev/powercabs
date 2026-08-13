@@ -5,7 +5,7 @@ $assetPath = $assetPath ?? '';
 $currentPage = basename($_SERVER['PHP_SELF']);
 
 $siteUrl = 'https://www.powercabs.ie/';
-$canonicalUrl = $siteUrl . ($currentPage === 'index.php' ? '' : $currentPage);
+$canonicalUrl = $siteUrl . ($currentPage === 'index.php' ? '' : preg_replace('/\.php$/', '', $currentPage));
 $ogImage = $ogImage ?? $siteUrl . 'assets/img/meet-and-greet.png';
 
 $navActive = static fn(string $page): string => $currentPage === $page ? 'active' : '';
@@ -161,7 +161,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
     <div class="container px-2 px-lg-3 pt-2 pt-lg-2">
       <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
         <div class="container-fluid px-0">
-          <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>index.php">
+          <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>/">
             <img src="<?= $assetPath ?>assets/img/powercabs-logo-black.svg" alt="PowerCabs" height="42" class="d-block">
           </a>
 
@@ -178,7 +178,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
               class="navbar-nav pc-navbar-links-pill mx-auto gap-lg-4 align-items-lg-center py-2 py-lg-1 px-lg-3 rounded-pill">
               <li class="nav-item">
                 <a class="nav-link fw-normal <?= $navActive('index.php') ?>" data-page="index.php"
-                  href="<?= $assetPath ?>index.php">Home</a>
+                  href="<?= $assetPath ?>/">Home</a>
               </li>
 
               <!-- ============ About: hover mega menu ============ -->
@@ -198,17 +198,17 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
                         <p class="pc-mega-col-title">Get Started</p>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/book-ride-online.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/book-ride-online">
                           <span class="pc-mega-item-title">Book Ride Online</span>
                           <span class="pc-mega-item-desc">Instant online cab booking</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/download-app.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/download-our-app">
                           <span class="pc-mega-item-title">Download App</span>
                           <span class="pc-mega-item-desc">Get the PowerCabs app</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/about-us.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/about-us">
                           <span class="pc-mega-item-title">About Us</span>
                           <span class="pc-mega-item-desc">Our story and mission</span>
                         </a>
@@ -218,27 +218,27 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
                         <p class="pc-mega-col-title">Business</p>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/corporate-services.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/corporate-services">
                           <span class="pc-mega-item-title">Corporate Services</span>
                           <span class="pc-mega-item-desc">Business travel accounts Ireland</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/business-solutions.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/business-solutions">
                           <span class="pc-mega-item-title">PowerCabs Business Solutions</span>
                           <span class="pc-mega-item-desc">Card terminals and payments</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/wheelchair-accessible-taxis.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/wheelchair-accessible-taxis">
                           <span class="pc-mega-item-title">Wheelchair Accessible Taxis</span>
                           <span class="pc-mega-item-desc">Inclusive rides for everyone</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/airport-transfers.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/airport-transfers">
                           <span class="pc-mega-item-title">Meet &amp; Greet</span>
                           <span class="pc-mega-item-desc">Airport pickups, done right</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/city-tours.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/city-tours">
                           <span class="pc-mega-item-title">City Tours</span>
                           <span class="pc-mega-item-desc">See Ireland with a local driver</span>
                         </a>
@@ -248,17 +248,17 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
                         <p class="pc-mega-col-title">Drivers</p>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/ambassador-programme.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/ambassador-programme">
                           <span class="pc-mega-item-title">Ambassador Programme</span>
                           <span class="pc-mega-item-desc">Exclusive perks for drivers</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/partner-programme.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/partner-programme">
                           <span class="pc-mega-item-title">Partner Programme</span>
                           <span class="pc-mega-item-desc">Earn as a partner</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/loyalty-program.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/loyalty-program">
                           <span class="pc-mega-item-title">Loyalty Program</span>
                           <span class="pc-mega-item-desc">Earn rewards every trip</span>
                         </a>
@@ -273,8 +273,8 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                           </button>
                           <div class="pc-mega-submenu">
                             <div class="pc-mega-submenu-inner">
-                              <a class="pc-mega-subitem" href="<?= $assetPath ?>/index.php">Driver Training</a>
-                              <a class="pc-mega-subitem" href="<?= $assetPath ?>/index.php">SPSV Manual</a>
+                              <a class="pc-mega-subitem" href="<?= $assetPath ?>/">Driver Training</a>
+                              <a class="pc-mega-subitem" href="<?= $assetPath ?>/">SPSV Manual</a>
                             </div>
                           </div>
                         </div>
@@ -293,23 +293,23 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                             <span class="pc-mega-item-desc">Tips for staying safe</span>
                           </button>
                           <div class="pc-mega-submenu">
-                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-drivers.php">Driver
+                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-drivers">Driver
                               Safety</a>
-                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-riders.php">Rider Safety</a>
+                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a>
                           </div>
                         </div>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/terms-conditions.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/terms-conditions">
                           <span class="pc-mega-item-title">Terms &amp; Conditions</span>
                           <span class="pc-mega-item-desc">Rider and driver agreements</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/privacy-policy.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/privacy-policy">
                           <span class="pc-mega-item-title">Cookies &amp; Privacy Policy</span>
                           <span class="pc-mega-item-desc">How we handle data</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/sustainability.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/sustainability">
                           <span class="pc-mega-item-title">Sustainability &amp; Environment</span>
                           <span class="pc-mega-item-desc">Our environmental commitment explained</span>
                         </a>
@@ -322,15 +322,15 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
 
               <li class="nav-item">
                 <a class="nav-link fw-normal <?= $navActive('drive.php') ?>" data-page="drive.php"
-                  href="<?= $assetPath ?>/drive.php">Drive</a>
+                  href="<?= $assetPath ?>/drive">Drive</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-normal <?= $navActive('ride.php') ?>" data-page="ride.php"
-                  href="<?= $assetPath ?>/ride.php">Ride</a>
+                  href="<?= $assetPath ?>/ride">Ride</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-normal <?= $navActive('business.php') ?>" data-page="business.php"
-                  href="<?= $assetPath ?>/business.php">Business</a>
+                  href="<?= $assetPath ?>/business">Business</a>
               </li>
 
               <!-- ============ Contact: hover mega menu (single column) ============ -->
@@ -347,22 +347,22 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                   <div class="pc-mega-inner">
                     <div class="row g-4">
                       <div class="col-12 pc-mega-col">
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/contact-us.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/contact-us">
                           <span class="pc-mega-item-title">Contact Us</span>
                           <span class="pc-mega-item-desc">Reach our support team</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/complaint-form.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/complaint-form">
                           <span class="pc-mega-item-title">Complaint Form</span>
                           <span class="pc-mega-item-desc">Report an issue</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/positive-feedback-form.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/positive-feedback-form">
                           <span class="pc-mega-item-title">Positive Feedback Form</span>
                           <span class="pc-mega-item-desc">Share a great experience</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/lost-item-report.php">
+                        <a class="pc-mega-item" href="<?= $assetPath ?>/lost-item-report">
                           <span class="pc-mega-item-title">Lost an Item Report</span>
                           <span class="pc-mega-item-desc">Left something in your ride?</span>
                         </a>
@@ -375,7 +375,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
 
             <div class="mt-2 mt-lg-0 d-flex align-items-center pc-nav-actions">
               <a class="btn btn-pc-dark pc-nav-cta rounded-pill d-inline-flex align-items-center gap-2 fw-medium"
-                href="<?= $assetPath ?>/book-ride-online.php">
+                href="<?= $assetPath ?>/book-ride-online">
                 <i class="bi bi-car-front-fill"></i>
                 <span class="pc-nav-cta-word">Book Online</span>
               </a>

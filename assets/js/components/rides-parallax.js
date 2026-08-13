@@ -1,4 +1,11 @@
-document.addEventListener("DOMContentLoaded", () => {
+// Re-navigating to this page via PJAX re-runs this script -- tear down the
+// previous scroll/resize listeners first so they don't pile up.
+if (window.pcRidesParallaxCleanup) {
+  window.pcRidesParallaxCleanup();
+  window.pcRidesParallaxCleanup = null;
+}
+
+function pcInitRidesParallax() {
   const section = document.getElementById("pcRidesParallax");
   if (!section) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -73,8 +80,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
+  window.pcRidesParallaxCleanup = () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+  };
 
   computeTarget();
   currentProgress = targetProgress;
   render(currentProgress);
-});
+}
+
+if (document.readyState !== "loading") {
+  pcInitRidesParallax();
+} else {
+  document.addEventListener("DOMContentLoaded", pcInitRidesParallax);
+}

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function pcInitTermsConditions() {
   const passengerToggle = document.getElementById("tcAudiencePassenger");
   const driverToggle = document.getElementById("tcAudienceDriver");
   const passengerTerms = document.getElementById("passengerTerms");
@@ -17,4 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
       driverTerms.classList.remove("d-none");
     }
   });
-});
+}
+
+if (document.readyState !== "loading") {
+  pcInitTermsConditions();
+} else {
+  document.addEventListener("DOMContentLoaded", pcInitTermsConditions);
+}

@@ -355,14 +355,13 @@ $categoryModes = [
         <div class="form-check mb-4">
           <input class="form-check-input" type="checkbox" id="cfTerms" name="terms_agree">
           <label class="form-check-label" for="cfTerms">
-            I have read and agree to the <a class="pc-form-link" href="<?= $assetPath ?>/terms-conditions.php" target="_blank" rel="noopener">Terms and Conditions</a> and <a class="pc-form-link" href="<?= $assetPath ?>/privacy-policy.php" target="_blank" rel="noopener">Privacy Policy</a>
+            I have read and agree to the <a class="pc-form-link" href="<?= $assetPath ?>/terms-conditions" target="_blank" rel="noopener">Terms and Conditions</a> and <a class="pc-form-link" href="<?= $assetPath ?>/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
           </label>
         </div>
       </div>
 
       <div id="complaintSubmitWrapper" class="d-none">
         <button type="submit" id="complaintSubmitBtn" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
-          <span id="complaintSubmitSpinner" class="spinner-border spinner-border-sm me-2 d-none" aria-hidden="true"></span>
           <span id="complaintSubmitLabel">Submit Complaint</span>
           <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
         </button>

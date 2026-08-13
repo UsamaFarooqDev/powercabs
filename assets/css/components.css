@@ -2047,3 +2047,137 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
+
+/* ---------- PJAX top-loading bar ---------- */
+.pc-pjax-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  z-index: 2100;
+  background: linear-gradient(90deg, var(--pc-orange) 0%, var(--pc-orange-light) 100%);
+  opacity: 0;
+  transition: width 0.2s ease, opacity 0.2s ease;
+}
+
+.pc-pjax-progress.is-active {
+  width: 80%;
+  opacity: 1;
+  transition: width 4s cubic-bezier(0.1, 0.6, 0.3, 1), opacity 0.2s ease;
+}
+
+.pc-pjax-progress.is-done {
+  width: 100%;
+  opacity: 0;
+  transition: width 0.2s ease, opacity 0.3s ease 0.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-pjax-progress,
+  .pc-pjax-progress.is-active,
+  .pc-pjax-progress.is-done {
+    transition: none;
+  }
+}
+
+/* ---------- Toast notifications (form submit result) ---------- */
+.pc-toast-container {
+  position: fixed;
+  top: calc(var(--pc-navbar-h, 90px) + 1rem);
+  right: 1rem;
+  z-index: 2050;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: min(360px, calc(100vw - 2rem));
+}
+
+.pc-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--pc-radius-md);
+  background: var(--pc-white);
+  box-shadow: var(--pc-shadow-lg);
+  border-left: 4px solid transparent;
+  font-size: 0.9rem;
+  color: var(--pc-dark);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pc-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pc-toast-success {
+  border-left-color: var(--bs-success, #198754);
+}
+
+.pc-toast-success i {
+  color: var(--bs-success, #198754);
+}
+
+.pc-toast-error {
+  border-left-color: var(--bs-danger, #dc3545);
+}
+
+.pc-toast-error i {
+  color: var(--bs-danger, #dc3545);
+}
+
+.pc-toast i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.pc-toast span {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.pc-toast-close {
+  flex-shrink: 0;
+  border: 0;
+  background: transparent;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--pc-text-muted);
+  cursor: pointer;
+  padding: 0 0.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-toast {
+    transition: none;
+  }
+}
+
+/* ---------- Submit-button loading spinner (replaces the trailing icon) ---------- */
+.pc-btn-icon-spinner {
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  background: transparent;
+  animation: pc-loader-spin 0.65s linear infinite;
+  vertical-align: -0.1em;
+}
+
+.btn-pc-dark .pc-btn-icon-spinner,
+.btn-outline-primary .pc-btn-icon-spinner {
+  border-color: rgba(28, 20, 16, 0.25);
+  border-top-color: var(--pc-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-btn-icon-spinner {
+    animation-duration: 1.4s;
+  }
+}

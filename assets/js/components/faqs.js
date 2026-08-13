@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function pcInitFaqs() {
   const passengerToggle = document.getElementById("faqAudiencePassenger");
   const driverToggle = document.getElementById("faqAudienceDriver");
   if (!passengerToggle || !driverToggle) return;
@@ -23,4 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
   driverToggle.addEventListener("change", () => {
     if (driverToggle.checked) pairs.forEach((pair) => swapTo(pair.driver, pair.passenger));
   });
-});
+}
+
+if (document.readyState !== "loading") {
+  pcInitFaqs();
+} else {
+  document.addEventListener("DOMContentLoaded", pcInitFaqs);
+}

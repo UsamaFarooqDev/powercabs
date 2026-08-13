@@ -11,7 +11,7 @@
           journey covered. Book with confidence, every time.
         </p>
         <div class="d-flex flex-wrap gap-3">
-          <a class="btn btn-pc-primary px-4" href="<?= $assetPath ?>/ride.php">Book Online</a>
+          <a class="btn btn-pc-primary px-4" href="<?= $assetPath ?>/ride">Book Online</a>
           <a class="btn btn-pc-dark px-4" href="tel:+35389965467">Call Us</a>
         </div>
       </div>
@@ -19,7 +19,7 @@
 
     <div class="row g-4">
       <div class="col-md-4">
-        <a href="<?= $assetPath ?>/airport-transfers.php" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
+        <a href="<?= $assetPath ?>/airport-transfers" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
           <img src="<?= $assetPath ?>assets/img/service-airport.png" alt="Airport pickup and drop-off" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
@@ -35,7 +35,7 @@
         </a>
       </div>
       <div class="col-md-4">
-        <a href="<?= $assetPath ?>/corporate-services.php" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
+        <a href="<?= $assetPath ?>/corporate-services" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
           <img src="<?= $assetPath ?>assets/img/services-corporate.jpg" alt="Corporate travel services" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
@@ -51,7 +51,7 @@
         </a>
       </div>
       <div class="col-md-4">
-        <a href="<?= $assetPath ?>/city-tours.php" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
+        <a href="<?= $assetPath ?>/city-tours" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
           <img src="<?= $assetPath ?>assets/img/service-city-tour.jpg" alt="City tour packages" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">

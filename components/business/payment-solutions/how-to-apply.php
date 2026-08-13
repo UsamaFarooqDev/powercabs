@@ -83,7 +83,7 @@
       <div class="mt-auto">
         <a
           class="btn btn-pc-dark px-4"
-          href="<?= $assetPath ?>/ambassador-programme.php"
+          href="<?= $assetPath ?>/ambassador-programme"
         >
           Ambassador Programme
           <i class="bi bi-arrow-right-short fs-6 ms-1"></i>

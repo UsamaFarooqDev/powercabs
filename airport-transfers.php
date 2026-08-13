@@ -92,7 +92,7 @@ $bookingSteps = [
           you, assist with your luggage and get you comfortably on your way.
         </p>
         <div class="d-flex flex-wrap align-items-center gap-3">
-          <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online.php">Book a Meet &amp;
+          <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online">Book a Meet &amp;
             Greet</a>
           <span class="small text-muted-pc">
             <i class="bi bi-check-circle-fill me-1" style="color: var(--pc-orange);"></i>
@@ -710,8 +710,8 @@ $bookingSteps = [
     <p class="text-muted-pc mx-auto mb-4" style="max-width: 52ch;">Book online in a couple of minutes, or get in touch
       if you have a question first.</p>
     <div class="d-flex flex-wrap justify-content-center gap-3">
-      <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/book-ride-online.php">Book Online</a>
-      <a class="btn btn-outline-dark btn-md px-5 rounded-pill" href="<?= $assetPath ?>/faqs.php">Have a Question? See
+      <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/book-ride-online">Book Online</a>
+      <a class="btn btn-outline-dark btn-md px-5 rounded-pill" href="<?= $assetPath ?>/faqs">Have a Question? See
         FAQs</a>
     </div>
   </div>

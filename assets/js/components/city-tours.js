@@ -1,7 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
+function pcInitCityTours() {
   const modalEl = document.getElementById('tourModal');
   if (!modalEl) return;
 
+  // A previous PJAX visit to this page may have already relocated a copy of
+  // this modal to the end of <body> -- drop it before adopting this one.
+  document.querySelectorAll('#tourModal').forEach((el) => {
+    if (el !== modalEl) el.remove();
+  });
   document.body.appendChild(modalEl);
 
   const nameEl = document.getElementById('tourModalName');
@@ -33,4 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.pcCityToursFormSubmitted) {
     new bootstrap.Modal(modalEl).show();
   }
-});
+}
+
+if (document.readyState !== 'loading') {
+  pcInitCityTours();
+} else {
+  document.addEventListener('DOMContentLoaded', pcInitCityTours);
+}

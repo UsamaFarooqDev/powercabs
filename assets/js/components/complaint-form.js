@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function pcInitComplaintForm() {
   const form = document.getElementById("complaintForm");
   if (!form) return;
 
@@ -28,14 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   updateCategoryState();
+  // Submit-button loading state is handled generically by ajax-forms.js.
+}
 
-  const submitBtn = document.getElementById("complaintSubmitBtn");
-  const submitSpinner = document.getElementById("complaintSubmitSpinner");
-  const submitLabel = document.getElementById("complaintSubmitLabel");
-  form.addEventListener("submit", () => {
-    if (!submitBtn || submitBtn.disabled) return;
-    submitBtn.disabled = true;
-    submitSpinner.classList.remove("d-none");
-    submitLabel.textContent = "Submitting...";
-  });
-});
+if (document.readyState !== "loading") {
+  pcInitComplaintForm();
+} else {
+  document.addEventListener("DOMContentLoaded", pcInitComplaintForm);
+}

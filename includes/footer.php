@@ -8,10 +8,10 @@
       <div class="col">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Contact</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/contact-us.php">Contact Us</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/complaint-form.php">Complaint Form</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/positive-feedback-form.php">Positive Feedback Form</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/lost-item-report.php">Lost an Item Report</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/contact-us">Contact Us</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/complaint-form">Complaint Form</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/positive-feedback-form">Positive Feedback Form</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/lost-item-report">Lost an Item Report</a></li>
 
         </ul>
       </div>
@@ -19,38 +19,38 @@
       <div class="col">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Get Started</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/download-app.php">Download App</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/wheelchair-accessible-taxis.php">Wheelchair Accessible Taxis</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/airport-transfers.php">Meet &amp; Greet</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/city-tours.php">City Tours</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/about-us.php">About Us</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/download-our-app">Download App</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/wheelchair-accessible-taxis">Wheelchair Accessible Taxis</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/airport-transfers">Meet &amp; Greet</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/city-tours">City Tours</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/about-us">About Us</a></li>
         </ul>
       </div>
 
       <div class="col">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Business</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/corporate-services.php">Corporate Services</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/business-solutions.php">PowerCabs Business Solutions</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/partner-programme.php">Partner Programme</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/corporate-services">Corporate Services</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/business-solutions">PowerCabs Business Solutions</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/partner-programme">Partner Programme</a></li>
         </ul>
       </div>
 
       <div class="col">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Drivers</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/ambassador-programme.php">Ambassador Programme</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/loyalty-program.php">Loyalty Program</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/ambassador-programme">Ambassador Programme</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/loyalty-program">Loyalty Program</a></li>
         </ul>
       </div>
 
       <div class="col">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Policies &amp; Safety</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-drivers.php">Driver Safety</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-riders.php">Rider Safety</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/sustainability.php">Sustainability &amp; Environment</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/faqs.php">FAQs</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-drivers">Driver Safety</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/sustainability">Sustainability &amp; Environment</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/faqs">FAQs</a></li>
         </ul>
       </div>
 
@@ -84,9 +84,9 @@
         &copy; 2024&ndash;<?php echo date('Y'); ?> Powercabs Ireland Limited.
       </p>
       <div class="d-flex gap-4">
-        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/privacy-policy.php">Privacy Policy</a>
-        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/terms-conditions.php">Terms &amp; Conditions</a>
-        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/gdpr.php">GDPR</a>
+        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
+        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
+        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/gdpr">GDPR</a>
       </div>
       <div class="d-flex gap-3">
         <a class="pc-footer-social" href="https://www.facebook.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Facebook">
@@ -113,6 +113,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= $assetPath ?>assets/js/main.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/toast.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/ajax-forms.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/pjax.js"></script>
 <script src="<?= $assetPath ?>assets/js/components/page-loader.js"></script>
 </body>
 </html>

@@ -279,7 +279,7 @@ $driverNav = [
         <p><strong>10.7</strong> The User must immediately notify POWERCABS IRELAND LIMITED of any actual or threatened claim under clause 10.6 and provide all relevant information.</p>
 
         <h2 id="d-data" class="fs-4 fw-bold mt-5 mb-3">11. Data Protection</h2>
-        <p>Users acknowledge and accept that personal data will be collected, processed, and used in connection with any intermediation services provided through the Driver App, in accordance with the GDPR and relevant national laws. POWERCABS IRELAND LIMITED&rsquo;s Privacy Notice applies to such processing and is available on the <a class="pc-form-link" href="<?= $assetPath ?>/privacy-policy.php">Privacy Policy</a> page.</p>
+        <p>Users acknowledge and accept that personal data will be collected, processed, and used in connection with any intermediation services provided through the Driver App, in accordance with the GDPR and relevant national laws. POWERCABS IRELAND LIMITED&rsquo;s Privacy Notice applies to such processing and is available on the <a class="pc-form-link" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a> page.</p>
 
         <h2 id="d-complaints" class="fs-4 fw-bold mt-5 mb-3">12. Complaints</h2>
         <p><strong>12.1</strong> POWERCABS IRELAND LIMITED provides an electronic tool on its website for Drivers to submit complaints, which will be handled by its internal complaints team. Only complaints submitted through the prescribed method will be handled.</p>

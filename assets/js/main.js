@@ -15,11 +15,22 @@ window.addEventListener("resize", syncFooterHeightVar);
 window.addEventListener("load", syncFooterHeightVar);
 
 function highlightActiveNavLink() {
-  const currentPath = window.location.pathname.split("/").pop() || "index.php";
+  // URLs are served without a ".php" extension, but data-page attributes may
+  // still carry one -- strip it from both sides so the comparison works
+  // regardless of which form either side happens to be in.
+  const stripPhp = (value) => value.replace(/\.php$/i, "");
+  const currentPath = stripPhp(window.location.pathname.split("/").pop() || "") || "index";
+
+  // The nav bar lives outside <main> and survives every PJAX swap, so any
+  // "active" state left over from a previous page has to be cleared first --
+  // otherwise it just accumulates, one extra "active" link per navigation.
   document.querySelectorAll(".navbar-nav .nav-link[data-page]").forEach((link) => {
-    if (link.dataset.page === currentPath) {
-      link.classList.add("active");
+    const isActive = stripPhp(link.dataset.page) === currentPath;
+    link.classList.toggle("active", isActive);
+    if (isActive) {
       link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
     }
   });
 }
@@ -101,8 +112,18 @@ function syncFooterHeightVar() {
   document.documentElement.classList.toggle("pc-footer-reveal", naturalMainHeight >= window.innerHeight);
 }
 
-/** Home hero */
+/**
+ * Home hero. PJAX navigation can call this again every time the homepage is
+ * (re)loaded into <main> -- tear down the previous scroll listener first so
+ * repeated visits don't stack up duplicate listeners on a detached hero.
+ */
+let pcHeroParallaxCleanup = null;
 function initHeroParallax() {
+  if (pcHeroParallaxCleanup) {
+    pcHeroParallaxCleanup();
+    pcHeroParallaxCleanup = null;
+  }
+
   const hero = document.querySelector(".pc-hero");
   if (!hero) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -118,16 +139,15 @@ function initHeroParallax() {
     ticking = false;
   };
 
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  };
+
   update();
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    },
-    { passive: true }
-  );
+  window.addEventListener("scroll", onScroll, { passive: true });
+  pcHeroParallaxCleanup = () => window.removeEventListener("scroll", onScroll);
 }
 
 /* Global header scroll */
@@ -171,14 +191,20 @@ function initHeaderScrollReveal() {
   );
 }
 
-/* Home page "Why Choose PowerCabs" cards */
+/* Home page "Why Choose PowerCabs" cards -- same re-init story as the hero. */
+let pcWhyChooseObserver = null;
 function initWhyChooseReveal() {
+  if (pcWhyChooseObserver) {
+    pcWhyChooseObserver.disconnect();
+    pcWhyChooseObserver = null;
+  }
+
   const items = document.querySelectorAll("#why-choose .pc-why-item");
   if (!items.length) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (!("IntersectionObserver" in window)) return;
 
-  const observer = new IntersectionObserver(
+  pcWhyChooseObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         entry.target.classList.toggle("is-visible", entry.isIntersecting);
@@ -187,7 +213,7 @@ function initWhyChooseReveal() {
     { threshold: 0.25 }
   );
 
-  items.forEach((item) => observer.observe(item));
+  items.forEach((item) => pcWhyChooseObserver.observe(item));
 }
 
 /**

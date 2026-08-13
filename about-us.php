@@ -89,7 +89,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
           From Dublin Airport to D&uacute;n Laoghaire, and the IFSC to Dundrum. Wherever you
           need to be in the Greater Dublin Area, we are there.
         </p>
-        <a href="<?= $assetPath ?>/ride.php" class="btn btn-pc-primary btn-sm px-3">Check Coverage</a>
+        <a href="<?= $assetPath ?>/ride" class="btn btn-pc-primary btn-sm px-3">Check Coverage</a>
       </div>
     </div>
   </div>

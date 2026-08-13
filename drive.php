@@ -28,7 +28,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
           Flexible hours, competitive earnings, and 24/7 support &mdash; join a community that
           values safety, reliability, and your success.
         </p>
-        <a class="pc-underline-cta" href="<?= $assetPath ?>/download-app.php">Already Registered? Get Started</a>
+        <a class="pc-underline-cta" href="<?= $assetPath ?>/download-our-app">Already Registered? Get Started</a>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@ require __DIR__ . '/components/drive/preferences.php';
   <div class="container">
     <h2 class="mb-3">Still Have Questions?</h2>
     <p class="text-muted-pc mx-auto mb-4" style="max-width: 56ch;">Find quick answers to the most common driver questions -- documents, payouts, ratings and more.</p>
-    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/faqs.php">Visit FAQ's</a>
+    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/faqs">Visit FAQ's</a>
   </div>
 </section>
 

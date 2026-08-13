@@ -54,9 +54,9 @@
         </p>
 
         <div class="d-flex flex-wrap align-items-center gap-3 pc-hero-ctas">
-          <a class="btn btn-pc-primary btn-md px-4" href="<?= $assetPath ?>/ride.php">Book a Ride</a>
-          <a class="pc-hero-btn-secondary btn-md" href="<?= $assetPath ?>/drive.php">Become a Driver</a>
-          <a class="pc-hero-btn-tertiary btn-md" href="<?= $assetPath ?>/business.php">
+          <a class="btn btn-pc-primary btn-md px-4" href="<?= $assetPath ?>/ride">Book a Ride</a>
+          <a class="pc-hero-btn-secondary btn-md" href="<?= $assetPath ?>/drive">Become a Driver</a>
+          <a class="pc-hero-btn-tertiary btn-md" href="<?= $assetPath ?>/business">
             Business Solutions <i class="bi bi-arrow-right-short fs-4"></i>
           </a>
         </div>

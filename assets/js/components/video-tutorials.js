@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function pcInitVideoTutorials() {
   document.querySelectorAll(".pc-tutorial-card").forEach((card) => {
     const video = card.querySelector("video");
     const playBtn = card.querySelector(".pc-tutorial-play-btn");
@@ -21,4 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
+}
+
+if (document.readyState !== "loading") {
+  pcInitVideoTutorials();
+} else {
+  document.addEventListener("DOMContentLoaded", pcInitVideoTutorials);
+}

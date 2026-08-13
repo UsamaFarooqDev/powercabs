@@ -2,3 +2,23 @@
 # Apache-compatible host) -- ErrorDocument is a core directive supported
 # on virtually every standard PHP/shared host, no mod_rewrite needed.
 ErrorDocument 404 /404.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1) Normalize the homepage: /index or /index.php -> /
+  RewriteRule ^index(\.php)?/?$ / [R=301,L,NE]
+
+  # 2) Anyone linking/bookmarking a URL with ".php" still in it gets sent to
+  #    the clean, canonical version (301 = permanent, keeps SEO value and
+  #    avoids duplicate-content indexing of both URL forms). Query strings
+  #    are preserved automatically since the target has no "?".
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L,NE]
+
+  # 3) Internally serve the matching .php file for a clean URL -- the
+  #    browser's address bar keeps showing the extension-less path.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.php -f
+  RewriteRule ^(.*)$ $1.php [L]
+</IfModule>

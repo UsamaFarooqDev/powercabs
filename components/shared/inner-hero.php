@@ -40,7 +40,7 @@ $breadcrumbSchema = [
       <ol class="breadcrumb mb-0 text-uppercase"
         style="--bs-breadcrumb-divider: '//'; --bs-breadcrumb-divider-color: #fff; letter-spacing: .04em; font-size: .85rem;">
         <li class="breadcrumb-item">
-          <a class="text-white text-opacity-75 text-decoration-none" href="<?= $assetPath ?>index.php">Home</a>
+          <a class="text-white text-opacity-75 text-decoration-none" href="<?= $assetPath ?>/">Home</a>
         </li>
 
                   <li class="breadcrumb-item active fw-semibold text-white" aria-current="page">

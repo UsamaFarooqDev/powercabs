@@ -111,7 +111,7 @@ $ppNav = [
         <ul class="mb-0">
           <li>Request confirmation that their personal data is being processed.</li>
           <li>Access their personal information.</li>
-          <li>Exercise their rights in accordance with the GDPR -- see the full <a class="pc-form-link" href="<?= $assetPath ?>/gdpr.php">GDPR</a> page for details.</li>
+          <li>Exercise their rights in accordance with the GDPR -- see the full <a class="pc-form-link" href="<?= $assetPath ?>/gdpr">GDPR</a> page for details.</li>
         </ul>
 
         <h2 id="pp-managing" class="fs-4 fw-bold mt-5 mb-3">Managing Cookies</h2>

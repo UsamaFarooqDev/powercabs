@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function pcInitBookSteps() {
   const widget = document.getElementById("pcBookSteps");
   if (!widget) return;
 
@@ -36,4 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   tabs.forEach((tab, i) => {
     tab.addEventListener("click", () => activate(i));
   });
-});
+}
+
+if (document.readyState !== "loading") {
+  pcInitBookSteps();
+} else {
+  document.addEventListener("DOMContentLoaded", pcInitBookSteps);
+}

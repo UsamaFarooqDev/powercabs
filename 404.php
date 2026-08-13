@@ -29,11 +29,11 @@ $pageDescription = "The page you're looking for doesn't exist or may have been m
     <p class="text-muted-pc mb-5" style="font-size: 1.2rem;"><?= htmlspecialchars($pageDescription) ?></p>
 
     <div class="d-flex flex-wrap justify-content-center gap-3">
-      <a href="/index.php" class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2">
+      <a href="/" class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2">
         <i class="bi bi-house-door-fill"></i>
         <span>Back to Home</span>
       </a>
-      <a href="/book-ride-online.php" class="btn btn-pc-dark rounded-pill px-4 d-inline-flex align-items-center gap-2">
+      <a href="/book-ride-online" class="btn btn-pc-dark rounded-pill px-4 d-inline-flex align-items-center gap-2">
         <i class="bi bi-car-front-fill"></i>
         <span>Book Online</span>
       </a>

@@ -95,6 +95,13 @@ a {
   opacity: 100;
 }
 
+.btn-pc-primary:disabled {
+  background: var(--pc-orange-light);
+  border-color: var(--pc-orange-light);
+  color: var(--pc-white);
+  opacity: 0.85;
+}
+
 .btn-pc-dark {
   background-color: var(--pc-dark);
   border-color: var(--pc-dark);
