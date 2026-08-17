@@ -12,7 +12,7 @@
         </p>
         <div class="d-flex flex-wrap gap-3">
           <a class="btn btn-pc-primary px-4" href="<?= $assetPath ?>/ride">Book Online</a>
-          <a class="btn btn-pc-dark px-4" href="tel:+35389965467">Call Us</a>
+          <a class="btn btn-pc-dark px-4" href="tel:+35312030727">Call Us</a>
         </div>
       </div>
     </div>

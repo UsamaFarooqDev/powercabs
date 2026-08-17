@@ -61,17 +61,44 @@
           </a>
         </div>
 
-        <div class="d-flex flex-wrap align-items-center gap-3 pc-hero-download">
-          <span class="pc-hero-download-label">Download on</span>
-          <a href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
-            <i class="bi bi-apple"></i> App Store
+        <div class="d-flex flex-wrap align-items-center gap-2 pc-hero-download">
+          <a class="pc-store-badge" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
+            <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="20" height="20" aria-hidden="true">
+            <span class="d-flex flex-column text-start">
+              <span class="pc-store-badge-eyebrow">Get it on</span>
+              <span class="pc-store-badge-title">Google Play</span>
+            </span>
           </a>
-          <a href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
-            <i class="bi bi-google-play"></i> Google Play
+          <a class="pc-store-badge" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
+            <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
+            <span class="d-flex flex-column text-start">
+              <span class="pc-store-badge-eyebrow">Download on the</span>
+              <span class="pc-store-badge-title">App Store</span>
+            </span>
           </a>
         </div>
       </div>
       <div class="col-lg-5" aria-hidden="true"></div>
+    </div>
+
+    <?php
+    $heroServices = [
+      ['icon' => 'bi-clock-history', 'label' => 'Pay Per Hour', 'href' => '/ride'],
+      ['icon' => 'bi-briefcase-fill', 'label' => 'Corporate', 'href' => '/corporate-services'],
+      ['icon' => 'bi-airplane-fill', 'label' => 'Meet and Greet', 'href' => '/airport-transfers'],
+      ['icon' => 'bi-credit-card-fill', 'label' => 'Business Solutions', 'href' => '/business-solutions'],
+      ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
+    ];
+    ?>
+    <div class="row row-cols-1 row-cols-md-5 g-0 pc-hero-services-row">
+      <?php foreach ($heroServices as $service): ?>
+        <div class="col">
+          <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-hero-service-tile d-flex flex-column align-items-center text-decoration-none text-center w-100 h-100">
+            <i class="bi <?= $service['icon'] ?> pc-hero-service-icon" aria-hidden="true"></i>
+            <span class="pc-hero-service-label"><?= htmlspecialchars($service['label']) ?></span>
+          </a>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>

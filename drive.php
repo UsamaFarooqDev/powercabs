@@ -11,6 +11,7 @@ $heroTitleBold   = 'PowerCabs Family.';
 $heroDescription = 'Looking for a flexible and rewarding driving opportunity? Join PowerCabs and become part of a community that values safety, reliability, and excellent customer service. Drivers enjoy flexible working hours, competitive earnings, and 24/7 support to help them succeed.';
 $heroBgImage     = 'https://images.pexels.com/photos/5835012/pexels-photo-5835012.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
+require __DIR__ . '/components/drive/be-your-own-boss.php';
 ?>
 
 <!-- ============ Join the Family ============ -->
