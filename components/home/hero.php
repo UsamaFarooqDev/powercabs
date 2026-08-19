@@ -90,7 +90,7 @@
       ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
     ];
     ?>
-    <div class="row row-cols-1 row-cols-md-5 g-0 pc-hero-services-row">
+    <div class="row row-cols-2 row-cols-md-5 g-0 pc-hero-services-row">
       <?php foreach ($heroServices as $service): ?>
         <div class="col">
           <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-hero-service-tile d-flex flex-column align-items-center text-decoration-none text-center w-100 h-100">

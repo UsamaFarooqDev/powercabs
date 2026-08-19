@@ -1,4 +1,4 @@
-<section class="section-pc" id="business-booking-form" style="scroll-margin-top: 6rem;">
+<section class="section-pc" id="business-booking-form" style="scroll-margin-top: 6rem; background: linear-gradient(180deg, var(--pc-cream-soft) 0%, var(--pc-white) 100%);">
   <div class="container">
     <div class="row justify-content-center text-center mb-5">
       <div class="col-lg-8">

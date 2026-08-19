@@ -1,4 +1,4 @@
-<section class="section-pc pt-0">
+<section class="pc-biz-band-a section-pc">
   <div class="container">
     <div class="pc-panel rounded-4 p-4 p-md-5">
       <div class="row align-items-center gy-4">

@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Business Travel & Chauffeur Cars in Dublin | PowerCabs';
-$pageDescription = 'Reliable, discreet, and professional Business Rides and Limousine Services from PowerCabs -- built for executives, teams, and corporate travel across Dublin.';
+$pageDescription =
+  'Reliable, discreet, and professional Business Rides and Limousine Services from PowerCabs -- built for executives, teams, and corporate travel across Dublin.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
@@ -23,27 +24,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $old[$key] = trim($_POST[$key] ?? '');
   }
 
-  if ($old['contact_name'] === '' || $old['business_name'] === '' || $old['business_email'] === '' || $old['phone'] === '') {
+  if (
+    $old['contact_name'] === '' ||
+    $old['business_name'] === '' ||
+    $old['business_email'] === '' ||
+    $old['phone'] === ''
+  ) {
     $formStatus = 'error';
     $formError = 'Please fill in all required fields.';
   } elseif (!filter_var($old['business_email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
   } else {
-    $body = "New business ride enquiry from the PowerCabs website.\n\n"
-      . "Contact Name: {$old['contact_name']}\n"
-      . "Business Name: {$old['business_name']}\n"
-      . "Business Email: {$old['business_email']}\n"
-      . "Phone Number: {$old['phone']}\n"
-      . "VAT / Tax Number: " . ($old['vat_number'] !== '' ? $old['vat_number'] : '-') . "\n"
-      . "Number of Employees: " . ($old['employee_count'] !== '' ? $old['employee_count'] : '-') . "\n\n"
-      . "Additional Details:\n" . ($old['message'] !== '' ? $old['message'] : '-') . "\n";
+    $body =
+      "New business ride enquiry from the PowerCabs website.\n\n" .
+      "Contact Name: {$old['contact_name']}\n" .
+      "Business Name: {$old['business_name']}\n" .
+      "Business Email: {$old['business_email']}\n" .
+      "Phone Number: {$old['phone']}\n" .
+      'VAT / Tax Number: ' .
+      ($old['vat_number'] !== '' ? $old['vat_number'] : '-') .
+      "\n" .
+      'Number of Employees: ' .
+      ($old['employee_count'] !== '' ? $old['employee_count'] : '-') .
+      "\n\n" .
+      "Additional Details:\n" .
+      ($old['message'] !== '' ? $old['message'] : '-') .
+      "\n";
 
-    $result = pc_send_mail(
-      'Business account request: ' . $old['business_name'],
-      $body,
-      ['name' => $old['contact_name'], 'email' => $old['business_email']]
-    );
+    $result = pc_send_mail('Business account request: ' . $old['business_name'], $body, [
+      'name' => $old['contact_name'],
+      'email' => $old['business_email'],
+    ]);
 
     if ($result['success']) {
       $formStatus = 'success';
@@ -62,15 +74,23 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = '/ Business';
 $heroTitleLight = 'Elevate Your';
 $heroTitleBold = 'Business Travel.';
-$heroDescription = 'Reliable and luxurious transportation for your business needs, with the comfort and professionalism your clients expect.';
+$heroDescription =
+  'Reliable and luxurious transportation for your business needs, with the comfort and professionalism your clients expect.';
 $heroBgImage = $assetPath . 'assets/img/services-corporate.jpg';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
-<!-- ============ Business Rides & Limousine Services ============ -->
+<!-- ============ Business Rides & Limousine Services (existing) ============ -->
 <section class="section-pc">
   <div class="container">
     <div class="row align-items-center gy-5">
+            <div class="col-lg-6">
+        <div class="rounded-4 overflow-hidden">
+          <img src="<?= $assetPath ?>assets/img/Business_gif.gif" alt="PowerCabs business travel showcase"
+            class="w-100 h-100 object-fit-cover" loading="lazy">
+        </div>
+      </div>
+
       <div class="col-lg-6">
         <h2 class="mb-3">Elevate Your Business Travel Experience</h2>
         <p class="text-muted-pc mb-4">
@@ -81,14 +101,12 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
         <p class="fw-semibold mb-2">With PowerCabs, you can expect:</p>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-4">
-          <?php
-          $businessExpectations = [
+          <?php $businessExpectations = [
             'Professional drivers',
             'Discreet and punctual chauffeurs',
             'Luxury at every step',
             'Smooth rides for working while travelling',
-          ];
-          ?>
+          ]; ?>
           <?php foreach ($businessExpectations as $item): ?>
             <li class="d-flex gap-2">
               <i class="bi bi-check-circle-fill" style="color: var(--pc-orange);"></i>
@@ -105,53 +123,27 @@ require __DIR__ . '/components/shared/inner-hero.php';
           </p>
         </div>
       </div>
-
-      <div class="col-lg-6">
-        <div class="rounded-4 overflow-hidden">
-          <img src="<?= $assetPath ?>assets/img/Business_gif.gif" alt="PowerCabs business travel showcase"
-            class="w-100 h-100 object-fit-cover" loading="lazy">
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <?php
+require __DIR__ . '/components/business/trust-strip.php';
+require __DIR__ . '/components/business/account-benefits.php';
+require __DIR__ . '/components/business/services-grid.php';
 require __DIR__ . '/components/business/airport-assistance.php';
+require __DIR__ . '/components/business/ireland-parallax.php';
+require __DIR__ . '/components/business/how-it-works.php';
 require __DIR__ . '/components/business/booking-process.php';
 ?>
 
-<!-- ============ Why Choose PowerCabs for Business Travel ============ -->
-<section class="section-pc bg-white position-relative overflow-hidden">
-  <div class="container position-relative">
-    <h2 class="text-center mb-5">Why Choose PowerCabs for Business Travel?</h2>
-    <div class="px-2 px-md-5">
-      <div class="row row-cols-1 row-cols-md-4 g-0 border-top border-start">
-        <div class="col pc-why-item position-relative border-end border-bottom text-center px-4 py-4 py-md-5">
-          <h3 class="fs-5 fw-bold mb-2 pc-why-item-title">Professional Chauffeurs</h3>
-          <p class="text-muted-pc mb-0">Experienced, courteous chauffeurs delivering safe and comfortable journeys.</p>
-        </div>
-
-        <div class="col pc-why-item position-relative border-end border-bottom text-center px-4 py-4 py-md-5">
-          <h3 class="fs-5 fw-bold mb-2 pc-why-item-title">Luxurious Fleet</h3>
-          <p class="text-muted-pc mb-0">Travel in premium sedans, SUVs, and limousines for every business occasion.</p>
-        </div>
-
-        <div class="col pc-why-item position-relative border-end border-bottom text-center px-4 py-4 py-md-5">
-          <h3 class="fs-5 fw-bold mb-2 pc-why-item-title">Punctuality</h3>
-          <p class="text-muted-pc mb-0">Reliable, on-time pickups and drop-offs to keep your schedule on track.</p>
-        </div>
-
-        <div class="col pc-why-item position-relative border-end border-bottom text-center px-4 py-4 py-md-5">
-          <h3 class="fs-5 fw-bold mb-2 pc-why-item-title">Confidentiality</h3>
-          <p class="text-muted-pc mb-0">Discreet, secure transportation with complete respect for your privacy.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <?php
+require __DIR__ . '/components/business/plans.php';
+require __DIR__ . '/components/business/final-cta.php';
+require __DIR__ . '/components/business/trust-proof.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
-require __DIR__ . '/includes/footer.php';
 ?>
+
+<script src="<?= $assetPath ?>assets/js/components/business-page.js"></script>
+
+<?php require __DIR__ . '/includes/footer.php'; ?>

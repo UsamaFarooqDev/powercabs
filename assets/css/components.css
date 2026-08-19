@@ -1289,6 +1289,18 @@
   border-right: 0;
 }
 
+/* Mobile shows 2 tiles per row instead of 1 -- the first/last-child rules
+   above only handle a single row of 5, so each row's own left/right edge
+   needs stripping here too (odd = left column, even = right column). */
+@media (max-width: 767.98px) {
+  .pc-hero-services-row > .col:nth-child(odd) .pc-hero-service-tile {
+    border-left: 0;
+  }
+  .pc-hero-services-row > .col:nth-child(even) .pc-hero-service-tile {
+    border-right: 0;
+  }
+}
+
 .pc-hero-service-icon {
   display: block;
   font-size: 1.6rem;
@@ -2110,6 +2122,15 @@ label.btn-outline-primary:focus,
   background: var(--pc-dark);
 }
 
+@media (max-width: 767.98px) {
+  .pc-scroll-indicator {
+    right: 1rem;
+    bottom: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pc-scroll-indicator {
     transition: none;
@@ -2439,5 +2460,1097 @@ label.btn-outline-primary:focus,
 @media (prefers-reduced-motion: reduce) {
   .pc-fare-result {
     animation: none;
+  }
+}
+
+/* ---------- Book Ride Online: form text was sitting at Bootstrap's
+   default 16px while the rest of the page's copy runs at 14px, so the
+   form read as noticeably larger than everything around it. ---------- */
+.pc-booking-form .form-label,
+.pc-booking-form .form-control,
+.pc-booking-form .form-select,
+.pc-booking-form .form-text {
+  font-size: 0.9rem;
+}
+
+/* ============ Business page (B2B redesign) ============ */
+
+/* ---------- Hero ---------- */
+.pc-biz-hero {
+  padding-top: calc(var(--pc-navbar-h, 110px) + 2rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  /* A flat pale gradient read as washed-out next to the header -- a warmer
+     glow anchored top-left gives the hero actual presence. */
+  background: radial-gradient(120% 100% at 12% 0%, var(--pc-peach) 0%, var(--pc-cream-soft) 45%, #ffffff 100%);
+}
+
+.pc-biz-hero-secondary-btn {
+  color: var(--pc-dark);
+  font-weight: 600;
+  padding-block: 0.4rem;
+  transition: opacity 0.2s ease;
+}
+
+.pc-biz-hero-secondary-btn:hover,
+.pc-biz-hero-secondary-btn:focus-visible {
+  opacity: 0.7;
+}
+
+.pc-biz-hero-media {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--pc-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--pc-shadow-lg);
+}
+
+.pc-biz-hero-chip {
+  position: absolute;
+  z-index: 2;
+  max-width: 78%;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 0.6rem 0.9rem;
+  box-shadow: var(--pc-shadow-md);
+  animation: pc-app-float 5s ease-in-out infinite;
+}
+
+.pc-biz-hero-chip-a {
+  top: 1.1rem;
+  left: 1.1rem;
+}
+
+.pc-biz-hero-chip-b {
+  bottom: 1.1rem;
+  right: 1.1rem;
+  animation-delay: 0.9s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-biz-hero-chip {
+    animation: none;
+  }
+}
+
+/* ---------- Trust logo strip (moving marquee, real colour) ---------- */
+.pc-biz-trust {
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+  border-bottom: 1px solid rgba(28, 20, 16, 0.06);
+}
+
+.pc-biz-trust-marquee {
+  padding-block: 0.5rem;
+}
+
+.pc-biz-trust-track {
+  /* Slower than the testimonial marquee -- more logos on stage, and a
+     leisurely pace reads as more premium than a quick scroll. */
+  animation-duration: 46s;
+}
+
+.pc-biz-trust-logo-item {
+  width: 150px;
+  padding-inline: 1.25rem;
+}
+
+.pc-biz-trust-logo {
+  height: 34px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 575.98px) {
+  .pc-biz-trust-logo-item {
+    width: 120px;
+    padding-inline: 0.85rem;
+  }
+  .pc-biz-trust-logo {
+    height: 28px;
+  }
+}
+
+/* ---------- Services grid: shorter featured card, no top tint ---------- */
+.pc-biz-service-card-featured {
+  aspect-ratio: 4 / 3;
+}
+
+/* ---------- Background bands: this page runs long, so consecutive section
+   pairs alternate between two soft gradients rather than sitting on flat
+   white -- breaks the page into readable "chapters" without looking loud. ---------- */
+.pc-biz-band-a {
+  background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
+}
+
+.pc-biz-band-b {
+  background: linear-gradient(165deg, var(--pc-cream-soft) 0%, var(--pc-peach) 55%, var(--pc-cream-soft) 100%);
+}
+
+/* ---------- Account benefits: business account interface mockup ---------- */
+.pc-biz-dash-card {
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-lg);
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.pc-biz-dash-stat {
+  background: var(--pc-cream-soft);
+  border-radius: var(--pc-radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.pc-biz-dash-stat-value {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--pc-dark);
+  line-height: 1.2;
+}
+
+.pc-biz-dash-stat-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-biz-dash-row {
+  padding-block: 0.65rem;
+  border-bottom: 1px solid rgba(28, 20, 16, 0.06);
+}
+
+.pc-biz-dash-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* ---------- Ireland / Dublin parallax visual ---------- */
+.pc-biz-ireland {
+  padding-block: clamp(7rem, 14vw, 11rem);
+}
+
+.pc-biz-ireland-media {
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pc-biz-ireland-media img {
+  transform: scale(1.12);
+  will-change: transform;
+}
+
+.pc-biz-ireland-scrim {
+  background: linear-gradient(180deg, rgba(10, 7, 5, 0.62) 0%, rgba(10, 7, 5, 0.8) 100%);
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-biz-ireland-media img {
+    transform: none;
+  }
+}
+
+/* ---------- How It Works: step timeline ---------- */
+.pc-biz-step {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-biz-step.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pc-biz-step-num {
+  width: 3.25rem;
+  height: 3.25rem;
+  background: var(--pc-dark);
+  color: var(--pc-white);
+  font-size: 1.05rem;
+}
+
+.pc-biz-step-rail-mobile {
+  width: 2px;
+  flex: 1;
+  min-height: 2.5rem;
+  background: rgba(28, 20, 16, 0.14);
+  margin-block: 0.5rem;
+}
+
+.pc-biz-step-last .pc-biz-step-rail-mobile {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .pc-biz-steps {
+    position: relative;
+  }
+
+  .pc-biz-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Single horizontal rail across the row, spanning circle-center to
+     circle-center (each circle sits centered in a 1/3-width column, so
+     that's the middle third of the row) -- simpler and more robust than
+     trying to join each item's own short rail segment. */
+  .pc-biz-steps::before {
+    content: '';
+    position: absolute;
+    top: 1.625rem;
+    left: 16.667%;
+    right: 16.667%;
+    height: 2px;
+    background: rgba(28, 20, 16, 0.14);
+    z-index: 0;
+  }
+
+  .pc-biz-step-num {
+    position: relative;
+    z-index: 1;
+  }
+
+  .pc-biz-step-body {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-biz-step {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Trust proof (verifiable-facts pull quote) ---------- */
+.pc-biz-quote-mark {
+  font-size: 2.5rem;
+  color: var(--pc-orange);
+  line-height: 1;
+}
+
+.pc-biz-quote-text {
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--pc-dark);
+}
+
+/* ---------- Business plans / tiers ---------- */
+.pc-biz-plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-sm);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pc-biz-plan:hover {
+  /* transform: translateY(-4px); */
+  box-shadow: var(--pc-shadow-md);
+}
+
+.pc-biz-plan-featured {
+  border-color: var(--pc-orange-light);
+  box-shadow: var(--pc-shadow-md);
+}
+
+.pc-biz-plan-badge {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--pc-orange-light);
+  color: var(--pc-white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--pc-radius-pill);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-biz-plan {
+    transition: none;
+  }
+  .pc-biz-plan:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Final CTA ---------- */
+.pc-biz-final-cta {
+  padding-block: clamp(4.5rem, 8vw, 6.5rem);
+  background: radial-gradient(120% 140% at 50% 0%, #2a1a10 0%, var(--pc-dark) 55%, var(--pc-dark-soft) 100%);
+}
+
+.pc-biz-final-cta-secondary {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  padding-block: 0.6rem;
+  transition: opacity 0.2s ease;
+}
+
+.pc-biz-final-cta-secondary:hover,
+.pc-biz-final-cta-secondary:focus-visible {
+  opacity: 0.75;
+}
+
+.pc-biz-final-cta-secondary strong {
+  color: var(--pc-white);
+}
+
+/* ============ Ambassador page (middle-section redesign) ============ */
+
+/* ---------- Benefits: layered editorial bento ---------- */
+.pc-amb-benefits {
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+  background: radial-gradient(120% 100% at 85% 0%, var(--pc-peach) 0%, var(--pc-cream-soft) 50%, var(--pc-cream) 100%);
+}
+
+.pc-amb-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.pc-amb-blob-soft {
+  position: absolute;
+  bottom: -6rem;
+  left: -6rem;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 89, 12, 0.14), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pc-amb-vehicle-watermark {
+  position: absolute;
+  right: -2%;
+  bottom: -4%;
+  width: 42%;
+  max-width: 520px;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pc-amb-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pc-amb-lines line {
+  stroke: rgba(232, 89, 12, 0.15);
+  stroke-width: 1;
+}
+
+@media (max-width: 767.98px) {
+  .pc-amb-vehicle-watermark,
+  .pc-amb-lines {
+    display: none;
+  }
+}
+
+.pc-amb-benefits-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.pc-amb-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-md);
+  box-shadow: var(--pc-shadow-sm);
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.pc-amb-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pc-amb-card:hover {
+  box-shadow: var(--pc-shadow-md);
+  border-color: rgba(232, 89, 12, 0.2);
+}
+
+/* Photo cards -- every card except the dark feature tile now carries a real
+   photo instead of a flat white background, with a dark tint underneath the
+   text for legibility. */
+.pc-amb-card-photo {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--pc-white);
+  border-color: transparent;
+}
+
+.pc-amb-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pc-amb-card:hover .pc-amb-card-bg {
+  transform: scale(1.06);
+}
+
+.pc-amb-card-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(10, 7, 5, 0.35) 0%, rgba(10, 7, 5, 0.8) 100%);
+}
+
+.pc-amb-card-photo .pc-amb-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.pc-amb-card-photo .pc-amb-card-icon {
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--pc-white);
+}
+
+.pc-amb-card-photo h3 {
+  color: var(--pc-white);
+}
+
+.pc-amb-card-photo li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pc-amb-card-photo li i {
+  color: var(--pc-orange-light) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-amb-card-bg {
+    transition: none;
+  }
+}
+
+.pc-amb-card-icon {
+  width: 3rem;
+  height: 3rem;
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+/* Feature card -- the visually dominant tile in the grid. Left as a flat
+   colour (no photo, per the redesign brief) but with a richer multi-stop,
+   multi-direction gradient instead of the original simple two-stop one. */
+.pc-amb-card-feature {
+  background:
+    radial-gradient(140% 120% at 100% 0%, rgba(255, 122, 0, 0.22) 0%, transparent 55%),
+    linear-gradient(160deg, var(--pc-dark) 0%, #2a1a10 60%, #1c0f08 100%);
+  color: var(--pc-white);
+  border-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pc-amb-card-feature .pc-amb-card-icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--pc-orange-light);
+}
+
+.pc-amb-card-feature h3 {
+  color: var(--pc-white);
+}
+
+.pc-amb-card-feature li {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* The feature tile is the tallest card in the grid (spans 2 rows on
+   desktop) -- its original card-sized type left a lot of empty air above
+   and below the copy, so it gets its own larger scale once it's actually
+   that tall. */
+@media (min-width: 992px) {
+  .pc-amb-card-feature {
+    padding: clamp(2rem, 3vw, 2.75rem);
+  }
+  .pc-amb-card-feature .pc-amb-card-icon {
+    width: 4.25rem;
+    height: 4.25rem;
+    font-size: 1.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .pc-amb-card-feature h3 {
+    /* The title carries Bootstrap's .fs-5 utility, which sets its own
+       font-size as !important by design -- matching that is the correct
+       way to override a Bootstrap utility, not a specificity workaround. */
+    font-size: 2.35rem !important;
+    line-height: 1.15;
+    margin-bottom: 1.4rem;
+  }
+  .pc-amb-card-feature ul {
+    gap: 1rem;
+  }
+  .pc-amb-card-feature li {
+    font-size: 1.2rem;
+  }
+  .pc-amb-card-feature li i {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .pc-amb-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pc-amb-card-feature {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .pc-amb-benefits-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(170px, auto);
+    grid-auto-flow: dense;
+  }
+  .pc-amb-card-feature {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .pc-amb-card-wide {
+    grid-column: span 2;
+  }
+  .pc-amb-card-normal {
+    grid-column: span 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-amb-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Journey: parallax visual moment ---------- */
+.pc-amb-journey {
+  padding-block: clamp(6rem, 12vw, 9rem);
+}
+
+.pc-amb-journey-media {
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pc-amb-journey-media img {
+  transform: scale(1.12);
+  will-change: transform;
+}
+
+.pc-amb-journey-scrim {
+  background: linear-gradient(180deg, rgba(10, 7, 5, 0.6) 0%, rgba(10, 7, 5, 0.78) 100%);
+  z-index: 0;
+}
+
+.pc-amb-journey-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 2rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-amb-journey-step.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.pc-amb-journey-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 1.3rem;
+  color: var(--pc-orange-light);
+}
+
+.pc-amb-journey-arrow {
+  position: absolute;
+  left: 0;
+  top: 1.625rem;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-amb-journey-media img {
+    transform: scale(1.12);
+  }
+  .pc-amb-journey-step {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Registration: split premium panel ---------- */
+.pc-amb-register {
+  background: linear-gradient(180deg, var(--pc-cream) 0%, var(--pc-cream-soft) 100%);
+}
+
+/* The shared app-download-banner sits right after this section with its own
+   fixed top margin, which reads as a plain white gap since <main>'s
+   background shows through it. Scoped to this page only (the banner
+   component itself, and every other page using it, stays untouched): fold
+   that breathing room into this section's own cream background instead.
+   (A hover effect that lifted the download band up over this section used
+   to live here too -- removed entirely, it read as a glitch rather than a
+   parallax.) */
+body[data-page^='ambassador-programme'] .pc-amb-register {
+  padding-bottom: clamp(5rem, 9vw, 7rem);
+}
+
+.pc-amb-recap-chip {
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-pill);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pc-dark);
+}
+
+.pc-amb-recap-chip i {
+  color: var(--pc-orange);
+}
+
+.pc-amb-step-index {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--pc-orange);
+  color: var(--pc-orange);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.pc-amb-form-panel {
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-lg);
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.pc-amb-form-panel .form-control,
+.pc-amb-form-panel .form-select {
+  border-color: rgba(28, 20, 16, 0.16);
+  background: var(--pc-white);
+}
+
+.pc-amb-form-panel .form-control:focus,
+.pc-amb-form-panel .form-select:focus {
+  border-color: var(--pc-orange-light);
+  background: var(--pc-white);
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.12);
+}
+
+/* ============ Business page: "dragon-snake" ambient glow ============ *
+ * A continuous-feeling glow that threads through every section, alternating
+ * left/right as it descends -- not one page-spanning layer, because most
+ * sections here already have their own opaque background (the gradient
+ * bands added for the "too much white" pass), which would hide a glow
+ * sitting behind <main> entirely. Instead each section gets its own soft
+ * radial-gradient corner blob via a z-index:-1 pseudo-element: negative
+ * z-index paints above that section's own background but below its content
+ * regardless of whether the content itself is positioned (see CSS2.1
+ * stacking order -- static content always outranks negative-z-index
+ * descendants), so this is safe on every section type without touching
+ * their markup or existing backgrounds. Scoped to this page only via
+ * body[data-page] so no other page is affected. */
+body[data-page^='business'] main > section {
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-page^='business'] main > section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* 1: Hero -- top-left start of the path. Small and restrained since the
+   hero already carries its own orange overlay; this just seeds the glow's
+   colour into the corner it starts from. */
+body[data-page^='business'] main > section:nth-of-type(1)::before {
+  top: -3rem;
+  left: -3rem;
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.22) 0%, transparent 70%);
+}
+
+/* 2: Trust strip -- curves right. */
+body[data-page^='business'] main > section:nth-of-type(2)::before {
+  top: -6rem;
+  right: -4rem;
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(circle, rgba(232, 89, 12, 0.12) 0%, transparent 70%);
+}
+
+/* 3: Elevate intro -- back to the left, larger (tall + fully transparent
+   section, so this is where the glow reads most clearly). Gets the slow
+   drift animation -- one of only three animated blobs on the page. */
+body[data-page^='business'] main > section:nth-of-type(3)::before {
+  top: 30%;
+  left: -9rem;
+  width: 30rem;
+  height: 30rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.16) 0%, transparent 70%);
+  animation: pcBizGlowDrift 20s ease-in-out infinite;
+}
+
+/* 4: Account benefits -- right. */
+body[data-page^='business'] main > section:nth-of-type(4)::before {
+  top: -5rem;
+  right: -6rem;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, rgba(232, 89, 12, 0.14) 0%, transparent 70%);
+}
+
+/* 5: Airport assistance -- left, low in the (short) section. */
+body[data-page^='business'] main > section:nth-of-type(5)::before {
+  bottom: -7rem;
+  left: -5rem;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.14) 0%, transparent 70%);
+}
+
+/* 6: Services grid -- right. */
+body[data-page^='business'] main > section:nth-of-type(6)::before {
+  top: 8%;
+  right: -8rem;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(232, 89, 12, 0.13) 0%, transparent 70%);
+}
+
+/* 7: Ireland/Dublin photo section is intentionally skipped -- it's already
+   its own strong visual moment with a real photo and dark scrim; a colour
+   blob would either vanish under the scrim or fight the photo for
+   attention. The path continues seamlessly on the section after it. */
+
+/* 8: How it works -- left. */
+body[data-page^='business'] main > section:nth-of-type(8)::before {
+  top: -4rem;
+  left: -6rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.13) 0%, transparent 70%);
+}
+
+/* 9: Booking form -- right, largest blob (tallest section). Animated. */
+body[data-page^='business'] main > section:nth-of-type(9)::before {
+  top: 32%;
+  right: -10rem;
+  width: 34rem;
+  height: 34rem;
+  background: radial-gradient(circle, rgba(232, 89, 12, 0.13) 0%, transparent 70%);
+  animation: pcBizGlowDrift 24s ease-in-out infinite reverse;
+}
+
+/* 10: Why choose -- left. */
+body[data-page^='business'] main > section:nth-of-type(10)::before {
+  bottom: -6rem;
+  left: -6rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.13) 0%, transparent 70%);
+}
+
+/* 11: Plans -- right. */
+body[data-page^='business'] main > section:nth-of-type(11)::before {
+  top: -5rem;
+  right: -6rem;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, rgba(232, 89, 12, 0.13) 0%, transparent 70%);
+}
+
+/* 12: Trust proof -- left. */
+body[data-page^='business'] main > section:nth-of-type(12)::before {
+  top: 15%;
+  left: -6rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.15) 0%, transparent 70%);
+}
+
+/* 13: Final CTA -- the path's last stop before the (already fully
+   saturated orange) Download App band, so it gets to run a little
+   brighter against the dark background and gently animates as a closing
+   flourish. */
+body[data-page^='business'] main > section:nth-of-type(13)::before {
+  top: -4rem;
+  right: -5rem;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.28) 0%, transparent 70%);
+  animation: pcBizGlowDrift 18s ease-in-out infinite;
+}
+
+/* 14: Download App band is skipped -- it's already a fully saturated
+   orange gradient, so this is where the glow naturally "arrives" and
+   dissolves into the page's own colour rather than needing its own blob. */
+
+@keyframes pcBizGlowDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(1.5rem, -1rem) scale(1.08);
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Narrower and quieter on small screens so it stays atmospheric rather
+     than overwhelming -- half the size, roughly half the strength. */
+  body[data-page^='business'] main > section::before {
+    width: 14rem !important;
+    height: 14rem !important;
+    filter: blur(40px);
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The animated blobs are matched by :nth-of-type, which outranks this
+     plain descendant selector on specificity alone -- !important is the
+     correct way to guarantee this wins regardless (same approach already
+     used for the ride-type stack's reduced-motion override above). */
+  body[data-page^='business'] main > section::before {
+    animation: none !important;
+  }
+}
+
+/* ============ Partner Programme page ============ */
+
+/* ---------- Background bands (same alternating-gradient technique as the
+   business page, applied here too since this page is now similarly long). ---------- */
+.pc-ptn-band-a {
+  background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
+}
+
+.pc-ptn-band-b {
+  background: linear-gradient(165deg, var(--pc-cream-soft) 0%, var(--pc-peach) 55%, var(--pc-cream-soft) 100%);
+}
+
+/* ---------- Real-photo frames ---------- */
+.pc-ptn-media-frame {
+  border-radius: var(--pc-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--pc-shadow-lg);
+  aspect-ratio: 4 / 3;
+}
+
+.pc-ptn-media-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pc-ptn-media-frame-tall {
+  aspect-ratio: 1 / 1;
+}
+
+/* ---------- Grow With Us: parallax visual moment ---------- */
+.pc-ptn-growth {
+  padding-block: clamp(6rem, 12vw, 9rem);
+}
+
+.pc-ptn-growth-media {
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pc-ptn-growth-media img {
+  transform: scale(1.12);
+  will-change: transform;
+}
+
+.pc-ptn-growth-scrim {
+  background: linear-gradient(180deg, rgba(10, 7, 5, 0.6) 0%, rgba(10, 7, 5, 0.78) 100%);
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-ptn-growth-media img {
+    transform: scale(1.12);
+  }
+}
+
+/* ---------- Join process: 4-column step rail (same technique as the
+   business page's 3-column one, with the rail math recalculated for 4
+   equal columns -- each circle's centre sits at the 1/8 and 7/8 marks
+   instead of 1/6 and 5/6). ---------- */
+@media (min-width: 992px) {
+  .pc-ptn-steps {
+    position: relative;
+  }
+
+  .pc-ptn-steps::before {
+    content: '';
+    position: absolute;
+    top: 1.625rem;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: rgba(28, 20, 16, 0.14);
+    z-index: 0;
+  }
+}
+
+/* ---------- Footer: WhatsApp badge ---------- */
+.pc-wa-badge {
+  display: inline-flex;
+  background: var(--pc-white);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-radius: var(--pc-radius-pill);
+  padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+  text-decoration: none;
+  box-shadow: var(--pc-shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pc-wa-badge:hover,
+.pc-wa-badge:focus-visible {
+  transform: translateY(-1px);
+  /* box-shadow: var(--pc-shadow-md); */
+  border-color: #25d366;
+}
+
+.pc-wa-badge-icon {
+  position: relative;
+  width: 2.1rem;
+  height: 2.1rem;
+  background: #25d366;
+  color: var(--pc-white);
+  font-size: 1.05rem;
+}
+
+.pc-wa-badge-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  animation: pcWaBadgePulse 2s ease-out infinite;
+}
+
+/* The footer is shared by every page, so this can't reuse the
+   pcLiveTrackPulse keyframe -- that's only ever defined inline by the
+   page-specific components that happen to use it, not globally here. */
+@keyframes pcWaBadgePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.pc-wa-badge-title {
+  font-size: 0.8rem;
+  color: var(--pc-dark);
+}
+
+.pc-wa-badge-number {
+  font-size: 0.72rem;
+  color: var(--pc-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-wa-badge {
+    transition: none;
+  }
+  .pc-wa-badge:hover,
+  .pc-wa-badge:focus-visible {
+    transform: none;
+  }
+  .pc-wa-badge-pulse {
+    animation: none;
+    opacity: 0;
   }
 }
