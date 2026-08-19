@@ -70,16 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Business';
-$heroTitleLight = 'Partner';
-$heroTitleBold = 'Programme.';
-$heroDescription =
-  'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
-$heroBgImage = 'https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroEyebrow     = '/ Business';
+$heroTitleLight  = 'Partner';
+$heroTitleBold   = 'Programme.';
+$heroDescription = 'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
+$heroBgImage     = 'https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
-require __DIR__ . '/components/partner/benefits.php';
-require __DIR__ . '/components/partner/who-can-join.php';
+require __DIR__ . '/components/partner/hero.php';
+
+require __DIR__ . '/components/partner/campaign.php';
 require __DIR__ . '/components/partner/growth.php';
 require __DIR__ . '/components/partner/process.php';
 require __DIR__ . '/components/partner/enquiry.php';

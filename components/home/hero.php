@@ -85,7 +85,7 @@
     $heroServices = [
       ['icon' => 'bi-clock-history', 'label' => 'Pay Per Hour', 'href' => '/ride'],
       ['icon' => 'bi-briefcase-fill', 'label' => 'Corporate', 'href' => '/corporate-services'],
-      ['icon' => 'bi-airplane-fill', 'label' => 'Meet and Greet', 'href' => '/airport-transfers'],
+      ['icon' => 'bi-airplane-fill', 'label' => 'Meet and Greet', 'href' => '/meet-greet'],
       ['icon' => 'bi-credit-card-fill', 'label' => 'Business Solutions', 'href' => '/business-solutions'],
       ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
     ];

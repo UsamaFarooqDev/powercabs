@@ -63,7 +63,7 @@ function pcInitPtnReveal() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!('IntersectionObserver' in window)) return;
 
-  const steps = document.querySelectorAll('.pc-ptn-steps .pc-biz-step');
+  const steps = document.querySelectorAll('.pc-ptn-step-grid .pc-ptn-step-card');
   if (!steps.length) return;
 
   window.pcPtnStepsObserver = new IntersectionObserver(

@@ -97,6 +97,11 @@
     });
   }
 
+  // Tracks the current page's identity (path + query, no hash) so the
+  // popstate listener below can tell a real page navigation apart from a
+  // same-page hash change.
+  let currentPageKey = window.location.pathname + window.location.search;
+
   async function navigate(url, { push = true } = {}) {
     closeOpenMenus();
     showProgress();
@@ -126,6 +131,7 @@
       // window.location, so it has to see the *new* URL, not the one we're
       // navigating away from.
       if (push) window.history.pushState({ pcPjax: true }, "", url);
+      currentPageKey = window.location.pathname + window.location.search;
 
       if (window.highlightActiveNavLink) window.highlightActiveNavLink();
       if (window.syncFooterHeightVar) window.syncFooterHeightVar();
@@ -155,7 +161,7 @@
       if (link.dataset.noPjax !== undefined) return;
 
       const href = link.getAttribute("href") || "";
-      if (href === "" || href.charAt(0) === "#" || /^(mailto|tel|javascript):/i.test(href)) return;
+      if (href === "" || /^(mailto|tel|javascript):/i.test(href)) return;
 
       let url;
       try {
@@ -165,8 +171,26 @@
       }
       if (url.origin !== window.location.origin) return;
 
-      // Pure in-page anchor jump -- let the browser handle it natively.
-      if (url.pathname === window.location.pathname && url.search === window.location.search && url.hash) return;
+      // Same-page anchor jump (bare "#id" or a full "path#id" resolving to
+      // this same page) -- scroll to it ourselves via scrollIntoView instead
+      // of leaving it to the browser's native fragment navigation. Native
+      // fragment navigation fires a popstate event for the jump in some
+      // browsers, which raced with PJAX's own popstate handling below and
+      // got its scroll stomped by navigate()'s scrollTo({top: 0}), snapping
+      // the page back to the top right after it started scrolling to the
+      // target. Driving the scroll ourselves with our own pushState() avoids
+      // that path entirely -- pushState() never fires popstate on its own.
+      if (url.hash && url.pathname === window.location.pathname && url.search === window.location.search) {
+        const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+        if (!target) return; // nothing to scroll to -- let the browser try natively
+
+        event.preventDefault();
+        window.history.pushState({ pcPjax: true }, "", url.href);
+        currentPageKey = url.pathname + url.search;
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        return;
+      }
 
       // Already on this exact URL -- nothing to do.
       if (url.pathname === window.location.pathname && url.search === window.location.search) {
@@ -181,6 +205,16 @@
   );
 
   window.addEventListener("popstate", () => {
+    // Clicking a same-page hash link (e.g. href="#business-booking-form")
+    // also fires popstate in most browsers, not just real back/forward
+    // navigation. Re-fetching and swapping <main> for that would be wrong
+    // on its own, but it was also actively breaking the anchor jump:
+    // navigate() ends with scrollTo({top: 0}), which stomped on the
+    // browser's native smooth-scroll-to-anchor mid-flight, snapping the
+    // page back to the top right after it started scrolling to the target.
+    const newKey = window.location.pathname + window.location.search;
+    if (newKey === currentPageKey) return;
+    currentPageKey = newKey;
     navigate(window.location.href, { push: false });
   });
 

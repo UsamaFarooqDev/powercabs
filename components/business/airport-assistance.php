@@ -17,7 +17,7 @@
           </p>
         </div>
         <div class="col-12 col-md-auto">
-          <a class="btn btn-pc-dark px-4 w-100" href="<?= $assetPath ?>/airport-transfers">Learn about Meet &amp; Greet</a>
+          <a class="btn btn-pc-dark px-4 w-100" href="<?= $assetPath ?>/meet-greet">Learn about Meet &amp; Greet</a>
         </div>
       </div>
     </div>

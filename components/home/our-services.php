@@ -19,7 +19,7 @@
 
     <div class="row g-4">
       <div class="col-md-4">
-        <a href="<?= $assetPath ?>/airport-transfers" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
+        <a href="<?= $assetPath ?>/meet-greet" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
           <img src="<?= $assetPath ?>assets/img/service-airport.png" alt="Airport pickup and drop-off" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">

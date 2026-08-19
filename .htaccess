@@ -9,6 +9,10 @@ ErrorDocument 404 /404.php
   # 1) Normalize the homepage: /index or /index.php -> /
   RewriteRule ^index(\.php)?/?$ / [R=301,L,NE]
 
+  # 1b) airport-transfers.php was renamed to meet-greet.php -- send anyone
+  #     with the old URL bookmarked/indexed to the new one permanently.
+  RewriteRule ^airport-transfers(\.php)?/?$ /meet-greet [R=301,L,NE]
+
   # 2) Anyone linking/bookmarking a URL with ".php" still in it gets sent to
   #    the clean, canonical version (301 = permanent, keeps SEO value and
   #    avoids duplicate-content indexing of both URL forms). Query strings

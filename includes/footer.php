@@ -17,18 +17,12 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg">
-        <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Business</h6>
+        <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Business &amp; Drivers</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/corporate-services">Corporate Services</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/airport-transfers">Meet &amp; Greet</a></li>
+          <li><a class="pc-footer-link" href="<?= $assetPath ?>/meet-greet">Meet &amp; Greet</a></li>
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/business-solutions">PowerCabs Business Solutions</a></li>
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/partner-programme">Partner Programme</a></li>
-        </ul>
-      </div>
-
-      <div class="col-6 col-md-4 col-lg">
-        <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Drivers</h6>
-        <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/ambassador-programme">Ambassador Programme</a></li>
           <li><a class="pc-footer-link" href="<?= $assetPath ?>/loyalty-program">Loyalty Program</a></li>
         </ul>
@@ -54,7 +48,7 @@
         </ul>
       </div>
 
-      <div class="col-12">
+      <div class="col-12 col-lg">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Address</h6>
         <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
           <li class="d-flex align-items-center gap-2 small text-muted-pc">
@@ -80,7 +74,7 @@
                 <i class="bi bi-whatsapp"></i>
               </span>
               <span class="d-flex flex-column lh-sm">
-                <strong class="pc-wa-badge-title">WhatsApp Us</strong>
+                <strong class="pc-wa-badge-title mb-1">WhatsApp Us</strong>
                 <small class="pc-wa-badge-number">+353 89 972 8089</small>
               </span>
             </a>
@@ -124,10 +118,10 @@
 <?php require __DIR__ . '/../components/shared/scroll-indicator.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?= $assetPath ?>assets/js/main.js"></script>
-<script src="<?= $assetPath ?>assets/js/components/toast.js"></script>
-<script src="<?= $assetPath ?>assets/js/components/ajax-forms.js"></script>
-<script src="<?= $assetPath ?>assets/js/components/pjax.js"></script>
-<script src="<?= $assetPath ?>assets/js/components/page-loader.js"></script>
+<script src="<?= $assetPath ?>assets/js/main.js?v=<?= @filemtime(__DIR__ . '/../assets/js/main.js') ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/toast.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/toast.js') ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/ajax-forms.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/ajax-forms.js') ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/pjax.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/pjax.js') ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/page-loader.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/page-loader.js') ?>"></script>
 </body>
 </html>

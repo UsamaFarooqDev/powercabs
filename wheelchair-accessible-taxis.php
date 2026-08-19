@@ -59,26 +59,10 @@ $whyChoose = [
 
 <section class="section-pc position-relative overflow-hidden"
   style="background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream) 15%, var(--pc-cream) 85%, #ffffff 100%);">
-  <div class="position-absolute rounded-circle" aria-hidden="true" style="
-      width: 24rem;
-      height: 24rem;
-      top: -8rem;
-      right: -7rem;
-      background: radial-gradient(
-        circle,
-        rgba(232, 89, 12, .16),
-        transparent 68%
-      );
-    "></div>
-
   <div class="container position-relative">
-
     <div class="row align-items-center g-4 g-lg-5">
       <div class="col-lg-6 p-2 p-lg-5">
-
         <div class="position-relative mx-auto">
-
-          <!-- Decorative orange shape -->
           <div class="position-absolute rounded-5" aria-hidden="true" style="
               width: 150px;
               height: 150px;
@@ -88,13 +72,10 @@ $whyChoose = [
               opacity: .12;
               filter: blur(2px);
             "></div>
-
-          <!-- Image -->
           <div class="position-relative overflow-hidden rounded-5" style="
               min-height: 420px;
               box-shadow: var(--pc-shadow-lg);
             ">
-
             <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.png"
               alt="PowerCabs wheelchair accessible taxi in Dublin" class="w-100 h-100" loading="lazy" style="
                             position: absolute;
@@ -102,9 +83,7 @@ $whyChoose = [
                             object-fit: cover;
                             object-position: center;
                           ">
-
           </div>
-
         </div>
       </div>
       <!-- ================= CONTENT ================= -->
@@ -120,7 +99,6 @@ $whyChoose = [
               everyone.
             </span>
           </h2>
-
           <p class="text-muted-pc mb-4" style="
               font-size: 16px;
               line-height: 1.75;
@@ -132,12 +110,8 @@ $whyChoose = [
             for passengers with mobility needs.
           </p>
 
-
-          <!-- Feature highlights -->
           <div class="d-flex flex-column gap-3 mb-4">
-
             <div class="d-flex align-items-start gap-3">
-
               <span class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-circle" style="
                   width: 40px;
                   height: 40px;
@@ -146,12 +120,10 @@ $whyChoose = [
                 ">
                 <i class="bi bi-universal-access"></i>
               </span>
-
               <div>
                 <h3 class="h6 fw-bold mb-1">
                   Wheelchair Accessible
                 </h3>
-
                 <p class="text-muted-pc small mb-0">
                   Vehicles equipped to accommodate wheelchair users
                   comfortably.
@@ -160,7 +132,6 @@ $whyChoose = [
             </div>
 
             <div class="d-flex align-items-start gap-3">
-
               <span class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-circle" style="
                   width: 40px;
                   height: 40px;
@@ -169,12 +140,10 @@ $whyChoose = [
                 ">
                 <i class="bi bi-shield-check"></i>
               </span>
-
               <div>
                 <h3 class="h6 fw-bold mb-1">
                   Safe & Comfortable
                 </h3>
-
                 <p class="text-muted-pc small mb-0">
                   Supportive journeys with accessibility and passenger
                   comfort in mind.

@@ -1921,6 +1921,22 @@ label.btn-outline-primary:focus,
   z-index: 5;
 }
 
+/* ---------- City Tours: Pay Per Hour band ---------- */
+.pc-hourly-band {
+  background-size: cover;
+  background-position: center;
+}
+
+.pc-hourly-band-scrim {
+  /* It's a direct child of the Bootstrap .row, so the row's own gy-4
+     gutter utility was giving it a margin-top like any other column --
+     pushing this absolutely-positioned overlay down from the row's top
+     edge and leaving a strip of untinted image showing above it. */
+  margin: 0;
+  background: linear-gradient(100deg, rgba(10, 7, 5, .85) 0%, rgba(10, 7, 5, .6) 55%, rgba(10, 7, 5, .35) 100%);
+  z-index: 0;
+}
+
 /* ---------- Home: Payment Solutions ---------- */
 .pc-pricing-card {
   border-radius: var(--pc-radius-lg);
@@ -3397,34 +3413,542 @@ body[data-page^='business'] main > section:nth-of-type(13)::before {
 }
 
 /* ============ Partner Programme page ============ */
+/* Rebuilt to match a client-supplied reference design (hero + floating
+   stat strip, campaign-card + info-sidebar, 4-up step grid, dark "for
+   businesses" CTA band) -- colors mapped onto the existing PowerCabs
+   tokens instead of the reference's own green palette. The "Grow With Us"
+   section below (.pc-ptn-growth*) is unrelated to that reference and was
+   deliberately left untouched. */
 
-/* ---------- Background bands (same alternating-gradient technique as the
-   business page, applied here too since this page is now similarly long). ---------- */
+/* ---------- Background band (kept for the process section) ---------- */
 .pc-ptn-band-a {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
 }
 
-.pc-ptn-band-b {
-  background: linear-gradient(165deg, var(--pc-cream-soft) 0%, var(--pc-peach) 55%, var(--pc-cream-soft) 100%);
+/* ---------- Hero ---------- */
+.pc-ptn-hero {
+  /* No longer the page's actual top hero -- the standard inner-hero.php
+     banner (with its own navbar-clearance padding) sits above this now, so
+     this just needs normal section spacing. */
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  background: linear-gradient(135deg, var(--pc-cream) 0%, var(--pc-cream-soft) 48%, #ffffff 100%);
 }
 
-/* ---------- Real-photo frames ---------- */
-.pc-ptn-media-frame {
-  border-radius: var(--pc-radius-lg);
-  overflow: hidden;
-  box-shadow: var(--pc-shadow-lg);
-  aspect-ratio: 4 / 3;
+.pc-ptn-hero-eyebrow {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(232, 89, 12, 0.22);
+  color: var(--pc-orange-dark);
+  font-weight: 800;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--pc-radius-pill);
 }
 
-.pc-ptn-media-frame img {
+.pc-ptn-hero-eyebrow i {
+  color: var(--pc-orange);
+}
+
+.pc-ptn-hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+  max-width: 15ch;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-hero-sub {
+  font-size: 1.12rem;
+  color: var(--pc-text-muted);
+  max-width: 52ch;
+}
+
+.pc-ptn-hero-proof > div strong {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--pc-dark);
+  letter-spacing: -0.02em;
 }
 
-.pc-ptn-media-frame-tall {
-  aspect-ratio: 1 / 1;
+.pc-ptn-hero-proof > div span {
+  font-size: 0.84rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-ptn-hero-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-lg);
+  padding: 1.75rem;
+  backdrop-filter: blur(6px);
+}
+
+.pc-ptn-hero-card-top strong {
+  font-size: 0.95rem;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-hero-live {
+  color: var(--pc-orange-dark);
+  font-weight: 800;
+  font-size: 0.78rem;
+}
+
+.pc-ptn-hero-live-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pc-orange);
+  box-shadow: 0 0 0 4px rgba(232, 89, 12, 0.16);
+}
+
+.pc-ptn-hero-live-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--pc-orange);
+  animation: pcPtnLivePulse 2s ease-out infinite;
+}
+
+@keyframes pcPtnLivePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.pc-ptn-hero-highlight {
+  margin-top: 1.5rem;
+  background: var(--pc-dark);
+  color: #fff;
+  border-radius: var(--pc-radius-lg);
+  padding: 1.4rem 1.5rem;
+}
+
+.pc-ptn-hero-highlight small {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.pc-ptn-hero-highlight strong {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--pc-orange-light);
+  line-height: 1.1;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.pc-ptn-hero-highlight span {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.pc-ptn-hero-mini {
+  margin-top: 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid rgba(28, 20, 16, 0.1);
+  border-radius: var(--pc-radius-lg);
+  background: #fff;
+}
+
+.pc-ptn-hero-mini-badge {
+  display: inline-block;
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--pc-radius-pill);
+}
+
+.pc-ptn-hero-mini h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0.5rem 0 0.2rem;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-hero-mini p {
+  font-size: 0.85rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-ptn-hero-mini-row {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgba(28, 20, 16, 0.12);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-hero-mini-row i {
+  color: var(--pc-orange);
+}
+
+/* Floating stat strip -- overlaps the hero's bottom edge, same idea as the
+   reference's negative-margin stat bar. */
+.pc-ptn-stats {
+  margin-top: 2.5rem;
+}
+
+.pc-ptn-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #fff;
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-lg);
+  box-shadow: var(--pc-shadow-md);
+  overflow: hidden;
+}
+
+.pc-ptn-stat {
+  padding: 1.5rem 1.25rem;
+  border-right: 1px solid rgba(28, 20, 16, 0.08);
+}
+
+.pc-ptn-stat:last-child {
+  border-right: 0;
+}
+
+.pc-ptn-stat strong {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--pc-orange);
+  letter-spacing: -0.02em;
+}
+
+.pc-ptn-stat span {
+  font-size: 0.85rem;
+  color: var(--pc-text-muted);
+}
+
+@media (max-width: 991.98px) {
+  .pc-ptn-hero-title {
+    max-width: none;
+  }
+
+  .pc-ptn-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pc-ptn-stat:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .pc-ptn-stat:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .pc-ptn-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pc-ptn-stat {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+  }
+
+  .pc-ptn-stat:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* ---------- "More miles. More visibility." campaign section ---------- */
+.pc-ptn-campaign-title {
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-campaign-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--pc-cream-soft);
+  border: 1px solid rgba(28, 20, 16, 0.07);
+  border-radius: var(--pc-radius-xl);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.pc-ptn-campaign-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: var(--pc-orange);
+}
+
+.pc-ptn-campaign-badge {
+  display: inline-flex;
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--pc-radius-pill);
+}
+
+.pc-ptn-campaign-card h3 {
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-campaign-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.pc-ptn-campaign-list > div {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 600;
+  color: var(--pc-dark);
+  font-size: 0.92rem;
+}
+
+.pc-ptn-check {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--pc-orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+.pc-ptn-info-card {
+  height: 100%;
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-xl);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background: #fff;
+}
+
+.pc-ptn-info-card h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.pc-ptn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--pc-radius-pill);
+  background: var(--pc-cream-soft);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--pc-dark);
+}
+
+.pc-ptn-pill i {
+  color: var(--pc-orange);
+}
+
+.pc-ptn-info-divider {
+  border: 0;
+  border-top: 1px solid rgba(28, 20, 16, 0.08);
+  margin: 1.75rem 0;
+}
+
+@media (max-width: 575.98px) {
+  .pc-ptn-campaign-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- "Simple from day one" step grid ---------- */
+.pc-ptn-step-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.pc-ptn-step-card {
+  background: #fff;
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-lg);
+  padding: 1.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.pc-ptn-step-card.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.pc-ptn-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--pc-radius-sm);
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-weight: 800;
+  margin-bottom: 1.35rem;
+}
+
+.pc-ptn-step-card h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--pc-dark);
+}
+
+@media (max-width: 991.98px) {
+  .pc-ptn-step-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .pc-ptn-step-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-ptn-step-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- "For businesses" dark CTA + enquiry form ---------- */
+.pc-ptn-business {
+  padding-top: clamp(4.5rem, 9vw, 7rem);
+  /* Extra bottom padding -- the download-app banner right after this
+     section pulls itself up over this padding (see .pc-app-promo-standalone
+     override below), so there needs to be enough real space here for that
+     overlap to land on background, not on the form/text. */
+  padding-bottom: clamp(9rem, 15vw, 13rem);
+  background: linear-gradient(155deg, var(--pc-dark) 0%, #2a1a10 55%, var(--pc-dark-soft) 100%);
+  color: #fff;
+}
+
+.pc-ptn-business-bg {
+  object-fit: cover;
+  z-index: 0;
+}
+
+.pc-ptn-business-scrim {
+  background: linear-gradient(155deg, rgba(28, 16, 8, 0.94) 0%, rgba(28, 16, 8, 0.86) 55%, rgba(10, 7, 5, 0.92) 100%);
+  z-index: 0;
+}
+
+.pc-ptn-business > .container {
+  z-index: 1;
+}
+
+.pc-ptn-business-title {
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  color: #fff;
+}
+
+.pc-ptn-business-sub {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 48ch;
+}
+
+.pc-ptn-biz-benefit {
+  height: 100%;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--pc-radius-lg);
+}
+
+.pc-ptn-biz-benefit strong {
+  display: block;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.pc-ptn-biz-benefit span {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.5;
+}
+
+.pc-ptn-form-card {
+  background: #fff;
+  color: var(--pc-dark);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-lg);
+  padding: clamp(1.75rem, 3.4vw, 2.5rem);
+}
+
+.pc-ptn-form-note {
+  line-height: 1.55;
+}
+
+/* The shared app-download-banner.php component normally leaves a gap above
+   itself (.pc-app-promo-standalone's positive margin-top, meant for pages
+   where a plain white/cream section precedes it). Here it follows straight
+   after the dark, photo-backed "For Businesses" band, so it's pulled up to
+   overlap that band instead -- same negative-margin technique the home
+   page's own download-app promo already uses against its own dark section. */
+body[data-page^='partner-programme'] .pc-app-promo-standalone {
+  margin-top: clamp(-145px, -4vw, -195px);
+}
+
+@media (max-width: 767.98px) {
+  body[data-page^='partner-programme'] .pc-app-promo-standalone {
+    margin-top: clamp(-40px, -7vw, -60px);
+  }
 }
 
 /* ---------- Grow With Us: parallax visual moment ---------- */
@@ -3450,27 +3974,6 @@ body[data-page^='business'] main > section:nth-of-type(13)::before {
 @media (prefers-reduced-motion: reduce) {
   .pc-ptn-growth-media img {
     transform: scale(1.12);
-  }
-}
-
-/* ---------- Join process: 4-column step rail (same technique as the
-   business page's 3-column one, with the rail math recalculated for 4
-   equal columns -- each circle's centre sits at the 1/8 and 7/8 marks
-   instead of 1/6 and 5/6). ---------- */
-@media (min-width: 992px) {
-  .pc-ptn-steps {
-    position: relative;
-  }
-
-  .pc-ptn-steps::before {
-    content: '';
-    position: absolute;
-    top: 1.625rem;
-    left: 12.5%;
-    right: 12.5%;
-    height: 2px;
-    background: rgba(28, 20, 16, 0.14);
-    z-index: 0;
   }
 }
 

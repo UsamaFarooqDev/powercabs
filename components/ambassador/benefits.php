@@ -72,8 +72,7 @@ $bizAmbSpans = [
       <?php foreach ($benefits as $i => $b): ?>
         <?php $isFeature = $i === 0; ?>
         <div class="pc-amb-card <?=
-        $bizAmbSpans[$i] ?? 'pc-amb-card-normal'
-        $isFeature ? '' : ' pc-amb-card-photo'
+        ($bizAmbSpans[$i] ?? 'pc-amb-card-normal') . ($isFeature ? '' : ' pc-amb-card-photo')
         ?>">
           <?php if (!$isFeature): ?>
             <img src="<?= htmlspecialchars(
@@ -88,8 +87,8 @@ $bizAmbSpans = [
             <h3 class="fs-5 fw-bold mb-3"><?= htmlspecialchars($b['title']) ?></h3>
             <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
               <?php foreach ($b['items'] as $item): ?>
-                <li class="d-flex gap-2 small">
-                  <i class="bi bi-check-circle-fill mt-1 flex-shrink-0" style="color: var(--pc-orange);"></i>
+                <li class="d-flex align-items-center gap-2 small">
+                  <i class="bi bi-check-circle-fill flex-shrink-0" style="color: var(--pc-orange);"></i>
                   <span><?= $item ?></span>
                 </li>
               <?php endforeach; ?>
