@@ -1,6 +1,8 @@
 <?php
 $pageTitle = $pageTitle ?? 'PowerCabs | Reliable Cab Booking Service in Ireland';
-$pageDescription = $pageDescription ?? 'Book a reliable, affordable cab in Ireland with PowerCabs. Airport transfers, city rides, business travel and driver opportunities, available 24/7.';
+$pageDescription =
+  $pageDescription ??
+  'Book a reliable, affordable cab in Ireland with PowerCabs. Airport transfers, city rides, business travel and driver opportunities, available 24/7.';
 $assetPath = $assetPath ?? '';
 $currentPage = basename($_SERVER['PHP_SELF']);
 
@@ -81,56 +83,72 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
     href="<?= $assetPath ?>assets/css/components.css?v=<?= @filemtime(__DIR__ . '/../assets/css/components.css') ?>">
 
   <style>
+    /* ---------- Premium glass navbar --------------------------------------
+       A genuinely translucent frosted-glass surface (not a near-opaque
+       off-white bar): moderate transparency + strong blur so it stays
+       legible over both bright and dark hero imagery without needing to
+       detect what's behind it, plus a soft layered shadow for depth. No
+       top inset highlight -- on the fully rounded pill shape it rendered as
+       a solid-looking bright white cap along the top curve instead of a
+       subtle glass highlight, so it's dropped rather than softened. */
     .pc-navbar {
-      background: rgba(252, 251, 247, .92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, .16), 0 12px 28px rgba(0, 0, 0, .1), 0 4px 10px rgba(0, 0, 0, .06);
+      position: relative;
+      background: rgba(255, 255, 255, .62);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 122, 0, .06),
+        0 22px 50px rgba(20, 12, 6, .16),
+        0 6px 18px rgba(20, 12, 6, .08);
     }
 
     .pc-navbar-links-pill {
-      background: linear-gradient(135deg, #fcfbf7 0%, #ffffff 100%);
-      box-shadow: 0 2px 10px rgba(28, 20, 16, .06);
+      background: rgba(255, 255, 255, .5);
+      box-shadow: inset 0 0 0 1px rgba(28, 20, 16, .05);
     }
 
     .pc-navbar .nav-link {
       position: relative;
+      border-radius: var(--pc-radius-pill);
       transition: color .2s ease, background-color .2s ease;
     }
 
     .pc-navbar .nav-link:hover {
       color: var(--pc-orange);
-      border-radius: var(--pc-radius-pill);
+      /* background: rgba(232, 89, 12, .08); */
     }
 
     .pc-navbar .nav-link:focus,
     .pc-navbar .nav-link:focus-visible {
       outline: none;
       box-shadow: none;
-      border-radius: var(--pc-radius-pill);
     }
 
+    /* Active state: a soft glowing bar instead of a heavy background fill. */
     .pc-navbar .nav-link::after {
       content: "";
       position: absolute;
       left: 50%;
-      bottom: -2px;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
+      bottom: 1px;
+      width: 18px;
+      height: 1px;
+      border-radius: var(--pc-radius-pill);
       background: var(--pc-orange);
-      transform: translateX(-50%) scale(0);
-      transition: transform .25s cubic-bezier(.34, 1.56, .64, 1);
+      box-shadow: 0 0 10px 1px rgba(232, 89, 12, .55);
+      opacity: 0;
+      transform: translateX(-50%) scaleX(0);
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), opacity .25s ease;
     }
 
     .pc-navbar .nav-link.active::after {
-      transform: translateX(-50%) scale(1);
+      opacity: 1;
+      transform: translateX(-50%) scaleX(1);
     }
 
     @media (min-width: 992px) {
       .pc-navbar-links-pill {
-        padding-top: .15rem !important;
-        padding-bottom: .15rem !important;
+        padding-top: .22rem !important;
+        padding-bottom: .22rem !important;
       }
 
       .pc-navbar-links-pill .nav-link {
@@ -139,6 +157,10 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
     }
 
     @media (max-width: 991.98px) {
+      .navbar-brand img {
+        height: 35px;
+      }
+
       .pc-navbar-links-pill {
         background: transparent !important;
         box-shadow: none !important;
@@ -162,7 +184,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
         <div class="container-fluid px-0">
           <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>/">
-            <img src="<?= $assetPath ?>assets/img/powercabs-logo-black.svg" alt="PowerCabs" height="42" class="d-block">
+            <img src="<?= $assetPath ?>assets/img/powercabs-logo-black.svg" alt="PowerCabs" height="45" class="d-block">
           </a>
 
           <button class="navbar-toggler pc-navbar-toggler border-0 p-0 shadow-none" type="button"
