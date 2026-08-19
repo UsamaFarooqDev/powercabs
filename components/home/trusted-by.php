@@ -78,8 +78,8 @@
       <div class="d-flex align-items-center gap-3" style="max-width: 34rem; min-width: 0;">
         <i class="bi bi-briefcase-fill flex-shrink-0" style="font-size: 1.5rem; color: var(--pc-orange);"></i>
         <p class="mb-0" style="min-width: 0;">
-          <span class="d-block fw-bold" style="color: var(--pc-dark);">Become a Business Client</span>
-          <span class="d-block small text-muted-pc">Showcase your brand with us &mdash; apply in just 2 minutes.</span>
+          <span class="d-block" style="color: var(--pc-dark); font-size: 1.2rem; font-weight: 800;">Become a Business Client</span>
+          <span class="d-block text-muted-pc" style="font-size: 1.2rem;">Showcase your brand with us &mdash; apply in just 2 minutes.</span>
         </p>
       </div>
       <a class="btn btn-pc-primary px-3 flex-shrink-0 d-inline-flex align-items-center gap-1" href="<?= $assetPath ?>/business-solutions">

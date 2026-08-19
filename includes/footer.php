@@ -74,7 +74,7 @@
                 <i class="bi bi-whatsapp"></i>
               </span>
               <span class="d-flex flex-column lh-sm">
-                <strong class="pc-wa-badge-title mb-1">WhatsApp Us</strong>
+                <strong class="pc-wa-badge-title mb-1">Book via WhatsApp</strong>
                 <small class="pc-wa-badge-number">+353 89 972 8089</small>
               </span>
             </a>
@@ -119,9 +119,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= $assetPath ?>assets/js/main.js?v=<?= @filemtime(__DIR__ . '/../assets/js/main.js') ?>"></script>
-<script src="<?= $assetPath ?>assets/js/components/toast.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/toast.js') ?>"></script>
-<script src="<?= $assetPath ?>assets/js/components/ajax-forms.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/ajax-forms.js') ?>"></script>
-<script src="<?= $assetPath ?>assets/js/components/pjax.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/pjax.js') ?>"></script>
-<script src="<?= $assetPath ?>assets/js/components/page-loader.js?v=<?= @filemtime(__DIR__ . '/../assets/js/components/page-loader.js') ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/toast.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/toast.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/ajax-forms.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/ajax-forms.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/pjax.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/pjax.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/page-loader.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/page-loader.js',
+) ?>"></script>
 </body>
 </html>

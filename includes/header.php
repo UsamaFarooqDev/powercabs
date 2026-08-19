@@ -83,39 +83,40 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
     href="<?= $assetPath ?>assets/css/components.css?v=<?= @filemtime(__DIR__ . '/../assets/css/components.css') ?>">
 
   <style>
-    /* ---------- Premium glass navbar --------------------------------------
-       A genuinely translucent frosted-glass surface (not a near-opaque
-       off-white bar): moderate transparency + strong blur so it stays
-       legible over both bright and dark hero imagery without needing to
-       detect what's behind it, plus a soft layered shadow for depth. No
-       top inset highlight -- on the fully rounded pill shape it rendered as
-       a solid-looking bright white cap along the top curve instead of a
-       subtle glass highlight, so it's dropped rather than softened. */
+    /* ---------- Fixed glass navbar ------------------------------------------
+       One material, always -- no light/dark variant, no per-section
+       detection. A dark-enough glass tint plus its own blur stays legible
+       over both photo heroes and plain light sections on its own; the
+       .pc-nav-scrim band right below (rendered in the body, not here) adds
+       a little extra contrast under the pill specifically for light
+       sections, without the navbar itself needing to know which kind of
+       section it's currently over. */
     .pc-navbar {
       position: relative;
-      background: rgba(255, 255, 255, .62);
-      backdrop-filter: blur(22px) saturate(160%);
-      -webkit-backdrop-filter: blur(22px) saturate(160%);
-      box-shadow:
-        inset 0 0 0 1px rgba(255, 122, 0, .06),
-        0 22px 50px rgba(20, 12, 6, .16),
-        0 6px 18px rgba(20, 12, 6, .08);
+      background: rgba(15, 16, 18, .55);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 100px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+      --bs-navbar-color: rgba(255, 255, 255, .85);
+      --bs-navbar-hover-color: rgba(255, 255, 255, .85);
+      --bs-navbar-active-color: var(--pc-orange-light);
     }
 
     .pc-navbar-links-pill {
-      background: rgba(255, 255, 255, .5);
-      box-shadow: inset 0 0 0 1px rgba(28, 20, 16, .05);
+      background: transparent;
+      box-shadow: none;
     }
 
     .pc-navbar .nav-link {
       position: relative;
       border-radius: var(--pc-radius-pill);
-      transition: color .2s ease, background-color .2s ease;
+      transition: color .2s ease;
     }
 
     .pc-navbar .nav-link:hover {
-      color: var(--pc-orange);
-      /* background: rgba(232, 89, 12, .08); */
+      color: var(--pc-orange-light);
     }
 
     .pc-navbar .nav-link:focus,
@@ -124,25 +125,41 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       box-shadow: none;
     }
 
-    /* Active state: a soft glowing bar instead of a heavy background fill. */
+    /* Active state: underline dot in the accent color. */
     .pc-navbar .nav-link::after {
       content: "";
       position: absolute;
       left: 50%;
       bottom: 1px;
-      width: 18px;
-      height: 1px;
-      border-radius: var(--pc-radius-pill);
-      background: var(--pc-orange);
-      box-shadow: 0 0 10px 1px rgba(232, 89, 12, .55);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--pc-orange-light);
       opacity: 0;
-      transform: translateX(-50%) scaleX(0);
-      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), opacity .25s ease;
+      transform: translateX(-50%) scale(0);
+      transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), opacity .2s ease;
     }
 
     .pc-navbar .nav-link.active::after {
       opacity: 1;
-      transform: translateX(-50%) scaleX(1);
+      transform: translateX(-50%) scale(1);
+    }
+
+    .pc-nav-cta {
+      background: rgba(255, 255, 255, .14) !important;
+      border: 1px solid rgba(255, 255, 255, .2) !important;
+      color: #fff !important;
+    }
+
+    .pc-nav-scrim {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      z-index: 1029;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, .25), transparent);
+      pointer-events: none;
     }
 
     @media (min-width: 992px) {
@@ -179,12 +196,14 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
 
   <?php require __DIR__ . '/../components/shared/page-loader.php'; ?>
 
+  <span class="pc-nav-scrim" aria-hidden="true"></span>
+
   <header class="pc-header position-fixed top-0 start-0 w-100" style="z-index: 1030;">
     <div class="container px-2 px-lg-3 pt-2 pt-lg-2">
       <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
         <div class="container-fluid px-0">
           <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>/">
-            <img src="<?= $assetPath ?>assets/img/powercabs-logo-black.svg" alt="PowerCabs" height="45" class="d-block">
+            <img src="<?= $assetPath ?>assets/img/powercabs-logo-white.svg" alt="PowerCabs" height="45" class="d-block">
           </a>
 
           <button class="navbar-toggler pc-navbar-toggler border-0 p-0 shadow-none" type="button"

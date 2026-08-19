@@ -814,10 +814,9 @@
 /* ---------- Header: fixed, floating pill positioning ---------- */
 
 .pc-navbar {
-  --bs-navbar-color: var(--pc-dark);
-  --bs-navbar-hover-color: var(--pc-dark);
-  --bs-navbar-active-color: var(--pc-orange-light);
-  --bs-navbar-disabled-color: rgba(28, 20, 16, 0.35);
+  /* Background/border/text colors live in includes/header.php's own
+     <style> block -- one fixed glass material, no light/dark variant. */
+  --bs-navbar-disabled-color: rgba(255, 255, 255, 0.35);
   padding-block: 0.42rem;
 }
 
@@ -876,8 +875,21 @@
       opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
       visibility 0.32s;
-    border-radius: 0 0 var(--pc-radius-md) var(--pc-radius-md);
-    box-shadow: 0 18px 44px rgba(28, 20, 16, 0.14);
+    /* Fully opaque on purpose -- this panel is the sole readable surface for
+       a whole grid of link titles/descriptions over arbitrary page content,
+       and needs to completely hide whatever's behind it, not just soften
+       it. The white wash gradient on top keeps it reading as a frosted
+       card rather than a flat black rectangle even at full opacity; the
+       blur is kept too so the very edge, where it meets whatever's outside
+       its own rounded corners, still looks like glass. */
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%),
+      rgb(15, 16, 18);
+    backdrop-filter: blur(40px) saturate(160%);
+    -webkit-backdrop-filter: blur(40px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--pc-radius-md);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
   }
 
   .navbar-expand-lg .navbar-nav .pc-mega-menu.show {
@@ -917,10 +929,10 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #858585;
+  color: rgba(255, 255, 255, 0.45);
   padding-bottom: 0.65rem;
   margin-bottom: 0.85rem;
-  border-bottom: 1px solid rgba(28, 20, 16, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pc-mega-item {
@@ -936,6 +948,12 @@
   color: inherit;
   font-family: inherit;
   cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.pc-mega-item:hover,
+.pc-mega-item:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .pc-mega-item:focus-visible {
@@ -946,26 +964,26 @@
   display: block;
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--pc-dark);
+  color: rgba(255, 255, 255, 0.92);
   transition: color 0.18s ease;
 }
 
 .pc-mega-item:hover .pc-mega-item-title,
 .pc-mega-item:focus-visible .pc-mega-item-title {
-  color: var(--pc-orange);
+  color: var(--pc-orange-light);
 }
 
 .pc-mega-item-desc {
   display: block;
   font-size: 0.78rem;
   font-weight: 400;
-  color: var(--pc-text-muted);
+  color: rgba(255, 255, 255, 0.55);
   margin-top: 0.15rem;
 }
 
 .pc-mega-chevron {
   font-size: 0.7rem;
-  color: var(--pc-text-muted);
+  color: rgba(255, 255, 255, 0.4);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -979,7 +997,7 @@
   grid-template-rows: 0fr;
   margin-left: 0.65rem;
   padding-left: 0.75rem;
-  border-left: 2px solid rgba(28, 20, 16, 0.08);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
   opacity: 0;
   transition:
     grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1004,14 +1022,15 @@
   border-radius: var(--pc-radius-sm);
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--pc-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  transition: color 0.18s ease;
+  transition: color 0.18s ease, background-color 0.18s ease;
 }
 
 .pc-mega-subitem:hover,
 .pc-mega-subitem:focus-visible {
-  color: var(--pc-orange);
+  color: var(--pc-orange-light);
+  background: rgba(255, 255, 255, 0.06);
   outline: none;
 }
 
@@ -1019,7 +1038,9 @@
   .pc-mega-menu {
     position: static !important;
     box-shadow: none !important;
-    border-top: 1px solid rgba(28, 20, 16, 0.08) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
   .pc-mega-inner {
@@ -1046,8 +1067,8 @@
 }
 
 .pc-navbar-toggler {
-  width: 26px;
-  height: 20px;
+  width: 20px;
+  height: 15px;
   position: relative;
 }
 
@@ -1057,7 +1078,10 @@
   width: 100%;
   height: 2px;
   border-radius: 5px;
-  background: var(--pc-dark);
+  /* Solid white, not a translucent tint -- this sits on the navbar's own
+     always-dark glass, so it needs to read clearly no matter what's behind
+     the pill itself. */
+  background: #fff;
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.2s ease,
@@ -1068,14 +1092,14 @@
   top: 0;
 }
 .pc-toggler-bar:nth-child(2) {
-  top: 9px;
+  top: 6.5px;
 }
 .pc-toggler-bar:nth-child(3) {
-  top: 18px;
+  top: 13px;
 }
 
 .pc-navbar-toggler[aria-expanded='true'] .pc-toggler-bar:nth-child(1) {
-  top: 9px;
+  top: 6.5px;
   transform: rotate(45deg);
 }
 
@@ -1084,7 +1108,7 @@
 }
 
 .pc-navbar-toggler[aria-expanded='true'] .pc-toggler-bar:nth-child(3) {
-  top: 9px;
+  top: 6.5px;
   transform: rotate(-45deg);
 }
 
@@ -1095,12 +1119,8 @@
 }
 
 @media (max-width: 991.98px) {
-  /* An extension of the glass navbar rather than a plain Bootstrap dropdown:
-     same frosted-glass treatment, floating with its own rounded corners and
-     shadow, with a fade + slight scale layered on top of Bootstrap's own
-     height-collapse animation (added on ".collapsing" too, not just
-     ".show", so it starts at the same moment the height animation does
-     instead of only appearing once that finishes). */
+  /* Same fully-opaque glass + white wash as the desktop mega menu -- see
+     the comment there. */
   .navbar-collapse {
     position: absolute;
     top: calc(100% + 0.3rem);
@@ -1110,18 +1130,14 @@
     max-height: calc(100vh - var(--pc-navbar-h, 76px) - 2rem);
     overflow-y: auto;
     overflow-x: hidden;
-    /* Noticeably more opaque than the navbar pill itself -- at mobile
-       widths this panel is doing double duty as the readable surface for
-       every nav link's text, not just a subtle glass accent, so it leans
-       toward "frosted card" rather than "sheer glass" here. */
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(30px) saturate(160%);
-    -webkit-backdrop-filter: blur(30px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%),
+      rgb(15, 16, 18);
+    backdrop-filter: blur(40px) saturate(160%);
+    -webkit-backdrop-filter: blur(40px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--pc-radius-xl);
-    box-shadow:
-      0 24px 55px rgba(20, 12, 6, 0.2),
-      0 8px 20px rgba(20, 12, 6, 0.1);
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.2);
     padding: 1rem 1.1rem 1.25rem;
     opacity: 0;
     transform: translateY(-10px) scale(0.98);
@@ -1148,9 +1164,9 @@
   }
 
   .pc-navbar-links-pill .nav-link.active {
-    color: var(--pc-orange);
+    color: var(--pc-orange-light);
     font-weight: 600;
-    background: rgba(232, 89, 12, 0.08);
+    background: rgba(255, 122, 0, 0.12);
   }
 
   /* Left accent bar stands in for the desktop underline-glow, which is
@@ -1163,14 +1179,14 @@
     bottom: 20%;
     width: 3px;
     border-radius: var(--pc-radius-pill);
-    background: var(--pc-orange);
-    box-shadow: 0 0 8px rgba(232, 89, 12, 0.5);
+    background: var(--pc-orange-light);
+    box-shadow: 0 0 8px rgba(255, 122, 0, 0.55);
   }
 
   .pc-nav-actions {
     margin-top: 0.5rem;
     padding-top: 0.85rem;
-    border-top: 1px solid rgba(28, 20, 16, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .pc-nav-actions .pc-nav-cta {
