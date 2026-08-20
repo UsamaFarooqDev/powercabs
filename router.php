@@ -21,6 +21,14 @@ if ($uri === '/' || $uri === '') {
     return true;
 }
 
+// airport-transfers.php was renamed to meet-greet.php -- mirrors the
+// same 301 in .htaccess so the redirect also works under this local dev
+// server, not just on production Apache.
+if ($uri === '/airport-transfers' || $uri === '/airport-transfers.php' || $uri === '/airport-transfers/') {
+    header('Location: /meet-greet', true, 301);
+    return true;
+}
+
 // A real file that exists as requested (css/js/img/.php with its extension
 // typed out/etc.) -- let the built-in server handle it normally.
 if (file_exists(__DIR__ . $uri) && !is_dir(__DIR__ . $uri)) {

@@ -107,12 +107,15 @@ $rideSteps = [
     opacity: 1;
   }
 
-  #pcBookStepScreen {
-    transition: opacity .18s ease;
+  #pcBookSteps .pc-phone-screen {
+    height: 519.6px;
   }
 
-  #pcBookStepScreen.pc-book-step-screen-fade {
-    opacity: 0;
+  #pcBookSteps .pc-phone-screen img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -120,8 +123,8 @@ $rideSteps = [
     .pc-book-step-tab,
     .pc-book-step-title,
     .pc-book-step-check,
-    #pcBookStepScreen {
-      transition: none;
+    #pcBookSteps .pc-phone-screen img {
+      transition: none !important;
     }
   }
 </style>
@@ -143,12 +146,16 @@ $rideSteps = [
         <div class="d-flex flex-column gap-3" role="tablist" aria-label="Book Your Ride steps">
           <?php foreach ($rideSteps as $i => $step): ?>
             <button type="button"
-              class="pc-book-step-tab d-flex align-items-center gap-3 text-start rounded-4 p-3<?= $i === 0 ? ' is-active' : '' ?>"
+              class="pc-book-step-tab d-flex align-items-center gap-3 text-start rounded-4 p-3<?= $i === 0
+                ? ' is-active'
+                : '' ?>"
               data-image="<?= $assetPath ?>assets/img/<?= htmlspecialchars($step['img']) ?>"
               data-alt="<?= htmlspecialchars($step['alt']) ?>" role="tab"
               aria-selected="<?= $i === 0 ? 'true' : 'false' ?>">
               <span
-                class="pc-book-step-num flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle fw-medium"><?= htmlspecialchars($step['n']) ?></span>
+                class="pc-book-step-num flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle fw-medium"><?= htmlspecialchars(
+                  $step['n'],
+                ) ?></span>
               <span class="flex-grow-1">
                 <span class="pc-book-step-title d-block fw-bold"><?= htmlspecialchars($step['title']) ?></span>
                 <span class="pc-book-step-desc d-block text-muted-pc"><?= htmlspecialchars($step['desc']) ?></span>

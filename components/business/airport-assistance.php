@@ -1,4 +1,4 @@
-<section class="section-pc pt-0">
+<section class="pc-biz-band-a section-pc">
   <div class="container">
     <div class="pc-panel rounded-4 p-4 p-md-5">
       <div class="row align-items-center gy-4">
@@ -17,7 +17,7 @@
           </p>
         </div>
         <div class="col-12 col-md-auto">
-          <a class="btn btn-pc-dark px-4 w-100" href="<?= $assetPath ?>/airport-transfers">Learn about Meet &amp; Greet</a>
+          <a class="btn btn-pc-dark px-4 w-100" href="<?= $assetPath ?>/meet-greet">Learn about Meet &amp; Greet</a>
         </div>
       </div>
     </div>

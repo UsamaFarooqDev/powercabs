@@ -85,12 +85,12 @@
     $heroServices = [
       ['icon' => 'bi-clock-history', 'label' => 'Pay Per Hour', 'href' => '/ride'],
       ['icon' => 'bi-briefcase-fill', 'label' => 'Corporate', 'href' => '/corporate-services'],
-      ['icon' => 'bi-airplane-fill', 'label' => 'Meet and Greet', 'href' => '/airport-transfers'],
+      ['icon' => 'bi-airplane-fill', 'label' => 'Meet and Greet', 'href' => '/meet-greet'],
       ['icon' => 'bi-credit-card-fill', 'label' => 'Business Solutions', 'href' => '/business-solutions'],
       ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
     ];
     ?>
-    <div class="row row-cols-1 row-cols-md-5 g-0 pc-hero-services-row">
+    <div class="row row-cols-2 row-cols-md-5 g-0 pc-hero-services-row">
       <?php foreach ($heroServices as $service): ?>
         <div class="col">
           <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-hero-service-tile d-flex flex-column align-items-center text-decoration-none text-center w-100 h-100">

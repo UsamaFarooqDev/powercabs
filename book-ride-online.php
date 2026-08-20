@@ -157,7 +157,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
             <h3 class="mb-0">Please Fill Out the Form</h3>
           </div>
 
-          <form method="post" action="" class="row g-3">
+          <form method="post" action="" class="row g-3 pc-booking-form">
             <div class="col-md-6">
               <label class="form-label pc-required" for="brName">Full Name</label>
               <input type="text" class="form-control" id="brName" name="name"
