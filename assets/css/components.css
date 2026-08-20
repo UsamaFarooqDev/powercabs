@@ -875,16 +875,16 @@
       opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
       visibility 0.32s;
-    /* Fully opaque on purpose -- this panel is the sole readable surface for
-       a whole grid of link titles/descriptions over arbitrary page content,
-       and needs to completely hide whatever's behind it, not just soften
-       it. The white wash gradient on top keeps it reading as a frosted
-       card rather than a flat black rectangle even at full opacity; the
-       blur is kept too so the very edge, where it meets whatever's outside
-       its own rounded corners, still looks like glass. */
+    /* Fully opaque still -- this panel is the sole readable surface for a
+       whole grid of link titles/descriptions over arbitrary page content,
+       and without real opacity behind it the blur alone lets background
+       text bleed through enough to overlap its own text. Lighter charcoal
+       base than a near-black slab, though, plus a stronger white wash on
+       top, so it reads as a lighter frosted panel that belongs with the
+       navbar pill rather than an isolated black rectangle underneath it. */
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%),
-      rgb(15, 16, 18);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%),
+      rgb(38, 41, 46);
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1119,8 +1119,8 @@
 }
 
 @media (max-width: 991.98px) {
-  /* Same fully-opaque glass + white wash as the desktop mega menu -- see
-     the comment there. */
+  /* Same lighter charcoal, fully-opaque glass + white wash as the desktop
+     mega menu -- see the comment there. */
   .navbar-collapse {
     position: absolute;
     top: calc(100% + 0.3rem);
@@ -1131,8 +1131,8 @@
     overflow-y: auto;
     overflow-x: hidden;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%),
-      rgb(15, 16, 18);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%),
+      rgb(38, 41, 46);
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.14);
