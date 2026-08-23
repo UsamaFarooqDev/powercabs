@@ -1,15 +1,16 @@
 <?php
-$pageTitle       = 'About Us | PowerCabs';
-$pageDescription = 'Your trusted partner for seamless and reliable travel across Ireland -- professional drivers, modern vehicles, and 24/7 availability.';
-$assetPath       = '';
+$pageTitle = 'About Us | PowerCabs';
+$pageDescription =
+  'Your trusted partner for seamless and reliable travel across Ireland -- professional drivers, modern vehicles, and 24/7 availability.';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ About PowerCabs Ireland';
-$heroTitleLight  = 'Your Journey,';
-$heroTitleBold   = 'Our Priority.';
+$heroEyebrow = '/ About PowerCabs Ireland';
+$heroTitleLight = 'Your Journey,';
+$heroTitleBold = 'Our Priority.';
 $heroDescription = 'Welcome to PowerCabs, your trusted partner for seamless and reliable travel across Ireland.';
-$heroBgImage     = $assetPath . 'assets/img/service-airport.png';
+$heroBgImage = 'https://images.pexels.com/photos/36713443/pexels-photo-36713443.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -98,4 +99,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

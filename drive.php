@@ -1,15 +1,17 @@
 <?php
-$pageTitle       = 'Become a Taxi Driver in Dublin | PowerCabs';
-$pageDescription = 'Drive with PowerCabs -- flexible hours, competitive earnings and 24/7 driver support. Apply through the Driver App and start earning on your own schedule.';
-$assetPath       = '';
+$pageTitle = 'Become a Taxi Driver in Dublin | PowerCabs';
+$pageDescription =
+  'Drive with PowerCabs -- flexible hours, competitive earnings and 24/7 driver support. Apply through the Driver App and start earning on your own schedule.';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Drive';
-$heroTitleLight  = 'Join the';
-$heroTitleBold   = 'PowerCabs Family.';
-$heroDescription = 'Looking for a flexible and rewarding driving opportunity? Join PowerCabs and become part of a community that values safety, reliability, and excellent customer service. Drivers enjoy flexible working hours, competitive earnings, and 24/7 support to help them succeed.';
-$heroBgImage     = 'https://images.pexels.com/photos/5835012/pexels-photo-5835012.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroEyebrow = '/ Drive';
+$heroTitleLight = 'Join the';
+$heroTitleBold = 'PowerCabs Family.';
+$heroDescription =
+  'Looking for a flexible and rewarding driving opportunity? Join PowerCabs and become part of a community that values safety, reliability, and excellent customer service. Drivers enjoy flexible working hours, competitive earnings, and 24/7 support to help them succeed.';
+$heroBgImage = 'https://images.pexels.com/photos/37310371/pexels-photo-37310371.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 require __DIR__ . '/components/drive/be-your-own-boss.php';
 ?>
@@ -43,14 +45,28 @@ require __DIR__ . '/components/drive/be-your-own-boss.php';
     <div class="text-center mb-5">
       <h2 class="mb-0">Everything You Need to Succeed</h2>
     </div>
-    <?php
-    $driveWhyItems = [
-      ['icon' => 'bi-clock-history', 'title' => 'Flexible Hours', 'desc' => 'Choose your own schedule and drive whenever it suits you.'],
-      ['icon' => 'bi-cash-stack', 'title' => 'Competitive Earnings', 'desc' => "Earn more with PowerCabs' competitive fare structure."],
-      ['icon' => 'bi-people-fill', 'title' => 'Supportive Community', 'desc' => 'Access 24/7 support and resources whenever you need assistance.'],
-      ['icon' => 'bi-shield-check', 'title' => 'Safety First', 'desc' => 'Driver safety is a priority through background vetting and regular vehicle inspections.'],
-    ];
-    ?>
+    <?php $driveWhyItems = [
+      [
+        'icon' => 'bi-clock-history',
+        'title' => 'Flexible Hours',
+        'desc' => 'Choose your own schedule and drive whenever it suits you.',
+      ],
+      [
+        'icon' => 'bi-cash-stack',
+        'title' => 'Competitive Earnings',
+        'desc' => "Earn more with PowerCabs' competitive fare structure.",
+      ],
+      [
+        'icon' => 'bi-people-fill',
+        'title' => 'Supportive Community',
+        'desc' => 'Access 24/7 support and resources whenever you need assistance.',
+      ],
+      [
+        'icon' => 'bi-shield-check',
+        'title' => 'Safety First',
+        'desc' => 'Driver safety is a priority through background vetting and regular vehicle inspections.',
+      ],
+    ]; ?>
     <div class="row row-cols-2 row-cols-md-4 g-3 g-md-4">
       <?php foreach ($driveWhyItems as $item): ?>
             <div class="col pc-why-item position-relative border-end border-bottom text-center px-4 py-4 py-md-5">
@@ -80,4 +96,6 @@ require __DIR__ . '/components/drive/preferences.php';
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

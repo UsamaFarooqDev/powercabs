@@ -8,13 +8,6 @@ require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
 // ============ Meet & Greet booking/enquiry form ============
-// The service runs in one direction at a time -- Pickup (we collect you
-// from the airport, so we need which terminal you're arriving at plus
-// where you want to be dropped off) or Dropping Off (we collect you from
-// an address and take you to the airport, so we need that address plus
-// which terminal to drop you at). Only one direction's fields are ever
-// required/sent -- the other pair is cleared server-side too, not just
-// hidden client-side, so a tampered request can't submit both at once.
 $mgFormStatus = null;
 $mgFormError = '';
 $mgOld = [
@@ -39,15 +32,6 @@ $mgServiceTypeLabels = [
 $mgJourneyTypeLabels = ['one_way' => 'One Way', 'return' => 'Return / Both Ways'];
 $mgFares = ['one_way' => 10, 'return' => 15];
 
-// A standard Stripe Payment Link charges one fixed amount configured in the
-// Stripe Dashboard -- it can't be told from the client to charge a
-// different amount per request, so this single supplied link is used for
-// both fares below rather than pretending it adjusts itself. To genuinely
-// support two distinct fixed prices, either create a second Payment Link
-// (one per fare) and swap it in per journey type, or move to the Stripe
-// Checkout Sessions API server-side (using a secret key that must never be
-// exposed in frontend code) so the amount can be set dynamically per
-// booking. No Stripe integration exists elsewhere in this project to reuse.
 $mgStripeLink = 'https://buy.stripe.com/5kQ6oH1NL1Zpd81arZfQI02';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'meet_greet') {
@@ -55,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgOld[$key] = trim($_POST[$key] ?? '');
   }
 
-  // Only ever trust known values -- anything else collapses to "not set"
-  // and fails validation below rather than being echoed back untrusted.
   if (!isset($mgServiceTypeLabels[$mgOld['service_type']])) {
     $mgOld['service_type'] = '';
   }
@@ -70,8 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgOld['dropoff_terminal'] = '';
   }
 
-  // Server-side is the one place that decides which direction's fields
-  // apply -- the other pair is discarded outright, never just skipped.
   if ($mgOld['service_type'] === 'pickup') {
     $mgOld['pickup_address'] = '';
     $mgOld['dropoff_terminal'] = '';
@@ -109,8 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgFormStatus = 'error';
     $mgFormError = 'Please enter a valid email address.';
   } else {
-    // Price is always recalculated from the validated journey type -- the
-    // amount is never taken from the request as-is.
     $mgFare = $mgFares[$mgOld['journey_type']];
 
     $body =
@@ -162,7 +140,8 @@ $heroTitleLight = 'Meet &';
 $heroTitleBold = 'Greet.';
 $heroDescription =
   "Start or end your journey stress-free with PowerCabs' professional airport Meet & Greet service. Whether you're arriving for business or leisure, our experienced drivers monitor your flight, greet you at arrivals, assist with your luggage, and ensure a smooth, comfortable transfer to your destination. We also accommodate last-minute airport bookings whenever possible.";
-$heroBgImage = 'https://images.pexels.com/photos/36498953/pexels-photo-36498953.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroBgImage =
+  'https://images.pexels.com/photos/69121/passenger-traffic-airline-aviation-air-transportation-69121.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Meet & Greet';
 require __DIR__ . '/components/shared/inner-hero.php';
 
@@ -228,10 +207,7 @@ $bookingSteps = [
             line-height: 1.1;
             letter-spacing: -.04em;
           ">
-          Welcome
-          <span style="color: var(--pc-orange);">
-            from the moment you arrive.
-          </span>
+          Welcome from the moment you arrive.
         </h2>
         <p class="text-muted-pc mb-4" style="
             max-width: 540px;
@@ -243,12 +219,7 @@ $bookingSteps = [
           you, assist with your luggage and get you comfortably on your way.
         </p>
         <div class="d-flex flex-wrap align-items-center gap-3">
-          <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online">Book a Meet &amp;
-            Greet</a>
-          <span class="small text-muted-pc">
-            <i class="bi bi-check-circle-fill me-1" style="color: var(--pc-orange);"></i>
-            Reliable airport transfers
-          </span>
+          <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online">Book a Meet &amp; Greet</a>
         </div>
       </div>
 
@@ -396,32 +367,28 @@ $bookingSteps = [
           <input type="hidden" name="form_type" value="meet_greet">
 
           <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgName"><i class="bi bi-person-fill"
-                aria-hidden="true"></i> Full Name</label>
+            <label class="form-label pc-required pc-mg-label" for="mgName">Full Name</label>
             <input type="text" class="form-control" id="mgName" name="name" value="<?= htmlspecialchars(
               $mgOld['name'],
-            ) ?>" required>
+            ) ?>"required>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgEmail"><i class="bi bi-envelope-fill"
-                aria-hidden="true"></i> Email Address</label>
+            <label class="form-label pc-required pc-mg-label" for="mgEmail">Email Address</label>
             <input type="email" class="form-control" id="mgEmail" name="email" value="<?= htmlspecialchars(
               $mgOld['email'],
             ) ?>" required>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgFlightNumber"><i
-                class="bi bi-airplane-fill" aria-hidden="true"></i> Flight Number</label>
+            <label class="form-label pc-required pc-mg-label" for="mgFlightNumber">Flight Number</label>
             <input type="text" class="form-control" id="mgFlightNumber" name="flight_number"
               placeholder="e.g. EI164" value="<?= htmlspecialchars($mgOld['flight_number']) ?>" required>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgServiceType"><i
-                class="bi bi-signpost-split-fill" aria-hidden="true"></i> Service Type</label>
-            <select class="form-select" id="mgServiceType" name="service_type" required>
+            <label class="form-label pc-required pc-mg-label" for="mgServiceType">Service Type</label>
+            <select class="form-select pc-custom-select-enhance" id="mgServiceType" name="service_type" required>
               <option value="" disabled <?= $mgOld['service_type'] === '' ? 'selected' : '' ?>>Select service
                 type</option>
               <option value="pickup" <?= $mgOld['service_type'] === 'pickup' ? 'selected' : '' ?>>Pickup (from
@@ -433,9 +400,8 @@ $bookingSteps = [
 
           <!-- Pickup flow fields -->
           <div class="col-md-6 pc-mg-field-group" data-mg-group="pickup">
-            <label class="form-label pc-mg-label" for="mgPickupTerminal"><i class="bi bi-building"
-                aria-hidden="true"></i> Pickup / Airport Terminal</label>
-            <select class="form-select" id="mgPickupTerminal" name="pickup_terminal">
+            <label class="form-label pc-mg-label" for="mgPickupTerminal">Pickup / Airport Terminal</label>
+            <select class="form-select pc-custom-select-enhance" id="mgPickupTerminal" name="pickup_terminal">
               <option value="" disabled <?= $mgOld['pickup_terminal'] === '' ? 'selected' : '' ?>>Select
                 terminal</option>
               <?php foreach ($mgTerminalOptions as $terminal): ?>
@@ -446,8 +412,7 @@ $bookingSteps = [
             </select>
           </div>
           <div class="col-md-6 pc-mg-field-group" data-mg-group="pickup">
-            <label class="form-label pc-mg-label" for="mgDestinationAddress"><i class="bi bi-geo-alt-fill"
-                aria-hidden="true"></i> Destination Address</label>
+            <label class="form-label pc-mg-label" for="mgDestinationAddress">Destination Address</label>
             <input type="text" class="form-control" id="mgDestinationAddress" name="destination_address"
               placeholder="Where should we drop you off?"
               value="<?= htmlspecialchars($mgOld['destination_address']) ?>">
@@ -455,16 +420,14 @@ $bookingSteps = [
 
           <!-- Dropping Off flow fields -->
           <div class="col-md-6 pc-mg-field-group" data-mg-group="dropoff">
-            <label class="form-label pc-mg-label" for="mgPickupAddress"><i class="bi bi-geo-alt-fill"
-                aria-hidden="true"></i> Pickup Address</label>
+            <label class="form-label pc-mg-label" for="mgPickupAddress">Pickup Address</label>
             <input type="text" class="form-control" id="mgPickupAddress" name="pickup_address"
               placeholder="Where should we collect you from?"
               value="<?= htmlspecialchars($mgOld['pickup_address']) ?>">
           </div>
           <div class="col-md-6 pc-mg-field-group" data-mg-group="dropoff">
-            <label class="form-label pc-mg-label" for="mgDropoffTerminal"><i class="bi bi-building"
-                aria-hidden="true"></i> Drop-off / Airport Terminal</label>
-            <select class="form-select" id="mgDropoffTerminal" name="dropoff_terminal">
+            <label class="form-label pc-mg-label" for="mgDropoffTerminal">Drop-off / Airport Terminal</label>
+            <select class="form-select pc-custom-select-enhance" id="mgDropoffTerminal" name="dropoff_terminal">
               <option value="" disabled <?= $mgOld['dropoff_terminal'] === '' ? 'selected' : '' ?>>Select
                 terminal</option>
               <?php foreach ($mgTerminalOptions as $terminal): ?>
@@ -476,16 +439,14 @@ $bookingSteps = [
           </div>
 
           <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgPassengers"><i class="bi bi-people-fill"
-                aria-hidden="true"></i> Number of Passengers</label>
+            <label class="form-label pc-required pc-mg-label" for="mgPassengers">Number of Passengers</label>
             <input type="number" min="1" max="20" class="form-control" id="mgPassengers" name="passengers"
               value="<?= htmlspecialchars($mgOld['passengers']) ?>" required>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgJourneyType"><i
-                class="bi bi-arrow-left-right" aria-hidden="true"></i> Journey Type</label>
-            <select class="form-select" id="mgJourneyType" name="journey_type" required>
+            <label class="form-label pc-required pc-mg-label" for="mgJourneyType">Journey Type</label>
+            <select class="form-select pc-custom-select-enhance" id="mgJourneyType" name="journey_type" required>
               <option value="" disabled <?= $mgOld['journey_type'] === '' ? 'selected' : '' ?>>Select journey
                 type</option>
               <option value="one_way" data-fare="10" <?= $mgOld['journey_type'] === 'one_way'
@@ -498,9 +459,7 @@ $bookingSteps = [
           </div>
 
           <div class="col-12">
-            <label class="form-label pc-mg-label" for="mgSpecialRequirements"><i class="bi bi-chat-left-text"
-                aria-hidden="true"></i> Special Requirements <span
-                class="text-muted-pc fw-normal">(optional)</span></label>
+            <label class="form-label pc-mg-label" for="mgSpecialRequirements">Special Requirements</label>
             <textarea class="form-control" id="mgSpecialRequirements" name="special_requirements"
               rows="3"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
           </div>
@@ -695,7 +654,7 @@ $bookingSteps = [
   .pc-mg-label {
     display: flex;
     align-items: center;
-    gap: .45rem;
+    gap: .25rem;
   }
 
   .pc-mg-label i {
@@ -768,23 +727,15 @@ $bookingSteps = [
       dropoff: form.querySelectorAll('[data-mg-group="dropoff"]')
     };
 
-    // Hidden fields must not be required, must not be submitted, and must
-    // not trip validation -- disabling them (not just hiding with CSS)
-    // achieves all three natively: disabled form controls are skipped by
-    // the browser's constraint validation and excluded from the submitted
-    // form data entirely.
     function setGroupState(groupName, isActive) {
       groups[groupName].forEach(function (col) {
         col.classList.toggle('d-none', !isActive);
         col.querySelectorAll('input, select, textarea').forEach(function (field) {
           field.disabled = !isActive;
-          // Only the active group's fields are required -- native
-          // constraint validation then blocks submission if one of them is
-          // left empty, and skips the inactive group entirely (a disabled
-          // field is exempt from validation regardless of "required").
           field.required = isActive;
           if (!isActive) {
             field.value = '';
+            field.dispatchEvent(new Event('change', { bubbles: true }));
           }
         });
       });
@@ -820,6 +771,10 @@ $bookingSteps = [
     applyJourneyType();
   })();
 </script>
+
+<script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-select.js',
+) ?>"></script>
 
 <!-- ============ Flight Path Scroll Animation ============ -->
 <section class="pc-flight-banner position-relative overflow-hidden" id="pcFlightBanner">
@@ -1040,7 +995,6 @@ $bookingSteps = [
             ">
             <i class="bi bi-stars fs-5"></i>
           </div>
-
           <div>
             <div class="small fw-bold text-uppercase mb-1" style="
                 letter-spacing: .14em;
@@ -1049,7 +1003,6 @@ $bookingSteps = [
               ">
               Why Choose Us
             </div>
-
             <h3 class="fw-bold mb-0" style="
                 font-size: clamp(1.45rem, 2vw, 1.9rem);
                 line-height: 1.15;
@@ -1107,11 +1060,9 @@ $bookingSteps = [
                 </div>
               </div>
             </div>
-
           <?php endforeach; ?>
 
         </div>
-
         <div class="d-flex align-items-center gap-3 mt-auto pt-4" style="border-top: 1px solid rgba(28,20,16,.07);">
           <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="
               width: 40px;
@@ -1121,19 +1072,16 @@ $bookingSteps = [
             ">
             <i class="bi bi-shield-check"></i>
           </div>
-
           <div>
             <div class="fw-bold" style="font-size: .78rem; color: var(--pc-dark);">
               Travel with confidence
             </div>
-
             <div class="text-muted-pc" style="font-size: .68rem;">
               Professional service from pickup to drop-off.
             </div>
           </div>
         </div>
       </div>
-
 
       <!-- ==================================================
            RIGHT — HOW IT WORKS
@@ -1147,8 +1095,6 @@ $bookingSteps = [
             );
           border-left: 1px solid rgba(28,20,16,.06);
         ">
-
-        <!-- Heading -->
         <div class="d-flex align-items-start gap-3 mb-4">
           <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-4" style="
               width: 46px;
@@ -1160,7 +1106,6 @@ $bookingSteps = [
             <i class="bi bi-signpost-split-fill fs-5"></i>
           </div>
           <div>
-
             <div class="small fw-bold text-uppercase mb-1" style="
                 letter-spacing: .14em;
                 color: var(--pc-orange);
@@ -1168,7 +1113,6 @@ $bookingSteps = [
               ">
               How It Works
             </div>
-
             <h3 class="fw-bold mb-0" style="
                 font-size: clamp(1.45rem, 2vw, 1.9rem);
                 line-height: 1.15;
@@ -1180,9 +1124,6 @@ $bookingSteps = [
             </h3>
           </div>
         </div>
-
-
-        <!-- Description -->
         <p class="text-muted-pc mb-4" style="
             max-width: 470px;
             font-size: 1.02rem;
@@ -1192,20 +1133,14 @@ $bookingSteps = [
           Book ahead and we'll take care of the rest.
         </p>
 
-
         <!-- =========================
              TIMELINE
         ========================== -->
         <div>
-
           <?php foreach ($bookingSteps as $index => $step): ?>
-
             <div class="position-relative d-flex gap-3
               <?= $index < count($bookingSteps) - 1 ? 'pb-4' : '' ?>">
-
-              <!-- Connecting line -->
               <?php if ($index < count($bookingSteps) - 1): ?>
-
                 <div class="position-absolute" style="
                     left: 19px;
                     top: 43px;
@@ -1219,9 +1154,7 @@ $bookingSteps = [
                       );
                   ">
                 </div>
-
               <?php endif; ?>
-
 
               <!-- Step number -->
               <div class="position-relative d-flex align-items-center justify-content-center
@@ -1238,12 +1171,9 @@ $bookingSteps = [
                 <?= $step['n'] ?>
               </div>
 
-
               <!-- Step content -->
               <div class="flex-grow-1 pt-1">
-
                 <div class="d-flex align-items-center justify-content-between mb-1">
-
                   <span class="fw-bold" style="
                       font-size: .58rem;
                       letter-spacing: .13em;
@@ -1252,13 +1182,11 @@ $bookingSteps = [
                     STEP
                     <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
                   </span>
-
                   <i class="bi bi-arrow-up-right" style="
                       font-size: .75rem;
                       color: rgba(28,20,16,.28);
                     ">
                   </i>
-
                 </div>
 
                 <h4 class="fw-bold mb-0" style="
@@ -1268,13 +1196,9 @@ $bookingSteps = [
                   ">
                   <?= htmlspecialchars($step['title']) ?>
                 </h4>
-
               </div>
-
             </div>
-
           <?php endforeach; ?>
-
         </div>
 
 

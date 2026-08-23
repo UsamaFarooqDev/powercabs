@@ -1,15 +1,17 @@
 <?php
-$pageTitle       = 'GDPR | PowerCabs';
-$pageDescription = "How PowerCabs Ireland Limited processes personal data in compliance with the General Data Protection Regulation (GDPR).";
-$assetPath       = '';
+$pageTitle = 'GDPR | PowerCabs';
+$pageDescription =
+  'How PowerCabs Ireland Limited processes personal data in compliance with the General Data Protection Regulation (GDPR).';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Data Protection';
-$heroTitleLight  = 'General Data';
-$heroTitleBold   = 'Protection Regulation.';
-$heroDescription = 'PowerCabs is committed to protecting customer privacy and processing personal data in compliance with GDPR.';
-$heroBgImage     = 'https://images.pexels.com/photos/11391947/pexels-photo-11391947.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroEyebrow = '/ Data Protection';
+$heroTitleLight = 'General Data';
+$heroTitleBold = 'Protection Regulation.';
+$heroDescription =
+  'PowerCabs is committed to protecting customer privacy and processing personal data in compliance with GDPR.';
+$heroBgImage = 'https://images.pexels.com/photos/2882659/pexels-photo-2882659.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'GDPR';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
@@ -98,4 +100,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

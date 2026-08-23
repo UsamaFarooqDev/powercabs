@@ -154,7 +154,7 @@ $heroTitleLight = 'City';
 $heroTitleBold = 'Tours.';
 $heroDescription =
   "Explore Ireland's most iconic destinations with PowerCabs. Whether you're visiting historic landmarks, breathtaking coastal scenery, charming villages, or famous attractions, enjoy comfortable private transportation with professional local drivers.";
-$heroBgImage = 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60';
+$heroBgImage = 'https://images.pexels.com/photos/15592112/pexels-photo-15592112.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $destinations = [
@@ -485,7 +485,7 @@ $whyChooseTours = [
             </div>
             <div class="col-md-6">
               <label class="form-label" for="ctTourDate">Preferred Tour Date</label>
-              <input type="date" class="form-control" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars(
+              <input type="date" class="form-control pc-custom-datetime-enhance" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars(
                 $old['tour_date'],
               ) ?>" required>
             </div>
@@ -573,13 +573,13 @@ $whyChooseTours = [
           </div>
           <div class="col-md-6">
             <label class="form-label" for="phDate">Preferred Date</label>
-            <input type="date" class="form-control" id="phDate" name="tour_date" min="<?= htmlspecialchars(
+            <input type="date" class="form-control pc-custom-datetime-enhance" id="phDate" name="tour_date" min="<?= htmlspecialchars(
               $hourlyMinDate,
             ) ?>" value="<?= htmlspecialchars($hourlyOld['tour_date']) ?>" required>
           </div>
           <div class="col-md-6">
             <label class="form-label" for="phTime">Preferred Time</label>
-            <input type="time" class="form-control" id="phTime" name="tour_time" value="<?= htmlspecialchars(
+            <input type="time" class="form-control pc-custom-datetime-enhance" id="phTime" name="tour_time" value="<?= htmlspecialchars(
               $hourlyOld['tour_time'],
             ) ?>" required>
           </div>
@@ -616,6 +616,9 @@ $whyChooseTours = [
 </div>
 
 <script src="<?= $assetPath ?>assets/js/components/city-tours.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-datetime.js',
+) ?>"></script>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

@@ -203,7 +203,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
         <div class="container-fluid px-0">
           <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>/">
-            <img src="<?= $assetPath ?>assets/img/powercabs-logo-white.svg" alt="PowerCabs" height="45" class="d-block">
+            <img src="<?= $assetPath ?>assets/img/powercabs-logo-white.svg" alt="PowerCabs" height="47" class="d-block">
           </a>
 
           <button class="navbar-toggler pc-navbar-toggler border-0 p-0 shadow-none" type="button"

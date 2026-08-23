@@ -882,12 +882,13 @@
        base than a near-black slab, though, plus a stronger white wash on
        top, so it reads as a lighter frosted panel that belongs with the
        navbar pill rather than an isolated black rectangle underneath it. */
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%),
-      rgb(38, 41, 46);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%), rgb(38, 41, 46);
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    /* !important because the markup also carries Bootstrap's border-0
+       utility (border: 0 !important) -- without matching it, that silently
+       wins and this border never actually rendered on either dropdown. */
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
     border-radius: var(--pc-radius-md);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
   }
@@ -1024,7 +1025,9 @@
   font-weight: 500;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  transition: color 0.18s ease, background-color 0.18s ease;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
 }
 
 .pc-mega-subitem:hover,
@@ -1130,14 +1133,14 @@
     max-height: calc(100vh - var(--pc-navbar-h, 76px) - 2rem);
     overflow-y: auto;
     overflow-x: hidden;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%),
-      rgb(38, 41, 46);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%), rgb(38, 41, 46);
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--pc-radius-xl);
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0 24px 55px rgba(0, 0, 0, 0.4),
+      0 8px 20px rgba(0, 0, 0, 0.2);
     padding: 1rem 1.1rem 1.25rem;
     opacity: 0;
     transform: translateY(-10px) scale(0.98);
@@ -1515,7 +1518,7 @@
 .form-control:focus,
 .form-select:focus {
   border-color: var(--pc-orange-light);
-  box-shadow: 0 0 0 0.2rem rgba(232, 89, 12, 0.15);
+  box-shadow: none;
 }
 
 label.btn-outline-primary,
@@ -3318,7 +3321,8 @@ body[data-page^='ambassador-programme'] .pc-amb-register {
 .pc-amb-form-panel .form-select:focus {
   border-color: var(--pc-orange-light);
   background: var(--pc-white);
-  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.12);
+  /* box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.12); */
+  box-shadow: none; /* Bootstrap's default focus shadow is too strong for this panel's soft look */
 }
 
 /* ============ Business page: "dragon-snake" ambient glow ============ *
@@ -4149,5 +4153,447 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
   .pc-wa-badge-pulse {
     animation: none;
     opacity: 0;
+  }
+}
+
+/* ---------- Custom dropdown (progressive enhancement over a real
+   <select>, currently used on meet-greet.php) -------------------------
+   The real <select> stays in the DOM -- same id/name/value/required/
+   disabled behavior as before, so nothing else has to change -- just
+   made invisible and non-interactive; the button + panel below it are
+   the only thing the user actually sees or clicks. */
+.pc-custom-select {
+  position: relative;
+}
+
+.pc-custom-select-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pc-custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  background-image: none !important;
+  cursor: pointer;
+  /* Bootstrap's .form-select reserves extra right padding for its own
+     native arrow background-image, which is turned off above -- without
+     matching that padding down to the same value as the left side, the
+     caret (placed by justify-content, not that background-image) ends up
+     sitting well short of the actual right edge instead of flush to it. */
+  padding-right: 0.75rem !important;
+}
+
+.pc-custom-select-trigger:focus-visible {
+  outline: none;
+  border-color: var(--pc-orange-light);
+  box-shadow: 0 0 0 0.2rem rgba(232, 89, 12, 0.15);
+}
+
+.pc-custom-select-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pc-custom-select-trigger.is-placeholder .pc-custom-select-value {
+  color: var(--pc-text-muted);
+}
+
+.pc-custom-select-caret {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--pc-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.pc-custom-select.is-open .pc-custom-select-caret {
+  transform: rotate(180deg);
+}
+
+.pc-custom-select.is-open .pc-custom-select-trigger {
+  border-color: var(--pc-orange-light);
+  box-shadow: 0 0 0 0.2rem rgba(232, 89, 12, 0.15);
+}
+
+.pc-custom-select.is-disabled .pc-custom-select-trigger {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.pc-custom-select-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.1);
+  border-radius: var(--pc-radius-md);
+  box-shadow: var(--pc-shadow-lg);
+  padding: 0.35rem;
+  max-height: 240px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.18s;
+}
+
+.pc-custom-select.is-open .pc-custom-select-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pc-custom-select-option {
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--pc-radius-sm);
+  font-size: 0.95rem;
+  color: var(--pc-dark);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pc-custom-select-option:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-select-option.is-selected {
+  font-weight: 600;
+  color: var(--pc-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-custom-select-panel,
+  .pc-custom-select-caret {
+    transition: none;
+  }
+}
+
+/* ---------- Custom date/time picker (progressive enhancement over a real
+   <input type="date"|"time"|"datetime-local">, sharing the same trigger/
+   panel visual language as .pc-custom-select above). The real <input>
+   stays in the DOM -- same id/name/value/required/disabled behavior as
+   before -- just made invisible and non-interactive; a calendar grid (for
+   date) or a scrollable time list (for time) is built alongside it. A
+   datetime-local field renders as two side-by-side segments sharing one
+   hidden native input -- see .pc-custom-dt--datetime below. */
+.pc-custom-dt {
+  position: relative;
+}
+
+.pc-custom-dt-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pc-custom-dt-split {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pc-custom-dt-segment {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.pc-custom-dt-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pc-custom-dt-trigger:focus-visible {
+  outline: none;
+  border-color: var(--pc-orange-light);
+  /* box-shadow: 0 0 0 0.2rem rgba(232, 89, 12, 0.15); */
+  box-shadow: none;
+}
+
+.pc-custom-dt-icon {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-custom-dt-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pc-custom-dt-trigger.is-placeholder .pc-custom-dt-value {
+  color: var(--pc-text-muted);
+}
+
+.pc-custom-dt-anchor.is-open .pc-custom-dt-trigger {
+  border-color: var(--pc-orange-light);
+  /* box-shadow: 0 0 0 0.2rem rgba(232, 89, 12, 0.15); */
+  box-shadow: none;
+}
+
+.pc-custom-dt-segment.is-disabled .pc-custom-dt-trigger,
+.pc-custom-dt.is-disabled .pc-custom-dt-trigger {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.pc-custom-dt-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  z-index: 20;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.1);
+  border-radius: var(--pc-radius-md);
+  box-shadow: var(--pc-shadow-lg);
+  padding: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.18s;
+}
+
+.pc-custom-dt-anchor.is-open .pc-custom-dt-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pc-custom-dt-panel--calendar {
+  left: 0;
+  width: 280px;
+  max-width: calc(100vw - 2rem);
+}
+
+.pc-custom-dt-panel--time {
+  left: 0;
+  right: 0;
+  min-width: 170px;
+  padding: 0.35rem;
+}
+
+.pc-custom-dt-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.pc-custom-dt-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  border-radius: var(--pc-radius-sm);
+  color: var(--pc-dark);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.pc-custom-dt-nav-btn:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-nav-title {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--pc-dark);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--pc-radius-sm);
+  cursor: pointer;
+}
+
+.pc-custom-dt-nav-title:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--pc-text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.pc-custom-dt-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.pc-custom-dt-day,
+.pc-custom-dt-month-cell,
+.pc-custom-dt-year-cell {
+  border: none;
+  background: transparent;
+  border-radius: var(--pc-radius-sm);
+  color: var(--pc-dark);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pc-custom-dt-day {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-custom-dt-day.is-muted {
+  color: var(--pc-text-muted);
+  opacity: 0.5;
+}
+
+.pc-custom-dt-day.is-today {
+  box-shadow: inset 0 0 0 1px var(--pc-orange-light);
+}
+
+.pc-custom-dt-day:hover:not(.is-disabled),
+.pc-custom-dt-month-cell:hover,
+.pc-custom-dt-year-cell:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-day.is-selected,
+.pc-custom-dt-month-cell.is-selected,
+.pc-custom-dt-year-cell.is-selected {
+  background: var(--pc-orange);
+  color: var(--pc-white);
+  font-weight: 600;
+}
+
+.pc-custom-dt-day.is-disabled {
+  color: var(--pc-text-muted);
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pc-custom-dt-months,
+.pc-custom-dt-years {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.pc-custom-dt-month-cell,
+.pc-custom-dt-year-cell {
+  padding: 0.6rem 0.25rem;
+}
+
+.pc-custom-dt-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  margin-top: 0.35rem;
+  border-top: 1px solid rgba(28, 20, 16, 0.08);
+}
+
+.pc-custom-dt-panel--time .pc-custom-dt-toolbar {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
+  border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.pc-custom-dt-toolbar-btn {
+  border: none;
+  background: transparent;
+  color: var(--pc-orange);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+  cursor: pointer;
+}
+
+.pc-custom-dt-toolbar-btn:hover {
+  text-decoration: underline;
+}
+
+.pc-custom-dt-toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.pc-custom-dt-timelist {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.pc-custom-dt-time-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--pc-radius-sm);
+  font-size: 0.9rem;
+  color: var(--pc-dark);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pc-custom-dt-time-option:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-time-option.is-selected {
+  font-weight: 600;
+  color: var(--pc-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-custom-dt-panel {
+    transition: none;
   }
 }

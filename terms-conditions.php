@@ -1,48 +1,50 @@
 <?php
-$pageTitle       = 'Terms & Conditions | PowerCabs';
-$pageDescription = "PowerCabs Ireland Limited's Terms and Conditions for Passengers and the General Terms of Use for Drivers and Taxi Contractors.";
-$assetPath       = '';
+$pageTitle = 'Terms & Conditions | PowerCabs';
+$pageDescription =
+  "PowerCabs Ireland Limited's Terms and Conditions for Passengers and the General Terms of Use for Drivers and Taxi Contractors.";
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Policies & Safety';
-$heroTitleLight  = 'Terms &';
-$heroTitleBold   = 'Conditions.';
-$heroDescription = "Our agreements with Passengers and Drivers who use PowerCabs Services -- please read the version that applies to you.";
-$heroBgImage     = 'https://images.pexels.com/photos/8939052/pexels-photo-8939052.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroEyebrow = '/ Policies & Safety';
+$heroTitleLight = 'Terms &';
+$heroTitleBold = 'Conditions.';
+$heroDescription =
+  'Our agreements with Passengers and Drivers who use PowerCabs Services -- please read the version that applies to you.';
+$heroBgImage = 'https://images.pexels.com/photos/7580644/pexels-photo-7580644.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Terms & Conditions';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $passengerNav = [
-  ['id' => 'p-offerings',    'label' => '1. PowerCabs Offerings'],
-  ['id' => 'p-mobility',     'label' => '2. Mobility Services Overview'],
-  ['id' => 'p-location',     'label' => '3. Utilizing Location Data'],
-  ['id' => 'p-fees',         'label' => '4. Fees &amp; Cancellations'],
-  ['id' => 'p-interrupt',    'label' => '5. Changes &amp; Interruptions'],
-  ['id' => 'p-payment',      'label' => '6. Payment Procedures'],
-  ['id' => 'p-payoptions',   'label' => '7. Payment Options &amp; Policies'],
+  ['id' => 'p-offerings', 'label' => '1. PowerCabs Offerings'],
+  ['id' => 'p-mobility', 'label' => '2. Mobility Services Overview'],
+  ['id' => 'p-location', 'label' => '3. Utilizing Location Data'],
+  ['id' => 'p-fees', 'label' => '4. Fees &amp; Cancellations'],
+  ['id' => 'p-interrupt', 'label' => '5. Changes &amp; Interruptions'],
+  ['id' => 'p-payment', 'label' => '6. Payment Procedures'],
+  ['id' => 'p-payoptions', 'label' => '7. Payment Options &amp; Policies'],
   ['id' => 'p-subscription', 'label' => '8. Subscription Offerings'],
-  ['id' => 'p-duration',     'label' => '9. Duration &amp; Discontinuation'],
-  ['id' => 'p-liability',    'label' => '10. Liability &amp; IP'],
-  ['id' => 'p-conduct',      'label' => '11. User Conduct'],
-  ['id' => 'p-validity',     'label' => '12. Validity &amp; Jurisdiction'],
+  ['id' => 'p-duration', 'label' => '9. Duration &amp; Discontinuation'],
+  ['id' => 'p-liability', 'label' => '10. Liability &amp; IP'],
+  ['id' => 'p-conduct', 'label' => '11. User Conduct'],
+  ['id' => 'p-validity', 'label' => '12. Validity &amp; Jurisdiction'],
 ];
 
 $driverNav = [
-  ['id' => 'd-scope',      'label' => 'Scope &amp; Main Terms'],
-  ['id' => 'd-services',   'label' => '1. PowerCabs Services'],
-  ['id' => 'd-avail',      'label' => '2. Availability'],
-  ['id' => 'd-obligations','label' => '3. General Obligations'],
-  ['id' => 'd-software',   'label' => '4. Software'],
-  ['id' => 'd-content',    'label' => '5. Responsibility for Content'],
-  ['id' => 'd-tracking',   'label' => '6. Tracking &amp; Third-Party Info'],
+  ['id' => 'd-scope', 'label' => 'Scope &amp; Main Terms'],
+  ['id' => 'd-services', 'label' => '1. PowerCabs Services'],
+  ['id' => 'd-avail', 'label' => '2. Availability'],
+  ['id' => 'd-obligations', 'label' => '3. General Obligations'],
+  ['id' => 'd-software', 'label' => '4. Software'],
+  ['id' => 'd-content', 'label' => '5. Responsibility for Content'],
+  ['id' => 'd-tracking', 'label' => '6. Tracking &amp; Third-Party Info'],
   ['id' => 'd-exclusion1', 'label' => '7. Rating, Ranking &amp; Payments'],
-  ['id' => 'd-termination','label' => '8. Termination'],
+  ['id' => 'd-termination', 'label' => '8. Termination'],
   ['id' => 'd-exclusion2', 'label' => '9. Exclusion from Use'],
-  ['id' => 'd-liability',  'label' => '10. Liability'],
-  ['id' => 'd-data',       'label' => '11. Data Protection'],
+  ['id' => 'd-liability', 'label' => '10. Liability'],
+  ['id' => 'd-data', 'label' => '11. Data Protection'],
   ['id' => 'd-complaints', 'label' => '12. Complaints'],
-  ['id' => 'd-final',      'label' => '13. Final Provisions'],
+  ['id' => 'd-final', 'label' => '13. Final Provisions'],
 ];
 ?>
 
@@ -306,4 +308,6 @@ $driverNav = [
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

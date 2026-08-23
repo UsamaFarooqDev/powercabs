@@ -82,7 +82,7 @@
           <span class="d-block" style="font-size: 1.2rem;">Showcase your brand with us &mdash; apply in just 2 minutes.</span>
         </p>
       </div>
-      <a class="btn btn-pc-primary px-3 flex-shrink-0 d-inline-flex align-items-center gap-1" href="<?= $assetPath ?>/business-solutions">
+      <a class="btn btn-pc-primary px-3 flex-shrink-0 d-inline-flex align-items-center gap-1" href="<?= $assetPath ?>/business">
         Partner With Us <i class="bi bi-arrow-right-short fs-6"></i>
       </a>
     </div>
