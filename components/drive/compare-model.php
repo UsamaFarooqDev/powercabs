@@ -29,49 +29,75 @@ $compareRows = [
     </div>
 
     <div class="mx-auto" style="max-width: 860px;">
-      <div class="rounded-4 shadow-sm bg-white overflow-hidden" style="border: 1px solid rgba(28, 20, 16, .08); position: relative;">
-        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-          <div style="min-width: 520px;">
 
-            <!-- Header row -->
-            <div class="row g-0 align-items-stretch" style="background: var(--pc-dark);">
-              <div class="col-6 d-flex align-items-center py-3 px-4">
-                <span class="small fw-semibold text-white-50 text-uppercase" style="letter-spacing: .04em; font-size: .72rem;">Driver question</span>
-              </div>
-              <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2" style="background: rgba(255, 122, 0, .16);">
-                <span class="fw-bold text-uppercase" style="color: var(--pc-orange-light); font-size: .78rem; letter-spacing: .03em;">PowerCabs</span>
-              </div>
-              <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2">
-                <span class="fw-semibold text-white-50 text-uppercase" style="font-size: .72rem; letter-spacing: .03em;">Other Models*</span>
-              </div>
-            </div>
+      <!-- Desktop/tablet: full side-by-side grid -->
+      <div class="d-none d-md-block">
+        <div class="rounded-4 shadow-sm bg-white overflow-hidden" style="border: 1px solid rgba(28, 20, 16, .08); position: relative;">
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <div style="min-width: 520px;">
 
-            <!-- Rows -->
-            <?php foreach ($compareRows as $i => $row): ?>
-              <div class="row g-0 align-items-stretch" style="<?= $i < count(
-                $compareRows,
-              ) - 1
-                ? 'border-bottom: 1px solid rgba(28, 20, 16, .06);'
-                : '' ?>">
+              <!-- Header row -->
+              <div class="row g-0 align-items-stretch" style="background: var(--pc-dark);">
                 <div class="col-6 d-flex align-items-center py-3 px-4">
-                  <span class="small fw-semibold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['label']) ?></span>
+                  <span class="small fw-semibold text-white-50 text-uppercase" style="letter-spacing: .04em; font-size: .72rem;">Driver question</span>
                 </div>
-                <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2" style="background: var(--pc-cream-soft);">
-                  <?php if ($row['powercabs'] === 'check'): ?>
-                    <i class="bi bi-check-circle-fill" style="color: #198754; font-size: 1.1rem;" aria-hidden="true"></i>
-                    <span class="visually-hidden">Yes</span>
-                  <?php else: ?>
-                    <span class="fw-bold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['powercabs']) ?></span>
-                  <?php endif; ?>
+                <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2" style="background: rgba(255, 122, 0, .16);">
+                  <span class="fw-bold text-uppercase" style="color: var(--pc-orange-light); font-size: .78rem; letter-spacing: .03em;">PowerCabs</span>
                 </div>
                 <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2">
-                  <span class="small text-muted-pc"><?= htmlspecialchars($row['other']) ?></span>
+                  <span class="fw-semibold text-white-50 text-uppercase" style="font-size: .72rem; letter-spacing: .03em;">Other Models*</span>
                 </div>
               </div>
-            <?php endforeach; ?>
 
+              <!-- Rows -->
+              <?php foreach ($compareRows as $i => $row): ?>
+                <div class="row g-0 align-items-stretch" style="<?= $i < count(
+                  $compareRows,
+                ) - 1
+                  ? 'border-bottom: 1px solid rgba(28, 20, 16, .06);'
+                  : '' ?>">
+                  <div class="col-6 d-flex align-items-center py-3 px-4">
+                    <span class="small fw-semibold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['label']) ?></span>
+                  </div>
+                  <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2" style="background: var(--pc-cream-soft);">
+                    <?php if ($row['powercabs'] === 'check'): ?>
+                      <i class="bi bi-check-circle-fill" style="color: #198754; font-size: 1.1rem;" aria-hidden="true"></i>
+                      <span class="visually-hidden">Yes</span>
+                    <?php else: ?>
+                      <span class="fw-bold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['powercabs']) ?></span>
+                    <?php endif; ?>
+                  </div>
+                  <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2">
+                    <span class="small text-muted-pc"><?= htmlspecialchars($row['other']) ?></span>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Mobile: one stacked card per question, no horizontal scrolling -->
+      <div class="d-md-none d-flex flex-column gap-2">
+        <?php foreach ($compareRows as $row): ?>
+          <div class="rounded-3 bg-white p-3" style="border: 1px solid rgba(28, 20, 16, .08);">
+            <p class="small fw-semibold mb-2" style="color: var(--pc-dark);"><?= htmlspecialchars($row['label']) ?></p>
+            <div class="d-flex align-items-center justify-content-between rounded-2 px-2 py-2 mb-1" style="background: var(--pc-cream-soft);">
+              <span class="small fw-bold text-uppercase" style="color: var(--pc-orange-dark); font-size: .72rem; letter-spacing: .03em;">PowerCabs</span>
+              <?php if ($row['powercabs'] === 'check'): ?>
+                <i class="bi bi-check-circle-fill" style="color: #198754; font-size: 1.1rem;" aria-hidden="true"></i>
+                <span class="visually-hidden">Yes</span>
+              <?php else: ?>
+                <span class="fw-bold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['powercabs']) ?></span>
+              <?php endif; ?>
+            </div>
+            <div class="d-flex align-items-center justify-content-between px-2 py-2">
+              <span class="small text-muted-pc text-uppercase" style="font-size: .72rem; letter-spacing: .03em;">Other Models*</span>
+              <span class="small text-muted-pc"><?= htmlspecialchars($row['other']) ?></span>
+            </div>
+          </div>
+        <?php endforeach; ?>
       </div>
 
       <p class="small text-muted-pc text-center mt-3 mb-0" style="font-size: .8rem;">

@@ -1552,10 +1552,24 @@ label.btn-outline-primary:focus,
 }
 
 .pc-faq-accordion .accordion-button {
+  --bs-accordion-btn-icon-width: 1rem;
   font-weight: 500;
   color: var(--pc-dark);
   background: var(--pc-white);
   padding: 1.1rem 1.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .pc-faq-accordion .accordion-button {
+    --bs-accordion-btn-icon-width: .8rem;
+    font-size: .95rem;
+    padding: .9rem 1.1rem;
+  }
+
+  .pc-faq-accordion .accordion-body {
+    padding: 0 1.1rem 1rem;
+    font-size: .92rem;
+  }
 }
 
 .pc-faq-accordion .accordion-button:not(.collapsed) {
