@@ -1,4 +1,4 @@
-<section class="section-pc" style="background: var(--pc-cream);">
+<section class="section-pc">
   <div class="container">
     <div class="row align-items-center gy-5">
       <div class="col-lg-6">

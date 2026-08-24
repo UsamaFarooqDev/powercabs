@@ -414,16 +414,20 @@ $bookingSteps = [
           <div class="col-md-6 pc-mg-field-group" data-mg-group="pickup">
             <label class="form-label pc-mg-label" for="mgDestinationAddress">Destination Address</label>
             <input type="text" class="form-control" id="mgDestinationAddress" name="destination_address"
-              placeholder="Where should we drop you off?"
+              placeholder="Where should we drop you off?" autocomplete="off"
               value="<?= htmlspecialchars($mgOld['destination_address']) ?>">
+            <div class="form-text text-danger d-none" id="mgDestinationAddressWarning">Please choose a destination
+              address within Dublin.</div>
           </div>
 
           <!-- Dropping Off flow fields -->
           <div class="col-md-6 pc-mg-field-group" data-mg-group="dropoff">
             <label class="form-label pc-mg-label" for="mgPickupAddress">Pickup Address</label>
             <input type="text" class="form-control" id="mgPickupAddress" name="pickup_address"
-              placeholder="Where should we collect you from?"
+              placeholder="Where should we collect you from?" autocomplete="off"
               value="<?= htmlspecialchars($mgOld['pickup_address']) ?>">
+            <div class="form-text text-danger d-none" id="mgPickupAddressWarning">Please choose a pickup address
+              within Dublin.</div>
           </div>
           <div class="col-md-6 pc-mg-field-group" data-mg-group="dropoff">
             <label class="form-label pc-mg-label" for="mgDropoffTerminal">Drop-off / Airport Terminal</label>
@@ -774,6 +778,16 @@ $bookingSteps = [
 
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',
+) ?>"></script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initMeetGreetAutocomplete"
+  async defer></script>
+<script src="<?= $assetPath ?>assets/js/components/dublin-places-autocomplete.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/dublin-places-autocomplete.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/meet-greet-map.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/meet-greet-map.js',
 ) ?>"></script>
 
 <!-- ============ Flight Path Scroll Animation ============ -->

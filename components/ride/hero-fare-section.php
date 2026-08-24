@@ -1,38 +1,59 @@
 <?php
-$rideQuickServices = [
-  ['icon' => 'bi-clock-history', 'label' => 'Pay Per Hour', 'href' => '/ride'],
-  ['icon' => 'bi-briefcase-fill', 'label' => 'Corporate', 'href' => '/corporate-services'],
-  ['icon' => 'bi-airplane-fill', 'label' => 'Meet and Greet', 'href' => '/meet-greet'],
-  ['icon' => 'bi-credit-card-fill', 'label' => 'Business Solutions', 'href' => '/business-solutions'],
-  ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
+$rideTypeOptions ??= [
+  'Economy',
+  'Economy XL',
+  'Limousine',
+  'Wheelchair Taxi',
+  'Pets Taxi',
+  'Courier / Parcel',
+  'Business',
+  'Business XL',
 ];
-$rideTypeOptions ??= ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pets Taxi', 'Courier / Parcel', 'Business', 'Business XL'];
+
+$rideTrustItems = [
+  ['icon' => 'bi-patch-check-fill', 'title' => 'NTA Licensed', 'sub' => 'DH12616'],
+  ['icon' => 'ie-badge', 'title' => 'Irish Company', 'sub' => 'PowerCabs Ireland Limited'],
+  ['icon' => 'bi-geo-alt-fill', 'title' => 'Dublin Based', 'sub' => 'Local Irish service'],
+  ['icon' => 'bi-telephone-fill', 'title' => 'Real Support', 'sub' => '+353 89 972 8089'],
+];
 ?>
-<!-- ============ Fare Estimate + Quick Services ============ -->
+<!-- ============ Fare Estimate + "Your Taxi. Your Choice." panel ============ -->
 <section class="section-pc">
   <div class="container">
-    <div class="row align-items-start gy-5">
+    <div class="row align-items-stretch gy-5">
 
-      <!-- Left: quick services list -->
-      <div class="col-lg-5 order-2 order-lg-1">
-        <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Explore</p>
-        <h2 class="mb-4">Everything You Need,<br>One Platform.</h2>
+      <!-- Left: "Your Taxi. Your Choice. Irish-owned." -->
+      <div class="col-lg-6 order-2 order-lg-1">
+        <div class="h-100 d-flex flex-column justify-content-center p-4 p-lg-5">
+          <h2 class="fw-bold mb-3" style="font-size: clamp(2rem, 3.4vw, 2.75rem); line-height: 1.15; letter-spacing: -.03em;">
+            Your Taxi. Your Choice. <span style="color: var(--pc-orange);">Irish-owned.</span>
+          </h2>
 
-        <div class="d-flex flex-column">
-          <?php foreach ($rideQuickServices as $service): ?>
-            <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-ride-service-item d-flex align-items-center gap-3 text-decoration-none">
-              <span class="pc-ride-service-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
-                <i class="bi <?= $service['icon'] ?>" aria-hidden="true"></i>
-              </span>
-              <span class="fw-semibold flex-grow-1" style="color: var(--pc-dark);"><?= htmlspecialchars($service['label']) ?></span>
-              <i class="bi bi-arrow-right-short fs-4 pc-ride-service-arrow" aria-hidden="true"></i>
-            </a>
-          <?php endforeach; ?>
+          <p class="text-muted-pc mb-4" style="max-width: 42ch; font-size: 1.05rem; line-height: 1.7;">
+            PowerCabs is an Irish taxi company based in Dublin, connecting you
+            with licensed, Garda-vetted drivers for everyday journeys, airport
+            transfers, business travel and more.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge rounded-pill border fw-semibold py-2 px-3" style="color: var(--pc-dark); font-size: .8rem;">
+              <i class="bi bi-check-lg" style="color: var(--pc-orange);" aria-hidden="true"></i> Licensed &amp; Garda-vetted drivers
+            </span>
+            <span class="badge rounded-pill border fw-semibold py-2 px-3" style="color: var(--pc-dark); font-size: .8rem;">
+              <i class="bi bi-check-lg" style="color: var(--pc-orange);" aria-hidden="true"></i> Available 24/7
+            </span>
+            <span class="badge rounded-pill border fw-semibold py-2 px-3" style="color: var(--pc-dark); font-size: .8rem;">
+              <i class="bi bi-check-lg" style="color: var(--pc-orange);" aria-hidden="true"></i> Real-time tracking
+            </span>
+            <span class="badge rounded-pill border fw-semibold py-2 px-3" style="color: var(--pc-dark); font-size: .8rem;">
+              <i class="bi bi-check-lg" style="color: var(--pc-orange);" aria-hidden="true"></i> Irish local support
+            </span>
+          </div>
         </div>
       </div>
 
       <!-- Right: Uber-style fare estimate widget -->
-      <div class="col-lg-7 order-1 order-lg-2">
+      <div class="col-lg-6 order-1 order-lg-2">
         <div class="pc-fare-card">
           <span class="pc-fare-pickup-badge d-inline-flex align-items-center gap-2">
             <i class="bi bi-clock-fill" aria-hidden="true"></i> Pickup Now
@@ -61,7 +82,7 @@ $rideTypeOptions ??= ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', '
           </div>
 
           <div class="mt-3">
-            <select id="rfRideType" class="form-select pc-fare-select">
+            <select id="rfRideType" class="form-select pc-fare-select pc-custom-select-enhance">
               <option value="" selected>Select ride type</option>
               <?php foreach ($rideTypeOptions as $type): ?>
                 <option value="<?= htmlspecialchars($type) ?>"><?= htmlspecialchars($type) ?></option>
@@ -89,6 +110,31 @@ $rideTypeOptions ??= ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', '
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============ Trust badge bar ============ -->
+<section style="padding-bottom: clamp(3.5rem, 6vw, 6rem);">
+  <div class="container">
+    <div class="pc-ride-trust-bar row row-cols-2 row-cols-md-4 g-0">
+      <?php foreach ($rideTrustItems as $item): ?>
+        <div class="col pc-ride-trust-item d-flex align-items-center gap-3">
+          <span class="pc-ride-trust-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
+            <?php if ($item['icon'] === 'ie-badge'): ?>
+              <span class="fw-bold" style="font-size: .7rem; letter-spacing: .02em;">IE</span>
+            <?php else: ?>
+              <i class="bi <?= $item['icon'] ?>" aria-hidden="true"></i>
+            <?php endif; ?>
+          </span>
+          <span>
+            <span class="d-block fw-bold" style="color: var(--pc-dark); font-size: .92rem;"><?= htmlspecialchars(
+              $item['title'],
+            ) ?></span>
+            <span class="d-block small text-muted-pc"><?= htmlspecialchars($item['sub']) ?></span>
+          </span>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -160,3 +206,6 @@ $rideTypeOptions ??= ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', '
   src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initRideFareMap"
   async defer></script>
 <script src="<?= $assetPath ?>assets/js/components/ride-fare-estimate.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
+  __DIR__ . '/../../assets/js/components/custom-select.js',
+) ?>"></script>

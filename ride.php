@@ -82,6 +82,8 @@ require __DIR__ . '/components/ride/hero-fare-section.php';
 require __DIR__ . '/components/ride/built-around.php';
 require __DIR__ . '/components/ride/ride-types.php';
 require __DIR__ . '/components/ride/booking-steps.php';
+require __DIR__ . '/components/ride/why-powercabs.php';
+require __DIR__ . '/components/ride/ride-faq.php';
 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';

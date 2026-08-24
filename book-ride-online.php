@@ -164,7 +164,19 @@ require __DIR__ . '/components/shared/inner-hero.php';
   }
 </style>
 
-<section class="position-relative overflow-hidden" style="min-height: 280px;">
+<!-- No overflow clipping here (the Bootstrap "overflow-hidden" utility this
+     used to carry clipped both axes): the map is `inset: 0` against this
+     section's own box, so it can never render wider or taller than the
+     section itself -- there was never an actual horizontal-bleed risk to
+     guard against. What that overflow-hidden WAS silently doing is cutting
+     off the bottom of the Ride Type / Date / Time dropdown panels opened
+     from the form's last rows (per the CSS overflow spec, even
+     `overflow-x: hidden` alone forces the y-axis to compute as `auto`
+     instead of `visible`, so scoping it to one axis doesn't help -- it has
+     to come off entirely). Dropdowns now render past this section's own
+     bottom edge and over whatever comes after it, same as anywhere else on
+     the site. -->
+<section class="position-relative" style="min-height: 280px;">
   <div id="pcRideMap" class="pc-ride-map-bleed"></div>
 
   <div class="container-fluid position-relative px-0" style="z-index: 1;">
@@ -282,6 +294,9 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <script
   src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initGoogleMaps"
   async defer></script>
+<script src="<?= $assetPath ?>assets/js/components/dublin-places-autocomplete.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/dublin-places-autocomplete.js',
+) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/book-ride-map.js"></script>
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',

@@ -1,29 +1,29 @@
-<section class="section-pc text-white position-relative overflow-hidden" style="background: linear-gradient(165deg, #0a0807 0%, #14100c 60%, #0a0807 100%);">
+<section class="section-pc position-relative overflow-hidden">
   <div class="container position-relative">
     <div class="text-center mb-5">
-      <p class="mx-auto mb-0" style="max-width: 56ch; color: rgba(255, 255, 255, .72);">
+      <p class="text-muted-pc mx-auto mb-0" style="max-width: 56ch;">
         Built for Drivers Who Want More
       </p>
     </div>
 
-    <div class="row row-cols-2 row-cols-md-3 g-4 g-md-0 text-center border-top border-bottom py-4 mb-5" style="border-color: rgba(255, 255, 255, .12) !important;">
-      <div class="col py-3 border-end" style="border-color: rgba(255, 255, 255, .12) !important;">
-        <p class="display-5 fw-bold text-white mb-1">48hrs</p>
-        <p class="small mb-0" style="color: rgba(255, 255, 255, .65);">Weekly payment</p>
+    <div class="row row-cols-2 row-cols-md-3 g-4 g-md-0 text-center border-top border-bottom py-4 mb-5" style="border-color: rgba(28, 20, 16, .1) !important;">
+      <div class="col py-3 border-end" style="border-color: rgba(28, 20, 16, .1) !important;">
+        <p class="display-5 fw-bold mb-1" style="color: var(--pc-dark);">48hrs</p>
+        <p class="small text-muted-pc mb-0">Weekly payment</p>
       </div>
-      <div class="col py-3 border-end" style="border-color: rgba(255, 255, 255, .12) !important;">
-        <p class="display-5 fw-bold text-white mb-1">0%</p>
-        <p class="small mb-0" style="color: rgba(255, 255, 255, .65);">Surprise fare deductions</p>
+      <div class="col py-3 border-end" style="border-color: rgba(28, 20, 16, .1) !important;">
+        <p class="display-5 fw-bold mb-1" style="color: var(--pc-dark);">0%</p>
+        <p class="small text-muted-pc mb-0">Surprise fare deductions</p>
       </div>
       <div class="col py-3">
-        <p class="display-5 fw-bold text-white mb-1">24/7</p>
-        <p class="small mb-0" style="color: rgba(255, 255, 255, .65);">Real driver support line</p>
+        <p class="display-5 fw-bold mb-1" style="color: var(--pc-dark);">24/7</p>
+        <p class="small text-muted-pc mb-0">Real driver support line</p>
       </div>
     </div>
 
     <div class="text-center mb-4">
-      <h3 class="text-white fs-4 fw-bold mb-1">Ride Types we cover</h3>
-      <p class="mb-0" style="color: rgba(255, 255, 255, .6);">One vehicle, eight ways to earn.</p>
+      <h3 class="fs-4 fw-bold mb-1" style="color: var(--pc-dark);">Ride Types we cover</h3>
+      <p class="text-muted-pc mb-0">One vehicle, eight ways to earn.</p>
     </div>
 
     <?php $driveRideCategories = [
@@ -36,13 +36,45 @@
       ['img' => 'business.png', 'label' => 'Business'],
       ['img' => 'business-xl.png', 'label' => 'Business XL'],
     ]; ?>
-    <div class="row row-cols-2 row-cols-md-4 g-3">
+
+    <!-- Bootstrap's row-cols-* always fills every row evenly, with no way
+         to center a shorter last row -- 8 cards need 5 in row one and the
+         remaining 3 centered in row two, so this is a plain flex-wrap grid
+         with a fixed per-card width instead: at each breakpoint every card
+         is the same size, and justify-content: center takes care of
+         centering whatever's left in the final row. -->
+    <style>
+      .pc-drive-ride-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .pc-drive-ride-item {
+        flex: 0 0 calc(50% - .5rem);
+        max-width: calc(50% - .5rem);
+      }
+      @media (min-width: 768px) {
+        .pc-drive-ride-item {
+          flex: 0 0 calc(33.333% - .667rem);
+          max-width: calc(33.333% - .667rem);
+        }
+      }
+      @media (min-width: 992px) {
+        .pc-drive-ride-item {
+          flex: 0 0 calc(20% - .8rem);
+          max-width: calc(20% - .8rem);
+        }
+      }
+    </style>
+
+    <div class="pc-drive-ride-grid">
       <?php foreach ($driveRideCategories as $category): ?>
-        <div class="col p-1 p-md-4">
+        <div class="pc-drive-ride-item">
           <div class="pc-service-card d-block position-relative overflow-hidden" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
             <img src="<?= $assetPath ?>assets/img/rides-types/<?= $category['img'] ?>" alt="<?= htmlspecialchars(
-  $category['label'],
-) ?>" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
+              $category['label'],
+            ) ?>" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
             <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
             <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-3" style="padding-top: 2.5rem;">
               <span class="pc-service-card-title d-block fs-6 fs-md-5 fw-extrabold mb-0"><?= htmlspecialchars(
