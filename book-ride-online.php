@@ -1,12 +1,22 @@
 <?php
 $pageTitle = 'Book a Taxi Online in Dublin | PowerCabs';
-$pageDescription = 'Book a taxi online in Dublin with PowerCabs in a few simple steps -- no extra charge for pre-booking, no cancellation fee.';
+$pageDescription =
+  'Book a taxi online in Dublin with PowerCabs in a few simple steps -- no extra charge for pre-booking, no cancellation fee.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
-$rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pets Taxi', 'Courier / Parcel', 'Business', 'Business XL'];
+$rideTypeOptions = [
+  'Economy',
+  'Economy XL',
+  'Limousine',
+  'Wheelchair Taxi',
+  'Pets Taxi',
+  'Courier / Parcel',
+  'Business',
+  'Business XL',
+];
 
 $formStatus = null;
 $formError = '';
@@ -33,34 +43,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $old[$key] = trim($_POST[$key] ?? '');
   }
 
-  if ($old['name'] === '' || $old['email'] === '' || $old['phone'] === '' || $old['ride_type'] === '' || $old['pickup_location'] === '' || $old['dropoff_location'] === '' || $old['ride_date'] === '' || $old['ride_time'] === '') {
+  if (
+    $old['name'] === '' ||
+    $old['email'] === '' ||
+    $old['phone'] === '' ||
+    $old['ride_type'] === '' ||
+    $old['pickup_location'] === '' ||
+    $old['dropoff_location'] === '' ||
+    $old['ride_date'] === '' ||
+    $old['ride_time'] === ''
+  ) {
     $formStatus = 'error';
     $formError = 'Please fill in all required fields.';
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
   } else {
-    $body = "New online booking request from the PowerCabs website.\n\n"
-      . "Name: {$old['name']}\n"
-      . "Email: {$old['email']}\n"
-      . "Phone: {$old['phone']}\n"
-      . "Ride Type: {$old['ride_type']}\n\n"
-      . "Pickup Location: {$old['pickup_location']}\n"
-      . "Drop-off Location: {$old['dropoff_location']}\n"
-      . "Date: {$old['ride_date']}\n"
-      . "Time: {$old['ride_time']}\n";
+    $body =
+      "New online booking request from the PowerCabs website.\n\n" .
+      "Name: {$old['name']}\n" .
+      "Email: {$old['email']}\n" .
+      "Phone: {$old['phone']}\n" .
+      "Ride Type: {$old['ride_type']}\n\n" .
+      "Pickup Location: {$old['pickup_location']}\n" .
+      "Drop-off Location: {$old['dropoff_location']}\n" .
+      "Date: {$old['ride_date']}\n" .
+      "Time: {$old['ride_time']}\n";
 
     if ($old['distance_km'] !== '' && $old['duration_min'] !== '' && $old['fare_eur'] !== '') {
-      $body .= "\nEstimated Distance: {$old['distance_km']} km\n"
-        . "Estimated Duration: {$old['duration_min']} min\n"
-        . "Estimated Fare: \u{20AC}{$old['fare_eur']}\n";
+      $body .=
+        "\nEstimated Distance: {$old['distance_km']} km\n" .
+        "Estimated Duration: {$old['duration_min']} min\n" .
+        "Estimated Fare: \u{20AC}{$old['fare_eur']}\n";
     }
 
-    $result = pc_send_mail(
-      'Online booking: ' . $old['name'],
-      $body,
-      ['name' => $old['name'], 'email' => $old['email']]
-    );
+    $result = pc_send_mail('Online booking: ' . $old['name'], $body, [
+      'name' => $old['name'],
+      'email' => $old['email'],
+    ]);
 
     if ($result['success']) {
       $formStatus = 'success';
@@ -79,8 +99,9 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = '/ Book Online';
 $heroTitleLight = 'Book Ride';
 $heroTitleBold = 'Online.';
-$heroDescription = 'Booking a ride with PowerCabs is now easier than ever. Use our simple and efficient online booking system to schedule your next trip in just a few steps.';
-$heroBgImage = $assetPath . 'assets/img/services-corporate.jpg';
+$heroDescription =
+  'Booking a ride with PowerCabs is now easier than ever. Use our simple and efficient online booking system to schedule your next trip in just a few steps.';
+$heroBgImage = 'https://images.pexels.com/photos/6945640/pexels-photo-6945640.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -94,14 +115,12 @@ require __DIR__ . '/components/shared/inner-hero.php';
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <div class="row row-cols-2 g-3">
-          <?php
-          $bookingSteps = [
+          <?php $bookingSteps = [
             ['n' => 1, 'title' => 'Enter Your Pickup and Drop-off Location'],
             ['n' => 2, 'title' => 'Select Your Ride'],
             ['n' => 3, 'title' => 'Choose Your Time'],
             ['n' => 4, 'title' => 'Confirm Your Booking'],
-          ];
-          ?>
+          ]; ?>
           <?php foreach ($bookingSteps as $step): ?>
             <div class="col">
               <div
@@ -145,7 +164,19 @@ require __DIR__ . '/components/shared/inner-hero.php';
   }
 </style>
 
-<section class="position-relative overflow-hidden" style="min-height: 280px;">
+<!-- No overflow clipping here (the Bootstrap "overflow-hidden" utility this
+     used to carry clipped both axes): the map is `inset: 0` against this
+     section's own box, so it can never render wider or taller than the
+     section itself -- there was never an actual horizontal-bleed risk to
+     guard against. What that overflow-hidden WAS silently doing is cutting
+     off the bottom of the Ride Type / Date / Time dropdown panels opened
+     from the form's last rows (per the CSS overflow spec, even
+     `overflow-x: hidden` alone forces the y-axis to compute as `auto`
+     instead of `visible`, so scoping it to one axis doesn't help -- it has
+     to come off entirely). Dropdowns now render past this section's own
+     bottom edge and over whatever comes after it, same as anywhere else on
+     the site. -->
+<section class="position-relative" style="min-height: 280px;">
   <div id="pcRideMap" class="pc-ride-map-bleed"></div>
 
   <div class="container-fluid position-relative px-0" style="z-index: 1;">
@@ -175,7 +206,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
             </div>
             <div class="col-md-6">
               <label class="form-label pc-required" for="brRideType">Ride Type</label>
-              <select class="form-select" id="brRideType" name="ride_type" required>
+              <select class="form-select pc-custom-select-enhance" id="brRideType" name="ride_type" required>
                 <option value="" disabled <?= $old['ride_type'] === '' ? 'selected' : '' ?>>Select ride type</option>
                 <?php foreach ($rideTypeOptions as $type): ?>
                   <option value="<?= htmlspecialchars($type) ?>" <?= $old['ride_type'] === $type ? 'selected' : '' ?>>
@@ -201,12 +232,12 @@ require __DIR__ . '/components/shared/inner-hero.php';
             </div>
             <div class="col-md-6">
               <label class="form-label pc-required" for="brDate">Date</label>
-              <input type="date" class="form-control" id="brDate" name="ride_date"
+              <input type="date" class="form-control pc-custom-datetime-enhance" id="brDate" name="ride_date"
                 value="<?= htmlspecialchars($old['ride_date']) ?>" required>
             </div>
             <div class="col-md-6">
               <label class="form-label pc-required" for="brTime">Time</label>
-              <input type="time" class="form-control" id="brTime" name="ride_time"
+              <input type="time" class="form-control pc-custom-datetime-enhance" id="brTime" name="ride_time"
                 value="<?= htmlspecialchars($old['ride_time']) ?>" required>
             </div>
 
@@ -263,7 +294,16 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <script
   src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initGoogleMaps"
   async defer></script>
+<script src="<?= $assetPath ?>assets/js/components/dublin-places-autocomplete.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/dublin-places-autocomplete.js',
+) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/book-ride-map.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-select.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-datetime.js',
+) ?>"></script>
 
 <!-- ============ Benefits ============ -->
 <section class="section-pc bg-white position-relative overflow-hidden">
@@ -298,4 +338,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

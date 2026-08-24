@@ -18,17 +18,12 @@ $driverPerks = [
   <div class="container position-relative">
     <div class="row">
       <div class="col-lg-9 col-xl-8">
-        <!-- <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Drive Your Way</p> -->
-
         <h2 class="fw-bold mb-3" style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; letter-spacing: -.01em;">
-          Be Your Real Boss
-          <span style="color: var(--pc-orange);">&mdash; Not Just on Paper.</span>
+          Be Your Real Boss &mdash; Not Just on Paper.
         </h2>
-
         <p class="mb-4" style="font-size: 1.2rem; color: var(--pc-text-muted); max-width: 46ch;">
           Flexible earning. Zero app charges for usage.
         </p>
-
         <div class="d-flex flex-wrap gap-2 gap-md-3 mb-5">
           <?php foreach ($driverPerks as $perk): ?>
             <span class="pc-perk-chip d-inline-flex align-items-center gap-2">
@@ -37,10 +32,9 @@ $driverPerks = [
             </span>
           <?php endforeach; ?>
         </div>
-
         <a class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2" href="<?= $assetPath ?>/ambassador-programme">
           <span>Explore Ambassador Programme</span>
-          <i class="bi bi-arrow-right-short fs-5" aria-hidden="true"></i>
+          <i class="bi bi-arrow-right-short fs-6" aria-hidden="true"></i>
         </a>
       </div>
     </div>

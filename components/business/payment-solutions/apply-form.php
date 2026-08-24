@@ -57,7 +57,7 @@ $countries = [
 
         <div class="col-md-4">
           <label class="form-label" for="paTitle">Title</label>
-          <select class="form-select" id="paTitle" name="title">
+          <select class="form-select pc-custom-select-enhance" id="paTitle" name="title">
             <option value="" <?= $old['title'] === '' ? 'selected' : '' ?>>- Select -</option>
             <?php foreach (['Mr', 'Mrs', 'Ms', 'Miss', 'Dr', 'Other'] as $titleOption): ?>
               <option value="<?= htmlspecialchars($titleOption) ?>" <?= $old['title'] === $titleOption ? 'selected' : '' ?>><?= htmlspecialchars($titleOption) ?></option>
@@ -79,12 +79,12 @@ $countries = [
         </div>
         <div class="col-md-6">
           <label class="form-label pc-required" for="paDob">Date of Birth</label>
-          <input type="date" class="form-control" id="paDob" name="dob" value="<?= htmlspecialchars($old['dob']) ?>" required>
+          <input type="date" class="form-control pc-custom-datetime-enhance" id="paDob" name="dob" value="<?= htmlspecialchars($old['dob']) ?>" max="<?= date('Y-m-d') ?>" data-dt-quick-year="1" required>
         </div>
 
         <div class="col-md-6">
           <label class="form-label pc-required" for="paNationality">Nationality</label>
-          <select class="form-select" id="paNationality" name="nationality" required>
+          <select class="form-select pc-custom-select-enhance" id="paNationality" name="nationality" required>
             <option value="" disabled <?= $old['nationality'] === '' ? 'selected' : '' ?>>Select country</option>
             <?php foreach ($countries as $country): ?>
               <option value="<?= htmlspecialchars($country) ?>" <?= $old['nationality'] === $country ? 'selected' : '' ?>><?= htmlspecialchars($country) ?></option>
@@ -122,7 +122,7 @@ $countries = [
 
         <div class="col-12">
           <label class="form-label pc-required" for="paDeviceType">Device Type</label>
-          <select class="form-select" id="paDeviceType" name="device_type" required>
+          <select class="form-select pc-custom-select-enhance" id="paDeviceType" name="device_type" required>
             <option value="" disabled <?= $old['device_type'] === '' ? 'selected' : '' ?>>- Select -</option>
             <?php foreach (['PAX A50', 'PAX A920', 'EPOS'] as $device): ?>
               <option value="<?= htmlspecialchars($device) ?>" <?= $old['device_type'] === $device ? 'selected' : '' ?>><?= htmlspecialchars($device) ?></option>

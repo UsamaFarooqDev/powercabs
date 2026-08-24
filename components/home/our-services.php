@@ -3,7 +3,7 @@
     <div class="row align-items-end mb-5 gy-3">
       <div class="col-lg-7">
         <p class="small fw-semibold text-muted-pc mb-2">/ Services We Offer</p>
-        <h2 class="mb-0">Wherever You're<br>Headed.</h2>
+        <h2 class="mb-0">Wherever You're<br>Heading.</h2>
       </div>
       <div class="col-lg-5">
         <p class="text-muted-pc mb-3">

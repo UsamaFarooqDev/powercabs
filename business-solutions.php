@@ -141,7 +141,16 @@ require __DIR__ . '/components/business/payment-solutions/solutions.php';
 require __DIR__ . '/components/business/payment-solutions/pricing.php';
 require __DIR__ . '/components/business/payment-solutions/apply-form.php';
 require __DIR__ . '/components/business/payment-solutions/testimonials.php';
+?>
 
+<script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-select.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-datetime.js',
+) ?>"></script>
+
+<?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

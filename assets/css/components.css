@@ -39,25 +39,6 @@
   width: 90%;
 }
 
-/* .pc-trusted-logo {
-  opacity: 0.55;
-  filter: grayscale(1);
-  transition:
-    opacity 0.25s ease,
-    filter 0.25s ease;
-}
-
-.pc-trusted-logo:hover {
-  opacity: 1;
-  filter: grayscale(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc-trusted-logo {
-    transition: none;
-  }
-} */
-
 .pc-feature-grid {
   --bs-border-color: rgba(28, 20, 16, 0.1);
 }
@@ -266,21 +247,21 @@
   right: -9rem;
   width: 18rem;
   height: 18rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(251, 157, 69, 0.3), transparent 70%);
 }
 
 .pc-drive-blob-dark {
-  bottom: -3rem;
-  left: -3rem;
+  bottom: 5rem;
+  left: -9rem;
   width: 20rem;
   height: 20rem;
-  background: radial-gradient(circle, rgba(17, 24, 39, 0.32), transparent 70%);
+  background: radial-gradient(circle, rgba(68, 91, 138, 0.32), transparent 70%);
 }
 
 /* ---------- Drive: "Be Your Real Boss" perk chips ---------- */
 .pc-perk-chip {
   position: relative;
-  padding: 0.65rem 1.15rem;
+  padding: 0.55rem 1.15rem;
   border-radius: var(--pc-radius-pill);
   background: var(--pc-white);
   border: 1px solid rgba(28, 20, 16, 0.08);
@@ -300,8 +281,6 @@
 }
 
 .pc-perk-chip:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--pc-shadow-md);
   border-color: rgba(232, 89, 12, 0.25);
 }
 
@@ -814,8 +793,6 @@
 /* ---------- Header: fixed, floating pill positioning ---------- */
 
 .pc-navbar {
-  /* Background/border/text colors live in includes/header.php's own
-     <style> block -- one fixed glass material, no light/dark variant. */
   --bs-navbar-disabled-color: rgba(255, 255, 255, 0.35);
   padding-block: 0.42rem;
 }
@@ -875,19 +852,10 @@
       opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
       visibility 0.32s;
-    /* Fully opaque still -- this panel is the sole readable surface for a
-       whole grid of link titles/descriptions over arbitrary page content,
-       and without real opacity behind it the blur alone lets background
-       text bleed through enough to overlap its own text. Lighter charcoal
-       base than a near-black slab, though, plus a stronger white wash on
-       top, so it reads as a lighter frosted panel that belongs with the
-       navbar pill rather than an isolated black rectangle underneath it. */
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%),
-      rgb(38, 41, 46);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%), rgb(38, 41, 46);
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
     border-radius: var(--pc-radius-md);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
   }
@@ -1024,7 +992,9 @@
   font-weight: 500;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  transition: color 0.18s ease, background-color 0.18s ease;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
 }
 
 .pc-mega-subitem:hover,
@@ -1078,9 +1048,6 @@
   width: 100%;
   height: 2px;
   border-radius: 5px;
-  /* Solid white, not a translucent tint -- this sits on the navbar's own
-     always-dark glass, so it needs to read clearly no matter what's behind
-     the pill itself. */
   background: #fff;
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1119,8 +1086,6 @@
 }
 
 @media (max-width: 991.98px) {
-  /* Same lighter charcoal, fully-opaque glass + white wash as the desktop
-     mega menu -- see the comment there. */
   .navbar-collapse {
     position: absolute;
     top: calc(100% + 0.3rem);
@@ -1130,14 +1095,14 @@
     max-height: calc(100vh - var(--pc-navbar-h, 76px) - 2rem);
     overflow-y: auto;
     overflow-x: hidden;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%),
-      rgb(38, 41, 46);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%), rgb(38, 41, 46);
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: var(--pc-radius-xl);
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0 24px 55px rgba(0, 0, 0, 0.4),
+      0 8px 20px rgba(0, 0, 0, 0.2);
     padding: 1rem 1.1rem 1.25rem;
     opacity: 0;
     transform: translateY(-10px) scale(0.98);
@@ -1169,8 +1134,6 @@
     background: rgba(255, 122, 0, 0.12);
   }
 
-  /* Left accent bar stands in for the desktop underline-glow, which is
-     hidden on mobile since there's no room for it under wrapped text. */
   .pc-navbar-links-pill .nav-link.active::before {
     content: '';
     position: absolute;
@@ -1383,9 +1346,6 @@
   border-right: 0;
 }
 
-/* Mobile shows 2 tiles per row instead of 1 -- the first/last-child rules
-   above only handle a single row of 5, so each row's own left/right edge
-   needs stripping here too (odd = left column, even = right column). */
 @media (max-width: 767.98px) {
   .pc-hero-services-row > .col:nth-child(odd) .pc-hero-service-tile {
     border-left: 0;
@@ -1515,7 +1475,7 @@
 .form-control:focus,
 .form-select:focus {
   border-color: var(--pc-orange-light);
-  box-shadow: 0 0 0 0.2rem rgba(232, 89, 12, 0.15);
+  box-shadow: none;
 }
 
 label.btn-outline-primary,
@@ -1592,10 +1552,24 @@ label.btn-outline-primary:focus,
 }
 
 .pc-faq-accordion .accordion-button {
+  --bs-accordion-btn-icon-width: 1rem;
   font-weight: 500;
   color: var(--pc-dark);
   background: var(--pc-white);
   padding: 1.1rem 1.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .pc-faq-accordion .accordion-button {
+    --bs-accordion-btn-icon-width: .8rem;
+    font-size: .95rem;
+    padding: .9rem 1.1rem;
+  }
+
+  .pc-faq-accordion .accordion-body {
+    padding: 0 1.1rem 1rem;
+    font-size: .92rem;
+  }
 }
 
 .pc-faq-accordion .accordion-button:not(.collapsed) {
@@ -2022,10 +1996,6 @@ label.btn-outline-primary:focus,
 }
 
 .pc-hourly-band-scrim {
-  /* It's a direct child of the Bootstrap .row, so the row's own gy-4
-     gutter utility was giving it a margin-top like any other column --
-     pushing this absolutely-positioned overlay down from the row's top
-     edge and leaving a strip of untinted image showing above it. */
   margin: 0;
   background: linear-gradient(100deg, rgba(10, 7, 5, 0.85) 0%, rgba(10, 7, 5, 0.6) 55%, rgba(10, 7, 5, 0.35) 100%);
   z-index: 0;
@@ -2073,9 +2043,6 @@ label.btn-outline-primary:focus,
   font-size: 1.4rem;
 }
 
-/* Frosted-glass "mat" wrapped around a product photo -- translucent white +
-   backdrop-blur + soft shadow, so the image reads as floating behind glass
-   rather than sitting flush against the card. */
 .pc-glass-frame {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
@@ -2084,8 +2051,6 @@ label.btn-outline-primary:focus,
   box-shadow: var(--pc-shadow-md);
 }
 
-/* Testimonials marquee: track holds the card set duplicated once (see
-   testimonials.php), animated exactly -50% so the loop seam is invisible. */
 .pc-marquee {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
@@ -2116,12 +2081,7 @@ label.btn-outline-primary:focus,
   }
 }
 
-/* Vertical variant: same seamless-loop technique, scrolling up instead of
-   sideways -- used where testimonials sit in a column next to a form
-   (see testimonials-apply.php) rather than spanning the full section width. */
 .pc-marquee-vertical {
-  /* Explicit height (not flex-grow) so overflow:hidden always has a fixed
-     viewport to clip against, regardless of the sibling column's height. */
   height: 460px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
@@ -2573,9 +2533,42 @@ label.btn-outline-primary:focus,
   }
 }
 
-/* ---------- Book Ride Online: form text was sitting at Bootstrap's
-   default 16px while the rest of the page's copy runs at 14px, so the
-   form read as noticeably larger than everything around it. ---------- */
+/* ---------- Ride page: trust badge bar (sits directly under the
+   choice-panel/fare-estimate row) ---------- */
+.pc-ride-trust-bar {
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.07);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-lg);
+}
+
+.pc-ride-trust-item {
+  padding: 1.35rem 1.5rem;
+}
+
+.pc-ride-trust-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-size: 1.05rem;
+}
+
+@media (min-width: 768px) {
+  .pc-ride-trust-item:not(:last-child) {
+    border-right: 1px solid rgba(28, 20, 16, 0.08);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .pc-ride-trust-item:nth-child(odd) {
+    border-right: 1px solid rgba(28, 20, 16, 0.08);
+  }
+  .pc-ride-trust-item:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+  }
+}
+
 .pc-booking-form .form-label,
 .pc-booking-form .form-control,
 .pc-booking-form .form-select,
@@ -2589,8 +2582,6 @@ label.btn-outline-primary:focus,
 .pc-biz-hero {
   padding-top: calc(var(--pc-navbar-h, 110px) + 2rem);
   padding-bottom: clamp(3rem, 6vw, 5rem);
-  /* A flat pale gradient read as washed-out next to the header -- a warmer
-     glow anchored top-left gives the hero actual presence. */
   background: radial-gradient(120% 100% at 12% 0%, var(--pc-peach) 0%, var(--pc-cream-soft) 45%, #ffffff 100%);
 }
 
@@ -2654,8 +2645,6 @@ label.btn-outline-primary:focus,
 }
 
 .pc-biz-trust-track {
-  /* Slower than the testimonial marquee -- more logos on stage, and a
-     leisurely pace reads as more premium than a quick scroll. */
   animation-duration: 46s;
 }
 
@@ -2686,9 +2675,6 @@ label.btn-outline-primary:focus,
   aspect-ratio: 4 / 3;
 }
 
-/* ---------- Background bands: this page runs long, so consecutive section
-   pairs alternate between two soft gradients rather than sitting on flat
-   white -- breaks the page into readable "chapters" without looking loud. ---------- */
 .pc-biz-band-a {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
 }
@@ -2808,10 +2794,6 @@ label.btn-outline-primary:focus,
     align-items: center;
   }
 
-  /* Single horizontal rail across the row, spanning circle-center to
-     circle-center (each circle sits centered in a 1/3-width column, so
-     that's the middle third of the row) -- simpler and more robust than
-     trying to join each item's own short rail segment. */
   .pc-biz-steps::before {
     content: '';
     position: absolute;
@@ -2871,7 +2853,6 @@ label.btn-outline-primary:focus,
 }
 
 .pc-biz-plan:hover {
-  /* transform: translateY(-4px); */
   box-shadow: var(--pc-shadow-md);
 }
 
@@ -3021,9 +3002,6 @@ label.btn-outline-primary:focus,
   border-color: rgba(232, 89, 12, 0.2);
 }
 
-/* Photo cards -- every card except the dark feature tile now carries a real
-   photo instead of a flat white background, with a dark tint underneath the
-   text for legibility. */
 .pc-amb-card-photo {
   min-height: 260px;
   display: flex;
@@ -3093,9 +3071,6 @@ label.btn-outline-primary:focus,
   margin-bottom: 1rem;
 }
 
-/* Feature card -- the visually dominant tile in the grid. Left as a flat
-   colour (no photo, per the redesign brief) but with a richer multi-stop,
-   multi-direction gradient instead of the original simple two-stop one. */
 .pc-amb-card-feature {
   background:
     radial-gradient(140% 120% at 100% 0%, rgba(255, 122, 0, 0.22) 0%, transparent 55%),
@@ -3120,10 +3095,6 @@ label.btn-outline-primary:focus,
   color: rgba(255, 255, 255, 0.75);
 }
 
-/* The feature tile is the tallest card in the grid (spans 2 rows on
-   desktop) -- its original card-sized type left a lot of empty air above
-   and below the copy, so it gets its own larger scale once it's actually
-   that tall. */
 @media (min-width: 992px) {
   .pc-amb-card-feature {
     padding: clamp(2rem, 3vw, 2.75rem);
@@ -3135,9 +3106,6 @@ label.btn-outline-primary:focus,
     margin-bottom: 1.5rem;
   }
   .pc-amb-card-feature h3 {
-    /* The title carries Bootstrap's .fs-5 utility, which sets its own
-       font-size as !important by design -- matching that is the correct
-       way to override a Bootstrap utility, not a specificity workaround. */
     font-size: 2.35rem !important;
     line-height: 1.15;
     margin-bottom: 1.4rem;
@@ -3260,14 +3228,6 @@ label.btn-outline-primary:focus,
   background: linear-gradient(180deg, var(--pc-cream) 0%, var(--pc-cream-soft) 100%);
 }
 
-/* The shared app-download-banner sits right after this section with its own
-   fixed top margin, which reads as a plain white gap since <main>'s
-   background shows through it. Scoped to this page only (the banner
-   component itself, and every other page using it, stays untouched): fold
-   that breathing room into this section's own cream background instead.
-   (A hover effect that lifted the download band up over this section used
-   to live here too -- removed entirely, it read as a glitch rather than a
-   parallax.) */
 body[data-page^='ambassador-programme'] .pc-amb-register {
   padding-bottom: clamp(5rem, 9vw, 7rem);
 }
@@ -3318,212 +3278,15 @@ body[data-page^='ambassador-programme'] .pc-amb-register {
 .pc-amb-form-panel .form-select:focus {
   border-color: var(--pc-orange-light);
   background: var(--pc-white);
-  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.12);
+  box-shadow: none;
 }
 
-/* ============ Business page: "dragon-snake" ambient glow ============ *
- * A continuous-feeling glow that threads through every section, alternating
- * left/right as it descends -- not one page-spanning layer, because most
- * sections here already have their own opaque background (the gradient
- * bands added for the "too much white" pass), which would hide a glow
- * sitting behind <main> entirely. Instead each section gets its own soft
- * radial-gradient corner blob via a z-index:-1 pseudo-element: negative
- * z-index paints above that section's own background but below its content
- * regardless of whether the content itself is positioned (see CSS2.1
- * stacking order -- static content always outranks negative-z-index
- * descendants), so this is safe on every section type without touching
- * their markup or existing backgrounds. Scoped to this page only via
- * body[data-page] so no other page is affected. */
-body[data-page^='business'] main > section {
-  position: relative;
-  overflow: hidden;
-}
-
-body[data-page^='business'] main > section::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-  filter: blur(60px);
-  pointer-events: none;
-}
-
-/* 1: Hero -- top-left start of the path. Small and restrained since the
-   hero already carries its own orange overlay; this just seeds the glow's
-   colour into the corner it starts from. */
-body[data-page^='business'] main > section:nth-of-type(1)::before {
-  top: -3rem;
-  left: -3rem;
-  width: 20rem;
-  height: 20rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.22) 0%, transparent 70%);
-}
-
-/* 2: Trust strip -- curves right. */
-body[data-page^='business'] main > section:nth-of-type(2)::before {
-  top: -6rem;
-  right: -4rem;
-  width: 20rem;
-  height: 20rem;
-  background: radial-gradient(circle, rgba(232, 89, 12, 0.12) 0%, transparent 70%);
-}
-
-/* 3: Elevate intro -- back to the left, larger (tall + fully transparent
-   section, so this is where the glow reads most clearly). Gets the slow
-   drift animation -- one of only three animated blobs on the page. */
-body[data-page^='business'] main > section:nth-of-type(3)::before {
-  top: 30%;
-  left: -9rem;
-  width: 30rem;
-  height: 30rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.16) 0%, transparent 70%);
-  animation: pcBizGlowDrift 20s ease-in-out infinite;
-}
-
-/* 4: Account benefits -- right. */
-body[data-page^='business'] main > section:nth-of-type(4)::before {
-  top: -5rem;
-  right: -6rem;
-  width: 26rem;
-  height: 26rem;
-  background: radial-gradient(circle, rgba(232, 89, 12, 0.14) 0%, transparent 70%);
-}
-
-/* 5: Airport assistance -- left, low in the (short) section. */
-body[data-page^='business'] main > section:nth-of-type(5)::before {
-  bottom: -7rem;
-  left: -5rem;
-  width: 22rem;
-  height: 22rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.14) 0%, transparent 70%);
-}
-
-/* 6: Services grid -- right. */
-body[data-page^='business'] main > section:nth-of-type(6)::before {
-  top: 8%;
-  right: -8rem;
-  width: 28rem;
-  height: 28rem;
-  background: radial-gradient(circle, rgba(232, 89, 12, 0.13) 0%, transparent 70%);
-}
-
-/* 7: Ireland/Dublin photo section is intentionally skipped -- it's already
-   its own strong visual moment with a real photo and dark scrim; a colour
-   blob would either vanish under the scrim or fight the photo for
-   attention. The path continues seamlessly on the section after it. */
-
-/* 8: How it works -- left. */
-body[data-page^='business'] main > section:nth-of-type(8)::before {
-  top: -4rem;
-  left: -6rem;
-  width: 24rem;
-  height: 24rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.13) 0%, transparent 70%);
-}
-
-/* 9: Booking form -- right, largest blob (tallest section). Animated. */
-body[data-page^='business'] main > section:nth-of-type(9)::before {
-  top: 32%;
-  right: -10rem;
-  width: 34rem;
-  height: 34rem;
-  background: radial-gradient(circle, rgba(232, 89, 12, 0.13) 0%, transparent 70%);
-  animation: pcBizGlowDrift 24s ease-in-out infinite reverse;
-}
-
-/* 10: Why choose -- left. */
-body[data-page^='business'] main > section:nth-of-type(10)::before {
-  bottom: -6rem;
-  left: -6rem;
-  width: 24rem;
-  height: 24rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.13) 0%, transparent 70%);
-}
-
-/* 11: Plans -- right. */
-body[data-page^='business'] main > section:nth-of-type(11)::before {
-  top: -5rem;
-  right: -6rem;
-  width: 26rem;
-  height: 26rem;
-  background: radial-gradient(circle, rgba(232, 89, 12, 0.13) 0%, transparent 70%);
-}
-
-/* 12: Trust proof -- left. */
-body[data-page^='business'] main > section:nth-of-type(12)::before {
-  top: 15%;
-  left: -6rem;
-  width: 24rem;
-  height: 24rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.15) 0%, transparent 70%);
-}
-
-/* 13: Final CTA -- the path's last stop before the (already fully
-   saturated orange) Download App band, so it gets to run a little
-   brighter against the dark background and gently animates as a closing
-   flourish. */
-body[data-page^='business'] main > section:nth-of-type(13)::before {
-  top: -4rem;
-  right: -5rem;
-  width: 28rem;
-  height: 28rem;
-  background: radial-gradient(circle, rgba(255, 122, 0, 0.28) 0%, transparent 70%);
-  animation: pcBizGlowDrift 18s ease-in-out infinite;
-}
-
-/* 14: Download App band is skipped -- it's already a fully saturated
-   orange gradient, so this is where the glow naturally "arrives" and
-   dissolves into the page's own colour rather than needing its own blob. */
-
-@keyframes pcBizGlowDrift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(1.5rem, -1rem) scale(1.08);
-  }
-}
-
-@media (max-width: 767.98px) {
-  /* Narrower and quieter on small screens so it stays atmospheric rather
-     than overwhelming -- half the size, roughly half the strength. */
-  body[data-page^='business'] main > section::before {
-    width: 14rem !important;
-    height: 14rem !important;
-    filter: blur(40px);
-    opacity: 0.7;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* The animated blobs are matched by :nth-of-type, which outranks this
-     plain descendant selector on specificity alone -- !important is the
-     correct way to guarantee this wins regardless (same approach already
-     used for the ride-type stack's reduced-motion override above). */
-  body[data-page^='business'] main > section::before {
-    animation: none !important;
-  }
-}
-
-/* ============ Partner Programme page ============ */
-/* Rebuilt to match a client-supplied reference design (hero + floating
-   stat strip, campaign-card + info-sidebar, 4-up step grid, dark "for
-   businesses" CTA band) -- colors mapped onto the existing PowerCabs
-   tokens instead of the reference's own green palette. The "Grow With Us"
-   section below (.pc-ptn-growth*) is unrelated to that reference and was
-   deliberately left untouched. */
-
-/* ---------- Background band (kept for the process section) ---------- */
 .pc-ptn-band-a {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
 }
 
 /* ---------- Hero ---------- */
 .pc-ptn-hero {
-  /* No longer the page's actual top hero -- the standard inner-hero.php
-     banner (with its own navbar-clearance padding) sits above this now, so
-     this just needs normal section spacing. */
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
   background: linear-gradient(135deg, var(--pc-cream) 0%, var(--pc-cream-soft) 48%, #ffffff 100%);
 }
@@ -3699,8 +3462,6 @@ body[data-page^='business'] main > section:nth-of-type(13)::before {
   color: var(--pc-orange);
 }
 
-/* Floating stat strip -- overlaps the hero's bottom edge, same idea as the
-   reference's negative-margin stat bar. */
 .pc-ptn-stats {
   margin-top: 2.5rem;
 }
@@ -3958,10 +3719,6 @@ body[data-page^='business'] main > section:nth-of-type(13)::before {
 /* ---------- "For businesses" dark CTA + enquiry form ---------- */
 .pc-ptn-business {
   padding-top: clamp(4.5rem, 9vw, 7rem);
-  /* Extra bottom padding -- the download-app banner right after this
-     section pulls itself up over this padding (see .pc-app-promo-standalone
-     override below), so there needs to be enough real space here for that
-     overlap to land on background, not on the form/text. */
   padding-bottom: clamp(9rem, 15vw, 13rem);
   background: linear-gradient(155deg, var(--pc-dark) 0%, #2a1a10 55%, var(--pc-dark-soft) 100%);
   color: #fff;
@@ -4029,12 +3786,6 @@ body[data-page^='business'] main > section:nth-of-type(13)::before {
   line-height: 1.55;
 }
 
-/* The shared app-download-banner.php component normally leaves a gap above
-   itself (.pc-app-promo-standalone's positive margin-top, meant for pages
-   where a plain white/cream section precedes it). Here it follows straight
-   after the dark, photo-backed "For Businesses" band, so it's pulled up to
-   overlap that band instead -- same negative-margin technique the home
-   page's own download-app promo already uses against its own dark section. */
 body[data-page^='partner-programme'] .pc-app-promo-standalone {
   margin-top: clamp(-145px, -4vw, -195px);
 }
@@ -4089,7 +3840,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
 .pc-wa-badge:hover,
 .pc-wa-badge:focus-visible {
   transform: translateY(-1px);
-  /* box-shadow: var(--pc-shadow-md); */
   border-color: #25d366;
 }
 
@@ -4110,9 +3860,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
   animation: pcWaBadgePulse 2s ease-out infinite;
 }
 
-/* The footer is shared by every page, so this can't reuse the
-   pcLiveTrackPulse keyframe -- that's only ever defined inline by the
-   page-specific components that happen to use it, not globally here. */
 @keyframes pcWaBadgePulse {
   0% {
     transform: scale(1);
@@ -4150,4 +3897,462 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     animation: none;
     opacity: 0;
   }
+}
+
+/* ---------- Custom dropdown */
+.pc-custom-select {
+  position: relative;
+}
+
+.pc-custom-select-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pc-custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  background-image: none !important;
+  cursor: pointer;
+  padding-right: 0.75rem !important;
+}
+
+.pc-custom-select-trigger:focus-visible {
+  outline: none;
+  border-color: var(--pc-orange-light);
+  box-shadow: none;
+}
+
+.pc-custom-select-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pc-custom-select-trigger.is-placeholder .pc-custom-select-value {
+  color: var(--pc-text-muted);
+}
+
+.pc-custom-select-caret {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--pc-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.pc-custom-select.is-open .pc-custom-select-caret {
+  transform: rotate(180deg);
+}
+
+.pc-custom-select.is-open .pc-custom-select-trigger {
+  border-color: var(--pc-orange-light);
+  box-shadow: none;
+}
+
+.pc-custom-select.is-disabled .pc-custom-select-trigger {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.pc-custom-select-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.1);
+  border-radius: var(--pc-radius-md);
+  box-shadow: var(--pc-shadow-lg);
+  padding: 0.35rem;
+  max-height: 240px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.18s;
+}
+
+.pc-custom-select.is-open .pc-custom-select-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pc-custom-select-option {
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--pc-radius-sm);
+  font-size: 0.95rem;
+  color: var(--pc-dark);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pc-custom-select-option:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-select-option.is-selected {
+  font-weight: 600;
+  color: var(--pc-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-custom-select-panel,
+  .pc-custom-select-caret {
+    transition: none;
+  }
+}
+
+/* ---------- Custom date/time picker */
+.pc-custom-dt {
+  position: relative;
+}
+
+.pc-custom-dt-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pc-custom-dt-split {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pc-custom-dt-segment {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.pc-custom-dt-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pc-custom-dt-trigger:focus-visible {
+  outline: none;
+  border-color: var(--pc-orange-light);
+  box-shadow: none;
+}
+
+.pc-custom-dt-icon {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-custom-dt-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pc-custom-dt-trigger.is-placeholder .pc-custom-dt-value {
+  color: var(--pc-text-muted);
+}
+
+.pc-custom-dt-anchor.is-open .pc-custom-dt-trigger {
+  border-color: var(--pc-orange-light);
+  box-shadow: none;
+}
+
+.pc-custom-dt-segment.is-disabled .pc-custom-dt-trigger,
+.pc-custom-dt.is-disabled .pc-custom-dt-trigger {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.pc-custom-dt-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  z-index: 20;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.1);
+  border-radius: var(--pc-radius-md);
+  box-shadow: var(--pc-shadow-lg);
+  padding: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.18s;
+}
+
+.pc-custom-dt-anchor.is-open .pc-custom-dt-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pc-custom-dt-panel--calendar {
+  left: 0;
+  width: 280px;
+  max-width: calc(100vw - 2rem);
+}
+
+.pc-custom-dt-panel--time {
+  left: 0;
+  right: 0;
+  min-width: 170px;
+  padding: 0.35rem;
+}
+
+.pc-custom-dt-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.pc-custom-dt-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  border-radius: var(--pc-radius-sm);
+  color: var(--pc-dark);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.pc-custom-dt-nav-btn:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-nav-title {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--pc-dark);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--pc-radius-sm);
+  cursor: pointer;
+}
+
+.pc-custom-dt-nav-title:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--pc-text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.pc-custom-dt-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.pc-custom-dt-day,
+.pc-custom-dt-month-cell,
+.pc-custom-dt-year-cell {
+  border: none;
+  background: transparent;
+  border-radius: var(--pc-radius-sm);
+  color: var(--pc-dark);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pc-custom-dt-day {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-custom-dt-day.is-muted {
+  color: var(--pc-text-muted);
+  opacity: 0.5;
+}
+
+.pc-custom-dt-day.is-today {
+  box-shadow: inset 0 0 0 1px var(--pc-orange-light);
+}
+
+.pc-custom-dt-day:hover:not(.is-disabled),
+.pc-custom-dt-month-cell:hover,
+.pc-custom-dt-year-cell:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-day.is-selected,
+.pc-custom-dt-month-cell.is-selected,
+.pc-custom-dt-year-cell.is-selected {
+  background: var(--pc-orange);
+  color: var(--pc-white);
+  font-weight: 600;
+}
+
+.pc-custom-dt-day.is-disabled {
+  color: var(--pc-text-muted);
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pc-custom-dt-months,
+.pc-custom-dt-years {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.pc-custom-dt-month-cell,
+.pc-custom-dt-year-cell {
+  padding: 0.6rem 0.25rem;
+}
+
+.pc-custom-dt-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  margin-top: 0.35rem;
+  border-top: 1px solid rgba(28, 20, 16, 0.08);
+}
+
+.pc-custom-dt-panel--time .pc-custom-dt-toolbar {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
+  border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.pc-custom-dt-toolbar-btn {
+  border: none;
+  background: transparent;
+  color: var(--pc-orange);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+  cursor: pointer;
+}
+
+.pc-custom-dt-toolbar-btn:hover {
+  text-decoration: underline;
+}
+
+.pc-custom-dt-toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.pc-custom-dt-timelist {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.pc-custom-dt-time-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--pc-radius-sm);
+  font-size: 0.9rem;
+  color: var(--pc-dark);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pc-custom-dt-time-option:hover {
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+}
+
+.pc-custom-dt-time-option.is-selected {
+  font-weight: 600;
+  color: var(--pc-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-custom-dt-panel {
+    transition: none;
+  }
+}
+
+/* ---------- Google Places autocomplete suggestions */
+.pac-container {
+  margin-top: 6px !important;
+  border: 1px solid rgba(28, 20, 16, 0.1) !important;
+  border-radius: var(--pc-radius-md) !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+}
+
+.pac-item {
+  border-top: none !important;
+  margin: 2px 0.35rem !important;
+  padding: 0.5rem 0.6rem !important;
+  border-radius: var(--pc-radius-sm) !important;
+  font-size: 0.9rem !important;
+  font-family: inherit !important;
+  color: var(--pc-dark) !important;
+  cursor: pointer;
+}
+
+.pac-item:hover,
+.pac-item-selected {
+  background: var(--pc-peach) !important;
+}
+
+.pac-item-query {
+  font-size: 0.9rem !important;
+  color: var(--pc-dark) !important;
+}
+
+.pac-matched {
+  font-weight: 600;
+  color: var(--pc-orange) !important;
 }

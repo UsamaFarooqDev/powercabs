@@ -5,7 +5,9 @@
 // itself still needs to be reachable by name (window.initGoogleMaps), since
 // the Maps SDK's own onload callback calls it that way.
 (function () {
-  const PC_DUBLIN_BOUNDS = { north: 53.45, south: 53.15, east: -6.05, west: -6.55 };
+  // The Dublin bounds box itself now lives in dublin-places-autocomplete.js
+  // (setupAutocomplete below calls into it) -- see that file for the actual
+  // coordinates, shared with meet-greet.php's address fields.
 
   // Mirrors the passenger app's ride_selection.dart multiplier table.
   const PC_RIDE_TYPE_MULTIPLIERS = {
@@ -41,11 +43,6 @@
     const pickupInput = document.getElementById("brPickup");
     const dropoffInput = document.getElementById("brDropoff");
     if (!mapEl || !pickupInput || !dropoffInput) return;
-
-    const dublinBounds = new google.maps.LatLngBounds(
-      { lat: PC_DUBLIN_BOUNDS.south, lng: PC_DUBLIN_BOUNDS.west },
-      { lat: PC_DUBLIN_BOUNDS.north, lng: PC_DUBLIN_BOUNDS.east }
-    );
 
     // Ireland-wide by default; manually fit to the route once both ends
     // are set (see getFormOverlayPx below) so it lands clear of the card.
@@ -183,53 +180,29 @@
     }
 
     function setupAutocomplete(input, warningId, key, markerColor) {
-      const autocomplete = new google.maps.places.Autocomplete(input, {
-        fields: ["geometry", "formatted_address"],
-        componentRestrictions: { country: "ie" },
-        bounds: dublinBounds,
-        strictBounds: true,
-      });
-
       const warningEl = document.getElementById(warningId);
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        const loc = place.geometry && place.geometry.location;
+      window.pcAttachDublinAutocomplete(input, {
+        warningEl,
+        isConfirmed: () => !!state[key],
+        onPlace: (place, latLng) => {
+          state[key] = latLng;
+          placeMarker(key, latLng, markerColor);
 
-        if (!loc || !dublinBounds.contains(loc)) {
+          if (!state.pickup || !state.dropoff) {
+            map.panTo(latLng);
+            map.setZoom(14);
+            const overlay = getFormOverlayPx();
+            if (overlay > 0) map.panBy(overlay / 2, 0);
+          }
+
+          updateRoute();
+        },
+        onClear: () => {
           state[key] = null;
           clearMarker(key);
-          if (!loc) input.value = "";
-          warningEl?.classList.remove("d-none");
-          updateRoute();
-          return;
-        }
-
-        warningEl?.classList.add("d-none");
-        state[key] = { lat: loc.lat(), lng: loc.lng() };
-        placeMarker(key, state[key], markerColor);
-
-        if (!state.pickup || !state.dropoff) {
-          map.panTo(state[key]);
-          map.setZoom(14);
-          const overlay = getFormOverlayPx();
-          if (overlay > 0) map.panBy(overlay / 2, 0);
-        }
-
-        updateRoute();
-      });
-
-      input.addEventListener("input", () => {
-        state[key] = null;
-        clearMarker(key);
-        warningEl?.classList.add("d-none");
-        resetEstimate();
-      });
-
-      input.addEventListener("blur", () => {
-        if (input.value.trim() !== "" && !state[key]) {
-          warningEl?.classList.remove("d-none");
-        }
+          resetEstimate();
+        },
       });
     }
 

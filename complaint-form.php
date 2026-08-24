@@ -264,11 +264,11 @@ $categoryModes = [
           </div>
           <div class="col-md-4">
             <label class="form-label pc-required" for="cfDate">Date</label>
-            <input type="date" class="form-control" id="cfDate" name="journey_date" value="<?= htmlspecialchars($old['journey_date']) ?>" required>
+            <input type="date" class="form-control pc-custom-datetime-enhance" id="cfDate" name="journey_date" value="<?= htmlspecialchars($old['journey_date']) ?>" required>
           </div>
           <div class="col-md-4">
             <label class="form-label pc-required" for="cfTime">Time</label>
-            <input type="time" class="form-control" id="cfTime" name="journey_time" value="<?= htmlspecialchars($old['journey_time']) ?>" required>
+            <input type="time" class="form-control pc-custom-datetime-enhance" id="cfTime" name="journey_time" value="<?= htmlspecialchars($old['journey_time']) ?>" required>
           </div>
           <div class="col-md-4">
             <label class="form-label" for="cfPassengers">Number of Passengers</label>
@@ -324,11 +324,11 @@ $categoryModes = [
             </div>
             <div class="col-md-3">
               <label class="form-label" for="cfDateBooking">Date of Booking</label>
-              <input type="date" class="form-control" id="cfDateBooking" name="date_of_booking" value="<?= htmlspecialchars($old['date_of_booking']) ?>">
+              <input type="date" class="form-control pc-custom-datetime-enhance" id="cfDateBooking" name="date_of_booking" value="<?= htmlspecialchars($old['date_of_booking']) ?>">
             </div>
             <div class="col-md-3">
               <label class="form-label" for="cfTimeBooking">Time of Booking</label>
-              <input type="time" class="form-control" id="cfTimeBooking" name="time_of_booking" value="<?= htmlspecialchars($old['time_of_booking']) ?>">
+              <input type="time" class="form-control pc-custom-datetime-enhance" id="cfTimeBooking" name="time_of_booking" value="<?= htmlspecialchars($old['time_of_booking']) ?>">
             </div>
           </div>
         </div>
@@ -347,7 +347,7 @@ $categoryModes = [
             </div>
             <div class="col-md-6">
               <label class="form-label pc-required" for="cfExperienceDate">Date</label>
-              <input type="date" class="form-control" id="cfExperienceDate" name="experience_date" value="<?= htmlspecialchars($old['experience_date']) ?>" required>
+              <input type="date" class="form-control pc-custom-datetime-enhance" id="cfExperienceDate" name="experience_date" value="<?= htmlspecialchars($old['experience_date']) ?>" required>
             </div>
           </div>
         </div>
@@ -377,6 +377,9 @@ $categoryModes = [
 </section>
 
 <script src="<?= $assetPath ?>assets/js/components/complaint-form.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-datetime.js',
+) ?>"></script>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

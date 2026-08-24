@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -42,7 +42,12 @@ main {
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   letter-spacing: -0.01em;
 }
@@ -57,7 +62,7 @@ a {
 
 /* Red asterisk  */
 .pc-required::after {
-  content: " *";
+  content: ' *';
   color: #dc3545;
 }
 
@@ -71,14 +76,14 @@ a {
 }
 
 .btn-pc-primary::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: -4px;
   border: 1.5px solid var(--pc-orange-light);
   border-radius: inherit;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .btn-pc-primary:hover,
@@ -107,7 +112,7 @@ a {
   border-color: var(--pc-dark);
   color: var(--pc-white);
   border-radius: var(--pc-radius-pill);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .btn-pc-dark:hover,
@@ -140,39 +145,45 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background: rgba(10, 8, 6, .55);
+  background: rgba(10, 8, 6, 0.55);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   opacity: 1;
   visibility: visible;
-  transition: opacity .35s ease, visibility 0s linear 0s;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s linear 0s;
 }
 
 .pc-loader-overlay.pc-loader-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity .35s ease, visibility 0s linear .35s;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s linear 0.35s;
 }
 
 .pc-loader-spinner {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, .25);
+  border: 3px solid rgba(255, 255, 255, 0.25);
   border-top-color: var(--pc-orange-light);
-  animation: pc-loader-spin .7s linear infinite;
+  animation: pc-loader-spin 0.7s linear infinite;
 }
 
 .pc-loader-text {
   color: var(--pc-white);
   font-weight: 500;
-  font-size: .9rem;
-  letter-spacing: .03em;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
 }
 
 @keyframes pc-loader-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

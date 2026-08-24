@@ -94,7 +94,7 @@ $ambRecap = ['Free card terminals', 'Exclusive vehicle branding', 'Fuel discount
             </div>
             <div class="col-md-6">
               <label class="form-label" for="apRegistered">Registered with PowerCabs?</label>
-              <select class="form-select" id="apRegistered" name="registered_with_powercabs" required>
+              <select class="form-select pc-custom-select-enhance" id="apRegistered" name="registered_with_powercabs" required>
                 <option value="" disabled <?= $old['registered_with_powercabs'] === ''
                   ? 'selected'
                   : '' ?>>Select an option</option>
