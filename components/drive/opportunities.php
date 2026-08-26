@@ -8,7 +8,7 @@
 
     <div class="row row-cols-2 row-cols-md-3 g-4 g-md-0 text-center border-top border-bottom py-4 mb-5" style="border-color: rgba(28, 20, 16, .1) !important;">
       <div class="col py-3 border-end" style="border-color: rgba(28, 20, 16, .1) !important;">
-        <p class="display-5 fw-bold mb-1" style="color: var(--pc-dark);">48hrs</p>
+        <p class="display-5 fw-bold mb-1" style="color: var(--pc-dark);">Every Week</p>
         <p class="small text-muted-pc mb-0">Weekly payment</p>
       </div>
       <div class="col py-3 border-end" style="border-color: rgba(28, 20, 16, .1) !important;">
@@ -37,12 +37,6 @@
       ['img' => 'business-xl.png', 'label' => 'Business XL'],
     ]; ?>
 
-    <!-- Bootstrap's row-cols-* always fills every row evenly, with no way
-         to center a shorter last row -- 8 cards need 5 in row one and the
-         remaining 3 centered in row two, so this is a plain flex-wrap grid
-         with a fixed per-card width instead: at each breakpoint every card
-         is the same size, and justify-content: center takes care of
-         centering whatever's left in the final row. -->
     <style>
       .pc-drive-ride-grid {
         display: flex;
@@ -73,8 +67,8 @@
         <div class="pc-drive-ride-item">
           <div class="pc-service-card d-block position-relative overflow-hidden" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
             <img src="<?= $assetPath ?>assets/img/rides-types/<?= $category['img'] ?>" alt="<?= htmlspecialchars(
-              $category['label'],
-            ) ?>" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
+  $category['label'],
+) ?>" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
             <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
             <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-3" style="padding-top: 2.5rem;">
               <span class="pc-service-card-title d-block fs-6 fs-md-5 fw-extrabold mb-0"><?= htmlspecialchars(

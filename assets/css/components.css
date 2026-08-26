@@ -1561,14 +1561,14 @@ label.btn-outline-primary:focus,
 
 @media (max-width: 767.98px) {
   .pc-faq-accordion .accordion-button {
-    --bs-accordion-btn-icon-width: .8rem;
-    font-size: .95rem;
-    padding: .9rem 1.1rem;
+    --bs-accordion-btn-icon-width: 0.8rem;
+    font-size: 0.95rem;
+    padding: 0.9rem 1.1rem;
   }
 
   .pc-faq-accordion .accordion-body {
     padding: 0 1.1rem 1rem;
-    font-size: .92rem;
+    font-size: 0.92rem;
   }
 }
 
@@ -2681,45 +2681,6 @@ label.btn-outline-primary:focus,
 
 .pc-biz-band-b {
   background: linear-gradient(165deg, var(--pc-cream-soft) 0%, var(--pc-peach) 55%, var(--pc-cream-soft) 100%);
-}
-
-/* ---------- Account benefits: business account interface mockup ---------- */
-.pc-biz-dash-card {
-  background: var(--pc-white);
-  border: 1px solid rgba(28, 20, 16, 0.08);
-  border-radius: var(--pc-radius-xl);
-  box-shadow: var(--pc-shadow-lg);
-  padding: clamp(1.5rem, 3vw, 2rem);
-}
-
-.pc-biz-dash-stat {
-  background: var(--pc-cream-soft);
-  border-radius: var(--pc-radius-md);
-  padding: 0.85rem 1rem;
-}
-
-.pc-biz-dash-stat-value {
-  display: block;
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--pc-dark);
-  line-height: 1.2;
-}
-
-.pc-biz-dash-stat-label {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--pc-text-muted);
-}
-
-.pc-biz-dash-row {
-  padding-block: 0.65rem;
-  border-bottom: 1px solid rgba(28, 20, 16, 0.06);
-}
-
-.pc-biz-dash-row:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
 }
 
 /* ---------- Ireland / Dublin parallax visual ---------- */

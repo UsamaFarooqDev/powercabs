@@ -1,50 +1,32 @@
 <?php
-/**
- * "You're not just a driver. You're family." -- driver application form.
- * Requires $assetPath, $driveOld, $driveFormStatus, $driveFormError from
- * the including page (drive.php) -- defaults below only apply if that
- * contract isn't met, matching the convention already used in
- * components/business/payment-solutions/apply-form.php.
- */
+
 $driveOld ??= ['name' => '', 'mobile' => '', 'email' => '', 'licence' => ''];
 $driveFormStatus ??= null;
 $driveFormError ??= '';
-
-$driveJoinPerks = ['€0 joining fee', '€0 monthly subscription', '10% on completed jobs', 'No Saver fare model*'];
 ?>
 <!-- ============ "You're not just a driver. You're family." ============ -->
-<section class="position-relative overflow-hidden" style="background: linear-gradient(155deg, var(--pc-dark) 0%, #2a1a10 55%, var(--pc-dark-soft) 100%);">
+<section class="section-pc position-relative overflow-hidden" style="background: linear-gradient(155deg, var(--pc-dark) 0%, #2a1a10 55%, var(--pc-dark-soft) 100%);">
   <div class="container">
     <div class="row align-items-center gy-5 py-5 py-lg-6">
 
       <!-- Left: copy -->
       <div class="col-lg-6">
-        <span class="pc-mg-badge d-inline-flex align-items-center gap-2 mb-4">
+        <span class="pc-mg-badge text-white d-inline-flex align-items-center gap-2 mb-4">
           <span class="fw-bold" style="font-size: .7rem;">IE</span>
           Irish Taxi Platform &bull; Driver First
         </span>
 
         <h2 class="fw-bold text-white mb-3" style="font-size: clamp(2.1rem, 4vw, 3.1rem); line-height: 1.14; letter-spacing: -.02em;">
-          You're not just a driver.<br>
+          You're not just a driver,<br>
           <span style="color: var(--pc-orange-light);">You're family.</span>
         </h2>
-
         <p class="mb-4" style="color: rgba(255, 255, 255, .75); font-size: 1.08rem; max-width: 46ch; line-height: 1.7;">
           Your taxi. Your meter. Your choice. Earn properly, avoid platform-created
           Saver pricing, save on the costs of driving and get real local support.
         </p>
-
         <a href="#driveJoinForm" class="btn btn-pc-primary rounded-pill px-4 mb-4 d-inline-flex align-items-center gap-2">
           Join the PowerCabs Family <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
         </a>
-
-        <div class="d-flex flex-wrap gap-2">
-          <?php foreach ($driveJoinPerks as $perk): ?>
-            <span class="badge rounded-pill border fw-semibold py-2 px-3" style="--bs-border-color: rgba(255, 255, 255, .22); color: rgba(255, 255, 255, .85); font-size: .78rem;">
-              <?= htmlspecialchars($perk) ?>
-            </span>
-          <?php endforeach; ?>
-        </div>
       </div>
 
       <!-- Right: application form -->
@@ -79,7 +61,7 @@ $driveJoinPerks = ['€0 joining fee', '€0 monthly subscription', '10% on comp
             </div>
 
             <div class="col-12 pt-2">
-              <button type="submit" class="btn btn-pc-primary w-100 rounded-pill py-2 d-inline-flex align-items-center justify-content-center gap-2">
+              <button type="submit" class="btn btn-pc-primary w-100 rounded-pill d-inline-flex align-items-center justify-content-center gap-2">
                 <span>Start My Application</span>
                 <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
               </button>
@@ -97,7 +79,6 @@ $driveJoinPerks = ['€0 joining fee', '€0 monthly subscription', '10% on comp
           </form>
         </div>
       </div>
-
     </div>
   </div>
 </section>
