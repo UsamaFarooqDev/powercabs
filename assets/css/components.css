@@ -5090,10 +5090,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pc-power10-image-wrap:hover .pc-power10-image-frame {
-  transform: translateY(-3px);
-}
-
 .pc-power10-image {
   display: block;
   width: 100%;
@@ -5103,7 +5099,7 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
 }
 
 .pc-power10-image-wrap:hover .pc-power10-image {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .pc-power10-image-tag {

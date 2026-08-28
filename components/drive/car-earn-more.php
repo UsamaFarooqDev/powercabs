@@ -59,7 +59,7 @@ $carEarnCards = [
         depending on campaign and eligibility.
       </p>
       <a href="<?= $assetPath ?>/ambassador-programme" class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2">
-        Ask About Vehicle Campaigns <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
+        Ask About Vehicle Campaigns <i class="bi bi-chevron-right fs-8" aria-hidden="true"></i>
       </a>
     </div>
   </div>

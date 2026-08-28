@@ -104,7 +104,7 @@ $partnerBizBenefits = [
             <div class="col-12 pt-2">
               <button type="submit" class="btn btn-pc-primary w-100 py-2 rounded-pill d-inline-flex align-items-center justify-content-center gap-2">
                 <span>Request a Partner Call Back</span>
-                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                <i class="bi bi-send" aria-hidden="true"></i>
               </button>
             </div>
 

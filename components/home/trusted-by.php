@@ -83,7 +83,7 @@
         </p>
       </div>
       <a class="btn btn-pc-primary px-3 flex-shrink-0 d-inline-flex align-items-center gap-1" href="<?= $assetPath ?>/business">
-        Partner With Us <i class="bi bi-arrow-right-short fs-6"></i>
+        Partner with Us <i class="bi bi-chevron-right fs-8"></i>
       </a>
     </div>
   </div>

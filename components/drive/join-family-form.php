@@ -24,9 +24,6 @@ $driveFormError ??= '';
           Your taxi. Your meter. Your choice. Earn properly, avoid platform-created
           Saver pricing, save on the costs of driving and get real local support.
         </p>
-        <a href="#driveJoinForm" class="btn btn-pc-primary rounded-pill px-4 mb-4 d-inline-flex align-items-center gap-2">
-          Join the PowerCabs Family <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
-        </a>
       </div>
 
       <!-- Right: application form -->
@@ -62,8 +59,8 @@ $driveFormError ??= '';
 
             <div class="col-12 pt-2">
               <button type="submit" class="btn btn-pc-primary w-100 rounded-pill d-inline-flex align-items-center justify-content-center gap-2">
-                <span>Start My Application</span>
-                <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
+                <span>Start my Application</span>
+                <i class="bi bi-send" aria-hidden="true"></i>
               </button>
             </div>
 

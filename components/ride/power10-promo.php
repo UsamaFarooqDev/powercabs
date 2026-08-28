@@ -31,7 +31,7 @@
           </div>
 
           <a href="<?= $assetPath ?>/book-ride-online" class="pc-power10-cta d-inline-flex align-items-center gap-2">
-            Book a Ride <i class="bi bi-arrow-right-short fs-6" aria-hidden="true"></i>
+            Book a Ride <i class="bi bi-chevron-right fs-8" aria-hidden="true"></i>
           </a>
         </div>
 

@@ -43,7 +43,7 @@ $whoCanJoin = [
 
           <a class="btn btn-pc-primary rounded-pill px-4" href="#pcPtnEnquiry">
             Become a Partner
-            <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+            <i class="bi bi-chevron-right fs-8 ms-1" aria-hidden="true"></i>
           </a>
         </article>
       </div>

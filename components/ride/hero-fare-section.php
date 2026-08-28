@@ -90,7 +90,7 @@ $rideTrustItems = [
             </select>
           </div>
 
-          <button type="button" id="rfSubmit" class="btn btn-pc-primary rounded-pill px-4 py-2 mt-4 fw-semibold" disabled>
+          <button type="button" id="rfSubmit" class="btn btn-pc-primary rounded-pill px-4 mt-4 fw-semibold" disabled>
             Get Fare Estimate
           </button>
 

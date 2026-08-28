@@ -1,43 +1,87 @@
 <?php
-$pageTitle       = 'Safety Tips for Riders | PowerCabs';
-$pageDescription = 'Safety guidance for PowerCabs riders -- before, during and after every ride, plus using the emergency button, cashless payments and more.';
-$assetPath       = '';
+$pageTitle = 'Safety Tips for Riders | PowerCabs';
+$pageDescription =
+  'Safety guidance for PowerCabs riders -- before, during and after every ride, plus using the emergency button, cashless payments and more.';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Policies & Safety';
-$heroTitleLight  = 'Safety Tips';
-$heroTitleBold   = 'for Riders.';
-$heroDescription = 'A few simple habits make every PowerCabs trip safer -- before you get in, while you ride, and after you arrive.';
-$heroBgImage     = 'https://images.pexels.com/photos/13343433/pexels-photo-13343433.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroEyebrow = '/ Policies & Safety';
+$heroTitleLight = 'Safety Tips';
+$heroTitleBold = 'for Riders.';
+$heroDescription =
+  'A few simple habits make every PowerCabs trip safer -- before you get in, while you ride, and after you arrive.';
+$heroBgImage = 'https://images.pexels.com/photos/13343433/pexels-photo-13343433.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Rider Safety';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $beforeRide = [
-  ['icon' => 'bi-patch-check-fill', 'title' => 'Verify the Driver and Vehicle', 'desc' => "Check the driver's photo, vehicle model, and license plate against the details shown in the app before getting in."],
-  ['icon' => 'bi-share-fill',       'title' => 'Share Your Trip',               'desc' => 'Share your live trip details with a trusted friend or family member so they can follow your journey.'],
-  ['icon' => 'bi-lightbulb-fill',   'title' => 'Choose Safe Pickup Locations',  'desc' => 'Select well-lit and populated pickup and drop-off locations whenever possible.'],
+  [
+    'icon' => 'bi-patch-check-fill',
+    'title' => 'Verify the Driver and Vehicle',
+    'desc' =>
+      "Check the driver's photo, vehicle model, and license plate against the details shown in the app before getting in.",
+  ],
+  [
+    'icon' => 'bi-share-fill',
+    'title' => 'Share Your Trip',
+    'desc' => 'Share your live trip details with a trusted friend or family member so they can follow your journey.',
+  ],
+  [
+    'icon' => 'bi-lightbulb-fill',
+    'title' => 'Choose Safe Pickup Locations',
+    'desc' => 'Select well-lit and populated pickup and drop-off locations whenever possible.',
+  ],
 ];
 
 $duringRide = [
-  ['icon' => 'bi-person-arms-up',  'title' => 'Sit in the Back Seat',       'desc' => 'More personal space, and you can exit from either side if needed.'],
-  ['icon' => 'bi-shield-check',    'title' => 'Wear Your Seatbelt',         'desc' => 'Always fasten your seatbelt, regardless of where you are sitting.'],
-  ['icon' => 'bi-chat-dots-fill',  'title' => 'Keep Conversations General', 'desc' => 'Avoid sharing sensitive personal information with the driver.'],
-  ['icon' => 'bi-signpost-2-fill', 'title' => 'Follow Your Route',          'desc' => 'Monitor your trip through the app and politely ask if the driver takes an unexpected route.'],
-  ['icon' => 'bi-heart-pulse-fill','title' => 'Trust Your Instincts',       'desc' => 'If you ever feel unsafe, ask the driver to stop in a safe public location and end the ride.'],
+  [
+    'icon' => 'bi-person-arms-up',
+    'title' => 'Sit in the Back Seat',
+    'desc' => 'More personal space, and you can exit from either side if needed.',
+  ],
+  [
+    'icon' => 'bi-shield-check',
+    'title' => 'Wear Your Seatbelt',
+    'desc' => 'Always fasten your seatbelt, regardless of where you are sitting.',
+  ],
+  [
+    'icon' => 'bi-chat-dots-fill',
+    'title' => 'Keep Conversations General',
+    'desc' => 'Avoid sharing sensitive personal information with the driver.',
+  ],
+  [
+    'icon' => 'bi-signpost-2-fill',
+    'title' => 'Follow Your Route',
+    'desc' => 'Monitor your trip through the app and politely ask if the driver takes an unexpected route.',
+  ],
+  [
+    'icon' => 'bi-heart-pulse-fill',
+    'title' => 'Trust Your Instincts',
+    'desc' => 'If you ever feel unsafe, ask the driver to stop in a safe public location and end the ride.',
+  ],
 ];
 
 $afterRide = [
-  ['icon' => 'bi-star-fill',       'title' => 'Rate Your Driver', 'desc' => 'Leave honest ratings and feedback to help maintain service quality and safety.'],
-  ['icon' => 'bi-flag-fill',       'title' => 'Report Any Issues', 'desc' => 'Immediately report any unusual, unsafe, or uncomfortable experience through the app or customer support.'],
+  [
+    'icon' => 'bi-star-fill',
+    'title' => 'Rate Your Driver',
+    'desc' => 'Leave honest ratings and feedback to help maintain service quality and safety.',
+  ],
+  [
+    'icon' => 'bi-flag-fill',
+    'title' => 'Report Any Issues',
+    'desc' =>
+      'Immediately report any unusual, unsafe, or uncomfortable experience through the app or customer support.',
+  ],
 ];
 
 $additionalTips = [
   ['icon' => 'bi-exclamation-triangle-fill', 'label' => "Learn how to use the app's emergency or panic button"],
-  ['icon' => 'bi-credit-card-2-front-fill',  'label' => 'Prefer cashless payments for safer, more secure transactions'],
-  ['icon' => 'bi-eye-fill',                  'label' => 'Stay aware of your surroundings before entering and after leaving the vehicle'],
-  ['icon' => 'bi-phone-vibrate',             'label' => 'Avoid excessive phone use while walking to or from your pickup location'],
-  ['icon' => 'bi-telephone-fill',            'label' => 'Keep emergency contacts easily accessible on your phone'],
+  ['icon' => 'bi-credit-card-2-front-fill', 'label' => 'Prefer cashless payments for safer, more secure transactions'],
+  ['icon' => 'bi-eye-fill', 'label' => 'Stay aware of your surroundings before entering and after leaving the vehicle'],
+  ['icon' => 'bi-phone-vibrate', 'label' => 'Avoid excessive phone use while walking to or from your pickup location'],
+  ['icon' => 'bi-telephone-fill', 'label' => 'Keep emergency contacts easily accessible on your phone'],
 ];
 ?>
 
@@ -148,11 +192,13 @@ $additionalTips = [
 <!-- ============ CTA ============ -->
 <section class="section-pc pt-0 text-center">
   <div class="container">
-    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/safety-tips-drivers">See Safety Tips for Drivers &rarr;</a>
+    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/safety-tips-drivers">See Safety Tips for Drivers <i class="bi bi-chevron-right fs-8 ms-1" aria-hidden="true"></i></a>
   </div>
 </section>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
+
 ?>

@@ -49,7 +49,7 @@ $familyPoints = [
             We're not asking you to choose one basket. We're giving you another one.
           </p>
           <a href="#driveJoinForm" class="btn btn-pc-dark rounded-pill px-4 align-self-start d-inline-flex align-items-center gap-2 text-nowrap">
-            Add PowerCabs to My Driving <i class="bi bi-arrow-right-short d-none d-sm-inline-block" aria-hidden="true"></i>
+            Add PowerCabs to my Driving <i class="bi bi-chevron-right fs-8 d-none d-sm-inline-block" aria-hidden="true"></i>
           </a>
         </div>
       </div>

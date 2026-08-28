@@ -1,46 +1,98 @@
 <?php
-$pageTitle       = 'Safety Tips for Drivers | PowerCabs';
-$pageDescription = 'Safety guidance for PowerCabs drivers -- before, during and after every ride, plus emergency features, cashless payments and more.';
-$assetPath       = '';
+$pageTitle = 'Safety Tips for Drivers | PowerCabs';
+$pageDescription =
+  'Safety guidance for PowerCabs drivers -- before, during and after every ride, plus emergency features, cashless payments and more.';
+$assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Policies & Safety';
-$heroTitleLight  = 'Safety Tips';
-$heroTitleBold   = 'for Drivers.';
-$heroDescription = 'Practical guidance to help you stay safe, confident and prepared on every trip -- before you set off, while you drive, and after you drop off.';
-$heroBgImage     = 'https://images.pexels.com/photos/5834950/pexels-photo-5834950.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroEyebrow = '/ Policies & Safety';
+$heroTitleLight = 'Safety Tips';
+$heroTitleBold = 'for Drivers.';
+$heroDescription =
+  'Practical guidance to help you stay safe, confident and prepared on every trip -- before you set off, while you drive, and after you drop off.';
+$heroBgImage = 'https://images.pexels.com/photos/5834950/pexels-photo-5834950.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Driver Safety';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $beforeRide = [
-  ['icon' => 'bi-person-vcard-fill', 'title' => 'Verify Passenger Identity',      'desc' => "Check the passenger's name and profile photo (if available) before allowing them into your vehicle."],
-  ['icon' => 'bi-tools',             'title' => 'Keep Your Vehicle in Good Condition', 'desc' => 'Regularly inspect and maintain your vehicle -- brakes, tires, lights, and other essential safety components.'],
-  ['icon' => 'bi-signpost-2-fill',   'title' => 'Plan Your Routes',              'desc' => 'Familiarize yourself with the area before starting, and use GPS to choose the safest and most efficient route.'],
+  [
+    'icon' => 'bi-person-vcard-fill',
+    'title' => 'Verify Passenger Identity',
+    'desc' => "Check the passenger's name and profile photo (if available) before allowing them into your vehicle.",
+  ],
+  [
+    'icon' => 'bi-tools',
+    'title' => 'Keep Your Vehicle in Good Condition',
+    'desc' =>
+      'Regularly inspect and maintain your vehicle -- brakes, tires, lights, and other essential safety components.',
+  ],
+  [
+    'icon' => 'bi-signpost-2-fill',
+    'title' => 'Plan Your Routes',
+    'desc' =>
+      'Familiarize yourself with the area before starting, and use GPS to choose the safest and most efficient route.',
+  ],
 ];
 
 $duringRide = [
-  ['icon' => 'bi-speedometer2',     'title' => 'Follow Traffic Laws',   'desc' => 'Obey speed limits, traffic signals, and all road regulations.'],
-  ['icon' => 'bi-phone-vibrate',    'title' => 'Minimize Distractions', 'desc' => 'Avoid using your phone while driving; use hands-free devices only when necessary.'],
-  ['icon' => 'bi-lock-fill',        'title' => 'Keep Doors Locked',     'desc' => 'Lock vehicle doors while driving to prevent unauthorized access.'],
-  ['icon' => 'bi-shield-check',     'title' => 'Trust Your Instincts',  'desc' => 'If a passenger makes you feel unsafe, you have the right to decline or end the ride.'],
-  ['icon' => 'bi-lightbulb-fill',   'title' => 'Stay in Well-Lit Areas','desc' => 'Prefer pickups and drop-offs in busy, well-lit locations, especially at night.'],
+  [
+    'icon' => 'bi-speedometer2',
+    'title' => 'Follow Traffic Laws',
+    'desc' => 'Obey speed limits, traffic signals, and all road regulations.',
+  ],
+  [
+    'icon' => 'bi-phone-vibrate',
+    'title' => 'Minimize Distractions',
+    'desc' => 'Avoid using your phone while driving; use hands-free devices only when necessary.',
+  ],
+  [
+    'icon' => 'bi-lock-fill',
+    'title' => 'Keep Doors Locked',
+    'desc' => 'Lock vehicle doors while driving to prevent unauthorized access.',
+  ],
+  [
+    'icon' => 'bi-shield-check',
+    'title' => 'Trust Your Instincts',
+    'desc' => 'If a passenger makes you feel unsafe, you have the right to decline or end the ride.',
+  ],
+  [
+    'icon' => 'bi-lightbulb-fill',
+    'title' => 'Stay in Well-Lit Areas',
+    'desc' => 'Prefer pickups and drop-offs in busy, well-lit locations, especially at night.',
+  ],
 ];
 
 $afterRide = [
-  ['icon' => 'bi-phone-vibrate',  'title' => 'Stay Focused',          'desc' => 'Minimize distractions and remain focused before moving to your next trip.'],
-  ['icon' => 'bi-lock-fill',      'title' => 'Keep Doors Locked',     'desc' => 'Keep your vehicle doors locked whenever appropriate.'],
-  ['icon' => 'bi-shield-check',   'title' => 'Trust Your Instincts',  'desc' => 'Trust your instincts if any situation feels unsafe.'],
-  ['icon' => 'bi-lightbulb-fill', 'title' => 'Well-Lit, Populated Areas', 'desc' => 'Continue choosing well-lit, populated areas when waiting for your next passenger.'],
+  [
+    'icon' => 'bi-phone-vibrate',
+    'title' => 'Stay Focused',
+    'desc' => 'Minimize distractions and remain focused before moving to your next trip.',
+  ],
+  [
+    'icon' => 'bi-lock-fill',
+    'title' => 'Keep Doors Locked',
+    'desc' => 'Keep your vehicle doors locked whenever appropriate.',
+  ],
+  [
+    'icon' => 'bi-shield-check',
+    'title' => 'Trust Your Instincts',
+    'desc' => 'Trust your instincts if any situation feels unsafe.',
+  ],
+  [
+    'icon' => 'bi-lightbulb-fill',
+    'title' => 'Well-Lit, Populated Areas',
+    'desc' => 'Continue choosing well-lit, populated areas when waiting for your next passenger.',
+  ],
 ];
 
 $additionalTips = [
   ['icon' => 'bi-exclamation-triangle-fill', 'label' => "Learn how to use the app's emergency features"],
-  ['icon' => 'bi-credit-card-2-front-fill',  'label' => 'Use cashless payments to reduce the need to carry cash'],
-  ['icon' => 'bi-incognito',                 'label' => 'Avoid sharing personal information with passengers'],
-  ['icon' => 'bi-battery-charging',          'label' => 'Keep your phone charged and share your working hours if possible'],
-  ['icon' => 'bi-bag-heart-fill',            'label' => 'Carry a first aid kit, flashlight and fire extinguisher'],
-  ['icon' => 'bi-award-fill',                'label' => 'Dress professionally and stay courteous throughout every journey'],
+  ['icon' => 'bi-credit-card-2-front-fill', 'label' => 'Use cashless payments to reduce the need to carry cash'],
+  ['icon' => 'bi-incognito', 'label' => 'Avoid sharing personal information with passengers'],
+  ['icon' => 'bi-battery-charging', 'label' => 'Keep your phone charged and share your working hours if possible'],
+  ['icon' => 'bi-bag-heart-fill', 'label' => 'Carry a first aid kit, flashlight and fire extinguisher'],
+  ['icon' => 'bi-award-fill', 'label' => 'Dress professionally and stay courteous throughout every journey'],
 ];
 ?>
 
@@ -151,11 +203,12 @@ $additionalTips = [
 <!-- ============ CTA ============ -->
 <section class="section-pc pt-0 text-center">
   <div class="container">
-    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/safety-tips-riders">See Safety Tips for Riders &rarr;</a>
+    <a class="btn btn-pc-dark px-4" href="<?= $assetPath ?>/safety-tips-riders">See Safety Tips for Riders <i class="bi bi-chevron-right fs-8 ms-1" aria-hidden="true"></i></a>
   </div>
 </section>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
+
 ?>

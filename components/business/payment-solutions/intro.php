@@ -92,8 +92,7 @@
           "
         >
 
-          <?php
-          $paymentChecklist = [
+          <?php $paymentChecklist = [
             'PCI compliant processing',
             'Secure encrypted transactions',
             'Next day settlements',
@@ -101,8 +100,7 @@
             'Simple setup',
             'Ongoing local support',
             'Accept cards, Apple Pay & Google Pay',
-          ];
-          ?>
+          ]; ?>
 
           <?php foreach ($paymentChecklist as $item): ?>
 
@@ -129,7 +127,7 @@
               >
                 <i
                   class="bi bi-check"
-                  style="font-size: 14px;"
+                  style="font-size: 16px;"
                 ></i>
               </span>
 
@@ -145,16 +143,11 @@
       <div class="d-flex flex-wrap align-items-center gap-3">
 
         <a
-          class="btn btn-pc-primary px-4 py-2"
+          class="btn btn-pc-primary px-4"
           href="#payment-apply-form"
-          style="
-            border-radius: 50px;
-            font-weight: 700;
-            box-shadow: 0 8px 20px rgba(245,132,31,0.20);
-          "
         >
           Apply Now
-          <i class="bi bi-arrow-right-short ms-2"></i>
+          <i class="bi bi-chevron-right fs-8 ms-1"></i>
         </a>
         <div
           class="d-flex align-items-center gap-2 text-muted-pc small"

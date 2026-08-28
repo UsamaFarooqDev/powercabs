@@ -59,8 +59,8 @@ $appCards = [
               <a class="pc-form-link d-inline-flex align-items-center" href="<?= htmlspecialchars(
                 $card['playStore'],
               ) ?>" target="_blank" rel="noopener">
-                <span>Click here to download</span>
-                <i class="bi bi-arrow-right-short fs-5 ms-1"></i></a>
+                <span style="font-size: 1rem;">Click here to Download</span>
+                <i class="bi bi-arrow-right-short fs-4 ms-1"></i></a>
             </p>
 
             <div class="d-flex flex-row flex-wrap justify-content-center gap-2">

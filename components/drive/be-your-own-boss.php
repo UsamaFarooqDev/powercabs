@@ -34,7 +34,7 @@ $driverPerks = [
         </div>
         <a class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2 text-nowrap" href="<?= $assetPath ?>/ambassador-programme">
           <span>Explore Ambassador Programme</span>
-          <i class="bi bi-arrow-right-short fs-6 d-none d-sm-inline-block" aria-hidden="true"></i>
+          <i class="bi bi-chevron-right fs-8 d-none d-sm-inline-block" aria-hidden="true"></i>
         </a>
       </div>
     </div>

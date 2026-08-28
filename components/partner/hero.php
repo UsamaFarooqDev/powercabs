@@ -48,7 +48,7 @@ $ptnHeroStats = [
         <div class="d-flex flex-wrap gap-3 mb-5">
           <a class="btn btn-pc-primary btn-md px-4 rounded-pill" href="#pcPtnEnquiry">
             Become a Partner
-            <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+            <i class="bi bi-chevron-right fs-8 ms-1" aria-hidden="true"></i>
           </a>
           <a class="btn btn-outline-dark btn-md px-4 rounded-pill" href="#pcPtnCampaign">See Partner Benefits</a>
         </div>
