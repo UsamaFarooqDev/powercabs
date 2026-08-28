@@ -117,7 +117,7 @@ $rideTrustItems = [
 <!-- ============ Trust badge bar ============ -->
 <section style="padding-bottom: clamp(3.5rem, 6vw, 6rem);">
   <div class="container">
-    <div class="pc-ride-trust-bar row row-cols-2 row-cols-md-4 g-0">
+    <div class="pc-ride-trust-bar row row-cols-1 row-cols-sm-2 row-cols-md-4 g-0">
       <?php foreach ($rideTrustItems as $item): ?>
         <div class="col pc-ride-trust-item d-flex align-items-center gap-3">
           <span class="pc-ride-trust-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">

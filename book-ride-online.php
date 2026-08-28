@@ -6,6 +6,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/lib/fare_calculator.php';
 
 $rideTypeOptions = [
   'Economy',
@@ -59,6 +60,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
   } else {
+    // The client only ever supplies the trip-dependent inputs (distance/
+    // duration, from Google Directions) -- the fare itself is always
+    // recomputed here, never trusted from the submitted form. Whatever
+    // fare the browser displayed was itself sourced from
+    // api/estimate_fare.php, so this recompute should normally just
+    // confirm it -- but the server is what actually goes in the email.
+    if (
+      $old['distance_km'] !== '' &&
+      is_numeric($old['distance_km']) &&
+      $old['duration_min'] !== '' &&
+      is_numeric($old['duration_min'])
+    ) {
+      $recomputed = pc_calculate_fare((float) $old['distance_km'], (float) $old['duration_min'], $old['ride_type']);
+      $old['fare_eur'] = number_format($recomputed['fare_eur'], 2, '.', '');
+    } else {
+      $old['fare_eur'] = '';
+    }
+
     $body =
       "New online booking request from the PowerCabs website.\n\n" .
       "Name: {$old['name']}\n" .
@@ -183,7 +202,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
     <div class="row g-0 justify-content-end">
       <div class="col-12 col-lg-6 col-xl-5 px-3 px-lg-0 pe-lg-5 py-4 py-lg-5" id="pcRideFormCol">
 
-        <div class="bg-white rounded-5 p-2 p-md-5" style="box-shadow: var(--pc-shadow-lg);">
+        <div class="bg-white rounded-5 p-3 p-md-5" style="box-shadow: var(--pc-shadow-lg);">
           <div class="text-left mb-4">
             <h3 class="mb-0">Please Fill Out the Form</h3>
           </div>

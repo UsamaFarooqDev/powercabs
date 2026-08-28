@@ -355,6 +355,30 @@
   color: var(--pc-white);
 }
 
+/* Two badges side by side (Google Play + App Store) were still wrapping to
+   their own lines on narrow phones (~320-360px) even after switching to the
+   smaller badge variant -- the pair simply doesn't fit inside a padded card
+   at that width otherwise. Shrink further, sitewide, below 400px: this
+   affects every .pc-store-badge (both download-our-app.php's cards and the
+   shared app-download-banner.php drawer), which is exactly the set of
+   places two of these ever sit next to each other. */
+@media (max-width: 399.98px) {
+  .pc-store-badge img,
+  .pc-store-badge .bi-apple {
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .pc-store-badge-eyebrow {
+    font-size: 0.5rem;
+  }
+
+  .pc-store-badge-title {
+    font-size: 0.72rem;
+  }
+}
+
 /* ---------- Download App: orange gradient promo ---------- */
 .pc-app-promo {
   position: relative;
@@ -2560,7 +2584,17 @@ label.btn-outline-primary:focus,
   }
 }
 
-@media (max-width: 767.98px) {
+/* Below sm: one item per row now (was a cramped 2-up grid that squeezed
+   icon+title+subtitle -- e.g. "PowerCabs Ireland Limited" -- into ~half the
+   screen width), so each item just gets a bottom divider like a stacked
+   list instead of the right+bottom pair a 2-up grid needs. */
+@media (max-width: 575.98px) {
+  .pc-ride-trust-item:not(:last-child) {
+    border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
   .pc-ride-trust-item:nth-child(odd) {
     border-right: 1px solid rgba(28, 20, 16, 0.08);
   }
@@ -2677,6 +2711,68 @@ label.btn-outline-primary:focus,
 
 .pc-biz-band-a {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
+}
+
+/* ---------- Account benefits: business account interface mockup ----------
+   Missing entirely (dropped in a prior edit) -- this is why the "PowerCabs
+   Business" stat mockup in account-benefits.php was rendering as unstyled
+   plain text instead of a card. */
+.pc-biz-dash-card {
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.08);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-lg);
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.pc-biz-dash-stat {
+  background: var(--pc-cream-soft);
+  border-radius: var(--pc-radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.pc-biz-dash-stat-value {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--pc-dark);
+  line-height: 1.2;
+}
+
+.pc-biz-dash-stat-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-biz-dash-row {
+  padding-block: 0.65rem;
+  border-bottom: 1px solid rgba(28, 20, 16, 0.06);
+}
+
+.pc-biz-dash-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* New compact benefit tiles (One Account / Simple Billing / Full
+   Visibility) -- a subtle hover lift, matching the site's other card
+   components. */
+.pc-biz-benefit-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.pc-biz-benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pc-shadow-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-biz-benefit-card {
+    transition: none;
+  }
 }
 
 .pc-biz-band-b {
@@ -4316,4 +4412,458 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
 .pac-matched {
   font-weight: 600;
   color: var(--pc-orange) !important;
+}
+
+/* ---------- Generic scroll-reveal utility (fade + slide up) --------------
+   Any element can opt in with .pc-reveal; assets/js/main.js's
+   initScrollReveal() toggles .is-visible via IntersectionObserver. Separate
+   from #why-choose's own bespoke reveal (that one stays untouched) -- this
+   is the reusable version other pages/sections can adopt going forward. */
+.pc-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Loyalty Program page ---------- */
+
+.pc-loyalty-intro {
+  font-size: 1.12rem;
+  line-height: 1.75;
+}
+
+/* Soft gradient wash behind the intro + "How It Works" sections so the page
+   doesn't feel flat immediately under the hero. */
+.pc-loyalty-glow-top {
+  background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 55%, var(--pc-cream-soft) 100%);
+}
+
+/* Shared connected-timeline component -- used by both "How It Works" and
+   "Requirements" (same markup/classes, different icons/count) so the two
+   sections don't duplicate a bespoke layout each. */
+.pc-loyalty-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.pc-loyalty-timeline-line {
+  position: absolute;
+  left: 1.75rem;
+  top: 1.75rem;
+  bottom: 1.75rem;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--pc-orange-light) 12%,
+    var(--pc-orange-light) 88%,
+    transparent 100%
+  );
+  opacity: 0.55;
+}
+
+.pc-loyalty-timeline-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  z-index: 1;
+}
+
+.pc-loyalty-timeline-icon {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pc-orange-light) 0%, var(--pc-orange) 100%);
+  color: var(--pc-white);
+  font-size: 1.35rem;
+  box-shadow: var(--pc-shadow-md);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pc-loyalty-timeline-num {
+  position: absolute;
+  top: -0.3rem;
+  right: -0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--pc-white);
+  color: var(--pc-orange);
+  font-size: 0.68rem;
+  font-weight: 800;
+  border: 2px solid var(--pc-peach);
+}
+
+.pc-loyalty-timeline-card {
+  flex: 1;
+  min-width: 0;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.06);
+  border-radius: var(--pc-radius-lg);
+  box-shadow: var(--pc-shadow-sm);
+  padding: 1.1rem 1.4rem;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.pc-loyalty-timeline-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0;
+  color: var(--pc-dark);
+}
+
+.pc-loyalty-timeline-item:hover .pc-loyalty-timeline-card {
+  transform: translateY(-4px);
+  box-shadow: var(--pc-shadow-md);
+  border-color: rgba(255, 122, 0, 0.25);
+}
+
+.pc-loyalty-timeline-item:hover .pc-loyalty-timeline-icon {
+  transform: scale(1.08);
+}
+
+.pc-loyalty-timeline-item:nth-of-type(2) {
+  transition-delay: 0.08s;
+}
+.pc-loyalty-timeline-item:nth-of-type(3) {
+  transition-delay: 0.16s;
+}
+.pc-loyalty-timeline-item:nth-of-type(4) {
+  transition-delay: 0.24s;
+}
+
+@media (min-width: 992px) {
+  .pc-loyalty-timeline {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .pc-loyalty-timeline-line {
+    left: 12.5%;
+    right: 12.5%;
+    top: 1.75rem;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--pc-orange-light) 12%,
+      var(--pc-orange-light) 88%,
+      transparent 100%
+    );
+  }
+
+  .pc-loyalty-timeline-item {
+    flex-direction: column;
+    flex: 1;
+    text-align: center;
+  }
+
+  .pc-loyalty-timeline-card {
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-loyalty-timeline-icon,
+  .pc-loyalty-timeline-card {
+    transition: none;
+  }
+}
+
+/* Membership tier cards -- --tier-color is set inline per card (bronze/
+   silver/gold) and drives the medal + checklist icon colour, keeping the
+   card chrome itself (border/elevation on the featured tier) in PowerCabs
+   orange so the brand stays primary. */
+.pc-loyalty-tier {
+  position: relative;
+  height: 100%;
+  padding: 2rem 1.75rem;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.07);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-sm);
+  text-align: center;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.pc-loyalty-tier:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--pc-shadow-md);
+}
+
+.pc-loyalty-tier-featured {
+  border: 2px solid var(--pc-orange);
+  box-shadow: var(--pc-shadow-md);
+  transform: translateY(-10px);
+}
+
+.pc-loyalty-tier-featured:hover {
+  transform: translateY(-16px);
+  box-shadow: var(--pc-shadow-lg);
+}
+
+.pc-loyalty-tier-popular {
+  position: absolute;
+  top: -0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--pc-radius-pill);
+  background: linear-gradient(90deg, var(--pc-orange-light) 0%, var(--pc-orange) 100%);
+  color: var(--pc-white);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: var(--pc-shadow-sm);
+  white-space: nowrap;
+}
+
+.pc-loyalty-tier-medal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1.1rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tier-color, var(--pc-orange)) 16%, var(--pc-white));
+  color: var(--tier-color, var(--pc-orange));
+  font-size: 1.75rem;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--tier-color, var(--pc-orange)) 35%, transparent);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pc-loyalty-tier:hover .pc-loyalty-tier-medal {
+  transform: scale(1.04) rotate(-4deg);
+}
+
+.pc-loyalty-tier-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  color: var(--pc-dark);
+}
+
+.pc-loyalty-tier-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.pc-loyalty-tier-stat-value {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--tier-color, var(--pc-orange));
+  letter-spacing: -0.02em;
+}
+
+.pc-loyalty-tier-stat-label {
+  font-size: 0.85rem;
+  color: var(--pc-text-muted);
+}
+
+.pc-loyalty-tier-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.pc-loyalty-tier-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--pc-radius-pill);
+  background: var(--pc-cream-soft);
+  color: var(--pc-dark);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.pc-loyalty-tier-chip i {
+  color: var(--tier-color, var(--pc-orange));
+}
+
+.pc-loyalty-tier-divider {
+  margin: 0 0 1.25rem;
+  border: 0;
+  border-top: 1px solid rgba(28, 20, 16, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-loyalty-tier,
+  .pc-loyalty-tier-medal {
+    transition: none;
+  }
+}
+
+/* Subtle corner glow on the Requirements section so it doesn't read as flat
+   white after the cream Membership Levels band. */
+.pc-loyalty-requirements-glow {
+  position: absolute;
+  top: -10%;
+  right: -8%;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pc-peach) 0%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* "Why It Works" bento grid -- a large photo + two stat tiles + a second
+   photo strip, all reusing the existing .pc-service-card image-overlay
+   component for the photo cells rather than a new one-off image treatment. */
+.pc-loyalty-bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(150px, auto);
+  gap: 1.25rem;
+}
+
+.pc-loyalty-bento-cell {
+  /* Grid items default to min-width: auto, which refuses to shrink below
+     the item's own intrinsic/aspect-ratio-preferred size -- on the image
+     cells that let them blow past their track's actual width on narrow
+     phones (confirmed overflow on 320-360px viewports). min-width: 0 makes
+     them respect the grid track like every other cell already does. */
+  min-width: 0;
+  height: 100%;
+}
+
+.pc-loyalty-bento-img {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.pc-loyalty-bento-secondary-img {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.pc-loyalty-bento-img .pc-service-card-img,
+.pc-loyalty-bento-secondary-img .pc-service-card-img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pc-loyalty-bento-img:hover .pc-service-card-img,
+.pc-loyalty-bento-secondary-img:hover .pc-service-card-img {
+  transform: scale(1.03);
+}
+
+.pc-loyalty-bento-stat {
+  grid-column: span 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  background: var(--pc-white);
+  border: 1px solid rgba(28, 20, 16, 0.07);
+  border-radius: var(--pc-radius-lg);
+  box-shadow: var(--pc-shadow-sm);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.pc-loyalty-bento-stat:hover {
+  box-shadow: var(--pc-shadow-md);
+}
+
+.pc-loyalty-bento-stat-value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pc-orange);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.pc-loyalty-bento-stat-label {
+  font-size: 0.8rem;
+  color: var(--pc-text-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 767.98px) {
+  .pc-loyalty-bento {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pc-loyalty-bento-img,
+  .pc-loyalty-bento-secondary-img {
+    /* Without an explicit width, the grid's minmax(150px, auto) row height
+       combined with aspect-ratio makes the browser derive width FROM that
+       150px minimum (150 * 21/9 = 350px) instead of stretching to fill the
+       column -- confirmed overflowing 320-360px viewports by exactly that
+       much. Forcing width: 100% makes height derive from the column's
+       actual width instead, which is what was intended. */
+    width: 100%;
+  }
+
+  .pc-loyalty-bento-img {
+    grid-column: span 2;
+    grid-row: span 1;
+    aspect-ratio: 16 / 10;
+  }
+
+  .pc-loyalty-bento-secondary-img {
+    grid-column: span 2;
+    aspect-ratio: 21 / 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-loyalty-bento-stat,
+  .pc-loyalty-bento-img .pc-service-card-img,
+  .pc-loyalty-bento-secondary-img .pc-service-card-img {
+    transition: none;
+  }
 }

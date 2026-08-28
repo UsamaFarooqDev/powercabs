@@ -98,7 +98,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       -webkit-backdrop-filter: blur(24px) saturate(160%);
       border: 1px solid rgba(255, 255, 255, .08);
       border-radius: 100px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+      /* box-shadow: 0 8px 30px rgba(0, 0, 0, .25); */
       --bs-navbar-color: rgba(255, 255, 255, .85);
       --bs-navbar-hover-color: rgba(255, 255, 255, .85);
       --bs-navbar-active-color: var(--pc-orange-light);
@@ -158,7 +158,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       right: 0;
       height: 120px;
       z-index: 1029;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, .25), transparent);
+      /* background: linear-gradient(to bottom, rgba(0, 0, 0, .25), transparent); */
       pointer-events: none;
     }
 

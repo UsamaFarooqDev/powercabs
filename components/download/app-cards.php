@@ -63,20 +63,20 @@ $appCards = [
                 <i class="bi bi-arrow-right-short fs-5 ms-1"></i></a>
             </p>
 
-            <div class="d-flex flex-column gap-2">
-              <a class="pc-store-badge pc-store-badge-lg justify-content-center mx-auto" href="<?= htmlspecialchars(
+            <div class="d-flex flex-row flex-wrap justify-content-center gap-2">
+              <a class="pc-store-badge justify-content-center" href="<?= htmlspecialchars(
                 $card['playStore'],
               ) ?>" target="_blank" rel="noopener">
-                <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="22" height="22" aria-hidden="true">
+                <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="18" height="18" aria-hidden="true">
                 <span class="d-flex flex-column text-start">
                   <span class="pc-store-badge-eyebrow">Get it on</span>
                   <span class="pc-store-badge-title">Google Play</span>
                 </span>
               </a>
-              <a class="pc-store-badge pc-store-badge-lg justify-content-center mx-auto" href="<?= htmlspecialchars(
+              <a class="pc-store-badge justify-content-center" href="<?= htmlspecialchars(
                 $card['appStore'],
               ) ?>" target="_blank" rel="noopener">
-                <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
+                <i class="bi bi-apple text-white fs-6" aria-hidden="true"></i>
                 <span class="d-flex flex-column text-start">
                   <span class="pc-store-badge-eyebrow">Download on the</span>
                   <span class="pc-store-badge-title">App Store</span>

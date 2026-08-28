@@ -137,6 +137,7 @@
       if (window.syncFooterHeightVar) window.syncFooterHeightVar();
       if (window.initHeroParallax) window.initHeroParallax();
       if (window.initWhyChooseReveal) window.initWhyChooseReveal();
+      if (window.initScrollReveal) window.initScrollReveal();
       if (window.pcInitAjaxForms) window.pcInitAjaxForms();
 
       window.scrollTo({ top: 0, behavior: "auto" });

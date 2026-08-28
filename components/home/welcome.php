@@ -1,8 +1,9 @@
 <?php
-$welcomeBgImage = $assetPath . 'assets/img/welcome-section-bg.jpg';
-?>
+$welcomeBgImage = $assetPath . 'assets/img/welcome-section-bg.png'; ?>
 
-<section class="pc-welcome-section text-white" style="background-image: url('<?= htmlspecialchars($welcomeBgImage) ?>');">
+<section class="pc-welcome-section text-white" style="background-image: url('<?= htmlspecialchars(
+  $welcomeBgImage,
+) ?>');">
   <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"
         style="background: linear-gradient(120deg, rgba(18, 18, 18, .6) 0%, rgba(232, 89, 12, .55) 55%, rgba(255, 122, 0, .4) 100%);"></span>
   <div class="container position-relative">

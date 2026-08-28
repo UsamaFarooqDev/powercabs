@@ -52,3 +52,10 @@ define('PC_SMTP_PASS', pc_env('SMTP_PASS', ''));
 define('PC_SMTP_FROM_NAME', pc_env('SMTP_FROM_NAME', 'PowerCabs Website'));
 define('PC_MAIL_TO', pc_env('MAIL_TO', ''));
 define('PC_GOOGLE_MAPS_API_KEY', pc_env('GOOGLE_MAPS_API_KEY', ''));
+
+// Shared Supabase backend (pricing_config / ride_types / rides) -- same
+// project the PowerCabs Dispatcher and passenger app read from. Used only
+// by lib/fare_calculator.php to resolve the live pricing config; nothing
+// else on this site touches Supabase.
+define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', ''));
+define('PC_SUPABASE_SERVICE_KEY', pc_env('SUPABASE_SERVICE_KEY', ''));
