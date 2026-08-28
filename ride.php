@@ -100,6 +100,7 @@ $heroBgImage     = 'https://images.pexels.com/photos/1399282/pexels-photo-139928
 require __DIR__ . '/components/shared/inner-hero.php';
 
 require __DIR__ . '/components/ride/hero-fare-section.php';
+require __DIR__ . '/components/ride/power10-promo.php';
 require __DIR__ . '/components/ride/built-around.php';
 require __DIR__ . '/components/ride/ride-types.php';
 require __DIR__ . '/components/ride/booking-steps.php';
