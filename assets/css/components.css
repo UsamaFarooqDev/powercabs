@@ -164,7 +164,6 @@
     display: none !important;
   }
 }
-
 /* ---------- Choose Your Ride ---------- */
 .pc-ride-type-icon {
   width: 3rem;
@@ -172,7 +171,6 @@
   background: var(--pc-peach);
   font-size: 1.3rem;
 }
-
 /* ---------- Drive page: "Why Drive With Us" square cards ---------- */
 .pc-drive-blob {
   filter: blur(55px);
@@ -192,7 +190,6 @@
   height: 20rem;
   background: radial-gradient(circle, rgba(68, 91, 138, 0.32), transparent 70%);
 }
-
 /* ---------- Drive: "Be Your Real Boss" perk chips ---------- */
 .pc-perk-chip {
   padding: 0.55rem 1.15rem;
@@ -234,7 +231,6 @@
   background: var(--pc-peach);
   font-size: 0.85rem;
 }
-
 /* ---------- App store badges (Download App section) ---------- */
 .pc-store-badge {
   gap: 0.65rem;
@@ -261,14 +257,6 @@
   font-size: 0.95rem;
   line-height: 1.25;
 }
-
-/* Two badges side by side (Google Play + App Store) were still wrapping to
-   their own lines on narrow phones (~320-360px) even after switching to the
-   smaller badge variant -- the pair simply doesn't fit inside a padded card
-   at that width otherwise. Shrink further, sitewide, below 400px: this
-   affects every .pc-store-badge (both download-our-app.php's cards and the
-   shared app-download-banner.php drawer), which is exactly the set of
-   places two of these ever sit next to each other. */
 @media (max-width: 399.98px) {
   .pc-store-badge img,
   .pc-store-badge .bi-apple {
@@ -283,7 +271,6 @@
     font-size: 0.72rem;
   }
 }
-
 /* ---------- Download App: orange gradient promo ---------- */
 .pc-app-promo {
   background: linear-gradient(90deg, #feab38 0%, #fb9e24 25%, #f58220 65%, #e86a00 100%);
@@ -303,7 +290,6 @@
     padding-block: 64px;
   }
 }
-
 /* Standalone variant (components/app-download-banner.php) */
 .pc-app-promo.pc-app-promo-standalone {
   margin-top: clamp(2rem, 5vw, 3.5rem);
@@ -318,7 +304,6 @@
 .pc-app-float-phone {
   animation: pc-app-float 6s ease-in-out infinite;
 }
-
 /* ---------- Welcome to PowerCabs ----------*/
 .pc-welcome-section {
   min-height: 92vh;
@@ -367,7 +352,6 @@
   color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
 }
-
 /* ---------- Why Choose PowerCabs ---------- */
 #why-choose {
   padding-block: clamp(5rem, 9vw, 8rem);
@@ -501,7 +485,6 @@
     transition: none;
   }
 }
-
 /* ---------- Footer ---------- */
 .pc-footer-light {
   background: #fff;
@@ -564,7 +547,6 @@
   border-top: 1px solid rgba(28, 20, 16, 0.1);
   opacity: 1;
 }
-
 /* ---------- Phone mockup (used in Simple Steps + Download App sections) ---------- */
 .pc-phone-frame {
   width: 260px;
@@ -587,7 +569,6 @@
   height: 16px;
   background: var(--pc-dark);
 }
-
 /* ---------- Download App: floating feature cards ---------- */
 .pc-app-float-card {
   display: flex;
@@ -641,7 +622,6 @@
     animation: none;
   }
 }
-
 /* ---------- Header: fixed, floating pill positioning ---------- */
 .pc-navbar {
   --bs-navbar-disabled-color: rgba(255, 255, 255, 0.35);
@@ -652,7 +632,6 @@
     padding-block: 0.22rem;
   }
 }
-
 /* ---------- Header: scroll-aware hide/reveal */
 .pc-header {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -665,7 +644,6 @@
     transition: none;
   }
 }
-
 /* ---------- Navbar: "About" mega menu ----------*/
 .pc-mega-caret {
   font-size: 0.7rem;
@@ -1061,7 +1039,6 @@
 .pc-hero-btn-tertiary:hover i {
   transform: translateX(3px);
 }
-
 /* ---------- Hero quick-services row: transparent, bordered, no radius ---------- */
 .pc-hero-services-row {
   padding-top: 1.25rem;
@@ -1129,7 +1106,6 @@
 .pc-hero-download {
   animation-delay: 0.32s;
 }
-
 /* ---------- Underline CTA link (e.g. drive.php "Join the Family") ---------- */
 .pc-underline-cta {
   position: relative;
@@ -1337,7 +1313,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- About Us: "Our Dublin Story" CSS Grid masonry + map ---------- */
 .pc-dublin-story-heading {
   position: relative;
@@ -1465,7 +1440,6 @@ label.btn-outline-primary:focus,
     padding: 1.1rem 1.25rem;
   }
 }
-
 /* ---------- Corporate Services: mission band ---------- */
 .pc-corp-mission {
   padding-block: clamp(4rem, 8vw, 6rem);
@@ -1474,7 +1448,6 @@ label.btn-outline-primary:focus,
   background: rgba(10, 7, 5, 0.72);
   z-index: 0;
 }
-
 /* ---------- Terms & Conditions: legal document layout ---------- */
 .pc-tc-nav {
   top: 100px;
@@ -1505,7 +1478,6 @@ label.btn-outline-primary:focus,
   scroll-margin-top: 100px;
   color: var(--pc-dark);
 }
-
 /* ---------- Sustainability & Environmental Policy: green theme ---------- */
 .pc-eco-hero-scrim {
   background: linear-gradient(
@@ -1559,7 +1531,6 @@ label.btn-outline-primary:focus,
   background: linear-gradient(120deg, #2e7d32 0%, #4caf50 60%, #81c784 100%);
   border-radius: 30px;
 }
-
 /* ---------- City Tours: destination cards + booking modal ---------- */
 .pc-tour-card {
   border-radius: var(--pc-radius-xl);
@@ -1597,7 +1568,6 @@ label.btn-outline-primary:focus,
 .pc-tour-modal-header {
   z-index: 5;
 }
-
 /* ---------- City Tours: Pay Per Hour band ---------- */
 .pc-hourly-band {
   background-size: cover;
@@ -1606,7 +1576,6 @@ label.btn-outline-primary:focus,
 .pc-hourly-band-scrim {
   background: linear-gradient(100deg, rgba(10, 7, 5, 0.85) 0%, rgba(10, 7, 5, 0.6) 55%, rgba(10, 7, 5, 0.35) 100%);
 }
-
 /* ---------- Home: Payment Solutions ---------- */
 .pc-pricing-card {
   border-radius: var(--pc-radius-lg);
@@ -1664,7 +1633,6 @@ label.btn-outline-primary:focus,
     overflow-x: auto;
   }
 }
-
 /* ---------- Floating scroll-progress indicator ---------- */
 .pc-scroll-indicator {
   right: 1.5rem;
@@ -1726,7 +1694,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- PJAX top-loading bar ---------- */
 .pc-pjax-progress {
   top: 0;
@@ -1761,7 +1728,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Toast notifications (form submit result) ---------- */
 .pc-toast-container {
   top: calc(var(--pc-navbar-h, 90px) + 1rem);
@@ -1820,7 +1786,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Submit-button loading spinner (replaces the trailing icon) ---------- */
 .pc-btn-icon-spinner {
   width: 0.85rem;
@@ -1840,7 +1805,6 @@ label.btn-outline-primary:focus,
     animation-duration: 1.4s;
   }
 }
-
 /* ---------- Ride page: quick-services list (left column) ---------- */
 .pc-ride-service-item {
   padding-block: 1rem;
@@ -1868,7 +1832,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Ride page: Uber-style fare estimate widget (right column) ---------- */
 .pc-fare-card {
   background: var(--pc-white);
@@ -1957,7 +1920,6 @@ label.btn-outline-primary:focus,
   border-color: var(--pc-orange-light);
   box-shadow: none;
 }
-
 /* ---------- Ride page: quick-book modal summary ---------- */
 .pc-fare-summary {
   background: var(--pc-cream-soft);
@@ -1969,7 +1931,6 @@ label.btn-outline-primary:focus,
     animation: none;
   }
 }
-
 /* ---------- Ride page: trust badge bar (sits directly under the
    choice-panel/fare-estimate row) ---------- */
 .pc-ride-trust-bar {
@@ -1992,11 +1953,6 @@ label.btn-outline-primary:focus,
     border-right: 1px solid rgba(28, 20, 16, 0.08);
   }
 }
-
-/* Below sm: one item per row now (was a cramped 2-up grid that squeezed
-   icon+title+subtitle -- e.g. "PowerCabs Ireland Limited" -- into ~half the
-   screen width), so each item just gets a bottom divider like a stacked
-   list instead of the right+bottom pair a 2-up grid needs. */
 @media (max-width: 575.98px) {
   .pc-ride-trust-item:not(:last-child) {
     border-bottom: 1px solid rgba(28, 20, 16, 0.08);
@@ -2016,10 +1972,7 @@ label.btn-outline-primary:focus,
 .pc-booking-form .form-text {
   font-size: 0.9rem;
 }
-
 /* ============ Business page (B2B redesign) ============ */
-
-/* ---------- Hero ---------- */
 .pc-biz-hero {
   padding-top: calc(var(--pc-navbar-h, 110px) + 2rem);
   padding-bottom: clamp(3rem, 6vw, 5rem);
@@ -2064,7 +2017,6 @@ label.btn-outline-primary:focus,
     animation: none;
   }
 }
-
 /* ---------- Trust logo strip (moving marquee, real colour) ---------- */
 .pc-biz-trust {
   padding-block: clamp(2.5rem, 4vw, 3.5rem);
@@ -2093,7 +2045,6 @@ label.btn-outline-primary:focus,
     height: 28px;
   }
 }
-
 /* ---------- Services grid: shorter featured card, no top tint ---------- */
 .pc-biz-service-card-featured {
   aspect-ratio: 4 / 3;
@@ -2101,11 +2052,6 @@ label.btn-outline-primary:focus,
 .pc-biz-band-a {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
 }
-
-/* ---------- Account benefits: business account interface mockup ----------
-   Missing entirely (dropped in a prior edit) -- this is why the "PowerCabs
-   Business" stat mockup in account-benefits.php was rendering as unstyled
-   plain text instead of a card. */
 .pc-biz-dash-card {
   background: var(--pc-white);
   border: 1px solid rgba(28, 20, 16, 0.08);
@@ -2135,10 +2081,6 @@ label.btn-outline-primary:focus,
   border-bottom: 0;
   padding-bottom: 0;
 }
-
-/* New compact benefit tiles (One Account / Simple Billing / Full
-   Visibility) -- a subtle hover lift, matching the site's other card
-   components. */
 .pc-biz-benefit-card {
   transition:
     transform 0.25s ease,
@@ -2153,7 +2095,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Ireland / Dublin parallax visual ---------- */
 .pc-biz-ireland {
   padding-block: clamp(7rem, 14vw, 11rem);
@@ -2170,7 +2111,6 @@ label.btn-outline-primary:focus,
     transform: none;
   }
 }
-
 /* ---------- How It Works: step timeline ---------- */
 .pc-biz-step {
   opacity: 0;
@@ -2233,7 +2173,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Trust proof (verifiable-facts pull quote) ---------- */
 .pc-biz-quote-mark {
   font-size: 2.5rem;
@@ -2245,7 +2184,6 @@ label.btn-outline-primary:focus,
   line-height: 1.45;
   color: var(--pc-dark);
 }
-
 /* ---------- Business plans / tiers ---------- */
 .pc-biz-plan {
   background: var(--pc-white);
@@ -2281,7 +2219,6 @@ label.btn-outline-primary:focus,
     transform: none;
   }
 }
-
 /* ---------- Final CTA ---------- */
 .pc-biz-final-cta {
   padding-block: clamp(4.5rem, 8vw, 6.5rem);
@@ -2300,10 +2237,7 @@ label.btn-outline-primary:focus,
 .pc-biz-final-cta-secondary strong {
   color: var(--pc-white);
 }
-
 /* ============ Ambassador page (middle-section redesign) ============ */
-
-/* ---------- Benefits: layered editorial bento ---------- */
 .pc-amb-benefits {
   padding-block: clamp(4rem, 8vw, 6.5rem);
   background: radial-gradient(120% 100% at 85% 0%, var(--pc-peach) 0%, var(--pc-cream-soft) 50%, var(--pc-cream) 100%);
@@ -2484,7 +2418,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Journey: parallax visual moment ---------- */
 .pc-amb-journey {
   padding-block: clamp(6rem, 12vw, 9rem);
@@ -2533,7 +2466,6 @@ label.btn-outline-primary:focus,
     transition: none;
   }
 }
-
 /* ---------- Registration: split premium panel ---------- */
 .pc-amb-register {
   background: linear-gradient(180deg, var(--pc-cream) 0%, var(--pc-cream-soft) 100%);
@@ -2579,7 +2511,6 @@ body[data-page^='ambassador-programme'] .pc-amb-register {
 .pc-ptn-band-a {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 100%);
 }
-
 /* ---------- Hero ---------- */
 .pc-ptn-hero {
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
@@ -2779,7 +2710,6 @@ body[data-page^='ambassador-programme'] .pc-amb-register {
     border-bottom: 0;
   }
 }
-
 /* ---------- "More miles. More visibility." campaign section ---------- */
 .pc-ptn-campaign-title {
   font-size: clamp(2rem, 3.6vw, 3.1rem);
@@ -2867,7 +2797,6 @@ body[data-page^='ambassador-programme'] .pc-amb-register {
     grid-template-columns: 1fr;
   }
 }
-
 /* ---------- "Simple from day one" step grid ---------- */
 .pc-ptn-step-grid {
   grid-template-columns: repeat(4, 1fr);
@@ -2916,7 +2845,6 @@ body[data-page^='ambassador-programme'] .pc-amb-register {
     transition: none;
   }
 }
-
 /* ---------- "For businesses" dark CTA + enquiry form ---------- */
 .pc-ptn-business {
   padding-top: clamp(4.5rem, 9vw, 7rem);
@@ -2976,7 +2904,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     margin-top: clamp(-40px, -7vw, -60px);
   }
 }
-
 /* ---------- Grow With Us: parallax visual moment ---------- */
 .pc-ptn-growth {
   padding-block: clamp(6rem, 12vw, 9rem);
@@ -2993,7 +2920,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transform: scale(1.12);
   }
 }
-
 /* ---------- Footer: WhatsApp badge ---------- */
 .pc-wa-badge {
   background: var(--pc-white);
@@ -3056,7 +2982,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     opacity: 0;
   }
 }
-
 /* ---------- Custom dropdown */
 .pc-custom-select-native {
   inset: 0;
@@ -3142,7 +3067,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
-
 /* ---------- Custom date/time picker */
 .pc-custom-dt-native {
   inset: 0;
@@ -3356,7 +3280,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
-
 /* ---------- Google Places autocomplete suggestions */
 .pac-container {
   margin-top: 6px !important;
@@ -3387,12 +3310,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
   font-weight: 600;
   color: var(--pc-orange) !important;
 }
-
-/* ---------- Generic scroll-reveal utility (fade + slide up) --------------
-   Any element can opt in with .pc-reveal; assets/js/main.js's
-   initScrollReveal() toggles .is-visible via IntersectionObserver. Separate
-   from #why-choose's own bespoke reveal (that one stays untouched) -- this
-   is the reusable version other pages/sections can adopt going forward. */
 .pc-reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -3411,22 +3328,14 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
-
 /* ---------- Loyalty Program page ---------- */
 .pc-loyalty-intro {
   font-size: 1.12rem;
   line-height: 1.75;
 }
-
-/* Soft gradient wash behind the intro + "How It Works" sections so the page
-   doesn't feel flat immediately under the hero. */
 .pc-loyalty-glow-top {
   background: linear-gradient(180deg, #ffffff 0%, var(--pc-cream-soft) 55%, var(--pc-cream-soft) 100%);
 }
-
-/* Shared connected-timeline component -- used by both "How It Works" and
-   "Requirements" (same markup/classes, different icons/count) so the two
-   sections don't duplicate a bespoke layout each. */
 .pc-loyalty-timeline {
   flex-direction: column;
   gap: 1.75rem;
@@ -3537,11 +3446,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
-
-/* Membership tier cards -- --tier-color is set inline per card (bronze/
-   silver/gold) and drives the medal + checklist icon colour, keeping the
-   card chrome itself (border/elevation on the featured tier) in PowerCabs
-   orange so the brand stays primary. */
 .pc-loyalty-tier {
   padding: 2rem 1.75rem;
   background: var(--pc-white);
@@ -3634,9 +3538,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
-
-/* Subtle corner glow on the Requirements section so it doesn't read as flat
-   white after the cream Membership Levels band. */
 .pc-loyalty-requirements-glow {
   top: -10%;
   right: -8%;
@@ -3647,21 +3548,12 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
   pointer-events: none;
   z-index: 0;
 }
-
-/* "Why It Works" bento grid -- a large photo + two stat tiles + a second
-   photo strip, all reusing the existing .pc-service-card image-overlay
-   component for the photo cells rather than a new one-off image treatment. */
 .pc-loyalty-bento {
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(150px, auto);
   gap: 1.25rem;
 }
 .pc-loyalty-bento-cell {
-  /* Grid items default to min-width: auto, which refuses to shrink below
-       the item's own intrinsic/aspect-ratio-preferred size -- on the image
-       cells that let them blow past their track's actual width on narrow
-       phones (confirmed overflow on 320-360px viewports). min-width: 0 makes
-       them respect the grid track like every other cell already does. */
   min-width: 0;
 }
 .pc-loyalty-bento-img {
@@ -3712,12 +3604,6 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
   }
   .pc-loyalty-bento-img,
   .pc-loyalty-bento-secondary-img {
-    /* Without an explicit width, the grid's minmax(150px, auto) row height
-           combined with aspect-ratio makes the browser derive width FROM that
-           150px minimum (150 * 21/9 = 350px) instead of stretching to fill the
-           column -- confirmed overflowing 320-360px viewports by exactly that
-           much. Forcing width: 100% makes height derive from the column's
-           actual width instead, which is what was intended. */
     width: 100%;
   }
   .pc-loyalty-bento-img {
@@ -3737,12 +3623,7 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
-
-/* ---------- Ride page: "Power10" promo campaign ----------
-   Deliberately its own small red palette (--pc-power10-*) rather than the
-   sitewide orange tokens -- a "sale" cue that reads as a distinct campaign
-   moment, while the card chrome around it (white background, radii,
-   shadows) stays identical to the rest of the site. */
+/* ---------- Ride page: "Power10" promo campaign ---------- */
 .pc-power10 {
   --pc-power10-red: #dc2626;
   --pc-power10-red-dark: #b91c1c;
