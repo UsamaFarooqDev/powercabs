@@ -38,7 +38,7 @@ $appCards = [
       <?php foreach ($appCards as $card): ?>
         <div class="col-md-6 col-lg-5">
           <div class="rounded-4 bg-white h-100 text-center p-4 p-md-5" style="box-shadow: var(--pc-shadow-sm);">
-            <span class="pc-ride-type-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 3.5rem; height: 3.5rem; font-size: 1.5rem;">
+            <span class="pc-ride-type-icon text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 3.5rem; height: 3.5rem; font-size: 1.5rem;">
               <i class="bi <?= $card['icon'] ?>"></i>
             </span>
             <h2 class="fs-4 fw-bold mb-2"><?= htmlspecialchars($card['title']) ?></h2>
@@ -64,22 +64,22 @@ $appCards = [
             </p>
 
             <div class="d-flex flex-row flex-wrap justify-content-center gap-2">
-              <a class="pc-store-badge justify-content-center" href="<?= htmlspecialchars(
+              <a class="pc-store-badge justify-content-center d-inline-flex align-items-center text-decoration-none" href="<?= htmlspecialchars(
                 $card['playStore'],
               ) ?>" target="_blank" rel="noopener">
                 <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="18" height="18" aria-hidden="true">
                 <span class="d-flex flex-column text-start">
-                  <span class="pc-store-badge-eyebrow">Get it on</span>
-                  <span class="pc-store-badge-title">Google Play</span>
+                  <span class="pc-store-badge-eyebrow d-block text-uppercase">Get it on</span>
+                  <span class="pc-store-badge-title d-block fw-bold text-white">Google Play</span>
                 </span>
               </a>
-              <a class="pc-store-badge justify-content-center" href="<?= htmlspecialchars(
+              <a class="pc-store-badge justify-content-center d-inline-flex align-items-center text-decoration-none" href="<?= htmlspecialchars(
                 $card['appStore'],
               ) ?>" target="_blank" rel="noopener">
                 <i class="bi bi-apple text-white fs-6" aria-hidden="true"></i>
                 <span class="d-flex flex-column text-start">
-                  <span class="pc-store-badge-eyebrow">Download on the</span>
-                  <span class="pc-store-badge-title">App Store</span>
+                  <span class="pc-store-badge-eyebrow d-block text-uppercase">Download on the</span>
+                  <span class="pc-store-badge-title d-block fw-bold text-white">App Store</span>
                 </span>
               </a>
             </div>

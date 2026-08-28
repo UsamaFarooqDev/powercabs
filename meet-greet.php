@@ -259,7 +259,7 @@ $bookingSteps = [
 
       <!-- LEFT: branding / visual side -->
       <div class="col-lg-5 pc-mg-visual position-relative overflow-hidden text-white p-4 p-lg-5 d-flex flex-column">
-        <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
+        <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
         <i class="bi bi-airplane-fill pc-mg-visual-plane" aria-hidden="true"></i>
 
         <span class="pc-mg-badge d-inline-flex align-items-center gap-2 align-self-start mb-4">

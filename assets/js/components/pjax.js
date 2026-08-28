@@ -16,7 +16,7 @@
     if (!bar) {
       bar = document.createElement("div");
       bar.id = "pcPjaxProgress";
-      bar.className = "pc-pjax-progress";
+      bar.className = "pc-pjax-progress position-fixed";
       document.body.appendChild(bar);
     }
     // Restart the animation if a previous nav's bar is still fading out.

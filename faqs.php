@@ -142,10 +142,10 @@ require __DIR__ . '/components/shared/inner-hero.php';
       From booking to drop-off, see just how simple getting around with PowerCabs really is.
     </p>
 
-    <div class="pc-video-placeholder position-relative mx-auto overflow-hidden">
+    <div class="pc-video-placeholder w-100 position-relative mx-auto overflow-hidden">
       <img src="<?= $assetPath ?>assets/img/service-city-tour.jpg" alt="" aria-hidden="true" class="w-100 h-100 object-fit-cover">
       <span class="pc-video-placeholder-scrim position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-      <button type="button" class="pc-video-play-btn position-absolute top-50 start-50 translate-middle" aria-label="Play demo video">
+      <button type="button" class="pc-video-play-btn text-white border-0 rounded-circle d-inline-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle" aria-label="Play demo video">
         <i class="bi bi-play-fill"></i>
       </button>
     </div>
@@ -231,7 +231,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ) ?>">
               <source src="<?= $assetPath ?>assets/vid/<?= $video['file'] ?>" type="video/mp4">
             </video>
-            <button type="button" class="pc-tutorial-play-btn position-absolute top-50 start-50 translate-middle" aria-label="Play <?= htmlspecialchars(
+            <button type="button" class="pc-tutorial-play-btn text-white border-0 rounded-circle d-inline-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle" aria-label="Play <?= htmlspecialchars(
               strip_tags($video['label']),
             ) ?> video">
               <i class="bi bi-play-fill"></i>
@@ -255,7 +255,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ) ?>">
               <source src="<?= $assetPath ?>assets/vid/<?= $video['file'] ?>" type="video/mp4">
             </video>
-            <button type="button" class="pc-tutorial-play-btn position-absolute top-50 start-50 translate-middle" aria-label="Play <?= htmlspecialchars(
+            <button type="button" class="pc-tutorial-play-btn text-white border-0 rounded-circle d-inline-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle" aria-label="Play <?= htmlspecialchars(
               strip_tags($video['label']),
             ) ?> video">
               <i class="bi bi-play-fill"></i>

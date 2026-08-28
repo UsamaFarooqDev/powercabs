@@ -81,7 +81,7 @@ require __DIR__ . '/components/drive/join-family-stats.php';
           Flexible hours, competitive earnings, and 24/7 support &mdash; join a community that
           values safety, reliability, and your success.
         </p>
-        <a class="pc-underline-cta" href="<?= $assetPath ?>/download-our-app">Already Registered? Get Started</a>
+        <a class="pc-underline-cta d-inline-block text-decoration-none" href="<?= $assetPath ?>/download-our-app">Already Registered? Get Started</a>
       </div>
     </div>
   </div>

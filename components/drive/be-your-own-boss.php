@@ -12,8 +12,8 @@ $driverPerks = [
 <!-- ============ Be Your Real Boss ============ -->
 <section class="section-pc position-relative overflow-hidden">
    <div class="container py-5">
-  <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
-  <span class="pc-drive-blob pc-drive-blob-dark" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-dark" aria-hidden="true"></span>
 
   <div class="container position-relative">
     <div class="row">
@@ -26,7 +26,7 @@ $driverPerks = [
         </p>
         <div class="d-flex flex-wrap gap-2 gap-md-3 mb-5">
           <?php foreach ($driverPerks as $perk): ?>
-            <span class="pc-perk-chip d-inline-flex align-items-center gap-2">
+            <span class="pc-perk-chip position-relative rounded-pill d-inline-flex align-items-center gap-2">
               <i class="bi <?= $perk['icon'] ?>" aria-hidden="true"></i>
               <?= htmlspecialchars($perk['label']) ?>
             </span>

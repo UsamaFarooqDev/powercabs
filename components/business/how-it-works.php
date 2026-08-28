@@ -17,9 +17,9 @@ $totalBizHowSteps = count($bizHowSteps);
       <?php foreach ($bizHowSteps as $i => $step): ?>
         <?php $isLast = $i === $totalBizHowSteps - 1; ?>
         <div class="col">
-          <div class="pc-biz-step d-flex<?= $isLast ? ' pc-biz-step-last' : '' ?>">
+          <div class="pc-biz-step position-relative d-flex<?= $isLast ? ' pc-biz-step-last' : '' ?>">
             <div class="pc-biz-step-num-wrap d-flex flex-column align-items-center flex-shrink-0">
-              <span class="pc-biz-step-num d-flex align-items-center justify-content-center rounded-circle fw-bold">
+              <span class="pc-biz-step-num text-white d-flex align-items-center justify-content-center rounded-circle fw-bold">
                 <?= htmlspecialchars($step['n']) ?>
               </span>
               <span class="pc-biz-step-rail-mobile d-lg-none" aria-hidden="true"></span>

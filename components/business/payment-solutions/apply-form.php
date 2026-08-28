@@ -65,9 +65,9 @@ $countries = [
 ?>
 <section class="section-pc position-relative overflow-hidden" id="payment-apply-form" style="scroll-margin-top: 6rem;">
   <!-- Decorative background blobs, purely visual -->
-  <div class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></div>
-  <div class="pc-drive-blob pc-drive-blob-dark" aria-hidden="true"></div>
-  <div class="pc-drive-blob" aria-hidden="true" style="top: 55%; right: -6rem; width: 16rem; height: 16rem; background: radial-gradient(circle, rgba(232, 89, 12, .16), transparent 70%);"></div>
+  <div class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></div>
+  <div class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-dark" aria-hidden="true"></div>
+  <div class="pc-drive-blob position-absolute rounded-circle z-0" aria-hidden="true" style="top: 55%; right: -6rem; width: 16rem; height: 16rem; background: radial-gradient(circle, rgba(232, 89, 12, .16), transparent 70%);"></div>
 
   <div class="container position-relative" style="max-width: 900px;">
     <div class="text-center mb-5">

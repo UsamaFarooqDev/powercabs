@@ -55,7 +55,7 @@ $rideTrustItems = [
       <!-- Right: Uber-style fare estimate widget -->
       <div class="col-lg-6 order-1 order-lg-2">
         <div class="pc-fare-card">
-          <span class="pc-fare-pickup-badge d-inline-flex align-items-center gap-2">
+          <span class="pc-fare-pickup-badge rounded-pill d-inline-flex align-items-center gap-2">
             <i class="bi bi-clock-fill" aria-hidden="true"></i> Pickup Now
           </span>
 
@@ -63,20 +63,20 @@ $rideTrustItems = [
           <p class="text-muted-pc mb-4">Enter your pickup and drop-off to see the standard fare before you book.</p>
 
           <div class="pc-fare-inputs d-flex">
-            <div class="pc-fare-markers d-flex flex-column align-items-center">
-              <span class="pc-fare-dot" aria-hidden="true"></span>
+            <div class="pc-fare-markers flex-shrink-0 d-flex flex-column align-items-center">
+              <span class="pc-fare-dot rounded-circle flex-shrink-0" aria-hidden="true"></span>
               <span class="pc-fare-line-connector" aria-hidden="true"></span>
-              <span class="pc-fare-square" aria-hidden="true"></span>
+              <span class="pc-fare-square flex-shrink-0" aria-hidden="true"></span>
             </div>
             <div class="flex-grow-1" style="min-width: 0;">
-              <div class="pc-fare-input-row">
-                <input type="text" id="rfPickup" class="pc-fare-input" placeholder="Pickup location" autocomplete="off">
-                <button type="button" id="rfLocateBtn" class="pc-fare-locate-btn" aria-label="Use current location">
+              <div class="pc-fare-input-row d-flex align-items-center gap-2">
+                <input type="text" id="rfPickup" class="pc-fare-input border-0 bg-transparent" placeholder="Pickup location" autocomplete="off">
+                <button type="button" id="rfLocateBtn" class="pc-fare-locate-btn flex-shrink-0 border-0 bg-transparent text-primary p-1" aria-label="Use current location">
                   <i class="bi bi-crosshair" aria-hidden="true"></i>
                 </button>
               </div>
-              <div class="pc-fare-input-row">
-                <input type="text" id="rfDropoff" class="pc-fare-input" placeholder="Drop-off location" autocomplete="off">
+              <div class="pc-fare-input-row d-flex align-items-center gap-2">
+                <input type="text" id="rfDropoff" class="pc-fare-input border-0 bg-transparent" placeholder="Drop-off location" autocomplete="off">
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@ $rideTrustItems = [
     <div class="pc-ride-trust-bar row row-cols-1 row-cols-sm-2 row-cols-md-4 g-0">
       <?php foreach ($rideTrustItems as $item): ?>
         <div class="col pc-ride-trust-item d-flex align-items-center gap-3">
-          <span class="pc-ride-trust-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
+          <span class="pc-ride-trust-icon text-primary d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
             <?php if ($item['icon'] === 'ie-badge'): ?>
               <span class="fw-bold" style="font-size: .7rem; letter-spacing: .02em;">IE</span>
             <?php else: ?>

@@ -6,7 +6,7 @@
   }
 </style>
 <!-- ============ Download the PowerCabs App ============ -->
-<section class="pc-app-promo">
+<section class="pc-app-promo position-relative z-2">
   <div class="pc-app-promo-container position-relative">
     <div class="row align-items-center gy-5">
 
@@ -19,18 +19,18 @@
         </p>
 
         <div class="d-flex flex-wrap gap-2 mb-4">
-          <a class="pc-store-badge pc-store-badge-lg" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
+          <a class="pc-store-badge pc-store-badge-lg d-inline-flex align-items-center text-decoration-none" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
             <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="22" height="22" aria-hidden="true">
             <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow">Get it on</span>
-              <span class="pc-store-badge-title">Google Play</span>
+              <span class="pc-store-badge-eyebrow d-block text-uppercase">Get it on</span>
+              <span class="pc-store-badge-title d-block fw-bold text-white">Google Play</span>
             </span>
           </a>
-          <a class="pc-store-badge pc-store-badge-lg" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
+          <a class="pc-store-badge pc-store-badge-lg d-inline-flex align-items-center text-decoration-none" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
             <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
             <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow">Download on the</span>
-              <span class="pc-store-badge-title">App Store</span>
+              <span class="pc-store-badge-eyebrow d-block text-uppercase">Download on the</span>
+              <span class="pc-store-badge-title d-block fw-bold text-white">App Store</span>
             </span>
           </a>
         </div>
@@ -47,7 +47,7 @@
     $mockupFloatCards = function () {
       ?>
       <!-- Live Tracking card -->
-      <div class="pc-app-float-card pc-app-float-card-a d-flex align-items-center gap-2 bg-white rounded-4 shadow p-2">
+      <div class="pc-app-float-card pc-app-float-card-a position-absolute z-2 d-flex align-items-center gap-2 bg-white rounded-4 shadow p-2">
         <div class="position-relative d-flex align-items-center justify-content-center flex-shrink-0" style="width: 38px; height: 38px;">
           <span class="position-absolute top-0 start-0 w-100 h-100 rounded-circle" style="background: var(--pc-orange); animation: pcLiveTrackPulse 1.8s ease-out infinite;"></span>
           <span class="position-relative d-flex align-items-center justify-content-center rounded-circle text-white" style="width: 30px; height: 30px; background: var(--pc-orange);">
@@ -73,7 +73,7 @@
       </div>
 
       <!-- Secure Payments card -->
-      <div class="pc-app-float-card pc-app-float-card-b d-flex align-items-center gap-2 bg-white rounded-4 shadow p-3">
+      <div class="pc-app-float-card pc-app-float-card-b position-absolute z-2 d-flex align-items-center gap-2 bg-white rounded-4 shadow p-3">
         <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 38px; height: 38px; background: rgba(25, 135, 84, .12);">
           <i class="bi bi-shield-check text-success" style="font-size: 1.05rem;"></i>
         </div>

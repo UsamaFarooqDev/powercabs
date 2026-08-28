@@ -41,27 +41,27 @@ $bizAccountBenefits = [
 
           <div class="row row-cols-1 row-cols-sm-2 g-3 mb-4">
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">128</span>
-                <span class="pc-biz-dash-stat-label">Bookings this month</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">128</span>
+                <span class="pc-biz-dash-stat-label d-block">Bookings this month</span>
               </div>
             </div>
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">6</span>
-                <span class="pc-biz-dash-stat-label">Active journeys</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">6</span>
+                <span class="pc-biz-dash-stat-label d-block">Active journeys</span>
               </div>
             </div>
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">&euro;2,340</span>
-                <span class="pc-biz-dash-stat-label">Monthly spend</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">&euro;2,340</span>
+                <span class="pc-biz-dash-stat-label d-block">Monthly spend</span>
               </div>
             </div>
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">14</span>
-                <span class="pc-biz-dash-stat-label">Team members</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">14</span>
+                <span class="pc-biz-dash-stat-label d-block">Team members</span>
               </div>
             </div>
           </div>

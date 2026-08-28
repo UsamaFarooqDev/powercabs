@@ -87,16 +87,16 @@ function pc_loyalty_split_stat(string $item): array
 function pc_render_loyalty_timeline(array $items): void
 {
   ?>
-  <div class="pc-loyalty-timeline">
-    <span class="pc-loyalty-timeline-line" aria-hidden="true"></span>
+  <div class="pc-loyalty-timeline position-relative d-flex">
+    <span class="pc-loyalty-timeline-line position-absolute" aria-hidden="true"></span>
     <?php foreach ($items as $item): ?>
-      <div class="pc-loyalty-timeline-item pc-reveal">
-        <span class="pc-loyalty-timeline-icon">
+      <div class="pc-loyalty-timeline-item position-relative d-flex align-items-center z-1 pc-reveal">
+        <span class="pc-loyalty-timeline-icon position-relative flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle text-white">
           <i class="bi <?= htmlspecialchars($item['icon']) ?>" aria-hidden="true"></i>
-          <span class="pc-loyalty-timeline-num"><?= (int) $item['n'] ?></span>
+          <span class="pc-loyalty-timeline-num position-absolute d-flex align-items-center justify-content-center rounded-circle text-primary"><?= (int) $item['n'] ?></span>
         </span>
         <div class="pc-loyalty-timeline-card">
-          <h3 class="pc-loyalty-timeline-title"><?= htmlspecialchars($item['title']) ?></h3>
+          <h3 class="pc-loyalty-timeline-title fw-bold mb-0"><?= htmlspecialchars($item['title']) ?></h3>
         </div>
       </div>
     <?php endforeach; ?>
@@ -140,37 +140,37 @@ function pc_render_loyalty_timeline(array $items): void
         $remainingPerks = array_slice($tier['items'], 3);
         ?>
         <div class="col-md-4">
-          <div class="pc-loyalty-tier pc-reveal<?= $tier['featured']
+          <div class="pc-loyalty-tier position-relative h-100 text-center pc-reveal<?= $tier['featured']
             ? ' pc-loyalty-tier-featured'
             : '' ?>" style="--tier-color: <?= htmlspecialchars($tier['color']) ?>;">
             <?php if ($tier['featured']): ?>
-              <span class="pc-loyalty-tier-popular"><i class="bi bi-star-fill" aria-hidden="true"></i> Most Popular</span>
+              <span class="pc-loyalty-tier-popular position-absolute rounded-pill d-inline-flex align-items-center text-white text-uppercase text-nowrap"><i class="bi bi-star-fill" aria-hidden="true"></i> Most Popular</span>
             <?php endif; ?>
 
-            <span class="pc-loyalty-tier-medal"><i class="bi bi-award-fill" aria-hidden="true"></i></span>
+            <span class="pc-loyalty-tier-medal d-inline-flex align-items-center justify-content-center rounded-circle"><i class="bi bi-award-fill" aria-hidden="true"></i></span>
             <h3 class="pc-loyalty-tier-name"><?= htmlspecialchars($tier['name']) ?></h3>
 
             <?php if ($pointsValue !== null): ?>
-              <div class="pc-loyalty-tier-stat">
+              <div class="pc-loyalty-tier-stat d-flex align-items-baseline justify-content-center mb-3">
                 <span class="pc-loyalty-tier-stat-value"><?= htmlspecialchars($pointsValue) ?></span>
                 <span class="pc-loyalty-tier-stat-label"><?= htmlspecialchars($pointsLabel) ?></span>
               </div>
             <?php endif; ?>
 
-            <div class="pc-loyalty-tier-row">
+            <div class="pc-loyalty-tier-row d-flex flex-wrap justify-content-center gap-2">
               <?php if ($milestoneText): ?>
-                <span class="pc-loyalty-tier-chip"><i class="bi bi-flag-fill" aria-hidden="true"></i> <?= htmlspecialchars(
+                <span class="pc-loyalty-tier-chip d-inline-flex align-items-center rounded-pill"><i class="bi bi-flag-fill" aria-hidden="true"></i> <?= htmlspecialchars(
                   $milestoneText,
                 ) ?></span>
               <?php endif; ?>
               <?php if ($priorityText): ?>
-                <span class="pc-loyalty-tier-chip"><i class="bi bi-lightning-charge-fill" aria-hidden="true"></i> <?= htmlspecialchars(
+                <span class="pc-loyalty-tier-chip d-inline-flex align-items-center rounded-pill"><i class="bi bi-lightning-charge-fill" aria-hidden="true"></i> <?= htmlspecialchars(
                   $priorityText,
                 ) ?></span>
               <?php endif; ?>
             </div>
 
-            <hr class="pc-loyalty-tier-divider">
+            <hr class="pc-loyalty-tier-divider border-0">
 
             <ul class="list-unstyled d-flex flex-column gap-2 mb-0 text-start">
               <?php foreach ($remainingPerks as $item): ?>
@@ -196,33 +196,33 @@ function pc_render_loyalty_timeline(array $items): void
       <h2 class="mb-0">Loyalty That Actually Pays Off</h2>
     </div>
 
-    <div class="pc-loyalty-bento">
-      <div class="pc-loyalty-bento-cell pc-loyalty-bento-img pc-reveal">
+    <div class="pc-loyalty-bento d-grid">
+      <div class="pc-loyalty-bento-cell h-100 pc-loyalty-bento-img pc-reveal">
         <div class="pc-service-card d-block position-relative overflow-hidden h-100" style="border-radius: var(--pc-radius-lg);">
           <img src="https://images.pexels.com/photos/31335088/pexels-photo-31335088.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A happy PowerCabs driver at the wheel of her taxi at night" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title d-block fs-5 fw-bold">Every completed ride moves you closer to your next reward.</span>
+            <span class="pc-service-card-title text-white d-block fs-5 fw-bold">Every completed ride moves you closer to your next reward.</span>
           </span>
         </div>
       </div>
 
-      <div class="pc-loyalty-bento-cell pc-loyalty-bento-stat pc-reveal">
-        <span class="pc-loyalty-bento-stat-value">3</span>
+      <div class="pc-loyalty-bento-cell h-100 pc-loyalty-bento-stat d-flex flex-column align-items-center justify-content-center text-center pc-reveal">
+        <span class="pc-loyalty-bento-stat-value text-primary">3</span>
         <span class="pc-loyalty-bento-stat-label">Membership tiers to climb</span>
       </div>
 
-      <div class="pc-loyalty-bento-cell pc-loyalty-bento-stat pc-reveal">
-        <span class="pc-loyalty-bento-stat-value">45%</span>
+      <div class="pc-loyalty-bento-cell h-100 pc-loyalty-bento-stat d-flex flex-column align-items-center justify-content-center text-center pc-reveal">
+        <span class="pc-loyalty-bento-stat-value text-primary">45%</span>
         <span class="pc-loyalty-bento-stat-label">Higher chance of priority trips at Silver+</span>
       </div>
 
-      <div class="pc-loyalty-bento-cell pc-loyalty-bento-secondary-img pc-reveal">
+      <div class="pc-loyalty-bento-cell h-100 pc-loyalty-bento-secondary-img pc-reveal">
         <div class="pc-service-card d-block position-relative overflow-hidden h-100" style="border-radius: var(--pc-radius-lg);">
           <img src="https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1200&q=60" alt="Two people shaking hands" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-3">
-            <span class="pc-service-card-title d-block fs-6 fw-bold">Priority support, every step of the way.</span>
+            <span class="pc-service-card-title text-white d-block fs-6 fw-bold">Priority support, every step of the way.</span>
           </span>
         </div>
       </div>
@@ -232,7 +232,7 @@ function pc_render_loyalty_timeline(array $items): void
 
 <!-- ============ Requirements ============ -->
 <section class="section-pc bg-white position-relative overflow-hidden">
-  <span class="pc-loyalty-requirements-glow" aria-hidden="true"></span>
+  <span class="pc-loyalty-requirements-glow position-absolute rounded-circle z-0" aria-hidden="true"></span>
   <div class="container position-relative" style="max-width: 1040px; z-index: 1;">
     <div class="text-center mb-5">
       <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Requirements</p>

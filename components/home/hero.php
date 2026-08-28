@@ -1,6 +1,6 @@
-<section class="pc-hero">
-  <div class="pc-hero-canvas" aria-hidden="true">
-    <svg class="pc-hero-road" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+<section class="pc-hero position-relative overflow-hidden d-flex align-items-center text-white">
+  <div class="pc-hero-canvas position-absolute overflow-hidden z-0" aria-hidden="true">
+    <svg class="pc-hero-road position-absolute w-100 h-100" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
       <defs>
         <filter id="pcRoadGlow" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="2.5" result="blur"/>
@@ -41,13 +41,13 @@
         <path d="M520,0 Q900,360 1200,395" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
       </g>
     </svg>
-    <span class="pc-hero-glow"></span>
+    <span class="pc-hero-glow position-absolute rounded-circle"></span>
   </div>
 
   <div class="container position-relative">
     <div class="row align-items-center gy-5">
-      <div class="col-lg-9 pc-hero-text">
-        <h1 class="pc-hero-title">Your Journey.<br>Smarter. Faster. Premium.</h1>
+      <div class="col-lg-9 pc-hero-text position-relative z-1">
+        <h1 class="pc-hero-title mb-4 text-white">Your Journey.<br>Smarter. Faster. Premium.</h1>
         <p class="pc-hero-lead">
           Book reliable rides, drive with confidence, or manage corporate travel &mdash;
           all from one intelligent mobility platform.
@@ -55,25 +55,25 @@
 
         <div class="d-flex flex-wrap align-items-center gap-3 pc-hero-ctas">
           <a class="btn btn-pc-primary btn-md px-4" href="<?= $assetPath ?>/ride">Book a Ride</a>
-          <a class="pc-hero-btn-secondary btn-md" href="<?= $assetPath ?>/drive">Become a Driver</a>
-          <a class="pc-hero-btn-tertiary btn-md" href="<?= $assetPath ?>/business">
+          <a class="pc-hero-btn-secondary rounded-pill d-inline-flex align-items-center text-decoration-none btn-md" href="<?= $assetPath ?>/drive">Become a Driver</a>
+          <a class="pc-hero-btn-tertiary d-inline-flex align-items-center text-decoration-none btn-md" href="<?= $assetPath ?>/business">
             Business Solutions <i class="bi bi-arrow-right-short fs-4"></i>
           </a>
         </div>
 
         <div class="d-flex flex-wrap align-items-center gap-2 pc-hero-download">
-          <a class="pc-store-badge" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
+          <a class="pc-store-badge d-inline-flex align-items-center text-decoration-none" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
             <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="20" height="20" aria-hidden="true">
             <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow">Get it on</span>
-              <span class="pc-store-badge-title">Google Play</span>
+              <span class="pc-store-badge-eyebrow d-block text-uppercase">Get it on</span>
+              <span class="pc-store-badge-title d-block fw-bold text-white">Google Play</span>
             </span>
           </a>
-          <a class="pc-store-badge" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
+          <a class="pc-store-badge d-inline-flex align-items-center text-decoration-none" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
             <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
             <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow">Download on the</span>
-              <span class="pc-store-badge-title">App Store</span>
+              <span class="pc-store-badge-eyebrow d-block text-uppercase">Download on the</span>
+              <span class="pc-store-badge-title d-block fw-bold text-white">App Store</span>
             </span>
           </a>
         </div>
@@ -90,12 +90,12 @@
       ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
     ];
     ?>
-    <div class="row row-cols-2 row-cols-md-5 g-0 pc-hero-services-row">
+    <div class="row row-cols-2 row-cols-md-5 g-0 pc-hero-services-row mt-4">
       <?php foreach ($heroServices as $service): ?>
         <div class="col">
-          <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-hero-service-tile d-flex flex-column align-items-center text-decoration-none text-center w-100 h-100">
-            <i class="bi <?= $service['icon'] ?> pc-hero-service-icon" aria-hidden="true"></i>
-            <span class="pc-hero-service-label"><?= htmlspecialchars($service['label']) ?></span>
+          <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-hero-service-tile bg-transparent rounded-0 text-white d-flex flex-column align-items-center text-decoration-none text-center w-100 h-100">
+            <i class="bi <?= $service['icon'] ?> pc-hero-service-icon d-block" aria-hidden="true"></i>
+            <span class="pc-hero-service-label text-white"><?= htmlspecialchars($service['label']) ?></span>
           </a>
         </div>
       <?php endforeach; ?>

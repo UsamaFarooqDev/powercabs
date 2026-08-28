@@ -25,15 +25,15 @@ $partnerBizBenefits = [
   ['title' => 'Driver Management', 'desc' => 'Onboard and manage your drivers through one simple system.'],
 ];
 ?>
-<section class="pc-ptn-business position-relative overflow-hidden" id="pcPtnEnquiry" style="scroll-margin-top: 6rem;">
-  <img src="https://images.pexels.com/photos/29566896/pexels-photo-29566896.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="pc-ptn-business-bg position-absolute top-0 start-0 w-100 h-100" loading="lazy">
-  <span class="pc-ptn-business-scrim position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
+<section class="pc-ptn-business text-white position-relative overflow-hidden" id="pcPtnEnquiry" style="scroll-margin-top: 6rem;">
+  <img src="https://images.pexels.com/photos/29566896/pexels-photo-29566896.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="object-fit-cover z-0 position-absolute top-0 start-0 w-100 h-100" loading="lazy">
+  <span class="pc-ptn-business-scrim z-0 position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
 
   <div class="container position-relative">
     <div class="row gy-5 align-items-center">
       <div class="col-lg-6">
         <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .08em; color: var(--pc-orange-light);">/ For Businesses</p>
-        <h2 class="pc-ptn-business-title mb-3">Put Your Fleet to Work on the PowerCabs Network.</h2>
+        <h2 class="pc-ptn-business-title text-white mb-3">Put Your Fleet to Work on the PowerCabs Network.</h2>
         <p class="pc-ptn-business-sub mb-4">
           Reach more passengers across a growing booking network without
           building your own platform. Tell us about your business and our
@@ -43,7 +43,7 @@ $partnerBizBenefits = [
         <div class="row row-cols-1 row-cols-sm-2 g-3">
           <?php foreach ($partnerBizBenefits as $b): ?>
             <div class="col">
-              <div class="pc-ptn-biz-benefit">
+              <div class="pc-ptn-biz-benefit h-100">
                 <strong><?= htmlspecialchars($b['title']) ?></strong>
                 <span><?= htmlspecialchars($b['desc']) ?></span>
               </div>

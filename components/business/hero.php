@@ -31,7 +31,7 @@ $bizHeroChecks = [
 ) ?></script>
 
 <section class="pc-biz-hero position-relative overflow-hidden">
-  <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
 
   <div class="container position-relative">
     <nav aria-label="breadcrumb" class="mb-4">
@@ -77,10 +77,10 @@ $bizHeroChecks = [
       </div>
 
       <div class="col-lg-6">
-        <div class="pc-biz-hero-media position-relative mx-auto" style="max-width: 460px;">
+        <div class="pc-biz-hero-media overflow-hidden position-relative mx-auto" style="max-width: 460px;">
           <img src="<?= $assetPath ?>assets/img/services-corporate.jpg" alt="Business traveller in the back seat of a PowerCabs vehicle, on the way to a meeting" class="w-100 h-100 object-fit-cover" loading="eager">
 
-          <div class="pc-biz-hero-chip pc-biz-hero-chip-a d-flex align-items-center gap-2">
+          <div class="pc-biz-hero-chip pc-biz-hero-chip-a position-absolute z-2 d-flex align-items-center gap-2">
             <span class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 30px; height: 30px; background: rgba(25,135,84,.12);">
               <i class="bi bi-check-circle-fill text-success" style="font-size: .9rem;"></i>
             </span>
@@ -90,7 +90,7 @@ $bizHeroChecks = [
             </span>
           </div>
 
-          <div class="pc-biz-hero-chip pc-biz-hero-chip-b d-flex align-items-center gap-2">
+          <div class="pc-biz-hero-chip pc-biz-hero-chip-b position-absolute z-2 d-flex align-items-center gap-2">
             <span class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 30px; height: 30px; background: var(--pc-peach); color: var(--pc-orange);">
               <i class="bi bi-briefcase-fill" style="font-size: .85rem;"></i>
             </span>

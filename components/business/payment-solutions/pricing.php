@@ -30,12 +30,12 @@
       ?>
       <?php foreach ($pricingPlans as $plan): ?>
         <div class="col-md-6 col-lg-4">
-          <div class="pc-pricing-card position-relative bg-white h-100 p-4 pt-5<?= $plan['featured'] ? ' pc-pricing-card-featured' : '' ?>">
+          <div class="pc-pricing-card position-relative bg-white h-100 p-4 pt-5<?= $plan['featured'] ? ' pc-pricing-card-featured border-primary' : '' ?>">
             <?php if ($plan['featured']): ?>
-              <span class="pc-pricing-badge badge rounded-pill" style="background: var(--pc-orange); color: #fff; padding: .4rem .9rem;">Most Popular</span>
+              <span class="pc-pricing-badge position-absolute text-nowrap badge rounded-pill" style="background: var(--pc-orange); color: #fff; padding: .4rem .9rem;">Most Popular</span>
             <?php endif; ?>
             <div class="text-center mb-4">
-              <span class="pc-story-star-icon mb-3"><?= $plan['n'] ?></span>
+              <span class="pc-story-star-icon d-inline-flex align-items-center justify-content-center rounded-circle text-primary flex-shrink-0 mb-3"><?= $plan['n'] ?></span>
               <h3 class="fs-4 fw-bold mb-1"><?= htmlspecialchars($plan['name']) ?></h3>
               <p class="text-muted-pc small mb-2"><?= htmlspecialchars($plan['for']) ?></p>
               <p class="mb-0"><span class="fs-2 fw-bold" style="color: var(--pc-orange);">&euro;<?= htmlspecialchars($plan['price']) ?></span><span class="text-muted-pc"> / starting from</span></p>
@@ -64,7 +64,7 @@
       ?>
       <?php foreach ($trustBadges as $badge): ?>
         <div class="col d-flex align-items-center justify-content-center gap-2">
-          <span class="pc-ride-type-icon rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; font-size: 1.1rem;">
+          <span class="pc-ride-type-icon text-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; font-size: 1.1rem;">
             <i class="bi <?= $badge['icon'] ?>"></i>
           </span>
           <span class="fw-semibold"><?= htmlspecialchars($badge['label']) ?></span>

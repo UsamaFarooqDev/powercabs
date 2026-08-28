@@ -15,10 +15,10 @@ $joinProcess = [
       eligible for a steady stream of bookings.
     </p>
 
-    <div class="pc-ptn-step-grid">
+    <div class="pc-ptn-step-grid d-grid gap-3">
       <?php foreach ($joinProcess as $step): ?>
-        <div class="pc-ptn-step-card">
-          <span class="pc-ptn-step-num"><?= htmlspecialchars($step['n']) ?></span>
+        <div class="pc-ptn-step-card p-4">
+          <span class="pc-ptn-step-num text-primary d-inline-flex align-items-center justify-content-center"><?= htmlspecialchars($step['n']) ?></span>
           <h3 class="mb-1"><?= htmlspecialchars($step['title']) ?></h3>
           <p class="text-muted-pc small mb-0"><?= htmlspecialchars($step['desc']) ?></p>
         </div>

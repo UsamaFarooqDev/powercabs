@@ -54,10 +54,10 @@ $bizAmbSpans = [
 ];
 ?>
 <section class="pc-amb-benefits position-relative overflow-hidden" id="pcAmbBenefits">
-  <span class="pc-amb-grain" aria-hidden="true"></span>
-  <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
-  <span class="pc-amb-blob-soft" aria-hidden="true"></span>
-  <svg class="pc-amb-lines" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
+  <span class="pc-amb-grain position-absolute z-0" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
+  <span class="pc-amb-blob-soft position-absolute rounded-circle z-0" aria-hidden="true"></span>
+  <svg class="pc-amb-lines position-absolute z-0" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
     <line x1="0" y1="18%" x2="100%" y2="18%"></line>
     <line x1="0" y1="82%" x2="100%" y2="82%"></line>
   </svg>
@@ -68,17 +68,18 @@ $bizAmbSpans = [
       <h2 class="mb-0">Everything You Get as an Ambassador</h2>
     </div>
 
-    <div class="pc-amb-benefits-grid">
+    <div class="pc-amb-benefits-grid position-relative z-1 d-grid">
       <?php foreach ($benefits as $i => $b): ?>
         <?php $isFeature = $i === 0; ?>
-        <div class="pc-amb-card <?=
-        ($bizAmbSpans[$i] ?? 'pc-amb-card-normal') . ($isFeature ? '' : ' pc-amb-card-photo')
+        <div class="pc-amb-card position-relative overflow-hidden rounded-4 <?=
+        ($bizAmbSpans[$i] ?? 'pc-amb-card-normal') .
+          ($isFeature ? ' d-flex flex-column justify-content-center' : ' pc-amb-card-photo d-flex flex-column justify-content-end')
         ?>">
           <?php if (!$isFeature): ?>
             <img src="<?= htmlspecialchars(
               str_starts_with($b['image'], 'http') ? $b['image'] : $assetPath . 'assets/img/' . $b['image'],
-            ) ?>" alt="" aria-hidden="true" class="pc-amb-card-bg" loading="lazy">
-            <span class="pc-amb-card-tint" aria-hidden="true"></span>
+            ) ?>" alt="" aria-hidden="true" class="pc-amb-card-bg position-absolute w-100 h-100 object-fit-cover z-0" loading="lazy">
+            <span class="pc-amb-card-tint position-absolute z-1" aria-hidden="true"></span>
           <?php endif; ?>
           <div class="pc-amb-card-content">
             <span class="pc-amb-card-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">

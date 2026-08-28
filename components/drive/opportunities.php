@@ -71,7 +71,7 @@
 ) ?>" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
             <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
             <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-3" style="padding-top: 2.5rem;">
-              <span class="pc-service-card-title d-block fs-6 fs-md-5 fw-extrabold mb-0"><?= htmlspecialchars(
+              <span class="pc-service-card-title text-white d-block fs-6 fs-md-5 fw-extrabold mb-0"><?= htmlspecialchars(
                 $category['label'],
               ) ?></span>
             </span>

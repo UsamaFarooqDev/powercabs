@@ -36,11 +36,11 @@ if (window.pcCustomSelectCleanup) {
     select.dataset.pcEnhanced = "1";
 
     var wrapper = document.createElement("div");
-    wrapper.className = "pc-custom-select";
+    wrapper.className = "pc-custom-select position-relative";
     select.parentNode.insertBefore(wrapper, select);
     wrapper.appendChild(select);
 
-    select.classList.add("pc-custom-select-native");
+    select.classList.add("pc-custom-select-native", "position-absolute", "w-100", "h-100");
     select.setAttribute("tabindex", "-1");
     select.setAttribute("aria-hidden", "true");
 
@@ -49,17 +49,17 @@ if (window.pcCustomSelectCleanup) {
 
     var trigger = document.createElement("button");
     trigger.type = "button";
-    trigger.className = "form-select pc-custom-select-trigger";
+    trigger.className = "form-select pc-custom-select-trigger d-flex align-items-center justify-content-between gap-2 w-100 text-start";
     trigger.setAttribute("aria-haspopup", "listbox");
     trigger.setAttribute("aria-expanded", "false");
     if (labelText) trigger.setAttribute("aria-label", labelText);
     trigger.innerHTML =
-      '<span class="pc-custom-select-value"></span>' +
-      '<i class="bi bi-chevron-down pc-custom-select-caret" aria-hidden="true"></i>';
+      '<span class="pc-custom-select-value overflow-hidden text-nowrap"></span>' +
+      '<i class="bi bi-chevron-down pc-custom-select-caret flex-shrink-0" aria-hidden="true"></i>';
     wrapper.appendChild(trigger);
 
     var panel = document.createElement("div");
-    panel.className = "pc-custom-select-panel";
+    panel.className = "pc-custom-select-panel position-absolute overflow-y-auto rounded-4";
     panel.setAttribute("role", "listbox");
     wrapper.appendChild(panel);
 
