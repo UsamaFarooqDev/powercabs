@@ -26,13 +26,13 @@ $ptnHeroStats = [
 
 <!-- ============ PowerCabs Partner Network panel ============ -->
 <section class="pc-ptn-hero position-relative overflow-hidden" id="pcPtnHero">
-  <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
-  <span class="pc-drive-blob pc-drive-blob-dark" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-dark" aria-hidden="true"></span>
 
   <div class="container position-relative">
     <div class="row align-items-center gy-5">
       <div class="col-lg-7">
-        <span class="pc-ptn-hero-eyebrow d-inline-flex align-items-center gap-2">
+        <span class="pc-ptn-hero-eyebrow text-uppercase rounded-pill d-inline-flex align-items-center gap-2">
           <i class="bi bi-diagram-3-fill" aria-hidden="true"></i>
           PowerCabs Partner Network
         </span>
@@ -48,7 +48,7 @@ $ptnHeroStats = [
         <div class="d-flex flex-wrap gap-3 mb-5">
           <a class="btn btn-pc-primary btn-md px-4 rounded-pill" href="#pcPtnEnquiry">
             Become a Partner
-            <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+            <i class="bi bi-chevron-right fs-8 ms-1" aria-hidden="true"></i>
           </a>
           <a class="btn btn-outline-dark btn-md px-4 rounded-pill" href="#pcPtnCampaign">See Partner Benefits</a>
         </div>
@@ -64,7 +64,7 @@ $ptnHeroStats = [
       </div>
 
       <div class="col-lg-5">
-        <aside class="pc-ptn-hero-card" aria-label="Partner programme snapshot">
+        <aside class="pc-ptn-hero-card position-relative z-1" aria-label="Partner programme snapshot">
           <div class="pc-ptn-hero-card-top d-flex align-items-center justify-content-between">
             <strong>Partner Snapshot</strong>
             <span class="pc-ptn-hero-live d-inline-flex align-items-center gap-2">
@@ -80,10 +80,10 @@ $ptnHeroStats = [
           </div>
 
           <div class="pc-ptn-hero-mini">
-            <span class="pc-ptn-hero-mini-badge">Join Process</span>
+            <span class="pc-ptn-hero-mini-badge d-inline-block rounded-pill text-primary text-uppercase">Join Process</span>
             <h3>4-Step Onboarding</h3>
             <p class="mb-0">Register &rarr; Verify &rarr; Approve &rarr; Start Trips</p>
-            <div class="pc-ptn-hero-mini-row d-flex align-items-center justify-content-between">
+            <div class="pc-ptn-hero-mini-row fw-bold d-flex align-items-center justify-content-between">
               <span>Open to operators &amp; drivers</span>
               <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </div>
@@ -95,7 +95,7 @@ $ptnHeroStats = [
 
   <div class="pc-ptn-stats position-relative">
     <div class="container">
-      <div class="pc-ptn-stats-grid">
+      <div class="pc-ptn-stats-grid d-grid overflow-hidden">
         <?php foreach ($ptnHeroStats as $s): ?>
           <div class="pc-ptn-stat">
             <strong><?= htmlspecialchars($s['label']) ?></strong>

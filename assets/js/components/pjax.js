@@ -16,7 +16,7 @@
     if (!bar) {
       bar = document.createElement("div");
       bar.id = "pcPjaxProgress";
-      bar.className = "pc-pjax-progress";
+      bar.className = "pc-pjax-progress position-fixed";
       document.body.appendChild(bar);
     }
     // Restart the animation if a previous nav's bar is still fading out.
@@ -137,6 +137,7 @@
       if (window.syncFooterHeightVar) window.syncFooterHeightVar();
       if (window.initHeroParallax) window.initHeroParallax();
       if (window.initWhyChooseReveal) window.initWhyChooseReveal();
+      if (window.initScrollReveal) window.initScrollReveal();
       if (window.pcInitAjaxForms) window.pcInitAjaxForms();
 
       window.scrollTo({ top: 0, behavior: "auto" });

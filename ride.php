@@ -5,6 +5,7 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/lib/fare_calculator.php';
 
 $rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pets Taxi', 'Courier / Parcel', 'Business', 'Business XL'];
 
@@ -37,6 +38,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quickBookFormStatus = 'error';
     $quickBookFormError  = 'Please enter a valid email address.';
   } else {
+    // The client only ever supplies the trip-dependent inputs (distance/
+    // duration, from Google Directions) -- the fare itself is always
+    // recomputed here, never trusted from the submitted form. Whatever
+    // fare the browser displayed was itself sourced from
+    // api/estimate_fare.php, so this recompute should normally just
+    // confirm it -- but the server is what actually goes in the email.
+    if (
+      $quickBookOld['distance_km'] !== '' && is_numeric($quickBookOld['distance_km'])
+      && $quickBookOld['duration_min'] !== '' && is_numeric($quickBookOld['duration_min'])
+    ) {
+      $recomputed = pc_calculate_fare(
+        (float) $quickBookOld['distance_km'],
+        (float) $quickBookOld['duration_min'],
+        $quickBookOld['ride_type']
+      );
+      $quickBookOld['fare_eur'] = number_format($recomputed['fare_eur'], 2, '.', '');
+    } else {
+      $quickBookOld['fare_eur'] = '';
+    }
+
     $body = "New quick booking request from the PowerCabs Ride page.\n\n"
       . "Name: {$quickBookOld['name']}\n"
       . "Email: {$quickBookOld['email']}\n"
@@ -79,6 +100,7 @@ $heroBgImage     = 'https://images.pexels.com/photos/1399282/pexels-photo-139928
 require __DIR__ . '/components/shared/inner-hero.php';
 
 require __DIR__ . '/components/ride/hero-fare-section.php';
+require __DIR__ . '/components/ride/power10-promo.php';
 require __DIR__ . '/components/ride/built-around.php';
 require __DIR__ . '/components/ride/ride-types.php';
 require __DIR__ . '/components/ride/booking-steps.php';

@@ -23,8 +23,8 @@ $whoCanJoin = [
 
     <div class="row g-4">
       <div class="col-lg-7">
-        <article class="pc-ptn-campaign-card h-100">
-          <span class="pc-ptn-campaign-badge">Partner Benefits</span>
+        <article class="pc-ptn-campaign-card overflow-hidden h-100">
+          <span class="pc-ptn-campaign-badge d-inline-flex rounded-pill text-primary text-uppercase">Partner Benefits</span>
           <h3 class="mt-3 mb-2">What You Gain as a Partner</h3>
           <p class="text-muted-pc mb-4">
             PowerCabs welcomes taxi operators, fleet owners, and business
@@ -35,7 +35,7 @@ $whoCanJoin = [
           <div class="pc-ptn-campaign-list mb-4">
             <?php foreach ($partnerBenefits as $item): ?>
               <div>
-                <span class="pc-ptn-check"><i class="bi bi-check-lg" aria-hidden="true"></i></span>
+                <span class="pc-ptn-check flex-shrink-0 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"><i class="bi bi-check-lg" aria-hidden="true"></i></span>
                 <span><?= htmlspecialchars($item) ?></span>
               </div>
             <?php endforeach; ?>
@@ -43,7 +43,7 @@ $whoCanJoin = [
 
           <a class="btn btn-pc-primary rounded-pill px-4" href="#pcPtnEnquiry">
             Become a Partner
-            <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+            <i class="bi bi-chevron-right fs-8 ms-1" aria-hidden="true"></i>
           </a>
         </article>
       </div>
@@ -51,16 +51,16 @@ $whoCanJoin = [
       <div class="col-lg-5">
         <aside class="pc-ptn-info-card h-100">
           <h3 class="mb-3">Who Can Join?</h3>
-          <div class="pc-ptn-pills mb-4">
+          <div class="pc-ptn-pills d-flex flex-wrap mb-4">
             <?php foreach ($whoCanJoin as $item): ?>
-              <span class="pc-ptn-pill">
+              <span class="pc-ptn-pill d-inline-flex align-items-center rounded-pill fw-bold">
                 <i class="bi <?= $item['icon'] ?>" aria-hidden="true"></i>
                 <?= htmlspecialchars($item['label']) ?>
               </span>
             <?php endforeach; ?>
           </div>
 
-          <hr class="pc-ptn-info-divider">
+          <hr class="pc-ptn-info-divider border-0">
 
           <h3 class="mb-3">Why Operators Choose Us</h3>
           <ul class="list-unstyled d-flex flex-column gap-2 mb-0">

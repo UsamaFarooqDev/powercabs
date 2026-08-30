@@ -12,8 +12,8 @@ $driverPerks = [
 <!-- ============ Be Your Real Boss ============ -->
 <section class="section-pc position-relative overflow-hidden">
    <div class="container py-5">
-  <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
-  <span class="pc-drive-blob pc-drive-blob-dark" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-dark" aria-hidden="true"></span>
 
   <div class="container position-relative">
     <div class="row">
@@ -26,15 +26,15 @@ $driverPerks = [
         </p>
         <div class="d-flex flex-wrap gap-2 gap-md-3 mb-5">
           <?php foreach ($driverPerks as $perk): ?>
-            <span class="pc-perk-chip d-inline-flex align-items-center gap-2">
+            <span class="pc-perk-chip position-relative rounded-pill d-inline-flex align-items-center gap-2">
               <i class="bi <?= $perk['icon'] ?>" aria-hidden="true"></i>
               <?= htmlspecialchars($perk['label']) ?>
             </span>
           <?php endforeach; ?>
         </div>
-        <a class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2" href="<?= $assetPath ?>/ambassador-programme">
+        <a class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2 text-nowrap" href="<?= $assetPath ?>/ambassador-programme">
           <span>Explore Ambassador Programme</span>
-          <i class="bi bi-arrow-right-short fs-6" aria-hidden="true"></i>
+          <i class="bi bi-chevron-right fs-8 d-none d-sm-inline-block" aria-hidden="true"></i>
         </a>
       </div>
     </div>

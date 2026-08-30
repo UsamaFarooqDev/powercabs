@@ -11,14 +11,14 @@ window.pcToast = function pcToast(message, type) {
   if (!container) {
     container = document.createElement("div");
     container.id = "pcToastContainer";
-    container.className = "pc-toast-container";
+    container.className = "pc-toast-container position-fixed d-flex flex-column";
     container.setAttribute("aria-live", "polite");
     container.setAttribute("aria-atomic", "true");
     document.body.appendChild(container);
   }
 
   const toast = document.createElement("div");
-  toast.className = `pc-toast pc-toast-${type === "success" ? "success" : "error"}`;
+  toast.className = `pc-toast d-flex align-items-center rounded-4 pc-toast-${type === "success" ? "success" : "error"}`;
   toast.setAttribute("role", "status");
 
   const icon = document.createElement("i");
@@ -30,7 +30,7 @@ window.pcToast = function pcToast(message, type) {
 
   const closeBtn = document.createElement("button");
   closeBtn.type = "button";
-  closeBtn.className = "pc-toast-close";
+  closeBtn.className = "pc-toast-close flex-shrink-0 border-0 bg-transparent";
   closeBtn.setAttribute("aria-label", "Dismiss");
   closeBtn.innerHTML = "&times;";
 

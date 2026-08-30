@@ -28,7 +28,7 @@ $bizTrustMarqueeItems = array_merge($bizTrustLogos, $bizTrustLogos);
   </div>
 
   <div class="pc-marquee pc-biz-trust-marquee">
-    <div class="pc-marquee-track pc-biz-trust-track">
+    <div class="pc-marquee-track d-flex pc-biz-trust-track">
       <?php foreach ($bizTrustMarqueeItems as $i => $logo): ?>
         <div class="pc-biz-trust-logo-item d-flex align-items-center justify-content-center flex-shrink-0" <?= $i >=
         count($bizTrustLogos)
@@ -36,7 +36,7 @@ $bizTrustMarqueeItems = array_merge($bizTrustLogos, $bizTrustLogos);
           : '' ?>>
           <img src="<?= $assetPath ?>assets/img/<?= $logo['file'] ?>" alt="<?= htmlspecialchars(
   $logo['alt'],
-) ?>" class="pc-biz-trust-logo" loading="lazy">
+) ?>" class="pc-biz-trust-logo w-auto object-fit-contain" loading="lazy">
         </div>
       <?php endforeach; ?>
     </div>

@@ -130,7 +130,7 @@ $rideSteps = [
 </style>
 
 <section class="section-pc position-relative overflow-hidden">
-  <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
+  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
 
   <div class="container position-relative">
     <div class="text-center mb-5">

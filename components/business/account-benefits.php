@@ -12,15 +12,15 @@ $bizAccountBenefits = [
         <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .08em; color: var(--pc-orange);">/ Your Business Account</p>
         <h2 class="mb-4" style="font-size: clamp(1.8rem, 3vw, 2.4rem);">Your business. Your account.<br>Your taxi service.</h2>
 
-        <div class="d-flex flex-column gap-4">
+        <div class="row row-cols-1 row-cols-md-3 g-3">
           <?php foreach ($bizAccountBenefits as $benefit): ?>
-            <div class="d-flex gap-3">
-              <span class="d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 3rem; height: 3rem; background: var(--pc-peach); color: var(--pc-orange); font-size: 1.25rem;">
-                <i class="bi <?= $benefit['icon'] ?>"></i>
-              </span>
-              <div>
-                <h3 class="fs-5 fw-bold mb-1"><?= htmlspecialchars($benefit['title']) ?></h3>
-                <p class="text-muted-pc mb-0"><?= htmlspecialchars($benefit['desc']) ?></p>
+            <div class="col">
+              <div class="pc-biz-benefit-card h-100 text-center rounded-4 border bg-white p-3 p-lg-4" style="border-color: rgba(28, 20, 16, .08) !important;">
+                <span class="d-inline-flex align-items-center justify-content-center rounded-circle mb-2" style="width: 3rem; height: 3rem; background: var(--pc-peach); color: var(--pc-orange); font-size: 1.25rem;">
+                  <i class="bi <?= $benefit['icon'] ?>"></i>
+                </span>
+                <h3 class="fs-6 fw-bold mb-1"><?= htmlspecialchars($benefit['title']) ?></h3>
+                <p class="small text-muted-pc mb-0"><?= htmlspecialchars($benefit['desc']) ?></p>
               </div>
             </div>
           <?php endforeach; ?>
@@ -39,29 +39,29 @@ $bizAccountBenefits = [
             <span class="badge rounded-pill fw-medium" style="background: rgba(25,135,84,.12); color: #198754; font-size: .68rem;">Account Active</span>
           </div>
 
-          <div class="row row-cols-2 g-3 mb-4">
+          <div class="row row-cols-1 row-cols-sm-2 g-3 mb-4">
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">128</span>
-                <span class="pc-biz-dash-stat-label">Bookings this month</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">128</span>
+                <span class="pc-biz-dash-stat-label d-block">Bookings this month</span>
               </div>
             </div>
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">6</span>
-                <span class="pc-biz-dash-stat-label">Active journeys</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">6</span>
+                <span class="pc-biz-dash-stat-label d-block">Active journeys</span>
               </div>
             </div>
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">&euro;2,340</span>
-                <span class="pc-biz-dash-stat-label">Monthly spend</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">&euro;2,340</span>
+                <span class="pc-biz-dash-stat-label d-block">Monthly spend</span>
               </div>
             </div>
             <div class="col">
-              <div class="pc-biz-dash-stat">
-                <span class="pc-biz-dash-stat-value">14</span>
-                <span class="pc-biz-dash-stat-label">Team members</span>
+              <div class="pc-biz-dash-stat rounded-4">
+                <span class="pc-biz-dash-stat-value d-block">14</span>
+                <span class="pc-biz-dash-stat-label d-block">Team members</span>
               </div>
             </div>
           </div>

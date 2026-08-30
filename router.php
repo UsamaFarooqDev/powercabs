@@ -35,10 +35,19 @@ if (file_exists(__DIR__ . $uri) && !is_dir(__DIR__ . $uri)) {
     return false;
 }
 
-// Clean URL -> matching .php file.
-$clean = ltrim($uri, '/');
+// Clean URL -> matching .php file. A trailing slash (e.g. /business/) is
+// stripped before the lookup and 301-redirected to the canonical no-slash
+// form first -- mirrors the same canonicalization .htaccess does on
+// production (rule 3), so a trailing-slash URL behaves the same under this
+// local dev server as it does on Apache, instead of always 404ing here
+// regardless of what .htaccess says.
+$clean = trim($uri, '/');
 $phpFile = __DIR__ . '/' . $clean . '.php';
-if (is_file($phpFile)) {
+if ($clean !== '' && is_file($phpFile)) {
+    if (substr($uri, -1) === '/') {
+        header('Location: /' . $clean, true, 301);
+        return true;
+    }
     require $phpFile;
     return true;
 }

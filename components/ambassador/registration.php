@@ -26,7 +26,7 @@ $ambRecap = ['Free card terminals', 'Exclusive vehicle branding', 'Fuel discount
 
         <div class="d-flex flex-wrap gap-2 mb-5">
           <?php foreach ($ambRecap as $item): ?>
-            <span class="pc-amb-recap-chip d-inline-flex align-items-center gap-2">
+            <span class="pc-amb-recap-chip rounded-pill d-inline-flex align-items-center gap-2">
               <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
               <?= htmlspecialchars($item) ?>
             </span>
@@ -35,21 +35,21 @@ $ambRecap = ['Free card terminals', 'Exclusive vehicle branding', 'Fuel discount
 
         <div class="d-flex flex-column gap-4">
           <div class="d-flex gap-3">
-            <span class="pc-amb-step-index">01</span>
+            <span class="pc-amb-step-index flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle text-primary fw-bold">01</span>
             <div>
               <h3 class="fs-6 fw-bold mb-1">Your Details</h3>
               <p class="small text-muted-pc mb-0">Name, email and phone number.</p>
             </div>
           </div>
           <div class="d-flex gap-3">
-            <span class="pc-amb-step-index">02</span>
+            <span class="pc-amb-step-index flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle text-primary fw-bold">02</span>
             <div>
               <h3 class="fs-6 fw-bold mb-1">Ride &amp; License Info</h3>
               <p class="small text-muted-pc mb-0">Current affiliation, PowerCabs status and license number.</p>
             </div>
           </div>
           <div class="d-flex gap-3">
-            <span class="pc-amb-step-index">03</span>
+            <span class="pc-amb-step-index flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle text-primary fw-bold">03</span>
             <div>
               <h3 class="fs-6 fw-bold mb-1">Submit Application</h3>
               <p class="small text-muted-pc mb-0">Our team reviews and follows up directly.</p>

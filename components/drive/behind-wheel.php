@@ -34,21 +34,21 @@
 
 
         <div class="d-flex flex-wrap gap-2 mt-4 mb-4">
-          <a class="pc-store-badge pc-store-badge-lg"
+          <a class="pc-store-badge pc-store-badge-lg d-inline-flex align-items-center text-decoration-none"
             href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.driver&pcampaignid=web_share"
             target="_blank" rel="noopener">
             <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="22" height="22" aria-hidden="true">
             <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow">Get it on</span>
-              <span class="pc-store-badge-title">Google Play</span>
+              <span class="pc-store-badge-eyebrow d-block text-uppercase">Get it on</span>
+              <span class="pc-store-badge-title d-block fw-bold text-white">Google Play</span>
             </span>
           </a>
-          <a class="pc-store-badge pc-store-badge-lg" href="https://apps.apple.com/us/app/powercabs-driver/id6648774168"
+          <a class="pc-store-badge pc-store-badge-lg d-inline-flex align-items-center text-decoration-none" href="https://apps.apple.com/us/app/powercabs-driver/id6648774168"
             target="_blank" rel="noopener">
             <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
             <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow">Download on the</span>
-              <span class="pc-store-badge-title">App Store</span>
+              <span class="pc-store-badge-eyebrow d-block text-uppercase">Download on the</span>
+              <span class="pc-store-badge-title d-block fw-bold text-white">App Store</span>
             </span>
           </a>
         </div>

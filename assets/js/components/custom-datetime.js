@@ -177,17 +177,17 @@ if (window.pcCustomDatetimeCleanup) {
   function buildDatePicker(cfg) {
     var trigger = document.createElement("button");
     trigger.type = "button";
-    trigger.className = "form-control pc-custom-dt-trigger";
+    trigger.className = "form-control pc-custom-dt-trigger d-flex align-items-center w-100 text-start";
     trigger.setAttribute("aria-haspopup", "dialog");
     trigger.setAttribute("aria-expanded", "false");
     if (cfg.labelText) trigger.setAttribute("aria-label", cfg.labelText);
     trigger.innerHTML =
-      '<i class="bi bi-calendar3 pc-custom-dt-icon" aria-hidden="true"></i>' +
-      '<span class="pc-custom-dt-value"></span>';
+      '<i class="bi bi-calendar3 pc-custom-dt-icon flex-shrink-0" aria-hidden="true"></i>' +
+      '<span class="pc-custom-dt-value overflow-hidden text-nowrap"></span>';
     cfg.segmentEl.appendChild(trigger);
 
     var panel = document.createElement("div");
-    panel.className = "pc-custom-dt-panel pc-custom-dt-panel--calendar";
+    panel.className = "pc-custom-dt-panel position-absolute rounded-4 pc-custom-dt-panel--calendar";
     panel.setAttribute("role", "dialog");
     cfg.segmentEl.appendChild(panel);
 
@@ -224,18 +224,18 @@ if (window.pcCustomDatetimeCleanup) {
     function renderDays() {
       var sel = cfg.getValue();
       var html =
-        '<div class="pc-custom-dt-nav">' +
-        '<button type="button" class="pc-custom-dt-nav-btn" data-nav="prev" aria-label="Previous month"><i class="bi bi-chevron-left"></i></button>' +
-        '<button type="button" class="pc-custom-dt-nav-title" data-nav="title">' +
+        '<div class="d-flex align-items-center justify-content-between mb-2">' +
+        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="prev" aria-label="Previous month"><i class="bi bi-chevron-left"></i></button>' +
+        '<button type="button" class="pc-custom-dt-nav-title border-0" data-nav="title">' +
         MONTH_NAMES[viewMonth] +
         " " +
         viewYear +
         "</button>" +
-        '<button type="button" class="pc-custom-dt-nav-btn" data-nav="next" aria-label="Next month"><i class="bi bi-chevron-right"></i></button>' +
+        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="next" aria-label="Next month"><i class="bi bi-chevron-right"></i></button>' +
         "</div>";
 
       html +=
-        '<div class="pc-custom-dt-weekdays">' +
+        '<div class="pc-custom-dt-weekdays d-grid text-center text-uppercase">' +
         WEEKDAY_SHORT.map(function (w) {
           return "<span>" + w + "</span>";
         }).join("") +
@@ -261,10 +261,10 @@ if (window.pcCustomDatetimeCleanup) {
         cells.push({ y: nextMonthYear, m: nextMonth, d: d2, muted: true });
       }
 
-      html += '<div class="pc-custom-dt-days">';
+      html += '<div class="pc-custom-dt-days d-grid">';
       cells.forEach(function (c) {
         var ymd = { y: c.y, m: c.m, d: c.d };
-        var classes = ["pc-custom-dt-day"];
+        var classes = ["pc-custom-dt-day", "d-flex", "align-items-center", "justify-content-center"];
         if (c.muted) classes.push("is-muted");
         if (compareYMD(ymd, today) === 0) classes.push("is-today");
         if (sel && compareYMD(ymd, sel) === 0) classes.push("is-selected");
@@ -289,11 +289,11 @@ if (window.pcCustomDatetimeCleanup) {
 
       var todayDisabled = isDisabledDay(today);
       html +=
-        '<div class="pc-custom-dt-toolbar">' +
-        '<button type="button" class="pc-custom-dt-toolbar-btn" data-action="today"' +
+        '<div class="pc-custom-dt-toolbar d-flex align-items-center justify-content-between gap-2">' +
+        '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="today"' +
         (todayDisabled ? " disabled" : "") +
         ">Today</button>" +
-        (cfg.required ? "" : '<button type="button" class="pc-custom-dt-toolbar-btn" data-action="clear">Clear</button>') +
+        (cfg.required ? "" : '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="clear">Clear</button>') +
         "</div>";
 
       panel.innerHTML = html;
@@ -302,12 +302,12 @@ if (window.pcCustomDatetimeCleanup) {
     function renderMonths() {
       var sel = cfg.getValue();
       var html =
-        '<div class="pc-custom-dt-nav">' +
-        '<button type="button" class="pc-custom-dt-nav-btn" data-nav="prev" aria-label="Previous year"><i class="bi bi-chevron-left"></i></button>' +
-        '<button type="button" class="pc-custom-dt-nav-title" data-nav="title">' +
+        '<div class="d-flex align-items-center justify-content-between mb-2">' +
+        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="prev" aria-label="Previous year"><i class="bi bi-chevron-left"></i></button>' +
+        '<button type="button" class="pc-custom-dt-nav-title border-0" data-nav="title">' +
         viewYear +
         "</button>" +
-        '<button type="button" class="pc-custom-dt-nav-btn" data-nav="next" aria-label="Next year"><i class="bi bi-chevron-right"></i></button>' +
+        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="next" aria-label="Next year"><i class="bi bi-chevron-right"></i></button>' +
         "</div>";
       html += '<div class="pc-custom-dt-months">';
       MONTH_SHORT.forEach(function (name, idx) {
@@ -323,14 +323,14 @@ if (window.pcCustomDatetimeCleanup) {
     function renderYears() {
       var sel = cfg.getValue();
       var html =
-        '<div class="pc-custom-dt-nav">' +
-        '<button type="button" class="pc-custom-dt-nav-btn" data-nav="prev" aria-label="Previous years"><i class="bi bi-chevron-left"></i></button>' +
-        '<button type="button" class="pc-custom-dt-nav-title" data-nav="title">' +
+        '<div class="d-flex align-items-center justify-content-between mb-2">' +
+        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="prev" aria-label="Previous years"><i class="bi bi-chevron-left"></i></button>' +
+        '<button type="button" class="pc-custom-dt-nav-title border-0" data-nav="title">' +
         yearsBlockStart +
         "–" +
         (yearsBlockStart + 11) +
         "</button>" +
-        '<button type="button" class="pc-custom-dt-nav-btn" data-nav="next" aria-label="Next years"><i class="bi bi-chevron-right"></i></button>' +
+        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="next" aria-label="Next years"><i class="bi bi-chevron-right"></i></button>' +
         "</div>";
       html += '<div class="pc-custom-dt-years">';
       for (var i = 0; i < 12; i++) {
@@ -449,28 +449,28 @@ if (window.pcCustomDatetimeCleanup) {
 
     var trigger = document.createElement("button");
     trigger.type = "button";
-    trigger.className = "form-control pc-custom-dt-trigger";
+    trigger.className = "form-control pc-custom-dt-trigger d-flex align-items-center w-100 text-start";
     trigger.setAttribute("aria-haspopup", "listbox");
     trigger.setAttribute("aria-expanded", "false");
     if (cfg.labelText) trigger.setAttribute("aria-label", cfg.labelText);
     trigger.innerHTML =
-      '<i class="bi bi-clock pc-custom-dt-icon" aria-hidden="true"></i>' +
-      '<span class="pc-custom-dt-value"></span>';
+      '<i class="bi bi-clock pc-custom-dt-icon flex-shrink-0" aria-hidden="true"></i>' +
+      '<span class="pc-custom-dt-value overflow-hidden text-nowrap"></span>';
     cfg.segmentEl.appendChild(trigger);
 
     var panel = document.createElement("div");
-    panel.className = "pc-custom-dt-panel pc-custom-dt-panel--time";
+    panel.className = "pc-custom-dt-panel position-absolute rounded-4 pc-custom-dt-panel--time";
     panel.setAttribute("role", "listbox");
 
     var toolbar = document.createElement("div");
-    toolbar.className = "pc-custom-dt-toolbar";
+    toolbar.className = "pc-custom-dt-toolbar d-flex align-items-center justify-content-between gap-2";
     toolbar.innerHTML =
-      '<button type="button" class="pc-custom-dt-toolbar-btn" data-action="now">Now</button>' +
-      (cfg.required ? "" : '<button type="button" class="pc-custom-dt-toolbar-btn" data-action="clear">Clear</button>');
+      '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="now">Now</button>' +
+      (cfg.required ? "" : '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="clear">Clear</button>');
     panel.appendChild(toolbar);
 
     var list = document.createElement("div");
-    list.className = "pc-custom-dt-timelist";
+    list.className = "pc-custom-dt-timelist overflow-y-auto";
     panel.appendChild(list);
 
     cfg.segmentEl.appendChild(panel);
@@ -483,7 +483,7 @@ if (window.pcCustomDatetimeCleanup) {
       slots.forEach(function (t) {
         var item = document.createElement("button");
         item.type = "button";
-        item.className = "pc-custom-dt-time-option";
+        item.className = "pc-custom-dt-time-option d-block w-100 text-start border-0";
         item.setAttribute("role", "option");
         item.dataset.h = t.h;
         item.dataset.min = t.min;
@@ -551,7 +551,7 @@ if (window.pcCustomDatetimeCleanup) {
     wrapper.className = wrapperClass;
     input.parentNode.insertBefore(wrapper, input);
     wrapper.appendChild(input);
-    input.classList.add("pc-custom-dt-native");
+    input.classList.add("pc-custom-dt-native", "position-absolute", "w-100", "h-100");
     input.setAttribute("tabindex", "-1");
     input.setAttribute("aria-hidden", "true");
     return wrapper;
@@ -563,7 +563,7 @@ if (window.pcCustomDatetimeCleanup) {
   }
 
   function enhanceStandaloneDate(input) {
-    var wrapper = commonWrapperSetup(input, "pc-custom-dt pc-custom-dt--date pc-custom-dt-anchor");
+    var wrapper = commonWrapperSetup(input, "pc-custom-dt position-relative pc-custom-dt--date pc-custom-dt-anchor");
     var picker = buildDatePicker({
       segmentEl: wrapper,
       getValue: function () {
@@ -592,7 +592,7 @@ if (window.pcCustomDatetimeCleanup) {
   }
 
   function enhanceStandaloneTime(input) {
-    var wrapper = commonWrapperSetup(input, "pc-custom-dt pc-custom-dt--time pc-custom-dt-anchor");
+    var wrapper = commonWrapperSetup(input, "pc-custom-dt position-relative pc-custom-dt--time pc-custom-dt-anchor");
     var picker = buildTimePicker({
       segmentEl: wrapper,
       getValue: function () {
@@ -620,18 +620,18 @@ if (window.pcCustomDatetimeCleanup) {
   }
 
   function enhanceDatetimeLocal(input) {
-    var wrapper = commonWrapperSetup(input, "pc-custom-dt pc-custom-dt--datetime");
+    var wrapper = commonWrapperSetup(input, "pc-custom-dt position-relative pc-custom-dt--datetime");
 
     var split = document.createElement("div");
-    split.className = "pc-custom-dt-split";
+    split.className = "d-flex gap-2";
     wrapper.appendChild(split);
 
     var dateSeg = document.createElement("div");
-    dateSeg.className = "pc-custom-dt-segment pc-custom-dt-anchor";
+    dateSeg.className = "pc-custom-dt-segment position-relative pc-custom-dt-anchor";
     split.appendChild(dateSeg);
 
     var timeSeg = document.createElement("div");
-    timeSeg.className = "pc-custom-dt-segment pc-custom-dt-anchor";
+    timeSeg.className = "pc-custom-dt-segment position-relative pc-custom-dt-anchor";
     split.appendChild(timeSeg);
 
     var labelBase = labelFor(input);

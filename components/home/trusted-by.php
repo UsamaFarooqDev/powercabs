@@ -27,18 +27,18 @@
       style="object-fit: cover; object-position: top; display: block;" 
       loading="lazy"
     > 
-    <p class="pc-trusted-banner-text-mobile position-absolute top-50 start-50 translate-middle text-center mb-0 d-md-none">
+    <p class="pc-trusted-banner-text-mobile text-white position-absolute top-50 start-50 translate-middle text-center mb-0 d-md-none">
       Powering Every Journey,<br>Every Driver
     </p> 
-    <p class="pc-trusted-banner-text pc-trusted-banner-text-tl position-absolute mb-0 d-none d-md-block">
+    <p class="pc-trusted-banner-text text-white pc-trusted-banner-text-tl position-absolute mb-0 d-none d-md-block">
       Powering
     </p> 
 
-    <p class="pc-trusted-banner-text pc-trusted-banner-text-center position-absolute start-50 translate-middle text-center mb-0 d-none d-md-block" style="top: 42%;">
+    <p class="pc-trusted-banner-text text-white pc-trusted-banner-text-center position-absolute start-50 translate-middle text-center mb-0 d-none d-md-block" style="top: 42%;">
       Every<br>Journey
     </p> 
 
-    <p class="pc-trusted-banner-text pc-trusted-banner-text-br position-absolute mb-0 d-none d-md-block">
+    <p class="pc-trusted-banner-text text-white pc-trusted-banner-text-br text-nowrap position-absolute mb-0 d-none d-md-block">
       Every Driver
     </p> 
   </div> 
@@ -83,7 +83,7 @@
         </p>
       </div>
       <a class="btn btn-pc-primary px-3 flex-shrink-0 d-inline-flex align-items-center gap-1" href="<?= $assetPath ?>/business">
-        Partner With Us <i class="bi bi-arrow-right-short fs-6"></i>
+        Partner with Us <i class="bi bi-chevron-right fs-8"></i>
       </a>
     </div>
   </div>

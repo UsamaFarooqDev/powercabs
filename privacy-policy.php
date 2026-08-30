@@ -29,11 +29,11 @@ $ppNav = [
   <div class="container">
     <div class="row gy-5">
       <div class="col-lg-3">
-        <div class="pc-tc-nav">
+        <div class="pc-tc-nav position-sticky">
           <p class="small fw-semibold text-uppercase mb-3" style="letter-spacing: .06em; color: var(--pc-orange);">On This Page</p>
           <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
             <?php foreach ($ppNav as $item): ?>
-              <li><a class="pc-tc-nav-link small" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
+              <li><a class="pc-tc-nav-link d-block small" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>

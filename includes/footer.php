@@ -9,42 +9,42 @@
       <div class="col-6 col-md-4 col-lg">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Get Started</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/download-our-app">Download App</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/wheelchair-accessible-taxis">Wheelchair Accessible Taxis</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/city-tours">City Tours</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/about-us">About Us</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/download-our-app">Download App</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/wheelchair-accessible-taxis">Wheelchair Accessible Taxis</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/city-tours">City Tours</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/about-us">About Us</a></li>
         </ul>
       </div>
 
       <div class="col-6 col-md-4 col-lg">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Business &amp; Drivers</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/corporate-services">Corporate Services</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/meet-greet">Meet &amp; Greet</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/business-solutions">PowerCabs Business Solutions</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/partner-programme">Partner Programme</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/ambassador-programme">Ambassador Programme</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/loyalty-program">Loyalty Program</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/corporate-services">Corporate Services</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/meet-greet">Meet &amp; Greet</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/business-solutions">PowerCabs Business Solutions</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/partner-programme">Partner Programme</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/ambassador-programme">Ambassador Programme</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/loyalty-program">Loyalty Program</a></li>
         </ul>
       </div>
 
       <div class="col-6 col-md-4 col-lg">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Policies &amp; Safety</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-drivers">Driver Safety</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/sustainability">Sustainability &amp; Environment</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/faqs">FAQs</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/safety-tips-drivers">Driver Safety</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/sustainability">Sustainability &amp; Environment</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/faqs">FAQs</a></li>
         </ul>
       </div>
 
       <div class="col-6 col-md-4 col-lg">
         <h6 class="fw-semibold mb-3" style="color: var(--pc-orange);">Contact</h6>
         <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/contact-us">Contact Us</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/complaint-form">Complaint Form</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/positive-feedback-form">Positive Feedback Form</a></li>
-          <li><a class="pc-footer-link" href="<?= $assetPath ?>/lost-item-report">Lost an Item Report</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/contact-us">Contact Us</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/complaint-form">Complaint Form</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/positive-feedback-form">Positive Feedback Form</a></li>
+          <li><a class="pc-footer-link d-inline-block text-decoration-none" href="<?= $assetPath ?>/lost-item-report">Lost an Item Report</a></li>
         </ul>
       </div>
 
@@ -65,12 +65,12 @@
           </li>
           <li class="d-flex align-items-center gap-2 small">
             <i class="bi bi-telephone-fill flex-shrink-0" style="color: var(--pc-orange);"></i>
-            <a class="pc-footer-link pc-footer-link-plain" href="tel:+35312030727">+353 12 03 0727</a>
+            <a class="pc-footer-link pc-footer-link-plain d-inline-block text-decoration-none" href="tel:+35312030727">+353 12 03 0727</a>
           </li>
           <li>
-            <a class="pc-wa-badge d-inline-flex align-items-center gap-2" href="https://wa.me/353899728089" target="_blank" rel="noopener" aria-label="Chat with PowerCabs on WhatsApp">
-              <span class="pc-wa-badge-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
-                <span class="pc-wa-badge-pulse" aria-hidden="true"></span>
+            <a class="pc-wa-badge rounded-pill d-inline-flex align-items-center gap-2 text-decoration-none" href="https://wa.me/353899728089" target="_blank" rel="noopener" aria-label="Chat with PowerCabs on WhatsApp">
+              <span class="pc-wa-badge-icon position-relative text-white d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
+                <span class="pc-wa-badge-pulse position-absolute rounded-circle" aria-hidden="true"></span>
                 <i class="bi bi-whatsapp"></i>
               </span>
               <span class="d-flex flex-column lh-sm">
@@ -90,24 +90,24 @@
         &copy; 2024&ndash;<?php echo date('Y'); ?> Powercabs Ireland Limited.
       </p>
       <div class="d-flex gap-4">
-        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
-        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
-        <a class="pc-footer-bottom-link" href="<?= $assetPath ?>/gdpr">GDPR</a>
+        <a class="pc-footer-bottom-link text-decoration-none" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
+        <a class="pc-footer-bottom-link text-decoration-none" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
+        <a class="pc-footer-bottom-link text-decoration-none" href="<?= $assetPath ?>/gdpr">GDPR</a>
       </div>
       <div class="d-flex gap-3">
-        <a class="pc-footer-social" href="https://www.facebook.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Facebook">
+        <a class="pc-footer-social d-inline-flex align-items-center justify-content-center rounded-circle text-white" href="https://www.facebook.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Facebook">
           <i class="bi bi-facebook"></i>
         </a>
-        <a class="pc-footer-social" href="https://www.instagram.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Instagram">
+        <a class="pc-footer-social d-inline-flex align-items-center justify-content-center rounded-circle text-white" href="https://www.instagram.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Instagram">
           <i class="bi bi-instagram"></i>
         </a>
-        <!-- <a class="pc-footer-social" href="https://x.com/powercabsie" target="_blank" rel="noopener" aria-label="PowerCabs on X">
+        <!-- <a class="pc-footer-social d-inline-flex align-items-center justify-content-center rounded-circle text-white" href="https://x.com/powercabsie" target="_blank" rel="noopener" aria-label="PowerCabs on X">
           <i class="bi bi-twitter-x"></i>
         </a> -->
-        <a class="pc-footer-social" href="https://vm.tiktok.com/ZSYUyT1fd/" target="_blank" rel="noopener" aria-label="PowerCabs on TikTok">
+        <a class="pc-footer-social d-inline-flex align-items-center justify-content-center rounded-circle text-white" href="https://vm.tiktok.com/ZSYUyT1fd/" target="_blank" rel="noopener" aria-label="PowerCabs on TikTok">
           <i class="bi bi-tiktok"></i>
         </a>
-        <a class="pc-footer-social" href="https://youtube.com/@powercabs" target="_blank" rel="noopener" aria-label="PowerCabs on YouTube">
+        <a class="pc-footer-social d-inline-flex align-items-center justify-content-center rounded-circle text-white" href="https://youtube.com/@powercabs" target="_blank" rel="noopener" aria-label="PowerCabs on YouTube">
           <i class="bi bi-youtube"></i>
         </a>
       </div>

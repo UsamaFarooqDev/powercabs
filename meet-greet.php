@@ -219,7 +219,7 @@ $bookingSteps = [
           you, assist with your luggage and get you comfortably on your way.
         </p>
         <div class="d-flex flex-wrap align-items-center gap-3">
-          <a class="btn btn-pc-primary btn-md px-3" href="<?= $assetPath ?>/book-ride-online">Book a Meet &amp; Greet</a>
+          <a class="btn btn-pc-primary btn-md px-3" href="#pcMeetGreetBook">Book a Meet &amp; Greet</a>
         </div>
       </div>
 
@@ -235,7 +235,7 @@ $bookingSteps = [
               filter: blur(2px);
             "></div>
           <div class="position-relative overflow-hidden rounded-5" style="
-              min-height: 420px;
+              min-height: clamp(220px, 60vw, 420px);
               box-shadow: var(--pc-shadow-lg);
             ">
             <img src="<?= $assetPath ?>assets/img/meet-and-greet.png" alt="PowerCabs Meet and Greet airport transfer"
@@ -252,57 +252,6 @@ $bookingSteps = [
   </div>
 </section>
 
-<!-- ============ Our Meet & Greet Services ============ -->
-<section class="section-pc">
-  <div class="container">
-    <div class="text-center mb-5">
-      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ What's
-        Included</p>
-      <h2 class="mb-0">Our Meet &amp; Greet Services</h2>
-    </div>
-    <div class="row g-4">
-      <?php foreach ($meetGreetServices as $s): ?>
-        <div class="col-md-6 col-lg-4">
-          <div class="pc-service-card rounded-4 p-4 bg-white h-100">
-            <span class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3"
-              style="width: 48px; height: 48px; background: var(--pc-peach); color: var(--pc-orange);">
-              <i class="bi <?= $s['icon'] ?> fs-5"></i>
-            </span>
-            <h3 class="fs-6 fw-bold mb-2"><?= htmlspecialchars($s['title']) ?></h3>
-            <p class="small text-muted-pc mb-0"><?= htmlspecialchars($s['desc']) ?></p>
-          </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-
-<style>
-  .pc-service-card {
-    box-shadow: var(--pc-shadow-sm);
-    border: 1px solid rgba(28, 20, 16, .05);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-
-  .pc-service-card:hover {
-    box-shadow: var(--pc-shadow-md);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pc-service-card {
-      transition: none;
-    }
-
-    .pc-service-card:hover {
-      transform: none;
-    }
-  }
-</style>
-
-<?php if ($mgFormStatus): ?>
-  <script>window.pcMeetGreetFormSubmitted = true;</script>
-<?php endif; ?>
-
 <!-- ============ Meet & Greet Booking ============ -->
 <section class="section-pc position-relative overflow-hidden" id="pcMeetGreetBook">
   <div class="container position-relative">
@@ -310,7 +259,7 @@ $bookingSteps = [
 
       <!-- LEFT: branding / visual side -->
       <div class="col-lg-5 pc-mg-visual position-relative overflow-hidden text-white p-4 p-lg-5 d-flex flex-column">
-        <span class="pc-drive-blob pc-drive-blob-orange" aria-hidden="true"></span>
+        <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
         <i class="bi bi-airplane-fill pc-mg-visual-plane" aria-hidden="true"></i>
 
         <span class="pc-mg-badge d-inline-flex align-items-center gap-2 align-self-start mb-4">
@@ -487,8 +436,8 @@ $bookingSteps = [
               <a href="<?= htmlspecialchars($mgStripeLink) ?>" target="_blank" rel="noopener noreferrer"
                 class="btn btn-pc-primary w-100 d-flex align-items-center justify-content-center gap-2"
                 id="mgPayBtn">
-                <i class="bi bi-lock-fill" aria-hidden="true"></i>
-                <span id="mgPayBtnLabel">Select a journey type to see your fare</span>
+                <i class="bi bi-lock-fill d-none d-sm-inline-block" aria-hidden="true"></i>
+                <span id="mgPayBtnLabel">Select journey type to see fare</span>
               </a>
               <p class="pc-mg-payment-note small text-muted-pc mb-0 mt-2">
                 You'll be taken to our secure Stripe payment page to complete payment for the
@@ -713,6 +662,14 @@ $bookingSteps = [
       font-size: 8rem;
     }
   }
+
+  @media (max-width: 575.98px) {
+    #mgPayBtn {
+      font-size: .85rem;
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+  }
 </style>
 
 <script>
@@ -775,6 +732,57 @@ $bookingSteps = [
     applyJourneyType();
   })();
 </script>
+
+<!-- ============ Our Meet & Greet Services ============ -->
+<section class="section-pc">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ What's
+        Included</p>
+      <h2 class="mb-0">Our Meet &amp; Greet Services</h2>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($meetGreetServices as $s): ?>
+        <div class="col-md-6 col-lg-4">
+          <div class="pc-service-card rounded-4 p-4 bg-white h-100">
+            <span class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3"
+              style="width: 48px; height: 48px; background: var(--pc-peach); color: var(--pc-orange);">
+              <i class="bi <?= $s['icon'] ?> fs-5"></i>
+            </span>
+            <h3 class="fs-6 fw-bold mb-2"><?= htmlspecialchars($s['title']) ?></h3>
+            <p class="small text-muted-pc mb-0"><?= htmlspecialchars($s['desc']) ?></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pc-service-card {
+    box-shadow: var(--pc-shadow-sm);
+    border: 1px solid rgba(28, 20, 16, .05);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .pc-service-card:hover {
+    box-shadow: var(--pc-shadow-md);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pc-service-card {
+      transition: none;
+    }
+
+    .pc-service-card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<?php if ($mgFormStatus): ?>
+  <script>window.pcMeetGreetFormSubmitted = true;</script>
+<?php endif; ?>
 
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',

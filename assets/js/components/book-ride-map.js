@@ -9,33 +9,31 @@
   // (setupAutocomplete below calls into it) -- see that file for the actual
   // coordinates, shared with meet-greet.php's address fields.
 
-  // Mirrors the passenger app's ride_selection.dart multiplier table.
-  const PC_RIDE_TYPE_MULTIPLIERS = {
-    "Economy": 1.0,
-    "Economy XL": 1.2,
-    "Limousine": 2.0,
-    "Wheelchair Taxi": 1.1,
-    "Pets Taxi": 1.15,
-    "Courier / Parcel": 0.9,
-    "Business": 1.2,
-    "Business XL": 1.3,
-  };
-
-  const PC_INITIAL_FARE = 3.0;
-  const PC_DAY_RATES = { base: 4.40, perKm: 1.32, perMinute: 0.20 };
-  const PC_NIGHT_RATES = { base: 5.40, perKm: 1.81, perMinute: 0.30 };
-
-  function pcIsDaytime(date) {
-    const hour = (date || new Date()).getHours();
-    return hour >= 8 && hour < 20;
-  }
-
-  /** Fare = (3.0 + baseFare + distanceKm*ratePerKm + durationMin*ratePerMinute) * typeMultiplier */
-  function pcCalculateFare(distanceKm, durationMin, rideTypeLabel) {
-    const rates = pcIsDaytime() ? PC_DAY_RATES : PC_NIGHT_RATES;
-    const multiplier = PC_RIDE_TYPE_MULTIPLIERS[rideTypeLabel] ?? PC_RIDE_TYPE_MULTIPLIERS["Economy"];
-    const fare = (PC_INITIAL_FARE + rates.base + distanceKm * rates.perKm + durationMin * rates.perMinute) * multiplier;
-    return Math.round(fare * 100) / 100;
+  /**
+   * The fare is never computed here -- api/estimate_fare.php runs the one
+   * shared server-side pricing pipeline (lib/fare_calculator.php) against
+   * the real Europe/Dublin clock and the live pricing_config table, so the
+   * number shown here always matches what a booking would actually be
+   * charged. A previous version of this file duplicated the app's fare math
+   * locally (browser clock for day/night, a hard-coded multiplier table)
+   * and drifted from the real fare -- see the "Fare mismatch between
+   * passenger app and this website" fix.
+   */
+  function pcFetchFareEstimate(distanceKm, durationMin, rideType) {
+    const params = new URLSearchParams({
+      distance_km: distanceKm.toFixed(2),
+      duration_min: durationMin.toFixed(1),
+      ride_type: rideType,
+    });
+    return fetch(`/api/estimate_fare?${params.toString()}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Fare estimate request failed");
+        return res.json();
+      })
+      .then((data) => {
+        if (typeof data.fare_eur !== "number") throw new Error("Malformed fare estimate response");
+        return data;
+      });
   }
 
   function initGoogleMaps() {
@@ -119,18 +117,38 @@
       });
     }
 
+    // Bumped on every new request so a slow, now-stale fare response (e.g.
+    // the user switched ride type again before it returned) can't land
+    // after a newer one already has.
+    let estimateRequestId = 0;
+
     function renderEstimate(distanceKm, durationMin) {
       const rideType = rideTypeSelect?.value || "Economy";
-      const fare = pcCalculateFare(distanceKm, durationMin, rideType);
+      const requestId = ++estimateRequestId;
 
       if (hiddenFields.distanceKm) hiddenFields.distanceKm.value = distanceKm.toFixed(2);
       if (hiddenFields.durationMin) hiddenFields.durationMin.value = durationMin.toFixed(1);
-      if (hiddenFields.fareEur) hiddenFields.fareEur.value = fare.toFixed(2);
+      if (hiddenFields.fareEur) hiddenFields.fareEur.value = "";
 
-      if (fareValueEl) fareValueEl.textContent = `€${fare.toFixed(2)}`;
+      // A lightweight placeholder while the authoritative fare loads --
+      // never a fast local guess that then flickers to the real number once
+      // the server responds.
+      if (fareValueEl) fareValueEl.textContent = "Calculating…";
       if (fareDistanceEl) fareDistanceEl.textContent = distanceKm.toFixed(1);
       if (fareDurationEl) fareDurationEl.textContent = Math.round(durationMin);
       fareBox?.classList.remove("d-none");
+
+      pcFetchFareEstimate(distanceKm, durationMin, rideType)
+        .then((estimate) => {
+          if (requestId !== estimateRequestId) return; // superseded by a newer request
+
+          if (hiddenFields.fareEur) hiddenFields.fareEur.value = estimate.fare_eur.toFixed(2);
+          if (fareValueEl) fareValueEl.textContent = `€${estimate.fare_eur.toFixed(2)}`;
+        })
+        .catch(() => {
+          if (requestId !== estimateRequestId) return;
+          if (fareValueEl) fareValueEl.textContent = "Unavailable";
+        });
     }
 
     function updateRoute() {

@@ -39,7 +39,7 @@ $bizServiceModules = [
           <img src="<?= $assetPath ?>assets/img/meet-and-greet.png" alt="A PowerCabs Meet and Greet host welcoming a business traveller at Dublin Airport" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
             <span class="pc-service-card-eyebrow d-block text-uppercase fw-semibold mb-1">Featured</span>
-            <span class="pc-service-card-title d-block fs-3 fw-bold mb-1">Airport Transfers</span>
+            <span class="pc-service-card-title text-white d-block fs-3 fw-bold mb-1">Airport Transfers</span>
             <span class="d-block text-white-50">Meet &amp; Greet arrivals for executives, clients and guests -- every time.</span>
           </span>
         </a>
@@ -49,7 +49,7 @@ $bizServiceModules = [
         <div class="d-flex flex-column">
           <?php foreach ($bizServiceModules as $service): ?>
             <div class="pc-ride-service-item d-flex align-items-center gap-3">
-              <span class="pc-ride-service-icon d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
+              <span class="pc-ride-service-icon text-primary d-inline-flex align-items-center justify-content-center rounded-circle flex-shrink-0">
                 <i class="bi <?= $service['icon'] ?>" aria-hidden="true"></i>
               </span>
               <span class="flex-grow-1">

@@ -1,5 +1,5 @@
 <section id="why-choose" class="section-pc bg-white position-relative overflow-hidden">
-  <svg class="pc-why-bg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <svg class="pc-why-bg position-absolute w-100 h-100 z-0" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g fill="none" stroke-linecap="round">
       <path d="M-100,120 Q400,60 1300,180" stroke="var(--pc-dark)" stroke-width="1.5" opacity="0.06"/>
       <path d="M-100,620 Q500,680 1300,560" stroke="var(--pc-orange)" stroke-width="1.5" opacity="0.08"/>

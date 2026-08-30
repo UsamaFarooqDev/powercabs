@@ -278,7 +278,7 @@ $whyChooseTours = [
   <div class="container">
     <div class="row align-items-center gy-4 pc-hourly-band position-relative overflow-hidden rounded-4 p-4 p-md-5"
       style="background-image: url('https://images.unsplash.com/photo-1603934631592-40d9f2e67702?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-      <span class="pc-hourly-band-scrim position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
+      <span class="pc-hourly-band-scrim m-0 z-0 position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
       <div class="col-lg-9 position-relative">
         <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange-light);">/ Pay Per Hour</p>
         <h2 class="mb-2 text-white">Prefer to Explore at Your Own Pace?</h2>

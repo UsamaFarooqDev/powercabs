@@ -7,7 +7,7 @@ $bizTrustMarkers = [
 <section class="section-pc" style="background: linear-gradient(180deg, var(--pc-cream-soft) 0%, var(--pc-white) 100%);">
   <div class="container">
     <div class="pc-biz-quote mx-auto text-center" style="max-width: 46rem;">
-      <i class="bi bi-quote pc-biz-quote-mark" aria-hidden="true"></i>
+      <i class="bi bi-quote pc-biz-quote-mark text-primary" aria-hidden="true"></i>
       <p class="pc-biz-quote-text mb-4">
         Every PowerCabs Business account runs on the same standard we hold
         every ride to &mdash; licensed, vetted drivers, one simple account,

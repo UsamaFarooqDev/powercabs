@@ -5,19 +5,19 @@ $carEarnCards = [
     'step' => '01',
     'title' => 'Drive',
     'desc' => 'Every trip keeps your car on the road and earning.',
-    'img' => 'https://images.pexels.com/photos/37310371/pexels-photo-37310371.jpeg?auto=format&fit=crop&w=1200&q=60',
+    'img' => '/assets/img/driver-earn-more.png',
   ],
   [
     'step' => '02',
     'title' => 'Advertise',
     'desc' => 'Turn your vehicle into a moving billboard seen across Dublin.',
-    'img' => 'https://images.pexels.com/photos/32234671/pexels-photo-32234671.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'img' => 'https://images.pexels.com/photos/33794255/pexels-photo-33794255.jpeg?auto=compress&cs=tinysrgb&w=1200',
   ],
   [
     'step' => '03',
     'title' => 'Earn',
     'desc' => 'Get paid extra for eligible campaigns, on top of your fares.',
-    'img' => 'https://images.pexels.com/photos/35119581/pexels-photo-35119581.jpeg?auto=format&fit=crop&w=1200&q=60',
+    'img' => 'https://images.pexels.com/photos/6289026/pexels-photo-6289026.jpeg',
   ],
 ]; ?>
 <!-- ============ Your Car Can Earn More ============ -->
@@ -59,7 +59,7 @@ $carEarnCards = [
         depending on campaign and eligibility.
       </p>
       <a href="<?= $assetPath ?>/ambassador-programme" class="btn btn-pc-primary rounded-pill px-4 d-inline-flex align-items-center gap-2">
-        Ask About Vehicle Campaigns <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
+        Ask About Vehicle Campaigns <i class="bi bi-chevron-right fs-8" aria-hidden="true"></i>
       </a>
     </div>
   </div>

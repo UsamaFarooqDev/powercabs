@@ -72,7 +72,7 @@ require __DIR__ . '/components/corporate/why-businesses.php';
           <img src="<?= $assetPath ?>assets/img/services-corporate.jpg" alt="Executives entering a premium PowerCabs vehicle" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title d-block fs-4 fw-bold mb-1">Business Travel</span>
+            <span class="pc-service-card-title text-white d-block fs-4 fw-bold mb-1">Business Travel</span>
             <span class="d-block small text-white-50">Executive rides for meetings, client visits, and the daily commute.</span>
           </span>
         </a>
@@ -82,7 +82,7 @@ require __DIR__ . '/components/corporate/why-businesses.php';
           <img src="<?= $assetPath ?>assets/img/service-city-tour.jpg" alt="Guests arriving at a conference venue" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title d-block fs-4 fw-bold mb-1">Event Transportation</span>
+            <span class="pc-service-card-title text-white d-block fs-4 fw-bold mb-1">Event Transportation</span>
             <span class="d-block small text-white-50">Coordinated arrivals and departures for conferences and corporate events.</span>
           </span>
         </a>
@@ -92,7 +92,7 @@ require __DIR__ . '/components/corporate/why-businesses.php';
           <img src="<?= $assetPath ?>assets/img/service-airport.png" alt="A chauffeur waiting beside a luxury vehicle" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
           <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
           <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title d-block fs-4 fw-bold mb-1">Ongoing Corporate Transport</span>
+            <span class="pc-service-card-title text-white d-block fs-4 fw-bold mb-1">Ongoing Corporate Transport</span>
             <span class="d-block small text-white-50">Flexible multi-day and ongoing accounts, tailored to your business.</span>
           </span>
         </a>
@@ -105,8 +105,8 @@ require __DIR__ . '/components/corporate/why-businesses.php';
 
 <!-- ============ Mission ============ -->
 <section class="pc-corp-mission position-relative overflow-hidden text-white text-center">
-  <img src="<?= $assetPath ?>assets/img/trusted-bg.svg" alt="" aria-hidden="true" class="pc-corp-mission-bg position-absolute top-0 start-0 w-100 h-100">
-  <span class="pc-corp-mission-scrim position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
+  <img src="<?= $assetPath ?>assets/img/trusted-bg.svg" alt="" aria-hidden="true" class="object-fit-cover z-0 position-absolute top-0 start-0 w-100 h-100">
+  <span class="pc-corp-mission-scrim z-0 position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
   <div class="container position-relative">
     <p class="small fw-semibold text-uppercase mb-3" style="letter-spacing: .06em; color: var(--pc-orange-light);">/ Our Mission</p>
     <p class="mx-auto mb-0" style="max-width: 60ch; color: rgba(255,255,255,.85); font-size: 1.4rem;">

@@ -84,6 +84,9 @@ function pcSetButtonBusy(btn) {
   spinner.className = [
     ...(icon ? Array.from(icon.classList).filter((c) => c !== "bi" && !c.startsWith("bi-")) : ["ms-2"]),
     "pc-btn-icon-spinner",
+    "d-inline-block",
+    "rounded-circle",
+    "bg-transparent",
   ].join(" ");
   spinner.setAttribute("aria-hidden", "true");
 

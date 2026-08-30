@@ -1,21 +1,12 @@
 <?php
-/**
- * "Compare the Model" -- PowerCabs vs other driving platforms' commission
- * models, built the same way as ride.php's Why PowerCabs comparison
- * (components/ride/why-powercabs.php): Bootstrap row/col grid rather than
- * a <table>, PowerCabs column tinted throughout, position: relative on the
- * wrapper so the one visually-hidden a11y label doesn't escape the
- * horizontal-scroll container on narrow viewports.
- */
 $compareRows = [
-    ['label' => 'Joining fee', 'powercabs' => '€0', 'other' => 'Varies'],
-    ['label' => 'Monthly subscription', 'powercabs' => '€0', 'other' => 'Varies'],
-    ['label' => 'Commission on completed jobs', 'powercabs' => '10%', 'other' => 'Varies'],
-    ['label' => 'Commission if no PowerCabs job is completed', 'powercabs' => '€0', 'other' => 'Depends on model'],
-    ['label' => 'Saver fare model', 'powercabs' => 'No*', 'other' => 'Varies'],
-    ['label' => 'Driver benefits', 'powercabs' => 'check', 'other' => 'Varies'],
-];
-?>
+  ['label' => 'Joining fee', 'powercabs' => '€0', 'other' => '€300'],
+  ['label' => 'Monthly subscription', 'powercabs' => '€0', 'other' => '€120+'],
+  ['label' => 'Commission on completed jobs', 'powercabs' => '10%', 'other' => '15-25%'],
+  ['label' => 'Commission if no PowerCabs job is completed', 'powercabs' => '€0', 'other' => 'Depends on model'],
+  ['label' => 'Saver fare model', 'powercabs' => 'No', 'other' => 'Up to 25% cut'],
+  ['label' => 'Driver benefits', 'powercabs' => 'High', 'other' => 'Low'],
+]; ?>
 <!-- ============ Compare the Model ============ -->
 <section class="section-pc" style="background: var(--pc-cream-soft);">
   <div class="container">
@@ -51,20 +42,22 @@ $compareRows = [
 
               <!-- Rows -->
               <?php foreach ($compareRows as $i => $row): ?>
-                <div class="row g-0 align-items-stretch" style="<?= $i < count(
-                  $compareRows,
-                ) - 1
+                <div class="row g-0 align-items-stretch" style="<?= $i < count($compareRows) - 1
                   ? 'border-bottom: 1px solid rgba(28, 20, 16, .06);'
                   : '' ?>">
                   <div class="col-6 d-flex align-items-center py-3 px-4">
-                    <span class="small fw-semibold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['label']) ?></span>
+                    <span class="small fw-semibold" style="color: var(--pc-dark);"><?= htmlspecialchars(
+                      $row['label'],
+                    ) ?></span>
                   </div>
                   <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2" style="background: var(--pc-cream-soft);">
                     <?php if ($row['powercabs'] === 'check'): ?>
                       <i class="bi bi-check-circle-fill" style="color: #198754; font-size: 1.1rem;" aria-hidden="true"></i>
                       <span class="visually-hidden">Yes</span>
                     <?php else: ?>
-                      <span class="fw-bold" style="color: var(--pc-dark);"><?= htmlspecialchars($row['powercabs']) ?></span>
+                      <span class="fw-bold" style="color: var(--pc-dark);"><?= htmlspecialchars(
+                        $row['powercabs'],
+                      ) ?></span>
                     <?php endif; ?>
                   </div>
                   <div class="col-3 d-flex align-items-center justify-content-center text-center py-3 px-2">
@@ -100,10 +93,14 @@ $compareRows = [
         <?php endforeach; ?>
       </div>
 
-      <p class="small text-muted-pc text-center mt-3 mb-0" style="font-size: .8rem;">
-        *Generic comparison only, not a statement about any named competitor. Verify
-        live market terms before publishing comparative advertising.
-      </p>
+      <div class="d-flex align-items-center gap-3 rounded-3 p-3 mt-3" style="background: rgba(255, 122, 0, .1); border: 1px solid rgba(255, 122, 0, .18);">
+        <i class="bi bi-patch-check-fill flex-shrink-0" style="color: var(--pc-orange); font-size: 1.3rem;" aria-hidden="true"></i>
+        <p class="small fw-semibold mb-0" style="color: var(--pc-dark);">
+          The PowerCabs advantage: no joining fee, no monthly subscription and no Saver fare
+          cut &mdash; just a flat 10% on completed jobs.
+        </p>
+      </div>
+
     </div>
   </div>
 </section>

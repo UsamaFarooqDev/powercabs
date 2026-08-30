@@ -98,7 +98,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       -webkit-backdrop-filter: blur(24px) saturate(160%);
       border: 1px solid rgba(255, 255, 255, .08);
       border-radius: 100px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+      /* box-shadow: 0 8px 30px rgba(0, 0, 0, .25); */
       --bs-navbar-color: rgba(255, 255, 255, .85);
       --bs-navbar-hover-color: rgba(255, 255, 255, .85);
       --bs-navbar-active-color: var(--pc-orange-light);
@@ -158,7 +158,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
       right: 0;
       height: 120px;
       z-index: 1029;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, .25), transparent);
+      /* background: linear-gradient(to bottom, rgba(0, 0, 0, .25), transparent); */
       pointer-events: none;
     }
 
@@ -206,12 +206,12 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
             <img src="<?= $assetPath ?>assets/img/powercabs-logo-white.svg" alt="PowerCabs" height="47" class="d-block">
           </a>
 
-          <button class="navbar-toggler pc-navbar-toggler border-0 p-0 shadow-none" type="button"
+          <button class="navbar-toggler pc-navbar-toggler position-relative border-0 p-0 shadow-none" type="button"
             data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="pc-toggler-bar"></span>
-            <span class="pc-toggler-bar"></span>
-            <span class="pc-toggler-bar"></span>
+            <span class="pc-toggler-bar position-absolute w-100"></span>
+            <span class="pc-toggler-bar position-absolute w-100"></span>
+            <span class="pc-toggler-bar position-absolute w-100"></span>
           </button>
 
           <div class="collapse navbar-collapse" id="mainNav">
@@ -237,85 +237,85 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
 
                       <!-- Col 1: Get Started -->
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
-                        <p class="pc-mega-col-title">Get Started</p>
+                        <p class="pc-mega-col-title text-uppercase">Get Started</p>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/book-ride-online">
-                          <span class="pc-mega-item-title">Book Ride Online</span>
-                          <span class="pc-mega-item-desc">Instant online cab booking</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/book-ride-online">
+                          <span class="pc-mega-item-title d-block">Book Ride Online</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Instant online cab booking</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/download-our-app">
-                          <span class="pc-mega-item-title">Download App</span>
-                          <span class="pc-mega-item-desc">Get the PowerCabs app</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/download-our-app">
+                          <span class="pc-mega-item-title d-block">Download App</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Get the PowerCabs app</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/about-us">
-                          <span class="pc-mega-item-title">About Us</span>
-                          <span class="pc-mega-item-desc">Our story and mission</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/about-us">
+                          <span class="pc-mega-item-title d-block">About Us</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Our story and mission</span>
                         </a>
                       </div>
 
                       <!-- Col 2: Business -->
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
-                        <p class="pc-mega-col-title">Business</p>
+                        <p class="pc-mega-col-title text-uppercase">Business</p>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/corporate-services">
-                          <span class="pc-mega-item-title">Corporate Services</span>
-                          <span class="pc-mega-item-desc">Business travel accounts Ireland</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/corporate-services">
+                          <span class="pc-mega-item-title d-block">Corporate Services</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Business travel accounts Ireland</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/business-solutions">
-                          <span class="pc-mega-item-title">PowerCabs Business Solutions</span>
-                          <span class="pc-mega-item-desc">Card terminals and payments</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/business-solutions">
+                          <span class="pc-mega-item-title d-block">PowerCabs Business Solutions</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Card terminals and payments</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/wheelchair-accessible-taxis">
-                          <span class="pc-mega-item-title">Wheelchair Accessible Taxis</span>
-                          <span class="pc-mega-item-desc">Inclusive rides for everyone</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/wheelchair-accessible-taxis">
+                          <span class="pc-mega-item-title d-block">Wheelchair Accessible Taxis</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Inclusive rides for everyone</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/meet-greet">
-                          <span class="pc-mega-item-title">Meet &amp; Greet</span>
-                          <span class="pc-mega-item-desc">Airport pickups, done right</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/meet-greet">
+                          <span class="pc-mega-item-title d-block">Meet &amp; Greet</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Airport pickups, done right</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/city-tours">
-                          <span class="pc-mega-item-title">City Tours</span>
-                          <span class="pc-mega-item-desc">See Ireland with a local driver</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/city-tours">
+                          <span class="pc-mega-item-title d-block">City Tours</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">See Ireland with a local driver</span>
                         </a>
                       </div>
 
                       <!-- Col 3: Drivers -->
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
-                        <p class="pc-mega-col-title">Drivers</p>
+                        <p class="pc-mega-col-title text-uppercase">Drivers</p>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/ambassador-programme">
-                          <span class="pc-mega-item-title">Ambassador Programme</span>
-                          <span class="pc-mega-item-desc">Exclusive perks for drivers</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/ambassador-programme">
+                          <span class="pc-mega-item-title d-block">Ambassador Programme</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Exclusive perks for drivers</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/partner-programme">
-                          <span class="pc-mega-item-title">Partner Programme</span>
-                          <span class="pc-mega-item-desc">Earn as a partner</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/partner-programme">
+                          <span class="pc-mega-item-title d-block">Partner Programme</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Earn as a partner</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/loyalty-program">
-                          <span class="pc-mega-item-title">Loyalty Program</span>
-                          <span class="pc-mega-item-desc">Earn rewards every trip</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/loyalty-program">
+                          <span class="pc-mega-item-title d-block">Loyalty Program</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Earn rewards every trip</span>
                         </a>
 
                         <div class="pc-mega-nested">
-                          <button type="button" class="pc-mega-item pc-mega-item-parent">
+                          <button type="button" class="pc-mega-item pc-mega-item-parent d-block w-100 border-0 text-start text-decoration-none">
                             <span class="pc-mega-item-title d-flex align-items-center justify-content-between">
                               Training
                               <i class="bi bi-chevron-right pc-mega-chevron"></i>
                             </span>
-                            <span class="pc-mega-item-desc">Licensing and onboarding resources</span>
+                            <span class="pc-mega-item-desc d-block fw-normal">Licensing and onboarding resources</span>
                           </button>
-                          <div class="pc-mega-submenu">
-                            <div class="pc-mega-submenu-inner">
-                              <a class="pc-mega-subitem" href="<?= $assetPath ?>/">Driver Training</a>
-                              <a class="pc-mega-subitem" href="<?= $assetPath ?>/">SPSV Manual</a>
+                          <div class="pc-mega-submenu d-grid">
+                            <div class="pc-mega-submenu-inner overflow-hidden">
+                              <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/">Driver Training</a>
+                              <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/">SPSV Manual</a>
                             </div>
                           </div>
                         </div>
@@ -323,36 +323,36 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
 
                       <!-- Col 4: Policies & Safety -->
                       <div class="col-12 col-sm-6 col-lg-3 pc-mega-col">
-                        <p class="pc-mega-col-title">Policies &amp; Safety</p>
+                        <p class="pc-mega-col-title text-uppercase">Policies &amp; Safety</p>
 
                         <div class="pc-mega-nested">
-                          <button type="button" class="pc-mega-item pc-mega-item-parent">
+                          <button type="button" class="pc-mega-item pc-mega-item-parent d-block w-100 border-0 text-start text-decoration-none">
                             <span class="pc-mega-item-title d-flex align-items-center justify-content-between">
                               Safety
                               <i class="bi bi-chevron-right pc-mega-chevron"></i>
                             </span>
-                            <span class="pc-mega-item-desc">Tips for staying safe</span>
+                            <span class="pc-mega-item-desc d-block fw-normal">Tips for staying safe</span>
                           </button>
-                          <div class="pc-mega-submenu">
-                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-drivers">Driver
+                          <div class="pc-mega-submenu d-grid">
+                            <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/safety-tips-drivers">Driver
                               Safety</a>
-                            <a class="pc-mega-subitem" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a>
+                            <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a>
                           </div>
                         </div>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/terms-conditions">
-                          <span class="pc-mega-item-title">Terms &amp; Conditions</span>
-                          <span class="pc-mega-item-desc">Rider and driver agreements</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/terms-conditions">
+                          <span class="pc-mega-item-title d-block">Terms &amp; Conditions</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Rider and driver agreements</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/privacy-policy">
-                          <span class="pc-mega-item-title">Cookies &amp; Privacy Policy</span>
-                          <span class="pc-mega-item-desc">How we handle data</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/privacy-policy">
+                          <span class="pc-mega-item-title d-block">Cookies &amp; Privacy Policy</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">How we handle data</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/sustainability">
-                          <span class="pc-mega-item-title">Sustainability &amp; Environment</span>
-                          <span class="pc-mega-item-desc">Our environmental commitment explained</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/sustainability">
+                          <span class="pc-mega-item-title d-block">Sustainability &amp; Environment</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Our environmental commitment explained</span>
                         </a>
                       </div>
 
@@ -388,24 +388,24 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                   <div class="pc-mega-inner">
                     <div class="row g-4">
                       <div class="col-12 pc-mega-col">
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/contact-us">
-                          <span class="pc-mega-item-title">Contact Us</span>
-                          <span class="pc-mega-item-desc">Reach our support team</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/contact-us">
+                          <span class="pc-mega-item-title d-block">Contact Us</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Reach our support team</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/complaint-form">
-                          <span class="pc-mega-item-title">Complaint Form</span>
-                          <span class="pc-mega-item-desc">Report an issue</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/complaint-form">
+                          <span class="pc-mega-item-title d-block">Complaint Form</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Report an issue</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/positive-feedback-form">
-                          <span class="pc-mega-item-title">Positive Feedback Form</span>
-                          <span class="pc-mega-item-desc">Share a great experience</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/positive-feedback-form">
+                          <span class="pc-mega-item-title d-block">Positive Feedback Form</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Share a great experience</span>
                         </a>
 
-                        <a class="pc-mega-item" href="<?= $assetPath ?>/lost-item-report">
-                          <span class="pc-mega-item-title">Lost an Item Report</span>
-                          <span class="pc-mega-item-desc">Left something in your ride?</span>
+                        <a class="pc-mega-item d-block w-100 border-0 text-start text-decoration-none" href="<?= $assetPath ?>/lost-item-report">
+                          <span class="pc-mega-item-title d-block">Lost an Item Report</span>
+                          <span class="pc-mega-item-desc d-block fw-normal">Left something in your ride?</span>
                         </a>
                       </div>
                     </div>
@@ -418,7 +418,7 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
               <a class="btn btn-pc-dark pc-nav-cta rounded-pill d-inline-flex align-items-center gap-2 fw-medium"
                 href="<?= $assetPath ?>/book-ride-online">
                 <i class="bi bi-car-front-fill"></i>
-                <span class="pc-nav-cta-word">Book Online</span>
+                <span class="pc-nav-cta-word d-inline-block">Book Online</span>
               </a>
             </div>
           </div>

@@ -79,12 +79,12 @@ require __DIR__ . '/components/shared/inner-hero.php';
     <div class="pc-dublin-map position-relative rounded-4 overflow-hidden">
       <iframe
         src="https://www.google.com/maps?q=53.3498,-6.2603(PowerCabs+Dublin)&z=11&output=embed"
-        class="pc-dublin-map-iframe"
+        class="w-100 h-100 border-0"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         title="PowerCabs coverage across Dublin"
       ></iframe>
-      <div class="pc-dublin-map-card position-absolute bg-white rounded-4">
+      <div class="pc-dublin-map-card z-2 position-absolute bg-white rounded-4">
         <h3 class="fs-5 fw-bold mb-2">Serving Every Corner</h3>
         <p class="small text-muted-pc mb-3">
           From Dublin Airport to D&uacute;n Laoghaire, and the IFSC to Dundrum. Wherever you

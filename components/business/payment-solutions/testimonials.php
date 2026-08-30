@@ -57,9 +57,9 @@
 
 
   <div class="pc-marquee">
-    <div class="pc-marquee-track py-3">
+    <div class="pc-marquee-track d-flex py-3">
       <?php foreach ($marqueeItems as $i => $t): ?>
-        <div class="pc-marquee-card px-2" <?= $i >= count($paymentTestimonials) ? 'aria-hidden="true"' : '' ?>>
+        <div class="pc-marquee-card flex-shrink-0 px-2" <?= $i >= count($paymentTestimonials) ? 'aria-hidden="true"' : '' ?>>
           <article class="card h-100 border-0 bg-white position-relative overflow-hidden" style="
               width: min(360px, 100%);
               min-height: 290px;

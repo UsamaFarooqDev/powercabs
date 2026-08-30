@@ -42,9 +42,9 @@ $bizPlans = [
     <div class="row g-4 justify-content-center">
       <?php foreach ($bizPlans as $plan): ?>
         <div class="col-md-6 col-lg-4">
-          <div class="pc-biz-plan h-100<?= $plan['featured'] ? ' pc-biz-plan-featured' : '' ?>">
+          <div class="pc-biz-plan position-relative d-flex flex-column h-100<?= $plan['featured'] ? ' pc-biz-plan-featured' : '' ?>">
             <?php if ($plan['featured']): ?>
-              <span class="pc-biz-plan-badge">Most Popular</span>
+              <span class="pc-biz-plan-badge position-absolute rounded-pill text-white fw-bold text-uppercase">Most Popular</span>
             <?php endif; ?>
 
             <span class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 3rem; height: 3rem; background: var(--pc-peach); color: var(--pc-orange); font-size: 1.25rem;">

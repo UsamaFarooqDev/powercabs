@@ -22,7 +22,7 @@
           ?>
           <?php foreach ($businessAccountBenefits as $benefit): ?>
             <div class="col d-flex flex-column align-items-center gap-2">
-              <span class="pc-ride-type-icon rounded-circle d-inline-flex align-items-center justify-content-center">
+              <span class="pc-ride-type-icon text-primary rounded-circle d-inline-flex align-items-center justify-content-center">
                 <i class="bi <?= $benefit['icon'] ?>"></i>
               </span>
               <span class="fw-semibold small"><?= htmlspecialchars($benefit['title']) ?></span>

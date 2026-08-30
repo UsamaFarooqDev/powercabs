@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroParallax();
   initHeaderScrollReveal();
   initWhyChooseReveal();
+  initScrollReveal();
   initScrollIndicator();
 });
 
@@ -214,6 +215,46 @@ function initWhyChooseReveal() {
   );
 
   items.forEach((item) => pcWhyChooseObserver.observe(item));
+}
+
+/**
+ * Generic fade/slide-up-on-scroll reveal for any element carrying
+ * .pc-reveal (currently the Loyalty Program page's timeline steps and
+ * membership tier cards). Unlike initWhyChooseReveal() above (which toggles
+ * its cards back out of view if you scroll back up past them), this one is
+ * one-shot: once an element has been revealed it stays revealed and is
+ * unobserved, so scrolling back up never makes content vanish again.
+ */
+let pcRevealObserver = null;
+function initScrollReveal() {
+  if (pcRevealObserver) {
+    pcRevealObserver.disconnect();
+    pcRevealObserver = null;
+  }
+
+  const items = document.querySelectorAll(".pc-reveal:not(.is-visible)");
+  if (!items.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".pc-reveal").forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".pc-reveal").forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  pcRevealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        pcRevealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  items.forEach((item) => pcRevealObserver.observe(item));
 }
 
 /**

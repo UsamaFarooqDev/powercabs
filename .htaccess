@@ -20,7 +20,32 @@ ErrorDocument 404 /404.php
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L,NE]
 
-  # 3) Internally serve the matching .php file for a clean URL -- the
+  # 3) A clean URL requested with a trailing slash (e.g. /drive/ instead of
+  #    /drive) matches none of the rules above -- rule 4 below tests
+  #    REQUEST_FILENAME + ".php", which for a trailing-slash request is
+  #    ".../drive/.php" (the slash lands before the extension), so it never
+  #    resolves. With nothing rewriting it, the request falls straight
+  #    through to this host's raw handling of a nonexistent directory path
+  #    instead of the intended 404. Canonicalize to the no-slash form
+  #    first, the same way rule 2 canonicalizes ".php" -- but only when a
+  #    matching .php file actually exists, so a genuinely bad URL like
+  #    /no-such-page/ still falls through unchanged to the exact same
+  #    behavior it has today.
+  #
+  #    Deliberately built on REQUEST_FILENAME only (never DOCUMENT_ROOT):
+  #    on some hosts (cPanel and similar with a symlinked home directory
+  #    being the most common case) DOCUMENT_ROOT is a different literal
+  #    path than the one Apache actually resolves REQUEST_FILENAME
+  #    through, so a DOCUMENT_ROOT-based -f test can silently never match
+  #    even though the file is right there. Rule 4 below already proves
+  #    REQUEST_FILENAME resolves correctly on this host -- every clean URL
+  #    on the site depends on it -- so this reuses exactly that.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} ^(.+)/$
+  RewriteCond %1.php -f
+  RewriteRule ^(.+)/$ /$1 [R=301,L,NE]
+
+  # 4) Internally serve the matching .php file for a clean URL -- the
   #    browser's address bar keeps showing the extension-less path.
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME}\.php -f

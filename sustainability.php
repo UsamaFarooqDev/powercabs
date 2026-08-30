@@ -44,7 +44,7 @@ $ecoAreas = [
   <img src="https://images.pexels.com/photos/35736786/pexels-photo-35736786.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 0;" loading="lazy">
   <span class="pc-eco-hero-scrim position-absolute top-0 start-0 w-100 h-100" aria-hidden="true" style="z-index: 0;"></span>
   <div class="container position-relative">
-    <span class="pc-eco-badge mb-3"><i class="bi bi-leaf-fill"></i> Eco-Friendly by Design</span>
+    <span class="pc-eco-badge rounded-pill d-inline-flex align-items-center gap-2 mb-3"><i class="bi bi-leaf-fill"></i> Eco-Friendly by Design</span>
     <h1 class="mb-3 text-white" style="font-size: clamp(2.25rem, 4.5vw, 3.5rem); font-weight: 900;">Sustainability &amp; Environmental Policy</h1>
     <p class="mx-auto mb-0" style="max-width: 56ch; color: rgba(255,255,255,.88); font-size: 1.15rem;">Our Commitment to Eco-Friendly Design and Digital Solutions.</p>
   </div>
