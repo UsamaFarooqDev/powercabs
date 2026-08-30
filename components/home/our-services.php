@@ -1,71 +1,73 @@
-<section class="section-pc" style="background-color: var(--pc-cream);">
+<?php
+$journeyServices = [
+  [
+    'n' => '01', 'eyebrow' => 'Airport',
+    'tagline' => 'Your driver is ready before you are.',
+    'desc' => 'Flight-tracked pickups and drop-offs, any time of day.',
+    'img' => 'service-airport.png', 'alt' => 'Airport pickup and drop-off',
+    'href' => '/meet-greet', 'label' => 'Meet &amp; Greet',
+  ],
+  [
+    'n' => '02', 'eyebrow' => 'Business',
+    'tagline' => 'Move your team without slowing them down.',
+    'desc' => 'Dependable travel accounts for teams and executives.',
+    'img' => 'services-corporate.jpg', 'alt' => 'Corporate travel services',
+    'href' => '/corporate-services', 'label' => 'Corporate Services',
+  ],
+  [
+    'n' => '03', 'eyebrow' => 'Sightseeing',
+    'tagline' => 'Experience Dublin from the back seat.',
+    'desc' => "See Dublin's best sights with a trusted local driver.",
+    'img' => 'service-city-tour.jpg', 'alt' => 'City tour packages',
+    'href' => '/city-tours', 'label' => 'City Tours',
+  ],
+];
+?>
+<!-- ============ Section 05 -- Services, as journeys ============ -->
+<section class="tw-bg-paper tw-py-20 sm:tw-py-28">
   <div class="container">
-    <div class="row align-items-end mb-5 gy-3">
-      <div class="col-lg-7">
-        <p class="small fw-semibold text-muted-pc mb-2">/ Services We Offer</p>
-        <h2 class="mb-0">Wherever You're<br>Heading.</h2>
-      </div>
-      <div class="col-lg-5">
-        <p class="text-muted-pc mb-3">
-          From airport runs to boardroom travel and city sightseeing, we've got your
-          journey covered. Book with confidence, every time.
+    <div class="tw-flex tw-flex-col sm:tw-flex-row sm:tw-items-end sm:tw-justify-between tw-gap-6 tw-mb-16 sm:tw-mb-20">
+      <div class="pc-reveal tw-max-w-[42ch]">
+        <p class="tw-inline-flex tw-items-center tw-gap-2 tw-text-[.72rem] tw-font-semibold tw-uppercase tw-tracking-[.18em] tw-mb-4" style="color: var(--pc-orange);">
+          <span class="tw-inline-block tw-w-6 tw-h-px" style="background: var(--pc-orange);"></span>
+          Different Journeys
         </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a class="btn btn-pc-primary px-4" href="<?= $assetPath ?>/book-ride-online">Book Online</a>
-          <a class="btn btn-pc-dark px-4" href="tel:+35312030727">Call Us</a>
-        </div>
+        <h2 class="tw-font-extrabold tw-leading-[1] tw-tracking-tight tw-text-[clamp(2.2rem,5vw,3.5rem)] tw-mb-0" style="color: var(--pc-dark);">
+          Wherever you're heading.
+        </h2>
       </div>
+      <a href="<?= $assetPath ?>/book-ride-online" class="pc-reveal btn btn-pc-dark tw-rounded-full tw-px-5 tw-py-3 tw-flex-shrink-0 tw-no-underline tw-self-start sm:tw-self-auto">
+        Book Online
+      </a>
     </div>
 
-    <div class="row g-4">
-      <div class="col-md-4">
-        <a href="<?= $assetPath ?>/meet-greet" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
-          <img src="<?= $assetPath ?>assets/img/service-airport.png" alt="Airport pickup and drop-off" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-          <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-          <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-eyebrow d-block small fw-semibold text-uppercase mb-1">Airport</span>
-            <span class="pc-service-card-title text-white d-block fs-3 fw-bold mb-1">Meet &amp; Greet</span>
-            <span class="d-block small text-white-50 mb-0">Flight-tracked pickups and drop-offs, any time of day.</span>
-            <span class="pc-service-card-btn-wrap d-block overflow-hidden">
-              <span class="btn btn-pc-primary btn-sm d-inline-flex align-items-center gap-1 lh-1" style="padding-block: 0.35rem;">
-                Read More <i class="bi bi-arrow-right-short fs-5 fw-bold"></i>
-              </span>
+    <div class="tw-flex tw-flex-col tw-gap-16 sm:tw-gap-20">
+      <?php foreach ($journeyServices as $i => $svc): $flip = $i % 2 === 1; ?>
+        <a href="<?= $assetPath . $svc['href'] ?>" class="pc-reveal tw-group tw-grid lg:tw-grid-cols-2 tw-gap-8 lg:tw-gap-14 tw-items-center tw-no-underline">
+          <div class="<?= $flip ? 'lg:tw-order-2' : '' ?> tw-relative tw-aspect-[4/3] tw-rounded-2xl tw-overflow-hidden">
+            <img src="<?= $assetPath ?>assets/img/<?= $svc['img'] ?>" alt="<?= htmlspecialchars($svc['alt']) ?>"
+              class="tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-700 group-hover:tw-scale-105" loading="lazy">
+            <span class="tw-absolute tw-top-5 tw-left-5 tw-text-white tw-text-[5rem] tw-font-extrabold tw-leading-none tw-opacity-90" style="text-shadow: 0 4px 24px rgba(0,0,0,.35);">
+              <?= $svc['n'] ?>
             </span>
-          </span>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="<?= $assetPath ?>/corporate-services" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
-          <img src="<?= $assetPath ?>assets/img/services-corporate.jpg" alt="Corporate travel services" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-          <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-          <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-eyebrow d-block small fw-semibold text-uppercase mb-1">Business</span>
-            <span class="pc-service-card-title text-white d-block fs-3 fw-bold mb-1">Corporate Services</span>
-            <span class="d-block small text-white-50 mb-0">Dependable travel accounts for teams and executives.</span>
-            <span class="pc-service-card-btn-wrap d-block overflow-hidden">
-              <span class="btn btn-pc-primary btn-sm d-inline-flex align-items-center gap-1 lh-1" style="padding-block: 0.35rem;">
-                 Read More <i class="bi bi-arrow-right-short fs-5 fw-bold"></i>
-              </span>
+          </div>
+
+          <div class="<?= $flip ? 'lg:tw-order-1' : '' ?>">
+            <p class="tw-text-[.72rem] tw-font-semibold tw-uppercase tw-tracking-[.18em] tw-mb-3" style="color: var(--pc-orange);">
+              <?= htmlspecialchars($svc['eyebrow']) ?>
+            </p>
+            <h3 class="tw-font-extrabold tw-leading-[1.05] tw-tracking-tight tw-text-[clamp(1.6rem,3.4vw,2.4rem)] tw-mb-3" style="color: var(--pc-dark);">
+              <?= htmlspecialchars($svc['tagline']) ?>
+            </h3>
+            <p class="tw-text-[1.02rem] tw-mb-5" style="color: var(--pc-text-muted); max-width: 40ch;">
+              <?= htmlspecialchars($svc['desc']) ?>
+            </p>
+            <span class="tw-inline-flex tw-items-center tw-gap-2 tw-font-semibold tw-text-[.95rem] tw-transition-transform tw-duration-300 group-hover:tw-translate-x-1" style="color: var(--pc-dark);">
+              <?= $svc['label'] ?> <i class="bi bi-arrow-right" aria-hidden="true"></i>
             </span>
-          </span>
+          </div>
         </a>
-      </div>
-      <div class="col-md-4">
-        <a href="<?= $assetPath ?>/city-tours" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
-          <img src="<?= $assetPath ?>assets/img/service-city-tour.jpg" alt="City tour packages" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-          <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-          <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-eyebrow d-block small fw-semibold text-uppercase mb-1">Sightseeing</span>
-            <span class="pc-service-card-title text-white d-block fs-3 fw-bold mb-1">City Tours</span>
-            <span class="d-block small text-white-50 mb-0">See Dublin's best sights with a trusted local driver.</span>
-            <span class="pc-service-card-btn-wrap d-block overflow-hidden">
-              <span class="btn btn-pc-primary btn-sm d-inline-flex align-items-center gap-1 lh-1" style="padding-block: 0.35rem;">
-                 Read More <i class="bi bi-arrow-right-short fs-5 fw-bold"></i>
-              </span>
-            </span>
-          </span>
-        </a>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>

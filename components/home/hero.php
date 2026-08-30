@@ -40,47 +40,81 @@
         <path d="M660,700 Q900,470 1200,415" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
         <path d="M520,0 Q900,360 1200,395" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
       </g>
+
+      <!-- The route metaphor made literal: a lit pin at pickup, a dashed line
+           the "ride" travels along, a pin at destination -- the same
+           SVG-native animateMotion trick already used for the small route
+           chip in the app-download section, just as the hero's centrepiece
+           this time. Purely decorative (aria-hidden on the parent), so it
+           carries no semantic weight -- it's here to be looked at while the
+           real "Where to?" heading next to it does the talking. -->
+      <g class="pc-hero-route-hero" transform="translate(80,150)">
+        <path id="pcHeroRoutePath" d="M0,340 C160,340 190,60 430,40 C560,28 620,120 760,90" fill="none" stroke="#ffb15c" stroke-width="2.5" stroke-dasharray="2 10" stroke-linecap="round" opacity="0.85"/>
+        <circle cx="0" cy="340" r="7" fill="#fff"/>
+        <circle cx="0" cy="340" r="12" fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="1.5"/>
+        <circle cx="760" cy="90" r="7" fill="var(--pc-orange)"/>
+        <circle cx="760" cy="90" r="14" fill="none" stroke="var(--pc-orange)" stroke-opacity="0.5" stroke-width="1.5"/>
+        <circle r="5" fill="#fff">
+          <animateMotion dur="4.5s" repeatCount="indefinite">
+            <mpath href="#pcHeroRoutePath"></mpath>
+          </animateMotion>
+        </circle>
+      </g>
     </svg>
     <span class="pc-hero-glow position-absolute rounded-circle"></span>
   </div>
 
-  <div class="container position-relative">
-    <div class="row align-items-center gy-5">
-      <div class="col-lg-9 pc-hero-text position-relative z-1">
-        <h1 class="pc-hero-title mb-4 text-white">Your Journey.<br>Smarter. Faster. Premium.</h1>
-        <p class="pc-hero-lead">
-          Book reliable rides, drive with confidence, or manage corporate travel &mdash;
-          all from one intelligent mobility platform.
+  <div class="container position-relative tw-py-8 lg:tw-py-0">
+    <div class="tw-flex tw-flex-col lg:tw-flex-row lg:tw-items-end tw-gap-12 lg:tw-gap-8">
+
+      <!-- Headline -->
+      <div class="tw-flex-1 tw-min-w-0">
+        <p class="tw-inline-flex tw-items-center tw-gap-2 tw-text-[.72rem] tw-font-semibold tw-uppercase tw-tracking-[.18em] tw-text-powerlight tw-mb-5">
+          <span class="tw-inline-block tw-w-6 tw-h-px tw-bg-powerlight"></span>
+          Dublin &middot; Live &amp; Ready
         </p>
-
-        <div class="d-flex flex-wrap align-items-center gap-3 pc-hero-ctas">
-          <a class="btn btn-pc-primary btn-md px-4" href="<?= $assetPath ?>/ride">Book a Ride</a>
-          <a class="pc-hero-btn-secondary rounded-pill d-inline-flex align-items-center text-decoration-none btn-md" href="<?= $assetPath ?>/drive">Become a Driver</a>
-          <a class="pc-hero-btn-tertiary d-inline-flex align-items-center text-decoration-none btn-md" href="<?= $assetPath ?>/business">
-            Business Solutions <i class="bi bi-arrow-right-short fs-4"></i>
-          </a>
-        </div>
-
-        <div class="d-flex flex-wrap align-items-center gap-2 pc-hero-download">
-          <a class="pc-store-badge d-inline-flex align-items-center text-decoration-none" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
-            <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="20" height="20" aria-hidden="true">
-            <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow d-block text-uppercase">Get it on</span>
-              <span class="pc-store-badge-title d-block fw-bold text-white">Google Play</span>
-            </span>
-          </a>
-          <a class="pc-store-badge d-inline-flex align-items-center text-decoration-none" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
-            <i class="bi bi-apple text-white fs-5" aria-hidden="true"></i>
-            <span class="d-flex flex-column text-start">
-              <span class="pc-store-badge-eyebrow d-block text-uppercase">Download on the</span>
-              <span class="pc-store-badge-title d-block fw-bold text-white">App Store</span>
-            </span>
-          </a>
-        </div>
+        <h1 class="tw-font-extrabold tw-text-white tw-leading-[0.92] tw-tracking-tight tw-text-[clamp(3.4rem,9vw,7.5rem)] tw-mb-6">
+          Where to?
+        </h1>
+        <p class="tw-text-white/60 tw-text-[1.05rem] sm:tw-text-[1.15rem] tw-max-w-[38ch] tw-mb-0">
+          Type a destination and PowerCabs finds the road there &mdash; licensed
+          Garda-vetted drivers, moving across Dublin right now.
+        </p>
       </div>
-      <div class="col-lg-5" aria-hidden="true"></div>
+
+      <!-- Booking widget: a real form, not a mock -- submits straight into
+           the actual fare-estimate flow on /ride. -->
+      <div class="tw-w-full lg:tw-w-[420px] tw-flex-shrink-0">
+        <form action="<?= $assetPath ?>/ride" method="get" class="tw-bg-white/[0.06] tw-backdrop-blur-xl tw-border tw-border-white/10 tw-rounded-[28px] tw-p-5 sm:tw-p-6 tw-shadow-[0_30px_70px_rgba(0,0,0,0.35)]">
+          <div class="tw-flex tw-flex-col tw-gap-3">
+            <label class="tw-flex tw-items-center tw-gap-3 tw-bg-black/30 tw-rounded-2xl tw-px-4 tw-py-3.5 tw-cursor-text focus-within:tw-ring-1 focus-within:tw-ring-power">
+              <span class="tw-w-2 tw-h-2 tw-rounded-full tw-bg-white tw-flex-shrink-0"></span>
+              <span class="tw-sr-only">Pickup location</span>
+              <input type="text" name="pickup" placeholder="Pickup location" autocomplete="off"
+                class="tw-bg-transparent tw-border-0 tw-outline-none tw-text-white tw-placeholder-white/40 tw-text-[.95rem] tw-w-full">
+            </label>
+            <label class="tw-flex tw-items-center tw-gap-3 tw-bg-black/30 tw-rounded-2xl tw-px-4 tw-py-3.5 tw-cursor-text focus-within:tw-ring-1 focus-within:tw-ring-power">
+              <span class="tw-w-2 tw-h-2 tw-rounded-sm tw-bg-power tw-flex-shrink-0"></span>
+              <span class="tw-sr-only">Destination</span>
+              <input type="text" name="dropoff" placeholder="Where are you going?" autocomplete="off"
+                class="tw-bg-transparent tw-border-0 tw-outline-none tw-text-white tw-placeholder-white/40 tw-text-[.95rem] tw-w-full">
+            </label>
+          </div>
+
+          <button type="submit" class="tw-mt-4 tw-w-full tw-bg-power hover:tw-bg-powerlight tw-text-white tw-font-semibold tw-text-[.95rem] tw-rounded-2xl tw-py-3.5 tw-flex tw-items-center tw-justify-center tw-gap-2 tw-transition-colors">
+            Find My Ride
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </button>
+
+          <a href="<?= $assetPath ?>/drive" class="tw-mt-3 tw-flex tw-items-center tw-justify-center tw-gap-2 tw-text-white/70 hover:tw-text-white tw-text-[.85rem] tw-py-2 tw-no-underline tw-transition-colors">
+            <i class="bi bi-steering-wheel" aria-hidden="true"></i>
+            Become a Driver
+          </a>
+        </form>
+      </div>
     </div>
 
+    <!-- Real quick links, preserved from the previous hero -- restyled, not invented. -->
     <?php
     $heroServices = [
       ['icon' => 'bi-clock-history', 'label' => 'Pay Per Hour', 'href' => '/ride'],
@@ -90,14 +124,13 @@
       ['icon' => 'bi-compass-fill', 'label' => 'City Tour', 'href' => '/city-tours'],
     ];
     ?>
-    <div class="row row-cols-2 row-cols-md-5 g-0 pc-hero-services-row mt-4">
+    <div class="tw-flex tw-flex-wrap tw-gap-2 tw-mt-10 lg:tw-mt-14">
       <?php foreach ($heroServices as $service): ?>
-        <div class="col">
-          <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>" class="pc-hero-service-tile bg-transparent rounded-0 text-white d-flex flex-column align-items-center text-decoration-none text-center w-100 h-100">
-            <i class="bi <?= $service['icon'] ?> pc-hero-service-icon d-block" aria-hidden="true"></i>
-            <span class="pc-hero-service-label text-white"><?= htmlspecialchars($service['label']) ?></span>
-          </a>
-        </div>
+        <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>"
+          class="tw-inline-flex tw-items-center tw-gap-2 tw-text-white/70 hover:tw-text-white hover:tw-border-white/30 tw-text-[.82rem] tw-border tw-border-white/10 tw-rounded-full tw-pl-3 tw-pr-4 tw-py-2 tw-no-underline tw-transition-colors">
+          <i class="bi <?= $service['icon'] ?>" aria-hidden="true"></i>
+          <?= htmlspecialchars($service['label']) ?>
+        </a>
       <?php endforeach; ?>
     </div>
   </div>

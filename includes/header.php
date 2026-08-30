@@ -82,6 +82,55 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
   <link rel="stylesheet"
     href="<?= $assetPath ?>assets/css/components.css?v=<?= @filemtime(__DIR__ . '/../assets/css/components.css') ?>">
 
+  <?php if (!empty($pageTailwind)): ?>
+  <!--
+    Tailwind (Play CDN) -- scoped to whichever page opts in via $pageTailwind
+    (currently just the homepage's redesigned experience). Every other page
+    keeps using Bootstrap exactly as before:
+      - `prefix: 'tw-'` keeps every Tailwind utility namespaced (tw-flex,
+        tw-bg-ink, ...) so it can never collide with a same-named Bootstrap
+        class (.flex, .container, etc.) on this same page.
+      - `preflight: false` disables Tailwind's base-style reset, since
+        Bootstrap + base.css/variables.css already own global element styles
+        (body, headings, links) -- Preflight would otherwise fight them.
+    This is the official Tailwind Play CDN, meant for exactly this kind of
+    build-step-free setup (the whole site already loads Bootstrap the same
+    way, via jsdelivr, with no npm/webpack pipeline) -- Tailwind's own docs
+    flag it as not ideal for production (larger runtime cost than a compiled
+    stylesheet, one console warning), which is the one honest tradeoff of
+    adding Tailwind without introducing a whole new build toolchain.
+  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      prefix: 'tw-',
+      corePlugins: { preflight: false },
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            ink: '#080808',
+            ink2: '#111111',
+            paper: '#F5F3EE',
+            power: '#FF7900',
+            powerlight: '#FFB15C',
+          },
+          keyframes: {
+            marquee: { to: { transform: 'translateX(-50%)' } },
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+          },
+          animation: {
+            marquee: 'marquee 32s linear infinite',
+            float: 'float 5s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+  <?php endif; ?>
+
   <style>
     /* ---------- Fixed glass navbar ------------------------------------------
        One material, always -- no light/dark variant, no per-section
