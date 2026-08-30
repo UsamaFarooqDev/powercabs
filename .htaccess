@@ -24,25 +24,26 @@ ErrorDocument 404 /404.php
   #    /drive) matches none of the rules above -- rule 4 below tests
   #    REQUEST_FILENAME + ".php", which for a trailing-slash request is
   #    ".../drive/.php" (the slash lands before the extension), so it never
-  #    resolves. With nothing rewriting it, the request falls straight
-  #    through to this host's raw handling of a nonexistent directory path
-  #    instead of the intended 404. Canonicalize to the no-slash form
-  #    first, the same way rule 2 canonicalizes ".php" -- but only when a
-  #    matching .php file actually exists, so a genuinely bad URL like
-  #    /no-such-page/ still falls through unchanged to the exact same
-  #    behavior it has today.
+  #    resolves. Canonicalize to the no-slash form unconditionally (any
+  #    clean-URL path that isn't a real directory) rather than only when a
+  #    matching .php file exists first -- a genuinely bad URL like
+  #    /no-such-page/ still ends up on the same 404 either way, just via one
+  #    harmless extra redirect instead of falling through unrewritten.
   #
-  #    Deliberately built on REQUEST_FILENAME only (never DOCUMENT_ROOT):
-  #    on some hosts (cPanel and similar with a symlinked home directory
-  #    being the most common case) DOCUMENT_ROOT is a different literal
-  #    path than the one Apache actually resolves REQUEST_FILENAME
-  #    through, so a DOCUMENT_ROOT-based -f test can silently never match
-  #    even though the file is right there. Rule 4 below already proves
-  #    REQUEST_FILENAME resolves correctly on this host -- every clean URL
-  #    on the site depends on it -- so this reuses exactly that.
+  #    An earlier version of this rule pre-checked "%1.php -f" (does the
+  #    no-slash target actually exist) before redirecting, chaining a
+  #    RewriteCond backreference (%1) from one condition into a filesystem
+  #    test in the next. That is standard mod_rewrite syntax on Apache, but
+  #    is exactly the kind of construct that behaves differently on
+  #    Apache-compatible-but-not-identical engines (LiteSpeed being the
+  #    most common on shared PHP hosting) -- and matches this project's
+  #    real symptom: /ride/ 500s live (an internal redirect/rewrite loop,
+  #    per Apache's own definition of that error) while behaving correctly
+  #    under the local dev server's from-scratch PHP reimplementation of
+  #    these same rules (router.php), which never goes near mod_rewrite's
+  #    condition-chaining at all. Dropping the pre-check removes that whole
+  #    class of engine-specific fragility.
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} ^(.+)/$
-  RewriteCond %1.php -f
   RewriteRule ^(.+)/$ /$1 [R=301,L,NE]
 
   # 4) Internally serve the matching .php file for a clean URL -- the
