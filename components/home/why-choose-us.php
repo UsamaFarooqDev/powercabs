@@ -18,27 +18,33 @@
     </g>
   </svg>
 
+  <?php
+  $whyChooseItems = [
+    ['icon' => 'bi-phone-fill', 'title' => 'Easy Booking', 'desc' => "Enter your pickup and drop-off locations, select your ride, you're all set."],
+    ['icon' => 'bi-cash-coin', 'title' => 'Affordable Rates', 'desc' => 'Competitive rates for all our rides, ensuring great value for your money.'],
+    ['icon' => 'bi-shield-check', 'title' => 'Safe and Reliable', 'desc' => 'All drivers are licensed and experienced; vehicles are regularly inspected.'],
+    ['icon' => 'bi-clock-history', 'title' => '24/7 Service', 'desc' => "Need a ride any time of day or night? We're always here for you."],
+  ];
+  ?>
   <div class="container position-relative">
-    <h2 class="text-center mb-5">Built for Every Journey.</h2>
-    <div class="px-2 px-md-5">
-      <div class="row row-cols-2 row-cols-md-4 g-0 border-top border-start">
-        <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">Easy Booking</h3>
-          <p class="text-muted-pc mb-0">Enter your pickup and drop-off locations, select your ride, you're all set.</p>
+    <div class="text-center mb-5">
+      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .08em; color: var(--pc-orange);">/ Why PowerCabs</p>
+      <h2 class="mb-3">Built for Every Journey.</h2>
+      <p class="text-muted-pc mx-auto mb-0" style="max-width: 50ch;">Everything about PowerCabs is designed around a smoother ride &mdash; from the moment you book to the moment you arrive.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      <?php foreach ($whyChooseItems as $item): ?>
+        <div class="col">
+          <div class="pc-why-item position-relative overflow-hidden h-100 text-center bg-white rounded-4 p-4 p-lg-4" style="border: 1px solid rgba(28,20,16,.06); box-shadow: var(--pc-shadow-sm);">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 60px; height: 60px; background: var(--pc-peach);">
+              <i class="bi <?= $item['icon'] ?> fs-4" style="color: var(--pc-orange);" aria-hidden="true"></i>
+            </div>
+            <h3 class="fs-5 fw-bold mb-2 pc-why-item-title"><?= htmlspecialchars($item['title']) ?></h3>
+            <p class="text-muted-pc mb-0"><?= htmlspecialchars($item['desc']) ?></p>
+          </div>
         </div>
-        <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">Affordable Rates</h3>
-          <p class="text-muted-pc mb-0">Competitive rates for all our rides, ensuring great value for your money.</p>
-        </div>
-        <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">Safe and Reliable</h3>
-          <p class="text-muted-pc mb-0">All drivers are licensed and experienced; vehicles are regularly inspected.</p>
-        </div>
-        <div class="col pc-why-item position-relative border-end text-center px-1 px-md-3 py-4 py-md-5">
-          <h3 class="fs-5 fs-md-3 fw-bold mb-2 pc-why-item-title">24/7 Service</h3>
-          <p class="text-muted-pc mb-0">Need a ride any time of day or night? We're always here for you.</p>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>

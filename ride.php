@@ -12,15 +12,18 @@ $rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pe
 $quickBookFormStatus = null;
 $quickBookFormError  = '';
 $quickBookOld = [
-  'name'             => '',
-  'email'            => '',
-  'phone'            => '',
-  'ride_type'        => '',
-  'pickup_location'  => '',
-  'dropoff_location' => '',
-  'distance_km'      => '',
-  'duration_min'     => '',
-  'fare_eur'         => '',
+  'name'                   => '',
+  'email'                  => '',
+  'phone'                  => '',
+  'ride_type'              => '',
+  'pickup_location'        => '',
+  'dropoff_location'       => '',
+  'distance_km'            => '',
+  'duration_min'           => '',
+  'fare_eur'               => '',
+  'opt_luggage_assistance' => '',
+  'opt_meet_greet'         => '',
+  'opt_luggage_only'       => '',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,13 +61,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $quickBookOld['fare_eur'] = '';
     }
 
+    $selectedAddons = [];
+    if ($quickBookOld['opt_luggage_assistance'] !== '') {
+      $selectedAddons[] = 'Luggage Assistance (airport bookings only)';
+    }
+    if ($quickBookOld['opt_meet_greet'] !== '') {
+      $selectedAddons[] = 'Meet and Greet (hotel / doorstep / business venue)';
+    }
+    if ($quickBookOld['opt_luggage_only'] !== '') {
+      $selectedAddons[] = 'Only Luggage (no passengers or pets)';
+    }
+
     $body = "New quick booking request from the PowerCabs Ride page.\n\n"
       . "Name: {$quickBookOld['name']}\n"
       . "Email: {$quickBookOld['email']}\n"
       . "Phone: {$quickBookOld['phone']}\n"
       . "Ride Type: {$quickBookOld['ride_type']}\n\n"
       . "Pickup Location: {$quickBookOld['pickup_location']}\n"
-      . "Drop-off Location: {$quickBookOld['dropoff_location']}\n";
+      . "Drop-off Location: {$quickBookOld['dropoff_location']}\n\n"
+      . "Add-ons: " . ($selectedAddons !== [] ? implode(', ', $selectedAddons) : 'None') . "\n";
 
     if ($quickBookOld['distance_km'] !== '' && $quickBookOld['duration_min'] !== '' && $quickBookOld['fare_eur'] !== '') {
       $body .= "\nEstimated Distance: {$quickBookOld['distance_km']} km\n"

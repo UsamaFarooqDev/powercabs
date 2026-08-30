@@ -102,6 +102,28 @@ require __DIR__ . '/components/drive/preferences.php';
 require __DIR__ . '/components/drive/car-earn-more.php';
 require __DIR__ . '/components/drive/keep-options-open.php';
 require __DIR__ . '/components/drive/drive-faq.php';
+?>
+
+<!-- ============ Driver FAQ Download ============ -->
+<section class="section-pc pt-0">
+  <div class="container" style="max-width: 860px;">
+    <div class="rounded-4 p-4 p-md-5 text-center" style="background: var(--pc-cream); box-shadow: var(--pc-shadow-sm);">
+      <i class="bi bi-file-earmark-pdf-fill fs-1 mb-3 d-block" style="color: var(--pc-orange);" aria-hidden="true"></i>
+      <h3 class="fs-5 fw-bold mb-2">Want the Full Driver FAQ?</h3>
+      <p class="text-muted-pc mb-4">Get every answer in one place &mdash; registration, documents, payments and more &mdash; in our complete Driver FAQ guide.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="<?= $assetPath ?>assets/img/PowerCabs_Driver_FAQ.pdf" target="_blank" rel="noopener" class="btn btn-pc-primary px-4 d-inline-flex align-items-center gap-2">
+          <i class="bi bi-eye-fill" aria-hidden="true"></i> View PDF
+        </a>
+        <a href="<?= $assetPath ?>assets/img/PowerCabs_Driver_FAQ.pdf" download="PowerCabs-Driver-FAQ.pdf" class="btn btn-outline-dark px-4 d-inline-flex align-items-center gap-2">
+          <i class="bi bi-download" aria-hidden="true"></i> Download PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

@@ -187,6 +187,29 @@ $rideTrustItems = [
           <input type="tel" class="form-control" id="rfModalPhone" name="phone" required>
         </div>
 
+                <div class="mb-4">
+          <span class="form-label d-block">Trip Add-ons <span class="text-muted-pc fw-normal">(optional)</span></span>
+          <div class="d-flex flex-column gap-2">
+            <input type="checkbox" class="btn-check" id="rfOptLuggageAssist" name="opt_luggage_assistance" value="1" autocomplete="off">
+            <label class="btn btn-outline-dark text-start rounded-3 py-2 px-3 d-flex align-items-center gap-2" for="rfOptLuggageAssist">
+              <i class="bi bi-bag-check-fill flex-shrink-0" aria-hidden="true"></i>
+              <span class="small">Luggage Assistance <span class="opacity-75">(airport bookings only)</span></span>
+            </label>
+
+            <input type="checkbox" class="btn-check" id="rfOptMeetGreet" name="opt_meet_greet" value="1" autocomplete="off">
+            <label class="btn btn-outline-dark text-start rounded-3 py-2 px-3 d-flex align-items-center gap-2" for="rfOptMeetGreet">
+              <i class="bi bi-person-check-fill flex-shrink-0" aria-hidden="true"></i>
+              <span class="small">Meet &amp; Greet <span class="opacity-75">(hotel, doorstep or business venue)</span></span>
+            </label>
+
+            <input type="checkbox" class="btn-check" id="rfOptLuggageOnly" name="opt_luggage_only" value="1" autocomplete="off">
+            <label class="btn btn-outline-dark text-start rounded-3 py-2 px-3 d-flex align-items-center gap-2" for="rfOptLuggageOnly">
+              <i class="bi bi-suitcase2-fill flex-shrink-0" aria-hidden="true"></i>
+              <span class="small">Only Luggage <span class="opacity-75">(no passengers or pets)</span></span>
+            </label>
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-pc-primary w-100 rounded-pill py-2 d-inline-flex align-items-center justify-content-center gap-2">
           <span>Confirm Booking</span>
           <i class="bi bi-send" style="font-size: .85rem;" aria-hidden="true"></i>
