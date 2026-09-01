@@ -88,153 +88,145 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
   <link rel="stylesheet"
     href="<?= $assetPath ?>assets/css/components.css?v=<?= @filemtime(__DIR__ . '/../assets/css/components.css') ?>">
 
-  <style>
-    /* ---------- Fixed glass navbar ------------------------------------------
-       One material, always -- no light/dark variant, no per-section
-       detection. A dark-enough glass tint plus its own blur stays legible
-       over both photo heroes and plain light sections on its own; the
-       .pc-nav-scrim band right below (rendered in the body, not here) adds
-       a little extra contrast under the pill specifically for light
-       sections, without the navbar itself needing to know which kind of
-       section it's currently over. */
-    .pc-navbar {
-      position: relative;
-      background: rgba(15, 16, 18, .55);
-      backdrop-filter: blur(24px) saturate(160%);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
-      border: 1px solid rgba(255, 255, 255, .08);
-      border-radius: 100px;
-      /* box-shadow: 0 8px 30px rgba(0, 0, 0, .25); */
-      --bs-navbar-color: rgba(255, 255, 255, .85);
-      --bs-navbar-hover-color: rgba(255, 255, 255, .85);
-      --bs-navbar-active-color: var(--pc-orange-light);
-    }
+  <!--
+    Tailwind (Play CDN), loaded site-wide alongside Bootstrap during the
+    incremental migration -- see CLAUDE.md. Every page keeps rendering with
+    Bootstrap exactly as before except in sections deliberately migrated:
+      - `prefix: 'tw-'` keeps every Tailwind utility namespaced (tw-flex,
+        tw-bg-ink, ...) so it can never collide with a same-named Bootstrap
+        class (.container, .rounded, .text-white, etc. exist in both
+        frameworks with different rules).
+      - `preflight: false` disables Tailwind's base-style reset, since
+        Bootstrap + base.css/variables.css already own global element styles
+        (body, headings, links) -- Preflight would otherwise fight them.
+    Colors below are the same hex values as the --pc-* tokens in
+    variables.css, so a migrated section stays visually identical to an
+    unmigrated one -- one brand, two utility systems.
+    This is the official Tailwind Play CDN, meant for exactly this kind of
+    build-step-free setup (Bootstrap itself is also loaded via a bare CDN
+    link here, no npm/webpack pipeline) -- Tailwind's own docs flag the Play
+    CDN as not ideal for production (larger runtime cost than a compiled
+    stylesheet, one console warning), the one honest tradeoff of adding
+    Tailwind without introducing a whole new build toolchain. Drop the
+    `tw-` prefix in one pass once Bootstrap is fully retired.
+  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      prefix: 'tw-',
+      corePlugins: { preflight: false },
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            ink: '#1c1410',          // --pc-dark
+            'ink-soft': '#160f0a',   // --pc-dark-soft
+            paper: '#f4efe8',        // --pc-cream
+            'paper-soft': '#f9f4ed', // --pc-cream-soft
+            power: '#e8590c',        // --pc-orange
+            powerlight: '#ff7a00',   // --pc-orange-light
+            powerdark: '#a34406',    // --pc-orange-dark
+          },
+        },
+      },
+    };
+  </script>
 
-    .pc-navbar-links-pill {
-      background: transparent;
-      box-shadow: none;
-    }
+  <!--
+    Navbar bar styling (the fixed glass pill, its links, active-dot,
+    CTA button, mobile toggle and mobile panel) has been migrated to
+    Tailwind utility classes directly on the markup below -- see the
+    <header> block. The old .pc-navbar/.pc-navbar-links-pill/.pc-nav-cta/
+    .pc-nav-scrim rules that used to live in a <style> block here are gone.
 
-    .pc-navbar .nav-link {
-      position: relative;
-      border-radius: var(--pc-radius-pill);
-      transition: color .2s ease;
-    }
-
-    .pc-navbar .nav-link:hover {
-      color: var(--pc-orange-light);
-    }
-
-    .pc-navbar .nav-link:focus,
-    .pc-navbar .nav-link:focus-visible {
-      outline: none;
-      box-shadow: none;
-    }
-
-    /* Active state: underline dot in the accent color. */
-    .pc-navbar .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 1px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--pc-orange-light);
-      opacity: 0;
-      transform: translateX(-50%) scale(0);
-      transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), opacity .2s ease;
-    }
-
-    .pc-navbar .nav-link.active::after {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-
-    .pc-nav-cta {
-      background: rgba(255, 255, 255, .14) !important;
-      border: 1px solid rgba(255, 255, 255, .2) !important;
-      color: #fff !important;
-    }
-
-    .pc-nav-scrim {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 120px;
-      z-index: 1029;
-      /* background: linear-gradient(to bottom, rgba(0, 0, 0, .25), transparent); */
-      pointer-events: none;
-    }
-
-    @media (min-width: 992px) {
-      .pc-navbar-links-pill {
-        padding-top: .22rem !important;
-        padding-bottom: .22rem !important;
-      }
-
-      .pc-navbar-links-pill .nav-link {
-        font-size: .9rem;
-      }
-    }
-
-    @media (max-width: 991.98px) {
-      .navbar-brand img {
-        height: 35px;
-      }
-
-      .pc-navbar-links-pill {
-        background: transparent !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        padding: 0 !important;
-      }
-
-      .pc-navbar .nav-link::after {
-        display: none;
-      }
-    }
-  </style>
+    Not yet migrated (deliberately, as its own follow-up step): the "About"
+    and "Contact" mega-menu DROPDOWN PANELS -- .pc-mega-menu and friends in
+    components.css. That positioning (fixed, centered, width: min(940px, ...),
+    plus the CSS Grid open/close animation for the nested Training/Safety
+    flyouts) is intricate and still Bootstrap-Dropdown-driven; migrating it
+    got scoped out of this pass rather than risk it site-wide alongside the
+    rest of the navbar. The two toggle links ("About ▾" / "Contact ▾")
+    themselves are Tailwind now -- only the panels they open are still on
+    the old styling.
+  -->
 </head>
 
 <body data-page="<?= htmlspecialchars($currentPage) ?>">
 
   <?php require __DIR__ . '/../components/shared/page-loader.php'; ?>
 
-  <span class="pc-nav-scrim" aria-hidden="true"></span>
+  <header class="tw-fixed tw-top-0 tw-inset-x-0 tw-w-full" style="z-index: 1030;">
+    <div class="tw-w-full tw-max-w-[1320px] tw-mx-auto tw-px-3 sm:tw-px-5 lg:tw-px-8 tw-pt-2 lg:tw-pt-3">
+      <!-- navbar-expand-lg carries no visual weight of its own now (the bar
+           itself is fully Tailwind below) but its presence as an ANCESTOR is
+           still load-bearing: the still-deferred mega-menu panel CSS in
+           components.css is scoped as `.navbar-expand-lg .navbar-nav
+           .pc-mega-menu {...}` -- drop this class and that whole descendant
+           selector stops matching, silently falling back to a plain white
+           Bootstrap dropdown box. Remove it only once the mega-menu panels
+           get their own Tailwind pass. -->
+      <!-- tw-border-solid is not decorative -- Preflight is disabled
+           site-wide (see the Tailwind config comment above), and Preflight
+           is what normally resets every element's border-style to solid so
+           a plain border-width/border-color utility is enough on its own.
+           Without it the browser default border-style (none) wins and the
+           border never renders no matter what width/color is set -- this
+           bit us on exactly that up above. Same note applies to #mainNav
+           below. -->
+      <nav class="navbar-expand-lg tw-relative tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-3 tw-rounded-2xl tw-border-solid tw-border-2 tw-border-black/[0.06] lg:tw-border-white tw-bg-white/90 tw-backdrop-blur-[100px] tw-shadow-[0_8px_30px_rgba(28,20,16,0.10)] tw-px-4 lg:tw-px-6 tw-py-2.5">
+        <a class="tw-flex tw-items-center tw-shrink-0" href="<?= $assetPath ?>/">
+          <img src="<?= $assetPath ?>assets/img/powercabs-logo-dark.svg" alt="PowerCabs" height="47" class="tw-block tw-h-9 lg:tw-h-11 tw-w-auto">
+        </a>
 
-  <header class="pc-header position-fixed top-0 start-0 w-100" style="z-index: 1030;">
-    <div class="container px-2 px-lg-3 pt-2 pt-lg-2">
-      <nav class="navbar navbar-expand-lg pc-navbar rounded-pill px-4 px-lg-5">
-        <div class="container-fluid px-0">
-          <a class="navbar-brand d-flex align-items-center py-0" href="<?= $assetPath ?>/">
-            <img src="<?= $assetPath ?>assets/img/powercabs-logo-white.svg" alt="PowerCabs" height="47" class="d-block">
-          </a>
+        <button type="button" id="pcNavToggle" class="tw-group tw-relative tw-flex tw-h-8 tw-w-8 tw-shrink-0 tw-flex-col tw-items-center tw-justify-center tw-gap-[5px] tw-bg-transparent tw-border-0 tw-shadow-none tw-outline-none lg:tw-hidden"
+          data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="tw-h-[2px] tw-w-6 tw-rounded-full tw-bg-ink tw-transition-transform tw-duration-300 group-aria-expanded:tw-translate-y-[7px] group-aria-expanded:tw-rotate-45"></span>
+          <span class="tw-h-[2px] tw-w-6 tw-rounded-full tw-bg-ink tw-transition-opacity tw-duration-200 group-aria-expanded:tw-opacity-0"></span>
+          <span class="tw-h-[2px] tw-w-6 tw-rounded-full tw-bg-ink tw-transition-transform tw-duration-300 group-aria-expanded:-tw-translate-y-[7px] group-aria-expanded:-tw-rotate-45"></span>
+        </button>
 
-          <button class="navbar-toggler pc-navbar-toggler position-relative border-0 p-0 shadow-none" type="button"
-            data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="pc-toggler-bar position-absolute w-100"></span>
-            <span class="pc-toggler-bar position-absolute w-100"></span>
-            <span class="pc-toggler-bar position-absolute w-100"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="mainNav">
-            <ul
-              class="navbar-nav pc-navbar-links-pill mx-auto gap-lg-4 align-items-lg-center py-2 py-lg-1 px-lg-3 rounded-pill">
-              <li class="nav-item">
-                <a class="nav-link fw-normal <?= $navActive('index.php') ?>" data-page="index.php"
+        <!-- flex-grow story, in two parts:
+             - Mobile: tw-grow-0, irrelevant anyway since the panel is
+               tw-absolute (out of flow) below 992px.
+             - Desktop: lg:tw-grow re-enables filling the remaining width
+               between the logo and the nav's right edge -- deliberately,
+               this time, so the <ul> below has room to center itself via
+               margin-inline:auto with the CTA sitting flush at the end.
+               (Bootstrap's OWN base .navbar-collapse rule already sets
+               flex-grow:1 unconditionally; .navbar-expand-lg only resets
+               flex-basis back to auto at desktop and never flex-grow. The
+               grow behavior was fighting us before because nothing inside
+               this div was set up to make use of the extra space -- now
+               tw-mx-auto on the <ul> does.) -->
+        <!-- tw-max-h-[...]/tw-overflow-y-auto (mobile only) restore scrolling
+             for a tall expanded panel -- e.g. tapping "About" inlines the
+             whole mega-menu content beneath the links, which alone can
+             exceed the viewport on a short phone. Without this the panel
+             just clips silently at the bottom with no way to reach the rest.
+             Keyed off --pc-navbar-h, the same live-measured custom property
+             main.js already keeps in sync (syncNavbarHeightVar()), so this
+             tracks the bar's real height instead of a guessed constant. -->
+        <div class="collapse navbar-collapse tw-grow-0 lg:tw-grow tw-w-full lg:tw-w-auto tw-absolute lg:tw-static tw-inset-x-1 tw-top-[calc(100%+0.3rem)] lg:tw-top-auto tw-max-h-[calc(100vh-var(--pc-navbar-h,76px)-2rem)] tw-overflow-y-auto lg:tw-max-h-none lg:tw-overflow-visible tw-flex-col lg:tw-flex-row tw-items-stretch lg:tw-items-center tw-gap-3 lg:tw-gap-6 tw-rounded-3xl lg:tw-rounded-none tw-border-solid tw-border-2 lg:tw-border-0 tw-border-white tw-bg-white/[0.96] lg:tw-bg-transparent tw-backdrop-blur-[100px] lg:tw-backdrop-blur-none tw-p-4 lg:tw-p-0 tw-shadow-xl lg:tw-shadow-none" id="mainNav">
+          <ul class="navbar-nav tw-flex tw-flex-col lg:tw-flex-row lg:tw-items-center tw-gap-1 lg:tw-gap-6 tw-list-none tw-m-0 tw-p-0 lg:tw-mx-auto">
+              <li>
+                <a class="nav-link tw-block tw-rounded-full tw-px-4 tw-py-2 tw-text-[.92rem] tw-text-ink/65 hover:tw-text-ink [&.active]:tw-text-ink tw-transition-colors tw-no-underline tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/20 <?= $navActive(
+                  'index.php',
+                ) ?>" data-page="index.php"
                   href="<?= $assetPath ?>/">Home</a>
               </li>
 
               <!-- ============ About: hover mega menu ============ -->
-              <li class="nav-item dropdown pc-mega-parent">
-                <a class="nav-link fw-normal dropdown-toggle d-flex align-items-center gap-1" href="#"
+              <li class="dropdown pc-mega-parent">
+                <a class="tw-group nav-link dropdown-toggle tw-flex tw-items-center tw-gap-1 tw-rounded-full tw-px-4 tw-py-2 tw-text-[.92rem] tw-text-ink/65 hover:tw-text-ink tw-transition-colors tw-no-underline tw-outline-none tw-shadow-none focus:tw-shadow-none" href="#"
                   id="aboutMegaToggle" role="button" data-bs-toggle="dropdown" data-bs-display="static"
                   data-bs-auto-close="outside" aria-expanded="false">
                   About
-                  <i class="bi bi-chevron-down pc-mega-caret"></i>
+                  <svg class="tw-w-3 tw-h-3 tw-transition-transform tw-duration-200 group-aria-expanded:tw-rotate-180" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 </a>
 
                 <div class="dropdown-menu pc-mega-menu p-0 border-0 shadow-lg" aria-labelledby="aboutMegaToggle">
@@ -319,10 +311,8 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                             <span class="pc-mega-item-desc d-block fw-normal">Licensing and onboarding resources</span>
                           </button>
                           <div class="pc-mega-submenu d-grid">
-                            <div class="pc-mega-submenu-inner overflow-hidden">
-                              <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/">Driver Training</a>
-                              <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/">SPSV Manual</a>
-                            </div>
+                            <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/">Driver Training</a>
+                            <a class="pc-mega-subitem d-block text-decoration-none" href="<?= $assetPath ?>/">SPSV Manual</a>
                           </div>
                         </div>
                       </div>
@@ -367,26 +357,34 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                 </div>
               </li>
 
-              <li class="nav-item">
-                <a class="nav-link fw-normal <?= $navActive('drive.php') ?>" data-page="drive.php"
+              <li>
+                <a class="nav-link tw-block tw-rounded-full tw-px-4 tw-py-2 tw-text-[.92rem] tw-text-ink/65 hover:tw-text-ink [&.active]:tw-text-ink tw-transition-colors tw-no-underline tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/20 <?= $navActive(
+                  'drive.php',
+                ) ?>" data-page="drive.php"
                   href="<?= $assetPath ?>/drive">Drive</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link fw-normal <?= $navActive('ride.php') ?>" data-page="ride.php"
+              <li>
+                <a class="nav-link tw-block tw-rounded-full tw-px-4 tw-py-2 tw-text-[.92rem] tw-text-ink/65 hover:tw-text-ink [&.active]:tw-text-ink tw-transition-colors tw-no-underline tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/20 <?= $navActive(
+                  'ride.php',
+                ) ?>" data-page="ride.php"
                   href="<?= $assetPath ?>/ride">Ride</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link fw-normal <?= $navActive('business.php') ?>" data-page="business.php"
+              <li>
+                <a class="nav-link tw-block tw-rounded-full tw-px-4 tw-py-2 tw-text-[.92rem] tw-text-ink/65 hover:tw-text-ink [&.active]:tw-text-ink tw-transition-colors tw-no-underline tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/20 <?= $navActive(
+                  'business.php',
+                ) ?>" data-page="business.php"
                   href="<?= $assetPath ?>/business">Business</a>
               </li>
 
               <!-- ============ Contact: hover mega menu (single column) ============ -->
-              <li class="nav-item dropdown pc-mega-parent">
-                <a class="nav-link fw-normal dropdown-toggle d-flex align-items-center gap-1" href="#"
+              <li class="dropdown pc-mega-parent">
+                <a class="tw-group nav-link dropdown-toggle tw-flex tw-items-center tw-gap-1 tw-rounded-full tw-px-4 tw-py-2 tw-text-[.92rem] tw-text-ink/65 hover:tw-text-ink tw-transition-colors tw-no-underline tw-outline-none tw-shadow-none focus:tw-shadow-none" href="#"
                   id="contactMegaToggle" role="button" data-bs-toggle="dropdown" data-bs-display="static"
                   data-bs-auto-close="outside" aria-expanded="false">
                   Contact
-                  <i class="bi bi-chevron-down pc-mega-caret"></i>
+                  <svg class="tw-w-3 tw-h-3 tw-transition-transform tw-duration-200 group-aria-expanded:tw-rotate-180" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 </a>
 
                 <div class="dropdown-menu pc-mega-menu pc-mega-menu-narrow p-0 border-0 shadow-lg"
@@ -418,15 +416,16 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
                   </div>
                 </div>
               </li>
-            </ul>
+          </ul>
 
-            <div class="mt-2 mt-lg-0 d-flex align-items-center pc-nav-actions">
-              <a class="btn btn-pc-dark pc-nav-cta rounded-pill d-inline-flex align-items-center gap-2 fw-medium"
-                href="<?= $assetPath ?>/book-ride-online">
-                <i class="bi bi-car-front-fill"></i>
-                <span class="pc-nav-cta-word d-inline-block">Book Online</span>
-              </a>
-            </div>
+          <div class="tw-flex tw-items-center tw-border-solid tw-border-t lg:tw-border-t-0 tw-border-black/[0.06] tw-pt-3 lg:tw-pt-0 tw-mt-1 lg:tw-mt-0">
+            <a class="tw-group tw-inline-flex tw-w-full lg:tw-w-auto tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border tw-border-transparent tw-text-white tw-text-[.88rem] tw-font-medium tw-px-5 tw-py-2.5 tw-no-underline tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30"
+              href="<?= $assetPath ?>/book-ride-online">
+              <svg class="tw-w-4 tw-h-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="tw-inline-block tw-transition-transform tw-duration-200 group-hover:-tw-translate-x-0.5">Book Online</span>
+            </a>
           </div>
         </div>
       </nav>

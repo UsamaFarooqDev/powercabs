@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   syncNavbarHeightVar();
   syncFooterHeightVar();
   initHeroParallax();
-  initHeaderScrollReveal();
   initWhyChooseReveal();
   initScrollReveal();
   initScrollIndicator();
@@ -149,47 +148,6 @@ function initHeroParallax() {
   update();
   window.addEventListener("scroll", onScroll, { passive: true });
   pcHeroParallaxCleanup = () => window.removeEventListener("scroll", onScroll);
-}
-
-/* Global header scroll */
-function initHeaderScrollReveal() {
-  const header = document.querySelector("header.pc-header");
-  if (!header) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const TOP_OFFSET = 80;
-  const isMenuOpen = () =>
-    header.querySelector(".pc-mega-menu.show") || document.getElementById("mainNav")?.classList.contains("show");
-
-  let lastScrollY = window.scrollY;
-  let ticking = false;
-
-  function update() {
-    const currentY = window.scrollY;
-    const dockThreshold = window.innerHeight;
-    const scrollingDown = currentY > lastScrollY;
-
-    if (isMenuOpen() || currentY < TOP_OFFSET || currentY >= dockThreshold) {
-      header.classList.remove("pc-header-hidden");
-    } else if (scrollingDown) {
-      header.classList.add("pc-header-hidden");
-    } else {
-      header.classList.remove("pc-header-hidden");
-    }
-
-    lastScrollY = currentY;
-    ticking = false;
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    },
-    { passive: true }
-  );
 }
 
 /* Home page "Why Choose PowerCabs" cards -- same re-init story as the hero. */
