@@ -21,29 +21,30 @@ ErrorDocument 404 /404.php
   RewriteRule ^ /%1 [R=301,L,NE]
 
   # 3) A clean URL requested with a trailing slash (e.g. /drive/ instead of
-  #    /drive) matches none of the rules above -- rule 4 below tests
-  #    REQUEST_FILENAME + ".php", which for a trailing-slash request is
-  #    ".../drive/.php" (the slash lands before the extension), so it never
-  #    resolves. With nothing rewriting it, the request falls straight
-  #    through to this host's raw handling of a nonexistent directory path
-  #    instead of the intended 404. Canonicalize to the no-slash form
-  #    first, the same way rule 2 canonicalizes ".php" -- but only when a
-  #    matching .php file actually exists, so a genuinely bad URL like
-  #    /no-such-page/ still falls through unchanged to the exact same
-  #    behavior it has today.
+  #    /drive) is 301'd to the canonical no-slash form. The old site used
+  #    trailing-slash URLs, so printed QR codes still point at things like
+  #    /download-our-app/ -- without this rule every one of those scans
+  #    ends at a 500.
   #
-  #    Deliberately built on REQUEST_FILENAME only (never DOCUMENT_ROOT):
-  #    on some hosts (cPanel and similar with a symlinked home directory
-  #    being the most common case) DOCUMENT_ROOT is a different literal
-  #    path than the one Apache actually resolves REQUEST_FILENAME
-  #    through, so a DOCUMENT_ROOT-based -f test can silently never match
-  #    even though the file is right there. Rule 4 below already proves
-  #    REQUEST_FILENAME resolves correctly on this host -- every clean URL
-  #    on the site depends on it -- so this reuses exactly that.
+  #    Matched on the RewriteRule pattern (the request path) and NOT on
+  #    %{REQUEST_FILENAME}. The previous version of this rule tested
+  #    "%{REQUEST_FILENAME} ^(.+)/$" plus a "%1.php -f" existence check and
+  #    never fired once in production: this host does not hand mod_rewrite
+  #    a REQUEST_FILENAME with the trailing slash still attached, so the
+  #    condition silently never matched, nothing rewrote the request, and
+  #    it reached the PHP handler with a directory-shaped path that the
+  #    handler answered with a 500. Rules 1 and 1b above match their own
+  #    "/?$" against the request path and have always worked here, so this
+  #    rule uses that same mechanism.
+  #
+  #    There is deliberately no file-existence test: /no-such-page/ is just
+  #    canonicalized first and then 404s through rule 4 exactly as
+  #    /no-such-page already does. Real directories are excluded so
+  #    /assets/ and friends keep their slash, "/" itself can never match
+  #    (the pattern needs at least one character before the slash), and
+  #    mod_rewrite re-appends any query string to the redirect by itself.
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} ^(.+)/$
-  RewriteCond %1.php -f
-  RewriteRule ^(.+)/$ /$1 [R=301,L,NE]
+  RewriteRule ^(.+?)/+$ /$1 [R=301,L,NE]
 
   # 4) Internally serve the matching .php file for a clean URL -- the
   #    browser's address bar keeps showing the extension-less path.
