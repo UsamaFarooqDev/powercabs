@@ -21,11 +21,19 @@ if ($uri === '/' || $uri === '') {
     return true;
 }
 
+// Every 301 below has to re-attach the original query string by hand:
+// Apache adds it to a mod_rewrite redirect for free (any RewriteRule whose
+// target carries no "?" of its own), so dropping it here would make a local
+// redirect quietly lose data that production keeps -- most visibly
+// /reset-password/?token_hash=.. arriving with no token to redeem.
+$queryString = $_SERVER['QUERY_STRING'] ?? '';
+$withQuery = static fn(string $path): string => $path . ($queryString !== '' ? '?' . $queryString : '');
+
 // airport-transfers.php was renamed to meet-greet.php -- mirrors the
 // same 301 in .htaccess so the redirect also works under this local dev
 // server, not just on production Apache.
 if ($uri === '/airport-transfers' || $uri === '/airport-transfers.php' || $uri === '/airport-transfers/') {
-    header('Location: /meet-greet', true, 301);
+    header('Location: ' . $withQuery('/meet-greet'), true, 301);
     return true;
 }
 
@@ -43,11 +51,16 @@ if (file_exists(__DIR__ . $uri) && !is_dir(__DIR__ . $uri)) {
 // regardless of what .htaccess says.
 $clean = trim($uri, '/');
 $phpFile = __DIR__ . '/' . $clean . '.php';
+
+// Trailing slash -> canonical no-slash form, decided before any lookup and
+// without caring whether a matching .php exists, exactly like .htaccess
+// rule 3: a bad URL is simply canonicalized first and 404s one hop later.
+if ($clean !== '' && substr($uri, -1) === '/' && !is_dir(__DIR__ . '/' . $clean)) {
+    header('Location: ' . $withQuery('/' . $clean), true, 301);
+    return true;
+}
+
 if ($clean !== '' && is_file($phpFile)) {
-    if (substr($uri, -1) === '/') {
-        header('Location: /' . $clean, true, 301);
-        return true;
-    }
     require $phpFile;
     return true;
 }

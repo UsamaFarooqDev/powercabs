@@ -3836,3 +3836,118 @@ body[data-page^='partner-programme'] .pc-app-promo-standalone {
     transition: none;
   }
 }
+
+/* ---------- Reset-password page (Supabase recovery link target) ---------- */
+.pc-reset-section {
+  min-height: 100vh;
+  padding-top: calc(var(--pc-navbar-h, 110px) + clamp(2rem, 5vw, 3.5rem));
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  background: var(--pc-cream-soft);
+}
+
+.pc-reset-card {
+  max-width: 480px;
+  background: var(--pc-white);
+  border-radius: var(--pc-radius-xl);
+  box-shadow: var(--pc-shadow-md);
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+.pc-reset-title {
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+  color: var(--pc-dark);
+}
+
+.pc-reset-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--pc-peach);
+  color: var(--pc-orange);
+  font-size: 1.4rem;
+}
+
+.pc-reset-icon-success {
+  background: rgba(25, 135, 84, 0.12);
+  color: #198754;
+}
+
+.pc-reset-icon-danger {
+  background: rgba(220, 53, 69, 0.12);
+  color: #dc3545;
+}
+
+/* Password field + its in-field show/hide button. */
+.pc-reset-field {
+  position: relative;
+}
+
+.pc-reset-field .form-control {
+  padding-right: 2.75rem;
+}
+
+.pc-reset-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--pc-text-muted);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.pc-reset-toggle:hover,
+.pc-reset-toggle:focus-visible {
+  color: var(--pc-orange);
+  background: var(--pc-cream);
+}
+
+.pc-reset-rules li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pc-text-muted);
+  padding-block: 0.15rem;
+}
+
+.pc-reset-rules li i {
+  font-size: 0.85rem;
+  opacity: 0.55;
+}
+
+.pc-reset-rules li.is-met {
+  color: #198754;
+}
+
+.pc-reset-rules li.is-met i {
+  opacity: 1;
+}
+
+/* Same ring as the submit-button spinner, sized for the "checking link" state. */
+.pc-reset-spinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 3px solid var(--pc-peach);
+  border-top-color: var(--pc-orange);
+  animation: pc-loader-spin 0.65s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-reset-spinner {
+    animation-duration: 1.4s;
+  }
+}

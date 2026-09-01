@@ -21,6 +21,12 @@ $navActive = static fn(string $page): string => $currentPage === $page ? 'active
   <title><?= htmlspecialchars($pageTitle) ?></title>
   <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
   <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">
+<?php if (!empty($pageNoIndex)): ?>
+  <!-- Private, single-use pages (the Supabase password-recovery link target)
+       must never be indexed, and their token must never leak in a Referer. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin">
+<?php endif; ?>
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="PowerCabs">

@@ -54,8 +54,24 @@ define('PC_MAIL_TO', pc_env('MAIL_TO', ''));
 define('PC_GOOGLE_MAPS_API_KEY', pc_env('GOOGLE_MAPS_API_KEY', ''));
 
 // Shared Supabase backend (pricing_config / ride_types / rides) -- same
-// project the PowerCabs Dispatcher and passenger app read from. Used only
-// by lib/fare_calculator.php to resolve the live pricing config; nothing
-// else on this site touches Supabase.
-define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', ''));
+// project the PowerCabs Dispatcher and passenger app read from. Two
+// consumers, two keys: lib/fare_calculator.php resolves the live pricing
+// config with the service key (server-side only), and reset-password.php
+// redeems password-recovery links with the anon key (exposed in markup).
+//
+// The URL and the anon key are public by design -- the anon key already
+// ships inside the mobile apps and is only useful together with row-level
+// security -- so they default to the live project and password recovery
+// keeps working without a .env. The service key is a real secret and stays
+// empty until .env supplies it; pc_supabase_get() treats an empty service
+// key as "Supabase not configured" and falls back, so defaulting the URL
+// does not turn any pricing lookup on by itself.
+define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', 'https://ijrnahatonxpuzwjtykd.supabase.co'));
 define('PC_SUPABASE_SERVICE_KEY', pc_env('SUPABASE_SERVICE_KEY', ''));
+define(
+    'PC_SUPABASE_ANON_KEY',
+    pc_env(
+        'SUPABASE_ANON_KEY',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqcm5haGF0b254cHV6d2p0eWtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2NzMwMDYsImV4cCI6MjA3MTI0OTAwNn0.cTqgwDjRywsc-Gq8_bolSGT-rzQRr4GONrs6W8VXc8E'
+    )
+);
