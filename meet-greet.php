@@ -147,32 +147,32 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
 $meetGreetServices = [
   [
-    'icon' => 'bi-person-badge-fill',
+    'icon' => 'badge',
     'title' => 'Personal Meet & Greet',
     'desc' => 'Your driver waits inside the arrivals terminal with a personalized name board.',
   ],
   [
-    'icon' => 'bi-bag-check-fill',
+    'icon' => 'bag',
     'title' => 'Luggage Assistance',
     'desc' => 'Professional assistance with luggage from the terminal to the vehicle.',
   ],
   [
-    'icon' => 'bi-award-fill',
+    'icon' => 'award',
     'title' => 'Executive Airport Transfers',
     'desc' => 'Premium, comfortable vehicles for business and leisure travelers.',
   ],
   [
-    'icon' => 'bi-people-fill',
+    'icon' => 'people',
     'title' => 'Family Airport Transfers',
     'desc' => 'Spacious vehicles for families with children and extra luggage.',
   ],
   [
-    'icon' => 'bi-briefcase-fill',
+    'icon' => 'briefcase',
     'title' => 'Business Travel',
     'desc' => 'Reliable airport transportation for corporate clients.',
   ],
   [
-    'icon' => 'bi-clock-history',
+    'icon' => 'clock',
     'title' => 'Last-Minute Bookings',
     'desc' => "We've got you covered even for last-minute airport bookings.",
   ],
@@ -195,57 +195,34 @@ $bookingSteps = [
   ['n' => 3, 'title' => 'Confirm Booking'],
   ['n' => 4, 'title' => 'Driver Meets You at Arrivals'],
 ];
+
+// Canonical PowerCabs form field recipe (see book-ride-online.php).
+$mgInputClass =
+  'tw-w-full tw-rounded-md tw-border tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-base tw-leading-normal tw-text-ink placeholder:tw-text-ink/40 tw-outline-none tw-transition-colors tw-duration-200 focus:tw-border-powerlight';
+$mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-medium tw-text-ink';
 ?>
 
 <!-- ============ Meet & Greet Intro ============ -->
-<section class="section-pc">
-  <div class="container">
-    <div class="row align-items-center g-4 g-lg-5 p-3 p-lg-5">
-      <div class="col-lg-6 p-2 p-lg-5">
-        <h2 class="fw-bold mb-3" style="
-            font-size: clamp(2.2rem, 4vw, 3.6rem);
-            line-height: 1.1;
-            letter-spacing: -.04em;
-          ">
+<section class="tw-overflow-hidden <?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
+      <div>
+        <h2 class="tw-mb-4 tw-text-3xl tw-font-bold tw-leading-[1.1] tw-tracking-tight tw-text-ink md:tw-text-4xl lg:tw-text-5xl">
           Welcome from the moment you arrive.
         </h2>
-        <p class="text-muted-pc mb-4" style="
-            max-width: 540px;
-            font-size: 1.05rem;
-            line-height: 1.75;
-          ">
+        <p class="tw-mb-6 tw-max-w-[540px] tw-text-base tw-leading-[1.75] tw-text-ink/60">
           Make your journey from the airport simple and stress-free.
           With PowerCabs Meet &amp; Greet, your driver is there to welcome
           you, assist with your luggage and get you comfortably on your way.
         </p>
-        <div class="d-flex flex-wrap align-items-center gap-3">
-          <a class="btn btn-pc-primary btn-md px-3" href="#pcMeetGreetBook">Book a Meet &amp; Greet</a>
-        </div>
+        <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="#pcMeetGreetBook">Book a Meet &amp; Greet</a>
       </div>
 
-      <div class="col-lg-6 p-2 p-lg-5">
-        <div class="position-relative mx-auto" style="max-width: 620px;">
-          <div class="position-absolute rounded-5" aria-hidden="true" style="
-              width: 150px;
-              height: 150px;
-              right: -20px;
-              bottom: -20px;
-              background: var(--pc-orange);
-              opacity: .12;
-              filter: blur(2px);
-            "></div>
-          <div class="position-relative overflow-hidden rounded-5" style="
-              min-height: clamp(220px, 60vw, 420px);
-              box-shadow: var(--pc-shadow-lg);
-            ">
-            <img src="<?= $assetPath ?>assets/img/meet-and-greet.png" alt="PowerCabs Meet and Greet airport transfer"
-              class="w-100 h-100" loading="lazy" style="
-                position: absolute;
-                inset: 0;
-                object-fit: cover;
-                object-position: center;
-              ">
-          </div>
+      <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[620px]">
+        <span class="tw-pointer-events-none tw-absolute tw-bottom-[-20px] tw-right-[-20px] tw-z-0 tw-h-[150px] tw-w-[150px] tw-rounded-[2rem] tw-bg-power/[0.12] tw-blur-[2px]" aria-hidden="true"></span>
+        <div class="tw-relative tw-z-[1] tw-min-h-[clamp(220px,60vw,420px)] tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
+          <img src="<?= $assetPath ?>assets/img/meet-and-greet.png" alt="PowerCabs Meet and Greet airport transfer"
+            class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
         </div>
       </div>
     </div>
@@ -253,106 +230,111 @@ $bookingSteps = [
 </section>
 
 <!-- ============ Meet & Greet Booking ============ -->
-<section class="section-pc position-relative overflow-hidden" id="pcMeetGreetBook">
-  <div class="container position-relative">
-    <div class="pc-mg-shell row g-0">
+<section class="tw-relative tw-overflow-hidden <?= $pcSection ?>" id="pcMeetGreetBook">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-grid tw-grid-cols-1 tw-overflow-hidden tw-rounded-[1.75rem] tw-border tw-border-solid tw-border-black/[0.07] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] lg:tw-grid-cols-12">
 
       <!-- LEFT: branding / visual side -->
-      <div class="col-lg-5 pc-mg-visual position-relative overflow-hidden text-white p-4 p-lg-5 d-flex flex-column">
-        <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
-        <i class="bi bi-airplane-fill pc-mg-visual-plane" aria-hidden="true"></i>
+      <div class="tw-relative tw-flex tw-flex-col tw-overflow-hidden tw-bg-[linear-gradient(155deg,#1c1410_0%,#2a1a10_55%,#160f0a_100%)] tw-p-6 tw-text-white sm:tw-p-10 lg:tw-col-span-5">
+        <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-z-0 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.3),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
+        <svg class="tw-pointer-events-none tw-absolute -tw-right-6 -tw-top-6 tw-z-0 tw-h-44 tw-w-44 tw-rotate-[35deg] tw-text-white/[0.05]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
 
-        <span class="pc-mg-badge d-inline-flex align-items-center gap-2 align-self-start mb-4">
-          <i class="bi bi-airplane-engines-fill" aria-hidden="true"></i>
+        <span class="tw-relative tw-z-[1] tw-mb-4 tw-inline-flex tw-w-fit tw-items-center tw-gap-2 tw-self-start tw-rounded-full tw-border tw-border-solid tw-border-white/[0.16] tw-bg-white/10 tw-px-4 tw-py-2 tw-text-xs tw-font-bold tw-uppercase tw-tracking-[0.04em]">
+          <svg class="tw-h-3.5 tw-w-3.5 tw-text-powerlight" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
           Meet &amp; Greet Service
         </span>
 
-        <h2 class="pc-mg-heading mb-3">
+        <h2 class="tw-relative tw-z-[1] tw-mb-3 tw-text-2xl tw-font-extrabold tw-leading-[1.15] tw-tracking-tight sm:tw-text-3xl">
           Smooth arrival.<br>
-          <span>Personal service.</span>
+          <span class="tw-text-powerlight">Personal service.</span>
         </h2>
 
-        <p class="pc-mg-sub mb-4">
+        <p class="tw-relative tw-z-[1] tw-mb-6 tw-max-w-[40ch] tw-text-[0.98rem] tw-leading-[1.7] tw-text-white/75">
           Your driver tracks your flight, waits for you inside arrivals with a
           name board, and helps with your bags. Simple, fixed pricing --
           no surprises.
         </p>
 
-        <ul class="list-unstyled d-flex flex-column gap-2 mb-4 pc-mg-feature-list">
-          <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Flight tracked, every time</li>
-          <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Greeted inside arrivals</li>
-          <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Help with luggage</li>
-          <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Fixed, transparent fares</li>
+        <ul class="tw-relative tw-z-[1] tw-m-0 tw-mb-6 tw-flex tw-flex-col tw-gap-2 tw-p-0">
+          <?php foreach (
+            ['Flight tracked, every time', 'Greeted inside arrivals', 'Help with luggage', 'Fixed, transparent fares']
+            as $feature
+          ): ?>
+            <li class="tw-flex tw-items-center tw-gap-2.5 tw-text-sm tw-font-semibold tw-text-white/[0.92]">
+              <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-powerlight" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12a9.75 9.75 0 1119.5 0 9.75 9.75 0 01-19.5 0zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              <?= $feature ?>
+            </li>
+          <?php endforeach; ?>
         </ul>
 
-        <div class="row g-3 mt-auto pc-mg-price-cards">
-          <div class="col-6">
-            <div class="pc-mg-price-card">
-              <span class="pc-mg-price-label">One Way</span>
-              <span class="pc-mg-price-value">&euro;10</span>
-            </div>
+        <div class="tw-relative tw-z-[1] tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-3">
+          <div class="tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4">
+            <span class="tw-text-xs tw-font-semibold tw-text-white/70">One Way</span>
+            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;10</span>
           </div>
-          <div class="col-6">
-            <div class="pc-mg-price-card is-featured">
-              <span class="pc-mg-price-badge">Best Value</span>
-              <span class="pc-mg-price-label">Return / Both Ways</span>
-              <span class="pc-mg-price-value">&euro;15</span>
-            </div>
+          <div class="tw-relative tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(255,122,0,0.4)] tw-bg-[rgba(232,89,12,0.18)] tw-p-4">
+            <span class="tw-absolute tw-right-3.5 -tw-top-2.5 tw-rounded-full tw-bg-power tw-px-2 tw-py-1 tw-text-[0.6rem] tw-font-bold tw-uppercase tw-tracking-[0.05em] tw-text-white">Best Value</span>
+            <span class="tw-text-xs tw-font-semibold tw-text-white/70">Return / Both Ways</span>
+            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;15</span>
           </div>
         </div>
       </div>
 
       <!-- RIGHT: booking form -->
-      <div class="col-lg-7 pc-mg-form-col bg-white p-4 p-lg-5">
-        <span class="pc-mg-form-badge d-inline-flex align-items-center gap-2 mb-3">
-          <i class="bi bi-calendar-check-fill" aria-hidden="true"></i>
+      <div class="tw-bg-white tw-p-6 sm:tw-p-10 lg:tw-col-span-7">
+        <span class="tw-mb-3 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-[#fbe6d4] tw-px-3.5 tw-py-2 tw-text-xs tw-font-bold tw-uppercase tw-tracking-[0.04em] tw-text-power">
+          <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3.75 18.75V7.5a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v11.25m-16.5 0A2.25 2.25 0 006 21h12a2.25 2.25 0 002.25-2.25m-16.5 0V11.25a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v7.5M9 16.5l1.5 1.5 3.5-3.5"/></svg>
           Booking Enquiry
         </span>
-        <h3 class="fw-bold mb-2">Book Your Meet &amp; Greet</h3>
-        <p class="text-muted-pc mb-4">Tell us about your flight and where you're headed -- we'll take
-          care of the rest.</p>
+        <h3 class="tw-mb-2 tw-text-2xl tw-font-bold tw-text-ink">Book Your Meet &amp; Greet</h3>
+        <p class="tw-mb-6 tw-text-ink/60">Tell us about your flight and where you're headed -- we'll take care of the rest.</p>
 
-        <form method="post" action="" class="row g-3 pc-mg-form" id="pcMeetGreetForm">
+        <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2" id="pcMeetGreetForm">
           <input type="hidden" name="form_type" value="meet_greet">
 
-          <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgName">Full Name</label>
-            <input type="text" class="form-control" id="mgName" name="name" value="<?= htmlspecialchars(
-              $mgOld['name'],
-            ) ?>"required>
+          <div>
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgName">Full Name</label>
+            <input type="text" class="<?= $mgInputClass ?>" id="mgName" name="name" value="<?= htmlspecialchars(
+  $mgOld['name'],
+) ?>" required>
           </div>
 
-          <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgEmail">Email Address</label>
-            <input type="email" class="form-control" id="mgEmail" name="email" value="<?= htmlspecialchars(
-              $mgOld['email'],
-            ) ?>" required>
+          <div>
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgEmail">Email Address</label>
+            <input type="email" class="<?= $mgInputClass ?>" id="mgEmail" name="email" value="<?= htmlspecialchars(
+  $mgOld['email'],
+) ?>" required>
           </div>
 
-          <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgFlightNumber">Flight Number</label>
-            <input type="text" class="form-control" id="mgFlightNumber" name="flight_number"
+          <div>
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgFlightNumber">Flight Number</label>
+            <input type="text" class="<?= $mgInputClass ?>" id="mgFlightNumber" name="flight_number"
               placeholder="e.g. EI164" value="<?= htmlspecialchars($mgOld['flight_number']) ?>" required>
           </div>
 
-          <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgServiceType">Service Type</label>
-            <select class="form-select pc-custom-select-enhance" id="mgServiceType" name="service_type" required>
-              <option value="" disabled <?= $mgOld['service_type'] === '' ? 'selected' : '' ?>>Select service
-                type</option>
-              <option value="pickup" <?= $mgOld['service_type'] === 'pickup' ? 'selected' : '' ?>>Pickup (from
-                the airport)</option>
-              <option value="dropoff" <?= $mgOld['service_type'] === 'dropoff' ? 'selected' : '' ?>>Dropping
-                Off (to the airport)</option>
+          <div>
+            <!-- pc-custom-select-enhance stays as a bare functional hook, shared with book-ride-online.php via custom-select.js. -->
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgServiceType">Service Type</label>
+            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgServiceType" name="service_type" required>
+              <option value="" disabled <?= $mgOld['service_type'] === ''
+                ? 'selected'
+                : '' ?>>Select service type</option>
+              <option value="pickup" <?= $mgOld['service_type'] === 'pickup'
+                ? 'selected'
+                : '' ?>>Pickup (from the airport)</option>
+              <option value="dropoff" <?= $mgOld['service_type'] === 'dropoff'
+                ? 'selected'
+                : '' ?>>Dropping Off (to the airport)</option>
             </select>
           </div>
 
           <!-- Pickup flow fields -->
-          <div class="col-md-6 pc-mg-field-group" data-mg-group="pickup">
-            <label class="form-label pc-mg-label" for="mgPickupTerminal">Pickup / Airport Terminal</label>
-            <select class="form-select pc-custom-select-enhance" id="mgPickupTerminal" name="pickup_terminal">
-              <option value="" disabled <?= $mgOld['pickup_terminal'] === '' ? 'selected' : '' ?>>Select
-                terminal</option>
+          <div class="pc-mg-field-group" data-mg-group="pickup">
+            <label class="<?= $mgLabelClass ?>" for="mgPickupTerminal">Pickup / Airport Terminal</label>
+            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgPickupTerminal" name="pickup_terminal">
+              <option value="" disabled <?= $mgOld['pickup_terminal'] === ''
+                ? 'selected'
+                : '' ?>>Select terminal</option>
               <?php foreach ($mgTerminalOptions as $terminal): ?>
                 <option value="<?= htmlspecialchars($terminal) ?>" <?= $mgOld['pickup_terminal'] === $terminal
   ? 'selected'
@@ -360,29 +342,32 @@ $bookingSteps = [
               <?php endforeach; ?>
             </select>
           </div>
-          <div class="col-md-6 pc-mg-field-group" data-mg-group="pickup">
-            <label class="form-label pc-mg-label" for="mgDestinationAddress">Destination Address</label>
-            <input type="text" class="form-control" id="mgDestinationAddress" name="destination_address"
+          <div class="pc-mg-field-group" data-mg-group="pickup">
+            <label class="<?= $mgLabelClass ?>" for="mgDestinationAddress">Destination Address</label>
+            <input type="text" class="<?= $mgInputClass ?>" id="mgDestinationAddress" name="destination_address"
               placeholder="Where should we drop you off?" autocomplete="off"
               value="<?= htmlspecialchars($mgOld['destination_address']) ?>">
-            <div class="form-text text-danger d-none" id="mgDestinationAddressWarning">Please choose a destination
-              address within Dublin.</div>
+            <!-- `tw-hidden` here is an unavoidable, narrow exception: it's the
+                 exact class string dublin-places-autocomplete.js (shared
+                 with book-ride-online.php) hardcodes for showing/hiding this
+                 warning. -->
+            <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="mgDestinationAddressWarning">Please choose a destination address within Dublin.</div>
           </div>
 
           <!-- Dropping Off flow fields -->
-          <div class="col-md-6 pc-mg-field-group" data-mg-group="dropoff">
-            <label class="form-label pc-mg-label" for="mgPickupAddress">Pickup Address</label>
-            <input type="text" class="form-control" id="mgPickupAddress" name="pickup_address"
+          <div class="pc-mg-field-group" data-mg-group="dropoff">
+            <label class="<?= $mgLabelClass ?>" for="mgPickupAddress">Pickup Address</label>
+            <input type="text" class="<?= $mgInputClass ?>" id="mgPickupAddress" name="pickup_address"
               placeholder="Where should we collect you from?" autocomplete="off"
               value="<?= htmlspecialchars($mgOld['pickup_address']) ?>">
-            <div class="form-text text-danger d-none" id="mgPickupAddressWarning">Please choose a pickup address
-              within Dublin.</div>
+            <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="mgPickupAddressWarning">Please choose a pickup address within Dublin.</div>
           </div>
-          <div class="col-md-6 pc-mg-field-group" data-mg-group="dropoff">
-            <label class="form-label pc-mg-label" for="mgDropoffTerminal">Drop-off / Airport Terminal</label>
-            <select class="form-select pc-custom-select-enhance" id="mgDropoffTerminal" name="dropoff_terminal">
-              <option value="" disabled <?= $mgOld['dropoff_terminal'] === '' ? 'selected' : '' ?>>Select
-                terminal</option>
+          <div class="pc-mg-field-group" data-mg-group="dropoff">
+            <label class="<?= $mgLabelClass ?>" for="mgDropoffTerminal">Drop-off / Airport Terminal</label>
+            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgDropoffTerminal" name="dropoff_terminal">
+              <option value="" disabled <?= $mgOld['dropoff_terminal'] === ''
+                ? 'selected'
+                : '' ?>>Select terminal</option>
               <?php foreach ($mgTerminalOptions as $terminal): ?>
                 <option value="<?= htmlspecialchars($terminal) ?>" <?= $mgOld['dropoff_terminal'] === $terminal
   ? 'selected'
@@ -391,17 +376,18 @@ $bookingSteps = [
             </select>
           </div>
 
-          <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgPassengers">Number of Passengers</label>
-            <input type="number" min="1" max="20" class="form-control" id="mgPassengers" name="passengers"
+          <div>
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgPassengers">Number of Passengers</label>
+            <input type="number" min="1" max="20" class="<?= $mgInputClass ?>" id="mgPassengers" name="passengers"
               value="<?= htmlspecialchars($mgOld['passengers']) ?>" required>
           </div>
 
-          <div class="col-md-6">
-            <label class="form-label pc-required pc-mg-label" for="mgJourneyType">Journey Type</label>
-            <select class="form-select pc-custom-select-enhance" id="mgJourneyType" name="journey_type" required>
-              <option value="" disabled <?= $mgOld['journey_type'] === '' ? 'selected' : '' ?>>Select journey
-                type</option>
+          <div>
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgJourneyType">Journey Type</label>
+            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgJourneyType" name="journey_type" required>
+              <option value="" disabled <?= $mgOld['journey_type'] === ''
+                ? 'selected'
+                : '' ?>>Select journey type</option>
               <option value="one_way" data-fare="10" <?= $mgOld['journey_type'] === 'one_way'
                 ? 'selected'
                 : '' ?>>One Way &ndash; &euro;10</option>
@@ -411,35 +397,35 @@ $bookingSteps = [
             </select>
           </div>
 
-          <div class="col-12">
-            <label class="form-label pc-mg-label" for="mgSpecialRequirements">Special Requirements</label>
-            <textarea class="form-control" id="mgSpecialRequirements" name="special_requirements"
+          <div class="md:tw-col-span-2">
+            <label class="<?= $mgLabelClass ?>" for="mgSpecialRequirements">Special Requirements</label>
+            <textarea class="<?= $mgInputClass ?> tw-py-2" id="mgSpecialRequirements" name="special_requirements"
               rows="3"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
           </div>
 
-          <div class="col-12">
-            <div class="pc-mg-fare-box d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div class="md:tw-col-span-2">
+            <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-3 tw-rounded-2xl tw-bg-[#fbe6d4] tw-px-5 tw-py-4">
               <div>
-                <span class="pc-mg-fare-label d-block">Your Fare</span>
-                <span class="pc-mg-fare-hint" id="mgFareHint">Select a journey type above</span>
+                <span class="tw-block tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.07em] tw-text-powerdark">Your Fare</span>
+                <span class="tw-text-[0.82rem] tw-font-semibold tw-text-ink" id="mgFareHint">Select a journey type above</span>
               </div>
-              <span class="pc-mg-fare-value" id="mgFareValue">&euro;&ndash;</span>
+              <span class="tw-text-3xl tw-font-extrabold tw-tracking-tight tw-text-power" id="mgFareValue">&euro;&ndash;</span>
             </div>
           </div>
 
-          <div class="col-12">
-            <div class="pc-mg-payment-box">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
-                <span class="fw-bold">Secure Payment</span>
+          <div class="md:tw-col-span-2">
+            <div class="tw-rounded-2xl tw-border tw-border-dashed tw-border-[rgba(232,89,12,0.35)] tw-bg-paper-soft tw-px-5 tw-py-[1.1rem]">
+              <div class="tw-mb-2 tw-flex tw-items-center tw-gap-2">
+                <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                <span class="tw-font-bold tw-text-ink">Secure Payment</span>
               </div>
               <a href="<?= htmlspecialchars($mgStripeLink) ?>" target="_blank" rel="noopener noreferrer"
-                class="btn btn-pc-primary w-100 d-flex align-items-center justify-content-center gap-2"
+                class="tw-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline"
                 id="mgPayBtn">
-                <i class="bi bi-lock-fill d-none d-sm-inline-block" aria-hidden="true"></i>
+                <svg class="tw-hidden tw-h-3.5 tw-w-3.5 sm:tw-inline-block" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a1.5 1.5 0 00-1.5 1.5v9A1.5 1.5 0 006 21h12a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0018 9h-1.5V6a4.5 4.5 0 00-4.5-4.5zm3 7.5V6a3 3 0 10-6 0v3h6z" clip-rule="evenodd"/></svg>
                 <span id="mgPayBtnLabel">Select journey type to see fare</span>
               </a>
-              <p class="pc-mg-payment-note small text-muted-pc mb-0 mt-2">
+              <p class="tw-mb-0 tw-mt-2 tw-text-[1.0625rem] tw-leading-relaxed tw-leading-[1.55] tw-text-ink/60">
                 You'll be taken to our secure Stripe payment page to complete payment for the
                 fare shown above. Submitting the enquiry below does not require payment first --
                 your booking is never lost if you pay afterwards.
@@ -447,21 +433,24 @@ $bookingSteps = [
             </div>
           </div>
 
-          <div class="col-12 pt-2">
-            <button type="submit" class="btn btn-pc-dark px-4 rounded-pill d-inline-flex align-items-center gap-2">
+          <div class="md:tw-col-span-2 tw-pt-2">
+            <!-- tw-appearance-none tw-border-0 strip the native <button> chrome -- see book-ride-online.php. -->
+            <button type="submit" class="tw-inline-flex tw-appearance-none tw-items-center tw-gap-2 tw-rounded-full tw-border-0 tw-bg-ink tw-px-6 tw-py-2 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black">
               <span>Send Enquiry</span>
-              <i class="bi bi-send" style="font-size: .85rem;" aria-hidden="true"></i>
+              <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
             </button>
           </div>
 
+          <!-- .alert-success / .alert-danger stay as bare classnames -- the contract ajax-forms.js parses out of the returned HTML. -->
           <?php if ($mgFormStatus === 'success'): ?>
-            <div class="col-12">
-              <div class="alert alert-success mb-0 mt-2" role="alert">Thanks -- your Meet &amp; Greet enquiry
-                has been sent. We'll confirm shortly.</div>
+            <div class="md:tw-col-span-2">
+              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your Meet &amp; Greet enquiry has been sent. We'll confirm shortly.</div>
             </div>
           <?php elseif ($mgFormStatus === 'error'): ?>
-            <div class="col-12">
-              <div class="alert alert-danger mb-0 mt-2" role="alert"><?= htmlspecialchars($mgFormError) ?></div>
+            <div class="md:tw-col-span-2">
+              <div class="alert-danger tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars(
+                $mgFormError,
+              ) ?></div>
             </div>
           <?php endif; ?>
         </form>
@@ -469,208 +458,6 @@ $bookingSteps = [
     </div>
   </div>
 </section>
-
-<style>
-  .pc-mg-shell {
-    border-radius: var(--pc-radius-xl);
-    overflow: hidden;
-    box-shadow: var(--pc-shadow-lg);
-    border: 1px solid rgba(28, 20, 16, .07);
-  }
-
-  .pc-mg-visual {
-    background: linear-gradient(155deg, var(--pc-dark) 0%, #2a1a10 55%, var(--pc-dark-soft) 100%);
-  }
-
-  .pc-mg-visual-plane {
-    position: absolute;
-    top: -1.5rem;
-    right: -1.5rem;
-    font-size: 11rem;
-    color: rgba(255, 255, 255, .05);
-    transform: rotate(35deg);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .pc-mg-badge,
-  .pc-mg-heading,
-  .pc-mg-sub,
-  .pc-mg-feature-list,
-  .pc-mg-price-cards {
-    position: relative;
-    z-index: 1;
-  }
-
-  .pc-mg-badge {
-    background: rgba(255, 255, 255, .1);
-    border: 1px solid rgba(255, 255, 255, .16);
-    color: #fff;
-    font-size: .75rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    padding: .5rem 1rem;
-    border-radius: var(--pc-radius-pill);
-  }
-
-  .pc-mg-badge i {
-    color: var(--pc-orange-light);
-  }
-
-  .pc-mg-heading {
-    font-size: clamp(1.9rem, 3vw, 2.5rem);
-    line-height: 1.15;
-    letter-spacing: -.03em;
-    font-weight: 800;
-  }
-
-  .pc-mg-heading span {
-    color: var(--pc-orange-light);
-  }
-
-  .pc-mg-sub {
-    color: rgba(255, 255, 255, .75);
-    font-size: .98rem;
-    line-height: 1.7;
-    max-width: 40ch;
-  }
-
-  .pc-mg-feature-list li {
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-    font-size: .9rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, .92);
-  }
-
-  .pc-mg-feature-list i {
-    color: var(--pc-orange-light);
-  }
-
-  .pc-mg-price-card {
-    position: relative;
-    height: 100%;
-    background: rgba(255, 255, 255, .06);
-    border: 1px solid rgba(255, 255, 255, .14);
-    border-radius: var(--pc-radius-lg);
-    padding: 1rem 1.1rem;
-    display: flex;
-    flex-direction: column;
-    gap: .3rem;
-  }
-
-  .pc-mg-price-card.is-featured {
-    background: rgba(232, 89, 12, .18);
-    border-color: rgba(255, 122, 0, .4);
-  }
-
-  .pc-mg-price-badge {
-    position: absolute;
-    top: -.6rem;
-    right: .9rem;
-    background: var(--pc-orange);
-    color: #fff;
-    font-size: .6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    padding: .2rem .5rem;
-    border-radius: var(--pc-radius-pill);
-  }
-
-  .pc-mg-price-label {
-    font-size: .78rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, .7);
-  }
-
-  .pc-mg-price-value {
-    font-size: 1.7rem;
-    font-weight: 800;
-    letter-spacing: -.02em;
-    color: #fff;
-  }
-
-  .pc-mg-form-badge {
-    background: var(--pc-peach);
-    color: var(--pc-orange);
-    font-size: .72rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    padding: .4rem .85rem;
-    border-radius: var(--pc-radius-pill);
-  }
-
-  .pc-mg-label {
-    display: flex;
-    align-items: center;
-    gap: .25rem;
-  }
-
-  .pc-mg-label i {
-    color: var(--pc-orange);
-    font-size: .85rem;
-  }
-
-  .pc-mg-fare-box {
-    background: var(--pc-peach);
-    border-radius: var(--pc-radius-lg);
-    padding: 1rem 1.25rem;
-  }
-
-  .pc-mg-fare-label {
-    font-size: .68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .07em;
-    color: var(--pc-orange-dark);
-  }
-
-  .pc-mg-fare-hint {
-    font-size: .82rem;
-    color: var(--pc-dark);
-    font-weight: 600;
-  }
-
-  .pc-mg-fare-value {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--pc-orange);
-    letter-spacing: -.02em;
-  }
-
-  .pc-mg-payment-box {
-    border: 1px dashed rgba(232, 89, 12, .35);
-    border-radius: var(--pc-radius-lg);
-    padding: 1.1rem 1.25rem;
-    background: var(--pc-cream-soft);
-  }
-
-  .pc-mg-payment-box .bi-shield-lock-fill {
-    color: var(--pc-orange);
-  }
-
-  .pc-mg-payment-note {
-    line-height: 1.55;
-  }
-
-  @media (max-width: 991.98px) {
-    .pc-mg-visual-plane {
-      font-size: 8rem;
-    }
-  }
-
-  @media (max-width: 575.98px) {
-    #mgPayBtn {
-      font-size: .85rem;
-      padding-left: .75rem;
-      padding-right: .75rem;
-    }
-  }
-</style>
 
 <script>
   (function () {
@@ -688,9 +475,12 @@ $bookingSteps = [
       dropoff: form.querySelectorAll('[data-mg-group="dropoff"]')
     };
 
+    // Tailwind's own `tw-hidden` utility class stands in for Bootstrap's
+    // `tw-hidden` here (this toggle is page-exclusive, so nothing else depends
+    // on the old class name) -- same display:none effect, zero Bootstrap.
     function setGroupState(groupName, isActive) {
       groups[groupName].forEach(function (col) {
-        col.classList.toggle('d-none', !isActive);
+        col.classList.toggle('tw-hidden', !isActive);
         col.querySelectorAll('input, select, textarea').forEach(function (field) {
           field.disabled = !isActive;
           field.required = isActive;
@@ -734,51 +524,37 @@ $bookingSteps = [
 </script>
 
 <!-- ============ Our Meet & Greet Services ============ -->
-<section class="section-pc">
-  <div class="container">
-    <div class="text-center mb-5">
-      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ What's
-        Included</p>
-      <h2 class="mb-0">Our Meet &amp; Greet Services</h2>
+<section class="tw-bg-white <?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ What's Included</p>
+      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Our Meet &amp; Greet Services</h2>
     </div>
-    <div class="row g-4">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-3">
       <?php foreach ($meetGreetServices as $s): ?>
-        <div class="col-md-6 col-lg-4">
-          <div class="pc-service-card rounded-4 p-4 bg-white h-100">
-            <span class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3"
-              style="width: 48px; height: 48px; background: var(--pc-peach); color: var(--pc-orange);">
-              <i class="bi <?= $s['icon'] ?> fs-5"></i>
-            </span>
-            <h3 class="fs-6 fw-bold mb-2"><?= htmlspecialchars($s['title']) ?></h3>
-            <p class="small text-muted-pc mb-0"><?= htmlspecialchars($s['desc']) ?></p>
-          </div>
+        <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
+          <span class="tw-mb-3 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-xl tw-bg-[#fbe6d4] tw-text-power">
+            <?php switch ($s['icon']): case 'badge': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+              <?php break;case 'bag': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25l2 2 4-4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+              <?php break;case 'award': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125V18.75m9 0h-9M12 3v8.25m0 0a3.375 3.375 0 100 6.75 3.375 3.375 0 000-6.75z"/></svg>
+              <?php break;case 'people': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              <?php break;case 'briefcase': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.25 14.15v4.25c0 1.09-.787 2.04-1.872 2.18-2.087.28-4.216.42-6.378.42s-4.291-.14-6.378-.42c-1.085-.14-1.872-1.09-1.872-2.18v-4.25M3.75 8.706c0-1.08.768-2.01 1.837-2.175a48.11 48.11 0 013.413-.387m7.5 0v-.894A2.25 2.25 0 0014.25 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M21 12.49c0 .65-.29 1.27-.75 1.66-.194.16-.42.29-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.43-7.577-1.22A2.016 2.016 0 013 12.49"/></svg>
+              <?php break;case 'clock': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <?php break;endswitch; ?>
+          </span>
+          <h3 class="tw-mb-2 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($s['title']) ?></h3>
+          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($s['desc']) ?></p>
         </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
-
-<style>
-  .pc-service-card {
-    box-shadow: var(--pc-shadow-sm);
-    border: 1px solid rgba(28, 20, 16, .05);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-
-  .pc-service-card:hover {
-    box-shadow: var(--pc-shadow-md);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pc-service-card {
-      transition: none;
-    }
-
-    .pc-service-card:hover {
-      transform: none;
-    }
-  }
-</style>
 
 <?php if ($mgFormStatus): ?>
   <script>window.pcMeetGreetFormSubmitted = true;</script>
@@ -799,68 +575,21 @@ $bookingSteps = [
 ) ?>"></script>
 
 <!-- ============ Flight Path Scroll Animation ============ -->
-<section class="pc-flight-banner position-relative overflow-hidden" id="pcFlightBanner">
-  <img src="<?= $assetPath ?>assets/img/plane.avif" alt="" aria-hidden="true" class="pc-flight-plane position-absolute"
+<section class="tw-relative tw-min-h-[560px] tw-overflow-hidden tw-h-[90vh] tw-bg-[linear-gradient(180deg,#0c1b2e_0%,#17395c_28%,#3f7cb0_55%,#bfe2f9_78%,#ffffff_100%)]" id="pcFlightBanner">
+  <img src="<?= $assetPath ?>assets/img/plane.avif" alt="" aria-hidden="true"
+    class="tw-pointer-events-none tw-absolute tw-left-0 tw-top-1/2 tw-z-0 tw-w-[clamp(320px,48vw,680px)] tw-origin-center [transform:translate3d(-15%,-50%,0)] tw-will-change-transform tw-drop-shadow-[0_14px_24px_rgba(0,0,0,0.35)]"
     id="pcFlightPlane">
   <img src="<?= $assetPath ?>assets/img/clouds.avif" alt="" aria-hidden="true"
-    class="pc-flight-clouds position-absolute top-0 start-0 w-100 h-100" id="pcFlightCloudsFront" loading="lazy">
+    class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-[1] tw-h-full tw-w-full tw-object-cover tw-will-change-transform [-webkit-mask-image:linear-gradient(180deg,#000_0%,#000_65%,transparent_92%)] [mask-image:linear-gradient(180deg,#000_0%,#000_65%,transparent_92%)]"
+    id="pcFlightCloudsFront" loading="lazy">
 
-  <div class="pc-flight-text position-absolute bottom-0 start-0 w-100 text-center py-3">
-    <div class="container">
-      <h2 class="pc-flight-title fw-bold mb-1">Meet &amp; Greet, Made Easy</h2>
-      <p class="pc-flight-subtitle text-muted-pc mb-0">From arrival to destination, PowerCabs makes every journey
-        simple.</p>
+  <div class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-[2] tw-py-6 tw-text-center">
+    <div class="<?= $pcContainer ?>">
+      <h2 class="tw-mb-1 tw-text-[clamp(1.25rem,2.5vw,1.75rem)] tw-font-bold tw-text-ink">Meet &amp; Greet, Made Easy</h2>
+      <p class="tw-mb-0 tw-text-[1.0625rem] tw-text-ink/60">From arrival to destination, PowerCabs makes every journey simple.</p>
     </div>
   </div>
 </section>
-
-<style>
-  .pc-flight-banner {
-    height: 90vh;
-    min-height: 560px;
-    background: linear-gradient(180deg, #0c1b2e 0%, #17395c 28%, #3f7cb0 55%, #bfe2f9 78%, #ffffff 100%);
-  }
-
-  .pc-flight-plane {
-    top: 50%;
-    left: 0;
-    width: clamp(320px, 48vw, 680px);
-    transform: translate3d(-15%, -50%, 0);
-    transform-origin: center;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform;
-    filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .35));
-  }
-
-  .pc-flight-clouds {
-    z-index: 1;
-    object-fit: cover;
-    pointer-events: none;
-    will-change: transform;
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 65%, transparent 92%);
-    mask-image: linear-gradient(180deg, #000 0%, #000 65%, transparent 92%);
-  }
-
-  .pc-flight-text {
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .pc-flight-title {
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  }
-
-  .pc-flight-subtitle {
-    font-size: .95rem;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pc-flight-plane {
-      transform: translate3d(40%, -50%, 0) !important;
-    }
-  }
-</style>
 
 <script>
   (function () {
@@ -957,312 +686,138 @@ $bookingSteps = [
 </script>
 
 <!-- ============ Photo Banner ============ -->
-<section class="position-relative overflow-hidden text-center text-white" style="min-height: 280px;">
+<section class="tw-relative tw-min-h-[280px] tw-overflow-hidden tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/36377043/pexels-photo-36377043.jpeg?auto=format&fit=crop&w=1600&q=60"
-    alt="" aria-hidden="true" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: 0;"
+    alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover"
     loading="lazy">
-  <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"
-    style="background: rgba(10, 7, 5, 0.65); z-index: 0;"></span>
-  <div class="container position-relative d-flex align-items-center justify-content-center" style="min-height: 520px;">
-    <h2 class="fw-bold text-white mb-0" style="max-width: 46ch; font-size: clamp(1.85rem, 5vw, 3.5rem);">From the terminal to the car,<br>
-      we've got your
-      bags
-      covered.</h2>
+  <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.65)]" aria-hidden="true"></span>
+  <div class="tw-relative tw-z-[1] tw-mx-auto tw-flex tw-min-h-[520px] tw-w-full tw-max-w-[1320px] tw-items-center tw-justify-center tw-px-4 sm:tw-px-6 lg:tw-px-8">
+    <h2 class="tw-mb-0 tw-max-w-[46ch] tw-text-[clamp(1.85rem,5vw,3.5rem)] tw-font-bold tw-text-white">From the terminal to the car,<br>
+      we've got your bags covered.</h2>
   </div>
 </section>
 
-<section class="position-relative overflow-hidden py-5 py-lg-6"
-  style="background: linear-gradient(180deg, var(--pc-cream) 0%, var(--pc-cream) 85%, #ffffff 100%);">
-  <div class="container py-lg-4">
-    <div class="text-center mx-auto mb-5" style="max-width: 720px;">
-      <h2 class="fw-bold mb-3" style="
-          font-size: clamp(2rem, 4vw, 3.5rem);
-          line-height: 1.08;
-          letter-spacing: -.045em;
-          color: var(--pc-dark);
-        ">
-        Your journey starts
-        <span style="color: var(--pc-orange);">
-          the moment you land.
-        </span>
+<!-- ============ Why Choose Us + How It Works ============ -->
+<section class="tw-relative tw-overflow-hidden tw-bg-paper <?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-mx-auto tw-mb-10 tw-max-w-[720px] tw-text-center">
+      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-leading-[1.08] tw-tracking-tight tw-text-ink md:tw-text-4xl">
+        Your journey starts <span class="tw-text-power">the moment you land.</span>
       </h2>
-
-      <p class="text-muted-pc mx-auto mb-0" style="max-width: 620px; line-height: 1.75;">
+      <p class="tw-mb-0 tw-text-ink/60">
         From airport pickup to your final destination, we make every
         step feel effortless, comfortable and completely stress-free.
       </p>
     </div>
 
-    <!-- =========================
-         MAIN COMBINED CARD
-    ========================== -->
-    <div class="row g-0 overflow-hidden rounded-5 bg-white" style="
-        border: 1px solid rgba(28,20,16,.07);
-        box-shadow:
-          0 30px 70px rgba(28,20,16,.08),
-          0 5px 20px rgba(28,20,16,.035);
-      ">
+    <div class="tw-grid tw-grid-cols-1 tw-overflow-hidden tw-rounded-[2rem] tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.08),0_5px_20px_rgba(28,20,16,0.035)] lg:tw-grid-cols-2">
 
-      <!-- ==================================================
-           LEFT — WHY CHOOSE POWERcabs
-      =================================================== -->
-      <div class="col-lg-6 p-4 p-md-5 d-flex flex-column">
-        <div class="d-flex align-items-start gap-3 mb-4">
-          <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-4" style="
-              width: 46px;
-              height: 46px;
-              background: var(--pc-peach);
-              color: var(--pc-orange);
-              box-shadow: inset 0 0 0 1px rgba(232,89,12,.08);
-            ">
-            <i class="bi bi-stars fs-5"></i>
+      <!-- LEFT — Why Choose PowerCabs -->
+      <div class="tw-flex tw-flex-col tw-p-6 sm:tw-p-10">
+        <div class="tw-mb-4 tw-flex tw-items-start tw-gap-3">
+          <div class="tw-flex tw-h-[46px] tw-w-[46px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-2xl tw-bg-[#fbe6d4] tw-text-power tw-shadow-[inset_0_0_0_1px_rgba(232,89,12,0.08)]">
+            <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
           </div>
           <div>
-            <div class="small fw-bold text-uppercase mb-1" style="
-                letter-spacing: .14em;
-                color: var(--pc-orange);
-                font-size: .65rem;
-              ">
-              Why Choose Us
-            </div>
-            <h3 class="fw-bold mb-0" style="
-                font-size: clamp(1.45rem, 2vw, 1.9rem);
-                line-height: 1.15;
-                letter-spacing: -.035em;
-                color: var(--pc-dark);
-              ">
-              More than just
-              an airport transfer.
-            </h3>
+            <div class="tw-mb-1 tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">Why Choose Us</div>
+            <h3 class="tw-mb-0 tw-text-[clamp(1.45rem,2vw,1.9rem)] tw-font-bold tw-leading-[1.15] tw-tracking-tight tw-text-ink">More than just an airport transfer.</h3>
           </div>
         </div>
 
-        <p class="text-muted-pc mb-4" style="
-            max-width: 470px;
-            font-size: .95rem;
-            line-height: 1.7;
-          ">
+        <p class="tw-mb-4 tw-max-w-[470px] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/60">
           We take care of the details, so you can simply step out of
           the airport and enjoy a smooth, comfortable journey.
         </p>
 
-        <div class="row g-2">
+        <div class="tw-grid tw-grid-cols-1 tw-gap-2 sm:tw-grid-cols-2">
           <?php foreach ($whyChoose as $index => $item): ?>
-            <div class="col-12 col-sm-6">
-              <div class="position-relative rounded-4 p-3 bg-white" style="
-                  min-height: 52px;
-                  border: 1px solid rgba(28,20,16,.065);
-                  transition: all .25s ease;
-                ">
-                <span class="position-absolute top-0 end-0 mt-2 me-3 fw-bold" style="
-                    font-size: .6rem;
-                    letter-spacing: .08em;
-                    color: rgba(28,20,16,.18);
-                  ">
-                  <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
+            <div class="tw-relative tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.065] tw-bg-white tw-p-3">
+              <span class="tw-absolute tw-right-3 tw-top-2 tw-text-[0.6rem] tw-font-bold tw-tracking-[0.08em] tw-text-ink/[0.18]">
+                <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
+              </span>
+              <div class="tw-flex tw-h-full tw-items-center tw-gap-2">
+                <span class="tw-flex tw-h-[30px] tw-w-[30px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#fbe6d4] tw-text-power">
+                  <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
                 </span>
-                <div class="d-flex align-items-center gap-2 h-100">
-                  <span class="d-inline-flex align-items-center justify-content-center
-                    rounded-circle flex-shrink-0" style="
-                      width: 30px;
-                      height: 30px;
-                      background: var(--pc-peach);
-                      color: var(--pc-orange);
-                    ">
-                    <i class="bi bi-check2 small"></i>
-                  </span>
-                  <span class="fw-bold" style="
-                      font-size: .82rem;
-                      line-height: 1.4;
-                      color: var(--pc-dark);
-                      padding-right: 8px;
-                    ">
-                    <?= htmlspecialchars($item) ?>
-                  </span>
-                </div>
+                <span class="tw-pr-2 tw-text-[0.82rem] tw-font-bold tw-leading-[1.4] tw-text-ink"><?= htmlspecialchars(
+                  $item,
+                ) ?></span>
               </div>
             </div>
           <?php endforeach; ?>
-
         </div>
-        <div class="d-flex align-items-center gap-3 mt-auto pt-4" style="border-top: 1px solid rgba(28,20,16,.07);">
-          <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0" style="
-              width: 40px;
-              height: 40px;
-              background: var(--pc-cream-soft);
-              color: var(--pc-orange);
-            ">
-            <i class="bi bi-shield-check"></i>
+
+        <div class="tw-mt-auto tw-flex tw-items-center tw-gap-3 tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.07] tw-pt-4">
+          <div class="tw-flex tw-h-10 tw-w-10 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-paper-soft tw-text-power">
+            <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
           </div>
           <div>
-            <div class="fw-bold" style="font-size: .78rem; color: var(--pc-dark);">
-              Travel with confidence
-            </div>
-            <div class="text-muted-pc" style="font-size: .68rem;">
-              Professional service from pickup to drop-off.
-            </div>
+            <div class="tw-text-[0.78rem] tw-font-bold tw-text-ink">Travel with confidence</div>
+            <div class="tw-text-[0.68rem] tw-text-ink/60">Professional service from pickup to drop-off.</div>
           </div>
         </div>
       </div>
 
-      <!-- ==================================================
-           RIGHT — HOW IT WORKS
-      =================================================== -->
-      <div class="col-lg-6 p-4 p-md-5 d-flex flex-column" style="
-          background:
-            linear-gradient(
-              145deg,
-              #fff8f3 0%,
-              var(--pc-cream-soft) 100%
-            );
-          border-left: 1px solid rgba(28,20,16,.06);
-        ">
-        <div class="d-flex align-items-start gap-3 mb-4">
-          <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-4" style="
-              width: 46px;
-              height: 46px;
-              background: var(--pc-orange);
-              color: #fff;
-              box-shadow: 0 8px 20px rgba(232,89,12,.20);
-            ">
-            <i class="bi bi-signpost-split-fill fs-5"></i>
+      <!-- RIGHT — How It Works -->
+      <div class="tw-flex tw-flex-col tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.06] tw-bg-[linear-gradient(145deg,#fff8f3_0%,#f9f4ed_100%)] tw-p-6 sm:tw-p-10 lg:tw-border-t-0 lg:tw-border-l">
+        <div class="tw-mb-4 tw-flex tw-items-start tw-gap-3">
+          <div class="tw-flex tw-h-[46px] tw-w-[46px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-2xl tw-bg-power tw-text-white tw-shadow-[0_8px_20px_rgba(232,89,12,0.2)]">
+            <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18M6 3l6 3-6 3m0 6l6 3-6 3M18 3v18M18 9l-6 3 6 3"/></svg>
           </div>
           <div>
-            <div class="small fw-bold text-uppercase mb-1" style="
-                letter-spacing: .14em;
-                color: var(--pc-orange);
-                font-size: .65rem;
-              ">
-              How It Works
-            </div>
-            <h3 class="fw-bold mb-0" style="
-                font-size: clamp(1.45rem, 2vw, 1.9rem);
-                line-height: 1.15;
-                letter-spacing: -.035em;
-                color: var(--pc-dark);
-              ">
-              Booked in four
-              simple steps.
-            </h3>
+            <div class="tw-mb-1 tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">How It Works</div>
+            <h3 class="tw-mb-0 tw-text-[clamp(1.45rem,2vw,1.9rem)] tw-font-bold tw-leading-[1.15] tw-tracking-tight tw-text-ink">Booked in four simple steps.</h3>
           </div>
         </div>
-        <p class="text-muted-pc mb-4" style="
-            max-width: 470px;
-            font-size: 1.02rem;
-            line-height: 1.7;
-          ">
+        <p class="tw-mb-4 tw-max-w-[470px] tw-text-[1.02rem] tw-leading-[1.7] tw-text-ink/60">
           Getting your airport transfer sorted is quick and easy.
           Book ahead and we'll take care of the rest.
         </p>
 
-        <!-- =========================
-             TIMELINE
-        ========================== -->
+        <!-- Timeline -->
         <div>
           <?php foreach ($bookingSteps as $index => $step): ?>
-            <div class="position-relative d-flex gap-3
-              <?= $index < count($bookingSteps) - 1 ? 'pb-4' : '' ?>">
+            <div class="tw-relative tw-flex tw-gap-3 <?= $index < count($bookingSteps) - 1 ? 'tw-pb-4' : '' ?>">
               <?php if ($index < count($bookingSteps) - 1): ?>
-                <div class="position-absolute" style="
-                    left: 19px;
-                    top: 43px;
-                    bottom: 0;
-                    width: 1px;
-                    background:
-                      linear-gradient(
-                        to bottom,
-                        rgba(232,89,12,.30),
-                        rgba(232,89,12,.08)
-                      );
-                  ">
-                </div>
+                <div class="tw-absolute tw-bottom-0 tw-left-[19px] tw-top-[43px] tw-w-px tw-bg-[linear-gradient(to_bottom,rgba(232,89,12,0.3),rgba(232,89,12,0.08))]"></div>
               <?php endif; ?>
 
-              <!-- Step number -->
-              <div class="position-relative d-flex align-items-center justify-content-center
-                flex-shrink-0 rounded-4 fw-bold" style="
-                  z-index: 2;
-                  width: 40px;
-                  height: 40px;
-                  background: <?= $index === 0 ? 'var(--pc-orange)' : '#fff' ?>;
-                  color: <?= $index === 0 ? '#fff' : 'var(--pc-orange)' ?>;
-                  border: 1px solid rgba(232,89,12,.18);
-                  font-size: .78rem;
-                  box-shadow: 0 5px 15px rgba(28,20,16,.055);
-                ">
+              <div class="tw-relative tw-z-[2] tw-flex tw-h-10 tw-w-10 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(232,89,12,0.18)] tw-text-[0.78rem] tw-font-bold tw-shadow-[0_5px_15px_rgba(28,20,16,0.055)] <?= $index ===
+              0
+                ? 'tw-bg-power tw-text-white'
+                : 'tw-bg-white tw-text-power' ?>">
                 <?= $step['n'] ?>
               </div>
 
-              <!-- Step content -->
-              <div class="flex-grow-1 pt-1">
-                <div class="d-flex align-items-center justify-content-between mb-1">
-                  <span class="fw-bold" style="
-                      font-size: .58rem;
-                      letter-spacing: .13em;
-                      color: #a19791;
-                    ">
-                    STEP
-                    <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
-                  </span>
-                  <i class="bi bi-arrow-up-right" style="
-                      font-size: .75rem;
-                      color: rgba(28,20,16,.28);
-                    ">
-                  </i>
+              <div class="tw-flex-grow tw-pt-1">
+                <div class="tw-mb-1 tw-flex tw-items-center tw-justify-between">
+                  <span class="tw-text-[0.58rem] tw-font-bold tw-tracking-[0.13em] tw-text-[#a19791]">STEP <?= str_pad(
+                    $index + 1,
+                    2,
+                    '0',
+                    STR_PAD_LEFT,
+                  ) ?></span>
+                  <svg class="tw-h-3 tw-w-3 tw-text-black/[0.28]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
                 </div>
-
-                <h4 class="fw-bold mb-0" style="
-                    font-size: .93rem;
-                    line-height: 1.4;
-                    color: var(--pc-dark);
-                  ">
-                  <?= htmlspecialchars($step['title']) ?>
-                </h4>
+                <h4 class="tw-mb-0 tw-text-[0.93rem] tw-font-bold tw-leading-[1.4] tw-text-ink"><?= htmlspecialchars(
+                  $step['title'],
+                ) ?></h4>
               </div>
             </div>
           <?php endforeach; ?>
         </div>
 
-
-        <!-- =========================
-             BOTTOM REASSURANCE
-        ========================== -->
-        <div class="d-flex align-items-center gap-2 p-3 rounded-4 mt-3" style="
-            background: rgba(255,255,255,.72);
-            border: 1px solid rgba(28,20,16,.065);
-          ">
-
-          <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="
-              width: 30px;
-              height: 30px;
-              background: var(--pc-peach);
-              color: var(--pc-orange);
-            ">
-            <i class="bi bi-check-lg small"></i>
+        <!-- Bottom reassurance -->
+        <div class="tw-mt-3 tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.065] tw-bg-white/[0.72] tw-p-3">
+          <div class="tw-flex tw-h-[30px] tw-w-[30px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#fbe6d4] tw-text-power">
+            <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
           </div>
-
           <div>
-            <div class="fw-bold" style="
-                font-size: .84rem;
-                color: var(--pc-dark);
-              ">
-              That's it. You're all set.
-            </div>
-
-            <div class="text-muted-pc" style="font-size: .74rem;">
-              Simple booking. Reliable service. No unnecessary hassle.
-            </div>
+            <div class="tw-text-[0.84rem] tw-font-bold tw-text-ink">That's it. You're all set.</div>
+            <div class="tw-text-[0.74rem] tw-text-ink/60">Simple booking. Reliable service. No unnecessary hassle.</div>
           </div>
-
-          <div class="ms-auto d-flex align-items-center justify-content-center
-            rounded-circle flex-shrink-0" style="
-              width: 31px;
-              height: 31px;
-              background: #fff;
-              color: var(--pc-orange);
-              border: 1px solid rgba(232,89,12,.12);
-            ">
-            <i class="bi bi-arrow-right"></i>
+          <div class="tw-ml-auto tw-flex tw-h-[31px] tw-w-[31px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-[rgba(232,89,12,0.12)] tw-bg-white tw-text-power">
+            <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
           </div>
         </div>
       </div>
@@ -1270,39 +825,14 @@ $bookingSteps = [
   </div>
 </section>
 
-<style>
-  .pc-wc-card {
-    background: var(--pc-cream-soft);
-    border: 1px solid rgba(28, 20, 16, .05);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-
-  .pc-wc-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--pc-shadow-sm);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pc-wc-card {
-      transition: none;
-    }
-
-    .pc-wc-card:hover {
-      transform: none;
-    }
-  }
-</style>
-
 <!-- ============ Online Booking CTA ============ -->
-<section class="section-pc text-center">
-  <div class="container">
-    <h2 class="mb-3">Ready to Book Your Airport Transfer?</h2>
-    <p class="text-muted-pc mx-auto mb-4" style="max-width: 52ch;">Book online in a couple of minutes, or get in touch
-      if you have a question first.</p>
-    <div class="d-flex flex-wrap justify-content-center gap-3">
-      <a class="btn btn-pc-primary btn-md px-5" href="<?= $assetPath ?>/book-ride-online">Book Online</a>
-      <a class="btn btn-outline-dark btn-md px-5 rounded-pill" href="<?= $assetPath ?>/faqs">Have a Question? See
-        FAQs</a>
+<section class="<?= $pcSection ?> tw-text-center">
+  <div class="<?= $pcContainer ?>">
+    <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Ready to Book Your Airport Transfer?</h2>
+    <p class="tw-mx-auto tw-mb-6 tw-max-w-[52ch] tw-text-ink/60">Book online in a couple of minutes, or get in touch if you have a question first.</p>
+    <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4">
+      <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="<?= $assetPath ?>/book-ride-online">Book Online</a>
+      <a class="tw-inline-flex tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink tw-px-7 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-ink tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-ink hover:tw-text-white" href="<?= $assetPath ?>/faqs">Have a Question? See FAQs</a>
     </div>
   </div>
 </section>

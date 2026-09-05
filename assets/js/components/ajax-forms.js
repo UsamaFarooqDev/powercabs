@@ -68,26 +68,30 @@ async function pcHandleAjaxSubmit(event) {
 }
 
 /**
- * Disables the button and, in place, swaps just its trailing icon (every
- * submit button on the site ends in a plain <i class="bi ..."> icon) for a
- * small borderless spinner -- the label text stays put, nothing else about
- * the button's size or styling changes. Falls back to appending a spinner
- * if a button doesn't have an icon to swap. Returns a restore function.
+ * Disables the button and, in place, swaps just its trailing icon (submit
+ * buttons on the site end in an inline <svg>, or an <i> on any not yet
+ * converted) for a small borderless spinner -- the label text stays put,
+ * nothing else about the button's size or styling changes. Falls back to
+ * appending a spinner if a button has no icon. Returns a restore function.
  */
 function pcSetButtonBusy(btn) {
   if (!btn) return () => {};
 
   btn.disabled = true;
-  const icon = btn.querySelector(":scope > i");
+  const icon = btn.querySelector(":scope > svg, :scope > i");
 
+  // The arc is drawn in the button's own text colour (border-t-current over a
+  // transparent ring), so one spinner works on the orange, dark and outline
+  // buttons alike without a per-variant rule.
   const spinner = document.createElement("span");
   spinner.className = [
-    ...(icon ? Array.from(icon.classList).filter((c) => c !== "bi" && !c.startsWith("bi-")) : ["ms-2"]),
-    "pc-btn-icon-spinner",
-    "d-inline-block",
-    "rounded-circle",
-    "bg-transparent",
-  ].join(" ");
+    icon ? "" : "tw-ml-2",
+    "tw-inline-block tw-h-[0.85rem] tw-w-[0.85rem] tw-shrink-0 tw-animate-spin tw-rounded-full",
+    "tw-border-2 tw-border-solid tw-border-transparent tw-border-t-current tw-bg-transparent",
+    "tw-align-[-0.1em] motion-reduce:[animation-duration:1.4s]",
+  ]
+    .filter(Boolean)
+    .join(" ");
   spinner.setAttribute("aria-hidden", "true");
 
   if (icon) {

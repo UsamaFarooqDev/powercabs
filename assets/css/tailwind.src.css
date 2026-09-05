@@ -1,0 +1,11 @@
+/* Build input for Tailwind -- compiled to tailwind.css by `npm run build:css`.
+   Do not edit tailwind.css by hand; it is generated.
+
+   `@tailwind base` is kept even though Preflight is disabled in
+   tailwind.config.js: with preflight off it emits only Tailwind's own
+   --tw-* custom-property defaults, which the ring, shadow, transform and
+   filter utilities need in order to work at all. The element reset itself
+   lives in base.css. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

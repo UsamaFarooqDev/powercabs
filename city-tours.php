@@ -158,67 +158,16 @@ $heroBgImage = 'https://images.pexels.com/photos/15592112/pexels-photo-15592112.
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $destinations = [
-  [
-    'name' => 'Dublin City',
-    'desc' =>
-      "Explore Dublin's rich history, museums, Georgian architecture, Temple Bar, Trinity College and vibrant shopping districts.",
-    'duration' => 'Half-Day Tour',
-    'img' => 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Cliffs of Moher',
-    'desc' => "Experience Ireland's spectacular Atlantic coastline with breathtaking panoramic cliff views.",
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/38110027/pexels-photo-38110027.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => "Giant's Causeway",
-    'desc' => 'Visit the UNESCO World Heritage Site famous for its unique basalt columns.',
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/34936223/pexels-photo-34936223.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Wicklow Mountains',
-    'desc' => 'Discover scenic valleys, forests, lakes and Glendalough Monastery.',
-    'duration' => 'Half-Day Tour',
-    'img' => 'https://images.pexels.com/photos/28430310/pexels-photo-28430310.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Kilkenny',
-    'desc' => "Explore Ireland's medieval city featuring Kilkenny Castle and charming streets.",
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/23995753/pexels-photo-23995753.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Galway',
-    'desc' => 'Experience traditional Irish culture, colorful streets and lively music.',
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/33943881/pexels-photo-33943881.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Ring of Kerry',
-    'desc' => "One of Ireland's most famous scenic coastal drives.",
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/37685449/pexels-photo-37685449.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Blarney Castle',
-    'desc' => 'Visit the legendary Blarney Stone and beautiful castle gardens.',
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/28959919/pexels-photo-28959919.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Belfast',
-    'desc' => "Explore Northern Ireland's capital including Titanic Belfast and historic landmarks.",
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/19045507/pexels-photo-19045507.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
-  [
-    'name' => 'Cork',
-    'desc' => "Discover Ireland's southern capital with markets, riverside walks and historic sites.",
-    'duration' => 'Full-Day Tour',
-    'img' => 'https://images.pexels.com/photos/6355033/pexels-photo-6355033.jpeg?auto=format&fit=crop&w=1200&q=60',
-  ],
+  ['name' => 'Dublin City', 'desc' => "Explore Dublin's rich history, museums, Georgian architecture, Temple Bar, Trinity College and vibrant shopping districts.", 'duration' => 'Half-Day Tour', 'img' => 'https://images.pexels.com/photos/10725916/pexels-photo-10725916.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Cliffs of Moher', 'desc' => "Experience Ireland's spectacular Atlantic coastline with breathtaking panoramic cliff views.", 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/38110027/pexels-photo-38110027.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => "Giant's Causeway", 'desc' => 'Visit the UNESCO World Heritage Site famous for its unique basalt columns.', 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/34936223/pexels-photo-34936223.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Wicklow Mountains', 'desc' => 'Discover scenic valleys, forests, lakes and Glendalough Monastery.', 'duration' => 'Half-Day Tour', 'img' => 'https://images.pexels.com/photos/28430310/pexels-photo-28430310.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Kilkenny', 'desc' => "Explore Ireland's medieval city featuring Kilkenny Castle and charming streets.", 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/23995753/pexels-photo-23995753.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Galway', 'desc' => 'Experience traditional Irish culture, colorful streets and lively music.', 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/33943881/pexels-photo-33943881.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Ring of Kerry', 'desc' => "One of Ireland's most famous scenic coastal drives.", 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/37685449/pexels-photo-37685449.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Blarney Castle', 'desc' => 'Visit the legendary Blarney Stone and beautiful castle gardens.', 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/28959919/pexels-photo-28959919.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Belfast', 'desc' => "Explore Northern Ireland's capital including Titanic Belfast and historic landmarks.", 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/19045507/pexels-photo-19045507.jpeg?auto=format&fit=crop&w=1200&q=60'],
+  ['name' => 'Cork', 'desc' => "Discover Ireland's southern capital with markets, riverside walks and historic sites.", 'duration' => 'Full-Day Tour', 'img' => 'https://images.pexels.com/photos/6355033/pexels-photo-6355033.jpeg?auto=format&fit=crop&w=1200&q=60'],
 ];
 
 $reopenDestinationName = $formStatus === 'success' ? $bookedDestination ?? '' : $old['destination'];
@@ -231,39 +180,51 @@ foreach ($destinations as $d) {
 }
 
 $whyChooseTours = [
-  [
-    'title' => 'Private transportation',
-    'icon' => 'bi-car-front-fill',
-  ],
-  [
-    'title' => 'Flexible itinerary',
-    'icon' => 'bi-signpost-split-fill',
-  ],
-  [
-    'title' => 'Professional local drivers',
-    'icon' => 'bi-person-badge-fill',
-  ],
-  [
-    'title' => 'Door-to-door pickup',
-    'icon' => 'bi-house-door-fill',
-  ],
-  [
-    'title' => 'Comfortable vehicles',
-    'icon' => 'bi-stars',
-  ],
-  [
-    'title' => 'Family friendly',
-    'icon' => 'bi-people-fill',
-  ],
-  [
-    'title' => 'Group tours available',
-    'icon' => 'bi-people',
-  ],
-  [
-    'title' => 'Full day & half day options',
-    'icon' => 'bi-clock-fill',
-  ],
+  ['title' => 'Private transportation', 'icon' => 'car'],
+  ['title' => 'Flexible itinerary', 'icon' => 'signpost'],
+  ['title' => 'Professional local drivers', 'icon' => 'badge'],
+  ['title' => 'Door-to-door pickup', 'icon' => 'house'],
+  ['title' => 'Comfortable vehicles', 'icon' => 'stars'],
+  ['title' => 'Family friendly', 'icon' => 'people'],
+  ['title' => 'Group tours available', 'icon' => 'group'],
+  ['title' => 'Full day & half day options', 'icon' => 'clock'],
 ];
+
+// Canonical PowerCabs form field recipe (see book-ride-online.php).
+$ctInputClass =
+  'tw-w-full tw-rounded-md tw-border tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-base tw-leading-normal tw-text-ink placeholder:tw-text-ink/40 tw-outline-none tw-transition-colors tw-duration-200 focus:tw-border-powerlight';
+$ctLabelClass = $pcLabel;
+$ctSubmitClass = $pcBtnPrimary;
+
+function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
+{
+  switch ($icon):
+    case 'car': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h7.5m-7.5 0h-3.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.83H14.25M16.5 18.75h-2.25m0-11.25h-8.09c-.966 0-1.786.694-1.94 1.646L2.35 14.25m11.15-7.5v7.5m0-7.5h4.093c.53 0 1.023.28 1.293.735L21 14.25M2.35 14.25v3.375c0 .621.504 1.125 1.125 1.125h1.5m14.25-4.5H2.35"/></svg>
+      <?php break;
+    case 'signpost': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18M6 3l6 3-6 3m0 6l6 3-6 3M18 3v18M18 9l-6 3 6 3"/></svg>
+      <?php break;
+    case 'badge': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      <?php break;
+    case 'house': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 12l8.954-8.955a1.5 1.5 0 012.122 0L22.25 12M4.5 9.75V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V9.75M9 21.75V13.5a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5v8.25"/></svg>
+      <?php break;
+    case 'stars': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+      <?php break;
+    case 'people': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+      <?php break;
+    case 'group': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 19.5c0-2.9 2.5-5 5.5-5s5.5 2.1 5.5 5M15 15.5c2.3.2 4 1.8 4 4"/></svg>
+      <?php break;
+    case 'clock': ?>
+      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <?php break;
+  endswitch;
+}
 ?>
 
 <?php if ($formStatus): ?>
@@ -274,56 +235,51 @@ $whyChooseTours = [
 <?php endif; ?>
 
 <!-- ============ Pay Per Hour ============ -->
-<section class="section-pc pb-0">
-  <div class="container">
-    <div class="row align-items-center gy-4 pc-hourly-band position-relative overflow-hidden rounded-4 p-4 p-md-5"
-      style="background-image: url('https://images.unsplash.com/photo-1603934631592-40d9f2e67702?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-      <span class="pc-hourly-band-scrim m-0 z-0 position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-      <div class="col-lg-9 position-relative">
-        <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange-light);">/ Pay Per Hour</p>
-        <h2 class="mb-2 text-white">Prefer to Explore at Your Own Pace?</h2>
-        <p class="mb-0" style="max-width: 62ch; color: rgba(255,255,255,.85);">
-          Hire a PowerCabs driver by the hour instead -- no fixed itinerary, just
-          you, your driver and as much time as you need around Dublin.
-        </p>
-      </div>
-      <div class="col-lg-3 text-lg-end position-relative">
-        <button type="button" class="btn btn-outline-primary btn-md rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#hourlyModal">
-          Book Per Hour
-        </button>
+<section class="tw-pb-0 tw-pt-16 md:tw-pt-24">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-relative tw-overflow-hidden tw-rounded-2xl tw-bg-cover tw-bg-center tw-p-6 sm:tw-p-10 tw-bg-[url('https://images.unsplash.com/photo-1603934631592-40d9f2e67702?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
+      <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(100deg,rgba(10,7,5,0.85)_0%,rgba(10,7,5,0.6)_55%,rgba(10,7,5,0.35)_100%)]" aria-hidden="true"></span>
+      <div class="tw-relative tw-z-[1] tw-flex tw-flex-col tw-items-start tw-gap-4 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
+        <div class="lg:tw-max-w-[70%]">
+          <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight">/ Pay Per Hour</p>
+          <h2 class="tw-mb-2 tw-text-2xl tw-font-bold tw-text-white md:tw-text-3xl">Prefer to Explore at Your Own Pace?</h2>
+          <p class="tw-mb-0 tw-max-w-[62ch] tw-text-white/85">
+            Hire a PowerCabs driver by the hour instead -- no fixed itinerary, just
+            you, your driver and as much time as you need around Dublin.
+          </p>
+        </div>
+        <div>
+          <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
+          <button type="button" class="tw-inline-flex tw-appearance-none tw-items-center tw-whitespace-nowrap tw-rounded-full tw-border tw-border-solid tw-border-white tw-bg-transparent tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-transition-colors tw-duration-200 hover:tw-bg-white hover:tw-text-ink" data-pc-modal-open="#hourlyModal">
+            Book Per Hour
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ Featured Destinations ============ -->
-<section class="section-pc">
-  <div class="container">
-    <div class="text-center mb-5">
-      <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .06em; color: var(--pc-orange);">/ Featured Destinations</p>
-      <h2 class="mb-0">Where Would You Like to Go?</h2>
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Featured Destinations</p>
+      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Where Would You Like to Go?</h2>
     </div>
-    <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-4">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($destinations as $d): ?>
-        <div class="col">
-          <div class="pc-tour-card bg-white h-100 overflow-hidden">
-            <div class="pc-tour-card-img-wrap overflow-hidden position-relative">
-              <img src="<?= htmlspecialchars($d['img']) ?>" alt="<?= htmlspecialchars(
-  $d['name'],
-) ?>" class="pc-tour-card-img w-100 h-100 object-fit-cover" loading="lazy">
-            </div>
-            <div class="p-4">
-              <h3 class="fs-5 fw-bold mb-2"><?= htmlspecialchars($d['name']) ?></h3>
-              <p class="small text-muted-pc mb-3"><?= htmlspecialchars($d['desc']) ?></p>
-              <div class="d-flex">
-                <button type="button" class="btn btn-pc-primary btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#tourModal" data-scroll-to-form="true"
-                  data-tour-name="<?= htmlspecialchars($d['name']) ?>" data-tour-desc="<?= htmlspecialchars(
-  $d['desc'],
-) ?>" data-tour-duration="<?= htmlspecialchars($d['duration']) ?>" data-tour-img="<?= htmlspecialchars($d['img']) ?>">
-                  Book Tour
-                </button>
-              </div>
-            </div>
+        <div class="tw-group tw-overflow-hidden tw-rounded-[28px] tw-bg-white tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
+          <div class="tw-aspect-[4/3] tw-overflow-hidden">
+            <img src="<?= htmlspecialchars($d['img']) ?>" alt="<?= htmlspecialchars($d['name']) ?>" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
+          </div>
+          <div class="tw-p-5">
+            <h3 class="tw-mb-2 tw-text-lg tw-font-bold tw-text-ink"><?= htmlspecialchars($d['name']) ?></h3>
+            <p class="tw-mb-3 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($d['desc']) ?></p>
+            <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
+            <button type="button" class="tw-inline-flex tw-appearance-none tw-items-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-transition-colors tw-duration-200 hover:tw-bg-power" data-pc-modal-open="#tourModal" data-scroll-to-form="true"
+              data-tour-name="<?= htmlspecialchars($d['name']) ?>" data-tour-desc="<?= htmlspecialchars($d['desc']) ?>" data-tour-duration="<?= htmlspecialchars($d['duration']) ?>" data-tour-img="<?= htmlspecialchars($d['img']) ?>">
+              Book Tour
+            </button>
           </div>
         </div>
       <?php endforeach; ?>
@@ -332,190 +288,127 @@ $whyChooseTours = [
 </section>
 
 <!-- ============ Why Choose Our Tours ============ -->
-<section class="section-pc position-relative overflow-hidden" style="background: linear-gradient(180deg, var(--pc-cream) 0%, var(--pc-cream) 55%, #ffffff 100%);" >
-    <div class="container py-5 py-lg-6">
-        <div class="row align-items-end mb-5 pb-lg-3">
-            <div class="col-lg-7">
-                <div class="d-flex align-items-center gap-2 mb-3">
-                    <span class="d-inline-block rounded-circle"
-                          style="width:8px;height:8px;background:var(--pc-orange);"></span>
-                    <span class="small fw-bold text-uppercase"
-                          style="letter-spacing:.12em;color:var(--pc-orange);">
-                        Why Choose Our Tours
-                    </span>
-                </div>
-                <h2 class="display-5 fw-bold mb-0"
-                    style="letter-spacing:-.035em;">
-                    Ireland, <span class="fw-normal">at Your Own Pace</span>
-                </h2>
-            </div>
-
-            <div class="col-lg-4 ms-auto mt-4 mt-lg-0">
-                <p class="mb-0 text-secondary lh-lg">
-                    Discover Ireland with the freedom to travel your way,
-                    supported by local expertise, comfort and flexibility.
-                </p>
-            </div>
+<section class="tw-relative tw-overflow-hidden tw-bg-paper <?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-mb-10 tw-grid tw-grid-cols-1 tw-items-end tw-gap-6 lg:tw-grid-cols-12">
+      <div class="lg:tw-col-span-7">
+        <div class="tw-mb-3 tw-flex tw-items-center tw-gap-2">
+          <span class="tw-inline-block tw-h-2 tw-w-2 tw-rounded-full tw-bg-power"></span>
+          <span class="tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-power">Why Choose Our Tours</span>
         </div>
-
-        <!-- Features -->
-        <div class="row g-3 g-lg-4">
-            <?php foreach ($whyChooseTours as $index => $item): ?>
-                <div class="col-6 col-lg-3">
-                    <div class="position-relative h-100 overflow-hidden rounded-4 p-4 p-lg-4"
-                         style="
-                            background:#fff;
-                            min-height:245px;
-                            border:1px solid rgba(0,0,0,.06);
-                            transition:all .3s ease;
-                         ">
-                        <div class="position-absolute top-0 end-0 fw-bold"
-                             style="
-                                font-size:5rem;
-                                line-height:1;
-                                color:rgba(0,0,0,.035);
-                                transform:translate(8px,-5px);
-                             ">
-                            <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center rounded-3 mb-4"
-                             style="
-                                width:52px;
-                                height:52px;
-                                background:rgba(<?php  ?>);
-                                background:#fff4ec;
-                                color:var(--pc-orange);
-                                font-size:21px;
-                             ">
-                            <i class="bi <?= htmlspecialchars($item['icon']) ?>"></i>
-                        </div>
-                        <h3 class="fw-bold mb-3"
-                            style="
-                                font-size:1rem;
-                                line-height:1.45;
-                                max-width:180px;
-                            ">
-                            <?= htmlspecialchars($item['title']) ?>
-                        </h3>
-                        <div class="position-absolute bottom-0 start-0"
-                             style="
-                                width:42px;
-                                height:3px;
-                                background:var(--pc-orange);
-                             ">
-                        </div>
-                        <div class="position-absolute bottom-0 end-0 m-4 text-secondary">
-                            <i class="bi bi-arrow-up-right"></i>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <!-- Bottom statement -->
-        <div class="row mt-5 pt-4 align-items-center">
-            <div class="col-lg-8">
-                <div class="d-flex align-items-center gap-3">
-                    <div style="width:45px;height:1px;background:var(--pc-orange);"></div>
-                    <span class="small text-secondary">
-                        Travel comfortably. Explore freely. Experience more.
-                    </span>
-                </div>
-            </div>
-
-            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                <span class="small fw-semibold text-uppercase"
-                      style="letter-spacing:.08em;">
-                    Your journey, your way
-                </span>
-            </div>
-        </div>
+        <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl lg:tw-text-5xl">
+          Ireland, <span class="tw-font-normal">at Your Own Pace</span>
+        </h2>
+      </div>
+      <div class="lg:tw-col-span-5">
+        <p class="tw-mb-0 tw-leading-[1.7] tw-text-ink/60">
+          Discover Ireland with the freedom to travel your way,
+          supported by local expertise, comfort and flexibility.
+        </p>
+      </div>
     </div>
+
+    <!-- Features -->
+    <div class="tw-grid tw-grid-cols-2 tw-gap-3 lg:tw-grid-cols-4 lg:tw-gap-4">
+      <?php foreach ($whyChooseTours as $index => $item): ?>
+        <div class="tw-relative tw-min-h-[245px] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-4 lg:tw-p-4">
+          <div class="tw-pointer-events-none tw-absolute tw-right-0 tw-top-0 tw-translate-x-2 -tw-translate-y-1 tw-text-[5rem] tw-font-bold tw-leading-none tw-text-black/[0.035]">
+            <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
+          </div>
+          <div class="tw-relative tw-mb-4 tw-flex tw-h-[52px] tw-w-[52px] tw-items-center tw-justify-center tw-rounded-xl tw-bg-[#fff4ec] tw-text-power">
+            <?php pc_ct_icon($item['icon']); ?>
+          </div>
+          <h3 class="tw-relative tw-mb-3 tw-max-w-[180px] tw-text-base tw-font-bold tw-leading-[1.45] tw-text-ink">
+            <?= htmlspecialchars($item['title']) ?>
+          </h3>
+          <div class="tw-absolute tw-bottom-0 tw-left-0 tw-h-[3px] tw-w-[42px] tw-bg-power"></div>
+          <div class="tw-absolute tw-bottom-0 tw-right-0 tw-m-4 tw-text-ink/50">
+            <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <!-- Bottom statement -->
+    <div class="tw-mt-10 tw-flex tw-flex-col tw-items-start tw-gap-3 tw-pt-4 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <div class="tw-h-px tw-w-[45px] tw-bg-power"></div>
+        <span class="tw-text-sm tw-text-ink/60">Travel comfortably. Explore freely. Experience more.</span>
+      </div>
+      <span class="tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-ink">Your journey, your way</span>
+    </div>
+  </div>
 </section>
 
-
 <!-- ============ Shared Tour Modal (Explore + Book Tour) ============ -->
-<div class="modal fade" id="tourModal" tabindex="-1" aria-labelledby="tourModalName">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content rounded-4 border-0">
-      <div class="modal-header border-0 pb-0 pc-tour-modal-header position-sticky top-0 bg-white">
-        <h2 class="modal-title fs-4 fw-bold" id="tourModalName"><?= htmlspecialchars(
-          $reopenDestination['name'] ?? 'Destination',
-        ) ?></h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Driven by the modal helper in assets/js/components/ui.js
+     (window.pcModal), which replaced Bootstrap's Modal. data-pc-modal marks
+     the shell, data-pc-modal-close any dismiss control; the helper adds the
+     backdrop, traps body scroll and closes on Escape / backdrop click. -->
+<div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="tourModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="tourModalName" aria-hidden="true">
+  <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[800px]">
+    <div class="tw-w-full tw-overflow-hidden tw-rounded-[2rem] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
+      <div class="tw-sticky tw-top-0 tw-z-[1] tw-flex tw-items-start tw-justify-between tw-gap-4 tw-bg-white tw-px-6 tw-pt-6">
+        <h2 class="tw-mb-0 tw-text-xl tw-font-bold tw-text-ink" id="tourModalName"><?= htmlspecialchars($reopenDestination['name'] ?? 'Destination') ?></h2>
+        <button type="button" class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-black/[0.05] tw-text-ink/70 tw-transition-colors hover:tw-bg-black/10 hover:tw-text-ink" data-pc-modal-close aria-label="Close"><svg class="tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
       </div>
-      <div class="modal-body">
-        <img id="tourModalImg" src="<?= htmlspecialchars(
-          $reopenDestination['img'] ?? '',
-        ) ?>" alt="" class="pc-tour-modal-img w-100 object-fit-cover mb-3" loading="lazy">
-        <p class="text-muted-pc" id="tourModalDesc"><?= htmlspecialchars($reopenDestination['desc'] ?? '') ?></p>
-        <p class="small fw-semibold mb-4"><i class="bi bi-clock" style="color: var(--pc-orange);"></i> <span id="tourModalDuration"><?= htmlspecialchars(
-          $reopenDestination['duration'] ?? '',
-        ) ?></span></p>
+      <div class="tw-px-6 tw-pb-6 tw-pt-4">
+        <img id="tourModalImg" src="<?= htmlspecialchars($reopenDestination['img'] ?? '') ?>" alt="" class="tw-mb-3 tw-aspect-video tw-w-full tw-rounded-2xl tw-object-cover" loading="lazy">
+        <p class="tw-text-ink/60" id="tourModalDesc"><?= htmlspecialchars($reopenDestination['desc'] ?? '') ?></p>
+        <p class="tw-mb-4 tw-flex tw-items-center tw-gap-1.5 tw-text-[1.0625rem] tw-leading-relaxed tw-font-semibold tw-text-ink">
+          <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span id="tourModalDuration"><?= htmlspecialchars($reopenDestination['duration'] ?? '') ?></span>
+        </p>
 
         <div id="tourBookingForm">
-          <h3 class="fs-6 fw-bold mb-3">Book This Tour</h3>
-          <form method="post" action="" class="row g-3">
-            <input type="hidden" name="destination" id="tourDestinationInput" value="<?= htmlspecialchars(
-              $old['destination'] !== '' ? $old['destination'] : $reopenDestinationName,
-            ) ?>">
-            <div class="col-md-6">
-              <label class="form-label" for="ctFullName">Full Name</label>
-              <input type="text" class="form-control" id="ctFullName" name="full_name" value="<?= htmlspecialchars(
-                $old['full_name'],
-              ) ?>" required>
+          <h3 class="tw-mb-3 tw-text-base tw-font-bold tw-text-ink">Book This Tour</h3>
+          <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
+            <input type="hidden" name="destination" id="tourDestinationInput" value="<?= htmlspecialchars($old['destination'] !== '' ? $old['destination'] : $reopenDestinationName) ?>">
+            <div>
+              <label class="<?= $ctLabelClass ?>" for="ctFullName">Full Name</label>
+              <input type="text" class="<?= $ctInputClass ?>" id="ctFullName" name="full_name" value="<?= htmlspecialchars($old['full_name']) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" for="ctEmail">Email Address</label>
-              <input type="email" class="form-control" id="ctEmail" name="email" value="<?= htmlspecialchars(
-                $old['email'],
-              ) ?>" required>
+            <div>
+              <label class="<?= $ctLabelClass ?>" for="ctEmail">Email Address</label>
+              <input type="email" class="<?= $ctInputClass ?>" id="ctEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" for="ctMobile">Mobile Number</label>
-              <input type="tel" class="form-control" id="ctMobile" name="mobile" value="<?= htmlspecialchars(
-                $old['mobile'],
-              ) ?>" required>
+            <div>
+              <label class="<?= $ctLabelClass ?>" for="ctMobile">Mobile Number</label>
+              <input type="tel" class="<?= $ctInputClass ?>" id="ctMobile" name="mobile" value="<?= htmlspecialchars($old['mobile']) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" for="ctPeopleCount">Number of People</label>
-              <input type="number" min="1" class="form-control" id="ctPeopleCount" name="people_count" value="<?= htmlspecialchars(
-                $old['people_count'],
-              ) ?>" required>
+            <div>
+              <label class="<?= $ctLabelClass ?>" for="ctPeopleCount">Number of People</label>
+              <input type="number" min="1" class="<?= $ctInputClass ?>" id="ctPeopleCount" name="people_count" value="<?= htmlspecialchars($old['people_count']) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" for="ctTourDate">Preferred Tour Date</label>
-              <input type="date" class="form-control pc-custom-datetime-enhance" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars(
-                $old['tour_date'],
-              ) ?>" required>
+            <div>
+              <!-- pc-custom-datetime-enhance stays as a bare functional hook, driven by custom-datetime.js. -->
+              <label class="<?= $ctLabelClass ?>" for="ctTourDate">Preferred Tour Date</label>
+              <input type="date" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars($old['tour_date']) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" for="ctPickup">Pickup Location</label>
-              <input type="text" class="form-control" id="ctPickup" name="pickup_location" value="<?= htmlspecialchars(
-                $old['pickup_location'],
-              ) ?>" required>
+            <div>
+              <label class="<?= $ctLabelClass ?>" for="ctPickup">Pickup Location</label>
+              <input type="text" class="<?= $ctInputClass ?>" id="ctPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="form-label" for="ctRequests">Special Requests <span class="text-muted-pc fw-normal">(optional)</span></label>
-              <textarea class="form-control" id="ctRequests" name="special_requests" rows="3"><?= htmlspecialchars(
-                $old['special_requests'],
-              ) ?></textarea>
+            <div class="md:tw-col-span-2">
+              <label class="<?= $ctLabelClass ?>" for="ctRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
+              <textarea class="<?= $ctInputClass ?> tw-py-2" id="ctRequests" name="special_requests" rows="3"><?= htmlspecialchars($old['special_requests']) ?></textarea>
             </div>
-            <div class="col-12 pt-2">
-              <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+            <div class="md:tw-col-span-2 tw-pt-2">
+              <button type="submit" class="<?= $ctSubmitClass ?>">
                 <span>Submit Booking</span>
-                <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+                <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
               </button>
             </div>
 
+            <!-- .alert-success / .alert-danger stay as bare classnames -- the contract ajax-forms.js parses out of the returned HTML. -->
             <?php if ($formStatus === 'success'): ?>
-              <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your <?= htmlspecialchars(
-                $bookedDestination ?? 'tour',
-              ) ?> booking request has been sent. We'll confirm shortly.</div></div>
+              <div class="md:tw-col-span-2">
+                <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div>
+              </div>
             <?php elseif ($formStatus === 'error'): ?>
-              <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars(
-                $formError,
-              ) ?></div></div>
+              <div class="md:tw-col-span-2">
+                <div class="alert-danger tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($formError) ?></div>
+              </div>
             <?php endif; ?>
           </form>
         </div>
@@ -525,89 +418,74 @@ $whyChooseTours = [
 </div>
 
 <!-- ============ Pay Per Hour Modal ============ -->
-<div class="modal fade" id="hourlyModal" tabindex="-1" aria-labelledby="hourlyModalLabel">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content rounded-4 border-0">
-      <div class="modal-header border-0 pb-0 pc-tour-modal-header position-sticky top-0 bg-white">
-        <h2 class="modal-title fs-4 fw-bold" id="hourlyModalLabel">Pay Per Hour Booking</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="hourlyModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="hourlyModalLabel" aria-hidden="true">
+  <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[800px]">
+    <div class="tw-w-full tw-overflow-hidden tw-rounded-[2rem] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
+      <div class="tw-sticky tw-top-0 tw-z-[1] tw-flex tw-items-start tw-justify-between tw-gap-4 tw-bg-white tw-px-6 tw-pt-6">
+        <h2 class="tw-mb-0 tw-text-xl tw-font-bold tw-text-ink" id="hourlyModalLabel">Pay Per Hour Booking</h2>
+        <button type="button" class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-black/[0.05] tw-text-ink/70 tw-transition-colors hover:tw-bg-black/10 hover:tw-text-ink" data-pc-modal-close aria-label="Close"><svg class="tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
       </div>
-      <div class="modal-body">
-        <p class="text-muted-pc">
+      <div class="tw-px-6 tw-pb-6 tw-pt-4">
+        <p class="tw-text-ink/60">
           Book a driver by the hour -- stay as long as you like at each stop, with
           no fixed itinerary.
         </p>
 
-        <h3 class="fs-6 fw-bold mb-3">Book Your Hours</h3>
-        <form method="post" action="" class="row g-3">
+        <h3 class="tw-mb-3 tw-text-base tw-font-bold tw-text-ink">Book Your Hours</h3>
+        <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
           <input type="hidden" name="form_type" value="pay_per_hour">
-          <div class="col-md-6">
-            <label class="form-label" for="phFullName">Full Name</label>
-            <input type="text" class="form-control" id="phFullName" name="full_name" value="<?= htmlspecialchars(
-              $hourlyOld['full_name'],
-            ) ?>" required>
+          <div>
+            <label class="<?= $ctLabelClass ?>" for="phFullName">Full Name</label>
+            <input type="text" class="<?= $ctInputClass ?>" id="phFullName" name="full_name" value="<?= htmlspecialchars($hourlyOld['full_name']) ?>" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label" for="phEmail">Email Address</label>
-            <input type="email" class="form-control" id="phEmail" name="email" value="<?= htmlspecialchars(
-              $hourlyOld['email'],
-            ) ?>" required>
+          <div>
+            <label class="<?= $ctLabelClass ?>" for="phEmail">Email Address</label>
+            <input type="email" class="<?= $ctInputClass ?>" id="phEmail" name="email" value="<?= htmlspecialchars($hourlyOld['email']) ?>" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label" for="phMobile">Mobile Number</label>
-            <input type="tel" class="form-control" id="phMobile" name="mobile" value="<?= htmlspecialchars(
-              $hourlyOld['mobile'],
-            ) ?>" required>
+          <div>
+            <label class="<?= $ctLabelClass ?>" for="phMobile">Mobile Number</label>
+            <input type="tel" class="<?= $ctInputClass ?>" id="phMobile" name="mobile" value="<?= htmlspecialchars($hourlyOld['mobile']) ?>" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label" for="phPeopleCount">Number of People</label>
-            <input type="number" min="1" class="form-control" id="phPeopleCount" name="people_count" value="<?= htmlspecialchars(
-              $hourlyOld['people_count'],
-            ) ?>" required>
+          <div>
+            <label class="<?= $ctLabelClass ?>" for="phPeopleCount">Number of People</label>
+            <input type="number" min="1" class="<?= $ctInputClass ?>" id="phPeopleCount" name="people_count" value="<?= htmlspecialchars($hourlyOld['people_count']) ?>" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label" for="phHours">Number of Hours</label>
-            <input type="number" min="1" class="form-control" id="phHours" name="hours" value="<?= htmlspecialchars(
-              $hourlyOld['hours'],
-            ) ?>" required>
+          <div>
+            <label class="<?= $ctLabelClass ?>" for="phHours">Number of Hours</label>
+            <input type="number" min="1" class="<?= $ctInputClass ?>" id="phHours" name="hours" value="<?= htmlspecialchars($hourlyOld['hours']) ?>" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label" for="phDate">Preferred Date</label>
-            <input type="date" class="form-control pc-custom-datetime-enhance" id="phDate" name="tour_date" min="<?= htmlspecialchars(
-              $hourlyMinDate,
-            ) ?>" value="<?= htmlspecialchars($hourlyOld['tour_date']) ?>" required>
+          <div>
+            <!-- pc-custom-datetime-enhance stays as a bare functional hook, driven by custom-datetime.js. -->
+            <label class="<?= $ctLabelClass ?>" for="phDate">Preferred Date</label>
+            <input type="date" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="phDate" name="tour_date" min="<?= htmlspecialchars($hourlyMinDate) ?>" value="<?= htmlspecialchars($hourlyOld['tour_date']) ?>" required>
           </div>
-          <div class="col-md-6">
-            <label class="form-label" for="phTime">Preferred Time</label>
-            <input type="time" class="form-control pc-custom-datetime-enhance" id="phTime" name="tour_time" value="<?= htmlspecialchars(
-              $hourlyOld['tour_time'],
-            ) ?>" required>
+          <div>
+            <label class="<?= $ctLabelClass ?>" for="phTime">Preferred Time</label>
+            <input type="time" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="phTime" name="tour_time" value="<?= htmlspecialchars($hourlyOld['tour_time']) ?>" required>
           </div>
-          <div class="col-12">
-            <label class="form-label" for="phPickup">Pickup Location</label>
-            <input type="text" class="form-control" id="phPickup" name="pickup_location" value="<?= htmlspecialchars(
-              $hourlyOld['pickup_location'],
-            ) ?>" required>
+          <div class="md:tw-col-span-2">
+            <label class="<?= $ctLabelClass ?>" for="phPickup">Pickup Location</label>
+            <input type="text" class="<?= $ctInputClass ?>" id="phPickup" name="pickup_location" value="<?= htmlspecialchars($hourlyOld['pickup_location']) ?>" required>
           </div>
-          <div class="col-12">
-            <label class="form-label" for="phRequests">Special Requests <span class="text-muted-pc fw-normal">(optional)</span></label>
-            <textarea class="form-control" id="phRequests" name="special_requests" rows="3"><?= htmlspecialchars(
-              $hourlyOld['special_requests'],
-            ) ?></textarea>
+          <div class="md:tw-col-span-2">
+            <label class="<?= $ctLabelClass ?>" for="phRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
+            <textarea class="<?= $ctInputClass ?> tw-py-2" id="phRequests" name="special_requests" rows="3"><?= htmlspecialchars($hourlyOld['special_requests']) ?></textarea>
           </div>
-          <div class="col-12 pt-2">
-            <button type="submit" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+          <div class="md:tw-col-span-2 tw-pt-2">
+            <button type="submit" class="<?= $ctSubmitClass ?>">
               <span>Submit Booking</span>
-              <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+              <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
             </button>
           </div>
 
           <?php if ($hourlyFormStatus === 'success'): ?>
-            <div class="col-12"><div class="alert alert-success mb-0 mt-3" role="alert">Thanks -- your Pay Per Hour booking request has been sent. We'll confirm shortly.</div></div>
+            <div class="md:tw-col-span-2">
+              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your Pay Per Hour booking request has been sent. We'll confirm shortly.</div>
+            </div>
           <?php elseif ($hourlyFormStatus === 'error'): ?>
-            <div class="col-12"><div class="alert alert-danger mb-0 mt-3" role="alert"><?= htmlspecialchars(
-              $hourlyFormError,
-            ) ?></div></div>
+            <div class="md:tw-col-span-2">
+              <div class="alert-danger tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($hourlyFormError) ?></div>
+            </div>
           <?php endif; ?>
         </form>
       </div>
@@ -623,4 +501,4 @@ $whyChooseTours = [
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
- ?>
+?>

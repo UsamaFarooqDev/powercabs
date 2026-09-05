@@ -23,7 +23,7 @@ function pcInitCityTours() {
     const destinationInput = document.getElementById('tourDestinationInput');
     const formSection = document.getElementById('tourBookingForm');
 
-    modalEl.addEventListener('show.bs.modal', (event) => {
+    modalEl.addEventListener('pc.modal.show', (event) => {
       const button = event.relatedTarget;
       if (!button) return;
 
@@ -36,19 +36,19 @@ function pcInitCityTours() {
       destinationInput.value = name;
 
       if (button.getAttribute('data-scroll-to-form') === 'true') {
-        modalEl.addEventListener('shown.bs.modal', () => {
+        modalEl.addEventListener('pc.modal.shown', () => {
           formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, { once: true });
       }
     });
 
     if (window.pcCityToursFormSubmitted) {
-      new bootstrap.Modal(modalEl).show();
+      window.pcModal.getOrCreateInstance(modalEl).show();
     }
   }
 
   if (hourlyModalEl && window.pcHourlyFormSubmitted) {
-    new bootstrap.Modal(hourlyModalEl).show();
+    window.pcModal.getOrCreateInstance(hourlyModalEl).show();
   }
 }
 

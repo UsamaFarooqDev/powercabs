@@ -61,42 +61,29 @@ require __DIR__ . '/components/corporate/why-businesses.php';
 ?>
 
 <!-- ============ Services Overview ============ -->
-<section class="section-pc">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="mb-0">Services Overview</h2>
+<?php
+$corporateServices = [
+  ['img' => 'assets/img/services-corporate.jpg', 'alt' => 'Executives entering a premium PowerCabs vehicle', 'title' => 'Business Travel', 'desc' => 'Executive rides for meetings, client visits, and the daily commute.'],
+  ['img' => 'assets/img/service-city-tour.jpg', 'alt' => 'Guests arriving at a conference venue', 'title' => 'Event Transportation', 'desc' => 'Coordinated arrivals and departures for conferences and corporate events.'],
+  ['img' => 'assets/img/service-airport.png', 'alt' => 'A chauffeur waiting beside a luxury vehicle', 'title' => 'Ongoing Corporate Transport', 'desc' => 'Flexible multi-day and ongoing accounts, tailored to your business.'],
+];
+?>
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-mb-10 tw-text-center">
+      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Services Overview</h2>
     </div>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <a href="#corporate-account-form" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
-          <img src="<?= $assetPath ?>assets/img/services-corporate.jpg" alt="Executives entering a premium PowerCabs vehicle" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-          <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-          <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title text-white d-block fs-4 fw-bold mb-1">Business Travel</span>
-            <span class="d-block small text-white-50">Executive rides for meetings, client visits, and the daily commute.</span>
+    <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
+      <?php foreach ($corporateServices as $service): ?>
+        <a href="#corporate-account-form" class="tw-group tw-relative tw-block tw-aspect-square tw-overflow-hidden tw-rounded-[20px] tw-border tw-border-solid tw-border-white/[0.08] tw-no-underline tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)]">
+          <img src="<?= $assetPath . $service['img'] ?>" alt="<?= htmlspecialchars($service['alt']) ?>" class="tw-block tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
+          <span class="tw-absolute tw-inset-0 tw-bg-black/[0.15] tw-transition-opacity tw-duration-500 group-hover:tw-opacity-30 motion-reduce:tw-transition-none" aria-hidden="true"></span>
+          <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-p-4 tw-pt-[4.5rem] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)]">
+            <span class="tw-mb-1 tw-block tw-text-xl tw-font-bold tw-text-white"><?= htmlspecialchars($service['title']) ?></span>
+            <span class="tw-block tw-text-sm tw-text-white/60"><?= htmlspecialchars($service['desc']) ?></span>
           </span>
         </a>
-      </div>
-      <div class="col-md-4">
-        <a href="#corporate-account-form" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
-          <img src="<?= $assetPath ?>assets/img/service-city-tour.jpg" alt="Guests arriving at a conference venue" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-          <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-          <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title text-white d-block fs-4 fw-bold mb-1">Event Transportation</span>
-            <span class="d-block small text-white-50">Coordinated arrivals and departures for conferences and corporate events.</span>
-          </span>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="#corporate-account-form" class="pc-service-card d-block position-relative overflow-hidden text-decoration-none" style="aspect-ratio: 1; border-radius: var(--pc-radius-lg);">
-          <img src="<?= $assetPath ?>assets/img/service-airport.png" alt="A chauffeur waiting beside a luxury vehicle" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-          <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-          <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-4">
-            <span class="pc-service-card-title text-white d-block fs-4 fw-bold mb-1">Ongoing Corporate Transport</span>
-            <span class="d-block small text-white-50">Flexible multi-day and ongoing accounts, tailored to your business.</span>
-          </span>
-        </a>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -104,12 +91,12 @@ require __DIR__ . '/components/corporate/why-businesses.php';
 <?php require __DIR__ . '/components/corporate/account-form.php'; ?>
 
 <!-- ============ Mission ============ -->
-<section class="pc-corp-mission position-relative overflow-hidden text-white text-center">
-  <img src="<?= $assetPath ?>assets/img/trusted-bg.svg" alt="" aria-hidden="true" class="object-fit-cover z-0 position-absolute top-0 start-0 w-100 h-100">
-  <span class="pc-corp-mission-scrim z-0 position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-  <div class="container position-relative">
-    <p class="small fw-semibold text-uppercase mb-3" style="letter-spacing: .06em; color: var(--pc-orange-light);">/ Our Mission</p>
-    <p class="mx-auto mb-0" style="max-width: 60ch; color: rgba(255,255,255,.85); font-size: 1.4rem;">
+<section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6rem)] tw-text-center tw-text-white">
+  <img src="<?= $assetPath ?>assets/img/trusted-bg.svg" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover">
+  <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.72)]" aria-hidden="true"></span>
+  <div class="tw-relative <?= $pcContainer ?>">
+    <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight">/ Our Mission</p>
+    <p class="tw-mx-auto tw-mb-0 tw-max-w-[60ch] tw-text-2xl tw-text-white/85">
       To deliver consistent, memorable corporate travel experiences -- so every client,
       colleague, and guest arrives exactly as your business intends them to: on time,
       comfortable, and impressed.

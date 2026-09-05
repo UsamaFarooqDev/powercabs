@@ -1,168 +1,64 @@
-<section class="section-pc" id="payment-solutions">
-  <div class="container">
-<div class="row align-items-center justify-content-center g-4 g-lg-5 p-0 p-lg-5">
-
- <div class="col-lg-6 order-2 order-lg-1 d-flex justify-content-center align-items-center">
-  <div
-    style="
-      width: 340px;
-      max-width: 100%;
-      margin: 0 auto;
-      border-radius: 1.5rem;
-      overflow: hidden;
-    "
-  >
-    <img
-      src="<?= $assetPath ?>assets/img/Accept-Card-Payments.jpg"
-      alt="PowerCabs Payment Solutions"
-      class="w-100 d-block"
-      loading="lazy"
-      style="
-        width: 340px;
-        height: 420px;
-        max-width: 100%;
-        object-fit: cover;
-      "
-    >
-  </div>
-</div>
-
-
-  <!-- Content -->
-  <div class="col-lg-6 order-1 order-lg-2">
-
-    <div
-      style="
-        max-width: 560px;
-        margin: 0 auto;
-        padding: 10px;
-      "
-    >
-
-      <h2
-        class="mb-3"
-        style="
-          font-size: clamp(28px, 3vw, 42px);
-          font-weight: 800;
-          line-height: 1.15;
-          color: #222;
-          letter-spacing: -0.8px;
-        "
-      >
-        Accept Payments
-        <span style="color: var(--pc-orange);">
-          With Confidence
-        </span>
-      </h2>
-
-
-      <!-- Description -->
-      <p
-        class="text-muted-pc mb-4"
-        style="
-          font-size: 16px;
-          line-height: 1.75;
-          max-width: 520px;
-        "
-      >
-        Make it easier for your customers to pay while keeping your
-        transactions secure, fast and reliable with PowerCabs payment
-        solutions.
-      </p>
-
-
-      <!-- Checklist Card -->
-      <div
-        style="
-          background: #fff;
-          border: 1px solid rgba(0,0,0,0.07);
-          border-radius: 20px;
-          padding: 22px 24px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-          margin-bottom: 24px;
-        "
-      >
-
-        <ul
-          class="list-unstyled mb-0"
-          style="
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px 20px;
-          "
-        >
-
-          <?php $paymentChecklist = [
-            'PCI compliant processing',
-            'Secure encrypted transactions',
-            'Next day settlements',
-            'Fast payouts',
-            'Simple setup',
-            'Ongoing local support',
-            'Accept cards, Apple Pay & Google Pay',
-          ]; ?>
-
-          <?php foreach ($paymentChecklist as $item): ?>
-
-            <li
-              class="d-flex align-items-start gap-2"
-              style="
-                font-size: 14px;
-                line-height: 1.4;
-              "
-            >
-              <span
-                style="
-                  flex: 0 0 auto;
-                  width: 21px;
-                  height: 21px;
-                  display: inline-flex;
-                  align-items: center;
-                  justify-content: center;
-                  border-radius: 50%;
-                  background: rgba(245, 132, 31, 0.12);
-                  color: var(--pc-orange);
-                  margin-top: 1px;
-                "
-              >
-                <i
-                  class="bi bi-check"
-                  style="font-size: 16px;"
-                ></i>
-              </span>
-
-              <span class="text-muted-pc">
-                <?= htmlspecialchars($item) ?>
-              </span>
-            </li>
-          <?php endforeach; ?>
-        </ul>
+<?php
+$paymentChecklist = [
+  'PCI compliant processing',
+  'Secure encrypted transactions',
+  'Next day settlements',
+  'Fast payouts',
+  'Simple setup',
+  'Ongoing local support',
+  'Accept cards, Apple Pay & Google Pay',
+];
+?>
+<section class="<?= $pcSection ?>" id="payment-solutions">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
+      <div class="tw-order-2 tw-flex tw-justify-center lg:tw-order-1">
+        <div class="tw-w-[340px] tw-max-w-full tw-overflow-hidden tw-rounded-[1.5rem]">
+          <img
+            src="<?= $assetPath ?>assets/img/Accept-Card-Payments.jpg"
+            alt="PowerCabs Payment Solutions"
+            class="tw-block tw-h-[420px] tw-w-full tw-object-cover"
+            loading="lazy"
+          >
+        </div>
       </div>
 
-      <!-- CTA -->
-      <div class="d-flex flex-wrap align-items-center gap-3">
+      <div class="tw-order-1 lg:tw-order-2">
+        <h2 class="tw-mb-4 tw-text-3xl tw-font-extrabold tw-leading-[1.15] tw-tracking-tight tw-text-ink md:tw-text-4xl">
+          Accept Payments
+          <span class="tw-text-power">With Confidence</span>
+        </h2>
 
-        <a
-          class="btn btn-pc-primary px-4"
-          href="#payment-apply-form"
-        >
-          Apply Now
-          <i class="bi bi-chevron-right fs-8 ms-1"></i>
-        </a>
-        <div
-          class="d-flex align-items-center gap-2 text-muted-pc small"
-        >
-          <i
-            class="bi bi-clock"
-            style="color: var(--pc-orange);"
-          ></i>
-          <span>
-            It only takes 2 minutes to apply.
-          </span>
+        <p class="tw-mb-4 tw-max-w-[520px] tw-text-base tw-leading-[1.75] tw-text-ink/60">
+          Make it easier for your customers to pay while keeping your
+          transactions secure, fast and reliable with PowerCabs payment
+          solutions.
+        </p>
+
+        <div class="tw-mb-6 tw-rounded-[20px] tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-6 tw-shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+          <ul class="tw-m-0 tw-grid tw-grid-cols-1 tw-gap-x-5 tw-gap-y-3.5 tw-p-0 sm:tw-grid-cols-2">
+            <?php foreach ($paymentChecklist as $item): ?>
+              <li class="tw-flex tw-items-start tw-gap-2 tw-text-sm tw-leading-[1.4]">
+                <span class="tw-mt-px tw-inline-flex tw-h-[21px] tw-w-[21px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(245,132,31,0.12)] tw-text-power">
+                  <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                </span>
+                <span class="tw-text-ink/60"><?= htmlspecialchars($item) ?></span>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+
+        <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-4">
+          <a class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="#payment-apply-form">
+            Apply Now
+            <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+          <div class="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-text-ink/60">
+            <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>It only takes 2 minutes to apply.</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-</section> 
+</section>

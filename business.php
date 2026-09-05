@@ -81,26 +81,26 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Business Rides & Limousine Services (existing) ============ -->
-<section class="section-pc">
-  <div class="container">
-    <div class="row align-items-center gy-5">
-            <div class="col-lg-6">
-        <div class="rounded-4 overflow-hidden">
+<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
+  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
+      <div>
+        <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
           <img src="<?= $assetPath ?>assets/img/Business_gif.gif" alt="PowerCabs business travel showcase"
-            class="w-100 h-100 object-fit-cover" loading="lazy">
+            class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <h2 class="mb-3">Elevate Your Business Travel Experience</h2>
-        <p class="text-muted-pc mb-4">
+      <div>
+        <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Elevate Your Business Travel Experience</h2>
+        <p class="tw-mb-4 tw-text-ink/60">
           We understand the importance of reliable and luxurious
           transportation for your business needs. Our Business Rides and Limousine
           Services are designed to provide the highest level of comfort, efficiency and professional travel experiences.
         </p>
 
-        <p class="fw-semibold mb-2">With PowerCabs, you can expect:</p>
-        <ul class="list-unstyled d-flex flex-column gap-2 mb-4">
+        <p class="tw-mb-2 tw-font-semibold tw-text-ink">With PowerCabs, you can expect:</p>
+        <ul class="tw-m-0 tw-mb-4 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
           <?php $businessExpectations = [
             'Professional drivers',
             'Discreet and punctual chauffeurs',
@@ -108,17 +108,17 @@ require __DIR__ . '/components/shared/inner-hero.php';
             'Smooth rides for working while travelling',
           ]; ?>
           <?php foreach ($businessExpectations as $item): ?>
-            <li class="d-flex gap-2">
-              <i class="bi bi-check-circle-fill" style="color: var(--pc-orange);"></i>
-              <span class="text-muted-pc"><?= htmlspecialchars($item) ?></span>
+            <li class="tw-flex tw-gap-2">
+              <svg class="tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12a9.75 9.75 0 1119.5 0 9.75 9.75 0 01-19.5 0zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              <span class="tw-text-ink/60"><?= htmlspecialchars($item) ?></span>
             </li>
           <?php endforeach; ?>
         </ul>
 
-        <div class="pc-panel rounded-4 p-3 mb-4">
-          <p class="mb-0">
+        <div class="tw-bg-peach tw-shadow-[0_8px_20px_rgba(28,20,16,0.12)] tw-rounded-2xl tw-p-4">
+          <p class="tw-mb-0">
             If your company has more than 7 employees, please visit our
-            <a class="pc-form-link fw-semibold" href="<?= $assetPath ?>/corporate-services">Corporate page</a>
+            <a class="tw-text-power tw-transition-colors tw-duration-200 hover:tw-text-powerdark focus-visible:tw-text-powerdark tw-font-semibold" href="<?= $assetPath ?>/corporate-services">Corporate page</a>
             to explore our corporate travel solutions.
           </p>
         </div>

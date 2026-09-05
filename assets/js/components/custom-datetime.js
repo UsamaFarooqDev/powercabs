@@ -10,9 +10,17 @@
  * control is no longer the browser's native picker.
  *
  * Shares the same visual language (trigger/panel border, shadow, radius,
- * orange focus ring, peach hover) as the .pc-custom-select* dropdown in
- * custom-select.js, so the two feel like one consistent design system --
- * see the .pc-custom-dt* rules in components.css.
+ * orange focus border, peach hover) as the dropdown in custom-select.js, so
+ * the two feel like one consistent design system. Both are styled entirely
+ * with the Tailwind class strings collected in the CLS block below -- there
+ * is no .pc-custom-dt* stylesheet any more. Open/disabled state still rides
+ * on the same bare `is-open` / `is-disabled` classnames JS has always
+ * toggled; each anchor (the wrapper for a standalone field, each segment
+ * for a datetime-local) is a Tailwind `tw-group`, so those states reach the
+ * trigger and panel through `group-[.is-open]:` / `group-[.is-disabled]:`
+ * variants instead of descendant rules. The pc-custom-dt-* classnames that
+ * survive (value, day, month-cell, year-cell, time-option) are
+ * querySelector hooks, not styling.
  *
  * This is a generic, page-agnostic component. To reuse it on any form:
  *
@@ -56,6 +64,93 @@ if (window.pcCustomDatetimeCleanup) {
   ];
   var MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var WEEKDAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  // -------------------------------------------------------------------
+  // Tailwind class strings, kept in one place so the calendar and the time
+  // list can't drift apart. #fbe4cf is --pc-peach and #ff7a00 is
+  // --pc-orange-light; both are written literally because these strings end
+  // up in arbitrary values, which can't read CSS custom properties.
+  // tw-appearance-none + tw-border-0 are load-bearing on every <button>
+  // here: Tailwind's Preflight is disabled site-wide (see header.php), so
+  // nothing else resets the browser's default button chrome.
+  // -------------------------------------------------------------------
+  var CLS = {
+    // Reproduces the canonical PowerCabs field recipe from
+    // book-ride-online.php ($inputClass) so a picker trigger is pixel-
+    // identical to the plain <input> beside it -- 38px tall, 6px radius,
+    // #dee2e6 border, orange border on focus, no ring.
+    trigger:
+      "tw-flex tw-w-full tw-appearance-none tw-items-center tw-gap-[0.55rem] tw-rounded-md tw-border " +
+      "tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-left tw-text-base " +
+      "tw-leading-normal tw-text-ink tw-cursor-pointer tw-outline-none tw-transition-colors tw-duration-200 " +
+      "focus-visible:tw-border-powerlight group-[.is-open]:tw-border-powerlight " +
+      "group-[.is-disabled]:tw-cursor-not-allowed group-[.is-disabled]:tw-opacity-[0.65]",
+    // An <svg> with no width/height falls back to the SVG default of
+    // 300x150 -- explicit sizing is not optional here the way it was
+    // for the icon font this replaced.
+    icon: "tw-h-4 tw-w-4 tw-shrink-0 tw-text-ink/[0.65]",
+    value:
+      "pc-custom-dt-value tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap " +
+      "[.is-placeholder_&]:tw-text-ink/[0.65]",
+    panel:
+      "tw-invisible tw-absolute tw-top-[calc(100%+6px)] tw-z-20 tw-rounded-2xl tw-border tw-border-solid " +
+      "tw-border-black/10 tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] tw-opacity-0 " +
+      "-tw-translate-y-1.5 tw-transition tw-duration-200 tw-ease-[cubic-bezier(0.16,1,0.3,1)] " +
+      "group-[.is-open]:tw-visible group-[.is-open]:tw-translate-y-0 group-[.is-open]:tw-opacity-100 " +
+      "motion-reduce:tw-transition-none",
+    panelCalendar: "tw-left-0 tw-w-[280px] tw-max-w-[calc(100vw-2rem)] tw-p-[0.6rem]",
+    panelTime: "tw-inset-x-0 tw-min-w-[170px] tw-p-[0.35rem]",
+    navRow: "tw-mb-2 tw-flex tw-items-center tw-justify-between",
+    navBtn:
+      "tw-flex tw-h-8 tw-w-8 tw-appearance-none tw-items-center tw-justify-center tw-rounded-[10px] tw-border-0 " +
+      "tw-bg-transparent tw-text-[0.85rem] tw-text-ink tw-cursor-pointer tw-transition-colors tw-duration-150 " +
+      "hover:tw-bg-[#fbe4cf] hover:tw-text-power",
+    navTitle:
+      "tw-appearance-none tw-rounded-[10px] tw-border-0 tw-bg-transparent tw-px-[0.6rem] tw-py-1 " +
+      "tw-text-[0.95rem] tw-font-semibold tw-text-ink tw-cursor-pointer tw-transition-colors tw-duration-150 " +
+      "hover:tw-bg-[#fbe4cf] hover:tw-text-power",
+    weekdays:
+      "tw-mb-[0.15rem] tw-grid tw-grid-cols-7 tw-text-center tw-text-[0.7rem] tw-font-semibold tw-uppercase " +
+      "tw-tracking-[0.03em] tw-text-ink/[0.65]",
+    daysGrid: "tw-grid tw-grid-cols-7 tw-gap-[2px]",
+    // enabled:/disabled: rather than :not(.is-disabled) -- a blocked day
+    // gets the real `disabled` attribute as well as the class.
+    day:
+      "pc-custom-dt-day tw-flex tw-aspect-square tw-appearance-none tw-items-center tw-justify-center " +
+      "tw-rounded-[10px] tw-border-0 tw-bg-transparent tw-text-[0.85rem] tw-text-ink tw-cursor-pointer " +
+      "tw-transition-colors tw-duration-150 enabled:hover:tw-bg-[#fbe4cf] enabled:hover:tw-text-power " +
+      "disabled:tw-cursor-not-allowed disabled:tw-text-ink/[0.65] disabled:tw-opacity-[0.35] " +
+      "[&.is-muted]:tw-text-ink/[0.65] [&.is-muted]:tw-opacity-50 " +
+      "[&.is-today]:tw-shadow-[inset_0_0_0_1px_#ff7a00] " +
+      "[&.is-selected]:tw-bg-power [&.is-selected]:tw-font-semibold [&.is-selected]:tw-text-white",
+    cellGrid: "tw-grid tw-grid-cols-3 tw-gap-1",
+    cell:
+      "tw-appearance-none tw-rounded-[10px] tw-border-0 tw-bg-transparent tw-px-1 tw-py-[0.6rem] " +
+      "tw-text-[0.85rem] tw-text-ink tw-cursor-pointer tw-transition-colors tw-duration-150 " +
+      "hover:tw-bg-[#fbe4cf] hover:tw-text-power [&.is-selected]:tw-bg-power [&.is-selected]:tw-font-semibold " +
+      "[&.is-selected]:tw-text-white",
+    toolbarCalendar:
+      "tw-mt-[0.35rem] tw-flex tw-items-center tw-justify-between tw-gap-2 tw-border-0 tw-border-t " +
+      "tw-border-solid tw-border-black/[0.08] tw-pt-2",
+    toolbarTime:
+      "tw-mb-[0.35rem] tw-flex tw-items-center tw-justify-between tw-gap-2 tw-border-0 tw-border-b " +
+      "tw-border-solid tw-border-black/[0.08] tw-pb-[0.4rem]",
+    toolbarBtn:
+      "tw-appearance-none tw-border-0 tw-bg-transparent tw-px-[0.4rem] tw-py-[0.2rem] tw-text-[0.8rem] " +
+      "tw-font-semibold tw-text-power tw-cursor-pointer hover:tw-underline disabled:tw-cursor-not-allowed " +
+      "disabled:tw-no-underline disabled:tw-opacity-40",
+    timeList: "tw-max-h-[220px] tw-overflow-y-auto",
+    timeOption:
+      "pc-custom-dt-time-option tw-block tw-w-full tw-appearance-none tw-rounded-[10px] tw-border-0 " +
+      "tw-bg-transparent tw-px-[0.65rem] tw-py-2 tw-text-left tw-text-[0.9rem] tw-text-ink tw-cursor-pointer " +
+      "tw-transition-colors tw-duration-150 hover:tw-bg-[#fbe4cf] hover:tw-text-power " +
+      "[&.is-selected]:tw-font-semibold [&.is-selected]:tw-text-power",
+    // `tw-group` is what makes group-[.is-open]:/group-[.is-disabled]: on
+    // the trigger and panel above resolve -- it goes on whichever element
+    // JS toggles those classes on, i.e. the anchor.
+    anchor: "tw-group tw-relative",
+    segment: "tw-group tw-relative tw-min-w-0 tw-flex-1",
+  };
 
   function pad2(n) {
     return n < 10 ? "0" + n : "" + n;
@@ -170,6 +265,46 @@ if (window.pcCustomDatetimeCleanup) {
     return { open: open, close: close };
   }
 
+  /** prev / title / next header shared by the day, month and year views. */
+  function navRowHtml(title, unit) {
+    return (
+      '<div class="' +
+      CLS.navRow +
+      '">' +
+      '<button type="button" class="' +
+      CLS.navBtn +
+      '" data-nav="prev" aria-label="Previous ' +
+      unit +
+      '"><svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>' +
+      '<button type="button" class="' +
+      CLS.navTitle +
+      '" data-nav="title">' +
+      title +
+      "</button>" +
+      '<button type="button" class="' +
+      CLS.navBtn +
+      '" data-nav="next" aria-label="Next ' +
+      unit +
+      '"><svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>' +
+      "</div>"
+    );
+  }
+
+  /** One toolbar button ("Today" / "Now" / "Clear"). */
+  function toolbarBtnHtml(action, label, disabled) {
+    return (
+      '<button type="button" class="' +
+      CLS.toolbarBtn +
+      '" data-action="' +
+      action +
+      '"' +
+      (disabled ? " disabled" : "") +
+      ">" +
+      label +
+      "</button>"
+    );
+  }
+
   // ---------------------------------------------------------------------
   // Calendar (date) picker. cfg: { segmentEl, getValue, setValue, getMin,
   // getMax, required, quickYear, yearsBack, labelText, placeholder }
@@ -177,17 +312,16 @@ if (window.pcCustomDatetimeCleanup) {
   function buildDatePicker(cfg) {
     var trigger = document.createElement("button");
     trigger.type = "button";
-    trigger.className = "form-control pc-custom-dt-trigger d-flex align-items-center w-100 text-start";
+    trigger.className = CLS.trigger;
     trigger.setAttribute("aria-haspopup", "dialog");
     trigger.setAttribute("aria-expanded", "false");
     if (cfg.labelText) trigger.setAttribute("aria-label", cfg.labelText);
     trigger.innerHTML =
-      '<i class="bi bi-calendar3 pc-custom-dt-icon flex-shrink-0" aria-hidden="true"></i>' +
-      '<span class="pc-custom-dt-value overflow-hidden text-nowrap"></span>';
+      '<svg class="' + CLS.icon + '" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zM1 4v10a1 1 0 001 1h12a1 1 0 001-1V4H1z"/></svg>' + '<span class="' + CLS.value + '"></span>';
     cfg.segmentEl.appendChild(trigger);
 
     var panel = document.createElement("div");
-    panel.className = "pc-custom-dt-panel position-absolute rounded-4 pc-custom-dt-panel--calendar";
+    panel.className = CLS.panel + " " + CLS.panelCalendar;
     panel.setAttribute("role", "dialog");
     cfg.segmentEl.appendChild(panel);
 
@@ -223,19 +357,12 @@ if (window.pcCustomDatetimeCleanup) {
 
     function renderDays() {
       var sel = cfg.getValue();
-      var html =
-        '<div class="d-flex align-items-center justify-content-between mb-2">' +
-        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="prev" aria-label="Previous month"><i class="bi bi-chevron-left"></i></button>' +
-        '<button type="button" class="pc-custom-dt-nav-title border-0" data-nav="title">' +
-        MONTH_NAMES[viewMonth] +
-        " " +
-        viewYear +
-        "</button>" +
-        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="next" aria-label="Next month"><i class="bi bi-chevron-right"></i></button>' +
-        "</div>";
+      var html = navRowHtml(MONTH_NAMES[viewMonth] + " " + viewYear, "month");
 
       html +=
-        '<div class="pc-custom-dt-weekdays d-grid text-center text-uppercase">' +
+        '<div class="' +
+        CLS.weekdays +
+        '">' +
         WEEKDAY_SHORT.map(function (w) {
           return "<span>" + w + "</span>";
         }).join("") +
@@ -261,10 +388,10 @@ if (window.pcCustomDatetimeCleanup) {
         cells.push({ y: nextMonthYear, m: nextMonth, d: d2, muted: true });
       }
 
-      html += '<div class="pc-custom-dt-days d-grid">';
+      html += '<div class="' + CLS.daysGrid + '">';
       cells.forEach(function (c) {
         var ymd = { y: c.y, m: c.m, d: c.d };
-        var classes = ["pc-custom-dt-day", "d-flex", "align-items-center", "justify-content-center"];
+        var classes = [CLS.day];
         if (c.muted) classes.push("is-muted");
         if (compareYMD(ymd, today) === 0) classes.push("is-today");
         if (sel && compareYMD(ymd, sel) === 0) classes.push("is-selected");
@@ -287,13 +414,12 @@ if (window.pcCustomDatetimeCleanup) {
       });
       html += "</div>";
 
-      var todayDisabled = isDisabledDay(today);
       html +=
-        '<div class="pc-custom-dt-toolbar d-flex align-items-center justify-content-between gap-2">' +
-        '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="today"' +
-        (todayDisabled ? " disabled" : "") +
-        ">Today</button>" +
-        (cfg.required ? "" : '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="clear">Clear</button>') +
+        '<div class="' +
+        CLS.toolbarCalendar +
+        '">' +
+        toolbarBtnHtml("today", "Today", isDisabledDay(today)) +
+        (cfg.required ? "" : toolbarBtnHtml("clear", "Clear", false)) +
         "</div>";
 
       panel.innerHTML = html;
@@ -301,17 +427,10 @@ if (window.pcCustomDatetimeCleanup) {
 
     function renderMonths() {
       var sel = cfg.getValue();
-      var html =
-        '<div class="d-flex align-items-center justify-content-between mb-2">' +
-        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="prev" aria-label="Previous year"><i class="bi bi-chevron-left"></i></button>' +
-        '<button type="button" class="pc-custom-dt-nav-title border-0" data-nav="title">' +
-        viewYear +
-        "</button>" +
-        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="next" aria-label="Next year"><i class="bi bi-chevron-right"></i></button>' +
-        "</div>";
-      html += '<div class="pc-custom-dt-months">';
+      var html = navRowHtml(viewYear, "year");
+      html += '<div class="' + CLS.cellGrid + '">';
       MONTH_SHORT.forEach(function (name, idx) {
-        var classes = ["pc-custom-dt-month-cell"];
+        var classes = ["pc-custom-dt-month-cell", CLS.cell];
         if (sel && sel.y === viewYear && sel.m === idx) classes.push("is-selected");
         if (today.y === viewYear && today.m === idx) classes.push("is-today");
         html += '<button type="button" class="' + classes.join(" ") + '" data-month="' + idx + '">' + name + "</button>";
@@ -322,20 +441,11 @@ if (window.pcCustomDatetimeCleanup) {
 
     function renderYears() {
       var sel = cfg.getValue();
-      var html =
-        '<div class="d-flex align-items-center justify-content-between mb-2">' +
-        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="prev" aria-label="Previous years"><i class="bi bi-chevron-left"></i></button>' +
-        '<button type="button" class="pc-custom-dt-nav-title border-0" data-nav="title">' +
-        yearsBlockStart +
-        "–" +
-        (yearsBlockStart + 11) +
-        "</button>" +
-        '<button type="button" class="pc-custom-dt-nav-btn d-flex align-items-center justify-content-center border-0" data-nav="next" aria-label="Next years"><i class="bi bi-chevron-right"></i></button>' +
-        "</div>";
-      html += '<div class="pc-custom-dt-years">';
+      var html = navRowHtml(yearsBlockStart + "–" + (yearsBlockStart + 11), "years");
+      html += '<div class="' + CLS.cellGrid + '">';
       for (var i = 0; i < 12; i++) {
         var y = yearsBlockStart + i;
-        var classes = ["pc-custom-dt-year-cell"];
+        var classes = ["pc-custom-dt-year-cell", CLS.cell];
         if (sel && sel.y === y) classes.push("is-selected");
         if (today.y === y) classes.push("is-today");
         html += '<button type="button" class="' + classes.join(" ") + '" data-year="' + y + '">' + y + "</button>";
@@ -449,28 +559,26 @@ if (window.pcCustomDatetimeCleanup) {
 
     var trigger = document.createElement("button");
     trigger.type = "button";
-    trigger.className = "form-control pc-custom-dt-trigger d-flex align-items-center w-100 text-start";
+    trigger.className = CLS.trigger;
     trigger.setAttribute("aria-haspopup", "listbox");
     trigger.setAttribute("aria-expanded", "false");
     if (cfg.labelText) trigger.setAttribute("aria-label", cfg.labelText);
     trigger.innerHTML =
-      '<i class="bi bi-clock pc-custom-dt-icon flex-shrink-0" aria-hidden="true"></i>' +
-      '<span class="pc-custom-dt-value overflow-hidden text-nowrap"></span>';
+      '<svg class="' + CLS.icon + '" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 3.5a.5.5 0 00-1 0V9a.5.5 0 00.252.434l3.5 2a.5.5 0 00.496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 108 0a8 8 0 000 16zm7-8A7 7 0 111 8a7 7 0 0114 0z"/></svg>' + '<span class="' + CLS.value + '"></span>';
     cfg.segmentEl.appendChild(trigger);
 
     var panel = document.createElement("div");
-    panel.className = "pc-custom-dt-panel position-absolute rounded-4 pc-custom-dt-panel--time";
+    panel.className = CLS.panel + " " + CLS.panelTime;
     panel.setAttribute("role", "listbox");
 
     var toolbar = document.createElement("div");
-    toolbar.className = "pc-custom-dt-toolbar d-flex align-items-center justify-content-between gap-2";
+    toolbar.className = CLS.toolbarTime;
     toolbar.innerHTML =
-      '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="now">Now</button>' +
-      (cfg.required ? "" : '<button type="button" class="pc-custom-dt-toolbar-btn border-0 bg-transparent text-primary" data-action="clear">Clear</button>');
+      toolbarBtnHtml("now", "Now", false) + (cfg.required ? "" : toolbarBtnHtml("clear", "Clear", false));
     panel.appendChild(toolbar);
 
     var list = document.createElement("div");
-    list.className = "pc-custom-dt-timelist overflow-y-auto";
+    list.className = CLS.timeList;
     panel.appendChild(list);
 
     cfg.segmentEl.appendChild(panel);
@@ -483,7 +591,7 @@ if (window.pcCustomDatetimeCleanup) {
       slots.forEach(function (t) {
         var item = document.createElement("button");
         item.type = "button";
-        item.className = "pc-custom-dt-time-option d-block w-100 text-start border-0";
+        item.className = CLS.timeOption;
         item.setAttribute("role", "option");
         item.dataset.h = t.h;
         item.dataset.min = t.min;
@@ -551,7 +659,9 @@ if (window.pcCustomDatetimeCleanup) {
     wrapper.className = wrapperClass;
     input.parentNode.insertBefore(wrapper, input);
     wrapper.appendChild(input);
-    input.classList.add("pc-custom-dt-native", "position-absolute", "w-100", "h-100");
+    // The native input stays in the DOM (name/value/required all still
+    // submit) but is made invisible and untouchable behind the trigger.
+    input.classList.add("tw-absolute", "tw-inset-0", "tw-h-full", "tw-w-full", "tw-opacity-0", "tw-pointer-events-none");
     input.setAttribute("tabindex", "-1");
     input.setAttribute("aria-hidden", "true");
     return wrapper;
@@ -563,7 +673,7 @@ if (window.pcCustomDatetimeCleanup) {
   }
 
   function enhanceStandaloneDate(input) {
-    var wrapper = commonWrapperSetup(input, "pc-custom-dt position-relative pc-custom-dt--date pc-custom-dt-anchor");
+    var wrapper = commonWrapperSetup(input, "pc-custom-dt " + CLS.anchor);
     var picker = buildDatePicker({
       segmentEl: wrapper,
       getValue: function () {
@@ -592,7 +702,7 @@ if (window.pcCustomDatetimeCleanup) {
   }
 
   function enhanceStandaloneTime(input) {
-    var wrapper = commonWrapperSetup(input, "pc-custom-dt position-relative pc-custom-dt--time pc-custom-dt-anchor");
+    var wrapper = commonWrapperSetup(input, "pc-custom-dt " + CLS.anchor);
     var picker = buildTimePicker({
       segmentEl: wrapper,
       getValue: function () {
@@ -620,18 +730,20 @@ if (window.pcCustomDatetimeCleanup) {
   }
 
   function enhanceDatetimeLocal(input) {
-    var wrapper = commonWrapperSetup(input, "pc-custom-dt position-relative pc-custom-dt--datetime");
+    var wrapper = commonWrapperSetup(input, "pc-custom-dt tw-relative");
 
     var split = document.createElement("div");
-    split.className = "d-flex gap-2";
+    split.className = "tw-flex tw-gap-2";
     wrapper.appendChild(split);
 
+    // Each segment is its own anchor/group here (not the wrapper), so the
+    // date half can be open while the time half stays closed.
     var dateSeg = document.createElement("div");
-    dateSeg.className = "pc-custom-dt-segment position-relative pc-custom-dt-anchor";
+    dateSeg.className = CLS.segment;
     split.appendChild(dateSeg);
 
     var timeSeg = document.createElement("div");
-    timeSeg.className = "pc-custom-dt-segment position-relative pc-custom-dt-anchor";
+    timeSeg.className = CLS.segment;
     split.appendChild(timeSeg);
 
     var labelBase = labelFor(input);
