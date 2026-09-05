@@ -12,15 +12,19 @@ $rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pe
 $quickBookFormStatus = null;
 $quickBookFormError  = '';
 $quickBookOld = [
-  'name'             => '',
-  'email'            => '',
-  'phone'            => '',
-  'ride_type'        => '',
-  'pickup_location'  => '',
-  'dropoff_location' => '',
-  'distance_km'      => '',
-  'duration_min'     => '',
-  'fare_eur'         => '',
+  'name'                   => '',
+  'email'                  => '',
+  'phone'                  => '',
+  'ride_type'              => '',
+  'pickup_location'        => '',
+  'dropoff_location'       => '',
+  'distance_km'            => '',
+  'duration_min'           => '',
+  'fare_eur'               => '',
+  'promo_code'             => '',
+  'opt_luggage_assistance' => '',
+  'opt_meet_greet'         => '',
+  'opt_luggage_only'       => '',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,6 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // fare the browser displayed was itself sourced from
     // api/estimate_fare.php, so this recompute should normally just
     // confirm it -- but the server is what actually goes in the email.
+    //
+    // The promo code is re-validated by the same recompute, which is the
+    // point: the discount the browser showed came from an endpoint anyone
+    // can call, so a hand-edited promo_code (or one that expired between
+    // the estimate and the submit) is caught here rather than emailed to
+    // dispatch as a real price.
+    $quickBookPromoDiscount = 0.0;
+    $quickBookPromoApplied  = '';
+    $quickBookFareBeforePromo = '';
+
     if (
       $quickBookOld['distance_km'] !== '' && is_numeric($quickBookOld['distance_km'])
       && $quickBookOld['duration_min'] !== '' && is_numeric($quickBookOld['duration_min'])
@@ -51,11 +65,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $recomputed = pc_calculate_fare(
         (float) $quickBookOld['distance_km'],
         (float) $quickBookOld['duration_min'],
-        $quickBookOld['ride_type']
+        $quickBookOld['ride_type'],
+        $quickBookOld['promo_code']
       );
       $quickBookOld['fare_eur'] = number_format($recomputed['fare_eur'], 2, '.', '');
+      $quickBookPromoDiscount   = $recomputed['promo_discount'];
+      $quickBookPromoApplied    = (string) ($recomputed['promo_code'] ?? '');
+      $quickBookFareBeforePromo = number_format($recomputed['fare_before_promo'], 2, '.', '');
     } else {
       $quickBookOld['fare_eur'] = '';
+    }
+
+    $selectedAddons = [];
+    if ($quickBookOld['opt_luggage_assistance'] !== '') {
+      $selectedAddons[] = 'Luggage Assistance (airport bookings only)';
+    }
+    if ($quickBookOld['opt_meet_greet'] !== '') {
+      $selectedAddons[] = 'Meet and Greet (hotel / doorstep / business venue)';
+    }
+    if ($quickBookOld['opt_luggage_only'] !== '') {
+      $selectedAddons[] = 'Only Luggage (no passengers or pets)';
     }
 
     $body = "New quick booking request from the PowerCabs Ride page.\n\n"
@@ -64,12 +93,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       . "Phone: {$quickBookOld['phone']}\n"
       . "Ride Type: {$quickBookOld['ride_type']}\n\n"
       . "Pickup Location: {$quickBookOld['pickup_location']}\n"
-      . "Drop-off Location: {$quickBookOld['dropoff_location']}\n";
+      . "Drop-off Location: {$quickBookOld['dropoff_location']}\n\n"
+      . "Add-ons: " . ($selectedAddons !== [] ? implode(', ', $selectedAddons) : 'None') . "\n";
 
     if ($quickBookOld['distance_km'] !== '' && $quickBookOld['duration_min'] !== '' && $quickBookOld['fare_eur'] !== '') {
       $body .= "\nEstimated Distance: {$quickBookOld['distance_km']} km\n"
-        . "Estimated Duration: {$quickBookOld['duration_min']} min\n"
-        . "Estimated Fare: \u{20AC}{$quickBookOld['fare_eur']}\n";
+        . "Estimated Duration: {$quickBookOld['duration_min']} min\n";
+
+      // Only itemise the promo when one actually survived re-validation --
+      // dispatch needs to see which code was honoured and for how much, not
+      // merely what the passenger typed.
+      if ($quickBookPromoApplied !== '' && $quickBookPromoDiscount > 0) {
+        $body .= "Fare Before Promo: \u{20AC}{$quickBookFareBeforePromo}\n"
+          . "Promo Code: {$quickBookPromoApplied} (-\u{20AC}"
+          . number_format($quickBookPromoDiscount, 2, '.', '') . ")\n";
+      } elseif ($quickBookOld['promo_code'] !== '') {
+        // Echoed so dispatch can see what the passenger actually typed (a
+        // near-miss is worth knowing about), but this is the one unvalidated
+        // string that reaches the email -- flattened to a single line and
+        // capped so a pasted essay can't reshape the message.
+        $rejectedCode = substr(preg_replace('/\s+/', ' ', $quickBookOld['promo_code']), 0, 32);
+        $body .= "Promo Code: {$rejectedCode} (NOT APPLIED -- invalid, expired or not eligible)\n";
+      }
+
+      $body .= "Estimated Fare: \u{20AC}{$quickBookOld['fare_eur']}\n";
     }
 
     $result = pc_send_mail(

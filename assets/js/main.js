@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   highlightActiveNavLink();
-  initMegaMenuHover();
+  initNavToggle();
+  initMegaMenus();
   initMegaMenuNestedToggle();
   syncNavbarHeightVar();
   syncFooterHeightVar();
   initHeroParallax();
-  initHeaderScrollReveal();
   initWhyChooseReveal();
   initScrollReveal();
   initScrollIndicator();
@@ -36,34 +36,120 @@ function highlightActiveNavLink() {
   });
 }
 
-/** Opens/closes the "About" mega menu on mouse hover */
-function initMegaMenuHover() {
-  if (typeof bootstrap === "undefined" || !bootstrap.Dropdown) return;
+/**
+ * Mobile nav panel. Replaces Bootstrap's Collapse: #pcNavToggle flips
+ * `is-open` on #mainNav and its own aria-expanded (which the hamburger's
+ * three bars animate off, via group-aria-expanded: variants).
+ */
+function initNavToggle() {
+  const toggle = document.getElementById("pcNavToggle");
+  const panel = document.getElementById("mainNav");
+  if (!toggle || !panel) return;
+  if (toggle.dataset.pcBound) return;
+  toggle.dataset.pcBound = "1";
+
+  toggle.addEventListener("click", () => {
+    const open = panel.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open) pcCloseAllMegaMenus();
+  });
+}
+
+/** Closes every open mega menu and resets its toggle's aria-expanded. */
+function pcCloseAllMegaMenus() {
+  document.querySelectorAll(".pc-mega-parent").forEach((parent) => {
+    const toggle = parent.querySelector("[data-pc-dropdown]");
+    const panel = parent.querySelector("[data-pc-dropdown-panel]");
+    if (panel) panel.classList.remove("is-open");
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  });
+  document.querySelectorAll(".pc-mega-nested-open").forEach((g) => g.classList.remove("pc-mega-nested-open"));
+}
+
+/** Closes the mobile panel too -- what PJAX calls before swapping pages. */
+function pcCloseNav() {
+  const toggle = document.getElementById("pcNavToggle");
+  const panel = document.getElementById("mainNav");
+  if (panel) panel.classList.remove("is-open");
+  if (toggle) toggle.setAttribute("aria-expanded", "false");
+  pcCloseAllMegaMenus();
+}
+window.pcCloseNav = pcCloseNav;
+
+/**
+ * The About/Contact mega menus. Replaces Bootstrap's Dropdown: open on
+ * hover at desktop (with a short delay each way so the pointer can cross
+ * the gap between the link and the panel), and on click below 992px where
+ * the panel renders inline inside the mobile nav instead.
+ *
+ * A click inside an open panel must NOT close it -- that was Bootstrap's
+ * data-bs-auto-close="outside" -- so the document listener checks
+ * containment against the whole .pc-mega-parent.
+ */
+let pcMegaCleanup = null;
+function initMegaMenus() {
+  if (pcMegaCleanup) {
+    pcMegaCleanup();
+    pcMegaCleanup = null;
+  }
+
+  const parents = Array.from(document.querySelectorAll(".pc-mega-parent"));
+  if (!parents.length) return;
 
   const OPEN_DELAY_MS = 100;
   const CLOSE_DELAY_MS = 250;
   const isDesktop = () => window.matchMedia("(min-width: 992px)").matches;
 
-  document.querySelectorAll(".pc-mega-parent").forEach((parent) => {
-    const toggleEl = parent.querySelector('[data-bs-toggle="dropdown"]');
-    if (!toggleEl) return;
+  function setOpen(parent, open) {
+    const toggle = parent.querySelector("[data-pc-dropdown]");
+    const panel = parent.querySelector("[data-pc-dropdown-panel]");
+    if (!toggle || !panel) return;
+    panel.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
 
-    const dropdown = bootstrap.Dropdown.getOrCreateInstance(toggleEl);
+  parents.forEach((parent) => {
     let openTimer = null;
     let closeTimer = null;
 
     parent.addEventListener("mouseenter", () => {
       if (!isDesktop()) return;
       clearTimeout(closeTimer);
-      openTimer = setTimeout(() => dropdown.show(), OPEN_DELAY_MS);
+      openTimer = setTimeout(() => setOpen(parent, true), OPEN_DELAY_MS);
     });
 
     parent.addEventListener("mouseleave", () => {
       if (!isDesktop()) return;
       clearTimeout(openTimer);
-      closeTimer = setTimeout(() => dropdown.hide(), CLOSE_DELAY_MS);
+      closeTimer = setTimeout(() => setOpen(parent, false), CLOSE_DELAY_MS);
     });
+
+    const toggle = parent.querySelector("[data-pc-dropdown]");
+    if (toggle) {
+      toggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        const panel = parent.querySelector("[data-pc-dropdown-panel]");
+        const willOpen = !(panel && panel.classList.contains("is-open"));
+        parents.forEach((other) => other !== parent && setOpen(other, false));
+        setOpen(parent, willOpen);
+      });
+    }
   });
+
+  function onDocClick(event) {
+    if (event.target.closest(".pc-mega-parent")) return;
+    pcCloseAllMegaMenus();
+  }
+  function onKeydown(event) {
+    if (event.key === "Escape") pcCloseAllMegaMenus();
+  }
+
+  document.addEventListener("click", onDocClick);
+  document.addEventListener("keydown", onKeydown);
+  pcMegaCleanup = () => {
+    document.removeEventListener("click", onDocClick);
+    document.removeEventListener("keydown", onKeydown);
+  };
 }
 
 /** Explicit tap-to-open for the "Training" / "Safety" nested flyouts */
@@ -73,7 +159,8 @@ function initMegaMenuNestedToggle() {
 
   nestedGroups.forEach((group) => {
     const toggleBtn = group.querySelector(".pc-mega-item-parent");
-    if (!toggleBtn) return;
+    if (!toggleBtn || toggleBtn.dataset.pcBound) return;
+    toggleBtn.dataset.pcBound = "1";
 
     toggleBtn.addEventListener("click", (event) => {
       event.preventDefault();
@@ -83,13 +170,6 @@ function initMegaMenuNestedToggle() {
       if (!isOpen) group.classList.add("pc-mega-nested-open");
     });
   });
-
-  const mainNav = document.getElementById("mainNav");
-  if (mainNav) {
-    mainNav.addEventListener("hidden.bs.collapse", () => {
-      nestedGroups.forEach((group) => group.classList.remove("pc-mega-nested-open"));
-    });
-  }
 }
 
 /**
@@ -149,47 +229,6 @@ function initHeroParallax() {
   update();
   window.addEventListener("scroll", onScroll, { passive: true });
   pcHeroParallaxCleanup = () => window.removeEventListener("scroll", onScroll);
-}
-
-/* Global header scroll */
-function initHeaderScrollReveal() {
-  const header = document.querySelector("header.pc-header");
-  if (!header) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const TOP_OFFSET = 80;
-  const isMenuOpen = () =>
-    header.querySelector(".pc-mega-menu.show") || document.getElementById("mainNav")?.classList.contains("show");
-
-  let lastScrollY = window.scrollY;
-  let ticking = false;
-
-  function update() {
-    const currentY = window.scrollY;
-    const dockThreshold = window.innerHeight;
-    const scrollingDown = currentY > lastScrollY;
-
-    if (isMenuOpen() || currentY < TOP_OFFSET || currentY >= dockThreshold) {
-      header.classList.remove("pc-header-hidden");
-    } else if (scrollingDown) {
-      header.classList.add("pc-header-hidden");
-    } else {
-      header.classList.remove("pc-header-hidden");
-    }
-
-    lastScrollY = currentY;
-    ticking = false;
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    },
-    { passive: true }
-  );
 }
 
 /* Home page "Why Choose PowerCabs" cards -- same re-init story as the hero. */
@@ -258,31 +297,18 @@ function initScrollReveal() {
 }
 
 /**
- * Floating circular scroll-progress indicator (replaces the native
- * scrollbar): grey track ring plus a black ring that fills in as the
- * page scrolls. Click scrolls back to top.
+ * Simple floating scroll-to-top button: appears after the page has
+ * scrolled a bit, click scrolls back to top.
  */
 function initScrollIndicator() {
   const el = document.getElementById("pcScrollIndicator");
   if (!el) return;
 
-  const progressRing = el.querySelector(".pc-scroll-indicator-progress");
-  if (!progressRing) return;
-
-  const radius = progressRing.r.baseVal.value;
-  const circumference = 2 * Math.PI * radius;
-  progressRing.style.strokeDasharray = `${circumference}`;
-
   const SHOW_AFTER_PX = 240;
   let ticking = false;
 
   function update() {
-    const scrollTop = window.scrollY;
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollable > 0 ? Math.min(Math.max(scrollTop / scrollable, 0), 1) : 0;
-
-    progressRing.style.strokeDashoffset = `${circumference * (1 - progress)}`;
-    el.classList.toggle("is-visible", scrollTop > SHOW_AFTER_PX);
+    el.classList.toggle("is-visible", window.scrollY > SHOW_AFTER_PX);
     ticking = false;
   }
 
@@ -296,7 +322,6 @@ function initScrollIndicator() {
     },
     { passive: true }
   );
-  window.addEventListener("resize", update);
 
   el.addEventListener("click", () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

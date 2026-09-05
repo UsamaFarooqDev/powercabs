@@ -10,17 +10,17 @@ function pcInitComplaintForm() {
   function updateCategoryState() {
     const selected = form.querySelector('input[name="complaint_category"]:checked');
     if (!selected) {
-      criminalNotice.classList.add("d-none");
-      complaintFields.classList.add("d-none");
-      submitWrapper.classList.add("d-none");
+      criminalNotice.classList.add("tw-hidden");
+      complaintFields.classList.add("tw-hidden");
+      submitWrapper.classList.add("tw-hidden");
       return;
     }
 
     const mode = selected.dataset.mode || "full";
-    criminalNotice.classList.toggle("d-none", mode !== "toast");
-    complaintFields.classList.toggle("d-none", mode !== "full");
-    experienceSection.classList.toggle("d-none", mode !== "full");
-    submitWrapper.classList.remove("d-none");
+    criminalNotice.classList.toggle("tw-hidden", mode !== "toast");
+    complaintFields.classList.toggle("tw-hidden", mode !== "full");
+    experienceSection.classList.toggle("tw-hidden", mode !== "full");
+    submitWrapper.classList.remove("tw-hidden");
   }
 
   form.querySelectorAll('input[name="complaint_category"]').forEach((el) => {

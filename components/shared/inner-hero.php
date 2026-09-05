@@ -19,32 +19,27 @@ $breadcrumbSchema = [
 ?>
 <script type="application/ld+json"><?= json_encode($breadcrumbSchema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES) ?></script>
 <!-- ============ Inner Page Hero ============ -->
-<section class="position-relative overflow-hidden d-flex align-items-center"
-  style="min-height: clamp(260px, 29vw, 340px); padding-top: calc(var(--pc-navbar-h, 110px) + 2.5rem); padding-bottom: clamp(2.5rem, 5.5vw, 4rem);">
+<!-- Two stacked scrims over the photo: a neutral darkener for text contrast,
+     then the warm brand wash on top. Top padding keys off --pc-navbar-h so
+     the title always clears the fixed header. -->
+<section class="tw-relative tw-flex tw-min-h-[clamp(260px,29vw,340px)] tw-items-center tw-overflow-hidden tw-pb-[clamp(2.5rem,5.5vw,4rem)] tw-pt-[calc(var(--pc-navbar-h,110px)+2.5rem)]">
   <img src="<?= htmlspecialchars($heroBgImage) ?>" alt="" aria-hidden="true"
-    class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" loading="lazy">
-  <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"
-    style="background: rgba(8, 6, 5, .4);"></span>
-  <span class="position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"
-    style="background: linear-gradient(110deg, rgba(232, 89, 12, .5) 0%, rgba(255, 122, 0, .38) 55%, rgba(248, 130, 32, .22) 100%);"></span>
+    class="tw-absolute tw-left-0 tw-top-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
+  <span class="tw-absolute tw-left-0 tw-top-0 tw-h-full tw-w-full tw-bg-[rgba(8,6,5,0.4)]" aria-hidden="true"></span>
+  <span class="tw-absolute tw-left-0 tw-top-0 tw-h-full tw-w-full tw-bg-[linear-gradient(110deg,rgba(232,89,12,0.5)_0%,rgba(255,122,0,0.38)_55%,rgba(248,130,32,0.22)_100%)]" aria-hidden="true"></span>
 
-  <!-- Decorative "rides" watermark -- purely visual, scales with viewport so it stays tasteful on mobile instead of needing to be hidden -->
-  <!-- <i class="bi bi-car-front-fill position-absolute bottom-0 end-0 text-white opacity-25 pe-none" aria-hidden="true" style="font-size: clamp(3rem, 10vw, 7rem); transform: translate(10%, 15%) rotate(-8deg);"></i> -->
-
-  <div class="container position-relative">
-    <h1 class="text-white fw-bold mb-3"
-      style="font-size: clamp(1.5rem, 3vw, 2.25rem); text-shadow: 0 1px 6px rgba(0, 0, 0, .2);">
-      
+  <!-- $containerStepped reproduces Bootstrap's .container, which this hero
+       was laid out against -- see includes/header.php. -->
+  <div class="tw-relative <?= $pcContainer ?>">
+    <h1 class="tw-mb-3 tw-text-[clamp(1.5rem,3vw,2.25rem)] tw-font-bold tw-text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.2)]">
       <?= htmlspecialchars($heroTitle) ?></h1>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 text-uppercase"
-        style="--bs-breadcrumb-divider: '//'; --bs-breadcrumb-divider-color: #fff; letter-spacing: .04em; font-size: .85rem;">
-        <li class="breadcrumb-item">
-          <a class="text-white text-opacity-75 text-decoration-none" href="<?= $assetPath ?>/">Home</a>
+      <ol class="tw-m-0 tw-flex tw-list-none tw-items-center tw-gap-2 tw-p-0 tw-text-[0.85rem] tw-uppercase tw-tracking-[0.04em]">
+        <li>
+          <a class="tw-text-white/75 tw-no-underline hover:tw-text-white" href="<?= $assetPath ?>/">Home</a>
         </li>
-
-                  <li class="breadcrumb-item active fw-semibold text-white" aria-current="page">
-          <?= htmlspecialchars($heroBreadcrumbLabel) ?></li>
+        <li aria-hidden="true" class="tw-text-white/60">//</li>
+        <li class="tw-font-semibold tw-text-white" aria-current="page"><?= htmlspecialchars($heroBreadcrumbLabel) ?></li>
       </ol>
     </nav>
   </div>

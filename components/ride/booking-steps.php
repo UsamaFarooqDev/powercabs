@@ -3,8 +3,8 @@
 function pc_route_pattern_svg()
 {
   ?>
-  <svg class="position-absolute top-50 start-50 translate-middle pe-none" width="340" height="340" viewBox="0 0 320 320"
-    fill="none" aria-hidden="true" style="max-width: 150%; opacity: .4;">
+  <svg class="tw-pointer-events-none tw-absolute tw-left-1/2 tw-top-1/2 tw-max-w-[150%] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-opacity-40" width="340" height="340" viewBox="0 0 320 320"
+    fill="none" aria-hidden="true">
     <g stroke="rgba(28, 20, 16, .07)" stroke-width="4">
       <path d="M0,110 L320,90"></path>
       <path d="M0,250 L320,270"></path>
@@ -58,118 +58,57 @@ $rideSteps = [
 ];
 ?>
 
-<style>
-  .pc-book-step-tab {
-    border: 1px solid rgba(28, 20, 16, .1);
-    background: var(--pc-white);
-    transition: border-color .25s ease, box-shadow .25s ease;
-  }
+<section class="tw-relative tw-overflow-hidden tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
+  <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.3),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
 
-  .pc-book-step-tab:hover {
-    border-color: rgba(232, 89, 12, .4);
-  }
-
-  .pc-book-step-tab.is-active {
-    border-color: var(--pc-orange);
-    box-shadow: var(--pc-shadow-sm);
-  }
-
-  .pc-book-step-num {
-    width: 40px;
-    height: 40px;
-    font-size: .85rem;
-    border: 1px solid var(--pc-orange);
-    color: var(--pc-orange);
-  }
-
-  .pc-book-step-title {
-    font-size: 1.05rem;
-    transition: color .25s ease;
-  }
-
-  .pc-book-step-tab.is-active .pc-book-step-title {
-    color: var(--pc-orange);
-  }
-
-  .pc-book-step-desc {
-    font-size: .9rem;
-    margin-top: .1rem;
-  }
-
-  .pc-book-step-check {
-    opacity: 0;
-    font-size: 1.1rem;
-    color: var(--pc-orange);
-    transition: opacity .25s ease;
-  }
-
-  .pc-book-step-tab.is-active .pc-book-step-check {
-    opacity: 1;
-  }
-
-  #pcBookSteps .pc-phone-screen {
-    height: 519.6px;
-  }
-
-  #pcBookSteps .pc-phone-screen img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-
-    .pc-book-step-tab,
-    .pc-book-step-title,
-    .pc-book-step-check,
-    #pcBookSteps .pc-phone-screen img {
-      transition: none !important;
-    }
-  }
-</style>
-
-<section class="section-pc position-relative overflow-hidden">
-  <span class="pc-drive-blob position-absolute rounded-circle z-0 pc-drive-blob-orange" aria-hidden="true"></span>
-
-  <div class="container position-relative">
-    <div class="text-center mb-5">
-      <h2 class="mb-3">Simple Steps to Book Your Ride</h2>
-      <p class="text-muted-pc mx-auto" style="max-width: 60ch; font-size:1.1rem">
+  <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[1320px]">
+    <div class="tw-mb-12 tw-text-center">
+      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Simple Steps to Book Your Ride</h2>
+      <p class="tw-mx-auto tw-max-w-[60ch] tw-text-[1.1rem] tw-text-ink/60">
         Book your ride easily through our app or website and enjoy a seamless journey
         every time. We monitor every trip you make, ensuring that you are never charged extra.
       </p>
     </div>
 
-    <div class="row align-items-center gy-5" id="pcBookSteps">
-      <div class="col-lg-5">
-        <div class="d-flex flex-column gap-3" role="tablist" aria-label="Book Your Ride steps">
+    <!-- Bare functional hooks -- book-ride-steps.js queries #pcBookSteps and
+         .pc-book-step-tab directly, toggles .is-active, reads data-image/
+         data-alt, and clone-swipes #pcBookStepScreen. The [&_.pc-phone-screen]:
+         overrides reproduce the old #pcBookSteps .pc-phone-screen CSS override
+         (a fixed height + absolutely-positioned image) that the swipe
+         animation depends on, without touching the shared app-mockup.php
+         partial's own default sizing used elsewhere. -->
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12 [&_.pc-phone-screen]:tw-h-[519.6px] [&_.pc-phone-screen_img]:tw-absolute [&_.pc-phone-screen_img]:tw-inset-0 [&_.pc-phone-screen_img]:tw-h-full [&_.pc-phone-screen_img]:tw-w-full" id="pcBookSteps">
+      <div class="lg:tw-col-span-5">
+        <div class="tw-flex tw-flex-col tw-gap-3" role="tablist" aria-label="Book Your Ride steps">
           <?php foreach ($rideSteps as $i => $step): ?>
             <button type="button"
-              class="pc-book-step-tab d-flex align-items-center gap-3 text-start rounded-4 p-3<?= $i === 0
+              class="pc-book-step-tab tw-flex tw-appearance-none tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-black/10 tw-bg-white tw-p-3 tw-text-left tw-transition-colors tw-duration-200 hover:tw-border-power/40 [&.is-active]:tw-border-power [&.is-active]:tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]<?= $i ===
+              0
                 ? ' is-active'
                 : '' ?>"
               data-image="<?= $assetPath ?>assets/img/<?= htmlspecialchars($step['img']) ?>"
               data-alt="<?= htmlspecialchars($step['alt']) ?>" role="tab"
               aria-selected="<?= $i === 0 ? 'true' : 'false' ?>">
               <span
-                class="pc-book-step-num flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle fw-medium"><?= htmlspecialchars(
+                class="pc-book-step-num tw-flex tw-h-10 tw-w-10 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-power tw-text-[0.85rem] tw-font-medium tw-text-power"><?= htmlspecialchars(
                   $step['n'],
                 ) ?></span>
-              <span class="flex-grow-1">
-                <span class="pc-book-step-title d-block fw-bold"><?= htmlspecialchars($step['title']) ?></span>
-                <span class="pc-book-step-desc d-block text-muted-pc"><?= htmlspecialchars($step['desc']) ?></span>
+              <span class="tw-flex-1">
+                <span class="pc-book-step-title tw-block tw-text-[1.05rem] tw-font-bold tw-text-ink tw-transition-colors tw-duration-200 [.is-active_&]:tw-text-power"><?= htmlspecialchars(
+                  $step['title'],
+                ) ?></span>
+                <span class="tw-mt-0.5 tw-block tw-text-sm tw-text-ink/60"><?= htmlspecialchars($step['desc']) ?></span>
               </span>
-              <i class="bi bi-check-circle-fill pc-book-step-check flex-shrink-0" aria-hidden="true"></i>
+              <svg class="tw-h-[1.1rem] tw-w-[1.1rem] tw-shrink-0 tw-text-power tw-opacity-0 tw-transition-opacity tw-duration-200 [.is-active_&]:tw-opacity-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12a9.75 9.75 0 1119.5 0 9.75 9.75 0 01-19.5 0zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
             </button>
           <?php endforeach; ?>
         </div>
       </div>
 
-      <div class="col-lg-7">
-        <div class="position-relative d-flex justify-content-center py-3 py-lg-4">
+      <div class="lg:tw-col-span-7">
+        <div class="tw-relative tw-flex tw-justify-center tw-py-3 lg:tw-py-4">
           <?php pc_route_pattern_svg(); ?>
-          <div class="position-relative z-1">
+          <div class="tw-relative tw-z-[1]">
             <?php
             $mockupImage = $rideSteps[0]['img'];
             $mockupAlt = $rideSteps[0]['alt'];

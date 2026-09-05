@@ -1,8 +1,8 @@
-<section class="section-pc bg-white">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="mb-2">You're In Control</h2>
-      <p class="text-muted-pc mx-auto mb-0" style="max-width: 56ch;">Turn preferences on or off in the Driver App and only receive the bookings that suit you.</p>
+<section class="tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
+  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+    <div class="tw-mb-10 tw-text-center">
+      <h2 class="tw-mb-2 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">You're In Control</h2>
+      <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-ink/60">Turn preferences on or off in the Driver App and only receive the bookings that suit you.</p>
     </div>
 
     <?php
@@ -42,52 +42,24 @@
     ];
     ?>
 
-    <!-- Same flex-wrap + justify-content: center technique as the Ride
-         Types grid in opportunities.php -- 6 cards need 4 in row one and
-         the remaining 2 centered in row two, same size as the rest. -->
-    <style>
-      .pc-drive-pref-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-      }
-      .pc-drive-pref-item {
-        flex: 0 0 calc(50% - .5rem);
-        max-width: calc(50% - .5rem);
-      }
-      @media (min-width: 768px) {
-        .pc-drive-pref-item {
-          flex: 0 0 calc(33.333% - .667rem);
-          max-width: calc(33.333% - .667rem);
-        }
-      }
-      @media (min-width: 992px) {
-        .pc-drive-pref-item {
-          flex: 0 0 calc(25% - .75rem);
-          max-width: calc(25% - .75rem);
-        }
-      }
-    </style>
-
-    <div class="pc-drive-pref-grid">
+    <!-- flex-wrap + justify-center (not a 4-col grid) so the 2 leftover
+         cards in row two sit centered instead of stranded on the left. -->
+    <div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-4">
       <?php foreach ($driverPreferences as $pref): ?>
-        <div class="pc-drive-pref-item">
-          <div class="pc-service-card d-block position-relative overflow-hidden" style="aspect-ratio: 6 / 5; border-radius: var(--pc-radius-lg);">
-            <img src="<?= htmlspecialchars($pref['img']) ?>" alt="<?= htmlspecialchars(
-              $pref['title'],
-            ) ?>" class="pc-service-card-img d-block w-100 h-100 object-fit-cover" loading="lazy">
-            <span class="pc-service-card-tint position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
-            <span class="pc-service-card-glass position-absolute bottom-0 start-0 end-0 p-3">
-              <span class="pc-service-card-title text-white d-block fs-6 fw-bold mb-1"><?= htmlspecialchars($pref['title']) ?></span>
-              <span class="d-block small text-white-50 mb-0"><?= htmlspecialchars($pref['desc']) ?></span>
-            </span>
-          </div>
+        <div class="tw-group tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-block tw-aspect-[6/5] tw-w-[calc(50%-0.5rem)] tw-overflow-hidden tw-rounded-2xl md:tw-w-[calc(33.333%-0.667rem)] lg:tw-w-[calc(25%-0.75rem)]">
+          <img src="<?= htmlspecialchars($pref['img']) ?>" alt="<?= htmlspecialchars(
+            $pref['title'],
+          ) ?>" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">
+          <span class="tw-bg-[rgba(10,7,5,0.15)] tw-transition-opacity tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:tw-opacity-30 motion-reduce:tw-transition-none tw-absolute tw-inset-0" aria-hidden="true"></span>
+          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-3 tw-pt-[4.5rem]">
+            <span class="tw-transition-colors tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-mb-1 tw-block tw-text-sm tw-font-bold tw-text-white"><?= htmlspecialchars($pref['title']) ?></span>
+            <span class="tw-block tw-text-sm tw-text-white/60"><?= htmlspecialchars($pref['desc']) ?></span>
+          </span>
         </div>
       <?php endforeach; ?>
     </div>
 
-    <p class="small text-muted-pc text-center mt-4 mb-0">
+    <p class="tw-mb-0 tw-mt-6 tw-text-center tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">
       *Rates, discounts, rewards, campaigns and eligibility are subject to current partner/programme terms.
     </p>
   </div>

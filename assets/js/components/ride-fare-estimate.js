@@ -14,12 +14,16 @@
    * and drifted from the real fare -- see the "Fare mismatch between
    * passenger app and this website" fix.
    */
-  function pcFetchFareEstimate(distanceKm, durationMin, rideType) {
+  function pcFetchFareEstimate(distanceKm, durationMin, rideType, promoCode) {
     const params = new URLSearchParams({
       distance_km: distanceKm.toFixed(2),
       duration_min: durationMin.toFixed(1),
       ride_type: rideType,
     });
+    // The promo code is validated and priced entirely server-side -- this
+    // just hands it over. Omitted when blank so the endpoint can tell "no
+    // code" from "empty code" and stay silent instead of erroring.
+    if (promoCode) params.set("promo_code", promoCode);
     return fetch(`/api/estimate_fare?${params.toString()}`)
       .then((res) => {
         if (!res.ok) throw new Error("Fare estimate request failed");
@@ -55,6 +59,8 @@
     const pickupInput = document.getElementById("rfPickup");
     const dropoffInput = document.getElementById("rfDropoff");
     const rideTypeSelect = document.getElementById("rfRideType");
+    const promoInput = document.getElementById("rfPromoCode");
+    const promoStatus = document.getElementById("rfPromoStatus");
     const submitBtn = document.getElementById("rfSubmit");
     const locateBtn = document.getElementById("rfLocateBtn");
     const resultBox = document.getElementById("rfFareResult");
@@ -63,6 +69,10 @@
     const fareValueEl = document.getElementById("rfFareValue");
     const fareDistanceEl = document.getElementById("rfFareDistance");
     const fareDurationEl = document.getElementById("rfFareDuration");
+    const promoRow = document.getElementById("rfFarePromoRow");
+    const promoCodeEl = document.getElementById("rfFarePromoCode");
+    const promoBeforeEl = document.getElementById("rfFarePromoBefore");
+    const promoDiscountEl = document.getElementById("rfFarePromoDiscount");
     if (!pickupInput || !dropoffInput || !rideTypeSelect || !submitBtn) return;
 
     const dublinBounds = new google.maps.LatLngBounds(
@@ -74,10 +84,30 @@
     let lastEstimate = null; // { distanceKm, durationMin, fare, rideType }
     const directionsService = new google.maps.DirectionsService();
 
+    // Only the two colour classes are swapped -- everything else about the
+    // line (size, spacing, leading) is fixed in the markup.
+    const PROMO_OK_CLS = "tw-text-[#146c43]";
+    const PROMO_ERR_CLS = "tw-text-red-600";
+
+    function setPromoStatus(message, ok) {
+      if (!promoStatus) return;
+      promoStatus.classList.remove(PROMO_OK_CLS, PROMO_ERR_CLS);
+      if (!message) {
+        promoStatus.textContent = "";
+        promoStatus.classList.add("tw-hidden");
+        return;
+      }
+      promoStatus.textContent = message;
+      promoStatus.classList.add(ok ? PROMO_OK_CLS : PROMO_ERR_CLS);
+      promoStatus.classList.remove("tw-hidden");
+    }
+
     function resetToEstimateStep() {
       lastEstimate = null;
-      resultBox.classList.add("d-none");
-      errorBox.classList.add("d-none");
+      resultBox.classList.add("tw-hidden");
+      errorBox.classList.add("tw-hidden");
+      promoRow?.classList.add("tw-hidden");
+      setPromoStatus("", false);
       submitBtn.textContent = "Get Fare Estimate";
     }
 
@@ -117,6 +147,12 @@
       updateSubmitState();
     });
 
+    // Editing the code invalidates the fare on screen (the discount is part
+    // of it), so drop back to the estimate step -- but never touch
+    // updateSubmitState(), since the promo is optional and must not gate
+    // the button the way pickup/drop-off/ride type do.
+    promoInput?.addEventListener("input", resetToEstimateStep);
+
     locateBtn?.addEventListener("click", () => {
       if (!navigator.geolocation) return;
       locateBtn.disabled = true;
@@ -141,12 +177,21 @@
     });
 
     function openBookModal() {
-      if (!lastEstimate || !window.bootstrap) return;
+      if (!lastEstimate || !window.pcModal) return;
 
       document.getElementById("rfModalPickupText").textContent = pickupInput.value;
       document.getElementById("rfModalDropoffText").textContent = dropoffInput.value;
       document.getElementById("rfModalRideTypeText").textContent = lastEstimate.rideType;
       document.getElementById("rfModalFareText").textContent = `€${lastEstimate.fare.toFixed(2)}`;
+
+      const modalPromoRow = document.getElementById("rfModalPromoRow");
+      if (lastEstimate.promoCode) {
+        document.getElementById("rfModalPromoCodeText").textContent = `Promo ${lastEstimate.promoCode}`;
+        document.getElementById("rfModalPromoDiscountText").textContent = `−€${lastEstimate.promoDiscount.toFixed(2)}`;
+        modalPromoRow.classList.remove("tw-hidden");
+      } else {
+        modalPromoRow.classList.add("tw-hidden");
+      }
 
       document.getElementById("rfModalPickup").value = pickupInput.value;
       document.getElementById("rfModalDropoff").value = dropoffInput.value;
@@ -154,9 +199,10 @@
       document.getElementById("rfModalDistance").value = lastEstimate.distanceKm.toFixed(2);
       document.getElementById("rfModalDuration").value = lastEstimate.durationMin.toFixed(1);
       document.getElementById("rfModalFare").value = lastEstimate.fare.toFixed(2);
+      document.getElementById("rfModalPromoCode").value = lastEstimate.promoCode || "";
 
       const modalEl = document.getElementById("rfBookModal");
-      bootstrap.Modal.getOrCreateInstance(modalEl).show();
+      window.pcModal.getOrCreateInstance(modalEl).show();
     }
 
     // ajax-forms.js dispatches this on the modal's <form> once the booking
@@ -165,11 +211,12 @@
     const bookForm = document.getElementById("rfBookModal")?.querySelector("form");
     bookForm?.addEventListener("pc:form-success", () => {
       const modalEl = document.getElementById("rfBookModal");
-      bootstrap.Modal.getInstance(modalEl)?.hide();
+      window.pcModal.getInstance(modalEl)?.hide();
 
       pickupInput.value = "";
       dropoffInput.value = "";
       rideTypeSelect.value = "";
+      if (promoInput) promoInput.value = "";
       state.pickup = null;
       state.dropoff = null;
       resetToEstimateStep();
@@ -202,9 +249,9 @@
           if (status !== "OK" || !result.routes.length) {
             submitBtn.innerHTML = originalHTML;
             submitBtn.disabled = false;
-            resultBox.classList.add("d-none");
+            resultBox.classList.add("tw-hidden");
             errorBox.textContent = "Couldn't calculate a route for those locations. Please try again.";
-            errorBox.classList.remove("d-none");
+            errorBox.classList.remove("tw-hidden");
             return;
           }
 
@@ -212,6 +259,7 @@
           const distanceKm = leg.distance.value / 1000;
           const durationMin = leg.duration.value / 60;
           const rideType = rideTypeSelect.value;
+          const promoCode = (promoInput?.value || "").trim();
           const requestId = ++estimateRequestId;
 
           // A lightweight placeholder while the authoritative fare loads --
@@ -222,16 +270,45 @@
           fareValueEl.textContent = "Calculating…";
           fareDistanceEl.textContent = distanceKm.toFixed(1);
           fareDurationEl.textContent = Math.round(durationMin);
-          errorBox.classList.add("d-none");
-          resultBox.classList.remove("d-none");
+          errorBox.classList.add("tw-hidden");
+          resultBox.classList.remove("tw-hidden");
           // submitBtn stays disabled until the real fare is in.
 
-          pcFetchFareEstimate(distanceKm, durationMin, rideType)
+          pcFetchFareEstimate(distanceKm, durationMin, rideType, promoCode)
             .then((estimate) => {
               if (requestId !== estimateRequestId) return; // superseded by a newer request
 
-              lastEstimate = { distanceKm, durationMin, fare: estimate.fare_eur, rideType };
+              const discount = Number(estimate.promo_discount) || 0;
+              const promoApplied = Boolean(estimate.promo_code) && discount > 0;
+
+              lastEstimate = {
+                distanceKm,
+                durationMin,
+                fare: estimate.fare_eur,
+                rideType,
+                // The canonical DB spelling, not what was typed -- so a
+                // "power10" entry books, and emails, as POWER10.
+                promoCode: promoApplied ? estimate.promo_code : "",
+                promoDiscount: promoApplied ? discount : 0,
+              };
+
+              // fare_eur already has the discount taken off it server-side.
               fareValueEl.textContent = `€${estimate.fare_eur.toFixed(2)}`;
+
+              if (promoApplied) {
+                promoCodeEl.textContent = estimate.promo_code;
+                promoBeforeEl.textContent = `€${Number(estimate.fare_before_promo).toFixed(2)}`;
+                promoDiscountEl.textContent = `−€${discount.toFixed(2)}`;
+                promoRow.classList.remove("tw-hidden");
+                setPromoStatus(`Promo code ${estimate.promo_code} applied.`, true);
+              } else {
+                promoRow.classList.add("tw-hidden");
+                // A rejected code is a note, not a failure: the fare above
+                // is still valid and bookable, so the button carries on to
+                // "Continue" either way.
+                setPromoStatus(estimate.promo_error || "", false);
+              }
+
               submitBtn.disabled = false;
               submitBtn.textContent = "Continue";
             })
@@ -239,9 +316,9 @@
               if (requestId !== estimateRequestId) return;
 
               submitBtn.disabled = false;
-              resultBox.classList.add("d-none");
+              resultBox.classList.add("tw-hidden");
               errorBox.textContent = "Couldn't calculate a fare right now. Please try again.";
-              errorBox.classList.remove("d-none");
+              errorBox.classList.remove("tw-hidden");
             });
         }
       );

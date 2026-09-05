@@ -24,99 +24,102 @@ $partnerBizBenefits = [
   ['title' => 'Marketing Support', 'desc' => 'Get visibility across the PowerCabs platform and booking channels.'],
   ['title' => 'Driver Management', 'desc' => 'Onboard and manage your drivers through one simple system.'],
 ];
-?>
-<section class="pc-ptn-business text-white position-relative overflow-hidden" id="pcPtnEnquiry" style="scroll-margin-top: 6rem;">
-  <img src="https://images.pexels.com/photos/29566896/pexels-photo-29566896.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="object-fit-cover z-0 position-absolute top-0 start-0 w-100 h-100" loading="lazy">
-  <span class="pc-ptn-business-scrim z-0 position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></span>
 
-  <div class="container position-relative">
-    <div class="row gy-5 align-items-center">
-      <div class="col-lg-6">
-        <p class="small fw-semibold text-uppercase mb-2" style="letter-spacing: .08em; color: var(--pc-orange-light);">/ For Businesses</p>
-        <h2 class="pc-ptn-business-title text-white mb-3">Put Your Fleet to Work on the PowerCabs Network.</h2>
-        <p class="pc-ptn-business-sub mb-4">
+// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
+$inputClass = $pcInput;
+$labelClass = $pcLabel;
+$submitClass = $pcBtnPrimary . ' tw-w-full';
+?>
+<section class="tw-relative tw-scroll-mt-24 tw-overflow-hidden tw-pb-[clamp(9rem,15vw,13rem)] tw-pt-[clamp(4.5rem,9vw,7rem)] tw-text-white" id="pcPtnEnquiry">
+  <img src="https://images.pexels.com/photos/29566896/pexels-photo-29566896.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
+  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(155deg,rgba(28,16,8,0.94)_0%,rgba(28,16,8,0.86)_55%,rgba(10,7,5,0.92)_100%)]" aria-hidden="true"></span>
+
+  <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
+      <div>
+        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-powerlight">/ For Businesses</p>
+        <h2 class="tw-mb-3 tw-text-[clamp(2rem,3.6vw,2.9rem)] tw-font-extrabold tw-leading-[1.08] tw-tracking-[-0.04em] tw-text-white">Put Your Fleet to Work on the PowerCabs Network.</h2>
+        <p class="tw-mb-8 tw-max-w-[48ch] tw-text-[1.05rem] tw-text-white/[0.78]">
           Reach more passengers across a growing booking network without
           building your own platform. Tell us about your business and our
           Partner team will explore the right setup with you.
         </p>
 
-        <div class="row row-cols-1 row-cols-sm-2 g-3">
+        <div class="tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-grid-cols-2">
           <?php foreach ($partnerBizBenefits as $b): ?>
-            <div class="col">
-              <div class="pc-ptn-biz-benefit h-100">
-                <strong><?= htmlspecialchars($b['title']) ?></strong>
-                <span><?= htmlspecialchars($b['desc']) ?></span>
-              </div>
+            <div class="tw-h-full tw-rounded-xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-5">
+              <strong class="tw-mb-1 tw-block tw-text-base tw-text-white"><?= htmlspecialchars($b['title']) ?></strong>
+              <span class="tw-block tw-text-sm tw-leading-relaxed tw-text-white/[0.68]"><?= htmlspecialchars($b['desc']) ?></span>
             </div>
           <?php endforeach; ?>
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <div class="pc-ptn-form-card">
-          <h3 class="mb-2">Ready to Partner With PowerCabs?</h3>
-          <p class="text-muted-pc mb-4">Tell us a little about your business and our Partner team will be in touch to talk through the next steps.</p>
+      <div>
+        <div class="tw-rounded-2xl tw-bg-white tw-p-[clamp(1.75rem,3.4vw,2.5rem)] tw-text-ink tw-shadow-[0_24px_60px_rgba(28,20,16,0.12)]">
+          <h3 class="tw-mb-2 tw-text-xl tw-font-extrabold tw-text-ink">Ready to Partner With PowerCabs?</h3>
+          <p class="tw-mb-6 tw-text-ink/60">Tell us a little about your business and our Partner team will be in touch to talk through the next steps.</p>
 
-          <form method="post" action="" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label pc-required" for="ptName">Name</label>
-              <input type="text" class="form-control" id="ptName" name="name" value="<?= htmlspecialchars(
+          <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
+            <div>
+              <label class="<?= $labelClass ?> pc-required" for="ptName">Name</label>
+              <input type="text" class="<?= $inputClass ?>" id="ptName" name="name" value="<?= htmlspecialchars(
                 $old['name'],
               ) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label pc-required" for="ptPhone">Phone</label>
-              <input type="tel" class="form-control" id="ptPhone" name="phone" value="<?= htmlspecialchars(
+            <div>
+              <label class="<?= $labelClass ?> pc-required" for="ptPhone">Phone</label>
+              <input type="tel" class="<?= $inputClass ?>" id="ptPhone" name="phone" value="<?= htmlspecialchars(
                 $old['phone'],
               ) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="form-label pc-required" for="ptEmail">Email Address</label>
-              <input type="email" class="form-control" id="ptEmail" name="email" value="<?= htmlspecialchars(
+            <div class="md:tw-col-span-2">
+              <label class="<?= $labelClass ?> pc-required" for="ptEmail">Email Address</label>
+              <input type="email" class="<?= $inputClass ?>" id="ptEmail" name="email" value="<?= htmlspecialchars(
                 $old['email'],
               ) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="form-label pc-required" for="ptBusinessName">Business Name</label>
-              <input type="text" class="form-control" id="ptBusinessName" name="business_name" value="<?= htmlspecialchars(
+            <div class="md:tw-col-span-2">
+              <label class="<?= $labelClass ?> pc-required" for="ptBusinessName">Business Name</label>
+              <input type="text" class="<?= $inputClass ?>" id="ptBusinessName" name="business_name" value="<?= htmlspecialchars(
                 $old['business_name'],
               ) ?>" required>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" for="ptFleetSize">Fleet Size <span class="text-muted-pc fw-normal">(optional)</span></label>
-              <input type="number" min="1" class="form-control" id="ptFleetSize" name="fleet_size" value="<?= htmlspecialchars(
+            <div>
+              <label class="<?= $labelClass ?>" for="ptFleetSize">Fleet Size <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
+              <input type="number" min="1" class="<?= $inputClass ?>" id="ptFleetSize" name="fleet_size" value="<?= htmlspecialchars(
                 $old['fleet_size'],
               ) ?>" placeholder="e.g. 4">
             </div>
-            <div class="col-md-6">
-              <label class="form-label pc-required" for="ptCity">City</label>
-              <input type="text" class="form-control" id="ptCity" name="city" value="<?= htmlspecialchars(
+            <div>
+              <label class="<?= $labelClass ?> pc-required" for="ptCity">City</label>
+              <input type="text" class="<?= $inputClass ?>" id="ptCity" name="city" value="<?= htmlspecialchars(
                 $old['city'],
               ) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="form-label" for="ptMessage">Tell Us About Your Fleet <span class="text-muted-pc fw-normal">(optional)</span></label>
-              <textarea class="form-control" id="ptMessage" name="message" rows="3" placeholder="Vehicles, drivers, area of operation..."><?= htmlspecialchars(
+            <div class="md:tw-col-span-2">
+              <label class="<?= $labelClass ?>" for="ptMessage">Tell Us About Your Fleet <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
+              <textarea class="<?= $inputClass ?> tw-resize-y" id="ptMessage" name="message" rows="3" placeholder="Vehicles, drivers, area of operation..."><?= htmlspecialchars(
                 $old['message'],
               ) ?></textarea>
             </div>
 
-            <div class="col-12 pt-2">
-              <button type="submit" class="btn btn-pc-primary w-100 py-2 rounded-pill d-inline-flex align-items-center justify-content-center gap-2">
+            <div class="tw-pt-2 md:tw-col-span-2">
+              <button type="submit" class="<?= $submitClass ?>">
                 <span>Request a Partner Call Back</span>
-                <i class="bi bi-send" aria-hidden="true"></i>
+                <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z"/></svg>
               </button>
             </div>
 
             <?php if ($formStatus === 'success'): ?>
-              <div class="col-12"><div class="alert alert-success mb-0 mt-2" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div></div>
+              <div class="md:tw-col-span-2"><div class="alert-success tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-green-200 tw-bg-green-50 tw-px-4 tw-py-3 tw-text-sm tw-text-green-800" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div></div>
             <?php elseif ($formStatus === 'error'): ?>
-              <div class="col-12"><div class="alert alert-danger mb-0 mt-2" role="alert"><?= htmlspecialchars(
+              <div class="md:tw-col-span-2"><div class="alert-danger tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-text-red-800" role="alert"><?= htmlspecialchars(
                 $formError,
               ) ?></div></div>
             <?php endif; ?>
 
-            <p class="pc-ptn-form-note small text-muted-pc mb-0 mt-2">
+            <p class="tw-m-0 tw-text-[1.0625rem] tw-leading-relaxed tw-leading-relaxed tw-text-ink/50 md:tw-col-span-2">
               By submitting, you're asking PowerCabs to contact you about the
               Partner Programme. Onboarding is subject to verification.
             </p>

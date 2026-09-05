@@ -3,75 +3,77 @@
 $driveOld ??= ['name' => '', 'mobile' => '', 'email' => '', 'licence' => ''];
 $driveFormStatus ??= null;
 $driveFormError ??= '';
+
+// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
+$inputClass = $pcInput;
+$labelClass = 'pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
+$submitClass = $pcBtnPrimary . ' tw-w-full';
 ?>
 <!-- ============ "You're not just a driver. You're family." ============ -->
-<section class="section-pc position-relative overflow-hidden" style="background: linear-gradient(155deg, var(--pc-dark) 0%, #2a1a10 55%, var(--pc-dark-soft) 100%);">
-  <div class="container">
-    <div class="row align-items-center gy-5 py-5 py-lg-6">
+<section class="tw-relative tw-overflow-hidden tw-bg-[linear-gradient(155deg,#1c1410_0%,#2a1a10_55%,#160f0a_100%)] tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
+  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
 
       <!-- Left: copy -->
-      <div class="col-lg-6">
-        <span class="pc-mg-badge text-white d-inline-flex align-items-center gap-2 mb-4">
-          <span class="fw-bold" style="font-size: .7rem;">IE</span>
+      <div>
+        <span class="tw-mb-4 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-px-3.5 tw-py-1.5 tw-text-xs tw-font-semibold tw-text-white">
+          <span class="tw-font-bold">IE</span>
           Irish Taxi Platform &bull; Driver First
         </span>
 
-        <h2 class="fw-bold text-white mb-3" style="font-size: clamp(2.1rem, 4vw, 3.1rem); line-height: 1.14; letter-spacing: -.02em;">
+        <h2 class="tw-mb-3 tw-text-[clamp(2.1rem,4vw,3.1rem)] tw-font-bold tw-leading-[1.14] tw-tracking-[-0.02em] tw-text-white">
           You're not just a driver,<br>
-          <span style="color: var(--pc-orange-light);">You're family.</span>
+          <span class="tw-text-powerlight">You're family.</span>
         </h2>
-        <p class="mb-4" style="color: rgba(255, 255, 255, .75); font-size: 1.08rem; max-width: 46ch; line-height: 1.7;">
+        <p class="tw-mb-0 tw-max-w-[46ch] tw-text-[1.08rem] tw-leading-[1.7] tw-text-white/75">
           Your taxi. Your meter. Your choice. Earn properly, avoid platform-created
           Saver pricing, save on the costs of driving and get real local support.
         </p>
       </div>
 
       <!-- Right: application form -->
-      <div class="col-lg-6">
-        <div class="bg-white rounded-4 p-4 p-md-5 mx-auto" id="driveJoinForm" style="max-width: 480px; box-shadow: var(--pc-shadow-lg);">
-          <p class="text-muted-pc mb-4">
+      <div>
+        <div class="tw-mx-auto tw-w-full tw-max-w-[480px] tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:tw-p-9" id="driveJoinForm">
+          <h3 class="tw-mb-1 tw-text-lg tw-font-bold tw-text-ink">Start Your Application</h3>
+          <p class="tw-mb-6 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">
             Add PowerCabs to your driving &mdash; you don't necessarily have to leave other platforms.
           </p>
 
-          <form method="post" action="" class="row g-3">
+          <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4">
             <input type="hidden" name="form_type" value="driver_join">
 
-            <div class="col-12">
-              <label class="visually-hidden" for="djName">First name</label>
-              <input type="text" class="form-control rounded-3 py-2" id="djName" name="name" placeholder="First name"
+            <div>
+              <label class="<?= $labelClass ?>" for="djName">First Name</label>
+              <input type="text" class="<?= $inputClass ?>" id="djName" name="name"
                 value="<?= htmlspecialchars($driveOld['name']) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="visually-hidden" for="djMobile">Mobile</label>
-              <input type="tel" class="form-control rounded-3 py-2" id="djMobile" name="mobile" placeholder="Mobile"
+            <div>
+              <label class="<?= $labelClass ?>" for="djMobile">Mobile Number</label>
+              <input type="tel" class="<?= $inputClass ?>" id="djMobile" name="mobile"
                 value="<?= htmlspecialchars($driveOld['mobile']) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="visually-hidden" for="djEmail">Email</label>
-              <input type="email" class="form-control rounded-3 py-2" id="djEmail" name="email" placeholder="Email"
+            <div>
+              <label class="<?= $labelClass ?>" for="djEmail">Email Address</label>
+              <input type="email" class="<?= $inputClass ?>" id="djEmail" name="email"
                 value="<?= htmlspecialchars($driveOld['email']) ?>" required>
             </div>
-            <div class="col-12">
-              <label class="visually-hidden" for="djLicence">SPSV / Driver licence</label>
-              <input type="text" class="form-control rounded-3 py-2" id="djLicence" name="licence" placeholder="SPSV / Driver licence"
+            <div>
+              <label class="<?= $labelClass ?>" for="djLicence">SPSV / Driver Licence</label>
+              <input type="text" class="<?= $inputClass ?>" id="djLicence" name="licence"
                 value="<?= htmlspecialchars($driveOld['licence']) ?>" required>
             </div>
 
-            <div class="col-12 pt-2">
-              <button type="submit" class="btn btn-pc-primary w-100 rounded-pill d-inline-flex align-items-center justify-content-center gap-2">
+            <div class="tw-pt-2">
+              <button type="submit" class="<?= $submitClass ?>">
                 <span>Start my Application</span>
-                <i class="bi bi-send" aria-hidden="true"></i>
+                <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z"/></svg>
               </button>
             </div>
 
             <?php if ($driveFormStatus === 'success'): ?>
-              <div class="col-12">
-                <div class="alert alert-success mb-0 mt-2" role="alert">Thanks -- your application has been sent. Our team will be in touch shortly.</div>
-              </div>
+              <div class="alert-success tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your application has been sent. Our team will be in touch shortly.</div>
             <?php elseif ($driveFormStatus === 'error'): ?>
-              <div class="col-12">
-                <div class="alert alert-danger mb-0 mt-2" role="alert"><?= htmlspecialchars($driveFormError) ?></div>
-              </div>
+              <div class="alert-danger tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($driveFormError) ?></div>
             <?php endif; ?>
           </form>
         </div>
