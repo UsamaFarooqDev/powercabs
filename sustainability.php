@@ -97,8 +97,8 @@ function pc_eco_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 </section>
 
 <!-- ============ How We Reduce Our Environmental Impact ============ -->
-<section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-px-4 tw-pb-16 sm:tw-px-6 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-pb-16">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">/ How We Reduce Our Impact</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Six Ways We Keep It Green</h2>
@@ -124,18 +124,20 @@ function pc_eco_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   </div>
 </section>
 
-<!-- ============ CTA ============ -->
-<section class="tw-px-4 tw-py-[clamp(3rem,6vw,4.5rem)] tw-text-center tw-text-white sm:tw-px-6 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
-    <div class="tw-rounded-[30px] tw-bg-[linear-gradient(120deg,#2e7d32_0%,#4caf50_60%,#81c784_100%)] tw-p-10 md:tw-p-14">
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-white md:tw-text-4xl">Powered by 100% Renewable Energy</h2>
-      <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-white/90">
-        From remote-first working to green hosting, sustainability is built into how PowerCabs
-        operates every day &mdash; not an afterthought.
-      </p>
-    </div>
-  </div>
-</section>
+<?php /* A full-width green gradient banner headed "Powered by 100% Renewable
+         Energy" closed this page. It was removed for two reasons.
+
+         Its claim is not new: "100% renewable energy infrastructure" is
+         already the fourth bullet of the Green Hosting principle above, where
+         it is attributable (Hosting Ireland) rather than a slogan. Restated
+         at banner size and detached from its source, it reads as marketing
+         rather than policy -- and a marketing banner is precisely what a
+         published environmental policy should not end on. Its second
+         sentence ("from remote-first working to green hosting...") is a
+         summary of the six principles directly above it.
+
+         The page now ends where a policy should: on the last principle,
+         Continuous Improvement. */ ?>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

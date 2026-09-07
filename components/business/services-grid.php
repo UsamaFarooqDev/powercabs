@@ -28,8 +28,8 @@ function pc_biz_service_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ What We Cover</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Everything Your Business Needs</h2>
@@ -37,7 +37,11 @@ function pc_biz_service_icon(string $icon): void
 
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-6 lg:tw-grid-cols-2">
       <div>
-        <a href="#business-booking-form" class="tw-group tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-block tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl tw-no-underline">
+        <?php /* Was a full-width 4/3 block, which made this image taller than
+                 the service list beside it and left the row bottom-heavy.
+                 16/10 plus a max-width brings it back into scale with the
+                 list; mx-auto keeps it centred once the cap bites. */ ?>
+        <a href="#business-booking-form" class="tw-group tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-mx-auto tw-block tw-max-w-[520px] tw-aspect-[16/10] tw-overflow-hidden tw-rounded-2xl tw-no-underline">
           <img src="<?= $assetPath ?>assets/img/meet-and-greet.png" alt="A PowerCabs Meet and Greet host welcoming a business traveller at Dublin Airport" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">
           <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-6 tw-pt-[4.5rem]">
             <span class="tw-mb-1 tw-block tw-text-xs tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-white/70">Featured</span>

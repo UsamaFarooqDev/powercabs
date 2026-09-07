@@ -197,40 +197,34 @@ $bookingSteps = [
 ];
 
 // Canonical PowerCabs form field recipe (see book-ride-online.php).
-$mgInputClass =
-  'tw-w-full tw-rounded-md tw-border tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-base tw-leading-normal tw-text-ink placeholder:tw-text-ink/40 tw-outline-none tw-transition-colors tw-duration-200 focus:tw-border-powerlight';
-$mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-medium tw-text-ink';
+// Was a byte-for-byte copy of $pcInput. Pointed at the recipe instead:
+// $pcInput is already mirrored in custom-select.js and custom-datetime.js so
+// an enhanced control sits flush with a plain one, and every literal copy is
+// one more place that silently stops matching when it changes.
+$mgInputClass = $pcInput;
+// A real deviation, not a copy: these labels carry an inline icon, so the
+// label is a flex row rather than a block. Derived from $pcLabel so the size,
+// weight, colour and spacing stay in step with every other label on the site.
+$mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcLabel);
 ?>
 
-<!-- ============ Meet & Greet Intro ============ -->
-<section class="tw-overflow-hidden <?= $pcSection ?>">
-  <div class="<?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
-      <div>
-        <h2 class="tw-mb-4 tw-text-3xl tw-font-bold tw-leading-[1.1] tw-tracking-tight tw-text-ink md:tw-text-4xl lg:tw-text-5xl">
-          Welcome from the moment you arrive.
-        </h2>
-        <p class="tw-mb-6 tw-max-w-[540px] tw-text-base tw-leading-[1.75] tw-text-ink/60">
-          Make your journey from the airport simple and stress-free.
-          With PowerCabs Meet &amp; Greet, your driver is there to welcome
-          you, assist with your luggage and get you comfortably on your way.
-        </p>
-        <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="#pcMeetGreetBook">Book a Meet &amp; Greet</a>
-      </div>
+<?php /* An intro section headed "Welcome from the moment you arrive." used to
+         sit here, between the hero and the booking panel. It was removed for
+         two reasons.
 
-      <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[620px]">
-        <span class="tw-pointer-events-none tw-absolute tw-bottom-[-20px] tw-right-[-20px] tw-z-0 tw-h-[150px] tw-w-[150px] tw-rounded-[2rem] tw-bg-power/[0.12] tw-blur-[2px]" aria-hidden="true"></span>
-        <div class="tw-relative tw-z-[1] tw-min-h-[clamp(220px,60vw,420px)] tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
-          <img src="<?= $assetPath ?>assets/img/meet-and-greet.png" alt="PowerCabs Meet and Greet airport transfer"
-            class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+         First, it was the second of FIVE sections on this page that all made
+         the same claim -- that your arrival is smooth and someone handles
+         your bags. Its paragraph ("your driver is there to welcome you,
+         assist with your luggage and get you comfortably on your way") is
+         the booking section's own intro line directly below, reworded.
+
+         Second, and more important: this page's job is to take a booking,
+         and that block pushed the booking panel a full screen further down.
+         The panel now follows the hero directly. */ ?>
 
 <!-- ============ Meet & Greet Booking ============ -->
-<section class="tw-relative tw-overflow-hidden <?= $pcSection ?>" id="pcMeetGreetBook">
+<!-- scroll-mt clears the fixed navbar when the closing CTA jumps here. -->
+<section class="tw-relative tw-overflow-hidden tw-scroll-mt-[calc(var(--pc-navbar-h,110px)+1rem)] <?= $pcSection ?>" id="pcMeetGreetBook">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-overflow-hidden tw-rounded-[1.75rem] tw-border tw-border-solid tw-border-black/[0.07] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] lg:tw-grid-cols-12">
 
@@ -420,10 +414,24 @@ $mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-m
                 <span class="tw-font-bold tw-text-ink">Secure Payment</span>
               </div>
               <a href="<?= htmlspecialchars($mgStripeLink) ?>" target="_blank" rel="noopener noreferrer"
-                class="tw-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline"
+                class="<?= $pcBtnPrimary ?> tw-flex tw-w-full"
                 id="mgPayBtn">
                 <svg class="tw-hidden tw-h-3.5 tw-w-3.5 sm:tw-inline-block" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a1.5 1.5 0 00-1.5 1.5v9A1.5 1.5 0 006 21h12a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0018 9h-1.5V6a4.5 4.5 0 00-4.5-4.5zm3 7.5V6a3 3 0 10-6 0v3h6z" clip-rule="evenodd"/></svg>
-                <span id="mgPayBtnLabel">Select journey type to see fare</span>
+                <?php /* Two labels, one shown at a time -- the button is full
+                         width inside a card that is only ~280px across on a
+                         phone, and both of the full strings wrap to two lines
+                         there ("Select a journey type to see your fare", and
+                         "Pay EUR15 - Return / Both Ways" once a type is
+                         picked). The short label drops the words the phone
+                         does not need: the qualifier on the prompt, and the
+                         "Return / " half of the journey name, which is
+                         redundant beside "Both Ways".
+
+                         Both are kept in sync by applyJourneyType() below. The
+                         hidden one is display:none, so a screen reader
+                         announces exactly one. */ ?>
+                <span id="mgPayBtnLabel" class="tw-hidden sm:tw-inline">Select journey type to see fare</span>
+                <span id="mgPayBtnLabelShort" class="sm:tw-hidden">Select your journey</span>
               </a>
               <p class="tw-mb-0 tw-mt-2 tw-text-[1.0625rem] tw-leading-relaxed tw-leading-[1.55] tw-text-ink/60">
                 You'll be taken to our secure Stripe payment page to complete payment for the
@@ -469,6 +477,7 @@ $mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-m
     var fareHint = document.getElementById('mgFareHint');
     var fareValue = document.getElementById('mgFareValue');
     var payBtnLabel = document.getElementById('mgPayBtnLabel');
+    var payBtnLabelShort = document.getElementById('mgPayBtnLabelShort');
 
     var groups = {
       pickup: form.querySelectorAll('[data-mg-group="pickup"]'),
@@ -506,13 +515,18 @@ $mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-m
         fareValue.textContent = '€–';
         fareHint.textContent = 'Select a journey type above';
         payBtnLabel.textContent = 'Select a journey type to see your fare';
+        payBtnLabelShort.textContent = 'Select your journey';
         return;
       }
 
       var label = option.value === 'return' ? 'Return / Both Ways' : 'One Way';
+      // The phone label drops "Return / " -- "Both Ways" already says it, and
+      // the full string wraps to two lines inside the button at 360px.
+      var shortLabel = option.value === 'return' ? 'Both Ways' : 'One Way';
       fareValue.textContent = '€' + fare;
       fareHint.textContent = label + ' fare';
       payBtnLabel.textContent = 'Pay €' + fare + ' — ' + label;
+      payBtnLabelShort.textContent = 'Pay €' + fare + ' — ' + shortLabel;
     }
 
     serviceTypeSelect.addEventListener('change', applyServiceType);
@@ -585,7 +599,7 @@ $mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-m
 
   <div class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-[2] tw-py-6 tw-text-center">
     <div class="<?= $pcContainer ?>">
-      <h2 class="tw-mb-1 tw-text-[clamp(1.25rem,2.5vw,1.75rem)] tw-font-bold tw-text-ink">Meet &amp; Greet, Made Easy</h2>
+      <h2 class="<?= $pcH2Small ?>">Meet &amp; Greet, Made Easy</h2>
       <p class="tw-mb-0 tw-text-[1.0625rem] tw-text-ink/60">From arrival to destination, PowerCabs makes every journey simple.</p>
     </div>
   </div>
@@ -685,28 +699,26 @@ $mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-m
   })();
 </script>
 
-<!-- ============ Photo Banner ============ -->
-<section class="tw-relative tw-min-h-[280px] tw-overflow-hidden tw-text-center tw-text-white">
-  <img src="https://images.pexels.com/photos/36377043/pexels-photo-36377043.jpeg?auto=format&fit=crop&w=1600&q=60"
-    alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover"
-    loading="lazy">
-  <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.65)]" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-mx-auto tw-flex tw-min-h-[520px] tw-w-full tw-max-w-[1320px] tw-items-center tw-justify-center tw-px-4 sm:tw-px-6 lg:tw-px-8">
-    <h2 class="tw-mb-0 tw-max-w-[46ch] tw-text-[clamp(1.85rem,5vw,3.5rem)] tw-font-bold tw-text-white">From the terminal to the car,<br>
-      we've got your bags covered.</h2>
-  </div>
-</section>
+<?php /* A 520px-tall full-bleed photo banner sat here carrying exactly one
+         sentence -- "From the terminal to the car, we've got your bags
+         covered." That is the "Luggage Assistance" service card above,
+         restated at billboard size, and it also loaded a second remote
+         hero-sized photo. Half a screen of scrolling for a duplicate claim. */ ?>
 
 <!-- ============ Why Choose Us + How It Works ============ -->
-<section class="tw-relative tw-overflow-hidden tw-bg-paper <?= $pcSection ?>">
+<section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[720px] tw-text-center">
+      <?php /* Was "Your journey starts the moment you land." over a paragraph
+               about every step feeling effortless -- the last of this page's
+               repeated "your arrival is smooth" statements. This section holds
+               the reasons to choose PowerCabs and the four booking steps, so
+               the heading names that rather than restating the pitch again. */ ?>
       <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-leading-[1.08] tw-tracking-tight tw-text-ink md:tw-text-4xl">
-        Your journey starts <span class="tw-text-power">the moment you land.</span>
+        Why travellers <span class="tw-text-power">choose PowerCabs.</span>
       </h2>
       <p class="tw-mb-0 tw-text-ink/60">
-        From airport pickup to your final destination, we make every
-        step feel effortless, comfortable and completely stress-free.
+        What is included in every Meet &amp; Greet, and the four steps to book one.
       </p>
     </div>
 
@@ -825,21 +837,20 @@ $mgLabelClass = 'tw-mb-1.5 tw-flex tw-items-center tw-gap-1 tw-text-sm tw-font-m
   </div>
 </section>
 
-<!-- ============ Online Booking CTA ============ -->
-<section class="<?= $pcSection ?> tw-text-center">
-  <div class="<?= $pcContainer ?>">
-    <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Ready to Book Your Airport Transfer?</h2>
-    <p class="tw-mx-auto tw-mb-6 tw-max-w-[52ch] tw-text-ink/60">Book online in a couple of minutes, or get in touch if you have a question first.</p>
-    <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4">
-      <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="<?= $assetPath ?>/book-ride-online">Book Online</a>
-      <a class="tw-inline-flex tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink tw-px-7 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-ink tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-ink hover:tw-text-white" href="<?= $assetPath ?>/faqs">Have a Question? See FAQs</a>
-    </div>
-  </div>
-</section>
-
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+/* Replaces a hand-rolled closing CTA that duplicated the shared block's
+   markup with its own button spellings. Primary points at this page's own
+   booking panel rather than /book-ride-online -- a visitor who has read this
+   far wants the Meet & Greet form, not the general booking page. */
+$ctaTitle = 'Ready to book your airport transfer?';
+$ctaText = 'Flight tracked, driver waiting inside arrivals, fare fixed before you travel.';
+// Raw "&", not "&amp;" -- final-cta.php escapes the label on output, so a
+// pre-escaped entity here would render as "&amp;".
+$ctaPrimary = ['href' => '/meet-greet#pcMeetGreetBook', 'label' => 'Book Meet & Greet'];
+$ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
-
-
 ?>

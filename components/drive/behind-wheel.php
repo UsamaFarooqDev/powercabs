@@ -1,5 +1,5 @@
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-20 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-py-16 md:tw-py-20">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div class="tw-order-2 lg:tw-order-1">
         <?php

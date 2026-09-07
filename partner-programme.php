@@ -74,7 +74,7 @@ $heroEyebrow     = '/ Business';
 $heroTitleLight  = 'Partner';
 $heroTitleBold   = 'Programme.';
 $heroDescription = 'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
-$heroBgImage     = 'https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroBgImage     = 'https://images.pexels.com/photos/7643784/pexels-photo-7643784.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 require __DIR__ . '/components/partner/hero.php';

@@ -165,7 +165,7 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
 
         <div class="md:tw-col-span-2 tw-pt-2">
           <!-- tw-appearance-none tw-border-0 strip the native <button> chrome -- see book-ride-online.php. -->
-          <button type="submit" class="tw-inline-flex tw-appearance-none tw-items-center tw-gap-2 tw-rounded-full tw-border-0 tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]">
+          <button type="submit" class="<?= $pcBtnPrimary ?>">
             <span>Submit Form</span>
             <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
           </button>

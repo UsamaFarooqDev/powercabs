@@ -31,6 +31,10 @@ $breadcrumbSchema = [
   <!-- $containerStepped reproduces Bootstrap's .container, which this hero
        was laid out against -- see includes/header.php. -->
   <div class="tw-relative <?= $pcContainer ?>">
+    <!-- $pcH1OnDark, not a local clamp: this used to cap at 2.25rem, which
+         made the page's <h1> smaller than the section <h2>s underneath it on
+         every one of the 26 inner pages. The shadow stays -- it is what keeps
+         the title legible over an arbitrary photo. -->
     <h1 class="tw-mb-3 tw-text-[clamp(1.5rem,3vw,2.25rem)] tw-font-bold tw-text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.2)]">
       <?= htmlspecialchars($heroTitle) ?></h1>
     <nav aria-label="breadcrumb">

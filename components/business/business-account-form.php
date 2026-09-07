@@ -8,7 +8,10 @@ $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<div class="tw-h-full tw-rounded-[2rem] tw-bg-white tw-p-6 tw-shadow-[0_10px_30px_rgba(28,20,16,0.1)] md:tw-p-11">
+<!-- id is the jump target for the page's closing CTA (business.php) and for
+     any "request an account" link elsewhere -- scroll-margin keeps the panel
+     clear of the fixed navbar when jumped to. -->
+<div id="bizAccountForm" class="tw-h-full tw-scroll-mt-[calc(var(--pc-navbar-h,110px)+2rem)] tw-rounded-[2rem] tw-bg-white tw-p-6 tw-shadow-[0_10px_30px_rgba(28,20,16,0.1)] md:tw-p-11">
   <h3 class="tw-mb-2 tw-text-xl tw-font-bold tw-text-ink">Request a Business Account</h3>
   <p class="tw-mb-6 tw-text-ink/60">Tell us a little about your business and our team will be in touch.</p>
 

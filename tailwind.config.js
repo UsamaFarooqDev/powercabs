@@ -3,9 +3,11 @@
  * theme -- includes/tailwind.php just links the compiled output.
  *
  * The compiled file (assets/css/tailwind.css) is COMMITTED, so production
- * still serves plain files with no toolchain. The build is a dev-time step:
- * run `npm run build:css` after adding or changing any tw- class, or
- * `npm run watch:css` while working.
+ * still serves plain files with no toolchain. The build is a dev-time step;
+ * there is deliberately no package.json, so it runs as a one-off npx after
+ * adding or changing any tw- class (swap --minify for --watch while working):
+ *
+ *   npx tailwindcss@3.4.19 -c tailwind.config.js -i assets/css/tailwind.src.css -o assets/css/tailwind.css --minify
  */
 module.exports = {
   // Class names also live inside JS string literals (custom-select.js,

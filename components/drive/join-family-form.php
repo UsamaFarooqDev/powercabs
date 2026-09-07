@@ -10,8 +10,20 @@ $labelClass = 'pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-
 $submitClass = $pcBtnPrimary . ' tw-w-full';
 ?>
 <!-- ============ "You're not just a driver. You're family." ============ -->
-<section class="tw-relative tw-overflow-hidden tw-bg-[linear-gradient(155deg,#1c1410_0%,#2a1a10_55%,#160f0a_100%)] tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<!-- The flat brown gradient stays, but as a SCRIM over a photograph rather
+     than as the surface itself -- the section is about the person applying, so
+     a driver at the wheel belongs behind it. Keeping the original gradient on
+     top (rather than swapping it for a plain black wash) is what preserves the
+     contrast the white heading and the white form panel were designed
+     against; the alpha stops are tuned so the image reads without the copy
+     losing any legibility. -->
+<section class="tw-relative tw-overflow-hidden tw-bg-ink tw-py-16 md:tw-py-24">
+  <img src="https://images.pexels.com/photos/31335088/pexels-photo-31335088.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
+    alt="" aria-hidden="true"
+    class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
+  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(155deg,rgba(28,20,16,0.93)_0%,rgba(42,26,16,0.86)_55%,rgba(22,15,10,0.94)_100%)]" aria-hidden="true"></span>
+
+  <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
 
       <!-- Left: copy -->
@@ -21,7 +33,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
           Irish Taxi Platform &bull; Driver First
         </span>
 
-        <h2 class="tw-mb-3 tw-text-[clamp(2.1rem,4vw,3.1rem)] tw-font-bold tw-leading-[1.14] tw-tracking-[-0.02em] tw-text-white">
+        <h2 class="<?= $pcH2Display ?> tw-text-white">
           You're not just a driver,<br>
           <span class="tw-text-powerlight">You're family.</span>
         </h2>

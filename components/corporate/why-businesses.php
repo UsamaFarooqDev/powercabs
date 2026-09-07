@@ -12,12 +12,47 @@ $totalWhyBusinesses = count($whyBusinesses);
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>
-        <h2 class="tw-mb-4 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Why Businesses Choose PowerCabs</h2>
-        <p class="tw-mb-6 tw-max-w-[46ch] tw-text-lg tw-text-ink/60">
+        <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Why Businesses Choose PowerCabs</h2>
+        <p class="tw-mb-4 tw-max-w-[46ch] tw-text-lg tw-text-ink/60">
           A corporate account built around how your business actually runs --
           one point of contact, one invoice, and drivers you can rely on every time.
         </p>
-        <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-ink tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="#corporate-account-form">Open Your Corporate Account</a>
+        <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-ink tw-px-6 tw-py-2 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="#corporate-account-form">Open Your Corporate Account</a>
+
+        <?php /* The whole page assumes the reader is opening a business
+                 account, and there was no route out of it -- someone who lands
+                 here and just wants a taxi had nothing to click. This is that
+                 route.
+
+                 Deliberately a quieter surface than the button above it: paper
+                 tint, hairline, and $pcBtnGhost rather than $pcBtnPrimary. The
+                 corporate account is still this page's primary action, so the
+                 alternative path must not outrank it -- an orange
+                 $pcBtnPrimary here would have been the loudest thing in the
+                 column.
+
+                 The copy is the passenger app's own description from
+                 components/download/app-cards.php, not a new claim written for
+                 this box. */ ?>
+        <aside class="tw-mt-6 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-paper tw-p-5 sm:tw-p-6">
+          <div class="tw-flex tw-flex-col tw-gap-4 sm:tw-flex-row sm:tw-items-start">
+            <span class="<?= $pcIconChip ?>">
+              <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5M9 18h6"/></svg>
+            </span>
+
+            <div class="tw-min-w-0">
+              <h3 class="tw-mb-1.5 tw-text-base tw-font-bold tw-text-ink">Not booking for a business?</h3>
+              <p class="tw-mb-4 tw-max-w-[52ch] tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">
+                Everyday rides live in the PowerCabs app &mdash; book rides,
+                track your driver live, and pay cashlessly, all in a few taps.
+              </p>
+              <a class="<?= $pcBtnGhost ?>" href="<?= $assetPath ?>/download-our-app">
+                <svg class="tw-h-3 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                Download the App
+              </a>
+            </div>
+          </div>
+        </aside>
       </div>
 
       <div>

@@ -13,9 +13,20 @@ $corporateBenefits = [
     <div class="tw-mb-10 tw-text-center">
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Everything Your Business Needs</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.06] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] md:tw-grid-cols-3">
+    <?php /* Six items as 4 + 2, with the short row centred -- flex-wrap, not a
+             grid. A grid cannot do this without hard-coding a column start on
+             the fifth item, and that only works at one breakpoint.
+             justify-center does it at every width for free: the last row is
+             always centred, so this reads as 2+2+2 on a phone and 4+2 from md.
+
+             The old markup was one bordered box with divide-x/divide-y across
+             a 3-column grid. That had to go with the change: divide-* keys off
+             DOM order, not grid position, so as soon as the row length stopped
+             dividing the item count evenly it drew border segments against
+             empty cells. Each item carries its own hairline now. */ ?>
+    <div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-4">
       <?php foreach ($corporateBenefits as $item): ?>
-        <div class="tw-flex tw-flex-col tw-items-center tw-px-3 tw-py-8 tw-text-center md:tw-py-10">
+        <div class="tw-flex tw-w-[calc(50%-0.5rem)] tw-flex-col tw-items-center tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-px-3 tw-py-8 tw-text-center tw-transition-[border-color,box-shadow] tw-duration-300 hover:tw-border-power/20 hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.08)] motion-reduce:tw-transition-none sm:tw-w-[calc(33.333%-0.667rem)] md:tw-w-[calc(25%-0.75rem)] md:tw-py-10">
           <?php switch ($item['icon']):
             case 'invoice': ?>
               <svg class="tw-mb-3 tw-h-8 tw-w-8 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z"/></svg>

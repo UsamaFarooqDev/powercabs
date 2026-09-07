@@ -45,25 +45,31 @@ function pc_wc_icon(string $icon): void
 }
 ?>
 
-<!-- ============ Overview ============ -->
-<section class="<?= $pcSection ?> tw-text-center">
-  <div class="<?= $pcContainerProse ?>">
-    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Overview</p>
-    <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Reliable, Dignified Travel for Every Passenger</h2>
-    <p class="tw-mb-0 tw-text-xl tw-leading-[1.7] tw-text-ink/60">
-      PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers
-      with mobility needs. The service focuses on reliability, trained drivers, and vehicles
-      equipped to safely transport wheelchair users, on every kind of journey.
-    </p>
-  </div>
-</section>
+<?php /* An "Overview" section sat here whose paragraph was the hero
+         description repeated VERBATIM, one screen apart -- same sentence,
+         same order, with four extra words on the end. Its heading
+         ("Reliable, Dignified Travel for Every Passenger") is also the
+         promise the five cards below evidence one by one. A whole section
+         restating the sentence directly above it. */ ?>
 
 <section class="tw-relative tw-overflow-hidden tw-bg-paper <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="tw-relative tw-mx-auto tw-w-full">
         <span class="tw-pointer-events-none tw-absolute tw-bottom-[-20px] tw-right-[-20px] tw-z-0 tw-h-[150px] tw-w-[150px] tw-rounded-[2rem] tw-bg-power/[0.12] tw-blur-[2px]" aria-hidden="true"></span>
-        <div class="tw-relative tw-z-[1] tw-min-h-[420px] tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
+<?php /* 420px was a fixed floor at every width, so on a 390px phone the panel
+         stood taller than it was wide -- a portrait crop of a landscape
+         photograph of a car, which cut the vehicle down to its middle third
+         and pushed "Mobility for everyone." a full screen below the fold.
+
+         Below sm it is an aspect ratio instead of a height, so the panel
+         scales with the phone rather than ignoring it: 3:2 is within a hair of
+         the file's own 1074x708, so there is essentially nothing left to crop.
+         From sm up the original 420px floor is untouched -- at those widths
+         the panel is either half the grid or wide enough that 420px reads
+         correctly, and changing it there would only trade one crop for
+         another. */ ?>
+        <div class="tw-relative tw-z-[1] tw-aspect-[3/2] tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] sm:tw-aspect-auto sm:tw-min-h-[420px]">
           <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.png"
             alt="PowerCabs wheelchair accessible taxi in Dublin" class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
         </div>
@@ -102,7 +108,7 @@ function pc_wc_icon(string $icon): void
           </div>
         </div>
 
-        <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="<?= $assetPath ?>/book-ride-online">Book an Accessible Ride</a>
+        <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/book-ride-online">Book an Accessible Ride</a>
       </div>
     </div>
   </div>
@@ -140,5 +146,12 @@ function pc_wc_icon(string $icon): void
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+$ctaTitle = 'Book an accessible ride.';
+$ctaText = 'Wheelchair-accessible vehicles and drivers trained to assist, across Dublin, 24/7.';
+$ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book Now'];
+$ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Us'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
 ?>

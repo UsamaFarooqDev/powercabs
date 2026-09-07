@@ -6,13 +6,13 @@ $familyPoints = [
   ['lead' => 'Your success matters.', 'text' => 'A strong driver network makes PowerCabs stronger.'],
 ]; ?>
 <!-- ============ The PowerCabs Family / Keep Your Options Open ============ -->
-<section class="tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-white tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
 
       <div class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-p-6 lg:tw-p-9">
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ The PowerCabs Family</p>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.7rem,3vw,2.2rem)] tw-font-bold tw-leading-tight tw-text-ink">
+        <h2 class="<?= $pcH2 ?>">
           When you're on the road, you shouldn't feel alone.
         </h2>
         <p class="tw-mb-4 tw-text-ink/60">
@@ -34,7 +34,7 @@ $familyPoints = [
 
       <div class="tw-flex tw-h-full tw-flex-col tw-justify-center tw-rounded-2xl tw-bg-powerlight tw-p-6 lg:tw-p-9">
         <p class="tw-mb-2 tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-ink">/ Keep Your Options Open</p>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.7rem,3vw,2.2rem)] tw-font-bold tw-leading-tight tw-text-ink">
+        <h2 class="<?= $pcH2 ?>">
           Don't burn your bridges.
         </h2>
         <p class="tw-mb-3 tw-text-ink/80">

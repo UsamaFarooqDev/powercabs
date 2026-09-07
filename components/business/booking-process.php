@@ -28,8 +28,8 @@ function pc_biz_process_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="tw-scroll-mt-24 tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8" id="business-booking-form">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-scroll-mt-24 tw-py-16 md:tw-py-24" id="business-booking-form">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[52rem] tw-text-center">
       <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">How to Book Our Business Rides</h2>
       <p class="tw-mb-8 tw-text-ink/60">

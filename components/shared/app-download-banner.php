@@ -23,13 +23,21 @@ $storeBadgeTitle =
   'tw-block tw-text-[0.95rem] tw-font-bold tw-leading-[1.25] tw-text-white max-[399px]:tw-text-[0.72rem]';
 $storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max-[399px]:tw-w-3.5';
 ?>
-<!-- The clip-path is what gives the band its torn top and bottom edge; the
-     mobile polygon is a simplified version of the desktop one, so the tears
-     stay readable at narrow widths instead of collapsing into noise. -->
-<section class="tw-relative tw-z-[2] <?= $bannerSpacing ?> tw-bg-[linear-gradient(90deg,#feab38_0%,#fb9e24_25%,#f58220_65%,#e86a00_100%)] tw-py-20 [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_90%,0_100%)] md:tw-py-[140px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_85%,0_100%)]">
+<!-- The clip-path gives the band its torn TOP edge; the mobile polygon is a
+     simplified version of the desktop one so the tears stay readable at
+     narrow widths instead of collapsing into noise.
+
+     The bottom edge is now FLAT (…,100% 100%, 0 100%). It used to taper up to
+     85% on the right, which cut a large diagonal wedge out of the band. That
+     read fine while the footer underneath was white -- the wedge just showed
+     more white. Now that the closing CTA and footer are both dark, the wedge
+     exposed a band of page background between the orange and the dark block:
+     the white gap under the banner. A flat bottom lets the orange meet the
+     dark CTA edge to edge, which is also the more corporate read. -->
+<section class="tw-relative tw-z-[2] <?= $bannerSpacing ?> tw-bg-[linear-gradient(90deg,#feab38_0%,#fb9e24_25%,#f58220_65%,#e86a00_100%)] tw-py-20 [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_100%,0_100%)] md:tw-py-[140px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_100%,0_100%)]">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="lg:tw-w-3/4">
-      <h2 class="tw-mb-3 tw-text-[clamp(1.85rem,4.5vw,2.6rem)] tw-font-bold tw-tracking-tight tw-text-ink">
+      <h2 class="<?= $pcH2 ?>">
         Download the PowerCabs App for Instant Access
       </h2>
       <p class="tw-mb-4 tw-max-w-[46ch] tw-text-[1.1rem] tw-text-ink/70">

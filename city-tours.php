@@ -179,20 +179,31 @@ foreach ($destinations as $d) {
   }
 }
 
+/* Five, down from eight. Eight one-word claims read as a checklist of
+   things any operator could say; the merges below keep every fact but let
+   each line carry a reason to book:
+
+     "Private transportation" + "Comfortable vehicles"  -> one private-car claim
+     "Family friendly" + "Group tours available"        -> one who-it-fits claim
+     "Full day & half day options"                      -> folded into the
+       flexible-itinerary line, which is the same promise stated twice
+
+   Nothing is lost: durations are on every destination card, and the hourly
+   option has its own section at the foot of the page. */
 $whyChooseTours = [
-  ['title' => 'Private transportation', 'icon' => 'car'],
-  ['title' => 'Flexible itinerary', 'icon' => 'signpost'],
+  ['title' => 'Private car, just your group', 'icon' => 'car'],
+  ['title' => 'Flexible itinerary, full or half day', 'icon' => 'signpost'],
   ['title' => 'Professional local drivers', 'icon' => 'badge'],
   ['title' => 'Door-to-door pickup', 'icon' => 'house'],
-  ['title' => 'Comfortable vehicles', 'icon' => 'stars'],
-  ['title' => 'Family friendly', 'icon' => 'people'],
-  ['title' => 'Group tours available', 'icon' => 'group'],
-  ['title' => 'Full day & half day options', 'icon' => 'clock'],
+  ['title' => 'Families and groups welcome', 'icon' => 'people'],
 ];
 
 // Canonical PowerCabs form field recipe (see book-ride-online.php).
-$ctInputClass =
-  'tw-w-full tw-rounded-md tw-border tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-base tw-leading-normal tw-text-ink placeholder:tw-text-ink/40 tw-outline-none tw-transition-colors tw-duration-200 focus:tw-border-powerlight';
+// Was a byte-for-byte copy of $pcInput. Pointed at the recipe instead:
+// $pcInput is already mirrored in custom-select.js and custom-datetime.js so
+// an enhanced control sits flush with a plain one, and every literal copy is
+// one more place that silently stops matching when it changes.
+$ctInputClass = $pcInput;
 $ctLabelClass = $pcLabel;
 $ctSubmitClass = $pcBtnPrimary;
 
@@ -234,26 +245,37 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   <script>window.pcHourlyFormSubmitted = true;</script>
 <?php endif; ?>
 
+<?php /* A "Prefer to Explore at Your Own Pace?" pay-per-hour banner sat here,
+         above the destinations. It opened the same #hourlyModal as the "Pay
+         Per Hour Booking" section further down the page, so the page pitched
+         hourly hire twice with one booking behind both -- and it did it
+         BEFORE showing a single destination, which is what a visitor came
+         for. The section at the bottom kept the job. */ ?>
+
 <!-- ============ Pay Per Hour ============ -->
-<section class="tw-pb-0 tw-pt-16 md:tw-pt-24">
+<!-- The hourly option now closes the page, after the destinations and the
+     reasons to book, rather than opening it before a visitor has seen a
+     single tour. This is the ONLY trigger for #hourlyModal below -- the
+     banner that used to sit at the top of the page was the other one, and
+     removing it without putting this here would have made hourly hire
+     unreachable. -->
+<section class="<?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-relative tw-overflow-hidden tw-rounded-2xl tw-bg-cover tw-bg-center tw-p-6 sm:tw-p-10 tw-bg-[url('https://images.unsplash.com/photo-1603934631592-40d9f2e67702?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
-      <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(100deg,rgba(10,7,5,0.85)_0%,rgba(10,7,5,0.6)_55%,rgba(10,7,5,0.35)_100%)]" aria-hidden="true"></span>
-      <div class="tw-relative tw-z-[1] tw-flex tw-flex-col tw-items-start tw-gap-4 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
-        <div class="lg:tw-max-w-[70%]">
-          <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight">/ Pay Per Hour</p>
-          <h2 class="tw-mb-2 tw-text-2xl tw-font-bold tw-text-white md:tw-text-3xl">Prefer to Explore at Your Own Pace?</h2>
-          <p class="tw-mb-0 tw-max-w-[62ch] tw-text-white/85">
-            Hire a PowerCabs driver by the hour instead -- no fixed itinerary, just
-            you, your driver and as much time as you need around Dublin.
+    <div class="tw-relative tw-overflow-hidden tw-rounded-[28px] tw-bg-ink tw-p-6 sm:tw-p-10">
+      <span class="tw-pointer-events-none tw-absolute tw-right-[-6rem] tw-top-[-4rem] tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.28),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
+      <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-gap-6 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
+        <div class="lg:tw-max-w-[62%]">
+          <p class="<?= $pcEyebrowOnDark ?>">/ Pay Per Hour</p>
+          <h2 class="<?= $pcH2OnDark ?>">Rather set your own route?</h2>
+          <p class="tw-mb-0 <?= $pcBodyOnDark ?> tw-max-w-[58ch]">
+            Hire a PowerCabs driver by the hour instead &mdash; no fixed
+            itinerary, and as long as you like at every stop.
           </p>
         </div>
-        <div>
-          <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
-          <button type="button" class="tw-inline-flex tw-appearance-none tw-items-center tw-whitespace-nowrap tw-rounded-full tw-border tw-border-solid tw-border-white tw-bg-transparent tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-transition-colors tw-duration-200 hover:tw-bg-white hover:tw-text-ink" data-pc-modal-open="#hourlyModal">
-            Book Per Hour
-          </button>
-        </div>
+        <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
+        <button type="button" class="<?= $pcBtnPrimary ?> tw-shrink-0" data-pc-modal-open="#hourlyModal">
+          Book Per Hour
+        </button>
       </div>
     </div>
   </div>
@@ -266,20 +288,37 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Featured Destinations</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Where Would You Like to Go?</h2>
     </div>
+    <!-- Varied hierarchy, one component. The first two destinations run at
+         double width across the top row with a wide 16:9 crop and a larger
+         title; the remaining eight sit four-up on a 4:3 crop. Ten identical
+         tiles read as a directory -- this reads as an editorial page with a
+         lead. The split is exactly 2x2 + 8 = two full rows of four, so no
+         card is ever orphaned on a short last row. -->
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
-      <?php foreach ($destinations as $d): ?>
-        <div class="tw-group tw-overflow-hidden tw-rounded-[28px] tw-bg-white tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-          <div class="tw-aspect-[4/3] tw-overflow-hidden">
-            <img src="<?= htmlspecialchars($d['img']) ?>" alt="<?= htmlspecialchars($d['name']) ?>" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
+      <?php foreach ($destinations as $i => $d): ?>
+        <?php $isLead = $i < 2; ?>
+        <div class="tw-group tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[28px] tw-bg-white tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)] <?= $isLead
+          ? 'lg:tw-col-span-2'
+          : '' ?>">
+          <div class="<?= $isLead ? 'tw-aspect-[16/9]' : 'tw-aspect-[4/3]' ?> tw-overflow-hidden">
+            <img src="<?= htmlspecialchars($d['img']) ?>" alt="<?= htmlspecialchars($d['name']) ?>" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="<?= $i < 4
+  ? 'eager'
+  : 'lazy' ?>">
           </div>
-          <div class="tw-p-5">
-            <h3 class="tw-mb-2 tw-text-lg tw-font-bold tw-text-ink"><?= htmlspecialchars($d['name']) ?></h3>
+          <div class="tw-flex tw-flex-1 tw-flex-col tw-p-5 <?= $isLead ? 'sm:tw-p-7' : '' ?>">
+            <h3 class="tw-mb-2 tw-font-bold tw-text-ink <?= $isLead
+              ? 'tw-text-2xl'
+              : 'tw-text-lg' ?>"><?= htmlspecialchars($d['name']) ?></h3>
             <p class="tw-mb-3 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($d['desc']) ?></p>
-            <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
-            <button type="button" class="tw-inline-flex tw-appearance-none tw-items-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-transition-colors tw-duration-200 hover:tw-bg-power" data-pc-modal-open="#tourModal" data-scroll-to-form="true"
-              data-tour-name="<?= htmlspecialchars($d['name']) ?>" data-tour-desc="<?= htmlspecialchars($d['desc']) ?>" data-tour-duration="<?= htmlspecialchars($d['duration']) ?>" data-tour-img="<?= htmlspecialchars($d['img']) ?>">
-              Book Tour
-            </button>
+            <!-- mt-auto keeps every Book Tour button on the same baseline
+                 within a row, whatever length the description runs to. -->
+            <div class="tw-mt-auto">
+              <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
+              <button type="button" class="<?= $pcBtnPrimary ?>" data-pc-modal-open="#tourModal"
+                data-tour-name="<?= htmlspecialchars($d['name']) ?>" data-tour-desc="<?= htmlspecialchars($d['desc']) ?>" data-tour-duration="<?= htmlspecialchars($d['duration']) ?>" data-tour-img="<?= htmlspecialchars($d['img']) ?>">
+                Book Tour
+              </button>
+            </div>
           </div>
         </div>
       <?php endforeach; ?>
@@ -289,7 +328,19 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 
 <!-- ============ Why Choose Our Tours ============ -->
 <section class="tw-relative tw-overflow-hidden tw-bg-paper <?= $pcSection ?>">
-  <div class="<?= $pcContainer ?>">
+  <?php /* The paper panel lands on white instead of stopping dead. The band
+           below this is the app-download banner, whose top edge is a torn
+           clip-path polygon with the page showing through the tear -- against
+           flat #f4efe8 that tear read as a second hard edge stacked on the
+           section's own. Fading to white first gives it something to tear out
+           of.
+
+           z-0 with the container lifted to z-[1]: the fade is a sibling that
+           comes first in the DOM, so without the pairing it would paint over
+           the bottom row of cards rather than behind them. */ ?>
+  <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-0 tw-h-[clamp(5rem,12vw,9rem)] tw-bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.72)_55%,#ffffff_100%)]" aria-hidden="true"></span>
+
+  <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-grid tw-grid-cols-1 tw-items-end tw-gap-6 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
         <div class="tw-mb-3 tw-flex tw-items-center tw-gap-2">
@@ -311,7 +362,31 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
     <!-- Features -->
     <div class="tw-grid tw-grid-cols-2 tw-gap-3 lg:tw-grid-cols-4 lg:tw-gap-4">
       <?php foreach ($whyChooseTours as $index => $item): ?>
-        <div class="tw-relative tw-min-h-[245px] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-4 lg:tw-p-4">
+        <?php /* min-h 175, down from 245. Measured: the tallest card's content
+                 (icon chip, its margin, and a two-line title) ends 131px from
+                 the card's top, and the corner arrow occupies the bottom 32px
+                 -- so 245px left 114px of nothing between the title and the
+                 arrow on every card, and 137px on the one-line one. Nearly
+                 half of each card was empty.
+
+                 175 is that 131 + the arrow's 32 + a little breathing room, so
+                 the floor is now set by what the card actually contains. It is
+                 only a FLOOR: the grid stretches every card in a row to the
+                 tallest anyway, so a title that needs a third line still grows
+                 the row rather than being clipped. The floor is what keeps the
+                 fifth card -- alone on its own row at lg -- the same height as
+                 the four above it.
+
+                 pb-10 rather than p-4 all round, and that part is load-bearing:
+                 the corner arrow is absolutely positioned in the bottom 32px,
+                 so it takes no space in flow. At 245px there was so much slack
+                 that nothing ever reached it, but at 175px a three-line title
+                 -- which is what "Flexible itinerary, full or half day" becomes
+                 in a 126px column at 360px -- ended 29px above the card's
+                 bottom, i.e. 3px INTO the arrow. The extra bottom padding
+                 reserves that strip in flow, so the title has to stop above it
+                 however many lines it runs to. */ ?>
+        <div class="tw-relative tw-min-h-[175px] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-4 tw-pb-10">
           <div class="tw-pointer-events-none tw-absolute tw-right-0 tw-top-0 tw-translate-x-2 -tw-translate-y-1 tw-text-[5rem] tw-font-bold tw-leading-none tw-text-black/[0.035]">
             <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
           </div>
@@ -348,17 +423,43 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 <div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="tourModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="tourModalName" aria-hidden="true">
   <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[800px]">
     <div class="tw-w-full tw-overflow-hidden tw-rounded-[2rem] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
-      <div class="tw-sticky tw-top-0 tw-z-[1] tw-flex tw-items-start tw-justify-between tw-gap-4 tw-bg-white tw-px-6 tw-pt-6">
-        <h2 class="tw-mb-0 tw-text-xl tw-font-bold tw-text-ink" id="tourModalName"><?= htmlspecialchars($reopenDestination['name'] ?? 'Destination') ?></h2>
-        <button type="button" class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-black/[0.05] tw-text-ink/70 tw-transition-colors hover:tw-bg-black/10 hover:tw-text-ink" data-pc-modal-close aria-label="Close"><svg class="tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+      <?php /* The destination photograph is the modal's header: it runs full
+               bleed across the top with a dark scrim, and the name and
+               duration sit on top of it. That replaces a white title bar plus
+               a separate thumbnail row -- one block instead of two, and the
+               image finally earns its space instead of being a stamp beside
+               the copy.
+
+               The header is a fixed h-40/h-48, NOT an aspect ratio: the modal
+               must stay a predictable height whatever the photo's dimensions,
+               which is what kept it comparable to the Pay Per Hour modal.
+
+               The <img> renders with an empty src until city-tours.js fills it
+               from the clicked button's data-tour-img, hence the bg-ink
+               underneath. Keep every id -- the script writes to all four. */ ?>
+      <div class="tw-relative tw-h-40 tw-w-full tw-overflow-hidden tw-bg-ink sm:tw-h-48">
+        <img id="tourModalImg" src="<?= htmlspecialchars(
+          $reopenDestination['img'] ?? '',
+        ) ?>" alt="" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+        <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.88)_0%,rgba(10,7,5,0.45)_45%,rgba(10,7,5,0.15)_100%)]" aria-hidden="true"></span>
+
+        <button type="button" class="tw-absolute tw-right-4 tw-top-4 tw-inline-flex tw-h-9 tw-w-9 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-black/40 tw-text-white tw-backdrop-blur-sm tw-transition-colors hover:tw-bg-black/60" data-pc-modal-close aria-label="Close"><svg class="tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+
+        <div class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-5 sm:tw-p-6">
+          <span class="tw-mb-2 tw-inline-flex tw-items-center tw-gap-1.5 tw-rounded-full tw-bg-white/[0.16] tw-px-3 tw-py-1 tw-text-[0.72rem] tw-font-semibold tw-text-white tw-backdrop-blur-sm">
+            <svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span id="tourModalDuration"><?= htmlspecialchars($reopenDestination['duration'] ?? '') ?></span>
+          </span>
+          <h2 class="tw-mb-0 tw-text-[1.6rem] tw-font-bold tw-leading-tight tw-text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)]" id="tourModalName"><?= htmlspecialchars(
+            $reopenDestination['name'] ?? 'Destination',
+          ) ?></h2>
+        </div>
       </div>
-      <div class="tw-px-6 tw-pb-6 tw-pt-4">
-        <img id="tourModalImg" src="<?= htmlspecialchars($reopenDestination['img'] ?? '') ?>" alt="" class="tw-mb-3 tw-aspect-video tw-w-full tw-rounded-2xl tw-object-cover" loading="lazy">
-        <p class="tw-text-ink/60" id="tourModalDesc"><?= htmlspecialchars($reopenDestination['desc'] ?? '') ?></p>
-        <p class="tw-mb-4 tw-flex tw-items-center tw-gap-1.5 tw-text-[1.0625rem] tw-leading-relaxed tw-font-semibold tw-text-ink">
-          <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span id="tourModalDuration"><?= htmlspecialchars($reopenDestination['duration'] ?? '') ?></span>
-        </p>
+
+      <div class="tw-px-6 tw-pb-6 tw-pt-5">
+        <p class="tw-mb-5 tw-text-[0.95rem] tw-leading-[1.6] tw-text-ink/60" id="tourModalDesc"><?= htmlspecialchars(
+          $reopenDestination['desc'] ?? '',
+        ) ?></p>
 
         <div id="tourBookingForm">
           <h3 class="tw-mb-3 tw-text-base tw-font-bold tw-text-ink">Book This Tour</h3>
@@ -369,6 +470,11 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
               <input type="text" class="<?= $ctInputClass ?>" id="ctFullName" name="full_name" value="<?= htmlspecialchars($old['full_name']) ?>" required>
             </div>
             <div>
+              <!-- pc-custom-datetime-enhance stays as a bare functional hook, driven by custom-datetime.js. -->
+              <label class="<?= $ctLabelClass ?>" for="ctTourDate">Preferred Tour Date</label>
+              <input type="date" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars($old['tour_date']) ?>" required>
+            </div>
+            <div>
               <label class="<?= $ctLabelClass ?>" for="ctEmail">Email Address</label>
               <input type="email" class="<?= $ctInputClass ?>" id="ctEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
             </div>
@@ -376,14 +482,10 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
               <label class="<?= $ctLabelClass ?>" for="ctMobile">Mobile Number</label>
               <input type="tel" class="<?= $ctInputClass ?>" id="ctMobile" name="mobile" value="<?= htmlspecialchars($old['mobile']) ?>" required>
             </div>
+
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctPeopleCount">Number of People</label>
               <input type="number" min="1" class="<?= $ctInputClass ?>" id="ctPeopleCount" name="people_count" value="<?= htmlspecialchars($old['people_count']) ?>" required>
-            </div>
-            <div>
-              <!-- pc-custom-datetime-enhance stays as a bare functional hook, driven by custom-datetime.js. -->
-              <label class="<?= $ctLabelClass ?>" for="ctTourDate">Preferred Tour Date</label>
-              <input type="date" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars($old['tour_date']) ?>" required>
             </div>
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctPickup">Pickup Location</label>

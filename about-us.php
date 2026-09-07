@@ -6,10 +6,15 @@ $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
+// "Your Journey, Our Priority" is a claim any taxi company could make, and
+// the old hero line ("your trusted partner for seamless and reliable travel")
+// was the same sentiment again. This says something only PowerCabs can: where
+// it is from, who runs it, and what it is built on -- and it sets up the three
+// things the page then evidences.
 $heroEyebrow = '/ About PowerCabs Ireland';
-$heroTitleLight = 'Your Journey,';
-$heroTitleBold = 'Our Priority.';
-$heroDescription = 'Welcome to PowerCabs, your trusted partner for seamless and reliable travel across Ireland.';
+$heroTitleLight = 'Built in Dublin.';
+$heroTitleBold = 'Driven by people. Powered by technology.';
+$heroDescription = 'An Irish taxi company based in Inchicore, serving the Greater Dublin Area with licensed, Garda-vetted drivers.';
 $heroBgImage = 'https://images.pexels.com/photos/36713443/pexels-photo-36713443.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
@@ -20,11 +25,18 @@ require __DIR__ . '/components/shared/inner-hero.php';
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Who We Are</p>
-        <h2 class="tw-mb-4 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Welcome to PowerCabs</h2>
-        <p class="tw-mb-4 tw-text-lg tw-leading-[1.8] tw-text-ink/60">
-          Established with the mission to provide safe, comfortable, and efficient travel
-          experiences, we pride ourselves on our professional and courteous drivers,
-          state-of-the-art vehicles, and commitment to customer satisfaction.
+        <?php /* Was "Welcome to PowerCabs" over a paragraph listing safe,
+                 comfortable and efficient travel, professional courteous
+                 drivers, state-of-the-art vehicles and customer satisfaction
+                 -- every one of which is a card in the grid directly below,
+                 so the paragraph was a table of contents for the next
+                 section. Replaced with the one thing the cards cannot say:
+                 who the company actually is. */ ?>
+        <h2 class="<?= $pcH2 ?>">An Irish company, not a franchise</h2>
+        <p class="tw-mb-4 <?= $pcBody ?>">
+          PowerCabs Ireland Limited is based in Inchicore and licensed by the
+          National Transport Authority under DH12616. The drivers are local, the
+          support team is in Dublin, and the dispatch technology is our own.
         </p>
         <p class="tw-mb-0 tw-text-xl tw-font-bold tw-text-ink">
           At PowerCabs, your journey is our priority.
@@ -32,7 +44,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
       </div>
 
       <div class="tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-        <img src="<?= $assetPath ?>assets/img/services_rides.png" alt="A PowerCabs driver on the road" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+        <img src="<?= $assetPath ?>assets/img/services_rides.png" alt="A PowerCabs account manager reviewing a city route plan with a business team" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
       </div>
     </div>
   </div>
@@ -93,7 +105,7 @@ $aboutHighlights = [
           From Dublin Airport to D&uacute;n Laoghaire, and the IFSC to Dundrum. Wherever you
           need to be in the Greater Dublin Area, we are there.
         </p>
-        <a href="<?= $assetPath ?>/ride" class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline">Check Coverage</a>
+        <a href="<?= $assetPath ?>/ride" class="<?= $pcBtnPrimary ?>">Check Coverage</a>
       </div>
     </div>
   </div>
@@ -101,5 +113,12 @@ $aboutHighlights = [
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+$ctaTitle = 'Ride with an Irish company.';
+$ctaText = 'Licensed, Garda-vetted drivers across the Greater Dublin Area, 24/7.';
+$ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
+$ctaSecondary = ['href' => '/contact-us', 'label' => 'Contact Us'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
 ?>

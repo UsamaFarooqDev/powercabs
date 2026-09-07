@@ -1,13 +1,23 @@
 <?php
+/* Four chips, not eight. The four that were removed each said something the
+   page already says better somewhere else, so nothing was actually lost:
+
+     "Only 10% Commission" / "No Membership Fee"
+        -> the stat band directly under the hero states both as headline
+           numbers, and compare-model puts them in context against other
+           platforms. Saying them a third time as chips made them look like
+           small print rather than the offer.
+
+     "Advertise and Earn" / "Branding Opportunity"
+        -> car-earn-more.php is an entire section about exactly this, with
+           the detail these two chips could not carry.
+
+   What is left is the set of claims this section is the only place to make. */
 $driverPerks = [
   ['icon' => 'clock', 'label' => 'Pay Per Hour'],
-  ['icon' => 'megaphone', 'label' => 'Advertise and Earn'],
   ['icon' => 'route', 'label' => 'Long Trips'],
   ['icon' => 'headset', 'label' => 'Irish Support'],
   ['icon' => 'bolt', 'label' => 'Fast Onboarding'],
-  ['icon' => 'paint', 'label' => 'Branding Opportunity'],
-  ['icon' => 'percent', 'label' => 'Only 10% Commission'],
-  ['icon' => 'wallet', 'label' => 'No Membership Fee'],
 ];
 
 function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
@@ -50,7 +60,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
 
   <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[1320px]">
     <div class="tw-max-w-[46rem]">
-      <h2 class="tw-mb-3 tw-text-[clamp(2rem,4vw,3rem)] tw-font-bold tw-leading-[1.12] tw-tracking-[-0.01em] tw-text-ink">
+      <h2 class="<?= $pcH2Display ?>">
         Be Your Real Boss &mdash; Not Just on Paper.
       </h2>
       <p class="tw-mb-8 tw-max-w-[46ch] tw-text-xl tw-text-ink/60">
@@ -64,7 +74,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
           </span>
         <?php endforeach; ?>
       </div>
-      <a class="tw-inline-flex tw-items-center tw-gap-2 tw-whitespace-nowrap tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="<?= $assetPath ?>/ambassador-programme">
+      <a class="<?= $pcBtnPrimary ?> tw-whitespace-nowrap" href="<?= $assetPath ?>/ambassador-programme">
         <span>Explore Ambassador Programme</span>
         <?php pc_drive_icon('chevron', 'tw-hidden tw-h-3.5 tw-w-3.5 sm:tw-inline-block'); ?>
       </a>

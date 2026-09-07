@@ -1,4 +1,4 @@
-<section class="tw-relative tw-z-[2] tw-mt-[clamp(-40px,-7vw,-60px)] tw-bg-[linear-gradient(90deg,#feab38_0%,#fb9e24_25%,#f58220_65%,#e86a00_100%)] tw-py-16 tw-text-ink [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_90%,0_100%)] md:tw-mt-[clamp(-145px,-4vw,-195px)] md:tw-py-[120px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_85%,0_100%)]">
+<section class="tw-relative tw-z-[2] tw-mt-[clamp(-40px,-7vw,-60px)] tw-bg-[linear-gradient(90deg,#feab38_0%,#fb9e24_25%,#f58220_65%,#e86a00_100%)] tw-py-16 tw-text-ink [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_100%,0_100%)] md:tw-mt-[clamp(-145px,-4vw,-195px)] md:tw-py-[120px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_100%,0_100%)]">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
@@ -9,19 +9,36 @@
           with just a few taps.
         </p>
 
-        <div class="tw-mb-4 tw-flex tw-flex-wrap tw-gap-2.5">
-          <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2.5 tw-pl-2.5 tw-pr-5 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
-            <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="22" height="22" aria-hidden="true">
+        <?php /* One row on a phone too, same fix as the badges on
+                 download-our-app (components/download/app-cards.php). It was
+                 flex-wrap and the pair came to ~328px against exactly 328px of
+                 column at 360px -- so the App Store badge dropped onto its own
+                 line. The widest thing in it is not the store name but the
+                 eyebrow "DOWNLOAD ON THE", uppercase with tracking-wide.
+
+                 nowrap alone would have overflowed, so the padding, gap and
+                 both type sizes step down below sm and buy back ~40px. From sm
+                 up nothing changes.
+
+                 The max-[359px] step is the price of nowrap: where wrapping
+                 would have dropped a badge to a second line, nowrap pushes it
+                 past the column edge instead. Measured at 320px the pair came
+                 to 294px against 288px of column -- 6px over. Trimming the
+                 padding and gap once more below 360 gets it to 276px. The same
+                 max-[...] pattern the shared banner already uses. */ ?>
+        <div class="tw-mb-4 tw-flex tw-flex-nowrap tw-gap-2 sm:tw-gap-2.5">
+          <a class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-bg-ink tw-py-2.5 tw-pl-2 tw-pr-3 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black max-[359px]:tw-gap-1.5 max-[359px]:tw-pl-1.5 max-[359px]:tw-pr-2 sm:tw-gap-2.5 sm:tw-pl-2.5 sm:tw-pr-5" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
+            <img class="tw-shrink-0" src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="22" height="22" aria-hidden="true">
             <span class="tw-flex tw-flex-col tw-items-start tw-leading-none">
-              <span class="tw-text-[0.65rem] tw-uppercase tw-tracking-wide tw-text-white/75">Get it on</span>
-              <span class="tw-text-base tw-font-bold tw-text-white">Google Play</span>
+              <span class="tw-whitespace-nowrap tw-text-[0.6rem] tw-uppercase tw-tracking-wide tw-text-white/75 sm:tw-text-[0.65rem]">Get it on</span>
+              <span class="tw-whitespace-nowrap tw-text-[0.9rem] tw-font-bold tw-text-white sm:tw-text-base">Google Play</span>
             </span>
           </a>
-          <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2.5 tw-pl-3 tw-pr-5 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
-            <svg class="tw-h-[22px] tw-w-[22px] tw-text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.88-1.99 1.56-2.987 1.56-.12 0-.24-.02-.312-.03-.014-.11-.03-.24-.03-.38 0-1.1.556-2.22 1.183-2.98.674-.82 1.888-1.44 2.882-1.48.019.083.03.163.03.24zM20.13 17.14c-.51 1.14-.75 1.65-1.42 2.65-.93 1.42-2.24 3.19-3.87 3.2-1.45.02-1.82-.94-3.79-.93-1.97.01-2.38.95-3.83.93-1.63-.02-2.87-1.61-3.8-3.03-2.6-3.96-2.87-8.6-1.27-11.08.85-1.32 2.29-2.15 3.86-2.16 1.41-.02 2.74.95 3.6.95.86 0 2.47-1.17 4.17-1 .71.03 2.7.29 3.98 2.17-.1.06-2.38 1.39-2.35 4.14.03 3.28 2.88 4.37 2.92 4.39-.03.09-.45 1.55-1.19 3.03z"/></svg>
+          <a class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-bg-ink tw-py-2.5 tw-pl-2.5 tw-pr-3 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black max-[359px]:tw-gap-1.5 max-[359px]:tw-pl-1.5 max-[359px]:tw-pr-2 sm:tw-gap-2.5 sm:tw-pl-3 sm:tw-pr-5" href="https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981" target="_blank" rel="noopener">
+            <svg class="tw-h-[22px] tw-w-[22px] tw-shrink-0 tw-text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.88-1.99 1.56-2.987 1.56-.12 0-.24-.02-.312-.03-.014-.11-.03-.24-.03-.38 0-1.1.556-2.22 1.183-2.98.674-.82 1.888-1.44 2.882-1.48.019.083.03.163.03.24zM20.13 17.14c-.51 1.14-.75 1.65-1.42 2.65-.93 1.42-2.24 3.19-3.87 3.2-1.45.02-1.82-.94-3.79-.93-1.97.01-2.38.95-3.83.93-1.63-.02-2.87-1.61-3.8-3.03-2.6-3.96-2.87-8.6-1.27-11.08.85-1.32 2.29-2.15 3.86-2.16 1.41-.02 2.74.95 3.6.95.86 0 2.47-1.17 4.17-1 .71.03 2.7.29 3.98 2.17-.1.06-2.38 1.39-2.35 4.14.03 3.28 2.88 4.37 2.92 4.39-.03.09-.45 1.55-1.19 3.03z"/></svg>
             <span class="tw-flex tw-flex-col tw-items-start tw-leading-none">
-              <span class="tw-text-[0.65rem] tw-uppercase tw-tracking-wide tw-text-white/75">Download on the</span>
-              <span class="tw-text-base tw-font-bold tw-text-white">App Store</span>
+              <span class="tw-whitespace-nowrap tw-text-[0.6rem] tw-uppercase tw-tracking-wide tw-text-white/75 sm:tw-text-[0.65rem]">Download on the</span>
+              <span class="tw-whitespace-nowrap tw-text-[0.9rem] tw-font-bold tw-text-white sm:tw-text-base">App Store</span>
             </span>
           </a>
         </div>

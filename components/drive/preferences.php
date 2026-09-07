@@ -1,5 +1,5 @@
-<section class="tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-white tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
       <h2 class="tw-mb-2 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">You're In Control</h2>
       <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-ink/60">Turn preferences on or off in the Driver App and only receive the bookings that suit you.</p>
@@ -12,12 +12,12 @@
       [
         'title' => 'Fuel Savings',
         'desc' => 'Reduce one of your biggest recurring costs.',
-        'img' => 'https://images.pexels.com/photos/20500733/pexels-photo-20500733.jpeg?auto=compress&cs=tinysrgb&w=900',
+        'img' => 'https://images.pexels.com/photos/20500734/pexels-photo-20500734.jpeg?auto=format&fit=crop&w=1200&q=60',
       ],
       [
         'title' => 'Car Wash & Valet',
         'desc' => 'Keep your workplace professional while spending less.',
-        'img' => 'https://images.pexels.com/photos/8425382/pexels-photo-8425382.jpeg?auto=format&fit=crop&w=1200&q=60',
+        'img' => 'https://images.pexels.com/photos/10446281/pexels-photo-10446281.jpeg?auto=format&fit=crop&w=1200&q=60',
       ],
       [
         'title' => 'Lower Card Costs',
@@ -32,12 +32,12 @@
       [
         'title' => 'Refer & Earn €50',
         'desc' => 'Grow the family and get rewarded.',
-        'img' => 'https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1200&q=60',
+        'img' => 'https://images.pexels.com/photos/36766114/pexels-photo-36766114.jpeg?auto=compress&cs=tinysrgb&w=1200',
       ],
       [
         'title' => 'Vehicle Income',
         'desc' => 'Potential €100+ / month on eligible campaigns.',
-        'img' => 'https://images.pexels.com/photos/29566899/pexels-photo-29566899.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        'img' => 'https://images.pexels.com/photos/7442982/pexels-photo-7442982.jpeg?auto=format&fit=crop&w=1200&q=60',
       ],
     ];
     ?>

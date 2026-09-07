@@ -14,7 +14,7 @@ $rowCount = count($compareRows);
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= $pcEyebrow ?>">/ Compare the Model</p>
-      <h2 class="tw-mb-3 tw-text-[clamp(2rem,4vw,2.75rem)] tw-font-bold tw-leading-[1.15] tw-tracking-[-0.02em] tw-text-ink">
+      <h2 class="<?= $pcH2Display ?>">
         Look beyond the headline commission
       </h2>
       <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.62]">

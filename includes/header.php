@@ -171,8 +171,15 @@ $megaSubitem =
          the <nav> owns the shape and the blur. No border at all -- the pill is
          defined by its translucent fill and the soft all-round shadow; a white
          stroke on top of those read as a hard outline against pale sections. -->
-    <div class="tw-w-full tw-px-3 tw-pt-2 sm:tw-px-5 sm:tw-pt-3 lg:tw-px-6 lg:tw-pt-4">
-      <nav class="tw-relative tw-mx-auto tw-flex tw-w-full tw-max-w-[1320px] tw-items-center tw-justify-between tw-gap-3 tw-rounded-[30px] tw-bg-white/70 tw-px-4 tw-py-1.5 tw-shadow-[0_0_24px_rgba(28,20,16,0.07),0_0_8px_rgba(28,20,16,0.04)] tw-backdrop-blur-[24px] sm:tw-px-5 lg:tw-px-6 lg:tw-py-2.5">
+    <!-- The pill now sits inside $pcContainer, so its outer edge lands exactly
+         where every section's content starts. Before, the wrapper owned its own
+         px-3/5/6 inset and the pill was capped at the full 1320px, which put
+         the bar's edge ~68px further out than the page content at 1440 -- the
+         navbar visibly wider than everything under it. Vertical padding stays
+         on the wrapper; $pcContainer only supplies the horizontal rhythm. -->
+    <div class="tw-w-full tw-pt-1 sm:tw-pt-1.5 lg:tw-pt-2">
+      <div class="<?= $pcContainer ?>">
+      <nav class="tw-relative tw-flex tw-w-full tw-items-center tw-justify-between tw-gap-3 tw-rounded-[30px] tw-bg-white/70 tw-px-4 tw-py-1.5 tw-shadow-[0_0_24px_rgba(28,20,16,0.07),0_0_8px_rgba(28,20,16,0.04)] tw-backdrop-blur-[24px] sm:tw-px-5 lg:tw-px-6 lg:tw-py-2.5">
         <a class="tw-flex tw-items-center tw-shrink-0" href="<?= $assetPath ?>/">
           <img src="<?= $assetPath ?>assets/img/powercabs-logo-dark.svg" alt="PowerCabs" height="47" class="tw-block tw-h-9 lg:tw-h-11 tw-w-auto">
         </a>
@@ -424,6 +431,7 @@ $megaSubitem =
           </button>
         </div>
       </nav>
+      </div>
     </div>
   </header>
   <main>

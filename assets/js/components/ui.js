@@ -17,6 +17,7 @@
  * without per-page glue:
  *   [data-pc-collapse][data-pc-target="#id"]  toggles a panel
  *   [data-pc-collapse-parent="#accordionId"]  makes it exclusive within that
+ *   [data-pc-collapse-media="(max-width: 767.98px)"]  only collapsible there
  *   [data-pc-modal-open="#id"] / [data-pc-modal-close]
  *
  * Panels animate on max-height, measured per open, so the markup never has
@@ -28,6 +29,24 @@
   // ---------------------------------------------------------------- collapse
   function panelIsOpen(panel) {
     return panel.classList.contains(OPEN);
+  }
+
+  /**
+   * A panel can opt into being collapsible only inside a media query --
+   * data-pc-collapse-media="(max-width: 767.98px)" on the footer's four link
+   * groups, which are an accordion on a phone and four plain columns from md
+   * up. Outside its query the panel is left completely alone: no inline
+   * max-height, no toggling.
+   *
+   * Doing it here rather than with a CSS override matters. primeCollapsePanels
+   * writes max-height as an INLINE style, and an inline style outranks any
+   * normal stylesheet rule -- so a desktop `max-h-none` utility would lose and
+   * the footer's links would render as four empty headings. Only !important
+   * could beat it, which is a fragile thing to hang a whole footer on.
+   */
+  function collapseIsActive(panel) {
+    var media = panel.getAttribute("data-pc-collapse-media");
+    return !media || window.matchMedia(media).matches;
   }
 
   function openPanel(panel) {
@@ -81,6 +100,9 @@
     if (!btn) return;
     var panel = document.querySelector(btn.getAttribute("data-pc-target") || "");
     if (!panel) return;
+    // Outside its media query the panel is permanently open and the toggle is
+    // display:none anyway -- but a keyboard or AT click could still land here.
+    if (!collapseIsActive(panel)) return;
     event.preventDefault();
     togglePanel(panel, panel.getAttribute("data-pc-collapse-parent"));
   });
@@ -88,9 +110,25 @@
   /** Sets each panel's starting height so the first toggle animates. */
   function primeCollapsePanels() {
     document.querySelectorAll("[data-pc-collapse-panel]").forEach(function (panel) {
+      if (!collapseIsActive(panel)) {
+        // Hand the height back to the stylesheet. Clearing rather than
+        // leaving a stale "0px" behind is the whole point: this also runs on
+        // resize, so a panel collapsed on a phone re-opens when the window
+        // grows past the breakpoint.
+        panel.style.maxHeight = "";
+        return;
+      }
       panel.style.maxHeight = panelIsOpen(panel) ? "none" : "0px";
     });
   }
+
+  // Re-prime across a breakpoint change. Open panels keep their "none", so a
+  // phone's address bar hiding (which fires resize) never snaps one shut.
+  var repriseTimer = null;
+  window.addEventListener("resize", function () {
+    window.clearTimeout(repriseTimer);
+    repriseTimer = window.setTimeout(primeCollapsePanels, 150);
+  });
 
   // ------------------------------------------------------------------- modal
   var openModals = [];
@@ -101,10 +139,27 @@
     this.lastFocus = null;
   }
 
-  PcModal.prototype.show = function () {
+  /**
+   * @param {Element} [opener] The element that triggered the open, surfaced on
+   *   the pc.modal.show event as `relatedTarget` (and in `detail`). Listeners
+   *   need it to populate a modal from the clicked item -- city-tours.js reads
+   *   the destination's name/description/duration/image off the button's data
+   *   attributes. Bootstrap's Modal supplied this on show.bs.modal; when this
+   *   helper replaced it the property was dropped, so that listener's
+   *   `if (!button) return;` guard fired on every open and the tour modal
+   *   showed empty fields and a blank image. Keep passing it.
+   */
+  PcModal.prototype.show = function (opener) {
     if (openModals.indexOf(this) !== -1) return;
     var self = this;
-    this.el.dispatchEvent(new CustomEvent("pc.modal.show", { bubbles: true }));
+    var showEvent = new CustomEvent("pc.modal.show", {
+      bubbles: true,
+      detail: { relatedTarget: opener || null },
+    });
+    // Mirrored as a plain property so listeners can read event.relatedTarget,
+    // the same shape Bootstrap used.
+    showEvent.relatedTarget = opener || null;
+    this.el.dispatchEvent(showEvent);
 
     this.lastFocus = document.activeElement;
 
@@ -184,7 +239,8 @@
       var target = document.querySelector(opener.getAttribute("data-pc-modal-open") || "");
       if (target) {
         event.preventDefault();
-        window.pcModal.getOrCreateInstance(target).show();
+        // Pass the opener through -- see PcModal.prototype.show.
+        window.pcModal.getOrCreateInstance(target).show(opener);
       }
       return;
     }

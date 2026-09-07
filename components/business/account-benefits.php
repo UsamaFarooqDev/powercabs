@@ -29,24 +29,41 @@ function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   endswitch;
 }
 ?>
-<section class="tw-bg-gradient-to-b tw-from-white tw-to-paper-soft tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-gradient-to-b tw-from-white tw-to-paper-soft tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Your Business Account</p>
-        <h2 class="tw-mb-6 tw-text-[clamp(1.8rem,3vw,2.4rem)] tw-font-bold tw-leading-tight tw-text-ink">Your business. Your account.<br>Your taxi service.</h2>
+        <h2 class="<?= $pcH2 ?>">Your business. Your account.<br>Your taxi service.</h2>
 
-        <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-3">
-          <?php foreach ($bizAccountBenefits as $benefit): ?>
-            <div class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-4 tw-text-center tw-transition-all tw-duration-300 hover:-tw-translate-y-1 hover:tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] motion-reduce:tw-transition-none lg:tw-p-5">
-              <span class="tw-mb-2 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-full tw-bg-paper tw-text-power">
+        <!-- Three stacked rows, not a 3-across grid. These cards sit in one
+             half of a two-column section, so md:grid-cols-3 gave each card
+             about a sixth of the container: three narrow boxes with centred
+             text wrapping to four or five lines. As rows the icon anchors the
+             left, the copy gets the full column width, and the step numbers
+             read as a sequence.
+
+             Hover fills the row instead of lifting it -- a translate inside a
+             column this narrow reads as a wobble rather than a lift. -->
+        <ol class="tw-m-0 tw-mt-8 tw-flex tw-list-none tw-flex-col tw-gap-3 tw-p-0">
+          <?php foreach ($bizAccountBenefits as $i => $benefit): ?>
+            <li class="tw-group tw-flex tw-items-start tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-4 tw-transition-colors tw-duration-300 hover:tw-border-power/25 hover:tw-bg-power/[0.03] motion-reduce:tw-transition-none lg:tw-p-5">
+              <span class="tw-relative tw-flex tw-h-12 tw-w-12 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-paper tw-text-power tw-transition-colors tw-duration-300 group-hover:tw-bg-peach motion-reduce:tw-transition-none">
                 <?php pc_biz_icon($benefit['icon']); ?>
+                <span class="tw-absolute -tw-right-1.5 -tw-top-1.5 tw-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-bg-ink tw-text-[0.62rem] tw-font-bold tw-text-white" aria-hidden="true"><?= $i +
+                  1 ?></span>
               </span>
-              <h3 class="tw-mb-1 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($benefit['title']) ?></h3>
-              <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($benefit['desc']) ?></p>
-            </div>
+              <span class="tw-min-w-0">
+                <span class="tw-mb-1 tw-block tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars(
+                  $benefit['title'],
+                ) ?></span>
+                <span class="tw-block tw-text-[0.95rem] tw-leading-[1.6] tw-text-ink/[0.6]"><?= htmlspecialchars(
+                  $benefit['desc'],
+                ) ?></span>
+              </span>
+            </li>
           <?php endforeach; ?>
-        </div>
+        </ol>
       </div>
 
       <div>
