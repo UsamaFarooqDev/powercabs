@@ -115,11 +115,11 @@ $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.5rem,2.5vw,2rem)] tw-font-bold tw-text-ink">What to Include</h2>
+        <h2 class="<?= $pcH2Small ?>">What to Include</h2>
         <p class="tw-mb-6 tw-text-ink/60">
           The more detail you give us, the faster we can match your report to the right
           driver and vehicle. If you have a receipt or booking confirmation with a photo

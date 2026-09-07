@@ -66,8 +66,8 @@ $driverNav = [
 </section>
 
 <!-- ============ Passenger Terms ============ -->
-<section class="tw-px-4 tw-pb-16 tw-pt-3 sm:tw-px-6 md:tw-pb-24 lg:tw-px-8" id="passengerTerms">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-pb-16 tw-pt-3 md:tw-pb-24" id="passengerTerms">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-3">
         <div class="tw-sticky tw-top-[100px]">
@@ -196,8 +196,8 @@ $driverNav = [
 <!-- ============ Driver Terms ============ -->
 <!-- tw-hidden stays bare -- pcInitTermsConditions() in terms-conditions.js
      toggles it directly via classList. -->
-<section class="tw-px-4 tw-pb-16 tw-pt-3 sm:tw-px-6 md:tw-pb-24 lg:tw-px-8 tw-hidden" id="driverTerms">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-pb-16 tw-pt-3 md:tw-pb-24 tw-hidden" id="driverTerms">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-3">
         <div class="tw-sticky tw-top-[100px]">

@@ -24,7 +24,7 @@ $p10Reveal =
             Limited Time Offer
           </span>
 
-          <h2 class="tw-mb-2 tw-text-[clamp(2.1rem,4vw,3rem)] tw-font-extrabold tw-leading-[1.1] tw-tracking-[-0.02em] tw-text-ink">Meet <span class="tw-text-red-600">Power10</span></h2>
+          <h2 class="<?= $pcH2Display ?>">Meet <span class="tw-text-red-600">Power10</span></h2>
           <p class="tw-mb-3 tw-text-[clamp(1.1rem,2vw,1.35rem)] tw-font-semibold tw-text-ink">Get <strong class="tw-font-extrabold tw-text-red-600">10% OFF</strong> your next ride</p>
           <p class="tw-mb-4 tw-max-w-[42ch] tw-text-[1.02rem] tw-leading-[1.7] tw-text-ink/[0.65]">
             Ride more and save more with Power10. Enjoy an exclusive 10%

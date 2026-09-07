@@ -72,7 +72,7 @@ $heroServices = [
       </p>
 
       <div class="tw-mb-10 tw-flex tw-flex-wrap tw-items-center tw-gap-4 tw-animate-pc-fade-up [animation-delay:0.24s]">
-        <a class="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1.5px] tw-border-solid tw-border-transparent tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-leading-5 tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="<?= $assetPath ?>/ride">Book a Ride</a>
+        <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/ride">Book a Ride</a>
         <a class="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1.5px] tw-border-solid tw-border-white/[0.32] tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-leading-5 tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-border-white/60 hover:tw-bg-white/10" href="<?= $assetPath ?>/drive">Become a Driver</a>
         <a class="tw-group tw-inline-flex tw-items-center tw-gap-1.5 tw-text-sm tw-font-semibold tw-text-white/80 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-white" href="<?= $assetPath ?>/business">
           Business Solutions

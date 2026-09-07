@@ -1,5 +1,9 @@
-<section class="tw-bg-gradient-to-b tw-from-white tw-to-paper-soft tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<?php /* No background of its own: business.php wraps this section and
+         how-it-works.php in a single soft band so the two read as one
+         block. Both used to carry white -> paper-soft themselves, which
+         meant the tint reset to white at the seam between them. */ ?>
+<section class="tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-bg-peach tw-shadow-[0_8px_20px_rgba(28,20,16,0.12)] tw-rounded-2xl tw-p-6 md:tw-p-10">
       <div class="tw-flex tw-flex-col tw-items-start tw-gap-4 md:tw-flex-row md:tw-items-center">
         <div class="tw-flex tw-flex-1 tw-items-start tw-gap-4">

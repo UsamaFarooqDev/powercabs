@@ -119,7 +119,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none disab
         Open the PowerCabs app and tap &ldquo;Forgot Password?&rdquo; to get a fresh one.
       </p>
       <div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-3">
-        <a href="<?= $assetPath ?>/download-our-app" class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]">
+        <a href="<?= $assetPath ?>/download-our-app" class="<?= $pcBtnPrimary ?>">
           <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3"/></svg>
           <span>Get the App</span>
         </a>

@@ -128,8 +128,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 ?>
 
 <!-- ============ Before the Ride ============ -->
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Before the Ride</p>
@@ -148,7 +148,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
       </div>
       <div class="lg:tw-order-1">
         <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
-          <img src="https://images.pexels.com/photos/15067166/pexels-photo-15067166.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A PowerCabs taxi arriving for pickup" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+          <img src="/assets/img/loyality-programm.png" alt="A PowerCabs taxi arriving for pickup" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
     </div>
@@ -156,8 +156,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 </section>
 
 <!-- ============ During the Ride ============ -->
-<section class="tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-white tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ During the Ride</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Small Habits, Safer Trips</h2>
@@ -184,8 +184,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 </section>
 
 <!-- ============ After the Ride ============ -->
-<section class="tw-bg-paper tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-paper tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ After the Ride</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Help Us Keep Every Trip Safe</h2>
@@ -203,8 +203,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 </section>
 
 <!-- ============ Additional Safety Tips ============ -->
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Additional Safety Tips</p>
@@ -220,7 +220,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
       </div>
       <div>
         <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
-          <img src="https://images.pexels.com/photos/31748308/pexels-photo-31748308.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A passenger sitting comfortably in the back seat wearing a seatbelt" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+          <img src="https://images.pexels.com/photos/10444200/pexels-photo-10444200.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A passenger sitting comfortably in the back seat wearing a seatbelt" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
     </div>
@@ -228,8 +228,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 </section>
 
 <!-- ============ CTA ============ -->
-<section class="tw-px-4 tw-pb-16 tw-text-center sm:tw-px-6 md:tw-pb-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-pb-16 tw-text-center md:tw-pb-24">
+  <div class="<?= $pcContainer ?>">
     <a class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-ink tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-bg-ink-soft" href="<?= $assetPath ?>/safety-tips-drivers">
       See Safety Tips for Drivers
       <?php pc_safety_icon('chevron', 'tw-h-3.5 tw-w-3.5'); ?>

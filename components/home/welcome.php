@@ -25,20 +25,35 @@ $revealDelays = ['tw-delay-0', 'tw-delay-75', 'tw-delay-150', 'tw-delay-200'];
 ?>
 <!-- bg-scroll, not bg-fixed: the image now scrolls with the page like every
      other section rather than pinning behind it. -->
-<!-- The photo is 1536x1024, i.e. 3:2. With bg-cover the image is cropped on
-     whichever axis is proportionally longer, so a short section crops it
-     vertically -- which is why only half of it was showing. min-h-[66.7vw]
-     makes the section's own aspect match the image's (height = 2/3 of the
-     full-bleed width), so cover has nothing left to crop. Below lg the
-     section is too narrow for that to work, so it falls back to a
-     content-driven height and accepts the crop.
+<!-- The photo is 1536x825. With bg-cover the image is cropped on whichever
+     axis is proportionally longer, so a short section crops it vertically --
+     which is why only half of it was showing. min-h-[66.7vw] makes the
+     section tall enough that cover has essentially nothing left to crop
+     horizontally. Below lg the section is too narrow for that to work, so it
+     falls back to a content-driven height and accepts the crop.
+
+     That crop is severe on a phone: the four "why" columns stack, so the
+     section runs ~1100px tall against a 390px viewport, and cover scales the
+     image to ~2050px wide to fill that height -- leaving only ~19% of the
+     frame on screen. Centred, that window lands between the driver's phone
+     and the roof sign, so the one thing in the photograph that says
+     PowerCabs -- the lit roof sign on the car ahead, at 61% across the
+     frame -- was cropped out entirely on every phone.
+
+     bg-[position:64%_center] moves the crop window onto it. 64% rather than
+     61% because percentage background-position aligns the same *fraction* of
+     image and container, so the focal fraction f lands centred at
+     p = (f*imageW - containerW/2) / (imageW - containerW) -- which works out
+     at 0.64 for every plausible section height between 900 and 1300px. From
+     sm up the section is wide enough that the crop is mild and plain
+     bg-center frames the whole cab interior properly again.
 
      Content is pushed to the bottom (flex + justify-end) so the image reads
      above it. The large bottom padding is deliberate: the next section
      (download-app) pulls itself up by as much as 195px with a negative
      margin so its torn polygon edge overlaps this image -- without the
      padding that polygon would sit on top of the four columns. -->
-<section id="why-choose" class="tw-relative tw-flex tw-flex-col tw-justify-end tw-overflow-hidden tw-bg-scroll tw-bg-cover tw-bg-center tw-text-white tw-pt-20 tw-pb-28 md:tw-pt-28 md:tw-pb-[15rem] lg:tw-min-h-[66.7vw] tw-bg-[url('/assets/img/welcome-section-bg.png')]">
+<section id="why-choose" class="tw-relative tw-flex tw-flex-col tw-justify-end tw-overflow-hidden tw-bg-scroll tw-bg-cover tw-bg-[position:64%_center] sm:tw-bg-center tw-text-white tw-pt-20 tw-pb-28 md:tw-pt-28 md:tw-pb-[15rem] lg:tw-min-h-[66.7vw] tw-bg-[url('/assets/img/welcome-section-bg.png')]">
   <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(120deg,rgba(18,18,18,0.62)_0%,rgba(232,89,12,0.5)_55%,rgba(255,122,0,0.38)_100%)]" aria-hidden="true"></span>
 
   <!-- The blur sits only over the lower half, masked so it fades in rather
@@ -51,8 +66,8 @@ $revealDelays = ['tw-delay-0', 'tw-delay-75', 'tw-delay-150', 'tw-delay-200'];
   <div class="tw-relative <?= $pcContainer ?>">
 
     <div class="tw-mb-14 tw-max-w-[38ch] tw-animate-pc-fade-up-slow motion-reduce:tw-animate-none md:tw-mb-20">
-      <h2 class="tw-mb-0 tw-text-[clamp(2rem,4.4vw,3.25rem)] tw-font-bold tw-leading-[1.12] tw-tracking-[-0.02em] tw-text-white [text-shadow:0_4px_26px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.3)]">
-        Built for every journey
+      <h2 class="<?= $pcH2Display ?> tw-text-white [text-shadow:0_4px_26px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.3)]">
+        Built for every Journey
       </h2>
     </div>
 

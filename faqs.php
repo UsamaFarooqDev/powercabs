@@ -4,8 +4,6 @@ $pageDescription =
   'Answers to common questions for PowerCabs passengers and drivers -- booking, payments, tracking, documents, earnings and more.';
 $assetPath = '';
 
-require __DIR__ . '/includes/header.php';
-
 $passengerFaqs = [
   [
     'q' => 'How do I book a ride with PowerCabs?',
@@ -50,62 +48,82 @@ $passengerFaqs = [
   ],
 ];
 
-$driverFaqs = [
+$driverFaqGroups = [
   [
-    'q' => 'How do I become a PowerCabs driver?',
-    'a' => 'Download the Driver App, complete registration, upload your documents, and wait for approval.',
+    'title' => 'Getting started',
+    'items' => [
+      [
+      'q' => 'How do I become a PowerCabs driver?',
+      'a' => 'Download the Driver App, complete registration, upload your documents, and wait for approval.',
+      ],
+      [
+      'q' => 'What documents are required?',
+      'a' => 'SPSV Licence, Suitability Certificate, Commercial Insurance, and valid Road Tax.',
+      ],
+    ],
   ],
   [
-    'q' => 'What documents are required?',
-    'a' => 'SPSV Licence, Suitability Certificate, Commercial Insurance, and valid Road Tax.',
-  ],
-  [
-    'q' => 'How do I get paid?',
-    'a' =>
+    'title' => 'Earnings and hours',
+    'items' => [
+      [
+      'q' => 'How do I get paid?',
+      'a' =>
       'Provide your IBAN during registration. Earnings are transferred weekly and can be viewed in Recent Transactions.',
+      ],
+      ['q' => 'Can I choose my own working hours?', 'a' => 'Yes. Drive whenever you want with complete flexibility.'],
+      [
+      'q' => 'Are bonuses available?',
+      'a' => 'Yes. Bonuses and promotions are available based on completed trips and peak-hour driving.',
+      ],
+    ],
   ],
-  ['q' => 'Can I choose my own working hours?', 'a' => 'Yes. Drive whenever you want with complete flexibility.'],
   [
-    'q' => 'What happens if a passenger cancels?',
-    'a' =>
+    'title' => 'On the road',
+    'items' => [
+      [
+      'q' => 'What happens if a passenger cancels?',
+      'a' =>
       "If you've already started driving to the pickup location, you may receive a cancellation fee depending on eligibility.",
-  ],
-  ['q' => 'How do I handle lost property?', 'a' => 'Contact the passenger or notify PowerCabs Support immediately.'],
-  [
-    'q' => 'What if I encounter an issue during a ride?',
-    'a' => 'PowerCabs offers 24/7 Driver Support for ride-related assistance.',
-  ],
-  [
-    'q' => 'How can I improve my rating?',
-    'a' => 'Deliver excellent customer service, avoid unnecessary cancellations, and complete more trips.',
-  ],
-  [
-    'q' => 'Are bonuses available?',
-    'a' => 'Yes. Bonuses and promotions are available based on completed trips and peak-hour driving.',
+      ],
+      ['q' => 'How do I handle lost property?', 'a' => 'Contact the passenger or notify PowerCabs Support immediately.'],
+      [
+      'q' => 'What if I encounter an issue during a ride?',
+      'a' => 'PowerCabs offers 24/7 Driver Support for ride-related assistance.',
+      ],
+      [
+      'q' => 'How can I improve my rating?',
+      'a' => 'Deliver excellent customer service, avoid unnecessary cancellations, and complete more trips.',
+      ],
+    ],
   ],
   [
-    'q' => 'How do I delete my account?',
-    'a' => 'Navigate to Settings &rarr; Account Settings &rarr; Delete Account, or contact support.',
-  ],
-  [
-    'q' => 'How do I request deletion of my personal data?',
-    'a' => 'Submit your request through the Driver App or contact support.',
-  ],
-  [
-    'q' => 'How can I request a copy of my data?',
-    'a' => 'Request your personal data through the Driver App or Support.',
-  ],
-  [
-    'q' => 'How do I upload my Driving Licence and ID?',
-    'a' => 'Go to Profile Settings &rarr; Upload Documents and upload clear images.',
-  ],
-  [
-    'q' => 'How do I update my phone number?',
-    'a' => 'Open Profile Settings &rarr; Edit Phone Number, then verify your new number.',
-  ],
-  [
-    'q' => 'Why are my documents rejected?',
-    'a' => 'Documents may be blurry, expired, incomplete, or missing required information.',
+    'title' => 'Account and documents',
+    'items' => [
+      [
+      'q' => 'How do I upload my Driving Licence and ID?',
+      'a' => 'Go to Profile Settings &rarr; Upload Documents and upload clear images.',
+      ],
+      [
+      'q' => 'How do I update my phone number?',
+      'a' => 'Open Profile Settings &rarr; Edit Phone Number, then verify your new number.',
+      ],
+      [
+      'q' => 'Why are my documents rejected?',
+      'a' => 'Documents may be blurry, expired, incomplete, or missing required information.',
+      ],
+      [
+      'q' => 'How do I delete my account?',
+      'a' => 'Navigate to Settings &rarr; Account Settings &rarr; Delete Account, or contact support.',
+      ],
+      [
+      'q' => 'How do I request deletion of my personal data?',
+      'a' => 'Submit your request through the Driver App or contact support.',
+      ],
+      [
+      'q' => 'How can I request a copy of my data?',
+      'a' => 'Request your personal data through the Driver App or Support.',
+      ],
+    ],
   ],
 ];
 
@@ -123,6 +141,24 @@ $driverTutorials = [
   ['file' => 'final-completion.mp4', 'label' => 'Trip Completion'],
 ];
 
+/* FAQPage structured data, built from the SAME two arrays this page renders
+   its accordions from -- which is why the data now sits above the header
+   require instead of below it. That ordering is the whole point: Google
+   requires FAQ markup to match the visible page, and the only reliable way
+   to guarantee that is to have one source. Add a question below and it is
+   in the schema; delete one and it is gone from both.
+
+   Flattened because $driverFaqGroups nests its questions under headings,
+   and FAQPage.mainEntity is a flat list of Questions. */
+$pageFaq = $passengerFaqs;
+foreach ($driverFaqGroups as $group) {
+  foreach ($group['items'] as $item) {
+    $pageFaq[] = $item;
+  }
+}
+
+require __DIR__ . '/includes/header.php';
+
 $heroEyebrow = '/ Got Questions?';
 $heroTitleLight = 'Everything You';
 $heroTitleBold = 'Need to Know.';
@@ -139,24 +175,19 @@ require __DIR__ . '/components/shared/inner-hero.php';
 $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink/20 tw-px-5 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-power has-[:checked]:tw-bg-power has-[:checked]:tw-text-white';
 ?>
 
-<!-- ============ Demo Video ============ -->
-<section class="tw-px-4 tw-py-16 tw-text-center sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
-    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ See It In Action</p>
-    <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Watch How PowerCabs Works</h2>
-    <p class="tw-mx-auto tw-mb-8 tw-max-w-[56ch] tw-text-ink/60">
-      From booking to drop-off, see just how simple getting around with PowerCabs really is.
-    </p>
+<?php /* A "Watch How PowerCabs Works" section stood here. It was not a video:
+         it was a stock city-tour photograph with a dark overlay and a large
+         play button whose aria-label read "Play demo video" -- and that button
+         had no click handler, no data attribute and no reference in any JS
+         file on the site. Pressing it did nothing, on any page load, ever.
 
-    <div class="tw-relative tw-mx-auto tw-aspect-[16/8] tw-w-full tw-max-w-[900px] tw-overflow-hidden tw-rounded-2xl tw-shadow-[0_24px_60px_rgba(28,20,16,0.15)]">
-      <img src="<?= $assetPath ?>assets/img/service-city-tour.jpg" alt="" aria-hidden="true" class="tw-h-full tw-w-full tw-object-cover">
-      <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-ink-soft/[0.45]" aria-hidden="true"></span>
-      <button type="button" class="tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-20 tw-w-20 -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-[0_12px_28px_rgba(255,122,0,0.4)] tw-transition tw-duration-200 hover:tw-scale-105 hover:tw-bg-powerdark motion-reduce:tw-transition-none" aria-label="Play demo video">
-        <svg class="tw-h-8 tw-w-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-    </div>
-  </div>
-</section>
+         Meanwhile the "Video Guides" section further down plays eight REAL
+         tutorials from assets/vid/. So the page opened by promising a demo
+         that did not exist, above the working videos that did.
+
+         Removed rather than wired up: inventing a demo video is not a markup
+         decision, and the eight real guides already cover booking, tracking,
+         payment and the full driver flow. */ ?>
 
 <!-- ============ FAQ ============ -->
 <section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
@@ -205,22 +236,52 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
       <?php endforeach; ?>
     </div>
 
-    <div class="tw-hidden tw-mt-3 tw-flex tw-flex-col tw-gap-3" id="driverFaqAccordion">
-      <?php foreach ($driverFaqs as $i => $item): ?>
-        <div class="tw-overflow-hidden tw-rounded-xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white">
-          <h3 class="tw-m-0">
-            <button class="tw-group tw-flex tw-w-full tw-appearance-none tw-items-center tw-justify-between tw-gap-4 tw-border-0 tw-bg-transparent tw-px-5 tw-py-4 tw-text-left tw-text-[0.98rem] tw-font-medium tw-text-ink tw-transition-colors tw-duration-200 aria-expanded:tw-text-power" type="button" data-pc-collapse data-pc-target="#driverFaq<?= $i ?>" aria-expanded="<?= $i ===
-              0
-                ? 'true'
-                : 'false' ?>" aria-controls="driverFaq<?= $i ?>">
-              <span><?= htmlspecialchars($item['q']) ?></span>
-              <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-power tw-transition-transform tw-duration-200 group-aria-expanded:tw-rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
-            </button>
+    <?php /* Fifteen driver questions in one undifferentiated column was the
+             "wall of questions" this page most needed to lose. They are
+             grouped now, in the order a driver meets them: join, then earn,
+             then on the road, then account admin. Every question and answer
+             is unchanged.
+
+             $i runs CONTINUOUSLY across the groups rather than restarting per
+             group, because the panel ids and, more importantly,
+             data-pc-collapse-parent are what make this one exclusive
+             accordion. Restarting the counter would collide ids and break the
+             only-one-open-at-a-time behaviour across group boundaries.
+
+             tw-hidden AND tw-flex together is deliberate and matches the
+             passenger panel: faqs.js only ever adds/removes tw-hidden, so
+             tw-flex is what lays the groups out once shown. Tailwind emits
+             `hidden` after `flex` in the display plugin, so hidden wins while
+             it is present.
+
+             PHP comment, not HTML: this is a note for whoever edits the file,
+             and it would otherwise be served to every visitor. */ ?>
+    <div class="tw-hidden tw-mt-3 tw-flex tw-flex-col tw-gap-8" id="driverFaqAccordion">
+      <?php $i = 0; ?>
+      <?php foreach ($driverFaqGroups as $group): ?>
+        <div>
+          <h3 class="tw-mb-3 tw-text-[0.78rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-ink/45">
+            <?= htmlspecialchars($group['title']) ?>
           </h3>
-          <div id="driverFaq<?= $i ?>" class="tw-max-h-0 [&.is-open]:tw-max-h-[80rem] tw-overflow-hidden tw-transition-[max-height] tw-duration-300 tw-ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:tw-transition-none <?= $i === 0
+          <div class="tw-flex tw-flex-col tw-gap-3">
+            <?php foreach ($group['items'] as $item): ?>
+              <div class="tw-overflow-hidden tw-rounded-xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white">
+                <h4 class="tw-m-0">
+                  <button class="tw-group tw-flex tw-w-full tw-appearance-none tw-items-center tw-justify-between tw-gap-4 tw-border-0 tw-bg-transparent tw-px-5 tw-py-4 tw-text-left tw-text-[0.98rem] tw-font-medium tw-text-ink tw-transition-colors tw-duration-200 aria-expanded:tw-text-power" type="button" data-pc-collapse data-pc-target="#driverFaq<?= $i ?>" aria-expanded="<?= $i === 0
+                    ? 'true'
+                    : 'false' ?>" aria-controls="driverFaq<?= $i ?>">
+                    <span><?= htmlspecialchars($item['q']) ?></span>
+                    <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-power tw-transition-transform tw-duration-200 group-aria-expanded:tw-rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+                  </button>
+                </h4>
+                <div id="driverFaq<?= $i ?>" class="tw-max-h-0 [&.is-open]:tw-max-h-[80rem] tw-overflow-hidden tw-transition-[max-height] tw-duration-300 tw-ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:tw-transition-none <?= $i === 0
   ? 'is-open'
   : '' ?>" data-pc-collapse-panel data-pc-collapse-parent="#driverFaqAccordion">
-            <div class="tw-px-5 tw-pb-4 tw-leading-[1.6] tw-text-ink/60"><?= $item['a'] ?></div>
+                  <div class="tw-px-5 tw-pb-4 tw-leading-[1.6] tw-text-ink/60"><?= $item['a'] ?></div>
+                </div>
+              </div>
+              <?php $i++; ?>
+            <?php endforeach; ?>
           </div>
         </div>
       <?php endforeach; ?>
@@ -229,8 +290,8 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 </section>
 
 <!-- ============ Video Tutorials ============ -->
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Step By Step</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Video Guides</h2>

@@ -60,13 +60,13 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 }
 ?>
 <!-- ============ Fare Estimate + "Your Taxi. Your Choice." panel ============ -->
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-20 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-py-16 md:tw-py-20">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-stretch tw-gap-12 lg:tw-grid-cols-2">
 
       <!-- Left: "Your Taxi. Your Choice. Irish-owned." -->
       <div class="tw-order-2 tw-flex tw-flex-col tw-justify-center lg:tw-order-1">
-        <h2 class="tw-mb-3 tw-text-[clamp(2rem,3.4vw,2.75rem)] tw-font-bold tw-leading-[1.15] tw-tracking-[-0.03em] tw-text-ink">
+        <h2 class="<?= $pcH2Display ?>">
           Your Taxi. Your Choice. <span class="tw-text-power">Irish-owned.</span>
         </h2>
 
@@ -108,13 +108,13 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
             </div>
             <div class="tw-min-w-0 tw-flex-1">
               <div class="tw-flex tw-items-center tw-gap-2 tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.08] tw-py-3.5">
-                <input type="text" id="rfPickup" class="tw-min-w-0 tw-flex-1 tw-border-0 tw-bg-transparent tw-text-base tw-font-semibold tw-text-ink tw-outline-none placeholder:tw-font-medium placeholder:tw-text-ink/40" placeholder="Pickup location" autocomplete="off">
+                <input type="text" id="rfPickup" aria-label="Pickup location" class="tw-min-w-0 tw-flex-1 tw-border-0 tw-bg-transparent tw-text-base tw-font-semibold tw-text-ink tw-outline-none placeholder:tw-font-medium placeholder:tw-text-ink/40" placeholder="Pickup location" autocomplete="off">
                 <button type="button" id="rfLocateBtn" class="tw-flex tw-shrink-0 tw-appearance-none tw-items-center tw-border-0 tw-bg-transparent tw-p-1 tw-text-power disabled:tw-opacity-50" aria-label="Use current location">
                   <?php pc_ride_hero_icon('crosshair', 'tw-h-[1.1rem] tw-w-[1.1rem]'); ?>
                 </button>
               </div>
               <div class="tw-flex tw-items-center tw-gap-2 tw-py-3.5">
-                <input type="text" id="rfDropoff" class="tw-min-w-0 tw-flex-1 tw-border-0 tw-bg-transparent tw-text-base tw-font-semibold tw-text-ink tw-outline-none placeholder:tw-font-medium placeholder:tw-text-ink/40" placeholder="Drop-off location" autocomplete="off">
+                <input type="text" id="rfDropoff" aria-label="Drop-off location" class="tw-min-w-0 tw-flex-1 tw-border-0 tw-bg-transparent tw-text-base tw-font-semibold tw-text-ink tw-outline-none placeholder:tw-font-medium placeholder:tw-text-ink/40" placeholder="Drop-off location" autocomplete="off">
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
                The code is only ever CHECKED server-side (the discount comes
                back from api/estimate_fare.php); this field is just input. -->
           <div class="tw-mt-3">
-            <input type="text" id="rfPromoCode" name="promo_code" maxlength="32" autocomplete="off"
+            <input type="text" id="rfPromoCode" aria-label="Promo code (optional)" name="promo_code" maxlength="32" autocomplete="off"
                    spellcheck="false" aria-describedby="rfPromoStatus"
                    class="<?= $inputClass ?> tw-tracking-[0.04em] placeholder:tw-normal-case placeholder:tw-tracking-normal"
                    placeholder="Promo code (optional)">
@@ -136,7 +136,7 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
           </div>
 
           <div class="tw-mt-3">
-            <select id="rfRideType" class="<?= $inputClass ?> pc-custom-select-enhance">
+            <select id="rfRideType" aria-label="Ride type" class="<?= $inputClass ?> pc-custom-select-enhance">
               <option value="" selected>Select ride type</option>
               <?php foreach ($rideTypeOptions as $type): ?>
                 <option value="<?= htmlspecialchars($type) ?>"><?= htmlspecialchars($type) ?></option>
@@ -190,8 +190,8 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 </section>
 
 <!-- ============ Trust badge bar ============ -->
-<section class="tw-px-4 tw-pb-16 md:tw-pb-24 sm:tw-px-6 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-pb-16 md:tw-pb-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-divide-y tw-divide-solid tw-divide-black/[0.08] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-shadow-[0_20px_45px_rgba(28,20,16,0.1)] sm:tw-grid-cols-2 md:tw-grid-cols-4 md:tw-divide-x md:tw-divide-y-0">
       <?php foreach ($rideTrustItems as $item): ?>
         <div class="tw-flex tw-items-center tw-gap-3 tw-p-5">

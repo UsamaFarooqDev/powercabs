@@ -48,6 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Corporate Taxi Accounts',
+  'serviceType' => 'Corporate account',
+  'description' =>
+    'Business accounts with a dedicated account manager, one consolidated monthly invoice, scheduled and recurring bookings, and 24/7 support.',
+];
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow     = '/ Corporate Services';
@@ -56,14 +66,13 @@ $heroTitleBold   = 'PowerCabs.';
 $heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 -- built around your company's schedule, not the other way around.";
 $heroBgImage     = 'https://images.pexels.com/photos/8425382/pexels-photo-8425382.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
-
 require __DIR__ . '/components/corporate/why-businesses.php';
 ?>
 
 <!-- ============ Services Overview ============ -->
 <?php
 $corporateServices = [
-  ['img' => 'assets/img/services-corporate.jpg', 'alt' => 'Executives entering a premium PowerCabs vehicle', 'title' => 'Business Travel', 'desc' => 'Executive rides for meetings, client visits, and the daily commute.'],
+  ['img' => 'assets/img/services-corporate.jpg', 'alt' => 'A business passenger travelling in the back of a car', 'title' => 'Business Travel', 'desc' => 'Executive rides for meetings, client visits, and the daily commute.'],
   ['img' => 'assets/img/service-city-tour.jpg', 'alt' => 'Guests arriving at a conference venue', 'title' => 'Event Transportation', 'desc' => 'Coordinated arrivals and departures for conferences and corporate events.'],
   ['img' => 'assets/img/service-airport.png', 'alt' => 'A chauffeur waiting beside a luxury vehicle', 'title' => 'Ongoing Corporate Transport', 'desc' => 'Flexible multi-day and ongoing accounts, tailored to your business.'],
 ];
@@ -91,8 +100,18 @@ $corporateServices = [
 <?php require __DIR__ . '/components/corporate/account-form.php'; ?>
 
 <!-- ============ Mission ============ -->
+<?php /* This band was pointing at assets/img/trusted-bg.svg, which is NOT ON
+         DISK -- it was deleted from the working tree and only the homepage's
+         copy of the reference was updated (components/home/trusted-by.php has
+         its block commented out). So this section has been rendering as a flat
+         black slab with a broken image behind it.
+
+         The replacement is a photograph of a passenger being driven, which is
+         the subject the mission statement is actually about. It sits under the
+         same rgba(10,7,5,0.72) scrim the SVG did, so the white type keeps
+         exactly the contrast it was designed against. */ ?>
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6rem)] tw-text-center tw-text-white">
-  <img src="<?= $assetPath ?>assets/img/trusted-bg.svg" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover">
+  <img src="https://images.pexels.com/photos/9520551/pexels-photo-9520551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
   <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.72)]" aria-hidden="true"></span>
   <div class="tw-relative <?= $pcContainer ?>">
     <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight">/ Our Mission</p>

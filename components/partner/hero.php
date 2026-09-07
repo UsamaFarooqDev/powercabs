@@ -37,16 +37,25 @@ $ptnHeroStats = [
           PowerCabs Partner Network
         </span>
 
-        <h1 class="tw-mb-3 tw-mt-4 tw-max-w-[15ch] tw-text-[clamp(2.5rem,5vw,4.25rem)] tw-font-extrabold tw-leading-[1.02] tw-tracking-[-0.045em] tw-text-ink">Turn every vehicle into more bookings.</h1>
+        <?php /* h2, not h1. This file is required AFTER
+                 components/shared/inner-hero.php, which already emits the
+                 page's <h1> ("Partner Programme."), so this was a SECOND h1 on
+                 the same page -- and because the next heading down is an h3,
+                 it also produced an h1 -> h3 level skip.
+
+                 The paragraph lost its opening clause too: "PowerCabs welcomes
+                 taxi operators, fleet owners and independent drivers to join a
+                 growing network" is the inner-hero description reworded. Two
+                 heroes stacked, opening with the same sentence. */ ?>
+        <h2 class="<?= $pcH2Display ?> tw-mt-4 tw-max-w-[15ch]">Turn every vehicle into more bookings.</h2>
 
         <p class="tw-mb-6 tw-max-w-[52ch] tw-text-[1.12rem] tw-text-ink/60">
-          PowerCabs welcomes taxi operators, fleet owners and independent drivers
-          to join a growing network and unlock more consistent bookings,
-          dedicated support and long-term business growth.
+          Unlock more consistent bookings, dedicated support and long-term
+          business growth &mdash; whether you run one vehicle or a fleet.
         </p>
 
         <div class="tw-mb-8 tw-flex tw-flex-wrap tw-gap-3">
-          <a class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="#pcPtnEnquiry">
+          <a class="<?= $pcBtnPrimary ?>" href="#pcPtnEnquiry">
             Become a Partner
             <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l6.5 6.5a.75.75 0 010 1.06l-6.5 6.5a.75.75 0 11-1.06-1.06L14.19 12 8.22 6.03a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
           </a>
@@ -85,9 +94,22 @@ $ptnHeroStats = [
             <span class="tw-inline-block tw-rounded-full tw-bg-[#fbe6d4] tw-px-3 tw-py-1 tw-text-[0.68rem] tw-font-extrabold tw-uppercase tw-tracking-[0.05em] tw-text-power">Join Process</span>
             <h3 class="tw-mb-1 tw-mt-2 tw-text-base tw-font-extrabold tw-text-ink">4-Step Onboarding</h3>
             <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">Register &rarr; Verify &rarr; Approve &rarr; Start Trips</p>
-            <div class="tw-mt-2.5 tw-flex tw-items-center tw-justify-between tw-border-t tw-border-dashed tw-border-black/10 tw-pt-2.5 tw-text-sm tw-font-bold tw-text-ink">
-              <span>Open to operators &amp; drivers</span>
-              <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
+            <?php /* tw-border-0 first, and that is the whole bug in the
+                     screenshot. Preflight is off, so nothing resets
+                     border-width -- the initial value stays `medium`, about
+                     3px. `tw-border-t` set only the TOP width, but
+                     `tw-border-dashed` sets border-style on all four sides, so
+                     the left, right and bottom edges suddenly had a style
+                     against their inherited 3px width and drew a dashed box
+                     around the row. tw-border-0 zeroes all four widths first,
+                     then tw-border-t puts back the single 1px rule that was
+                     intended.
+
+                     The arrow is gone with it: this is a statement, not a
+                     link, and an arrow on a non-interactive row invites a
+                     click that does nothing. */ ?>
+            <div class="tw-mt-2.5 tw-border-0 tw-border-t tw-border-dashed tw-border-black/10 tw-pt-2.5 tw-text-sm tw-font-bold tw-text-ink">
+              Open to operators &amp; drivers
             </div>
           </div>
         </aside>

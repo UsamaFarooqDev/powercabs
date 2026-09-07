@@ -79,7 +79,13 @@ $rideSteps = [
          partial's own default sizing used elsewhere. -->
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12 [&_.pc-phone-screen]:tw-h-[519.6px] [&_.pc-phone-screen_img]:tw-absolute [&_.pc-phone-screen_img]:tw-inset-0 [&_.pc-phone-screen_img]:tw-h-full [&_.pc-phone-screen_img]:tw-w-full" id="pcBookSteps">
       <div class="lg:tw-col-span-5">
-        <div class="tw-flex tw-flex-col tw-gap-3" role="tablist" aria-label="Book Your Ride steps">
+        <?php /* lg:ml-auto pulls the step stack to the RIGHT edge of its
+                 column so the cards sit against the phone they control,
+                 instead of hugging the page margin with a gap in between. The
+                 max-width stops them stretching the full five columns, which
+                 is what made the pairing look accidental. Full width and
+                 left-aligned below lg, where there is nothing to pair with. */ ?>
+        <div class="tw-flex tw-flex-col tw-gap-3 lg:tw-ml-auto lg:tw-max-w-[26rem]" role="tablist" aria-label="Book Your Ride steps">
           <?php foreach ($rideSteps as $i => $step): ?>
             <button type="button"
               class="pc-book-step-tab tw-flex tw-appearance-none tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-black/10 tw-bg-white tw-p-3 tw-text-left tw-transition-colors tw-duration-200 hover:tw-border-power/40 [&.is-active]:tw-border-power [&.is-active]:tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]<?= $i ===

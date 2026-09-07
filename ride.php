@@ -137,23 +137,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Taxi and Private Hire Rides',
+  'serviceType' => 'Taxi service',
+  'description' =>
+    'Licensed, Garda-vetted drivers and eight vehicle types, from everyday economy cars to wheelchair-accessible vehicles, limousines and courier runs.',
+];
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow     = '/ Ride';
 $heroTitleLight  = 'Seamless and';
 $heroTitleBold   = 'Comfortable Rides.';
-$heroDescription = "PowerCabs is committed to providing a smooth, reliable, and comfortable ride experience. Whether you're commuting to work, heading to the airport, or exploring the city, PowerCabs offers convenient booking, safe transportation, affordable pricing, and 24/7 availability.";
+// Trimmed from the four-sentence version: the hero's job is to say what the
+// page is, not to pre-empt every section under it. Booking, safety, pricing
+// and 24/7 availability each have their own section below and were all named
+// here as well.
+$heroDescription = 'Licensed, Garda-vetted drivers across Dublin. See your fare before you book, and pay exactly what you were quoted.';
 $heroBgImage     = 'https://images.pexels.com/photos/1399282/pexels-photo-1399282.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
+// Order follows the page's job: quote a fare -> show what you can book ->
+// explain the process -> justify the choice -> answer objections -> act.
 require __DIR__ . '/components/ride/hero-fare-section.php';
+// Directly after the fare widget, because that widget now has a promo-code
+// field and this section is where POWER10 is copied from.
 require __DIR__ . '/components/ride/power10-promo.php';
-require __DIR__ . '/components/ride/built-around.php';
 require __DIR__ . '/components/ride/ride-types.php';
 require __DIR__ . '/components/ride/booking-steps.php';
+// built-around.php used to sit here. Its four claims (Instant Booking,
+// Trusted Drivers, Fair Pricing, Available 24/7) were already made by the
+// hero badge row, the trust bar in hero-fare-section, AND the comparison in
+// why-powercabs -- three statements of the same thing on one page. The
+// comparison is the one with substance, so it is the one that stayed.
 require __DIR__ . '/components/ride/why-powercabs.php';
 require __DIR__ . '/components/ride/ride-faq.php';
 
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+$ctaTitle = 'Know your fare before you book.';
+$ctaText = 'Enter a pickup and drop-off for an instant quote, or talk to a real person in Dublin.';
+$ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
+$ctaSecondary = ['href' => '/contact-us', 'label' => 'Contact Us'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
 ?>

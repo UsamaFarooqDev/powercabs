@@ -33,7 +33,7 @@ function pc_ptn_join_icon(string $icon): void
 <section class="tw-scroll-mt-24 <?= $pcSection ?>" id="pcPtnCampaign">
   <div class="<?= $pcContainer ?>">
     <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Partner Programme</p>
-    <h2 class="tw-mb-3 tw-text-[clamp(2rem,3.6vw,3.1rem)] tw-font-extrabold tw-leading-[1.06] tw-tracking-[-0.045em] tw-text-ink">More miles. More visibility.</h2>
+    <h2 class="<?= $pcH2Display ?>">More miles. More visibility.</h2>
     <p class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
       Join the network, follow a simple set of steps to get onboarded, and start
       receiving more consistent bookings across the PowerCabs platform.
@@ -62,7 +62,7 @@ function pc_ptn_join_icon(string $icon): void
             <?php endforeach; ?>
           </div>
 
-          <a class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]" href="#pcPtnEnquiry">
+          <a class="<?= $pcBtnPrimary ?>" href="#pcPtnEnquiry">
             Become a Partner
             <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l6.5 6.5a.75.75 0 010 1.06l-6.5 6.5a.75.75 0 11-1.06-1.06L14.19 12 8.22 6.03a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
           </a>

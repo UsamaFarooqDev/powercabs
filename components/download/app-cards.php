@@ -65,19 +65,29 @@ $appCards = [
             <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover/dl:tw-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
           </a>
 
-          <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2.5">
-            <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="<?= htmlspecialchars($card['playStore']) ?>" target="_blank" rel="noopener">
+          <?php /* One row on every width, phones included. It was flex-wrap,
+                   and the two badges came to ~273px against ~280px of usable
+                   card width at 360px -- so close that the tiniest variation in
+                   font rendering dropped the App Store badge onto its own line,
+                   leaving a lopsided stack under a centred card.
+
+                   nowrap plus a tighter gap and right padding below sm buys
+                   ~26px, which clears it outright rather than by a pixel. The
+                   badges keep their own widths (shrink-0 would let them
+                   overflow instead of the row simply being narrower). */ ?>
+          <div class="tw-flex tw-flex-nowrap tw-items-center tw-justify-center tw-gap-2 sm:tw-gap-2.5">
+            <a class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-2.5 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black sm:tw-gap-2.5 sm:tw-pr-4" href="<?= htmlspecialchars($card['playStore']) ?>" target="_blank" rel="noopener">
               <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="18" height="18" aria-hidden="true">
               <span class="tw-flex tw-flex-col tw-items-start tw-leading-none">
                 <span class="tw-text-[0.6rem] tw-uppercase tw-tracking-wide tw-text-white/75">Get it on</span>
-                <span class="tw-text-sm tw-font-bold tw-text-white">Google Play</span>
+                <span class="tw-whitespace-nowrap tw-text-[0.8125rem] tw-font-bold tw-text-white sm:tw-text-sm">Google Play</span>
               </span>
             </a>
-            <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2.5 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="<?= htmlspecialchars($card['appStore']) ?>" target="_blank" rel="noopener">
-              <svg class="tw-h-[18px] tw-w-[18px] tw-text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.88-1.99 1.56-2.987 1.56-.12 0-.24-.02-.312-.03-.014-.11-.03-.24-.03-.38 0-1.1.556-2.22 1.183-2.98.674-.82 1.888-1.44 2.882-1.48.019.083.03.163.03.24zM20.13 17.14c-.51 1.14-.75 1.65-1.42 2.65-.93 1.42-2.24 3.19-3.87 3.2-1.45.02-1.82-.94-3.79-.93-1.97.01-2.38.95-3.83.93-1.63-.02-2.87-1.61-3.8-3.03-2.6-3.96-2.87-8.6-1.27-11.08.85-1.32 2.29-2.15 3.86-2.16 1.41-.02 2.74.95 3.6.95.86 0 2.47-1.17 4.17-1 .71.03 2.7.29 3.98 2.17-.1.06-2.38 1.39-2.35 4.14.03 3.28 2.88 4.37 2.92 4.39-.03.09-.45 1.55-1.19 3.03z"/></svg>
+            <a class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-2.5 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black sm:tw-gap-2.5 sm:tw-pl-2.5 sm:tw-pr-4" href="<?= htmlspecialchars($card['appStore']) ?>" target="_blank" rel="noopener">
+              <svg class="tw-h-[18px] tw-w-[18px] tw-shrink-0 tw-text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.88-1.99 1.56-2.987 1.56-.12 0-.24-.02-.312-.03-.014-.11-.03-.24-.03-.38 0-1.1.556-2.22 1.183-2.98.674-.82 1.888-1.44 2.882-1.48.019.083.03.163.03.24zM20.13 17.14c-.51 1.14-.75 1.65-1.42 2.65-.93 1.42-2.24 3.19-3.87 3.2-1.45.02-1.82-.94-3.79-.93-1.97.01-2.38.95-3.83.93-1.63-.02-2.87-1.61-3.8-3.03-2.6-3.96-2.87-8.6-1.27-11.08.85-1.32 2.29-2.15 3.86-2.16 1.41-.02 2.74.95 3.6.95.86 0 2.47-1.17 4.17-1 .71.03 2.7.29 3.98 2.17-.1.06-2.38 1.39-2.35 4.14.03 3.28 2.88 4.37 2.92 4.39-.03.09-.45 1.55-1.19 3.03z"/></svg>
               <span class="tw-flex tw-flex-col tw-items-start tw-leading-none">
                 <span class="tw-text-[0.6rem] tw-uppercase tw-tracking-wide tw-text-white/75">Download on the</span>
-                <span class="tw-text-sm tw-font-bold tw-text-white">App Store</span>
+                <span class="tw-whitespace-nowrap tw-text-[0.8125rem] tw-font-bold tw-text-white sm:tw-text-sm">App Store</span>
               </span>
             </a>
           </div>

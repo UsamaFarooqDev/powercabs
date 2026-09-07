@@ -8,11 +8,11 @@ $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.5rem,2.5vw,2rem)] tw-font-bold tw-text-ink">We'd Love to Hear From You</h2>
+        <h2 class="<?= $pcH2Small ?>">We'd Love to Hear From You</h2>
         <p class="tw-mb-6 tw-text-ink/60">
           Whether it's a question about a booking, a business enquiry, or feedback on
           the app, our team reads every message and typically replies within one

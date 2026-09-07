@@ -57,12 +57,19 @@ $tiers = [
   ],
 ];
 
-$requirements = [
-  ['n' => 1, 'title' => 'Enroll in the program', 'icon' => 'clipboard'],
-  ['n' => 2, 'title' => 'Complete rides', 'icon' => 'car'],
-  ['n' => 3, 'title' => 'Redeem incentives', 'icon' => 'gift'],
-  ['n' => 4, 'title' => 'Maintain 80% ride acceptance rate', 'icon' => 'shield'],
-];
+/* $requirements used to be a second four-step timeline, rendered near the
+   foot of the page under "Stay Eligible, Keep Earning". Three of its four
+   steps were the same steps as $howItWorks above, reworded:
+
+     Enroll in the program  <- Sign Up
+     Complete rides         <- Complete Rides
+     Redeem incentives      <- Redeem Rewards
+     Maintain 80% ride acceptance rate   <- the only new fact
+
+   So the page drew the same timeline twice, ~200 words apart, to deliver one
+   piece of information. That single condition is now a note beside the
+   steps, and the duplicate section is gone. */
+$eligibilityNote = 'Maintain an 80% ride acceptance rate to stay eligible.';
 
 /** Inline SVG icons for the timeline steps and tier medals -- kept in one
  * place since the same handful of icons are reused across both timelines. */
@@ -149,9 +156,19 @@ function pc_render_loyalty_timeline(array $items): void
 ?>
 
 <div class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_55%,#f9f4ed_100%)]">
+  <?php /* Both sections in this band used a hand-rolled container -- the same
+           px-4/sm:px-6/lg:px-8 padding as $pcContainer but capped at 720px and
+           1040px. The 1040 was the problem: "Membership Levels" and "Why It
+           Works" below run on $pcContainer's 1320px, so at 1280 the timeline's
+           left and right edges sat 140px inside every other section on the
+           page and the eye read it as a misalignment rather than a choice.
+
+           The intro paragraph genuinely wants a measure, and 720px is exactly
+           $pcContainerProse -- same padding scale, so its edges still agree
+           with the rest below md. */ ?>
   <!-- ============ Introduction ============ -->
-  <section class="tw-px-4 tw-pb-4 tw-pt-16 tw-text-center sm:tw-px-6 md:tw-pt-24 lg:tw-px-8">
-    <div class="tw-mx-auto tw-max-w-[720px]">
+  <section class="tw-pb-4 tw-pt-16 tw-text-center md:tw-pt-24">
+    <div class="<?= $pcContainerProse ?>">
       <p class="tw-mb-0 tw-text-[1.12rem] tw-leading-[1.75] tw-text-ink/60">
         PowerCabs rewards drivers for their dedication through a points-based loyalty program.
         Drivers earn points for completed trips and unlock better rewards as they progress.
@@ -160,16 +177,33 @@ function pc_render_loyalty_timeline(array $items): void
   </section>
 
   <!-- ============ How It Works ============ -->
-  <section class="tw-px-4 tw-pb-16 tw-pt-3 sm:tw-px-6 md:tw-pb-24 lg:tw-px-8">
-    <div class="tw-mx-auto tw-max-w-[1040px]">
+  <section class="tw-pb-16 tw-pt-3 md:tw-pb-24">
+    <div class="<?= $pcContainer ?>">
+      <!-- This section had no heading of its own, so its four step titles
+           (rendered as h3 by pc_render_loyalty_timeline) followed the page h1
+           directly -- an h1 -> h3 skip, and a section a screen-reader user
+           could not identify. -->
+      <div class="<?= $pcSectionHeadCenter ?>">
+        <p class="<?= $pcEyebrow ?>">/ How It Works</p>
+        <h2 class="<?= $pcH2 ?>">Four steps to your first reward</h2>
+      </div>
+
       <?php pc_render_loyalty_timeline($howItWorks); ?>
+
+      <!-- The one condition the deleted "Stay Eligible" section carried that
+           these four steps did not. It belongs with the steps, not in a
+           timeline of its own. -->
+      <p class="tw-mx-auto tw-mt-10 tw-flex tw-w-fit tw-items-center tw-gap-2.5 tw-rounded-full tw-border tw-border-solid tw-border-power/[0.2] tw-bg-power/[0.06] tw-px-5 tw-py-2.5 tw-text-center tw-text-[0.95rem] tw-font-semibold tw-text-ink">
+        <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        <?= htmlspecialchars($eligibilityNote) ?>
+      </p>
     </div>
   </section>
 </div>
 
 <!-- ============ Membership Levels ============ -->
-<section class="tw-bg-paper tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-paper tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Membership Levels</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Drive More, Earn More</h2>
@@ -183,9 +217,36 @@ function pc_render_loyalty_timeline(array $items): void
         $remainingPerks = array_slice($tier['items'], 3);
         $tierColor = htmlspecialchars($tier['color']);
         ?>
-        <div class="pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none tw-group tw-relative tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-bg-white tw-px-7 tw-py-8 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-all tw-duration-300 hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)]
+        <?php /* TWO elements, not one, and that is a fix rather than a
+                 flourish. The scroll-reveal and the card's own hover lift were
+                 both writing `transform` on the SAME element, and the reveal
+                 won every time: `[&.is-visible]:tw-translate-y-0` compiles to a
+                 two-class selector and Tailwind emits it after the hover
+                 utilities, so once a card revealed, --tw-translate-y was pinned
+                 to 0 and the hover lift, the featured card's raised position
+                 and its deeper hover lift were all silently dead. Measured: all
+                 three cards reported an identical y at every width.
+
+                 Splitting them gives each transform its own element -- exactly
+                 how the timeline above already does it (reveal on the wrapper,
+                 group-hover translate on the inner panel).
+
+                 px-4 through the md band, back to px-7 from lg. At 768 these
+                 three columns are 224px wide, and px-7 left only 168px of
+                 content -- narrow enough that "40 trips = 240 points" broke
+                 across two lines INSIDE its pill, so the Silver card's chip row
+                 stood a line taller than its neighbours'. px-4 gives 192px,
+                 which is the ~166px that pill actually needs plus margin.
+
+                 The featured lift is gated to md for the same reason it exists:
+                 it raises this column above the two beside it. In a stacked
+                 single column there is nothing to rise above, and it only
+                 pulled the card 10px closer to the one above than the one
+                 below, breaking an otherwise even rhythm. */ ?>
+        <div class="pc-reveal tw-h-full tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none">
+        <div class="tw-group tw-relative tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-bg-white tw-px-5 tw-py-8 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-[transform,box-shadow,border-color] tw-duration-300 hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)] motion-reduce:tw-transition-none md:tw-px-4 lg:tw-px-7
           <?= $tier['featured']
-            ? 'tw-border-2 tw-border-power tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)] -tw-translate-y-2.5 hover:-tw-translate-y-4 hover:tw-shadow-[0_20px_45px_rgba(28,20,16,0.14)]'
+            ? 'tw-border-2 tw-border-power tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)] hover:tw-shadow-[0_20px_45px_rgba(28,20,16,0.14)] md:-tw-translate-y-2.5 md:hover:-tw-translate-y-4'
             : 'tw-border-black/[0.07] hover:-tw-translate-y-1' ?>">
           <?php if ($tier['featured']): ?>
             <span class="tw-absolute tw-left-1/2 tw-top-[-0.9rem] tw-inline-flex -tw-translate-x-1/2 tw-items-center tw-gap-1.5 tw-whitespace-nowrap tw-rounded-full tw-bg-[linear-gradient(90deg,#ff7a00_0%,#e8590c_100%)] tw-px-4 tw-py-1.5 tw-text-xs tw-font-extrabold tw-uppercase tw-tracking-[0.04em] tw-text-white tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">
@@ -231,6 +292,7 @@ function pc_render_loyalty_timeline(array $items): void
             <?php endforeach; ?>
           </ul>
         </div>
+        </div>
       <?php
       endforeach; ?>
     </div>
@@ -238,8 +300,8 @@ function pc_render_loyalty_timeline(array $items): void
 </section>
 
 <!-- ============ Why It Works (bento) ============ -->
-<section class="tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-white tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Why It Works</p>
       <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Loyalty That Actually Pays Off</h2>
@@ -247,7 +309,7 @@ function pc_render_loyalty_timeline(array $items): void
 
     <div class="tw-grid tw-grid-cols-2 tw-gap-5 [grid-auto-rows:minmax(150px,auto)] md:tw-grid-cols-4">
       <div class="pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none tw-group tw-relative tw-col-span-2 tw-aspect-[16/10] tw-overflow-hidden tw-rounded-2xl md:tw-row-span-2 md:tw-aspect-auto">
-        <img src="https://images.pexels.com/photos/31335088/pexels-photo-31335088.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A happy PowerCabs driver at the wheel of her taxi at night" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
+        <img src="/assets/img/loyality-programm.png" alt="A happy PowerCabs driver at the wheel of her taxi at night" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
         <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,rgba(10,7,5,0.05)_0%,rgba(10,7,5,0.7)_100%)]" aria-hidden="true"></span>
         <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-4 md:tw-p-6">
           <span class="tw-block tw-text-lg tw-font-bold tw-text-white">Every completed ride moves you closer to your next reward.</span>
@@ -265,7 +327,7 @@ function pc_render_loyalty_timeline(array $items): void
       </div>
 
       <div class="pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none tw-group tw-relative tw-col-span-2 tw-aspect-[21/9] tw-overflow-hidden tw-rounded-2xl md:tw-aspect-auto">
-        <img src="https://images.pexels.com/photos/36712857/pexels-photo-36712857.jpeg?auto=format&fit=crop&w=1200&q=60" alt="Two people shaking hands" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
+        <img src="https://images.pexels.com/photos/8204367/pexels-photo-8204367.jpeg?auto=format&fit=crop&w=1200&q=60" alt="Two people shaking hands" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
         <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,rgba(10,7,5,0.05)_0%,rgba(10,7,5,0.7)_100%)]" aria-hidden="true"></span>
         <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-3">
           <span class="tw-block tw-text-base tw-font-bold tw-text-white">Priority support, every step of the way.</span>
@@ -276,20 +338,17 @@ function pc_render_loyalty_timeline(array $items): void
 </section>
 
 <!-- ============ Requirements ============ -->
-<section class="tw-relative tw-overflow-hidden tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-8%] tw-top-[-10%] tw-z-0 tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-[radial-gradient(circle,#fbe6d4_0%,transparent_70%)] tw-opacity-60" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-mx-auto tw-w-full tw-max-w-[1040px]">
-    <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Requirements</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Stay Eligible, Keep Earning</h2>
-    </div>
-    <?php pc_render_loyalty_timeline($requirements); ?>
-  </div>
-</section>
+<?php /* The "Stay Eligible, Keep Earning" timeline stood here -- see the
+         note on $eligibilityNote above for why it went. */ ?>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+$ctaTitle = 'Start earning points on your next trip.';
+$ctaText = 'Every completed ride moves you up a tier. Bronze to Gold, no sign-up fee.';
+$ctaPrimary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
+$ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
-
-
 ?>

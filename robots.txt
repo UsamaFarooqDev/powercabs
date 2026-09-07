@@ -1,6 +1,37 @@
+# https://www.powercabs.ie/robots.txt
+#
+# Deliberately permissive. The job here is to save crawl budget on paths
+# that are not pages, NOT to control indexing -- robots.txt cannot do that.
+# A URL blocked here can still be indexed from a link elsewhere, and worse,
+# blocking it stops Google reading the noindex or 410 that would actually
+# remove it. Anything that must not be indexed says so in its own response.
+
 User-agent: *
 Allow: /
+
+# Server-side code, never a page. These are require'd by the pages and now
+# return 403 directly (see .htaccess section 2); this just stops crawlers
+# asking. Nothing under /assets/ is blocked -- Google must be able to fetch
+# the CSS and JS to render and judge the pages.
 Disallow: /includes/
 Disallow: /components/
+Disallow: /lib/
+Disallow: /bin/
+
+# NOT blocked, on purpose:
+#
+#   /wp-admin/, /wp-content/, /feed/, /category/, /tag/, /author/ ...
+#     The old WordPress URLs return 410 Gone. Google has to be able to
+#     CRAWL them to see that status and drop them. Disallowing them here
+#     would leave them stuck in Search Console as "Indexed, though blocked
+#     by robots.txt" indefinitely -- the opposite of the intent.
+#
+#   /reset-password
+#     Carries a noindex meta tag, which likewise only works if the page can
+#     be fetched.
+#
+#   /api/estimate_fare
+#     Answers the booking form's live fare quote. Marked noindex with an
+#     X-Robots-Tag header rather than blocked, for the same reason.
 
 Sitemap: https://www.powercabs.ie/sitemap.xml

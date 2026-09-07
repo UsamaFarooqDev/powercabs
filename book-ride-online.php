@@ -133,19 +133,81 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="tw-grid tw-grid-cols-2 tw-gap-3">
-        <?php $bookingSteps = [
-          ['n' => 1, 'title' => 'Enter Your Pickup and Drop-off Location'],
-          ['n' => 2, 'title' => 'Select Your Ride'],
-          ['n' => 3, 'title' => 'Choose Your Time'],
-          ['n' => 4, 'title' => 'Confirm Your Booking'],
-        ]; ?>
+        <?php
+        /* Each step carries an icon that depicts the action, not a repeat of
+           the step number -- the numeral is already the watermark behind the
+           card, so a numbered chip on top of it said the same thing twice.
+           Icons match the ones the rest of the site uses for these concepts
+           (pin for a location, car for a vehicle, clock for a time, tick for
+           a confirmation). */
+        $bookingSteps = [
+          ['n' => 1, 'icon' => 'pin', 'title' => 'Enter Your Pickup and Drop-off Location'],
+          ['n' => 2, 'icon' => 'car', 'title' => 'Select Your Ride'],
+          ['n' => 3, 'icon' => 'clock', 'title' => 'Choose Your Time'],
+          ['n' => 4, 'icon' => 'check', 'title' => 'Confirm Your Booking'],
+        ];
+
+        function pc_bro_step_icon(string $icon): void
+        {
+          $cls = 'tw-h-[1.15rem] tw-w-[1.15rem]';
+          switch ($icon):
+            case 'pin': ?>
+              <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            <?php break;
+            case 'car': ?>
+              <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h7.5m-7.5 0h-3.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.83H14.25M16.5 18.75h-2.25m0-11.25h-8.09c-.966 0-1.786.694-1.94 1.646L2.35 14.25m11.15-7.5v7.5m0-7.5h4.093c.53 0 1.023.28 1.293.735L21 14.25M2.35 14.25v3.375c0 .621.504 1.125 1.125 1.125h1.5m14.25-4.5H2.35"/></svg>
+            <?php break;
+            case 'clock': ?>
+              <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <?php break;
+            case 'check': ?>
+              <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <?php break;
+          endswitch;
+        }
+        ?>
+        <?php /* Each card was a flat white box carrying a heavy drop shadow and
+                 a ghost numeral, with the title floated against nothing:
+
+                 - the chip at the top holds an icon for the action, while the
+                   watermark behind carries the step number -- two different
+                   pieces of information rather than the number twice;
+                 - the shadow drops to the site's hairline + 1px recipe and the
+                   lift moves to hover, so four cards side by side stop
+                   competing for depth;
+                 - the title is pinned to the bottom with mt-auto, so all four
+                   baselines line up however long each label runs. */ ?>
         <?php foreach ($bookingSteps as $step): ?>
-          <div class="tw-relative tw-h-full tw-overflow-hidden tw-rounded-2xl tw-bg-white tw-px-4 tw-py-6 tw-text-left tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-            <!-- ghost number watermark -->
-            <span class="tw-pointer-events-none tw-absolute tw-right-1.5 -tw-top-2 tw-select-none tw-text-5xl tw-font-black tw-leading-none tw-text-power/10" aria-hidden="true">
+          <div class="tw-group tw-relative tw-flex tw-h-full tw-flex-col tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-4 tw-text-left tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] sm:tw-p-5 tw-transition-[transform,box-shadow,border-color] tw-duration-300 tw-ease-out hover:-tw-translate-y-1 hover:tw-border-power/25 hover:tw-shadow-[0_18px_40px_-12px_rgba(28,20,16,0.18)] motion-reduce:tw-transition-none motion-reduce:hover:tw-translate-y-0">
+            <!-- Ghost numeral, bottom-right, inset equally from both edges
+                 (right-4 / bottom-4) rather than bled off the corner, and light
+                 enough to read as a watermark. Hidden from AT: it carries
+                 nothing the title does not.
+
+                 The title below carries sm:pr-[4.5rem] BECAUSE of this
+                 position. The numeral occupies roughly 70px at the
+                 bottom-right, which is exactly where the longest label's last
+                 line lands ("...and Drop-off Location") -- without that padding
+                 the two overlap and the text becomes unreadable. Move or resize
+                 this numeral and that padding has to move with it.
+
+                 Below sm the numeral moves to the TOP-right and shrinks, and
+                 the title's right padding goes away with it. These cards sit
+                 two-across even on a 360px phone, so each one is ~160px wide;
+                 4.5rem of that reserved for a watermark left about 50px for the
+                 label, which broke "Enter Your Pickup and Drop-off Location"
+                 into a column of single words. Top-right is free space on a
+                 phone -- the icon chip is top-LEFT and the title is pinned to
+                 the bottom with mt-auto -- so nothing has to give. -->
+            <span class="tw-pointer-events-none tw-absolute tw-right-3 tw-top-3 tw-select-none tw-text-[2.25rem] tw-font-black tw-leading-none tw-text-power/[0.06] tw-transition-colors tw-duration-300 group-hover:tw-text-power/[0.09] motion-reduce:tw-transition-none sm:tw-bottom-4 sm:tw-right-4 sm:tw-top-auto sm:tw-text-[3.5rem] sm:tw-text-power/[0.05]" aria-hidden="true">
               <?= str_pad($step['n'], 2, '0', STR_PAD_LEFT) ?>
             </span>
-            <h3 class="tw-relative tw-mb-0 tw-pr-4 tw-text-[1.05rem] tw-font-bold tw-leading-snug tw-text-ink"><?= htmlspecialchars(
+
+            <span class="tw-relative tw-mb-4 tw-inline-flex tw-h-10 tw-w-10 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-peach tw-text-power tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none">
+              <?php pc_bro_step_icon($step['icon']); ?>
+            </span>
+
+            <h3 class="tw-relative tw-mb-0 tw-mt-auto tw-text-[0.95rem] tw-font-bold tw-leading-snug tw-text-ink sm:tw-pr-[4.5rem] sm:tw-text-[1.05rem]"><?= htmlspecialchars(
               $step['title'],
             ) ?></h3>
           </div>
@@ -153,7 +215,11 @@ require __DIR__ . '/components/shared/inner-hero.php';
       </div>
 
       <div class="tw-hidden tw-items-center tw-justify-center tw-p-5 lg:tw-flex">
-        <img src="<?= $assetPath ?>assets/img/booking-ride.png" class="tw-h-auto tw-max-w-[420px] tw-w-full" alt="Book your ride">
+        <!-- rounded-[2rem] matches the radius the rest of the site uses on
+             image panels; the soft shadow stops the artwork sitting flat on
+             the section background now that the step cards beside it are on a
+             hairline rather than a heavy drop shadow. -->
+        <img src="<?= $assetPath ?>assets/img/booking-ride.png" class="tw-h-auto tw-w-full tw-max-w-[420px] tw-rounded-[2rem] tw-shadow-[0_18px_45px_-12px_rgba(28,20,16,0.22)]" alt="Book your ride">
       </div>
     </div>
   </div>
@@ -167,7 +233,14 @@ require __DIR__ . '/components/shared/inner-hero.php';
      rows; leaving overflow unset lets those render past the section's own
      bottom edge, same as anywhere else on the site. -->
 <section class="tw-relative tw-min-h-[280px]">
-  <div id="pcRideMap" class="tw-relative tw-h-[280px] tw-w-full lg:tw-absolute lg:tw-inset-0 lg:tw-h-auto lg:tw-w-auto"></div>
+  <!-- tw-overflow-hidden is load-bearing, not decoration. The Maps SDK sizes
+       its own child div in pixels from whatever this container measured when
+       the map initialised. If that happens a frame before the page grows tall
+       enough for a vertical scrollbar, the child keeps the pre-scrollbar width
+       and pushes the document ~10px wider than the viewport -- an intermittent
+       horizontal scroll on mobile (reproduced roughly 1 load in 6 at 390px).
+       Clipping here bounds the child to the container whatever it caches. -->
+  <div id="pcRideMap" class="tw-relative tw-h-[280px] tw-w-full tw-overflow-hidden lg:tw-absolute lg:tw-inset-0 lg:tw-h-auto lg:tw-w-auto"></div>
 
   <div class="tw-relative tw-z-[1] tw-flex tw-justify-end">
     <div class="tw-w-full tw-px-4 tw-py-6 sm:tw-px-6 lg:tw-w-1/2 lg:tw-px-0 lg:tw-py-10 lg:tw-pr-10 xl:tw-w-[42%]" id="pcRideFormCol">
@@ -283,7 +356,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
                  border + native rendering that Preflight would normally
                  reset -- disabled site-wide here) -- without it the button
                  rendered ~10px taller than an identically-classed <a>. -->
-            <button type="submit" class="tw-inline-flex tw-appearance-none tw-items-center tw-gap-2 tw-rounded-full tw-border-0 tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]">
+            <button type="submit" class="<?= $pcBtnPrimary ?>">
               <span>Confirm Booking</span>
               <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
             </button>

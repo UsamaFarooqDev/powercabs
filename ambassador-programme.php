@@ -57,9 +57,21 @@ $heroDescription = "Earn More. Spend Less. Be Valued. Join Ireland's most driver
 $heroBgImage     = 'https://images.pexels.com/photos/16702626/pexels-photo-16702626.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/inner-hero.php';
 
-require __DIR__ . '/components/ambassador/benefits.php';
-require __DIR__ . '/components/ambassador/journey.php';
-require __DIR__ . '/components/ambassador/registration.php';
+/* ONE gradient across both sections, declared here rather than twice inside
+   them. Giving each section the same radial gradient is not the same thing:
+   `at 85% 0%` is resolved against each element's OWN box, so the second
+   section restarted the wash at #fbe6d4 exactly where the first had worked
+   down to #f4efe8, and the two met at a visible horizontal step. Painting it
+   once on a wrapper is what actually makes the seam disappear -- both sections
+   are transparent and simply sit on it. */
+?>
+<div class="tw-bg-[radial-gradient(120%_100%_at_85%_0%,#fbe6d4_0%,#f9f4ed_50%,#f4efe8_100%)]">
+  <?php
+  require __DIR__ . '/components/ambassador/benefits.php';
+  require __DIR__ . '/components/ambassador/registration.php';
+  ?>
+</div>
+<?php
 ?>
 
 <script src="<?= $assetPath ?>assets/js/components/ambassador-page.js"></script>
@@ -69,5 +81,12 @@ require __DIR__ . '/components/ambassador/registration.php';
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+$ctaTitle = 'Represent PowerCabs on the road.';
+$ctaText = 'Free card terminals, vehicle branding, fuel discounts and extra loyalty points.';
+$ctaPrimary = ['href' => '/ambassador-programme#pcAmbRegister', 'label' => 'Apply Now'];
+$ctaSecondary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
 ?>

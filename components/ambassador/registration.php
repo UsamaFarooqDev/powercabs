@@ -19,25 +19,37 @@ $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<section class="tw-relative tw-overflow-hidden tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#f4efe8_100%)] <?= $pcSection ?> tw-pb-[clamp(5rem,9vw,7rem)]" id="pcAmbRegister">
-  <div class="tw-relative <?= $pcContainer ?>">
+<?php /* No background of its own. This section used to carry a linear gradient
+         that restarted at #f9f4ed exactly where benefits.php's radial one had
+         already worked down to #f4efe8, and the two met at a visible
+         horizontal step. The wash is now painted ONCE on a wrapper in
+         ambassador-programme.php and both sections sit on it transparently --
+         which is the only way to remove the seam, since a repeated
+         `at 85% 0%` radial re-anchors to each element's own box.
+
+         The white fade at the foot is what separates this section from the
+         app-download banner underneath instead: it lands the warm panel on
+         white rather than cutting it off. */ ?>
+<section class="tw-relative tw-overflow-hidden <?= $pcSection ?> tw-pb-[clamp(5rem,9vw,7rem)]" id="pcAmbRegister">
+  <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-0 tw-h-[clamp(6rem,14vw,11rem)] tw-bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.65)_55%,#ffffff_100%)]" aria-hidden="true"></span>
+
+  <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Join the Programme</p>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.9rem,3.4vw,2.5rem)] tw-font-bold tw-tracking-tight tw-text-ink">Ready to Represent PowerCabs?</h2>
+        <h2 class="<?= $pcH2 ?>">Ready to Represent PowerCabs?</h2>
         <p class="tw-mb-8 tw-max-w-[42ch] tw-text-[1.1rem] tw-text-ink/60">
           Registration takes a couple of minutes. Our Ambassador team reviews
           every application personally and will be in touch to confirm your spot.
         </p>
 
-        <div class="tw-mb-10 tw-flex tw-flex-wrap tw-gap-2">
-          <?php foreach ($ambRecap as $item): ?>
-            <span class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-px-4 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink">
-              <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12a9.75 9.75 0 1119.5 0 9.75 9.75 0 01-19.5 0zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-              <?= htmlspecialchars($item) ?>
-            </span>
-          <?php endforeach; ?>
-        </div>
+        <?php /* A row of $ambRecap chips rendered here: "Free card terminals /
+                 Exclusive vehicle branding / Fuel discounts / Extra loyalty
+                 points". Those are the first four of the six benefit cards in
+                 benefits.php, restated one section later with less detail --
+                 the repeated promotional language this page was asked to
+                 lose. The three steps below say what the application actually
+                 involves, which is what this column is for. */ ?>
 
         <div class="tw-flex tw-flex-col tw-gap-4">
           <div class="tw-flex tw-gap-3">

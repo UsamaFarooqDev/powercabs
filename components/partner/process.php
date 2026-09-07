@@ -12,7 +12,7 @@ $joinProcess = [
 <section class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_100%)] <?= $pcSection ?>" id="pcPtnProcess">
   <div class="<?= $pcContainer ?>">
     <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Simple From Day One</p>
-    <h2 class="tw-mb-3 tw-text-[clamp(2rem,3.6vw,3.1rem)] tw-font-extrabold tw-leading-[1.06] tw-tracking-[-0.045em] tw-text-ink">How the Partner Programme Works.</h2>
+    <h2 class="<?= $pcH2Display ?>">How the Partner Programme Works.</h2>
     <p class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
       No complicated setup. Join, get verified, get on the road and stay
       eligible for a steady stream of bookings.

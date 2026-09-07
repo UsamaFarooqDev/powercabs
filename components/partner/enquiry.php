@@ -31,14 +31,14 @@ $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary . ' tw-w-full';
 ?>
 <section class="tw-relative tw-scroll-mt-24 tw-overflow-hidden tw-pb-[clamp(9rem,15vw,13rem)] tw-pt-[clamp(4.5rem,9vw,7rem)] tw-text-white" id="pcPtnEnquiry">
-  <img src="https://images.pexels.com/photos/29566896/pexels-photo-29566896.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
+  <img src="https://images.pexels.com/photos/681335/pexels-photo-681335.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(155deg,rgba(28,16,8,0.94)_0%,rgba(28,16,8,0.86)_55%,rgba(10,7,5,0.92)_100%)]" aria-hidden="true"></span>
 
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-powerlight">/ For Businesses</p>
-        <h2 class="tw-mb-3 tw-text-[clamp(2rem,3.6vw,2.9rem)] tw-font-extrabold tw-leading-[1.08] tw-tracking-[-0.04em] tw-text-white">Put Your Fleet to Work on the PowerCabs Network.</h2>
+        <h2 class="<?= $pcH2Display ?> tw-text-white">Put Your Fleet to Work on the PowerCabs Network.</h2>
         <p class="tw-mb-8 tw-max-w-[48ch] tw-text-[1.05rem] tw-text-white/[0.78]">
           Reach more passengers across a growing booking network without
           building your own platform. Tell us about your business and our
@@ -73,13 +73,13 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
                 $old['phone'],
               ) ?>" required>
             </div>
-            <div class="md:tw-col-span-2">
+            <div>
               <label class="<?= $labelClass ?> pc-required" for="ptEmail">Email Address</label>
               <input type="email" class="<?= $inputClass ?>" id="ptEmail" name="email" value="<?= htmlspecialchars(
                 $old['email'],
               ) ?>" required>
             </div>
-            <div class="md:tw-col-span-2">
+            <div>
               <label class="<?= $labelClass ?> pc-required" for="ptBusinessName">Business Name</label>
               <input type="text" class="<?= $inputClass ?>" id="ptBusinessName" name="business_name" value="<?= htmlspecialchars(
                 $old['business_name'],
@@ -119,7 +119,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
               ) ?></div></div>
             <?php endif; ?>
 
-            <p class="tw-m-0 tw-text-[1.0625rem] tw-leading-relaxed tw-leading-relaxed tw-text-ink/50 md:tw-col-span-2">
+            <p class="tw-m-0 tw-text-[1.0125rem] tw-leading-relaxed tw-leading-relaxed tw-text-ink/50 md:tw-col-span-2">
               By submitting, you're asking PowerCabs to contact you about the
               Partner Programme. Onboarding is subject to verification.
             </p>

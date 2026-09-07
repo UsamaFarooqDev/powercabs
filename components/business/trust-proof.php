@@ -20,8 +20,8 @@ function pc_biz_trust_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-max-w-[46rem] tw-text-center">
       <svg class="tw-mx-auto tw-mb-3 tw-h-9 tw-w-9 tw-text-power" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
       <p class="tw-mb-4 tw-text-[clamp(1.3rem,2.6vw,1.7rem)] tw-font-semibold tw-leading-[1.45] tw-text-ink">

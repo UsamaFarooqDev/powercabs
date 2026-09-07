@@ -73,11 +73,11 @@ $submitClass = $pcBtnPrimary;
 $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink/20 tw-px-4 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-power has-[:checked]:tw-bg-power has-[:checked]:tw-text-white';
 ?>
 
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.5rem,2.5vw,2rem)] tw-font-bold tw-text-ink">Great Service Deserves Recognition</h2>
+        <h2 class="<?= $pcH2Small ?>">Great Service Deserves Recognition</h2>
         <p class="tw-mb-6 tw-text-ink/60">
           Whether it was a driver who went the extra mile or a smooth, stress-free
           booking, we want to hear about it. Positive feedback goes straight to our

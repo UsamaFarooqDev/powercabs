@@ -6,7 +6,7 @@ $bizTrustLogos = [
   ['file' => 'svuh.png', 'alt' => "St. Vincent's"],
   ['file' => 'westpark.webp', 'alt' => 'Westpark'],
   ['file' => 'RIU_Hotels.webp', 'alt' => 'RIU'],
-  ['file' => 'RTÉ.webp', 'alt' => 'RTE'],
+  ['file' => 'rte.webp', 'alt' => 'RTE'],
   ['file' => 'Mediahuis.webp', 'alt' => 'Mediahuis'],
   ['file' => 'skylon.png', 'alt' => 'Skylon Hotel'],
   ['file' => 'greenisle.png', 'alt' => 'Green Isle'],

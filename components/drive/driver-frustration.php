@@ -25,12 +25,12 @@ function pc_frustration_icon(string $icon): void
 }
 ?>
 <!-- ============ The Driver Frustration ============ -->
-<section class="tw-bg-white tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="tw-bg-white tw-py-16 md:tw-py-24">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ The Driver Frustration</p>
-        <h2 class="tw-mb-3 tw-text-[clamp(1.9rem,3.4vw,2.6rem)] tw-font-bold tw-leading-tight tw-text-ink">Tired of Saver fares?</h2>
+        <h2 class="<?= $pcH2 ?>">Tired of Saver fares?</h2>
         <p class="tw-mb-6 tw-text-[1.05rem] tw-leading-[1.7] tw-text-ink/60">
           You're still paying the same fuel, insurance, maintenance and time --
           even when a technology platform makes the passenger's fare cheaper.

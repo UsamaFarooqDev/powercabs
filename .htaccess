@@ -1,54 +1,163 @@
-# Custom 404 page for any mistyped/missing URL. Requires Apache (or an
+# Custom error pages for any mistyped/missing URL. Requires Apache (or an
 # Apache-compatible host) -- ErrorDocument is a core directive supported
 # on virtually every standard PHP/shared host, no mod_rewrite needed.
 ErrorDocument 404 /404.php
+ErrorDocument 410 /410.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # 1) Normalize the homepage: /index or /index.php -> /
+  # ==========================================================================
+  # 0) CANONICAL ORIGIN -- https://www.powercabs.ie
+  # ==========================================================================
+  # There was no host or scheme canonicalisation at all, so up to four URLs
+  # answered 200 for every page: http/https x www/non-www. The canonical tag
+  # pointed at one of them, which lets Google consolidate but still leaves it
+  # crawling three duplicates of all 26 pages.
+  #
+  # TWO separate rules, not one with [OR], and both targeting the final
+  # https+www origin -- so any starting combination lands in ONE hop and
+  # never produces a redirect chain (http://powercabs.ie/ride goes straight
+  # to https://www.powercabs.ie/ride, not via https://powercabs.ie/ride).
+  #
+  # Both are gated on the host actually being powercabs.ie, so running the
+  # site under Apache locally (MAMP, localhost, a staging hostname) is not
+  # bounced out to production.
+  #
+  # X-Forwarded-Proto is checked alongside HTTPS because on a host that
+  # terminates TLS at a load balancer or CDN, %{HTTPS} is "off" on every
+  # request -- without it this rule would redirect https to https forever.
+  RewriteCond %{HTTP_HOST} ^(.+\.)?powercabs\.ie$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://www.powercabs.ie%{REQUEST_URI} [R=301,L,NE]
+
+  RewriteCond %{HTTP_HOST} ^(.+\.)?powercabs\.ie$ [NC]
+  RewriteCond %{HTTP_HOST} !^www\.powercabs\.ie$ [NC]
+  RewriteRule ^ https://www.powercabs.ie%{REQUEST_URI} [R=301,L,NE]
+
+  # ==========================================================================
+  # 1) OLD WORDPRESS URLS
+  # ==========================================================================
+  # The site was migrated from WordPress. Google still holds the old URL set,
+  # which is the most likely source of the bulk of the "not indexed" report.
+  #
+  # These blocks run BEFORE the trailing-slash rule below on purpose. Left to
+  # fall through, /wp-admin/ was 301'd to /wp-admin and only then 404'd -- a
+  # redirect chain ending in an error, which is the single worst signal to
+  # hand a crawler. They now answer in one hop.
+  #
+  # 410 (Gone) rather than 404 for the WordPress-only paths: 404 means "maybe
+  # it comes back, ask again", 410 means "permanently removed, stop asking",
+  # and Google retires 410s from the index noticeably faster. None of these
+  # can ever be a real URL on a PHP site.
+
+  # 1a) WordPress system directories and scripts. Unambiguous -- no judgement
+  #     call, these were never content.
+  RewriteRule ^(wp-admin|wp-includes|wp-content|wp-json|wp-content-uploads)(/|$) - [G,L]
+  RewriteRule ^(wp-login|wp-cron|wp-signup|wp-trackback|wp-links-opml|wp-mail|wp-comments-post|wp-activate|wp-config|xmlrpc)\.php$ - [G,L]
+
+  # 1b) WordPress feeds and archive/taxonomy patterns. Also WordPress-only
+  #     shapes, but these COULD have held indexed blog content on the old
+  #     site. There is no blog on the new site, so there is no honest
+  #     redirect target for them and 410 is correct.
+  #
+  #     >>> REVIEW: if the old site had blog posts with backlinks worth
+  #     keeping, map those individual slugs in section 1c BELOW this block
+  #     (a specific rule earlier in the file wins), rather than weakening
+  #     this one. Comment 1b out entirely if you would rather they 404.
+  RewriteRule ^(feed|rss|rss2|atom)/?$ - [G,L]
+  RewriteRule ^comments/feed/?$ - [G,L]
+  RewriteRule ^(category|tag|author)(/|$) - [G,L]
+  RewriteRule ^page/[0-9]+/?$ - [G,L]
+  RewriteRule ^[0-9]{4}/[0-9]{2}/ - [G,L]
+
+  # 1c) OLD SLUG -> NEW PAGE. One line per genuinely migrated URL.
+  #
+  #     Both entries below are evidenced by this repository's own git
+  #     history, not guessed: airport-transfers.php was deleted and
+  #     download-app.php was renamed to download-our-app.php. The second one
+  #     had no redirect and was answering 404.
+  #
+  #     >>> ADD MORE HERE from the Search Console "Page indexing" export.
+  #     Filter for URLs reported as 404/"Not found" that were real pages on
+  #     the WordPress site, and add the ones with a genuine equivalent. Do
+  #     not point unrelated old pages at the homepage -- Google treats that
+  #     as a soft 404 and it is worse than letting them 410.
+  RewriteRule ^airport-transfers(\.php)?/?$ /meet-greet [R=301,L,NE]
+  RewriteRule ^download-app(\.php)?/?$ /download-our-app [R=301,L,NE]
+
+  # ==========================================================================
+  # 2) CODE PATHS ARE NOT WEB PAGES
+  # ==========================================================================
+  # /includes/env.php and /lib/fare_calculator.php were both answering 200
+  # with an empty body -- server-side includes being served as if they were
+  # pages. An empty 200 is a soft 404 to Google and an information leak to
+  # everyone else. robots.txt only asked crawlers not to look; this makes it
+  # so. 403 (not 410) because they exist and are simply not public.
+  #
+  # /api/ is NOT included here: assets/js fetches /api/estimate_fare for the
+  # live fare quote. It is kept reachable and marked noindex by header below.
+  RewriteRule ^(includes|lib|bin)(/|$) - [F,L]
+
+  # ==========================================================================
+  # 3) URL SHAPE CANONICALISATION
+  # ==========================================================================
+  # 3a) Normalize the homepage: /index or /index.php -> /
   RewriteRule ^index(\.php)?/?$ / [R=301,L,NE]
 
-  # 1b) airport-transfers.php was renamed to meet-greet.php -- send anyone
-  #     with the old URL bookmarked/indexed to the new one permanently.
-  RewriteRule ^airport-transfers(\.php)?/?$ /meet-greet [R=301,L,NE]
+  # 3b) The XML sitemap is generated by sitemap.php so its <lastmod> values
+  #     come from the pages themselves and its URL list cannot drift from the
+  #     pages that exist. Served at /sitemap.xml, which is where robots.txt
+  #     points and where Search Console already has it registered. Internal
+  #     rewrite, so the URL does not change.
+  RewriteRule ^sitemap\.xml$ /sitemap.php [L]
 
-  # 2) Anyone linking/bookmarking a URL with ".php" still in it gets sent to
-  #    the clean, canonical version (301 = permanent, keeps SEO value and
-  #    avoids duplicate-content indexing of both URL forms). Query strings
-  #    are preserved automatically since the target has no "?".
+  # 3c) Anyone linking/bookmarking a URL with ".php" still in it gets sent to
+  #     the clean, canonical version (301 = permanent, keeps SEO value and
+  #     avoids duplicate-content indexing of both URL forms). Query strings
+  #     are preserved automatically since the target has no "?".
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L,NE]
 
-  # 3) A clean URL requested with a trailing slash (e.g. /drive/ instead of
-  #    /drive) is 301'd to the canonical no-slash form. The old site used
-  #    trailing-slash URLs, so printed QR codes still point at things like
-  #    /download-our-app/ -- without this rule every one of those scans
-  #    ends at a 500.
+  # 3d) A clean URL requested with a trailing slash (e.g. /drive/ instead of
+  #     /drive) is 301'd to the canonical no-slash form. The old site used
+  #     trailing-slash URLs, so printed QR codes still point at things like
+  #     /download-our-app/ -- without this rule every one of those scans
+  #     ends at a 500.
   #
-  #    Matched on the RewriteRule pattern (the request path) and NOT on
-  #    %{REQUEST_FILENAME}. The previous version of this rule tested
-  #    "%{REQUEST_FILENAME} ^(.+)/$" plus a "%1.php -f" existence check and
-  #    never fired once in production: this host does not hand mod_rewrite
-  #    a REQUEST_FILENAME with the trailing slash still attached, so the
-  #    condition silently never matched, nothing rewrote the request, and
-  #    it reached the PHP handler with a directory-shaped path that the
-  #    handler answered with a 500. Rules 1 and 1b above match their own
-  #    "/?$" against the request path and have always worked here, so this
-  #    rule uses that same mechanism.
+  #     Matched on the RewriteRule pattern (the request path) and NOT on
+  #     %{REQUEST_FILENAME}. The previous version of this rule tested
+  #     "%{REQUEST_FILENAME} ^(.+)/$" plus a "%1.php -f" existence check and
+  #     never fired once in production: this host does not hand mod_rewrite
+  #     a REQUEST_FILENAME with the trailing slash still attached, so the
+  #     condition silently never matched, nothing rewrote the request, and
+  #     it reached the PHP handler with a directory-shaped path that the
+  #     handler answered with a 500. The rules above match their own "/?$"
+  #     against the request path and have always worked here, so this rule
+  #     uses that same mechanism.
   #
-  #    There is deliberately no file-existence test: /no-such-page/ is just
-  #    canonicalized first and then 404s through rule 4 exactly as
-  #    /no-such-page already does. Real directories are excluded so
-  #    /assets/ and friends keep their slash, "/" itself can never match
-  #    (the pattern needs at least one character before the slash), and
-  #    mod_rewrite re-appends any query string to the redirect by itself.
+  #     There is deliberately no file-existence test: /no-such-page/ is just
+  #     canonicalized first and then 404s through rule 4 exactly as
+  #     /no-such-page already does. Real directories are excluded so
+  #     /assets/ and friends keep their slash, "/" itself can never match
+  #     (the pattern needs at least one character before the slash), and
+  #     mod_rewrite re-appends any query string to the redirect by itself.
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.+?)/+$ /$1 [R=301,L,NE]
 
-  # 4) Internally serve the matching .php file for a clean URL -- the
-  #    browser's address bar keeps showing the extension-less path.
+  # 3e) Internally serve the matching .php file for a clean URL -- the
+  #     browser's address bar keeps showing the extension-less path.
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME}\.php -f
   RewriteRule ^(.*)$ $1.php [L]
+</IfModule>
+
+# The fare endpoint answers real requests from the booking form, so it stays
+# reachable -- but it is a JSON endpoint, not a page, and has no business in
+# the index. X-Robots-Tag is the only way to say so for a non-HTML response.
+<IfModule mod_headers.c>
+  <FilesMatch "^estimate_fare\.php$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
 </IfModule>

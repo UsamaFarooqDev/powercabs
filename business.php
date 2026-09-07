@@ -69,35 +69,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Business Travel and Chauffeur Cars',
+  'serviceType' => 'Corporate transport',
+  'description' =>
+    'Executive travel for meetings, client visits and airport runs, with professional drivers and vehicles suited to business journeys.',
+];
+
 require __DIR__ . '/includes/header.php';
 
+// The page's real promise is the admin it removes, not the upholstery --
+// this line was already on the page as the how-it-works heading, which is
+// the wrong place for the single sentence a B2B visitor should read first.
+// how-it-works now has a heading about the steps themselves.
 $heroEyebrow = '/ Business';
-$heroTitleLight = 'Elevate Your';
-$heroTitleBold = 'Business Travel.';
+$heroTitleLight = 'Business travel,';
+$heroTitleBold = 'without the admin headache.';
 $heroDescription =
-  'Reliable and luxurious transportation for your business needs, with the comfort and professionalism your clients expect.';
+  'One account for your whole team, one monthly invoice, and full visibility of every journey booked.';
 $heroBgImage = $assetPath . 'assets/img/services-corporate.jpg';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Business Rides & Limousine Services (existing) ============ -->
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
+        <!-- Business_gif.gif is 1000x1000. Forcing a square source into a 4/3
+             box with object-cover cropped a quarter of the frame away, top and
+             bottom -- which is why the animation looked cut off. The wrapper
+             now matches the source ratio so the whole frame shows. -->
+        <div class="tw-aspect-square tw-overflow-hidden tw-rounded-2xl">
           <img src="<?= $assetPath ?>assets/img/Business_gif.gif" alt="PowerCabs business travel showcase"
             class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
 
       <div>
-        <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Elevate Your Business Travel Experience</h2>
-        <p class="tw-mb-4 tw-text-ink/60">
-          We understand the importance of reliable and luxurious
-          transportation for your business needs. Our Business Rides and Limousine
-          Services are designed to provide the highest level of comfort, efficiency and professional travel experiences.
-        </p>
+        <?php /* Was "Elevate Your Business Travel Experience" over a paragraph
+                 that restated the old hero almost word for word ("reliable and
+                 luxurious transportation for your business needs"). Both are
+                 gone. What this block uniquely carries is the expectations
+                 list and the >7-employee signpost to Corporate, so that is
+                 what is left. PHP comment, not HTML: a note about removed
+                 copy is for whoever edits this file, not for the visitor. */ ?>
+        <h2 class="<?= $pcH2 ?>">What a business ride looks like</h2>
 
         <p class="tw-mb-2 tw-font-semibold tw-text-ink">With PowerCabs, you can expect:</p>
         <ul class="tw-m-0 tw-mb-4 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
@@ -128,20 +148,47 @@ require __DIR__ . '/components/shared/inner-hero.php';
 </section>
 
 <?php
+/* Order is the B2B decision sequence: who else trusts you -> what an account
+   gives me -> what can I book -> how do I set it up -> what does it cost ->
+   sign me up.
+
+   ireland-parallax.php was removed from here (and deleted): a full-bleed
+   decorative photo whose only copy -- "NTA-licensed and Garda-vetted" --
+   trust-proof.php below already states, with the licence number. The page
+   was carrying three separate trust sections; it now has two that do
+   different jobs (client logos, then credentials + the account promise). */
 require __DIR__ . '/components/business/trust-strip.php';
 require __DIR__ . '/components/business/account-benefits.php';
 require __DIR__ . '/components/business/services-grid.php';
-require __DIR__ . '/components/business/airport-assistance.php';
-require __DIR__ . '/components/business/ireland-parallax.php';
-require __DIR__ . '/components/business/how-it-works.php';
-require __DIR__ . '/components/business/booking-process.php';
+// Airport Assistance and How It Works share one soft band rather than each
+// painting its own white -> paper-soft gradient. Separately, the tint faded
+// down to paper-soft, then snapped back to white at the boundary -- a visible
+// seam between two sections that belong together. The stops below hold the
+// tint flat through the middle and fade it out at both ends, so the pair
+// reads as a single block that eases in from the section above and out into
+// the one below.
 ?>
-
+<div class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_14%,#f9f4ed_86%,#ffffff_100%)]">
+  <?php
+  require __DIR__ . '/components/business/airport-assistance.php';
+  require __DIR__ . '/components/business/how-it-works.php';
+  ?>
+</div>
 <?php
 require __DIR__ . '/components/business/plans.php';
-require __DIR__ . '/components/business/final-cta.php';
+// booking-process.php ends in the business account request form, so it sits
+// last -- the form should follow the pricing, not precede it.
+require __DIR__ . '/components/business/booking-process.php';
 require __DIR__ . '/components/business/trust-proof.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+// Replaces components/business/final-cta.php, which was a page-local copy of
+// the same closing block every other page now shares.
+$ctaTitle = 'Open a business account.';
+$ctaText = 'One account, one invoice, and a team in Dublin that answers the phone.';
+$ctaPrimary = ['href' => '/business#bizAccountForm', 'label' => 'Request an Account'];
+$ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Sales'];
+require __DIR__ . '/components/shared/final-cta.php';
 ?>
 
 <script src="<?= $assetPath ?>assets/js/components/business-page.js"></script>

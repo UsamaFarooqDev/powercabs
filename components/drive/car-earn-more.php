@@ -17,15 +17,15 @@ $carEarnCards = [
     'step' => '03',
     'title' => 'Earn',
     'desc' => 'Get paid extra for eligible campaigns, on top of your fares.',
-    'img' => 'https://images.pexels.com/photos/6289026/pexels-photo-6289026.jpeg',
+    'img' => 'https://images.pexels.com/photos/6289026/pexels-photo-6289026.jpeg?auto=compress&cs=tinysrgb&w=1200',
   ],
 ]; ?>
 <!-- ============ Your Car Can Earn More ============ -->
-<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1320px]">
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Your Car Can Earn More</p>
-      <h2 class="tw-mb-0 tw-text-[clamp(2rem,3.6vw,2.8rem)] tw-font-bold tw-text-ink">Drive. Advertise. <span class="tw-text-power">Earn.</span></h2>
+      <h2 class="<?= $pcH2Display ?>">Drive. Advertise. <span class="tw-text-power">Earn.</span></h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 lg:tw-gap-6">
@@ -61,7 +61,7 @@ $carEarnCards = [
         and potentially earn <strong class="tw-text-ink">&euro;100+ per month</strong>,
         depending on campaign and eligibility.
       </p>
-      <a href="<?= $assetPath ?>/ambassador-programme" class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-powerlight tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]">
+      <a href="<?= $assetPath ?>/ambassador-programme" class="<?= $pcBtnPrimary ?>">
         Ask About Vehicle Campaigns
         <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l6.5 6.5a.75.75 0 010 1.06l-6.5 6.5a.75.75 0 11-1.06-1.06L14.19 12 8.22 6.03a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
       </a>

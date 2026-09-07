@@ -45,7 +45,11 @@ function pc_amb_icon(string $icon, string $cls): void
      .is-visible on each card as it scrolls into view (one-shot: it
      unobserves once revealed). The reveal itself is Tailwind's
      `[&.is-visible]:` arbitrary variant below, no custom CSS needed. -->
-<section class="tw-relative tw-overflow-hidden tw-bg-[radial-gradient(120%_100%_at_85%_0%,#fbe6d4_0%,#f9f4ed_50%,#f4efe8_100%)] tw-py-[clamp(4rem,8vw,6.5rem)]" id="pcAmbBenefits">
+<?php /* The warm radial wash lives on the wrapper in ambassador-programme.php,
+         shared with registration.php below -- see the note there for why it
+         cannot be declared per-section without a seam. This section keeps its
+         own decorative overlays, which ARE anchored to its own box. */ ?>
+<section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6.5rem)]" id="pcAmbBenefits">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-opacity-[0.035] tw-bg-[url('data:image/svg+xml,%3Csvg_xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter_id=%27n%27%3E%3CfeTurbulence_type=%27fractalNoise%27_baseFrequency=%270.85%27_numOctaves=%272%27_stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect_width=%27100%25%27_height=%27100%25%27_filter=%27url(%23n)%27/%3E%3C/svg%3E')]" aria-hidden="true"></span>
   <span class="tw-pointer-events-none tw-absolute tw-bottom-[-6rem] tw-left-[-6rem] tw-z-0 tw-h-[22rem] tw-w-[22rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.14),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
   <svg class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-hidden md:tw-block" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
