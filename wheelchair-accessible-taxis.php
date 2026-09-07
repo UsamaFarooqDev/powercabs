@@ -1,8 +1,19 @@
 <?php
 $pageTitle = 'Wheelchair Accessible Taxis in Dublin | PowerCabs';
 $pageDescription =
-  'Wheelchair accessible taxis in Dublin from PowerCabs -- safe, comfortable rides with trained drivers, secure wheelchair vehicles, and 24/7 availability across Ireland.';
+  // 143 chars. Was 167, past the ~160 Google will show.
+  'Wheelchair accessible taxis in Dublin from PowerCabs -- trained drivers, secure wheelchair-ready vehicles and 24/7 availability across Ireland.';
 $assetPath = '';
+
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Wheelchair Accessible Taxis',
+  'serviceType' => 'Accessible transport',
+  'description' =>
+    'Wheelchair-accessible vehicles with securing equipment and drivers trained to assist passengers with mobility needs.',
+];
 
 require __DIR__ . '/includes/header.php';
 

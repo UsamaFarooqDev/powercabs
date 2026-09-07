@@ -125,6 +125,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Card Payment Terminals for Drivers and Businesses',
+  'serviceType' => 'Payment terminal supply',
+  'description' =>
+    'Card payment terminals with PCI compliant processing, encrypted transactions and next day settlements.',
+];
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow = '/ Business Solutions';

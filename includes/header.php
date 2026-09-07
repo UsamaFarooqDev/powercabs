@@ -6,10 +6,11 @@ $pageDescription =
 $assetPath = $assetPath ?? '';
 $currentPage = basename($_SERVER['PHP_SELF']);
 
-$siteUrl = 'https://www.powercabs.ie/';
-$canonicalUrl = $siteUrl . ($currentPage === 'index.php' ? '' : preg_replace('/\.php$/', '', $currentPage));
-$ogImage = $ogImage ?? $siteUrl . 'assets/img/meet-and-greet.png';
-
+// $siteUrl, $canonicalUrl, $ogImage and the JSON-LD graph now come from
+// includes/seo.php, required from inside <head> below. They are defined
+// there rather than here because the whole SEO head is one concern and was
+// being maintained in three places (this block, the inline <head> tags, and
+// the inline LocalBusiness script).
 $navActive = static fn(string $page): string => $currentPage === $page ? 'active' : '';
 
 // The shared Tailwind class recipes ($pcContainer, $pcSection, $pcCard,
@@ -73,70 +74,17 @@ $megaSubitem =
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<?php /* en-IE, not plain en. og:locale already said en_IE and the business is
+         Dublin-based; matching them removes a small inconsistency and tells
+         Google the regional variant of English the content is written in.
+         Purely a declaration -- there is no second language, so no hreflang
+         is needed or added. */ ?>
+<html lang="en-IE">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= htmlspecialchars($pageTitle) ?></title>
-  <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
-  <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">
-<?php if (!empty($pageNoIndex)): ?>
-  <!-- Private, single-use pages (the Supabase password-recovery link target)
-       must never be indexed, and their token must never leak in a Referer. -->
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="referrer" content="strict-origin">
-<?php endif; ?>
-
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="PowerCabs">
-  <meta property="og:locale" content="en_IE">
-  <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
-  <meta property="og:description" content="<?= htmlspecialchars($pageDescription) ?>">
-  <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl) ?>">
-  <meta property="og:image" content="<?= htmlspecialchars($ogImage) ?>">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="<?= htmlspecialchars($pageTitle) ?>">
-  <meta name="twitter:description" content="<?= htmlspecialchars($pageDescription) ?>">
-  <meta name="twitter:image" content="<?= htmlspecialchars($ogImage) ?>">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "additionalType": "https://schema.org/TaxiService",
-    "name": "PowerCabs",
-    "image": "<?= $ogImage ?>",
-    "url": "<?= $siteUrl ?>",
-    "telephone": "+353899728089",
-    "priceRange": "€€",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Kylmore Road, Inchicore",
-      "addressLocality": "Dublin",
-      "postalCode": "D10 K729",
-      "addressCountry": "IE"
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": "Dublin"
-    },
-    "sameAs": [
-      "https://www.facebook.com/powercabs.ie/",
-      "https://www.instagram.com/powercabs.ie/",
-      "https://x.com/powercabsie",
-      "https://youtube.com/@powercabs",
-      "https://vm.tiktok.com/ZSYUyT1fd/"
-    ],
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      "opens": "00:00",
-      "closes": "23:59"
-    }
-  }
-  </script>
+  <?php require __DIR__ . '/seo.php'; ?>
 
   <!-- Order matters: reboot (element normalisation) -> variables (brand
        tokens, which override reboot's --bs-* defaults) -> base (PowerCabs

@@ -1,5 +1,40 @@
 </main>
 
+<!-- Decides the desktop footer-reveal BEFORE the footer is first painted.
+     This is the site's largest Core Web Vitals problem and it has one cause:
+     syncFooterHeightVar() in main.js adds .pc-footer-reveal on DOMContentLoaded
+     and again on load, and that class flips the footer from normal flow to
+     position:fixed. By then the footer has already been laid out and painted
+     at the bottom of the document, so it teleports the full height of itself
+     -- measured at CLS 0.52 on the homepage and 0.64 on /ride, against
+     Google's 0.1 "good" threshold, with the footer accounting for 99% of it.
+
+     Running the same test here works because this point in the document is
+     after </main> (so <main> is parsed and measurable) but before the <footer>
+     element exists (so it has never been laid out in flow). The condition is
+     identical to the one in syncFooterHeightVar, which still runs afterwards
+     and still owns resize and PJAX -- this only removes the first, visible
+     flip. Inline and synchronous on purpose: a deferred script would run after
+     paint and change nothing.
+
+     For the record, the 44 content images without width/height attributes are
+     NOT a meaningful contributor -- they measured 0.004 combined, because the
+     design system's aspect-ratio wrappers ($pcImgLandscape and friends)
+     already reserve the space. -->
+<script>
+  (function () {
+    try {
+      var main = document.querySelector('main');
+      if (main && main.getBoundingClientRect().height >= window.innerHeight) {
+        document.documentElement.classList.add('pc-footer-reveal');
+      }
+    } catch (e) {
+      /* Leave it to syncFooterHeightVar; a failure here costs layout shift,
+         never the footer itself. */
+    }
+  })();
+</script>
+
 <?php
 $assetPath = $assetPath ?? '';
 

@@ -178,8 +178,18 @@ function pc_ride_spec_icon(string $icon): void
       <?php endforeach; ?>
     </div>
 
-    <div class="tw-mt-10 tw-flex tw-justify-center">
+    <?php /* Wheelchair Taxi is one of the eight cards above and has a whole
+             page of its own -- accessibility requirements, what the vehicles
+             are fitted with, how drivers are trained -- which nothing on this
+             page linked to. Someone scanning the ride types for an accessible
+             vehicle is exactly the reader that page is written for, so the
+             link belongs here rather than only in the footer. */ ?>
+    <div class="tw-mt-10 tw-flex tw-flex-col tw-items-center tw-gap-4">
       <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/book-ride-online">Book Your Ride</a>
+      <p class="tw-mb-0 tw-text-center tw-text-[0.95rem] tw-text-ink/[0.6]">
+        Travelling with a wheelchair?
+        <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/30 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-text-powerdark hover:tw-decoration-power" href="<?= $assetPath ?>/wheelchair-accessible-taxis">See our wheelchair accessible taxis</a>.
+      </p>
     </div>
 
   </div>

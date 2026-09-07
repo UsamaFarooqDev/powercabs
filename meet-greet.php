@@ -1,7 +1,11 @@
 <?php
 $pageTitle = 'Dublin Airport Transfers & Meet and Greet | PowerCabs';
 $pageDescription =
-  'Reliable Dublin Airport taxi transfers with PowerCabs -- flight tracking, a personal Meet & Greet at arrivals, luggage assistance and a smooth transfer to your destination.';
+  /* 150 chars, and no ampersand. It was 172 raw and rendered at 176: "&"
+     becomes "&amp;" in the meta tag, so every one silently costs four
+     characters against the ~160 Google shows. "meet and greet" spelled out
+     is also the way people type the search. */
+  'Dublin Airport taxi transfers with PowerCabs -- flight tracking, a personal meet and greet at arrivals, luggage help and a direct transfer, 24/7.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
@@ -132,6 +136,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     }
   }
 }
+
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Dublin Airport Transfers and Meet and Greet',
+  'serviceType' => 'Airport transfer',
+  'description' =>
+    'Dublin Airport pickups and drop-offs with flight tracking, a driver waiting at arrivals with a name board, and help with luggage.',
+];
 
 require __DIR__ . '/includes/header.php';
 

@@ -48,6 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Corporate Taxi Accounts',
+  'serviceType' => 'Corporate account',
+  'description' =>
+    'Business accounts with a dedicated account manager, one consolidated monthly invoice, scheduled and recurring bookings, and 24/7 support.',
+];
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow     = '/ Corporate Services';

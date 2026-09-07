@@ -4,8 +4,6 @@ $pageDescription =
   'Answers to common questions for PowerCabs passengers and drivers -- booking, payments, tracking, documents, earnings and more.';
 $assetPath = '';
 
-require __DIR__ . '/includes/header.php';
-
 $passengerFaqs = [
   [
     'q' => 'How do I book a ride with PowerCabs?',
@@ -142,6 +140,24 @@ $driverTutorials = [
   ['file' => 'pickup-ride.mp4', 'label' => 'Pickup &amp; Ride'],
   ['file' => 'final-completion.mp4', 'label' => 'Trip Completion'],
 ];
+
+/* FAQPage structured data, built from the SAME two arrays this page renders
+   its accordions from -- which is why the data now sits above the header
+   require instead of below it. That ordering is the whole point: Google
+   requires FAQ markup to match the visible page, and the only reliable way
+   to guarantee that is to have one source. Add a question below and it is
+   in the schema; delete one and it is gone from both.
+
+   Flattened because $driverFaqGroups nests its questions under headings,
+   and FAQPage.mainEntity is a flat list of Questions. */
+$pageFaq = $passengerFaqs;
+foreach ($driverFaqGroups as $group) {
+  foreach ($group['items'] as $item) {
+    $pageFaq[] = $item;
+  }
+}
+
+require __DIR__ . '/includes/header.php';
 
 $heroEyebrow = '/ Got Questions?';
 $heroTitleLight = 'Everything You';

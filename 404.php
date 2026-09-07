@@ -1,7 +1,20 @@
 <?php
-http_response_code(404);
-$pageTitle = '404 - Page Not Found | PowerCabs';
-$pageDescription = "The page you're looking for doesn't exist or may have been moved.";
+/* Doubles as the 410 Gone page. 410.php sets the four $err* variables below
+   and requires this file, rather than duplicating ~100 lines of markup for
+   a page that differs only in its status code and three strings.
+
+   Both statuses are served by ErrorDocument in .htaccess, which has already
+   set the status by the time PHP runs -- http_response_code() below is what
+   makes the page correct when it is reached any other way (the php -S dev
+   server, or a direct request). */
+$errStatus = $errStatus ?? 404;
+$errEyebrow = $errEyebrow ?? '/ Error 404';
+$errHeading = $errHeading ?? 'This page took a wrong turn.';
+$errGhost = $errGhost ?? '404';
+
+http_response_code($errStatus);
+$pageTitle = $pageTitle ?? '404 - Page Not Found | PowerCabs';
+$pageDescription = $pageDescription ?? "The page you're looking for doesn't exist or may have been moved.";
 $assetPath = '/';
 
 // This page stands alone -- no header.php, so no <main>, no nav, no footer
@@ -47,10 +60,10 @@ $notFoundLinks = [
 
       <!-- LEFT: the message -->
       <div class="tw-order-2 lg:tw-order-1">
-        <p class="<?= $pcEyebrow ?>">/ Error 404</p>
+        <p class="<?= $pcEyebrow ?>"><?= htmlspecialchars($errEyebrow) ?></p>
 
         <h1 class="tw-mb-4 tw-text-[clamp(2rem,4.5vw,3rem)] tw-font-bold tw-leading-[1.1] tw-tracking-tight tw-text-ink">
-          This page took a wrong turn.
+          <?= htmlspecialchars($errHeading) ?>
         </h1>
 
         <p class="tw-mb-8 tw-max-w-[46ch] tw-text-lg tw-leading-relaxed tw-text-ink/[0.65]">
@@ -88,7 +101,7 @@ $notFoundLinks = [
       <!-- RIGHT: illustration, with a ghost 404 behind it -->
       <div class="tw-order-1 lg:tw-order-2">
         <div class="tw-relative tw-mx-auto tw-max-w-[520px]">
-          <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-select-none tw-items-center tw-justify-center tw-text-[clamp(9rem,22vw,16rem)] tw-font-black tw-leading-none tw-tracking-tight tw-text-ink/[0.04]" aria-hidden="true">404</span>
+          <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-select-none tw-items-center tw-justify-center tw-text-[clamp(9rem,22vw,16rem)] tw-font-black tw-leading-none tw-tracking-tight tw-text-ink/[0.04]" aria-hidden="true"><?= htmlspecialchars($errGhost) ?></span>
           <img src="/assets/img/not-found.svg" alt="" aria-hidden="true"
             class="tw-relative tw-mx-auto tw-h-auto tw-w-full tw-max-w-[440px]">
         </div>

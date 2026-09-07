@@ -69,6 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Business Travel and Chauffeur Cars',
+  'serviceType' => 'Corporate transport',
+  'description' =>
+    'Executive travel for meetings, client visits and airport runs, with professional drivers and vehicles suited to business journeys.',
+];
+
 require __DIR__ . '/includes/header.php';
 
 // The page's real promise is the admin it removes, not the upholstery --

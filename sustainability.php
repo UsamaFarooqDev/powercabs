@@ -3,6 +3,13 @@ $pageTitle       = 'Sustainability & Environmental Policy | PowerCabs';
 $pageDescription = "PowerCabs's commitment to eco-friendly design and digital solutions -- remote-first working, paperless operations, and 100% renewable-energy hosting.";
 $assetPath       = '';
 
+/* This page has a bespoke green hero rather than the shared
+   components/shared/inner-hero.php, and inner-hero is what emits the
+   BreadcrumbList on every other inner page -- so this was the one indexable
+   page on the site with no breadcrumb markup. Declared here instead; the
+   node is assembled in includes/seo.php. */
+$pageBreadcrumb = ['Sustainability' => '/sustainability'];
+
 require __DIR__ . '/includes/header.php';
 
 $ecoAreas = [

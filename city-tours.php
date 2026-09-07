@@ -1,7 +1,8 @@
 <?php
 $pageTitle = 'Dublin City Tours & Private Day Trips | PowerCabs';
 $pageDescription =
-  "Dublin city tours and private day trips with PowerCabs -- professional local drivers to Dublin's top sights, the Cliffs of Moher, Giant's Causeway and more.";
+  // 147 chars. Was 156 raw / 166 rendered, past the ~160 Google will show.
+  "Private Dublin city tours and Irish day trips with PowerCabs -- a local driver to the city's top sights, the Cliffs of Moher and Giant's Causeway.";
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
@@ -146,6 +147,16 @@ if ($nowSlotMinute === 60) {
 }
 $hourlyNextSlot = sprintf('%02d:%02d', $nowHour, $nowSlotMinute);
 $hourlyOld['tour_time'] = $hourlyOld['tour_time'] !== '' ? $hourlyOld['tour_time'] : $hourlyNextSlot;
+
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Private City Tours and Day Trips',
+  'serviceType' => 'Sightseeing tour',
+  'description' =>
+    'Private car tours of Dublin and day trips across Ireland with a local driver, on a full-day, half-day or hourly basis.',
+];
 
 require __DIR__ . '/includes/header.php';
 
