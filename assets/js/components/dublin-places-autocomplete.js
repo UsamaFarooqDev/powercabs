@@ -12,7 +12,7 @@
  *
  * Usage:
  *   window.pcAttachDublinAutocomplete(inputEl, {
- *     warningEl: <element to show/hide -- .classList.remove/add("d-none")
+ *     warningEl: <element to show/hide -- .classList.remove/add("tw-hidden")
  *                 -- when the typed text isn't a confirmed, in-bounds
  *                 place>,
  *     isConfirmed: function () { return <truthy once a valid place is
@@ -67,24 +67,24 @@
 
       if (!loc || !dublinBounds.contains(loc)) {
         if (!loc) input.value = "";
-        if (warningEl) warningEl.classList.remove("d-none");
+        if (warningEl) warningEl.classList.remove("tw-hidden");
         if (opts.onClear) opts.onClear();
         return;
       }
 
-      if (warningEl) warningEl.classList.add("d-none");
+      if (warningEl) warningEl.classList.add("tw-hidden");
       if (opts.onPlace) opts.onPlace(place, { lat: loc.lat(), lng: loc.lng() });
     });
 
     input.addEventListener("input", function () {
-      if (warningEl) warningEl.classList.add("d-none");
+      if (warningEl) warningEl.classList.add("tw-hidden");
       if (opts.onClear) opts.onClear();
     });
 
     input.addEventListener("blur", function () {
       var confirmed = opts.isConfirmed ? opts.isConfirmed() : false;
       if (input.value.trim() !== "" && !confirmed && warningEl) {
-        warningEl.classList.remove("d-none");
+        warningEl.classList.remove("tw-hidden");
       }
     });
   }

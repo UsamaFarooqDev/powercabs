@@ -16,7 +16,20 @@
     if (!bar) {
       bar = document.createElement("div");
       bar.id = "pcPjaxProgress";
-      bar.className = "pc-pjax-progress position-fixed";
+      // Width/opacity are driven by the is-active / is-done classes below:
+      // is-active crawls to 80% over 4s, is-done snaps to 100% and fades.
+      bar.className =
+        "tw-fixed tw-left-0 tw-top-0 tw-z-[2100] tw-h-[3px] tw-w-0 tw-opacity-0 " +
+        "tw-bg-[linear-gradient(90deg,#e8590c_0%,#ff7a00_100%)] " +
+        "tw-transition-[width,opacity] tw-duration-200 " +
+        // Arbitrary *property* ([transition:...]), not the transition-[...]
+        // utility -- the latter only sets transition-property, which can't
+        // express these two different per-property durations.
+        "[&.is-active]:tw-w-4/5 [&.is-active]:tw-opacity-100 " +
+        "[&.is-active]:[transition:width_4s_cubic-bezier(0.1,0.6,0.3,1),opacity_0.2s_ease] " +
+        "[&.is-done]:tw-w-full [&.is-done]:tw-opacity-0 " +
+        "[&.is-done]:[transition:width_0.2s_ease,opacity_0.3s_ease_0.1s] " +
+        "motion-reduce:[transition:none]";
       document.body.appendChild(bar);
     }
     // Restart the animation if a previous nav's bar is still fading out.
@@ -45,25 +58,13 @@
   }
 
   /**
-   * Close the mobile nav collapse and any open mega-menu dropdown. Both are
-   * outside <main> and never get torn down by a content swap, so without
-   * this a dropdown clicked open before navigating (e.g. the About/Contact
-   * mega menus, which use data-bs-auto-close="outside" so inside clicks
-   * don't dismiss them) is left sitting open on top of the new page.
+   * Close the mobile nav panel and any open mega menu. All of it lives
+   * outside <main> and never gets torn down by a content swap, so without
+   * this a menu opened before navigating is left sitting over the new page.
+   * pcCloseNav is defined in main.js, which always loads before this file.
    */
   function closeOpenMenus() {
-    if (!window.bootstrap) return;
-
-    const mainNav = document.getElementById("mainNav");
-    if (mainNav && mainNav.classList.contains("show") && bootstrap.Collapse) {
-      bootstrap.Collapse.getOrCreateInstance(mainNav).hide();
-    }
-
-    if (bootstrap.Dropdown) {
-      document.querySelectorAll('.pc-mega-parent > [data-bs-toggle="dropdown"][aria-expanded="true"]').forEach((toggle) => {
-        bootstrap.Dropdown.getInstance(toggle)?.hide();
-      });
-    }
+    if (typeof window.pcCloseNav === "function") window.pcCloseNav();
   }
 
   function executeScripts(container) {
@@ -139,6 +140,9 @@
       if (window.initWhyChooseReveal) window.initWhyChooseReveal();
       if (window.initScrollReveal) window.initScrollReveal();
       if (window.pcInitAjaxForms) window.pcInitAjaxForms();
+      // Collapse panels are inert until primed -- without this every
+      // accordion reached via a PJAX click renders fully open.
+      if (window.pcInitUi) window.pcInitUi();
 
       window.scrollTo({ top: 0, behavior: "auto" });
     } catch (err) {

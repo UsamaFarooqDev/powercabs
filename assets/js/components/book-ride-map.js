@@ -110,7 +110,7 @@
     }
 
     function resetEstimate() {
-      fareBox?.classList.add("d-none");
+      if (fareBox) fareBox.hidden = true;
       directionsRenderer.set("directions", null);
       ["distanceKm", "durationMin", "fareEur"].forEach((k) => {
         if (hiddenFields[k]) hiddenFields[k].value = "";
@@ -136,7 +136,7 @@
       if (fareValueEl) fareValueEl.textContent = "Calculating…";
       if (fareDistanceEl) fareDistanceEl.textContent = distanceKm.toFixed(1);
       if (fareDurationEl) fareDurationEl.textContent = Math.round(durationMin);
-      fareBox?.classList.remove("d-none");
+      if (fareBox) fareBox.hidden = false;
 
       pcFetchFareEstimate(distanceKm, durationMin, rideType)
         .then((estimate) => {

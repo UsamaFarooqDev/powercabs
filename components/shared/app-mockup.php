@@ -5,11 +5,22 @@ $mockupMaxWidth  = $mockupMaxWidth ?? '280px';
 $mockupWrapClass = $mockupWrapClass ?? '';
 $mockupImgId     = $mockupImgId ?? '';
 ?>
-<div class="pc-app-showcase position-relative mx-auto<?= $mockupWrapClass ? ' ' . htmlspecialchars($mockupWrapClass) : '' ?>" style="max-width: <?= htmlspecialchars($mockupMaxWidth) ?>;">
-  <div class="pc-phone-frame mx-auto position-relative<?= $mockupFloat ? ' pc-app-float-phone' : '' ?>">
-    <div class="pc-phone-screen position-relative overflow-hidden">
-      <?php if ($mockupNotch): ?><span class="pc-phone-notch position-absolute z-2 rounded-pill"></span><?php endif; ?>
-      <img<?= $mockupImgId ? ' id="' . htmlspecialchars($mockupImgId) . '"' : '' ?> src="<?= $assetPath ?>assets/img/<?= htmlspecialchars($mockupImage) ?>" alt="<?= htmlspecialchars($mockupAlt) ?>" class="w-100 h-100" style="object-fit: cover;" loading="lazy">
+<?php
+// pc-phone-screen stays as a bare classname with no CSS behind it:
+// components/ride/booking-steps.php reaches into it with [&_.pc-phone-screen]:
+// variants to give that page's mockup a taller screen than the default.
+// tw-animate-pc-float is the shared keyframe declared in the Tailwind config
+// (includes/header.php), not a stylesheet rule.
+?>
+<div class="tw-relative tw-mx-auto tw-max-w-[<?= htmlspecialchars($mockupMaxWidth) ?>]<?= $mockupWrapClass
+  ? ' ' . htmlspecialchars($mockupWrapClass)
+  : '' ?>">
+  <div class="tw-relative tw-mx-auto tw-w-[260px] tw-max-w-full tw-rounded-[2.25rem] tw-bg-ink tw-p-2.5 tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]<?= $mockupFloat
+    ? ' tw-animate-pc-float motion-reduce:tw-animate-none'
+    : '' ?>">
+    <div class="pc-phone-screen tw-relative tw-min-h-[360px] tw-overflow-hidden tw-rounded-[1.65rem] tw-bg-white">
+      <?php if ($mockupNotch): ?><span class="tw-absolute tw-left-1/2 tw-top-2 tw-z-[2] tw-h-4 tw-w-20 -tw-translate-x-1/2 tw-rounded-full tw-bg-ink"></span><?php endif; ?>
+      <img<?= $mockupImgId ? ' id="' . htmlspecialchars($mockupImgId) . '"' : '' ?> src="<?= $assetPath ?>assets/img/<?= htmlspecialchars($mockupImage) ?>" alt="<?= htmlspecialchars($mockupAlt) ?>" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
     </div>
   </div>
   <?php if (!empty($mockupFloatCards) && is_callable($mockupFloatCards)): $mockupFloatCards(); endif; ?>

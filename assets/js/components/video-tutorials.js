@@ -8,16 +8,16 @@ function pcInitVideoTutorials() {
       video.muted = false;
       video.controls = true;
       video.play();
-      playBtn.classList.add("d-none");
+      playBtn.classList.add("tw-hidden");
       const label = card.querySelector(".pc-tutorial-card-label");
-      if (label) label.classList.add("d-none");
+      if (label) label.classList.add("tw-hidden");
     });
 
     video.addEventListener("pause", () => {
       if (video.currentTime === 0 || video.ended) {
-        playBtn.classList.remove("d-none");
+        playBtn.classList.remove("tw-hidden");
         const label = card.querySelector(".pc-tutorial-card-label");
-        if (label) label.classList.remove("d-none");
+        if (label) label.classList.remove("tw-hidden");
       }
     });
   });

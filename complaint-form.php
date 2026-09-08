@@ -187,190 +187,218 @@ $categoryModes = [
 ];
 ?>
 
-<section class="section-pc">
-  <div class="container" style="max-width: 820px;">
+<?php
+// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
+$inputClass = $pcInput;
+$labelClass = $pcLabel;
+$submitClass = $pcBtnPrimary;
+// Segmented pill toggle (service type) -- has-[:checked] reproduces
+// Bootstrap's .btn-check + .btn sibling-selector trick without it.
+$pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink/20 tw-px-4 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-power has-[:checked]:tw-bg-power has-[:checked]:tw-text-white';
+// Left-aligned selectable card (complaint category) -- same has-checked
+// mechanism, styled as a full-width list item instead of a pill.
+$cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border tw-border-solid tw-border-ink/15 tw-px-4 tw-py-2.5 tw-text-left tw-text-sm tw-font-medium tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-ink has-[:checked]:tw-bg-ink has-[:checked]:tw-text-white';
+?>
+<section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
+  <div class="tw-mx-auto tw-max-w-[820px]">
     <form id="complaintForm" method="post" action="" enctype="multipart/form-data" novalidate>
 
       <!-- ============ Step 1: Service type ============ -->
-      <div class="mb-4">
-        <p class="fw-semibold mb-3">You have chosen to make a complaint regarding the services offered by one of the following:</p>
-        <div class="d-flex flex-wrap gap-2">
-          <input type="radio" class="btn-check" name="service_type" id="svcTaxi" value="Taxi / Wheelchair Accessible Taxi" autocomplete="off" <?= $old['service_type'] === 'Taxi / Wheelchair Accessible Taxi' ? 'checked' : '' ?>>
-          <label class="btn btn-outline-primary rounded-pill px-4" for="svcTaxi">Taxi / Wheelchair Accessible Taxi</label>
-
-          <input type="radio" class="btn-check" name="service_type" id="svcHackney" value="Hackney / Wheelchair Accessible Hackney" autocomplete="off" <?= $old['service_type'] === 'Hackney / Wheelchair Accessible Hackney' ? 'checked' : '' ?>>
-          <label class="btn btn-outline-primary rounded-pill px-4" for="svcHackney">Hackney / Wheelchair Accessible Hackney</label>
-
-          <input type="radio" class="btn-check" name="service_type" id="svcLimo" value="Limousine" autocomplete="off" <?= $old['service_type'] === 'Limousine' ? 'checked' : '' ?>>
-          <label class="btn btn-outline-primary rounded-pill px-4" for="svcLimo">Limousine</label>
-
-          <input type="radio" class="btn-check" name="service_type" id="svcDispatch" value="Dispatch Operator Company" autocomplete="off" <?= $old['service_type'] === 'Dispatch Operator Company' ? 'checked' : '' ?>>
-          <label class="btn btn-outline-primary rounded-pill px-4" for="svcDispatch">Dispatch Operator Company</label>
-        </div>
-      </div>
-
-      <!-- ============ Step 2: Complaint category ============ -->
-      <div class="mb-4">
-        <p class="fw-semibold mb-3">Please select the category of complaint that best suits the nature of the incident:</p>
-        <div class="d-flex flex-column gap-2">
-          <?php foreach ($categoryLabels as $catId => $catLabel): ?>
-            <input type="radio" class="btn-check" name="complaint_category" id="<?= $catId ?>" value="<?= htmlspecialchars($catLabel) ?>" data-mode="<?= $categoryModes[$catId] ?>" autocomplete="off" <?= $old['complaint_category'] === $catLabel ? 'checked' : '' ?>>
-            <label class="btn btn-outline-dark text-start rounded-3 py-2 px-3" for="<?= $catId ?>"><?= htmlspecialchars($catLabel) ?></label>
-          <?php endforeach; ?>
-        </div>
-      </div>
-
-      <!-- Shown instead of the form for the 3 police-matter categories -->
-      <div id="criminalNotice" class="alert alert-danger d-none" role="alert">
-        If the matter to which your complaint relates is of a criminal nature, you should contact An Garda S&iacute;och&aacute;na. In an emergency ring 999 or 112.
-      </div>
-
-      <div id="complaintFields" class="d-none">
-        <hr class="my-4">
-
-        <h2 class="fs-4 fw-bold mb-3">Please Provide Your Journey Details</h2>
-        <p class="small fw-semibold text-uppercase text-muted-pc mb-2" style="letter-spacing: .05em;">Please provide your contact details</p>
-        <div class="row g-3 mb-3">
-          <div class="col-md-6">
-            <label class="form-label" for="cfFirstName">First Name</label>
-            <input type="text" class="form-control" id="cfFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label" for="cfLastName">Last Name</label>
-            <input type="text" class="form-control" id="cfLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label pc-required" for="cfEmail">Email</label>
-            <input type="email" class="form-control" id="cfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label pc-required" for="cfPhone">Phone / Mobile</label>
-            <input type="tel" class="form-control" id="cfPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
-          </div>
-          <div class="col-12">
-            <label class="form-label" for="cfPostalAddress">Postal Address</label>
-            <input type="text" class="form-control" id="cfPostalAddress" name="postal_address" value="<?= htmlspecialchars($old['postal_address']) ?>">
-          </div>
-        </div>
-
-        <div class="row g-3 mb-4">
-          <div class="col-md-6">
-            <label class="form-label pc-required" for="cfPickup">Pickup Location</label>
-            <input type="text" class="form-control" id="cfPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label pc-required" for="cfDestination">Destination Location</label>
-            <input type="text" class="form-control" id="cfDestination" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>" required>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label pc-required" for="cfDate">Date</label>
-            <input type="date" class="form-control pc-custom-datetime-enhance" id="cfDate" name="journey_date" value="<?= htmlspecialchars($old['journey_date']) ?>" required>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label pc-required" for="cfTime">Time</label>
-            <input type="time" class="form-control pc-custom-datetime-enhance" id="cfTime" name="journey_time" value="<?= htmlspecialchars($old['journey_time']) ?>" required>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label" for="cfPassengers">Number of Passengers</label>
-            <input type="number" min="1" class="form-control" id="cfPassengers" name="passengers" value="<?= htmlspecialchars($old['passengers']) ?>">
-          </div>
-          <div class="col-12">
-            <label class="form-label pc-required" for="cfReceipt">Upload Receipt</label>
-            <input type="file" class="form-control" id="cfReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf" required>
-            <div class="form-text">JPG, PNG, WEBP or PDF, max 5MB.</div>
-          </div>
-        </div>
-
-        <div id="spsvSection" class="mb-4">
-          <p class="small fw-semibold text-uppercase text-muted-pc mb-2" style="letter-spacing: .05em;">Please provide known SPSV details</p>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label" for="cfVehicleLicence">Vehicle Licence Number</label>
-              <input type="text" class="form-control" id="cfVehicleLicence" name="vehicle_licence_number" value="<?= htmlspecialchars($old['vehicle_licence_number']) ?>">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="cfDriverName">Driver Name</label>
-              <input type="text" class="form-control" id="cfDriverName" name="driver_name" value="<?= htmlspecialchars($old['driver_name']) ?>">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="cfDriverLicence">Driver Licence Number</label>
-              <input type="text" class="form-control" id="cfDriverLicence" name="driver_licence_number" value="<?= htmlspecialchars($old['driver_licence_number']) ?>">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="cfVehicleReg">Vehicle Registration Number</label>
-              <input type="text" class="form-control" id="cfVehicleReg" name="vehicle_registration_number" value="<?= htmlspecialchars($old['vehicle_registration_number']) ?>">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="cfVehicleMakeModel">Vehicle Make / Model</label>
-              <input type="text" class="form-control" id="cfVehicleMakeModel" name="vehicle_make_model" value="<?= htmlspecialchars($old['vehicle_make_model']) ?>">
-            </div>
-          </div>
-        </div>
-
-        <div id="dispatchSection" class="mb-4">
-          <p class="small fw-semibold text-uppercase text-muted-pc mb-2" style="letter-spacing: .05em;">Please provide known Dispatch Operator details</p>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label" for="cfDispatchName">Name</label>
-              <input type="text" class="form-control" id="cfDispatchName" name="dispatch_name" value="<?= htmlspecialchars($old['dispatch_name']) ?>">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="cfMethodBooking">Method of Booking</label>
-              <input type="text" class="form-control" id="cfMethodBooking" name="method_of_booking" value="<?= htmlspecialchars($old['method_of_booking']) ?>">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label" for="cfContactInfo">Contact Information</label>
-              <input type="text" class="form-control" id="cfContactInfo" name="contact_information" value="<?= htmlspecialchars($old['contact_information']) ?>">
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="cfDateBooking">Date of Booking</label>
-              <input type="date" class="form-control pc-custom-datetime-enhance" id="cfDateBooking" name="date_of_booking" value="<?= htmlspecialchars($old['date_of_booking']) ?>">
-            </div>
-            <div class="col-md-3">
-              <label class="form-label" for="cfTimeBooking">Time of Booking</label>
-              <input type="time" class="form-control pc-custom-datetime-enhance" id="cfTimeBooking" name="time_of_booking" value="<?= htmlspecialchars($old['time_of_booking']) ?>">
-            </div>
-          </div>
-        </div>
-
-        <div id="experienceSection" class="d-none mb-4">
-          <p class="small fw-semibold text-uppercase text-muted-pc mb-1" style="letter-spacing: .05em;">Please give some details of your experience</p>
-          <p class="text-muted-pc small mb-3">e.g. comments made by driver, description of vehicle condition, total fare charged</p>
-          <div class="row g-3">
-            <div class="col-12">
-              <label class="form-label pc-required" for="cfExperienceDescription">Describe Your Experience</label>
-              <textarea class="form-control" id="cfExperienceDescription" name="experience_description" rows="4" required><?= htmlspecialchars($old['experience_description']) ?></textarea>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label pc-required" for="cfExperienceName">Your Name</label>
-              <input type="text" class="form-control" id="cfExperienceName" name="experience_name" value="<?= htmlspecialchars($old['experience_name']) ?>" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label pc-required" for="cfExperienceDate">Date</label>
-              <input type="date" class="form-control pc-custom-datetime-enhance" id="cfExperienceDate" name="experience_date" value="<?= htmlspecialchars($old['experience_date']) ?>" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-check mb-4">
-          <input class="form-check-input" type="checkbox" id="cfTerms" name="terms_agree">
-          <label class="form-check-label" for="cfTerms">
-            I have read and agree to the <a class="pc-form-link" href="<?= $assetPath ?>/terms-conditions" target="_blank" rel="noopener">Terms and Conditions</a> and <a class="pc-form-link" href="<?= $assetPath ?>/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+      <div class="tw-mb-6">
+        <p class="tw-mb-3 tw-font-semibold tw-text-ink">You have chosen to make a complaint regarding the services offered by one of the following:</p>
+        <div class="tw-flex tw-flex-wrap tw-gap-2">
+          <label class="<?= $pillToggleClass ?>" for="svcTaxi">
+            <input type="radio" class="tw-sr-only" name="service_type" id="svcTaxi" value="Taxi / Wheelchair Accessible Taxi" autocomplete="off" <?= $old['service_type'] === 'Taxi / Wheelchair Accessible Taxi' ? 'checked' : '' ?>>
+            Taxi / Wheelchair Accessible Taxi
+          </label>
+          <label class="<?= $pillToggleClass ?>" for="svcHackney">
+            <input type="radio" class="tw-sr-only" name="service_type" id="svcHackney" value="Hackney / Wheelchair Accessible Hackney" autocomplete="off" <?= $old['service_type'] === 'Hackney / Wheelchair Accessible Hackney' ? 'checked' : '' ?>>
+            Hackney / Wheelchair Accessible Hackney
+          </label>
+          <label class="<?= $pillToggleClass ?>" for="svcLimo">
+            <input type="radio" class="tw-sr-only" name="service_type" id="svcLimo" value="Limousine" autocomplete="off" <?= $old['service_type'] === 'Limousine' ? 'checked' : '' ?>>
+            Limousine
+          </label>
+          <label class="<?= $pillToggleClass ?>" for="svcDispatch">
+            <input type="radio" class="tw-sr-only" name="service_type" id="svcDispatch" value="Dispatch Operator Company" autocomplete="off" <?= $old['service_type'] === 'Dispatch Operator Company' ? 'checked' : '' ?>>
+            Dispatch Operator Company
           </label>
         </div>
       </div>
 
-      <div id="complaintSubmitWrapper" class="d-none">
-        <button type="submit" id="complaintSubmitBtn" class="btn btn-pc-primary px-4 d-inline-flex align-items-center">
+      <!-- ============ Step 2: Complaint category ============ -->
+      <!-- Bare radio + has-checked label: complaint-form.js's
+           updateCategoryState() keeps driving this via
+           form.querySelector('input[name="complaint_category"]:checked')
+           and each input's data-mode -- unchanged, only the visual toggle
+           styling moved to Tailwind. -->
+      <div class="tw-mb-6">
+        <p class="tw-mb-3 tw-font-semibold tw-text-ink">Please select the category of complaint that best suits the nature of the incident:</p>
+        <div class="tw-flex tw-flex-col tw-gap-2">
+          <?php foreach ($categoryLabels as $catId => $catLabel): ?>
+            <label class="<?= $cardToggleClass ?>" for="<?= $catId ?>">
+              <input type="radio" class="tw-sr-only" name="complaint_category" id="<?= $catId ?>" value="<?= htmlspecialchars($catLabel) ?>" data-mode="<?= $categoryModes[$catId] ?>" autocomplete="off" <?= $old['complaint_category'] === $catLabel ? 'checked' : '' ?>>
+              <?= htmlspecialchars($catLabel) ?>
+            </label>
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <!-- Shown instead of the form for the 3 police-matter categories.
+           tw-hidden stays bare -- complaint-form.js toggles it via classList. -->
+      <div id="criminalNotice" class="alert-danger tw-hidden tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert">
+        If the matter to which your complaint relates is of a criminal nature, you should contact An Garda S&iacute;och&aacute;na. In an emergency ring 999 or 112.
+      </div>
+
+      <!-- tw-hidden stays bare on #complaintFields / #experienceSection --
+           complaint-form.js toggles both directly via classList. -->
+      <div id="complaintFields" class="tw-hidden">
+        <hr class="tw-my-6 tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.08]">
+
+        <h2 class="tw-mb-3 tw-text-2xl tw-font-bold tw-text-ink">Please Provide Your Journey Details</h2>
+        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.05em] tw-text-ink/60">Please provide your contact details</p>
+        <div class="tw-mb-4 tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
+          <div>
+            <label class="<?= $labelClass ?>" for="cfFirstName">First Name</label>
+            <input type="text" class="<?= $inputClass ?>" id="cfFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>">
+          </div>
+          <div>
+            <label class="<?= $labelClass ?>" for="cfLastName">Last Name</label>
+            <input type="text" class="<?= $inputClass ?>" id="cfLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>">
+          </div>
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfEmail">Email</label>
+            <input type="email" class="<?= $inputClass ?>" id="cfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
+          </div>
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfPhone">Phone / Mobile</label>
+            <input type="tel" class="<?= $inputClass ?>" id="cfPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
+          </div>
+          <div class="md:tw-col-span-2">
+            <label class="<?= $labelClass ?>" for="cfPostalAddress">Postal Address</label>
+            <input type="text" class="<?= $inputClass ?>" id="cfPostalAddress" name="postal_address" value="<?= htmlspecialchars($old['postal_address']) ?>">
+          </div>
+        </div>
+
+        <div class="tw-mb-6 tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2 lg:tw-grid-cols-3">
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfPickup">Pickup Location</label>
+            <input type="text" class="<?= $inputClass ?>" id="cfPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
+          </div>
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfDestination">Destination Location</label>
+            <input type="text" class="<?= $inputClass ?>" id="cfDestination" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>" required>
+          </div>
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfDate">Date</label>
+            <input type="date" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="cfDate" name="journey_date" value="<?= htmlspecialchars($old['journey_date']) ?>" required>
+          </div>
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfTime">Time</label>
+            <input type="time" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="cfTime" name="journey_time" value="<?= htmlspecialchars($old['journey_time']) ?>" required>
+          </div>
+          <div>
+            <label class="<?= $labelClass ?>" for="cfPassengers">Number of Passengers</label>
+            <input type="number" min="1" class="<?= $inputClass ?>" id="cfPassengers" name="passengers" value="<?= htmlspecialchars($old['passengers']) ?>">
+          </div>
+          <div class="md:tw-col-span-2 lg:tw-col-span-1">
+            <label class="<?= $labelClass ?> pc-required" for="cfReceipt">Upload Receipt</label>
+            <input type="file" class="<?= $inputClass ?> tw-cursor-pointer tw-py-[0.3rem] file:tw-mr-3 file:tw-cursor-pointer file:tw-rounded-full file:tw-border-0 file:tw-bg-paper file:tw-px-3 file:tw-py-1.5 file:tw-text-sm file:tw-font-semibold file:tw-text-ink" id="cfReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf" required>
+            <div class="tw-mt-1.5 tw-text-sm tw-text-ink/50">JPG, PNG, WEBP or PDF, max 5MB.</div>
+          </div>
+        </div>
+
+        <div id="spsvSection" class="tw-mb-6">
+          <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.05em] tw-text-ink/60">Please provide known SPSV details</p>
+          <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
+            <div>
+              <label class="<?= $labelClass ?>" for="cfVehicleLicence">Vehicle Licence Number</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfVehicleLicence" name="vehicle_licence_number" value="<?= htmlspecialchars($old['vehicle_licence_number']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfDriverName">Driver Name</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfDriverName" name="driver_name" value="<?= htmlspecialchars($old['driver_name']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfDriverLicence">Driver Licence Number</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfDriverLicence" name="driver_licence_number" value="<?= htmlspecialchars($old['driver_licence_number']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfVehicleReg">Vehicle Registration Number</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfVehicleReg" name="vehicle_registration_number" value="<?= htmlspecialchars($old['vehicle_registration_number']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfVehicleMakeModel">Vehicle Make / Model</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfVehicleMakeModel" name="vehicle_make_model" value="<?= htmlspecialchars($old['vehicle_make_model']) ?>">
+            </div>
+          </div>
+        </div>
+
+        <div id="dispatchSection" class="tw-mb-6">
+          <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.05em] tw-text-ink/60">Please provide known Dispatch Operator details</p>
+          <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2 lg:tw-grid-cols-3">
+            <div>
+              <label class="<?= $labelClass ?>" for="cfDispatchName">Name</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfDispatchName" name="dispatch_name" value="<?= htmlspecialchars($old['dispatch_name']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfMethodBooking">Method of Booking</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfMethodBooking" name="method_of_booking" value="<?= htmlspecialchars($old['method_of_booking']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfContactInfo">Contact Information</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfContactInfo" name="contact_information" value="<?= htmlspecialchars($old['contact_information']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfDateBooking">Date of Booking</label>
+              <input type="date" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="cfDateBooking" name="date_of_booking" value="<?= htmlspecialchars($old['date_of_booking']) ?>">
+            </div>
+            <div>
+              <label class="<?= $labelClass ?>" for="cfTimeBooking">Time of Booking</label>
+              <input type="time" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="cfTimeBooking" name="time_of_booking" value="<?= htmlspecialchars($old['time_of_booking']) ?>">
+            </div>
+          </div>
+        </div>
+
+        <div id="experienceSection" class="tw-hidden tw-mb-6">
+          <p class="tw-mb-1 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.05em] tw-text-ink/60">Please give some details of your experience</p>
+          <p class="tw-mb-3 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">e.g. comments made by driver, description of vehicle condition, total fare charged</p>
+          <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
+            <div class="md:tw-col-span-2">
+              <label class="<?= $labelClass ?> pc-required" for="cfExperienceDescription">Describe Your Experience</label>
+              <textarea class="<?= $inputClass ?> tw-resize-y" id="cfExperienceDescription" name="experience_description" rows="4" required><?= htmlspecialchars($old['experience_description']) ?></textarea>
+            </div>
+            <div>
+              <label class="<?= $labelClass ?> pc-required" for="cfExperienceName">Your Name</label>
+              <input type="text" class="<?= $inputClass ?>" id="cfExperienceName" name="experience_name" value="<?= htmlspecialchars($old['experience_name']) ?>" required>
+            </div>
+            <div>
+              <label class="<?= $labelClass ?> pc-required" for="cfExperienceDate">Date</label>
+              <input type="date" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="cfExperienceDate" name="experience_date" value="<?= htmlspecialchars($old['experience_date']) ?>" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="tw-mb-6 tw-flex tw-items-start tw-gap-2.5">
+          <input class="tw-mt-0.5 tw-h-4 tw-w-4 tw-shrink-0 tw-cursor-pointer tw-rounded tw-border tw-border-solid tw-border-[#dee2e6] tw-accent-power" type="checkbox" id="cfTerms" name="terms_agree">
+          <label class="tw-text-sm tw-text-ink" for="cfTerms">
+            I have read and agree to the <a class="tw-text-power tw-transition-colors tw-duration-200 hover:tw-text-powerdark focus-visible:tw-text-powerdark" href="<?= $assetPath ?>/terms-conditions" target="_blank" rel="noopener">Terms and Conditions</a> and <a class="tw-text-power tw-transition-colors tw-duration-200 hover:tw-text-powerdark focus-visible:tw-text-powerdark" href="<?= $assetPath ?>/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+          </label>
+        </div>
+      </div>
+
+      <!-- tw-hidden stays bare -- complaint-form.js reveals it once a category is chosen. -->
+      <div id="complaintSubmitWrapper" class="tw-hidden">
+        <button type="submit" id="complaintSubmitBtn" class="<?= $submitClass ?>">
           <span id="complaintSubmitLabel">Submit Complaint</span>
-          <i class="bi bi-send ms-2" style="font-size: .85rem;"></i>
+          <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z"/></svg>
         </button>
       </div>
 
       <?php if ($formStatus === 'success'): ?>
-        <div class="alert alert-success mt-3" role="alert">Thanks -- your complaint has been sent. Our support team will review it and follow up.</div>
+        <div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your complaint has been sent. Our support team will review it and follow up.</div>
       <?php elseif ($formStatus === 'error'): ?>
-        <div class="alert alert-danger mt-3" role="alert"><?= htmlspecialchars($formError) ?></div>
+        <div class="alert-danger tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($formError) ?></div>
       <?php endif; ?>
     </form>
   </div>

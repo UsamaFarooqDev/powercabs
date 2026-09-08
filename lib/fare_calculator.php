@@ -298,11 +298,219 @@ function pc_resolve_pricing_config(string $rideType, string $period): array
     ];
 }
 
+/* ===========================================================================
+   Promo codes (promo_codes table)
+
+   A promo code is entered by the passenger, so unlike everything above it is
+   untrusted input -- it is never interpolated into a query without passing
+   pc_promo_code_is_wellformed() first.
+
+   IMPORTANT -- what max_discount_per_use actually means. The live row for
+   POWER10 is:
+
+     discount_type "percent", discount_value 10, min_fare 5,
+     max_discount_per_use 2, max_uses 10000, uses_count 0
+
+   so the code is "10% off, capped at 2 euro", NOT "2 euro off". The two only
+   coincide once the fare passes 20 euro (10% of 20 = 2). On a 15 euro fare
+   the discount is 1.50, not 2.00. Reading max_discount_per_use as a flat
+   amount would over-discount every short trip and put this site's fare out
+   of step with the passenger app's -- the exact class of drift the header
+   comment on this file exists to prevent.
+
+   This site only ESTIMATES a fare; it has no login and writes nothing back,
+   so uses_count is never incremented here and max_uses_per_passenger cannot
+   be evaluated at all. Both are enforced at real redemption time by the app /
+   dispatcher. What this does check is everything that is knowable from the
+   row itself: active, in date, not globally exhausted, fare over min_fare,
+   and the ride type allowed.
+   ======================================================================== */
+
+/**
+ * True if $code is safe to send to PostgREST as an `ilike` pattern.
+ * Deliberately narrow: `%` and every other LIKE metacharacter is rejected
+ * outright rather than escaped, leaving `_` (see pc_fetch_promo_code) as the
+ * only one that needs handling.
+ */
+function pc_promo_code_is_wellformed(string $code): bool
+{
+    return preg_match('/^[A-Za-z0-9_-]{2,32}$/', $code) === 1;
+}
+
+/**
+ * One promo_codes row, matched case-insensitively on `code`.
+ *
+ * @return array<string,mixed>|null The row, null if no such code, or the
+ *   string 'unavailable' is signalled by a PcSupabaseError propagating --
+ *   callers catch that to distinguish "wrong code" from "database down",
+ *   which must not read the same to the passenger.
+ * @throws PcSupabaseError
+ */
+function pc_fetch_promo_code(string $code): ?array
+{
+    if (!pc_promo_code_is_wellformed($code)) {
+        return null;
+    }
+
+    // ilike so POWER10 / power10 / Power10 all find the row however it was
+    // typed into the dashboard. `_` is LIKE's single-character wildcard, so
+    // it is escaped; the pattern above already rules out `%`.
+    $pattern = str_replace('_', '\_', $code);
+
+    // select=* rather than naming columns: this table has picked up columns
+    // over time (max_discount_per_use and max_uses_per_passenger are later
+    // additions), and naming one that a given environment does not have
+    // makes PostgREST 400 the whole request instead of just omitting it.
+    $rows = pc_supabase_get('promo_codes', [
+        'code' => 'ilike.' . $pattern,
+        'select' => '*',
+        'limit' => '1',
+    ]);
+
+    return $rows[0] ?? null;
+}
+
+/**
+ * Resolves a promo code against an already-calculated fare.
+ *
+ * Never throws and never blocks a booking: an unreachable database, an
+ * unknown code or an expired one all come back as a zero discount plus a
+ * reason, and the caller simply charges the undiscounted fare.
+ *
+ * @param float  $fare     The fare from the pipeline below, before any promo.
+ * @param string $rideType Exact ride_types.name, for the row's ride_type gate.
+ * @param string $code     Raw passenger input; '' means "no code entered".
+ * @return array{code:?string, discount:float, fare:float, error:?string, min_fare?:float}
+ *   `code` is the canonical DB spelling (so "power10" echoes back as
+ *   "POWER10"), `error` is null on success or when no code was entered.
+ *   `min_fare` is present only alongside error 'min_fare', to fill in the
+ *   threshold in the passenger-facing message.
+ */
+function pc_apply_promo_code(float $fare, string $rideType, string $code): array
+{
+    $none = ['code' => null, 'discount' => 0.0, 'fare' => round($fare, 2), 'error' => null];
+
+    $code = trim($code);
+    if ($code === '') {
+        return $none;
+    }
+
+    if (!pc_promo_code_is_wellformed($code)) {
+        return ['code' => null, 'discount' => 0.0, 'fare' => round($fare, 2), 'error' => 'invalid'];
+    }
+
+    try {
+        $row = pc_fetch_promo_code($code);
+    } catch (PcSupabaseError $e) {
+        // Database unreachable -- must NOT read as "your code is wrong".
+        return ['code' => null, 'discount' => 0.0, 'fare' => round($fare, 2), 'error' => 'unavailable'];
+    }
+
+    // pc_supabase_get() also returns [] when Supabase simply isn't configured
+    // (no service key), which lands here as a null row. Treating that as
+    // "unavailable" rather than "invalid" is the safer of the two, since a
+    // genuinely wrong code on a working database is far more common in
+    // production than a mistyped one on an unconfigured install.
+    if ($row === null) {
+        $configured = PC_SUPABASE_URL !== '' && PC_SUPABASE_SERVICE_KEY !== '';
+        return [
+            'code' => null,
+            'discount' => 0.0,
+            'fare' => round($fare, 2),
+            'error' => $configured ? 'invalid' : 'unavailable',
+        ];
+    }
+
+    $canonical = (string) ($row['code'] ?? $code);
+    $reject = static fn(string $why): array => [
+        'code' => null,
+        'discount' => 0.0,
+        'fare' => round($fare, 2),
+        'error' => $why,
+    ];
+
+    if (!($row['is_active'] ?? true)) {
+        return $reject('expired');
+    }
+    if (!pc_fare_discount_window_active($row['valid_from'] ?? null, $row['valid_until'] ?? null)) {
+        return $reject('expired');
+    }
+
+    // Global redemption budget. Per-passenger limits (max_uses_per_passenger)
+    // are not checkable here -- see the block comment above.
+    $maxUses = isset($row['max_uses']) && $row['max_uses'] !== null ? (int) $row['max_uses'] : null;
+    if ($maxUses !== null && (int) ($row['uses_count'] ?? 0) >= $maxUses) {
+        return $reject('expired');
+    }
+
+    // A null ride_type means "every ride type"; anything else is an exact,
+    // case-sensitive match on ride_types.name, same rule as pricing_config.
+    $rowRideType = $row['ride_type'] ?? null;
+    if ($rowRideType !== null && $rowRideType !== '' && $rowRideType !== $rideType) {
+        return $reject('ride_type');
+    }
+
+    $minFare = (float) ($row['min_fare'] ?? 0);
+    if ($fare < $minFare) {
+        return [
+            'code' => null,
+            'discount' => 0.0,
+            'fare' => round($fare, 2),
+            'error' => 'min_fare',
+            'min_fare' => $minFare,
+        ];
+    }
+
+    // percent -> a share of the fare; anything else -> a flat amount.
+    $value = (float) ($row['discount_value'] ?? 0);
+    $discount = ($row['discount_type'] ?? '') === 'percent' ? $fare * $value / 100 : $value;
+
+    // Both caps are optional and both apply when present -- whichever is
+    // tighter wins. This is where max_discount_per_use does its work.
+    foreach (['max_discount_per_use', 'max_discount'] as $capColumn) {
+        if (isset($row[$capColumn]) && $row[$capColumn] !== null) {
+            $discount = min($discount, (float) $row[$capColumn]);
+        }
+    }
+
+    // A promo can take a fare to zero but never below it.
+    $discount = round(max(0.0, min($discount, $fare)), 2);
+
+    if ($discount <= 0) {
+        return $reject('invalid');
+    }
+
+    return [
+        'code' => $canonical,
+        'discount' => $discount,
+        'fare' => round($fare - $discount, 2),
+        'error' => null,
+    ];
+}
+
+/** Passenger-facing wording for the reasons pc_apply_promo_code() returns. */
+function pc_promo_error_message(string $error, float $minFare = 0.0): string
+{
+    switch ($error) {
+        case 'expired':
+            return 'That promo code has expired or is no longer available.';
+        case 'min_fare':
+            return sprintf('That code needs a fare of at least %s%.2f.', "\u{20AC}", $minFare);
+        case 'ride_type':
+            return "That code doesn't apply to this ride type.";
+        case 'unavailable':
+            return "We couldn't check that code right now -- you can still book at the fare shown.";
+        default:
+            return "That promo code isn't valid.";
+    }
+}
+
 /**
  * The full booking-time pricing pipeline for one trip. Order is
  * load-bearing (meter -> ride-type/surge multiply -> config discount ->
- * minimum-fare clamp) -- do not reshuffle these steps, see the fare-engine
- * spec's "porting notes".
+ * minimum-fare clamp -> promo code) -- do not reshuffle these steps, see the
+ * fare-engine spec's "porting notes". The promo comes last, off the final
+ * price, so it is not itself multiplied or clamped back up by minimum_fare.
  *
  * distance_km/duration_min are the only trip-dependent inputs (from Google
  * Directions); everything else here is configuration. This function is the
@@ -310,10 +518,24 @@ function pc_resolve_pricing_config(string $rideType, string $period): array
  * endpoint and every booking-form handler call this, never their own copy
  * of the math.
  *
- * @return array{fare_eur:float, period:string, meter:float, multiplier:float, is_fallback:bool}
+ * $promoCode is optional and passenger-supplied. It is applied LAST, to the
+ * finished fare, by pc_apply_promo_code() -- including on the hard-coded
+ * fallback path, because a promo is a marketing commitment rather than a rate
+ * card and should still be honoured when pricing_config is unreachable.
+ *
+ * @return array{
+ *   fare_eur:float, period:string, meter:float, multiplier:float,
+ *   is_fallback:bool, fare_before_promo:float, promo_code:?string,
+ *   promo_discount:float, promo_error:?string, promo_min_fare:float
+ * } fare_eur is always the amount actually payable, promo included, so any
+ *   existing caller that reads only fare_eur stays correct.
  */
-function pc_calculate_fare(float $distanceKm, float $durationMin, string $rideType): array
-{
+function pc_calculate_fare(
+    float $distanceKm,
+    float $durationMin,
+    string $rideType,
+    string $promoCode = ''
+): array {
     $distanceKm = max(0.0, $distanceKm);
     $durationMin = max(0.0, $durationMin);
 
@@ -325,17 +547,27 @@ function pc_calculate_fare(float $distanceKm, float $durationMin, string $rideTy
         + $distanceKm * $config['per_km_rate']
         + $durationMin * $config['per_min_rate'];
 
-    if ($config['is_fallback']) {
-        // Last-resort path: multiplier only, nothing else (surge/discount/
-        // minimum_fare do not apply here -- see the spec's porting notes).
-        $fare = round($meter * $config['type_multiplier'], 2);
+    /** Folds the promo onto a finished fare and shapes the return value. */
+    $withPromo = static function (float $fare, bool $isFallback) use ($period, $meter, $config, $rideType, $promoCode): array {
+        $promo = pc_apply_promo_code($fare, $rideType, $promoCode);
         return [
-            'fare_eur' => $fare,
+            'fare_eur' => $promo['fare'],
             'period' => $period,
             'meter' => $meter,
             'multiplier' => $config['type_multiplier'],
-            'is_fallback' => true,
+            'is_fallback' => $isFallback,
+            'fare_before_promo' => round($fare, 2),
+            'promo_code' => $promo['code'],
+            'promo_discount' => $promo['discount'],
+            'promo_error' => $promo['error'],
+            'promo_min_fare' => $promo['min_fare'] ?? 0.0,
         ];
+    };
+
+    if ($config['is_fallback']) {
+        // Last-resort path: multiplier only, nothing else (surge/discount/
+        // minimum_fare do not apply here -- see the spec's porting notes).
+        return $withPromo(round($meter * $config['type_multiplier'], 2), true);
     }
 
     $surge = $config['surge_enabled'] ? $config['surge_multiplier'] : 1.0;
@@ -354,13 +586,5 @@ function pc_calculate_fare(float $distanceKm, float $durationMin, string $rideTy
         }
     }
 
-    $fare = round(max($raw, $config['minimum_fare']), 2);
-
-    return [
-        'fare_eur' => $fare,
-        'period' => $period,
-        'meter' => $meter,
-        'multiplier' => $config['type_multiplier'],
-        'is_fallback' => false,
-    ];
+    return $withPromo(round(max($raw, $config['minimum_fare']), 2), false);
 }

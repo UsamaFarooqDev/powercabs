@@ -4,5 +4,8 @@
 .env.*
 !.env.example
 
-# Dev tooling only (Prettier + PHP plugin) -- no build step for the site itself.
+# No npm in this project -- no package.json, no lockfile, no node_modules, so
+# nothing on the host can try to run a build. Tailwind is compiled with a
+# one-off `npx` command (see CLAUDE.md) and its OUTPUT, assets/css/tailwind.css,
+# is committed and served as a plain file. Never ignore that output.
 node_modules/

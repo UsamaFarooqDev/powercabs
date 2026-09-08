@@ -23,8 +23,10 @@ function pcInitCityTours() {
     const destinationInput = document.getElementById('tourDestinationInput');
     const formSection = document.getElementById('tourBookingForm');
 
-    modalEl.addEventListener('show.bs.modal', (event) => {
-      const button = event.relatedTarget;
+    modalEl.addEventListener('pc.modal.show', (event) => {
+      // ui.js surfaces the opener both ways; read detail first and fall back to
+      // the property so this keeps working whichever shape the event carries.
+      const button = (event.detail && event.detail.relatedTarget) || event.relatedTarget;
       if (!button) return;
 
       const name = button.getAttribute('data-tour-name') || '';
@@ -34,21 +36,26 @@ function pcInitCityTours() {
       imgEl.src = button.getAttribute('data-tour-img') || '';
       imgEl.alt = name;
       destinationInput.value = name;
-
-      if (button.getAttribute('data-scroll-to-form') === 'true') {
-        modalEl.addEventListener('shown.bs.modal', () => {
-          formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, { once: true });
-      }
     });
 
+    /* A data-scroll-to-form branch used to sit here: on pc.modal.shown it ran
+       formSection.scrollIntoView({behavior:'smooth'}). It was unreachable
+       while the relatedTarget bug made this whole listener bail early, so it
+       had never actually run. The moment that bug was fixed it went live and
+       smooth-scrolled the destination image off the top of the modal as it
+       opened -- the "stuck image" and the flicker.
+
+       It is gone rather than repaired: the modal is compact enough now that
+       the form is visible without scrolling, and animating a scroll during an
+       open animation fights the modal's own transition either way. */
+
     if (window.pcCityToursFormSubmitted) {
-      new bootstrap.Modal(modalEl).show();
+      window.pcModal.getOrCreateInstance(modalEl).show();
     }
   }
 
   if (hourlyModalEl && window.pcHourlyFormSubmitted) {
-    new bootstrap.Modal(hourlyModalEl).show();
+    window.pcModal.getOrCreateInstance(hourlyModalEl).show();
   }
 }
 

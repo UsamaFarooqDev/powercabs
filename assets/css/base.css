@@ -1,15 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap');
 
+/* Element normalisation lives in reboot.css (Bootstrap's Reboot, vendored),
+   which loads before this file. Everything here is a PowerCabs layer on top
+   of it -- brand type, the custom scrollbar, and the two layout behaviours
+   JS toggles. Keep it that way: if something belongs to "how a bare <p> or
+   <input> behaves", that is Reboot's job, not this file's. */
+
 html {
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* legacy Edge/IE */
+  scrollbar-width: thin; /* Firefox: slim neutral thumb, transparent track */
+  scrollbar-color: rgba(28, 20, 16, 0.28) transparent;
 }
 
+/* Chrome/Safari/Edge: slim neutral thumb over a barely-visible track. Grey
+   rather than brand orange -- the scrollbar is chrome, not content, and an
+   orange one competed with the actual CTAs. Same slim shape as before.
+   Tailwind has no cross-browser scrollbar-pseudo-element utilities, so this
+   stays as plain CSS. */
 html::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  width: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: rgba(28, 20, 16, 0.04);
+}
+/* The 3px border is transparent rather than a page colour, with
+   background-clip: padding-box -- that insets the orange pill to ~4px
+   without having to match whatever is behind the bar, so it reads the same
+   over the white body and the cream sections. */
+html::-webkit-scrollbar-thumb {
+  background-color: rgba(28, 20, 16, 0.28);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(28, 20, 16, 0.45);
+  border-width: 2px;
 }
 
+/* Reboot already applies the brand font/colour via the --bs-* overrides in
+   variables.css; restated here so the intent is readable in this file. */
 body {
   font-family: var(--pc-font-family);
   background-color: #fff;
@@ -21,6 +51,9 @@ main {
   background-clip: content-box;
 }
 
+/* Desktop-only "footer reveal": the footer is pinned behind <main>, which
+   scrolls up off it. main.js adds .pc-footer-reveal only when the page is
+   tall enough for the effect to make sense. */
 @media (min-width: 992px) {
   html.pc-footer-reveal main {
     position: relative;
@@ -42,6 +75,8 @@ main {
   }
 }
 
+/* Brand weight/tracking on top of Reboot's type scale, which supplies the
+   sizes and the margins. */
 h1,
 h2,
 h3,
@@ -56,138 +91,75 @@ a {
   text-decoration: none;
 }
 
-.text-muted-pc {
-  color: var(--pc-text-muted);
-}
-
-/* Red asterisk  */
+/* The one shared helper still in use (13 files): the red required-field
+   asterisk. It stays CSS rather than a utility because it is a ::after on
+   the <label>, applied by adding one classname beside the label's Tailwind. */
 .pc-required::after {
   content: ' *';
   color: #dc3545;
 }
 
-.btn-pc-primary {
-  position: relative;
-  background: var(--pc-orange-light);
-  border: 1px solid var(--pc-orange-light);
-  color: var(--pc-white);
-  border-radius: var(--pc-radius-pill);
-  font-weight: 500;
-}
+/* The global page loader is styled entirely on its own markup -- see
+   components/shared/page-loader.php. Only the `pc-loader-hidden` classname
+   survives, as the contract page-loader.js toggles. */
 
-.btn-pc-primary::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border: 1.5px solid var(--pc-orange-light);
-  border-radius: inherit;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
+/* ============================================================================
+   Google Places autocomplete -- the one place plain CSS is unavoidable.
 
-.btn-pc-primary:hover,
-.btn-pc-primary:focus,
-.btn-pc-primary:focus-visible {
-  background: var(--pc-orange-light) !important;
-  border-color: var(--pc-orange-light) !important;
-  color: var(--pc-white) !important;
-  box-shadow: none;
-}
+   .pac-container and its rows are injected into <body> by the Google Maps
+   SDK itself, so there is no markup of ours to put a Tailwind class on, and
+   !important is needed because the SDK ships its own stylesheet. Used by
+   book-ride-online.php, meet-greet.php and components/ride/hero-fare-section.php.
 
-.btn-pc-primary:hover::after,
-.btn-pc-primary:focus-visible::after {
-  opacity: 100;
+   Matched to the panel language of the custom select/date pickers: same
+   radius, hairline border, soft shadow, peach hover, orange matched text.
+   (Previously its own components.css; folded in here to drop a file and a
+   request, since six selectors did not warrant a stylesheet of their own.)
+   ========================================================================= */
+.pac-container {
+  margin-top: 6px !important;
+  padding: 0.35rem 0 !important;
+  background: var(--pc-white) !important;
+  border: 1px solid rgba(28, 20, 16, 0.1) !important;
+  border-radius: var(--pc-radius-md) !important;
+  box-shadow: var(--pc-shadow-lg) !important;
+  font-family: inherit !important;
 }
-
-.btn-pc-primary:disabled {
-  background: var(--pc-orange-light);
-  border-color: var(--pc-orange-light);
-  color: var(--pc-white);
-  opacity: 0.85;
-}
-
-.btn-pc-dark {
-  background-color: var(--pc-dark);
-  border-color: var(--pc-dark);
-  color: var(--pc-white);
-  border-radius: var(--pc-radius-pill);
-  font-weight: 400;
-}
-
-.btn-pc-dark:hover,
-.btn-pc-dark:focus-visible {
-  background-color: #000;
-  border-color: #000;
-  color: var(--pc-white);
-}
-
-.section-pc {
-  padding-block: clamp(3.5rem, 6vw, 6rem);
-}
-
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--pc-orange);
-  outline-offset: 2px;
-}
-
-/* ============ Global page loader ============ */
-.pc-loader-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background: rgba(10, 8, 6, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  opacity: 1;
-  visibility: visible;
+.pac-item {
+  border-top: none !important;
+  margin: 2px 0.35rem !important;
+  padding: 0.5rem 0.6rem !important;
+  border-radius: var(--pc-radius-sm) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+  font-family: inherit !important;
+  color: var(--pc-text-muted) !important;
+  cursor: pointer;
   transition:
-    opacity 0.35s ease,
-    visibility 0s linear 0s;
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
-
-.pc-loader-overlay.pc-loader-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition:
-    opacity 0.35s ease,
-    visibility 0s linear 0.35s;
+.pac-item:hover,
+.pac-item-selected {
+  background: var(--pc-peach) !important;
 }
-
-.pc-loader-spinner {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.25);
-  border-top-color: var(--pc-orange-light);
-  animation: pc-loader-spin 0.7s linear infinite;
+.pac-item:hover .pac-item-query,
+.pac-item-selected .pac-item-query {
+  color: var(--pc-orange) !important;
 }
-
-.pc-loader-text {
-  color: var(--pc-white);
-  font-weight: 500;
-  font-size: 0.9rem;
-  letter-spacing: 0.03em;
+.pac-icon {
+  margin-top: 3px !important;
 }
-
-@keyframes pc-loader-spin {
-  to {
-    transform: rotate(360deg);
-  }
+.pac-item-query {
+  font-size: 0.9rem !important;
+  color: var(--pc-dark) !important;
 }
-
+.pac-matched {
+  font-weight: 600;
+  color: var(--pc-orange) !important;
+}
 @media (prefers-reduced-motion: reduce) {
-  .pc-loader-spinner {
-    animation-duration: 1.6s;
+  .pac-item {
+    transition: none;
   }
 }

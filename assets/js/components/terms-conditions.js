@@ -7,14 +7,14 @@ function pcInitTermsConditions() {
 
   passengerToggle.addEventListener("change", () => {
     if (passengerToggle.checked) {
-      driverTerms.classList.add("d-none");
-      passengerTerms.classList.remove("d-none");
+      driverTerms.classList.add("tw-hidden");
+      passengerTerms.classList.remove("tw-hidden");
     }
   });
   driverToggle.addEventListener("change", () => {
     if (driverToggle.checked) {
-      passengerTerms.classList.add("d-none");
-      driverTerms.classList.remove("d-none");
+      passengerTerms.classList.add("tw-hidden");
+      driverTerms.classList.remove("tw-hidden");
     }
   });
 }

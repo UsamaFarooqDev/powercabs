@@ -9,12 +9,12 @@ function pcInitFaqs() {
   ].filter((pair) => pair.passenger && pair.driver);
 
   function swapTo(showEl, hideEl) {
-    hideEl.classList.add("d-none");
-    showEl.classList.remove("d-none");
-    showEl.classList.remove("pc-faq-fade-in");
+    hideEl.classList.add("tw-hidden");
+    showEl.classList.remove("tw-hidden");
+    showEl.classList.remove("tw-animate-pc-fade-in-sm");
     // restart the animation each time it swaps in
     void showEl.offsetWidth;
-    showEl.classList.add("pc-faq-fade-in");
+    showEl.classList.add("tw-animate-pc-fade-in-sm", "motion-reduce:tw-animate-none");
   }
 
   passengerToggle.addEventListener("change", () => {

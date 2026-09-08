@@ -53,25 +53,24 @@ define('PC_SMTP_FROM_NAME', pc_env('SMTP_FROM_NAME', 'PowerCabs Website'));
 define('PC_MAIL_TO', pc_env('MAIL_TO', ''));
 define('PC_GOOGLE_MAPS_API_KEY', pc_env('GOOGLE_MAPS_API_KEY', ''));
 
-// Shared Supabase backend (pricing_config / ride_types / rides) -- same
-// project the PowerCabs Dispatcher and passenger app read from. Two
-// consumers, two keys: lib/fare_calculator.php resolves the live pricing
-// config with the service key (server-side only), and reset-password.php
-// redeems password-recovery links with the anon key (exposed in markup).
+// Shared Supabase backend (pricing_config / ride_types / promo_codes) -- the
+// same project the PowerCabs Dispatcher and passenger app read from. Three
+// consumers: lib/fare_calculator.php resolves the live pricing config and
+// promo codes with the service key (server-side only, never rendered), and
+// reset-password.php redeems password-recovery links with the anon key
+// (necessarily exposed in markup).
 //
-// The URL and the anon key are public by design -- the anon key already
-// ships inside the mobile apps and is only useful together with row-level
-// security -- so they default to the live project and password recovery
-// keeps working without a .env. The service key is a real secret and stays
-// empty until .env supplies it; pc_supabase_get() treats an empty service
-// key as "Supabase not configured" and falls back, so defaulting the URL
-// does not turn any pricing lookup on by itself.
-define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', 'https://ijrnahatonxpuzwjtykd.supabase.co'));
+// ALL THREE COME FROM .env ONLY -- do not re-add a literal fallback here.
+// An earlier version of this file hard-coded the project URL and the anon
+// key as defaults, which put both into git history. Even though the anon key
+// is meant to be public (it ships inside the mobile apps and is only useful
+// together with row-level security), committing it pins the repo to one live
+// project and turns rotating that key into a code change.
+//
+// The empty default is safe everywhere it lands: pc_supabase_get() reads an
+// empty URL or service key as "Supabase not configured" and falls back to the
+// hard-coded rate card, and reset-password.js shows "password resets are
+// temporarily unavailable" rather than failing silently.
+define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', ''));
 define('PC_SUPABASE_SERVICE_KEY', pc_env('SUPABASE_SERVICE_KEY', ''));
-define(
-    'PC_SUPABASE_ANON_KEY',
-    pc_env(
-        'SUPABASE_ANON_KEY',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqcm5haGF0b254cHV6d2p0eWtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2NzMwMDYsImV4cCI6MjA3MTI0OTAwNn0.cTqgwDjRywsc-Gq8_bolSGT-rzQRr4GONrs6W8VXc8E'
-    )
-);
+define('PC_SUPABASE_ANON_KEY', pc_env('SUPABASE_ANON_KEY', ''));

@@ -10,8 +10,8 @@ require __DIR__ . '/includes/mailer.php';
 $formStatus = null;
 $formError = '';
 $old = [
-  'beneficial_owner' => '',
-  'taxi_driver' => '',
+  'beneficial_owner' => 'yes',
+  'taxi_driver' => 'yes',
   'title' => '',
   'first_name' => '',
   'last_name' => '',
@@ -21,9 +21,14 @@ $old = [
   'iban' => '',
   'account_name' => '',
   'bank' => '',
-  'address_same_as_statement' => '',
+  'address_same_as_statement' => 'yes',
   'device_type' => '',
 ];
+
+// Kept aside so a successful submit can restore the form to its pristine
+// state rather than blanking every field -- the three Yes/No radio pairs
+// default to "yes" and must come back checked, not unchecked.
+$formDefaults = $old;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   foreach ($old as $key => $default) {
@@ -111,9 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       if ($result['success']) {
         $formStatus = 'success';
-        foreach ($old as $key => $default) {
-          $old[$key] = '';
-        }
+        $old = $formDefaults;
       } else {
         $formStatus = 'error';
         $formError = 'Sorry, something went wrong sending your application. Please try again or call us directly.';
@@ -121,6 +124,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Card Payment Terminals for Drivers and Businesses',
+  'serviceType' => 'Payment terminal supply',
+  'description' =>
+    'Card payment terminals with PCI compliant processing, encrypted transactions and next day settlements.',
+];
 
 require __DIR__ . '/includes/header.php';
 
@@ -152,6 +165,15 @@ require __DIR__ . '/components/business/payment-solutions/testimonials.php';
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+// Points back at this page's own application form rather than a generic
+// contact route -- the whole page builds to that one action.
+$ctaTitle = 'Start taking card payments.';
+$ctaText = 'Apply in about two minutes. Our team reviews your details and ships the terminal to you.';
+$ctaPrimary = ['href' => '/business-solutions#payment-apply-form', 'label' => 'Apply Now'];
+$ctaSecondary = ['href' => '/contact-us', 'label' => 'Ask a Question'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
 
 

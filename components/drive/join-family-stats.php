@@ -9,19 +9,17 @@ $driveStats = [
   ['value' => '33', 'label' => 'Businesses Joined'],
 ]; ?>
 <!-- ============ Stats badge ============ -->
-<section class="position-relative" style="margin-top: -2.25rem; z-index: 2;">
-  <div class="container">
-    <div class="pc-ride-trust-bar mx-auto mb-4 py-2 px-2" style="max-width: 1200px;">
-      <div class="d-flex flex-wrap justify-content-center">
-        <?php foreach ($driveStats as $stat): ?>
-          <div class="text-center px-3 py-3" style="flex: 1 1 150px; max-width: 190px;">
-            <p class="fw-bold mb-1" style="font-size: 1.5rem; color: var(--pc-dark); letter-spacing: -.02em;"><?= htmlspecialchars(
-              $stat['value'],
-            ) ?></p>
-            <p class="small text-muted-pc mb-0" style="font-size: .74rem;"><?= htmlspecialchars($stat['label']) ?></p>
-          </div>
-        <?php endforeach; ?>
-      </div>
+<section class="tw-relative tw-z-[2] -tw-mt-9 tw-px-4 sm:tw-px-6 lg:tw-px-8">
+  <div class="tw-mx-auto tw-w-full tw-max-w-[1200px]">
+    <div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-y-2 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-px-2 tw-py-2 tw-shadow-[0_20px_45px_rgba(28,20,16,0.12)]">
+      <?php foreach ($driveStats as $stat): ?>
+        <div class="tw-min-w-[150px] tw-max-w-[190px] tw-flex-1 tw-px-3 tw-py-3 tw-text-center">
+          <p class="tw-mb-1 tw-text-2xl tw-font-bold tw-tracking-[-0.02em] tw-text-ink"><?= htmlspecialchars(
+            $stat['value'],
+          ) ?></p>
+          <p class="tw-mb-0 tw-text-[0.74rem] tw-text-ink/60"><?= htmlspecialchars($stat['label']) ?></p>
+        </div>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>

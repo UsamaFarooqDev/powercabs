@@ -12,15 +12,19 @@ $rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pe
 $quickBookFormStatus = null;
 $quickBookFormError  = '';
 $quickBookOld = [
-  'name'             => '',
-  'email'            => '',
-  'phone'            => '',
-  'ride_type'        => '',
-  'pickup_location'  => '',
-  'dropoff_location' => '',
-  'distance_km'      => '',
-  'duration_min'     => '',
-  'fare_eur'         => '',
+  'name'                   => '',
+  'email'                  => '',
+  'phone'                  => '',
+  'ride_type'              => '',
+  'pickup_location'        => '',
+  'dropoff_location'       => '',
+  'distance_km'            => '',
+  'duration_min'           => '',
+  'fare_eur'               => '',
+  'promo_code'             => '',
+  'opt_luggage_assistance' => '',
+  'opt_meet_greet'         => '',
+  'opt_luggage_only'       => '',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,6 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // fare the browser displayed was itself sourced from
     // api/estimate_fare.php, so this recompute should normally just
     // confirm it -- but the server is what actually goes in the email.
+    //
+    // The promo code is re-validated by the same recompute, which is the
+    // point: the discount the browser showed came from an endpoint anyone
+    // can call, so a hand-edited promo_code (or one that expired between
+    // the estimate and the submit) is caught here rather than emailed to
+    // dispatch as a real price.
+    $quickBookPromoDiscount = 0.0;
+    $quickBookPromoApplied  = '';
+    $quickBookFareBeforePromo = '';
+
     if (
       $quickBookOld['distance_km'] !== '' && is_numeric($quickBookOld['distance_km'])
       && $quickBookOld['duration_min'] !== '' && is_numeric($quickBookOld['duration_min'])
@@ -51,11 +65,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $recomputed = pc_calculate_fare(
         (float) $quickBookOld['distance_km'],
         (float) $quickBookOld['duration_min'],
-        $quickBookOld['ride_type']
+        $quickBookOld['ride_type'],
+        $quickBookOld['promo_code']
       );
       $quickBookOld['fare_eur'] = number_format($recomputed['fare_eur'], 2, '.', '');
+      $quickBookPromoDiscount   = $recomputed['promo_discount'];
+      $quickBookPromoApplied    = (string) ($recomputed['promo_code'] ?? '');
+      $quickBookFareBeforePromo = number_format($recomputed['fare_before_promo'], 2, '.', '');
     } else {
       $quickBookOld['fare_eur'] = '';
+    }
+
+    $selectedAddons = [];
+    if ($quickBookOld['opt_luggage_assistance'] !== '') {
+      $selectedAddons[] = 'Luggage Assistance (airport bookings only)';
+    }
+    if ($quickBookOld['opt_meet_greet'] !== '') {
+      $selectedAddons[] = 'Meet and Greet (hotel / doorstep / business venue)';
+    }
+    if ($quickBookOld['opt_luggage_only'] !== '') {
+      $selectedAddons[] = 'Only Luggage (no passengers or pets)';
     }
 
     $body = "New quick booking request from the PowerCabs Ride page.\n\n"
@@ -64,12 +93,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       . "Phone: {$quickBookOld['phone']}\n"
       . "Ride Type: {$quickBookOld['ride_type']}\n\n"
       . "Pickup Location: {$quickBookOld['pickup_location']}\n"
-      . "Drop-off Location: {$quickBookOld['dropoff_location']}\n";
+      . "Drop-off Location: {$quickBookOld['dropoff_location']}\n\n"
+      . "Add-ons: " . ($selectedAddons !== [] ? implode(', ', $selectedAddons) : 'None') . "\n";
 
     if ($quickBookOld['distance_km'] !== '' && $quickBookOld['duration_min'] !== '' && $quickBookOld['fare_eur'] !== '') {
       $body .= "\nEstimated Distance: {$quickBookOld['distance_km']} km\n"
-        . "Estimated Duration: {$quickBookOld['duration_min']} min\n"
-        . "Estimated Fare: \u{20AC}{$quickBookOld['fare_eur']}\n";
+        . "Estimated Duration: {$quickBookOld['duration_min']} min\n";
+
+      // Only itemise the promo when one actually survived re-validation --
+      // dispatch needs to see which code was honoured and for how much, not
+      // merely what the passenger typed.
+      if ($quickBookPromoApplied !== '' && $quickBookPromoDiscount > 0) {
+        $body .= "Fare Before Promo: \u{20AC}{$quickBookFareBeforePromo}\n"
+          . "Promo Code: {$quickBookPromoApplied} (-\u{20AC}"
+          . number_format($quickBookPromoDiscount, 2, '.', '') . ")\n";
+      } elseif ($quickBookOld['promo_code'] !== '') {
+        // Echoed so dispatch can see what the passenger actually typed (a
+        // near-miss is worth knowing about), but this is the one unvalidated
+        // string that reaches the email -- flattened to a single line and
+        // capped so a pasted essay can't reshape the message.
+        $rejectedCode = substr(preg_replace('/\s+/', ' ', $quickBookOld['promo_code']), 0, 32);
+        $body .= "Promo Code: {$rejectedCode} (NOT APPLIED -- invalid, expired or not eligible)\n";
+      }
+
+      $body .= "Estimated Fare: \u{20AC}{$quickBookOld['fare_eur']}\n";
     }
 
     $result = pc_send_mail(
@@ -90,23 +137,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+/* Service structured data. Assembled in includes/seo.php, which wires
+   it to the Organization node and supplies the default service area,
+   so the page only states what the service is. */
+$pageService = [
+  'name' => 'Taxi and Private Hire Rides',
+  'serviceType' => 'Taxi service',
+  'description' =>
+    'Licensed, Garda-vetted drivers and eight vehicle types, from everyday economy cars to wheelchair-accessible vehicles, limousines and courier runs.',
+];
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow     = '/ Ride';
 $heroTitleLight  = 'Seamless and';
 $heroTitleBold   = 'Comfortable Rides.';
-$heroDescription = "PowerCabs is committed to providing a smooth, reliable, and comfortable ride experience. Whether you're commuting to work, heading to the airport, or exploring the city, PowerCabs offers convenient booking, safe transportation, affordable pricing, and 24/7 availability.";
+// Trimmed from the four-sentence version: the hero's job is to say what the
+// page is, not to pre-empt every section under it. Booking, safety, pricing
+// and 24/7 availability each have their own section below and were all named
+// here as well.
+$heroDescription = 'Licensed, Garda-vetted drivers across Dublin. See your fare before you book, and pay exactly what you were quoted.';
 $heroBgImage     = 'https://images.pexels.com/photos/1399282/pexels-photo-1399282.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
 
+// Order follows the page's job: quote a fare -> show what you can book ->
+// explain the process -> justify the choice -> answer objections -> act.
 require __DIR__ . '/components/ride/hero-fare-section.php';
+// Directly after the fare widget, because that widget now has a promo-code
+// field and this section is where POWER10 is copied from.
 require __DIR__ . '/components/ride/power10-promo.php';
-require __DIR__ . '/components/ride/built-around.php';
 require __DIR__ . '/components/ride/ride-types.php';
 require __DIR__ . '/components/ride/booking-steps.php';
+// built-around.php used to sit here. Its four claims (Instant Booking,
+// Trusted Drivers, Fair Pricing, Available 24/7) were already made by the
+// hero badge row, the trust bar in hero-fare-section, AND the comparison in
+// why-powercabs -- three statements of the same thing on one page. The
+// comparison is the one with substance, so it is the one that stayed.
 require __DIR__ . '/components/ride/why-powercabs.php';
 require __DIR__ . '/components/ride/ride-faq.php';
 
 require __DIR__ . '/components/shared/app-download-banner.php';
+
+$ctaTitle = 'Know your fare before you book.';
+$ctaText = 'Enter a pickup and drop-off for an instant quote, or talk to a real person in Dublin.';
+$ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
+$ctaSecondary = ['href' => '/contact-us', 'label' => 'Contact Us'];
+require __DIR__ . '/components/shared/final-cta.php';
+
 require __DIR__ . '/includes/footer.php';
 ?>

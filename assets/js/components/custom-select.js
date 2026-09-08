@@ -8,11 +8,26 @@
  * whatever) has to know or care that the visible control is no longer a
  * native <select>.
  *
- * This is a generic, page-agnostic component -- nothing here or in the
- * .pc-custom-select* rules in components.css is specific to meet-greet.php,
- * which is just the first page using it. To reuse it on another form:
+ * Styling is 100% Tailwind utilities written onto the elements this file
+ * creates -- there is no .pc-custom-select* stylesheet any more. Two things
+ * make that work:
+ *   - The trigger reproduces the canonical PowerCabs field recipe from
+ *     book-ride-online.php ($inputClass) exactly, so an enhanced <select>
+ *     stays pixel-identical to the plain <input> next to it.
+ *   - The wrapper is a Tailwind `tw-group`, so the open/disabled states --
+ *     which JS still signals with the bare `is-open` / `is-disabled` classes
+ *     it has always used -- reach the trigger, caret and panel through
+ *     `group-[.is-open]:` / `group-[.is-disabled]:` variants instead of
+ *     descendant CSS rules.
+ * The bare classnames that remain (pc-custom-select-value,
+ * pc-custom-select-option) are querySelector hooks, not styling.
  *
- *   1. Add class="pc-custom-select-enhance" to any <select class="form-select">.
+ * This is a generic, page-agnostic component -- nothing here is specific to
+ * meet-greet.php, which is just the first page using it. To reuse it on
+ * another form:
+ *
+ *   1. Add class="pc-custom-select-enhance" to any <select> already carrying
+ *      the shared $inputClass recipe (see book-ride-online.php).
  *      Its <option>s, id, name, required/disabled attributes, and any
  *      "selected" value all carry over automatically -- no markup changes
  *      needed beyond that one class.
@@ -36,11 +51,13 @@ if (window.pcCustomSelectCleanup) {
     select.dataset.pcEnhanced = "1";
 
     var wrapper = document.createElement("div");
-    wrapper.className = "pc-custom-select position-relative";
+    wrapper.className = "tw-group tw-relative";
     select.parentNode.insertBefore(wrapper, select);
     wrapper.appendChild(select);
 
-    select.classList.add("pc-custom-select-native", "position-absolute", "w-100", "h-100");
+    // The native <select> stays in the DOM (name/value/required all still
+    // submit) but is made invisible and untouchable behind the trigger.
+    select.classList.add("tw-absolute", "tw-inset-0", "tw-h-full", "tw-w-full", "tw-opacity-0", "tw-pointer-events-none");
     select.setAttribute("tabindex", "-1");
     select.setAttribute("aria-hidden", "true");
 
@@ -49,17 +66,31 @@ if (window.pcCustomSelectCleanup) {
 
     var trigger = document.createElement("button");
     trigger.type = "button";
-    trigger.className = "form-select pc-custom-select-trigger d-flex align-items-center justify-content-between gap-2 w-100 text-start";
+    trigger.className =
+      "tw-flex tw-w-full tw-appearance-none tw-items-center tw-justify-between tw-gap-2 tw-rounded-md tw-border " +
+      "tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-left tw-text-base tw-leading-normal " +
+      "tw-text-ink tw-cursor-pointer tw-outline-none tw-transition-colors tw-duration-200 " +
+      "focus-visible:tw-border-powerlight group-[.is-open]:tw-border-powerlight " +
+      "group-[.is-disabled]:tw-cursor-not-allowed group-[.is-disabled]:tw-opacity-[0.65]";
     trigger.setAttribute("aria-haspopup", "listbox");
     trigger.setAttribute("aria-expanded", "false");
     if (labelText) trigger.setAttribute("aria-label", labelText);
     trigger.innerHTML =
-      '<span class="pc-custom-select-value overflow-hidden text-nowrap"></span>' +
-      '<i class="bi bi-chevron-down pc-custom-select-caret flex-shrink-0" aria-hidden="true"></i>';
+      '<span class="pc-custom-select-value tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap ' +
+      '[.is-placeholder_&]:tw-text-ink/[0.65]"></span>' +
+      '<svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0 tw-text-ink/[0.65] tw-transition-transform ' +
+      'tw-duration-200 group-[.is-open]:tw-rotate-180 motion-reduce:tw-transition-none" ' +
+      'viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+      'stroke-linejoin="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>';
     wrapper.appendChild(trigger);
 
     var panel = document.createElement("div");
-    panel.className = "pc-custom-select-panel position-absolute overflow-y-auto rounded-4";
+    panel.className =
+      "tw-invisible tw-absolute tw-inset-x-0 tw-top-[calc(100%+6px)] tw-z-20 tw-max-h-60 tw-overflow-y-auto " +
+      "tw-rounded-2xl tw-border tw-border-solid tw-border-black/10 tw-bg-white tw-p-1.5 " +
+      "tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] tw-opacity-0 -tw-translate-y-1.5 tw-transition tw-duration-200 " +
+      "tw-ease-[cubic-bezier(0.16,1,0.3,1)] group-[.is-open]:tw-visible group-[.is-open]:tw-translate-y-0 " +
+      "group-[.is-open]:tw-opacity-100 motion-reduce:tw-transition-none";
     panel.setAttribute("role", "listbox");
     wrapper.appendChild(panel);
 
@@ -75,7 +106,10 @@ if (window.pcCustomSelectCleanup) {
       panel.innerHTML = "";
       selectableOptions().forEach(function (opt) {
         var item = document.createElement("div");
-        item.className = "pc-custom-select-option";
+        item.className =
+          "pc-custom-select-option tw-cursor-pointer tw-rounded-[10px] tw-px-3 tw-py-[0.55rem] tw-text-[0.95rem] " +
+          "tw-text-ink tw-transition-colors tw-duration-150 hover:tw-bg-[#fbe4cf] hover:tw-text-power " +
+          "[&.is-selected]:tw-font-semibold [&.is-selected]:tw-text-power";
         item.setAttribute("role", "option");
         item.dataset.value = opt.value;
         item.textContent = opt.textContent.trim();
