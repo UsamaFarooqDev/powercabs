@@ -606,7 +606,7 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   </div>
 </div>
 
-<script src="<?= $assetPath ?>assets/js/components/city-tours.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/city-tours.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/city-tours.js') ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-datetime.js',
 ) ?>"></script>

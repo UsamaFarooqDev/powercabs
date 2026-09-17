@@ -20,7 +20,9 @@ require __DIR__ . '/includes/header.php';
 // Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = 'pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
-$submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none disabled:hover:tw-translate-y-0';
+// disabled:hover:tw-translate-y-0 used to cancel $pcBtnPrimary's hover lift on
+// the disabled button; the recipe no longer lifts at all, so it is gone.
+$submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
 ?>
 
 <section class="tw-flex tw-min-h-screen tw-items-center tw-justify-center tw-px-3 tw-pb-[clamp(3rem,6vw,5rem)] tw-pt-[calc(var(--pc-navbar-h,110px)+clamp(2rem,5vw,3.5rem))] tw-bg-paper-soft">
@@ -132,6 +134,6 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none disab
   </div>
 </section>
 
-<script src="<?= $assetPath ?>assets/js/components/reset-password.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/reset-password.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/reset-password.js') ?>"></script>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

@@ -46,7 +46,7 @@
   $category['label'],
 ) ?>" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">
           <span class="tw-bg-[rgba(10,7,5,0.15)] tw-transition-opacity tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:tw-opacity-30 motion-reduce:tw-transition-none tw-absolute tw-inset-0" aria-hidden="true"></span>
-          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-3 tw-pt-[2.5rem]">
+          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.62)_0%,rgba(10,7,5,0.22)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[4px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-3 tw-pt-[2.5rem]">
             <span class="tw-transition-colors tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-text-sm tw-font-extrabold tw-text-white md:tw-text-base"><?= htmlspecialchars(
               $category['label'],
             ) ?></span>

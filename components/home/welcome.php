@@ -53,7 +53,7 @@ $revealDelays = ['tw-delay-0', 'tw-delay-75', 'tw-delay-150', 'tw-delay-200'];
      (download-app) pulls itself up by as much as 195px with a negative
      margin so its torn polygon edge overlaps this image -- without the
      padding that polygon would sit on top of the four columns. -->
-<section id="why-choose" class="tw-relative tw-flex tw-flex-col tw-justify-end tw-overflow-hidden tw-bg-scroll tw-bg-cover tw-bg-[position:64%_center] sm:tw-bg-center tw-text-white tw-pt-20 tw-pb-28 md:tw-pt-28 md:tw-pb-[15rem] lg:tw-min-h-[66.7vw] tw-bg-[url('/assets/img/welcome-section-bg.png')]">
+<section id="why-choose" class="tw-relative tw-flex tw-flex-col tw-justify-end tw-overflow-hidden tw-bg-scroll tw-bg-cover tw-bg-[position:64%_center] sm:tw-bg-center tw-text-white tw-pt-20 tw-pb-28 md:tw-pt-28 md:tw-pb-[15rem] lg:tw-min-h-[66.7vw] tw-bg-[url('/assets/img/welcome-section-bg.webp')]">
   <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(120deg,rgba(18,18,18,0.62)_0%,rgba(232,89,12,0.5)_55%,rgba(255,122,0,0.38)_100%)]" aria-hidden="true"></span>
 
   <!-- The blur sits only over the lower half, masked so it fades in rather

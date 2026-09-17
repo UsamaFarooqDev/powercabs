@@ -85,7 +85,11 @@ function pc_biz_plan_icon(string $icon): void
           <a class="tw-mt-auto tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-rounded-full tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-200 <?= $plan[
             'featured'
           ]
-            ? 'tw-bg-powerlight tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]'
+            ? /* Hand-rolled because the button is full-width here; keep it in
+                 step with $pcBtnPrimary, whose hover is the fill and the glow
+                 and deliberately NOT a lift -- see the note above the recipe in
+                 includes/design-system.php. */
+              'tw-bg-powerlight tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] hover:tw-bg-power hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]'
             : 'tw-bg-ink hover:tw-bg-ink-soft' ?>" href="<?= htmlspecialchars($plan['href']) ?>">
             <?= htmlspecialchars($plan['cta']) ?>
           </a>

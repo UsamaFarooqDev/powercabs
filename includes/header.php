@@ -368,7 +368,11 @@ $megaSubitem =
               <svg class="tw-w-4 tw-h-4 tw-shrink-0 tw-hidden sm:tw-block" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <span class="tw-inline-block tw-transition-transform tw-duration-200 group-hover:-tw-translate-x-0.5">Book Online</span>
+              <?php /* The label used to slide 2px left on hover while the taxi
+                       icon beside it stayed put, so the two drifted together and
+                       the pill's contents looked loose. The background darkening
+                       is the hover state. */ ?>
+              <span class="tw-inline-block">Book Online</span>
             </a>
           <button type="button" id="pcNavToggle" class="tw-group tw-relative tw-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-flex-col tw-items-center tw-justify-center tw-gap-[5px] tw-rounded-xl tw-border-0 tw-bg-black/[0.05] tw-shadow-none tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black/[0.09] focus-visible:tw-bg-black/[0.09] focus-visible:tw-outline-none lg:tw-hidden"
           aria-controls="mainNav" aria-expanded="false"

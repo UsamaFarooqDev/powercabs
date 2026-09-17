@@ -92,7 +92,14 @@ foreach ($oldSlugs as $pattern => $target) {
 // ErrorDocument for 404 and 410 but not for 403, so this is exactly what
 // production returns. Borrowing 404.php here would have made local testing
 // look friendlier than the real thing.
-if (preg_match('#^/(includes|lib|bin)(/|$)#i', $uri)) {
+// Also mirrors the SECURITY block at the top of .htaccess: dotfiles and
+// dot-directories (.env, .git/, .claude/) and the repo-only files are never
+// served. Without this the built-in server hands out .env like any asset.
+if (
+    preg_match('#^/(includes|lib|bin)(/|$)#i', $uri) ||
+    preg_match('#(^|/)\.(?!well-known(/|$))#', $uri) ||
+    preg_match('#^/(CLAUDE\.md|tailwind\.config\.js|router\.php)$#i', $uri)
+) {
     http_response_code(403);
     header('Content-Type: text/plain; charset=UTF-8');
     echo "403 Forbidden\n";

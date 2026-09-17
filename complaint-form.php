@@ -404,7 +404,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
   </div>
 </section>
 
-<script src="<?= $assetPath ?>assets/js/components/complaint-form.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/complaint-form.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/complaint-form.js') ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-datetime.js',
 ) ?>"></script>

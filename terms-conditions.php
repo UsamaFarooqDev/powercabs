@@ -311,7 +311,7 @@ $driverNav = [
   </div>
 </section>
 
-<script src="<?= $assetPath ?>assets/js/components/terms-conditions.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/terms-conditions.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/terms-conditions.js') ?>"></script>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

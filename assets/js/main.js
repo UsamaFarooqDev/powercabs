@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroParallax();
   initWhyChooseReveal();
   initScrollReveal();
+  initLoopVideos();
   initScrollIndicator();
 });
 
@@ -294,6 +295,67 @@ function initScrollReveal() {
   );
 
   items.forEach((item) => pcRevealObserver.observe(item));
+}
+
+/**
+ * Muted looping "animated illustration" videos -- the MP4s that replaced two
+ * multi-megabyte GIFs on /business and /drive.
+ *
+ * Markup: <video data-pc-loop-video muted loop playsinline preload="none"
+ * poster="..."> with <source data-src="...">. There is deliberately no src
+ * and no autoplay attribute: a GIF could be loading="lazy", but an autoplay
+ * video downloads immediately however far down the page it sits, which
+ * measured as +168KB up front on /drive. This fills in the source and plays it
+ * only once it is within 300px of the viewport.
+ *
+ * Reduced motion: never started -- the poster, which is the finished
+ * illustration, is the whole experience. Without JS the poster shows too.
+ * Idempotent like initScrollReveal (PJAX re-runs it after every swap).
+ */
+let pcLoopVideoObserver = null;
+function initLoopVideos() {
+  if (pcLoopVideoObserver) {
+    pcLoopVideoObserver.disconnect();
+    pcLoopVideoObserver = null;
+  }
+
+  const videos = document.querySelectorAll("video[data-pc-loop-video]");
+  if (!videos.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const start = (video) => {
+    if (video.dataset.pcLoopStarted) return;
+    video.dataset.pcLoopStarted = "1";
+    video.querySelectorAll("source[data-src]").forEach((source) => {
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+    });
+    // Set the property as well as the attribute: some browsers only allow a
+    // scripted play() without a user gesture when .muted is true on the element.
+    video.muted = true;
+    video.load();
+    const playing = video.play();
+    // Refused (iOS Low Power Mode, data saver): the poster simply stays.
+    if (playing && playing.catch) playing.catch(() => {});
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    videos.forEach(start);
+    return;
+  }
+
+  pcLoopVideoObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        start(entry.target);
+        pcLoopVideoObserver.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "300px 0px" }
+  );
+
+  videos.forEach((video) => pcLoopVideoObserver.observe(video));
 }
 
 /**

@@ -139,6 +139,9 @@
       if (window.initHeroParallax) window.initHeroParallax();
       if (window.initWhyChooseReveal) window.initWhyChooseReveal();
       if (window.initScrollReveal) window.initScrollReveal();
+      // The /business and /drive illustration videos only get a src once
+      // they near the viewport -- without this a PJAX visit shows the poster.
+      if (window.initLoopVideos) window.initLoopVideos();
       if (window.pcInitAjaxForms) window.pcInitAjaxForms();
       // Collapse panels are inert until primed -- without this every
       // accordion reached via a PJAX click renders fully open.

@@ -44,7 +44,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
       </div>
 
       <div class="tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-        <img src="<?= $assetPath ?>assets/img/services_rides.png" alt="A PowerCabs account manager reviewing a city route plan with a business team" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+        <img src="<?= $assetPath ?>assets/img/services_rides.webp" alt="A PowerCabs account manager reviewing a city route plan with a business team" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
       </div>
     </div>
   </div>

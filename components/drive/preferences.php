@@ -51,7 +51,7 @@
             $pref['title'],
           ) ?>" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">
           <span class="tw-bg-[rgba(10,7,5,0.15)] tw-transition-opacity tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:tw-opacity-30 motion-reduce:tw-transition-none tw-absolute tw-inset-0" aria-hidden="true"></span>
-          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-3 tw-pt-[4.5rem]">
+          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.62)_0%,rgba(10,7,5,0.22)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[8px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-3 tw-pt-3">
             <span class="tw-transition-colors tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-mb-1 tw-block tw-text-sm tw-font-bold tw-text-white"><?= htmlspecialchars($pref['title']) ?></span>
             <span class="tw-block tw-text-sm tw-text-white/60"><?= htmlspecialchars($pref['desc']) ?></span>
           </span>

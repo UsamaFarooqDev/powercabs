@@ -81,7 +81,7 @@ function pc_wc_icon(string $icon): void
          correctly, and changing it there would only trade one crop for
          another. */ ?>
         <div class="tw-relative tw-z-[1] tw-aspect-[3/2] tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] sm:tw-aspect-auto sm:tw-min-h-[420px]">
-          <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.png"
+          <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.webp"
             alt="PowerCabs wheelchair accessible taxi in Dublin" class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
         </div>
       </div>

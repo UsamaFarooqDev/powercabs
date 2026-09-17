@@ -15,7 +15,10 @@
   --pc-text-on-dark-muted: rgba(250, 246, 241, 0.75);
 
   /* Typography */
-  --pc-font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* 'Plus Jakarta Sans Fallback' is metric-matched Arial (see base.css) --
+     it must come straight after the brand font, or the browser paints with
+     Segoe UI first and the swap re-wraps text. */
+  --pc-font-family: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', 'Segoe UI', system-ui, -apple-system, sans-serif;
 
   /* Radius scale */
   --pc-radius-sm: 10px;

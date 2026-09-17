@@ -74,3 +74,19 @@ define('PC_GOOGLE_MAPS_API_KEY', pc_env('GOOGLE_MAPS_API_KEY', ''));
 define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', ''));
 define('PC_SUPABASE_SERVICE_KEY', pc_env('SUPABASE_SERVICE_KEY', ''));
 define('PC_SUPABASE_ANON_KEY', pc_env('SUPABASE_ANON_KEY', ''));
+
+// Stripe Payment Links -- the hosted checkout URLs created in the Stripe
+// dashboard (Payment Links), one per thing a visitor can pay for. The site
+// uses no Stripe API key at all: a Payment Link needs none, and the amount a
+// customer is charged is set on the link inside Stripe, not by these pages.
+//
+// Same rule as Supabase above: .env only, no literal fallback. Only an https
+// URL is accepted, so a typo or a stray value can never be rendered into an
+// href. Empty is safe -- both pages then show "online payment unavailable"
+// instead of a dead button.
+function pc_env_https_url(string $key): string {
+    $value = trim((string) pc_env($key, ''));
+    return preg_match('#^https://[^\s"\'<>]+$#i', $value) ? $value : '';
+}
+define('PC_STRIPE_MEET_GREET_LINK', pc_env_https_url('STRIPE_MEET_GREET_LINK'));
+define('PC_STRIPE_LOST_ITEM_LINK', pc_env_https_url('STRIPE_LOST_ITEM_LINK'));

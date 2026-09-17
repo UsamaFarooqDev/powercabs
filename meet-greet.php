@@ -29,14 +29,23 @@ $mgOld = [
 ];
 
 $mgTerminalOptions = ['Terminal 1', 'Terminal 2', 'Platinum Service'];
+// Pickups can also start at Heuston Station; drop-offs stay airport-only, so
+// the drop-off select and its validation keep using $mgTerminalOptions alone.
+$mgPickupLocationOptions = array_merge($mgTerminalOptions, ['Heuston Station']);
 $mgServiceTypeLabels = [
   'pickup' => 'Pickup (collected from the airport)',
   'dropoff' => 'Dropping Off (taken to the airport)',
 ];
 $mgJourneyTypeLabels = ['one_way' => 'One Way', 'return' => 'Return / Both Ways'];
-$mgFares = ['one_way' => 10, 'return' => 15];
+// The single source for the fare that goes in the enquiry email. The same two
+// numbers are printed in the price cards, the journey <option> labels and their
+// data-fare attributes further down -- all of those read from here, so a
+// price change is this one line.
+$mgFares = ['one_way' => 10, 'return' => 18];
 
-$mgStripeLink = 'https://buy.stripe.com/5kQ6oH1NL1Zpd81arZfQI02';
+// From .env (STRIPE_MEET_GREET_LINK) -- see includes/env.php. Empty when not
+// configured, and every use below handles that.
+$mgStripeLink = PC_STRIPE_MEET_GREET_LINK;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'meet_greet') {
   foreach ($mgOld as $key => $default) {
@@ -49,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   if (!isset($mgJourneyTypeLabels[$mgOld['journey_type']])) {
     $mgOld['journey_type'] = '';
   }
-  if ($mgOld['pickup_terminal'] !== '' && !in_array($mgOld['pickup_terminal'], $mgTerminalOptions, true)) {
+  if ($mgOld['pickup_terminal'] !== '' && !in_array($mgOld['pickup_terminal'], $mgPickupLocationOptions, true)) {
     $mgOld['pickup_terminal'] = '';
   }
   if ($mgOld['dropoff_terminal'] !== '' && !in_array($mgOld['dropoff_terminal'], $mgTerminalOptions, true)) {
@@ -118,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
       "Special Requirements:\n" .
       ($mgOld['special_requirements'] !== '' ? $mgOld['special_requirements'] : '-') .
       "\n\n" .
-      "Payment Link: {$mgStripeLink}\n";
+      'Payment Link: ' . ($mgStripeLink !== '' ? $mgStripeLink : '(not configured -- arrange payment directly)') . "\n";
 
     $result = pc_send_mail('Meet & Greet enquiry: ' . $mgOld['name'], $body, [
       'name' => $mgOld['name'],
@@ -278,12 +287,12 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
         <div class="tw-relative tw-z-[1] tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-3">
           <div class="tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4">
             <span class="tw-text-xs tw-font-semibold tw-text-white/70">One Way</span>
-            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;10</span>
+            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;<?= $mgFares['one_way'] ?></span>
           </div>
           <div class="tw-relative tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(255,122,0,0.4)] tw-bg-[rgba(232,89,12,0.18)] tw-p-4">
             <span class="tw-absolute tw-right-3.5 -tw-top-2.5 tw-rounded-full tw-bg-power tw-px-2 tw-py-1 tw-text-[0.6rem] tw-font-bold tw-uppercase tw-tracking-[0.05em] tw-text-white">Best Value</span>
             <span class="tw-text-xs tw-font-semibold tw-text-white/70">Return / Both Ways</span>
-            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;15</span>
+            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;<?= $mgFares['return'] ?></span>
           </div>
         </div>
       </div>
@@ -342,8 +351,8 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgPickupTerminal" name="pickup_terminal">
               <option value="" disabled <?= $mgOld['pickup_terminal'] === ''
                 ? 'selected'
-                : '' ?>>Select terminal</option>
-              <?php foreach ($mgTerminalOptions as $terminal): ?>
+                : '' ?>>Select terminal or station</option>
+              <?php foreach ($mgPickupLocationOptions as $terminal): ?>
                 <option value="<?= htmlspecialchars($terminal) ?>" <?= $mgOld['pickup_terminal'] === $terminal
   ? 'selected'
   : '' ?>><?= htmlspecialchars($terminal) ?></option>
@@ -396,12 +405,12 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               <option value="" disabled <?= $mgOld['journey_type'] === ''
                 ? 'selected'
                 : '' ?>>Select journey type</option>
-              <option value="one_way" data-fare="10" <?= $mgOld['journey_type'] === 'one_way'
+              <option value="one_way" data-fare="<?= $mgFares['one_way'] ?>" <?= $mgOld['journey_type'] === 'one_way'
                 ? 'selected'
-                : '' ?>>One Way &ndash; &euro;10</option>
-              <option value="return" data-fare="15" <?= $mgOld['journey_type'] === 'return'
+                : '' ?>>One Way &ndash; &euro;<?= $mgFares['one_way'] ?></option>
+              <option value="return" data-fare="<?= $mgFares['return'] ?>" <?= $mgOld['journey_type'] === 'return'
                 ? 'selected'
-                : '' ?>>Return / Both Ways &ndash; &euro;15</option>
+                : '' ?>>Return / Both Ways &ndash; &euro;<?= $mgFares['return'] ?></option>
             </select>
           </div>
 
@@ -427,6 +436,14 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                 <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
                 <span class="tw-font-bold tw-text-ink">Secure Payment</span>
               </div>
+              <?php /* STRIPE_MEET_GREET_LINK missing from .env: no pay button
+                       rather than one that goes nowhere. The enquiry still sends
+                       -- it never required payment first. */ ?>
+              <?php if ($mgStripeLink === ''): ?>
+              <p class="tw-mb-0 tw-text-[0.95rem] tw-leading-[1.55] tw-text-ink/70">
+                Online payment is unavailable right now. Send your enquiry below and we'll confirm how to pay.
+              </p>
+              <?php else: ?>
               <a href="<?= htmlspecialchars($mgStripeLink) ?>" target="_blank" rel="noopener noreferrer"
                 class="<?= $pcBtnPrimary ?> tw-flex tw-w-full"
                 id="mgPayBtn">
@@ -435,7 +452,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                          width inside a card that is only ~280px across on a
                          phone, and both of the full strings wrap to two lines
                          there ("Select a journey type to see your fare", and
-                         "Pay EUR15 - Return / Both Ways" once a type is
+                         "Pay EUR18 - Return / Both Ways" once a type is
                          picked). The short label drops the words the phone
                          does not need: the qualifier on the prompt, and the
                          "Return / " half of the journey name, which is
@@ -452,6 +469,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                 fare shown above. Submitting the enquiry below does not require payment first --
                 your booking is never lost if you pay afterwards.
               </p>
+              <?php endif; ?>
             </div>
           </div>
 
@@ -525,11 +543,17 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
       var option = journeyTypeSelect.options[journeyTypeSelect.selectedIndex];
       var fare = option ? option.getAttribute('data-fare') : null;
 
+      // The pay button is not rendered when STRIPE_MEET_GREET_LINK is unset,
+      // so its two labels may not exist -- the fare box updates either way.
+      function setPayLabels(full, short) {
+        if (payBtnLabel) payBtnLabel.textContent = full;
+        if (payBtnLabelShort) payBtnLabelShort.textContent = short;
+      }
+
       if (!fare) {
         fareValue.textContent = '€–';
         fareHint.textContent = 'Select a journey type above';
-        payBtnLabel.textContent = 'Select a journey type to see your fare';
-        payBtnLabelShort.textContent = 'Select your journey';
+        setPayLabels('Select a journey type to see your fare', 'Select your journey');
         return;
       }
 
@@ -539,8 +563,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
       var shortLabel = option.value === 'return' ? 'Both Ways' : 'One Way';
       fareValue.textContent = '€' + fare;
       fareHint.textContent = label + ' fare';
-      payBtnLabel.textContent = 'Pay €' + fare + ' — ' + label;
-      payBtnLabelShort.textContent = 'Pay €' + fare + ' — ' + shortLabel;
+      setPayLabels('Pay €' + fare + ' — ' + label, 'Pay €' + fare + ' — ' + shortLabel);
     }
 
     serviceTypeSelect.addEventListener('change', applyServiceType);

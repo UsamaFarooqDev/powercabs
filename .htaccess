@@ -100,6 +100,24 @@ ErrorDocument 410 /410.php
   # live fare quote. It is kept reachable and marked noindex by header below.
   RewriteRule ^(includes|lib|bin)(/|$) - [F,L]
 
+  # SECRETS AND REPOSITORY FILES ARE NEVER SERVED. The web root is the
+  # repository: .env (SMTP password, Supabase service key), .git/ (the whole
+  # source and its history), .claude/, CLAUDE.md and the build config all sit
+  # beside the pages, and Apache's stock config only refuses .ht* files -- so
+  # every one of them was a plain download.
+  #
+  # One rule covers dotfiles AND anything inside a dot-directory, at any depth
+  # (/.env, /.git/config, /.claude/settings.json, /assets/.DS_Store). The
+  # second covers the named repo-only files at the root. /.well-known/ stays
+  # reachable: SSL certificate renewal answers its challenges from there.
+  #
+  # mod_rewrite [F], not a <FilesMatch> with Require/Deny: those need the host
+  # to allow AuthConfig/Limit overrides in .htaccess, and where it does not
+  # they take the WHOLE SITE down with a 500. Every other rule in this file is
+  # mod_rewrite and demonstrably works on this host, so this uses the same.
+  RewriteRule (^|/)\.(?!well-known(/|$)) - [F,L]
+  RewriteRule ^(CLAUDE\.md|tailwind\.config\.js|router\.php)$ - [F,L]
+
   # ==========================================================================
   # 3) URL SHAPE CANONICALISATION
   # ==========================================================================
@@ -151,6 +169,39 @@ ErrorDocument 410 /410.php
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME}\.php -f
   RewriteRule ^(.*)$ $1.php [L]
+</IfModule>
+
+# ============================================================================
+# BROWSER CACHING
+# ============================================================================
+# The host already sends CSS and images with a 7-day cache, but JavaScript
+# went out with "max-age=0" -- so every page view re-asked the server about
+# every script (main.js, ui.js, toast.js, ajax-forms.js, pjax.js,
+# page-loader.js and the page's own), each check a round trip over HTTP/1.1.
+#
+# Safe to cache long because every local .css/.js is referenced with
+# ?v=<filemtime>: a deploy changes the URL, so a returning visitor fetches the
+# new file immediately instead of waiting out the cache. ANY NEW <script> OR
+# <link> TO A LOCAL FILE MUST CARRY THAT ?v= TOO, or a visitor can keep a
+# stale copy for 30 days.
+#
+# Fonts are named by version (plus-jakarta-sans-v12-...), so they never
+# change in place and can be cached for a year. Images keep the host's 7 days:
+# they are not versioned, and are sometimes replaced under the same name.
+#
+# Header and AddType only need the FileInfo override, which this file already
+# depends on (ErrorDocument, RewriteRule) -- and the live host is confirmed to
+# honour Header here: the X-Robots-Tag rule below reaches /api/estimate_fare.
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
 </IfModule>
 
 # The fare endpoint answers real requests from the booking form, so it stays

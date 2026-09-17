@@ -45,7 +45,7 @@ $carEarnCards = [
             Step <?= htmlspecialchars($card['step']) ?>
           </span>
 
-          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-4 tw-pt-[4.5rem] md:tw-p-5 md:tw-pt-[4.5rem]">
+          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.62)_0%,rgba(10,7,5,0.22)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[8px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-4 tw-pt-3 md:tw-p-5 md:tw-pt-4">
             <span class="tw-mb-1 tw-block tw-text-2xl tw-font-bold tw-tracking-[-0.01em] tw-text-white"><?= htmlspecialchars(
               $card['title'],
             ) ?></span>

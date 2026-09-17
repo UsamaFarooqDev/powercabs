@@ -113,9 +113,21 @@ throws to the caller.
 
 [includes/env.php](includes/env.php) parses a gitignored `.env` at the repo root and defines
 `PC_SMTP_HOST`, `PC_SMTP_PORT`, `PC_SMTP_USER`, `PC_SMTP_PASS`, `PC_SMTP_FROM_NAME`, `PC_MAIL_TO`,
-`PC_GOOGLE_MAPS_API_KEY`. Missing values default to empty rather than erroring, so a missing `.env` shows up as
-forms silently failing to send and Maps not loading. No `.env.example` is committed despite the `.gitignore`
-comment.
+`PC_GOOGLE_MAPS_API_KEY`, `PC_SUPABASE_URL`, `PC_SUPABASE_SERVICE_KEY`, `PC_SUPABASE_ANON_KEY`,
+`PC_STRIPE_MEET_GREET_LINK` and `PC_STRIPE_LOST_ITEM_LINK`. Missing values default to empty rather than erroring,
+so a missing `.env` shows up as forms silently failing to send, Maps not loading, and pay buttons replaced by an
+"online payment unavailable" note. [.env.example](.env.example) lists every key -- **add a key there whenever you
+add one to env.php, and add it to the production `.env` before deploying**, or the feature degrades silently live.
+
+The Stripe values are **Payment Link URLs**, not API keys -- the site uses no Stripe API at all, and the amount
+charged is whatever each link is set to in the Stripe dashboard, not the price the page prints. Only `https://`
+values are accepted (`pc_env_https_url()`). Never re-add a literal fallback for any of these in code.
+
+**The web root is the repository**, so `.env`, `.git/`, `.claude/`, `CLAUDE.md` and `tailwind.config.js` sit beside
+the pages. `.htaccess` refuses all dotfiles, dot-directories (except `/.well-known/`) and those named files with
+mod_rewrite `[F]`; `router.php` mirrors it. Keep new repo-only files covered, and do not switch that block to
+`<FilesMatch>` + `Require`/`Deny` -- those need AuthConfig/Limit overrides and 500 the whole site on hosts without
+them.
 
 ## Client-side architecture
 
@@ -127,7 +139,8 @@ bottom of the page or component that needs them (e.g. `book-ride-map.js` in `boo
 **PJAX is the constraint that shapes everything else.** [assets/js/components/pjax.js](assets/js/components/pjax.js)
 intercepts same-origin link clicks and swaps only `<main>`'s innerHTML, then re-executes scripts inside it and
 manually re-runs a fixed list of globals: `highlightActiveNavLink`, `syncFooterHeightVar`, `initHeroParallax`,
-`initWhyChooseReveal`, `pcInitAjaxForms`. Consequences for any new code:
+`initWhyChooseReveal`, `initScrollReveal`, `initLoopVideos`, `pcInitAjaxForms`, `pcInitUi`. Consequences for any new
+code:
 
 - Header, footer, nav and mega-menus live **outside** `<main>` and survive navigation — anything stateful there
   must be reset explicitly (that's why `highlightActiveNavLink` clears old `.active` classes and PJAX closes open
@@ -142,7 +155,20 @@ manually re-runs a fixed list of globals: `highlightActiveNavLink`, `syncFooterH
 - Opt a link out of PJAX with `data-no-pjax`.
 
 Failures always fall back rather than dead-end: PJAX does a hard `window.location` navigation on any error, and
-the page loader force-hides after 8s.
+the page loader force-hides after 4s.
+
+The page loader lifts when the DOM is built and the brand font is ready (capped at 700ms) -- **not** on window
+`load`, which waits for every image and the Maps SDK and used to keep pages covered for ~3s after they were usable.
+Do not move it back to `load`.
+
+**Every local `<script src>` and `<link href>` must carry `?v=<?= @filemtime(...) ?>`.** `.htaccess` caches CSS and
+JS for 30 days (the host sent JS with `max-age=0`, a round trip per script per page view); the version query is what
+makes a deploy reach returning visitors immediately. An unversioned reference can serve a stale file for a month.
+
+Performance defaults for new content: photos as WebP (keep a PNG only where it is an `og:image`), and never a GIF --
+encode it as MP4 and use `<video data-pc-loop-video muted loop playsinline preload="none" poster="...">` with
+`<source data-src="...">`; `initLoopVideos()` starts it near the viewport and leaves the poster for reduced motion.
+The /business and /drive illustrations are the working examples (1.9MB and 1.1MB GIFs -> 109KB and 167KB).
 
 ## Styling
 
@@ -159,6 +185,15 @@ The Tailwind Play CDN and the whole theme config live in [includes/tailwind.php]
   `border-style`, so **a border utility needs an explicit `tw-border-solid` beside it**, and a `<button>` needs
   `tw-appearance-none tw-border-0` to shed its native chrome. This bites constantly; check it first when a border
   or button looks wrong.
+
+**The brand font is self-hosted**: Plus Jakarta Sans as one variable woff2 per script in
+`assets/fonts/plus-jakarta-sans/` (OFL licence alongside), declared in [base.css](assets/css/base.css) and preloaded
+from [includes/tailwind.php](includes/tailwind.php). Never reintroduce a Google Fonts `@import` or `<link>` -- that
+chain was ~1.5s+ before the first font byte and caused the visible text jump. The preload href is root-absolute and
+must resolve to the same URL as base.css's `url()`, or the font downloads twice. `'Plus Jakarta Sans Fallback'` is
+Arial with measured `size-adjust`/`ascent-override`/`descent-override` so the swap does not re-wrap text; it must
+stay second in the stack (`--pc-font-family` and the Tailwind `fontFamily.sans`), and must be re-measured if the font
+file is ever replaced.
 
 Every `@keyframes` the site uses is declared in that same config as a named `animation` (`tw-animate-pc-float`,
 `-pc-fade-up`, `-pc-marquee`, …). Do **not** write `[animation:name_…]` as an arbitrary utility — Tailwind only

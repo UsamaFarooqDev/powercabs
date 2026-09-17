@@ -174,6 +174,25 @@ require __DIR__ . '/components/ride/booking-steps.php';
 // why-powercabs -- three statements of the same thing on one page. The
 // comparison is the one with substance, so it is the one that stayed.
 require __DIR__ . '/components/ride/why-powercabs.php';
+
+/* Straight after the FAQ on purpose -- this is exactly where a passenger
+   whose question was not answered goes looking for a person.
+   +353 89 972 8089 is the CUSTOMER line; drivers have a separate number and
+   it only appears on /drive. This is also the number behind the footer's
+   WhatsApp badge and wa.me/353899728089, so the WhatsApp action here reaches
+   the same team rather than introducing a second channel. */
+$supportEyebrow = 'Customer Support';
+$supportHeading = 'Need a hand with a booking?';
+$supportText =
+  // A real em dash, not "--". support-band.php runs this through
+  // htmlspecialchars, so an &mdash; entity would print as literal text; the
+  // page is UTF-8 so the character itself passes through untouched.
+  'Fares, bookings, a driver you cannot find, or something left in the car — call and speak to the PowerCabs team directly.';
+$supportNumber = '+353 89 972 8089';
+$supportTel = '+353899728089';
+$supportHours = 'Customer support is available 24/7, every day of the year.';
+$supportWhatsapp = 'https://wa.me/353899728089';
+require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/ride/ride-faq.php';
 
 require __DIR__ . '/components/shared/app-download-banner.php';

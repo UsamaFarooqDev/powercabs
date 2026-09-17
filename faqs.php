@@ -346,8 +346,8 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
   </div>
 </section>
 
-<script src="<?= $assetPath ?>assets/js/components/faqs.js"></script>
-<script src="<?= $assetPath ?>assets/js/components/video-tutorials.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/faqs.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/faqs.js') ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/video-tutorials.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/video-tutorials.js') ?>"></script>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

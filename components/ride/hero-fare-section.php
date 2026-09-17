@@ -146,8 +146,12 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 
           <!-- Bare functional hooks -- ride-fare-estimate.js drives all
                state here (disabled toggling, textContent, tw-hidden, spinner
-               swap via .spinner-border) directly by id/class, unchanged. -->
-          <button type="button" id="rfSubmit" class="tw-mt-4 tw-inline-flex tw-w-full tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:-tw-translate-y-0.5 hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)] disabled:tw-pointer-events-none disabled:tw-translate-y-0 disabled:tw-opacity-40 disabled:tw-shadow-none" disabled>
+               swap via .spinner-border) directly by id/class, unchanged.
+               The pill repeats $pcBtnPrimary inline because it is full-width
+               and has a disabled state; it must stay in step with the recipe,
+               whose hover is the fill and the glow and deliberately NOT a lift
+               (see the note above the recipe in design-system.php). -->
+          <button type="button" id="rfSubmit" class="tw-mt-4 tw-inline-flex tw-w-full tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:tw-bg-power hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)] disabled:tw-pointer-events-none disabled:tw-opacity-40 disabled:tw-shadow-none" disabled>
             Get Fare Estimate
           </button>
 
@@ -315,7 +319,7 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 <script
   src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initRideFareMap"
   async defer></script>
-<script src="<?= $assetPath ?>assets/js/components/ride-fare-estimate.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/ride-fare-estimate.js?v=<?= @filemtime(__DIR__ . '/../../assets/js/components/ride-fare-estimate.js') ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/../../assets/js/components/custom-select.js',
 ) ?>"></script>

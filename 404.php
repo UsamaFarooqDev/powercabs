@@ -111,6 +111,6 @@ $notFoundLinks = [
   </div>
 </section>
 
-<script src="/assets/js/components/page-loader.js"></script>
+<script src="/assets/js/components/page-loader.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/page-loader.js') ?>"></script>
 </body>
 </html>

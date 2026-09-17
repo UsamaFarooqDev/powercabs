@@ -1,18 +1,4 @@
 <?php
-/**
- * Ride page: "A Ride for Every Need" -- the eight ride types as a compact,
- * skimmable grid. Requires $assetPath from the including page.
- *
- * This replaced a pinned scroll-through showcase (rides-parallax.js, since
- * removed) that stacked the eight cards and advanced them on scroll. It
- * looked good, but it cost 8 x 70vh = ~560vh of scrolling to see eight
- * cards, it could not be skimmed, and it made comparing two ride types --
- * the actual job of this section -- impossible, because only one was ever
- * on screen. A grid shows all eight at once in roughly one screen.
- *
- * Every ride type, description, spec and image is unchanged; this is a
- * presentation change, not a content cut.
- */
 
 $rideTypes = [
   [
@@ -113,84 +99,309 @@ function pc_ride_spec_icon(string $icon): void
     <?php break;
   endswitch;
 }
+
+$rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
 ?>
-
-<section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
-  <div class="<?= $pcContainer ?>">
-
-    <div class="<?= $pcSectionHeadCenter ?>">
-      <p class="<?= $pcEyebrow ?>">/ Ride Types</p>
-      <h2 class="<?= $pcH2 ?>">A Ride for Every Need</h2>
-      <p class="<?= $pcLead ?> tw-mx-auto <?= $pcMeasure ?>">
-        Eight vehicle types, one fare engine. Pick the one that fits the
-        journey &mdash; the price you are quoted is the price you pay.
-      </p>
-    </div>
-
-    <?php /* Deliberately NOT $pcCardEditorial. These eight run as one
-             continuous mosaic -- square corners, no gutters, no card border --
-             so the shared editorial recipe (rounded-3xl, hairline border,
-             hover lift) is wrong here on every count: a hover translate with
-             zero gutter would slide a card over its neighbours.
-
-             gap-px over a tinted container, rather than gap-0 plus borders, is
-             what makes the seams work. Borders on abutting cards double up
-             into a 2px line and leave a stray edge on the outside of the
-             block; a 1px gap showing the container through gives exactly one
-             hairline between neighbours and none at the perimeter. black/[0.05]
-             keeps it just barely there, which is the "soft edge" asked for.
-
-             Hover is a background tint now instead of a lift -- the only
-             feedback that does not disturb a seamless grid.
-
-             Four across at xl, two at sm, one on mobile. The image wrapper
-             owns the 4:3 ratio ($pcImgLandscape) rather than the image, so all
-             eight cards line up regardless of each source file's own
-             dimensions. */ ?>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-px tw-overflow-hidden tw-bg-black/[0.05] sm:tw-grid-cols-2 xl:tw-grid-cols-4">
-      <?php foreach ($rideTypes as $i => $ride): ?>
-        <article class="tw-group tw-relative tw-flex tw-h-full tw-flex-col tw-overflow-hidden tw-rounded-none tw-bg-white tw-transition-colors tw-duration-300 tw-ease-out motion-reduce:tw-transition-none">
-          <div class="<?= $pcImgLandscape ?>">
-            <img src="<?= $assetPath ?>assets/img/rides-types/<?= $ride['img'] ?>"
-                 alt="PowerCabs <?= htmlspecialchars($ride['title']) ?>"
-                 class="<?= $pcImgCover ?> <?= $pcImgZoom ?>"
-                 loading="<?= $i < 4 ? 'eager' : 'lazy' ?>">
-          </div>
-
-          <div class="<?= $pcCardEditorialBody ?>">
-            <h3 class="<?= $pcH3 ?>"><?= htmlspecialchars($ride['title']) ?></h3>
-            <p class="<?= $pcBodySm ?> tw-mb-4"><?= htmlspecialchars($ride['desc']) ?></p>
-
-            <!-- mt-auto pins the spec chips to the bottom, so they align
-                 across a row whatever length each description runs to. -->
-            <div class="tw-mt-auto tw-flex tw-flex-wrap tw-gap-x-4 tw-gap-y-2">
-              <?php foreach ($ride['specs'] as $spec): ?>
-                <span class="tw-inline-flex tw-items-center tw-gap-1.5 tw-text-[0.8rem] tw-font-semibold tw-text-ink/[0.6]">
-                  <span class="tw-inline-flex tw-h-6 tw-w-6 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-peach tw-text-power"><?php pc_ride_spec_icon(
-                    $spec['icon'],
-                  ); ?></span>
-                  <?= htmlspecialchars($spec['label']) ?>
-                </span>
-              <?php endforeach; ?>
-            </div>
-          </div>
-        </article>
-      <?php endforeach; ?>
-    </div>
-
-    <?php /* Wheelchair Taxi is one of the eight cards above and has a whole
-             page of its own -- accessibility requirements, what the vehicles
-             are fitted with, how drivers are trained -- which nothing on this
-             page linked to. Someone scanning the ride types for an accessible
-             vehicle is exactly the reader that page is written for, so the
-             link belongs here rather than only in the footer. */ ?>
-    <div class="tw-mt-10 tw-flex tw-flex-col tw-items-center tw-gap-4">
-      <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/book-ride-online">Book Your Ride</a>
-      <p class="tw-mb-0 tw-text-center tw-text-[0.95rem] tw-text-ink/[0.6]">
-        Travelling with a wheelchair?
-        <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/30 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-text-powerdark hover:tw-decoration-power" href="<?= $assetPath ?>/wheelchair-accessible-taxis">See our wheelchair accessible taxis</a>.
-      </p>
-    </div>
-
+<section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?> tw-relative tw-overflow-hidden">
+  <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-overflow-hidden" aria-hidden="true">
+    <div class="tw-absolute tw-left-[-12rem] tw-top-[8rem] tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-peach/30 tw-blur-3xl"></div>
+    <div class="tw-absolute tw-right-[-12rem] tw-bottom-[4rem] tw-h-[30rem] tw-w-[30rem] tw-rounded-full tw-bg-power/[0.06] tw-blur-3xl"></div>
   </div>
+
+  <div class="<?= $pcContainer ?> tw-relative">
+    <div class="tw-mx-auto tw-mb-10 tw-max-w-3xl tw-text-center sm:tw-mb-12 lg:tw-mb-14">
+      <h2 class="<?= $pcH2 ?> tw-mx-auto tw-max-w-2xl tw-text-balance tw-font-extrabold tw-leading-[1.05] tw-tracking-[-0.035em]">
+        A ride for every
+        <span class="tw-text-power">journey.</span>
+      </h2>
+
+      <p class="<?= $pcLead ?> tw-mx-auto tw-mt-5 tw-max-w-2xl tw-leading-[1.75] tw-text-ink/[0.58]">
+        From everyday trips to executive travel, choose the vehicle that
+        fits your journey. One simple fare engine, with the price you
+        are quoted being the price you pay.
+      </p>
+    </div>
+
+    <div
+      data-ride-slider
+      aria-roledescription="carousel"
+      aria-label="PowerCabs ride types"
+      class="tw-relative tw-overflow-hidden tw-rounded-[2rem] tw-border tw-border-solid tw-border-black/[0.07] tw-bg-[#f8f7f5] tw-shadow-[0_24px_80px_-32px_rgba(28,20,16,0.25)] sm:tw-rounded-[2.5rem]"
+    >
+      <div class="tw-relative tw-z-20 tw-flex tw-items-center tw-justify-between tw-gap-4 tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.06] tw-bg-white/[0.82] tw-px-5 tw-py-4 tw-backdrop-blur-xl sm:tw-px-7 sm:tw-py-5 lg:tw-px-9">
+        <div class="tw-flex tw-items-baseline tw-gap-2">
+          <span
+            data-ride-current
+            class="tw-text-[1.15rem] tw-font-extrabold tw-leading-none tw-tabular-nums tw-tracking-[-0.03em] tw-text-ink sm:tw-text-[1.35rem]"
+          >
+            01
+          </span>
+
+          <span class="tw-text-[0.72rem] tw-font-semibold tw-tracking-[0.08em] tw-text-ink/30">
+            /
+          </span>
+
+          <span class="tw-text-[0.72rem] tw-font-bold tw-tabular-nums tw-tracking-[0.08em] tw-text-ink/35">
+            <?= str_pad(count($rideTypes), 2, '0', STR_PAD_LEFT) ?>
+          </span>
+
+          <span class="tw-ml-1 tw-hidden tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.12em] tw-text-ink/35 sm:tw-inline">
+            Ride options
+          </span>
+        </div>
+
+        <p class="tw-sr-only" aria-live="polite" data-ride-status></p>
+        <div class="tw-flex tw-items-center tw-gap-2">
+          <?php
+          $rideNavBtn =
+            'tw-group tw-inline-flex tw-h-10 tw-w-10 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full ' .
+            'tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-text-ink ' .
+            'tw-shadow-[0_4px_14px_rgba(28,20,16,0.05)] tw-transition-all tw-duration-300 ' .
+            // No hover lift, same rule as $pcBtnPrimary: a 2px rise under a 40px
+            // circle mostly reads as the chevron twitching. Filling the circle
+            // orange is the feedback. The chevron's own sideways nudge stays --
+            // it points at what the button will do, and with no label beside it
+            // there is nothing for it to drift away from.
+            'hover:tw-border-power/30 hover:tw-bg-power hover:tw-text-white hover:tw-shadow-[0_8px_22px_rgba(28,20,16,0.12)] ' .
+            'focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-power ' .
+            'disabled:tw-cursor-not-allowed disabled:tw-opacity-35 disabled:hover:tw-border-black/[0.08] disabled:hover:tw-bg-white disabled:hover:tw-text-ink ' .
+            'motion-reduce:tw-transition-none';
+          ?>
+
+          <?php /* Pause / play for the autoplay. Hidden until the script marks it
+                   .is-ready, so with JS off -- or with reduced motion, where
+                   nothing auto-plays -- there is no button that does nothing.
+                   It comes first, before prev/next, which is where the WAI
+                   carousel pattern puts the rotation control. The script
+                   toggles .is-paused, which swaps the two icons. */ ?>
+          <button
+            type="button"
+            class="<?= str_replace('tw-inline-flex', 'tw-hidden [&.is-ready]:tw-inline-flex', $rideNavBtn) ?>"
+            data-ride-toggle
+            aria-label="Pause the ride types slideshow"
+          >
+            <svg
+              class="tw-h-4 tw-w-4 group-[.is-paused]:tw-hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.25"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M9 6.5v11M15 6.5v11"/>
+            </svg>
+            <svg
+              class="tw-hidden tw-h-4 tw-w-4 group-[.is-paused]:tw-block"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M8.5 6.2v11.6a.8.8 0 001.22.68l9.2-5.8a.8.8 0 000-1.36l-9.2-5.8a.8.8 0 00-1.22.68z"/>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="<?= $rideNavBtn ?>"
+            data-ride-prev
+            aria-label="Previous ride type"
+          >
+            <svg
+              class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-300 group-hover:tw--translate-x-0.5 motion-reduce:tw-transition-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 6l-6 6 6 6"/>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="<?= $rideNavBtn ?>"
+            data-ride-next
+            aria-label="Next ride type"
+          >
+            <svg
+              class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-300 group-hover:tw-translate-x-0.5 motion-reduce:tw-transition-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 6l6 6-6 6"/>
+            </svg>
+          </button>
+
+        </div>
+      </div>
+
+      <div
+        data-ride-viewport
+        class="tw-overflow-hidden"
+      >
+        <div
+          data-ride-track
+          class="[&.is-ready]:tw-flex [&.is-ready]:tw-w-full [&.is-ready]:tw-transition-transform [&.is-ready]:tw-duration-700 [&.is-ready]:tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:[&.is-ready]:tw-transition-none"
+        >
+          <?php foreach ($rideTypes as $i => $ride): ?>
+
+            <div
+              class="tw-w-full tw-shrink-0"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="<?= $i + 1 ?> of <?= count($rideTypes) ?>: <?= htmlspecialchars($ride['title']) ?>"
+            >
+              <div class="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2">
+                <div class="tw-relative tw-min-h-[6rem] tw-overflow-hidden sm:tw-min-h-[7rem] lg:tw-min-h-[9rem]">
+                  <img
+                    src="<?= $assetPath ?>assets/img/rides-types/<?= $ride['img'] ?>"
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    class="tw-absolute tw-inset-[-12%] tw-h-[124%] tw-w-[124%] tw-scale-110 tw-object-cover tw-blur-lg tw-saturate-150 tw-opacity-30"
+                  >
+                  <div class="tw-absolute tw-inset-0 tw-bg-gradient-to-br tw-from-white/80 via-white/45 to-peach/55"></div>
+                  <div class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-40 tw-bg-gradient-to-t tw-from-black/[0.14] to-transparent"></div>
+                  <div class="tw-absolute tw-left-5 tw-top-5 tw-z-10 sm:tw-left-7 sm:tw-top-7 lg:tw-left-9 lg:tw-top-9">
+
+                    <span class="tw-block tw-text-[4.5rem] tw-font-black tw-leading-none tw-tracking-[-0.08em] tw-text-ink/[0.08] sm:tw-text-[6rem]">
+                      <?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>
+                    </span>
+
+                  </div>
+
+                  <div class="tw-relative tw-flex tw-h-full tw-items-center tw-justify-center <?= $rideSlidePad ?>">
+                    <div class="tw-relative tw-w-full tw-max-w-[23rem] tw-transition-transform tw-duration-700">
+                      <div class="tw-absolute tw-bottom-[-1rem] tw-left-[12%] tw-h-10 tw-w-[76%] tw-rounded-[50%] tw-bg-ink/15 tw-blur-2xl"></div>
+                      <div class="tw-relative tw-aspect-square tw-overflow-hidden tw-rounded-[1.75rem] tw-border tw-bg-white/30 tw-shadow-[0_30px_70px_-18px_rgba(28,20,16,0.30)] tw-backdrop-blur-sm sm:tw-rounded-[2rem]">
+
+                        <img
+                          src="<?= $assetPath ?>assets/img/rides-types/<?= $ride['img'] ?>"
+                          alt="PowerCabs <?= htmlspecialchars($ride['title']) ?>"
+                          loading="<?= $i === 0 ? 'eager' : 'lazy' ?>"
+                          class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover"
+                        >
+
+                        <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-gradient-to-br tw-from-white/25 via-transparent to-black/[0.08]"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tw-absolute tw-bottom-5 tw-left-5 tw-z-10 sm:tw-bottom-7 sm:tw-left-7 lg:tw-bottom-9 lg:tw-left-9">
+                    <div class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-white/50 tw-bg-white/65 tw-px-3 tw-py-1.5 tw-shadow-sm tw-backdrop-blur-xl">
+                      <span class="tw-h-1.5 tw-w-1.5 tw-rounded-full tw-bg-power"></span>
+                      <span class="tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.15em] tw-text-ink/70">
+                        PowerCabs
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tw-relative tw-flex tw-flex-col tw-justify-center tw-overflow-hidden tw-bg-white <?= $rideSlidePad ?>">
+                  <div class="tw-absolute tw-right-[-4rem] tw-top-[-4rem] tw-h-32 tw-w-32 tw-rounded-full tw-border-[18px] tw-border-solid tw-border-power/[0.035]"></div>
+                  <div class="tw-relative tw-z-10">
+                    <div class="tw-mb-5 tw-flex tw-items-center tw-gap-3">
+                      <span class="tw-h-px tw-w-8 tw-bg-power"></span>
+                      <span class="tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.18em] tw-text-power">
+                        Ride Type <?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>
+                      </span>
+                    </div>
+
+                    <h3 class="tw-mb-4 tw-max-w-xl tw-text-[clamp(2rem,4vw,3.25rem)] tw-font-extrabold tw-leading-[0.98] tw-tracking-[-0.045em] tw-text-ink">
+                      <?= htmlspecialchars($ride['title']) ?>
+                    </h3>
+
+                    <p class="tw-mb-7 tw-max-w-[46ch] tw-text-[0.98rem] tw-leading-[1.75] tw-text-ink/[0.57] sm:tw-text-[1.04rem]">
+                      <?= htmlspecialchars($ride['desc']) ?>
+                    </p>
+
+                    <div class="tw-mb-9 tw-flex tw-flex-wrap tw-gap-2.5">
+                      <?php foreach ($ride['specs'] as $spec): ?>
+                        <span class="tw-group tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-[#faf9f7] tw-py-2 tw-pl-2 tw-pr-3.5 tw-text-[0.78rem] tw-font-bold tw-text-ink/[0.68] tw-shadow-[0_3px_12px_rgba(28,20,16,0.035)] tw-transition-all tw-duration-300 hover:tw-border-power/15 hover:tw-bg-peach/35 motion-reduce:tw-transition-none">
+                          <span class="tw-inline-flex tw-h-8 tw-w-8 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-lg tw-bg-white tw-text-power tw-shadow-[0_2px_8px_rgba(28,20,16,0.06)]">
+                            <?php pc_ride_spec_icon($spec['icon']); ?>
+                          </span>
+                          <?= htmlspecialchars($spec['label']) ?>
+                        </span>
+                      <?php endforeach; ?>
+                    </div>
+
+                    <div class="tw-flex tw-flex-col tw-items-start tw-gap-5 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
+                      <a
+                        href="<?= $assetPath ?>/book-ride-online"
+                        class="<?= $pcBtnPrimary ?>"
+                      >
+                        Book this ride
+                        <?php /* No hover nudge on the arrow. $pcBtnPrimary's hover
+                                 is its fill and glow, on the pill only -- an icon
+                                 that slides as well makes the label and the
+                                 chevron drift apart inside it. */ ?>
+                        <svg
+                          class="tw-h-4 tw-w-4 tw-shrink-0"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 12h14"/>
+                          <path d="m13 6 6 6-6 6"/>
+                        </svg>
+                      </a>
+
+                      <div class="tw-hidden tw-items-center tw-gap-2.5 sm:tw-flex">
+                        <span class="tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-ink/30">
+                          Explore
+                        </span>
+                        <span class="tw-h-px tw-w-8 tw-bg-black/10"></span>
+                        <span class="tw-text-[0.72rem] tw-font-bold tw-tabular-nums tw-text-ink/45">
+                          <?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?>
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <?php endforeach; ?>
+        </div>
+      </div>
+
+      <div
+        data-ride-dots
+        class="tw-hidden [&.is-ready]:tw-flex tw-items-center tw-justify-center tw-gap-1.5 tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.06] tw-bg-white tw-px-5 tw-py-4 sm:tw-py-5"
+      >
+        <?php foreach ($rideTypes as $i => $ride): ?>
+          <button
+            type="button"
+            data-ride-dot="<?= $i ?>"
+            aria-label="Show <?= htmlspecialchars($ride['title']) ?>"
+            class="tw-h-1.5 tw-w-1.5 tw-appearance-none tw-rounded-full tw-border-0 tw-bg-ink/15 tw-p-0 tw-transition-all tw-duration-500 hover:tw-bg-ink/35 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-4 focus-visible:tw-outline-power motion-reduce:tw-transition-none [&[aria-current=true]]:tw-w-10 [&[aria-current=true]]:tw-bg-power"
+          ></button>
+
+        <?php endforeach; ?>
+
+      </div>
+    </div>
+  </div>
+
 </section>
+
+<?php /* Slider behaviour: looping prev/next, dots, swipe, arrow keys, and
+         autoplay with pause. See the notes at the top of the script. */ ?>
+<script src="<?= $assetPath ?>assets/js/components/ride-types-slider.js?v=<?= @filemtime(
+  __DIR__ . '/../../assets/js/components/ride-types-slider.js',
+) ?>"></script>

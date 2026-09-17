@@ -85,7 +85,7 @@ require __DIR__ . '/components/partner/process.php';
 require __DIR__ . '/components/partner/enquiry.php';
 ?>
 
-<script src="<?= $assetPath ?>assets/js/components/partner-page.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/partner-page.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/partner-page.js') ?>"></script>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

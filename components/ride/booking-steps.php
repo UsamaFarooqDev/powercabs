@@ -130,4 +130,4 @@ $rideSteps = [
   </div>
 </section>
 
-<script src="<?= $assetPath ?>assets/js/components/book-ride-steps.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/book-ride-steps.js?v=<?= @filemtime(__DIR__ . '/../../assets/js/components/book-ride-steps.js') ?>"></script>

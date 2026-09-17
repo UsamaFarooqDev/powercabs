@@ -219,7 +219,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
              image panels; the soft shadow stops the artwork sitting flat on
              the section background now that the step cards beside it are on a
              hairline rather than a heavy drop shadow. -->
-        <img src="<?= $assetPath ?>assets/img/booking-ride.png" class="tw-h-auto tw-w-full tw-max-w-[420px] tw-rounded-[2rem] tw-shadow-[0_18px_45px_-12px_rgba(28,20,16,0.22)]" alt="Book your ride">
+        <img src="<?= $assetPath ?>assets/img/booking-ride.webp" class="tw-h-auto tw-w-full tw-max-w-[420px] tw-rounded-[2rem] tw-shadow-[0_18px_45px_-12px_rgba(28,20,16,0.22)]" alt="Book your ride">
       </div>
     </div>
   </div>
@@ -392,7 +392,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <script src="<?= $assetPath ?>assets/js/components/dublin-places-autocomplete.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/dublin-places-autocomplete.js',
 ) ?>"></script>
-<script src="<?= $assetPath ?>assets/js/components/book-ride-map.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/book-ride-map.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/book-ride-map.js') ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',
 ) ?>"></script>

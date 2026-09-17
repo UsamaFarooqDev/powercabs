@@ -48,7 +48,7 @@ $services = [
        is exactly what this card links to, and the branding is real rather
        than implied. */
     'href' => '/corporate-services',
-    'img' => 'https://images.pexels.com/photos/9520551/pexels-photo-9520551.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'img' => 'https://images.pexels.com/photos/4606396/pexels-photo-4606396.jpeg?auto=compress&cs=tinysrgb&w=1200',
     'alt' => 'A PowerCabs account manager reviewing a city route plan with a business team',
     'eyebrow' => 'Business',
     'title' => 'Corporate Services',

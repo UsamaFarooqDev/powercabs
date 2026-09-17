@@ -1,4 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap');
+/* ── Brand font: Plus Jakarta Sans, self-hosted ─────────────────────────
+   This used to be an @import of Google Fonts at the top of this file, which
+   is the slowest way a web font can load: the browser only discovers the
+   font after downloading THIS stylesheet, then opens two more origins
+   (fonts.googleapis.com for the CSS, fonts.gstatic.com for the files) before
+   the first byte of the font arrives -- measured at 1.5s for the CSS alone.
+   Until then every heading and paragraph painted in Segoe UI and then jumped
+   to the wider brand font, re-wrapping lines. That was the visible "font
+   disturb".
+
+   Now: one variable woff2 per script (every weight 200-800 in one 27KB
+   latin file, not a file per weight), served from our own origin and
+   preloaded from includes/tailwind.php so it downloads in parallel with the
+   CSS. latin-ext only downloads if a page actually uses one of its
+   characters -- that is what unicode-range does. The preload href and these
+   url()s must resolve to the SAME address or the browser fetches it twice.
+   Font files and OFL licence: assets/fonts/plus-jakarta-sans/. No italic is
+   used anywhere on the site, so none is shipped. */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('../fonts/plus-jakarta-sans/plus-jakarta-sans-v12-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('../fonts/plus-jakarta-sans/plus-jakarta-sans-v12-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* The stand-in for the few hundred ms before the brand font arrives: Arial,
+   resized and re-proportioned to occupy the same space as Plus Jakarta Sans.
+   With it, the swap changes letter shapes but not line lengths or heights,
+   so nothing re-wraps or moves. Values measured, not eyeballed, with
+   fontTools: size-adjust is the ratio of average advance widths over this
+   site's own copy at weight 400; the overrides are Plus Jakarta Sans's
+   vertical metrics (it sets USE_TYPO_METRICS: ascender 1038, descender -222,
+   no line gap, 1000 UPM) divided by that size-adjust. Re-measure if the font
+   file is ever replaced. */
+@font-face {
+  font-family: 'Plus Jakarta Sans Fallback';
+  src: local('Arial'), local('ArialMT');
+  size-adjust: 105.54%;
+  ascent-override: 98.35%;
+  descent-override: 21.03%;
+  line-gap-override: 0%;
+}
 
 /* Element normalisation lives in reboot.css (Bootstrap's Reboot, vendored),
    which loads before this file. Everything here is a PowerCabs layer on top

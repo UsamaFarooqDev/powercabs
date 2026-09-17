@@ -28,5 +28,19 @@
 // PHP-interpolated cases are in the config's `safelist`.
 $assetPath ??= '';
 ?>
+  <?php /* Font preload -- starts the brand font downloading in parallel with
+           the stylesheets instead of after base.css has been parsed. Root-
+           absolute on purpose: it must resolve to exactly the URL base.css's
+           url('../fonts/...') resolves to, and 404.php is served at arbitrary
+           nested paths where a relative href would point somewhere else and
+           download the font twice. crossorigin is required for fonts even on
+           the same origin, or the preloaded copy is not reused. Only latin is
+           preloaded: latin-ext is rarely needed and unicode-range fetches it
+           on demand. */ ?>
+  <link rel="preload" href="/assets/fonts/plus-jakarta-sans/plus-jakarta-sans-v12-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <?php /* Most page heroes and many section photos are Pexels URLs. Opening
+           that connection now saves its DNS + TLS setup at the moment the
+           hero image is actually requested. */ ?>
+  <link rel="preconnect" href="https://images.pexels.com">
   <link rel="stylesheet"
     href="<?= $assetPath ?>assets/css/tailwind.css?v=<?= @filemtime(__DIR__ . '/../assets/css/tailwind.css') ?>">

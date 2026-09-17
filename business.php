@@ -99,13 +99,25 @@ require __DIR__ . '/components/shared/inner-hero.php';
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <!-- Business_gif.gif is 1000x1000. Forcing a square source into a 4/3
-             box with object-cover cropped a quarter of the frame away, top and
-             bottom -- which is why the animation looked cut off. The wrapper
-             now matches the source ratio so the whole frame shows. -->
-        <div class="tw-aspect-square tw-overflow-hidden tw-rounded-2xl">
-          <img src="<?= $assetPath ?>assets/img/Business_gif.gif" alt="PowerCabs business travel showcase"
-            class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+        <?php /* The animation is square (it was Business_gif.gif, 1000x1000).
+                 Forcing a square source into a 4/3 box with object-cover cropped
+                 a quarter of the frame away, top and bottom -- which is why it
+                 looked cut off. The wrapper matches the source ratio so the
+                 whole frame shows.
+
+                 Now a muted, looping, inline MP4: 109KB instead of the GIF's
+                 1.9MB, the single heaviest file on this page. It is started by
+                 initLoopVideos() in main.js once it nears the viewport -- hence
+                 data-src and no autoplay attribute. The poster is the finished
+                 last frame, so wherever it does not play (reduced motion, iOS
+                 Low Power Mode, no JS) the complete illustration still shows.
+                 The GIF stays in assets/img untouched. role="img" + aria-label
+                 keep the description the GIF's alt used to give. */ ?>
+        <div class="tw-aspect-square tw-overflow-hidden tw-rounded-2xl" role="img" aria-label="PowerCabs business travel showcase">
+          <video class="tw-h-full tw-w-full tw-object-cover" data-pc-loop-video muted loop playsinline preload="none" aria-hidden="true"
+            poster="<?= $assetPath ?>assets/img/vid-covers/business-travel-showcase.webp">
+            <source data-src="<?= $assetPath ?>assets/vid/business-travel-showcase.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
 
@@ -179,6 +191,23 @@ require __DIR__ . '/components/business/plans.php';
 // booking-process.php ends in the business account request form, so it sits
 // last -- the form should follow the pricing, not precede it.
 require __DIR__ . '/components/business/booking-process.php';
+
+/* Straight after the account request form on purpose -- a business visitor
+   who would rather not fill it in goes looking for a person right here.
+   +353 89 958 6092 is the BUSINESS line, not the customer WhatsApp in the
+   footer (+353 89 972 8089) or the driver line on /drive. 24/7 is what this
+   page already promises ("24/7 Business Support" in trust-proof.php), and
+   the WhatsApp action goes to that same business number. */
+$supportEyebrow = 'Business Support';
+$supportHeading = 'Prefer to talk it through?';
+$supportText =
+  'Call the PowerCabs business team about opening an account, monthly invoicing or booking travel for your team.';
+$supportNumber = '+353 89 958 6092';
+$supportTel = '+353899586092';
+$supportHours = 'Business support is available 24/7, every day of the year.';
+$supportWhatsapp = 'https://wa.me/353899586092';
+require __DIR__ . '/components/shared/support-band.php';
+
 require __DIR__ . '/components/business/trust-proof.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 
@@ -191,6 +220,6 @@ $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Sales'];
 require __DIR__ . '/components/shared/final-cta.php';
 ?>
 
-<script src="<?= $assetPath ?>assets/js/components/business-page.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/business-page.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/business-page.js') ?>"></script>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

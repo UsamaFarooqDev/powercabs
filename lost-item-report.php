@@ -7,6 +7,14 @@ $assetPath = '';
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
+/* Lost item search fee. The amount is what the page SAYS; what the visitor is
+   actually charged is whatever the Stripe Payment Link is configured for in
+   the Stripe dashboard -- the site cannot change that. Keep the two in step.
+   The link comes from .env (STRIPE_LOST_ITEM_LINK, see includes/env.php) and
+   is empty when not configured, which the card below handles. */
+$lostItemFee = 15;
+$lostItemFeeLink = PC_STRIPE_LOST_ITEM_LINK;
+
 $formStatus = null;
 $formError = '';
 $old = [
@@ -139,6 +147,54 @@ $submitClass = $pcBtnPrimary;
             <span class="tw-text-ink/60">A clear description of the item -- colour, brand, and any identifying details.</span>
           </li>
         </ul>
+
+        <?php /* Search fee card. Sits under the checklist rather than inside the
+                 form so it reads as part of "what to know before you report",
+                 and so the form's own submit stays the only button in the form.
+                 The price is the loudest thing on the card and the pay link is
+                 full width, so on a phone it is one obvious tap. */ ?>
+        <div class="tw-relative tw-mt-8 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-[linear-gradient(135deg,#fffaf5_0%,#fbe6d4_100%)] tw-p-5 tw-shadow-[0_14px_36px_-18px_rgba(232,89,12,0.45)] sm:tw-p-6">
+          <span class="tw-pointer-events-none tw-absolute tw-right-[-3.5rem] tw-top-[-3.5rem] tw-h-36 tw-w-36 tw-rounded-full tw-border-[16px] tw-border-solid tw-border-power/[0.06]" aria-hidden="true"></span>
+
+          <div class="tw-relative tw-flex tw-items-start tw-justify-between tw-gap-4">
+            <div class="tw-flex tw-min-w-0 tw-items-center tw-gap-3">
+              <span class="tw-inline-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-white tw-text-power tw-shadow-[0_4px_12px_rgba(28,20,16,0.08)]">
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+              </span>
+              <div class="tw-min-w-0">
+                <span class="tw-block tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-powerdark">Search Fee</span>
+                <span class="tw-block tw-text-base tw-font-bold tw-leading-snug tw-text-ink">Lost item search</span>
+              </div>
+            </div>
+            <div class="tw-shrink-0 tw-text-right">
+              <span class="tw-block tw-text-[2rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-power">&euro;<?= $lostItemFee ?></span>
+              <span class="tw-mt-1 tw-block tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-ink/45">One-off fee</span>
+            </div>
+          </div>
+
+          <p class="tw-relative tw-mb-5 tw-mt-4 tw-text-[0.95rem] tw-leading-relaxed tw-text-ink/65">
+            A &euro;<?= $lostItemFee ?> fee applies for searching for your lost item. Pay it securely online with Stripe.
+          </p>
+
+          <?php if ($lostItemFeeLink === ''): ?>
+            <?php /* STRIPE_LOST_ITEM_LINK missing from .env: say so plainly
+                     rather than render a pay button that goes nowhere. */ ?>
+            <p class="tw-relative tw-mb-0 tw-rounded-xl tw-bg-white/70 tw-px-4 tw-py-3 tw-text-center tw-text-[0.9rem] tw-font-semibold tw-text-ink/70">
+              Online payment is unavailable right now. We'll confirm how to pay when we reply to your report.
+            </p>
+          <?php else: ?>
+          <a href="<?= htmlspecialchars($lostItemFeeLink) ?>" target="_blank" rel="noopener noreferrer"
+            class="<?= $pcBtnPrimary ?> tw-relative tw-flex tw-w-full">
+            <svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a1.5 1.5 0 00-1.5 1.5v9A1.5 1.5 0 006 21h12a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0018 9h-1.5V6a4.5 4.5 0 00-4.5-4.5zm3 7.5V6a3 3 0 10-6 0v3h6z" clip-rule="evenodd"/></svg>
+            Pay &euro;<?= $lostItemFee ?> Search Fee
+          </a>
+
+          <p class="tw-relative tw-mb-0 tw-mt-3 tw-flex tw-items-center tw-justify-center tw-gap-1.5 tw-text-[0.78rem] tw-text-ink/50">
+            <svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            Secure checkout by Stripe &middot; opens in a new tab
+          </p>
+          <?php endif; ?>
+        </div>
       </div>
 
       <div>

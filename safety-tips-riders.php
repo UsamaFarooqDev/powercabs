@@ -148,7 +148,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
       </div>
       <div class="lg:tw-order-1">
         <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
-          <img src="/assets/img/loyality-programm.png" alt="A PowerCabs taxi arriving for pickup" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
+          <img src="/assets/img/loyality-programm.webp" alt="A PowerCabs taxi arriving for pickup" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
     </div>

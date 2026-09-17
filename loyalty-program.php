@@ -309,7 +309,7 @@ function pc_render_loyalty_timeline(array $items): void
 
     <div class="tw-grid tw-grid-cols-2 tw-gap-5 [grid-auto-rows:minmax(150px,auto)] md:tw-grid-cols-4">
       <div class="pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none tw-group tw-relative tw-col-span-2 tw-aspect-[16/10] tw-overflow-hidden tw-rounded-2xl md:tw-row-span-2 md:tw-aspect-auto">
-        <img src="/assets/img/loyality-programm.png" alt="A happy PowerCabs driver at the wheel of her taxi at night" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
+        <img src="/assets/img/loyality-programm.webp" alt="A happy PowerCabs driver at the wheel of her taxi at night" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
         <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,rgba(10,7,5,0.05)_0%,rgba(10,7,5,0.7)_100%)]" aria-hidden="true"></span>
         <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-4 md:tw-p-6">
           <span class="tw-block tw-text-lg tw-font-bold tw-text-white">Every completed ride moves you closer to your next reward.</span>

@@ -74,7 +74,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php
 ?>
 
-<script src="<?= $assetPath ?>assets/js/components/ambassador-page.js"></script>
+<script src="<?= $assetPath ?>assets/js/components/ambassador-page.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/ambassador-page.js') ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',
 ) ?>"></script>

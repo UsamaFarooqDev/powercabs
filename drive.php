@@ -89,8 +89,20 @@ require __DIR__ . '/components/drive/join-family-form.php';
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <div class="<?= $pcImgLandscape ?> tw-rounded-2xl">
-          <img src="<?= $assetPath ?>assets/img/driver-onboarding.gif" alt="A PowerCabs driver completing onboarding in the Driver App" class="<?= $pcImgCover ?>" loading="lazy">
+        <?php /* Was driver-onboarding.gif, 1.1MB. The same animation as a
+                 muted, looping, inline MP4 is 167KB and plays exactly like the
+                 GIF did. It is started by initLoopVideos() in main.js only once
+                 it nears the viewport -- hence data-src and no autoplay
+                 attribute, see that function. The poster is the finished last
+                 frame, so wherever it does not play (reduced motion, iOS Low
+                 Power Mode, no JS) the complete illustration still shows. The
+                 GIF stays in assets/img untouched. role="img" + aria-label keep
+                 the description a screen reader got from the GIF's alt. */ ?>
+        <div class="<?= $pcImgLandscape ?> tw-rounded-2xl" role="img" aria-label="A PowerCabs driver completing onboarding in the Driver App">
+          <video class="<?= $pcImgCover ?>" data-pc-loop-video muted loop playsinline preload="none" aria-hidden="true"
+            poster="<?= $assetPath ?>assets/img/vid-covers/driver-onboarding.webp">
+            <source data-src="<?= $assetPath ?>assets/vid/driver-onboarding.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
       <div>
@@ -122,6 +134,22 @@ require __DIR__ . '/components/drive/compare-model.php';
 require __DIR__ . '/components/drive/preferences.php';
 require __DIR__ . '/components/drive/car-earn-more.php';
 require __DIR__ . '/components/drive/keep-options-open.php';
+
+/* Right before the FAQ -- a driver scanning for answers meets a person first.
+   +353 89 965 4467 is the DRIVER line; the customer line is a different
+   number and only appears on /ride. 24/7 is what this page already promises
+   ("24/7 driver support", "Real driver support line" in the stats band).
+   The WhatsApp action goes to that same driver number, not to the customer
+   WhatsApp in the footer, so a driver never lands in the passenger queue. */
+$supportEyebrow = 'Driver Support';
+$supportHeading = 'Still have a question? Talk to us.';
+$supportText =
+  'Our driver support team handles registration, documents, payments and anything else that comes up on the road. Real people, based here.';
+$supportNumber = '+353 89 965 4467';
+$supportTel = '+353899654467';
+$supportHours = 'Driver support is available 24/7, every day of the year.';
+$supportWhatsapp = 'https://wa.me/353899654467';
+require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/drive/drive-faq.php';
 ?>
 

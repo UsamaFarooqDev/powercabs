@@ -47,7 +47,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
+        // Same stack as --pc-font-family in variables.css, including the
+        // metric-matched fallback declared in base.css.
+        sans: ['Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', 'Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         ink: '#1c1410', // --pc-dark
