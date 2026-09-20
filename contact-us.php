@@ -73,8 +73,15 @@ require __DIR__ . '/components/shared/inner-hero.php';
          It also fixes the only three pages on the site with no contextual
          inbound link at all. The anchor text describes the destination
          rather than repeating a keyword. */ ?>
-<section class="<?= $pcSectionTight ?> tw-bg-paper">
-  <div class="<?= $pcContainerNarrow ?>">
+<?php /* The cream fades out to white over the lower half. The app-download
+         banner that follows has a torn top edge, and the page background
+         shows through those tears -- white. Without the fade, a flat cream
+         block butted straight into that white, which is the seam this
+         removes. Content sits on tw-relative above the overlay. */ ?>
+<section class="tw-relative tw-overflow-hidden <?= $pcSectionTight ?> tw-bg-paper">
+  <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
+
+  <div class="tw-relative <?= $pcContainerNarrow ?>">
     <div class="tw-mb-6 tw-text-center">
       <h2 class="<?= $pcH2 ?>">Something more specific?</h2>
       <p class="tw-mx-auto tw-mb-0 tw-max-w-[52ch] tw-text-ink/60">

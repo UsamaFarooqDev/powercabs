@@ -1,7 +1,9 @@
 <?php
-$pageTitle = 'Lost an Item Report | PowerCabs';
+$pageTitle = 'Lost Something in a Taxi? | PowerCabs Lost Item Recovery';
 $pageDescription =
-  'Left something behind in a PowerCabs vehicle? Report it here with your journey details and we\'ll help track it down.';
+  // 154 characters. Leads with the two things that separate this page from
+  // every other lost-property form: any taxi journey, and a stated fee.
+  'Lost something in a taxi? PowerCabs investigates and tries to identify the driver -- even if you did not travel with us. EUR15 investigation fee.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
@@ -33,11 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $old[$key] = trim($_POST[$key] ?? '');
   }
 
+  /* Taxi number and the receipt are NOT required.
+     The page now invites reports about any taxi journey -- another operator,
+     another app, or a street hail -- and someone who hailed a cab on the
+     street has neither a PowerCabs booking confirmation nor a taxi number to
+     give. Demanding them would have turned this page's own promise into a
+     dead end at the last field. Both are still asked for, and both still go
+     into the email when supplied; the body prints "-" when they do not. */
   if (
     $old['name'] === '' ||
     $old['email'] === '' ||
     $old['phone'] === '' ||
-    $old['taxi_number'] === '' ||
     $old['pickup_location'] === '' ||
     $old['destination_location'] === '' ||
     $old['journey_datetime'] === '' ||
@@ -48,22 +56,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
-  } elseif (empty($_FILES['receipt']['tmp_name']) || $_FILES['receipt']['error'] !== UPLOAD_ERR_OK) {
-    $formStatus = 'error';
-    $formError = 'Please upload a receipt or booking confirmation.';
   } else {
     $attachments = [];
-    $allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-    $mime = mime_content_type($_FILES['receipt']['tmp_name']);
-    if (!in_array($mime, $allowedMime, true) || $_FILES['receipt']['size'] > 5 * 1024 * 1024) {
-      $formStatus = 'error';
-      $formError = 'Receipt upload must be a JPG, PNG, WEBP or PDF under 5MB.';
-    } else {
-      $attachments[] = [
-        'tmp_path' => $_FILES['receipt']['tmp_name'],
-        'filename' => basename($_FILES['receipt']['name']),
-        'mime' => $mime,
-      ];
+    $hasUpload = !empty($_FILES['receipt']['tmp_name']) && ($_FILES['receipt']['error'] ?? 1) === UPLOAD_ERR_OK;
+
+    // Only an upload that was actually attempted gets validated -- but if one
+    // was attempted, the type and size rules are exactly as strict as before.
+    if ($hasUpload) {
+      $allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+      $mime = mime_content_type($_FILES['receipt']['tmp_name']);
+      if (!in_array($mime, $allowedMime, true) || $_FILES['receipt']['size'] > 5 * 1024 * 1024) {
+        $formStatus = 'error';
+        $formError = 'Receipt upload must be a JPG, PNG, WEBP or PDF under 5MB.';
+      } else {
+        $attachments[] = [
+          'tmp_path' => $_FILES['receipt']['tmp_name'],
+          'filename' => basename($_FILES['receipt']['name']),
+          'mime' => $mime,
+        ];
+      }
     }
 
     if ($formStatus !== 'error') {
@@ -83,6 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "\n" .
         'Date/Time of Journey: ' .
         ($old['journey_datetime'] !== '' ? $old['journey_datetime'] : '-') .
+        "\n" .
+        'Receipt attached: ' .
+        ($attachments !== [] ? 'yes' : 'no') .
         "\n\n" .
         "Item Lost Details:\n{$old['item_description']}\n";
 
@@ -108,13 +122,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Left Something Behind?';
-$heroTitleLight = "Let's Find";
-$heroTitleBold = 'Your Item.';
+$heroEyebrow = '/ PowerCabs Lost Item Recovery';
+$heroTitleLight = 'Left Something';
+$heroTitleBold = 'in a Taxi?';
+// Names the two things that make this page different from every other "lost
+// property" form: it covers any taxi journey, and the fee is stated up front.
 $heroDescription =
-  'Give us as much detail as you can about your journey and the item, and we\'ll reach out to your driver to help locate it.';
+  'Don\'t panic -- we may be able to help you get it back, even if you didn\'t travel with PowerCabs. A EUR' .
+  $lostItemFee .
+  ' investigation, with any retrieval cost quoted and approved before we proceed.';
 $heroBgImage = 'https://images.pexels.com/photos/12092769/pexels-photo-12092769.jpeg?auto=format&fit=crop&w=1600&q=60';
 require __DIR__ . '/components/shared/inner-hero.php';
+
+require __DIR__ . '/components/lost-item/trust-strip.php';
+require __DIR__ . '/components/lost-item/finding-driver.php';
+require __DIR__ . '/components/lost-item/any-taxi.php';
+// The fee and what it buys come BEFORE the form: nobody should meet the price
+// for the first time next to a submit button.
+require __DIR__ . '/components/lost-item/investigation-fee.php';
+require __DIR__ . '/components/lost-item/retrieval-steps.php';
 ?>
 
 <?php
@@ -123,15 +149,19 @@ $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<section class="<?= $pcSection ?>">
+<?php /* id + scroll-mt: every "tell us what happened" button on the page
+         jumps here, and the fixed header would otherwise cover the heading. */ ?>
+<section class="tw-scroll-mt-24 <?= $pcSection ?>" id="lostItemForm">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <h2 class="<?= $pcH2Small ?>">What to Include</h2>
+        <p class="<?= $pcEyebrow ?>">/ Don't worry if you don't know everything</p>
+        <h2 class="<?= $pcH2Small ?>">Tell us what you remember</h2>
         <p class="tw-mb-6 tw-text-ink/60">
-          The more detail you give us, the faster we can match your report to the right
-          driver and vehicle. If you have a receipt or booking confirmation with a photo
-          of the item, attach it below.
+          Even small details help the investigation, and nothing below is a dead
+          end if you cannot answer it. Pickup and drop-off, the rough time, the
+          taxi company, a registration, anything about the driver, and a clear
+          description of the item all give us something to work with.
         </p>
         <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-4 tw-p-0">
           <li class="tw-flex tw-gap-3">
@@ -148,52 +178,16 @@ $submitClass = $pcBtnPrimary;
           </li>
         </ul>
 
-        <?php /* Search fee card. Sits under the checklist rather than inside the
-                 form so it reads as part of "what to know before you report",
-                 and so the form's own submit stays the only button in the form.
-                 The price is the loudest thing on the card and the pay link is
-                 full width, so on a phone it is one obvious tap. */ ?>
-        <div class="tw-relative tw-mt-8 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-[linear-gradient(135deg,#fffaf5_0%,#fbe6d4_100%)] tw-p-5 tw-shadow-[0_14px_36px_-18px_rgba(232,89,12,0.45)] sm:tw-p-6">
-          <span class="tw-pointer-events-none tw-absolute tw-right-[-3.5rem] tw-top-[-3.5rem] tw-h-36 tw-w-36 tw-rounded-full tw-border-[16px] tw-border-solid tw-border-power/[0.06]" aria-hidden="true"></span>
-
-          <div class="tw-relative tw-flex tw-items-start tw-justify-between tw-gap-4">
-            <div class="tw-flex tw-min-w-0 tw-items-center tw-gap-3">
-              <span class="tw-inline-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-white tw-text-power tw-shadow-[0_4px_12px_rgba(28,20,16,0.08)]">
-                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
-              </span>
-              <div class="tw-min-w-0">
-                <span class="tw-block tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-powerdark">Search Fee</span>
-                <span class="tw-block tw-text-base tw-font-bold tw-leading-snug tw-text-ink">Lost item search</span>
-              </div>
-            </div>
-            <div class="tw-shrink-0 tw-text-right">
-              <span class="tw-block tw-text-[2rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-power">&euro;<?= $lostItemFee ?></span>
-              <span class="tw-mt-1 tw-block tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-ink/45">One-off fee</span>
-            </div>
-          </div>
-
-          <p class="tw-relative tw-mb-5 tw-mt-4 tw-text-[0.95rem] tw-leading-relaxed tw-text-ink/65">
-            A &euro;<?= $lostItemFee ?> fee applies for searching for your lost item. Pay it securely online with Stripe.
-          </p>
-
-          <?php if ($lostItemFeeLink === ''): ?>
-            <?php /* STRIPE_LOST_ITEM_LINK missing from .env: say so plainly
-                     rather than render a pay button that goes nowhere. */ ?>
-            <p class="tw-relative tw-mb-0 tw-rounded-xl tw-bg-white/70 tw-px-4 tw-py-3 tw-text-center tw-text-[0.9rem] tw-font-semibold tw-text-ink/70">
-              Online payment is unavailable right now. We'll confirm how to pay when we reply to your report.
-            </p>
-          <?php else: ?>
-          <a href="<?= htmlspecialchars($lostItemFeeLink) ?>" target="_blank" rel="noopener noreferrer"
-            class="<?= $pcBtnPrimary ?> tw-relative tw-flex tw-w-full">
-            <svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a1.5 1.5 0 00-1.5 1.5v9A1.5 1.5 0 006 21h12a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0018 9h-1.5V6a4.5 4.5 0 00-4.5-4.5zm3 7.5V6a3 3 0 10-6 0v3h6z" clip-rule="evenodd"/></svg>
-            Pay &euro;<?= $lostItemFee ?> Search Fee
-          </a>
-
-          <p class="tw-relative tw-mb-0 tw-mt-3 tw-flex tw-items-center tw-justify-center tw-gap-1.5 tw-text-[0.78rem] tw-text-ink/50">
-            <svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-            Secure checkout by Stripe &middot; opens in a new tab
-          </p>
-          <?php endif; ?>
+        <?php /* The fee card itself now lives in
+                 components/lost-item/investigation-fee.php, above the form --
+                 this is only the reminder, so the price is never a surprise
+                 at the submit button. */ ?>
+        <div class="tw-mt-8 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2 tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-peach/45 tw-px-5 tw-py-4">
+          <span class="tw-text-[1.35rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-power">&euro;<?= $lostItemFee ?></span>
+          <span class="tw-min-w-0 tw-flex-1 tw-text-[0.92rem] tw-leading-snug tw-text-ink/70">
+            investigation fee, paid up front.
+            <a class="tw-font-semibold tw-text-power tw-underline tw-underline-offset-2" href="#investigation">See what it covers</a>.
+          </span>
         </div>
       </div>
 
@@ -219,10 +213,10 @@ $submitClass = $pcBtnPrimary;
               ) ?>" required>
             </div>
             <div>
-              <label class="<?= $labelClass ?> pc-required" for="liTaxiNumber">Taxi Number</label>
+              <label class="<?= $labelClass ?>" for="liTaxiNumber">Taxi Number <span class="tw-font-normal tw-text-ink/50">(if you know it)</span></label>
               <input type="text" class="<?= $inputClass ?>" id="liTaxiNumber" name="taxi_number" value="<?= htmlspecialchars(
                 $old['taxi_number'],
-              ) ?>" required>
+              ) ?>">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="liPickup">Pickup Location</label>
@@ -243,8 +237,8 @@ $submitClass = $pcBtnPrimary;
               ) ?>" required>
             </div>
             <div>
-              <label class="<?= $labelClass ?> pc-required" for="liReceipt">Upload Receipt <span class="tw-font-normal tw-text-ink/50">(JPG/PNG/PDF)</span></label>
-              <input type="file" class="<?= $inputClass ?> tw-cursor-pointer tw-py-[0.3rem] file:tw-mr-3 file:tw-cursor-pointer file:tw-rounded-full file:tw-border-0 file:tw-bg-paper file:tw-px-3 file:tw-py-1.5 file:tw-text-sm file:tw-font-semibold file:tw-text-ink" id="liReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf" required>
+              <label class="<?= $labelClass ?>" for="liReceipt">Receipt or booking confirmation</label>
+              <input type="file" class="<?= $inputClass ?> tw-cursor-pointer tw-py-[0.3rem] file:tw-mr-3 file:tw-cursor-pointer file:tw-rounded-full file:tw-border-0 file:tw-bg-paper file:tw-px-3 file:tw-py-1.5 file:tw-text-sm file:tw-font-semibold file:tw-text-ink" id="liReceipt" name="receipt" accept=".jpg,.jpeg,.png,.webp,.pdf">
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?> pc-required" for="liItem">Item Lost Details</label>
@@ -278,6 +272,18 @@ $submitClass = $pcBtnPrimary;
 ) ?>"></script>
 
 <?php
+require __DIR__ . '/components/lost-item/story.php';
+require __DIR__ . '/components/lost-item/driver-invite.php';
+
+// $ctaTitle = 'Lost something? Don\'t give up yet.';
+// $ctaText = 'Tell us what you remember and our team will start looking.';
+// $ctaPrimary = ['href' => '/lost-item-report#lostItemForm', 'label' => 'Report a Lost Item'];
+// $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Support'];
+// require __DIR__ . '/components/shared/final-cta.php';
+
+// The fee terms sit after the closing CTA, the same place the client's draft
+// put them: read by anyone who got as far as deciding.
+require __DIR__ . '/components/lost-item/fine-print.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 
