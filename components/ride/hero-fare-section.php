@@ -148,10 +148,10 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
                state here (disabled toggling, textContent, tw-hidden, spinner
                swap via .spinner-border) directly by id/class, unchanged.
                The pill repeats $pcBtnPrimary inline because it is full-width
-               and has a disabled state; it must stay in step with the recipe,
-               whose hover is the fill and the glow and deliberately NOT a lift
-               (see the note above the recipe in design-system.php). -->
-          <button type="button" id="rfSubmit" class="tw-mt-4 tw-inline-flex tw-w-full tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] tw-transition tw-duration-200 hover:tw-bg-power hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)] disabled:tw-pointer-events-none disabled:tw-opacity-40 disabled:tw-shadow-none" disabled>
+               and has a disabled state; it must stay in step with the recipe:
+               hover deepens the glow and changes nothing else, and a disabled
+               button drops the shadow entirely. -->
+          <button type="button" id="rfSubmit" class="tw-mt-4 tw-inline-flex tw-w-full tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-none tw-transition tw-duration-300 hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)] disabled:tw-pointer-events-none disabled:tw-opacity-40" disabled>
             Get Fare Estimate
           </button>
 

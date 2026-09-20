@@ -157,12 +157,12 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
             'tw-group tw-inline-flex tw-h-10 tw-w-10 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full ' .
             'tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-text-ink ' .
             'tw-shadow-[0_4px_14px_rgba(28,20,16,0.05)] tw-transition-all tw-duration-300 ' .
-            // No hover lift, same rule as $pcBtnPrimary: a 2px rise under a 40px
-            // circle mostly reads as the chevron twitching. Filling the circle
-            // orange is the feedback. The chevron's own sideways nudge stays --
-            // it points at what the button will do, and with no label beside it
-            // there is nothing for it to drift away from.
-            'hover:tw-border-power/30 hover:tw-bg-power hover:tw-text-white hover:tw-shadow-[0_8px_22px_rgba(28,20,16,0.12)] ' .
+            // Nothing moves on hover, matching $pcBtnPrimary: the shadow deepens.
+            // These two keep their orange fill as well -- they are white circles
+            // at rest, and on a 40px icon button a shadow alone is almost
+            // invisible. Drop the three hover:tw-*-power classes if the fill
+            // should go too.
+            'hover:tw-border-power/30 hover:tw-bg-power hover:tw-text-white hover:tw-shadow-[0_10px_26px_rgba(28,20,16,0.16)] ' .
             'focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-power ' .
             'disabled:tw-cursor-not-allowed disabled:tw-opacity-35 disabled:hover:tw-border-black/[0.08] disabled:hover:tw-bg-white disabled:hover:tw-text-ink ' .
             'motion-reduce:tw-transition-none';
@@ -208,7 +208,7 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
             aria-label="Previous ride type"
           >
             <svg
-              class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-300 group-hover:tw--translate-x-0.5 motion-reduce:tw-transition-none"
+              class="tw-h-4 tw-w-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -228,7 +228,7 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
             aria-label="Next ride type"
           >
             <svg
-              class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-300 group-hover:tw-translate-x-0.5 motion-reduce:tw-transition-none"
+              class="tw-h-4 tw-w-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

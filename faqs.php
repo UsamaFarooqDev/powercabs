@@ -310,7 +310,7 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 ) ?>">
             <source src="<?= $assetPath ?>assets/vid/<?= $video['file'] ?>" type="video/mp4">
           </video>
-          <button type="button" class="pc-tutorial-play-btn tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-[3.25rem] tw-w-[3.25rem] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-[0_8px_20px_rgba(255,122,0,0.4)] tw-transition tw-duration-200 hover:tw-scale-105 hover:tw-bg-powerdark motion-reduce:tw-transition-none" aria-label="Play <?= htmlspecialchars(
+          <button type="button" class="pc-tutorial-play-btn tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-[3.25rem] tw-w-[3.25rem] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-none tw-transition tw-duration-300 hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.45)] motion-reduce:tw-transition-none" aria-label="Play <?= htmlspecialchars(
             strip_tags($video['label']),
           ) ?> video">
             <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -332,7 +332,7 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 ) ?>">
             <source src="<?= $assetPath ?>assets/vid/<?= $video['file'] ?>" type="video/mp4">
           </video>
-          <button type="button" class="pc-tutorial-play-btn tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-[3.25rem] tw-w-[3.25rem] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-[0_8px_20px_rgba(255,122,0,0.4)] tw-transition tw-duration-200 hover:tw-scale-105 hover:tw-bg-powerdark motion-reduce:tw-transition-none" aria-label="Play <?= htmlspecialchars(
+          <button type="button" class="pc-tutorial-play-btn tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-[3.25rem] tw-w-[3.25rem] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-none tw-transition tw-duration-300 hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.45)] motion-reduce:tw-transition-none" aria-label="Play <?= htmlspecialchars(
             strip_tags($video['label']),
           ) ?> video">
             <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>

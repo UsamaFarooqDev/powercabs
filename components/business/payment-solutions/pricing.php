@@ -87,7 +87,13 @@ $trustBadges = [
               </li>
             <?php endforeach; ?>
           </ul>
-          <a href="#payment-apply-form" class="tw-block tw-w-full tw-rounded-full tw-px-6 tw-py-2.5 tw-text-center tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 <?= $plan['featured'] ? 'tw-bg-powerlight hover:tw-bg-power' : 'tw-bg-ink hover:tw-bg-black' ?>">Choose Plan</a>
+          <?php /* Same hover as every other button on the site: the shadow
+                   deepens and nothing else changes. tw-transition rather than
+                   tw-transition-colors, or the glow would snap on instead of
+                   blooming. */ ?>
+          <a href="#payment-apply-form" class="tw-block tw-w-full tw-rounded-full tw-px-6 tw-py-2.5 tw-text-center tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-300 motion-reduce:tw-transition-none <?= $plan['featured']
+            ? 'tw-bg-powerlight tw-shadow-none hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]'
+            : 'tw-bg-ink tw-shadow-none hover:tw-shadow-[0_12px_28px_rgba(28,20,16,0.28)]' ?>">Choose Plan</a>
         </div>
       <?php endforeach; ?>
     </div>

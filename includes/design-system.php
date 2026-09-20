@@ -193,27 +193,30 @@ $pcEyebrowOnDark = 'tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking
    is off. */
 $pcBtnBase =
   'tw-inline-flex tw-appearance-none tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-no-underline tw-transition tw-duration-200 disabled:tw-cursor-not-allowed disabled:tw-opacity-60 motion-reduce:tw-transition-none';
-// The orange CTA -- the site's primary action.
-//
-// THE HOVER STATE BELONGS TO THE BUTTON BOX, NOT TO ITS CONTENTS. It is the fill
-// deepening (#ff7a00 -> #e8590c) under a bigger glow: both are properties of the
-// pill itself, so the label and the icon sit perfectly still while the button
-// clearly reacts.
-//
-// It used to be hover:-tw-translate-y-0.5. A transform cannot move a box without
-// moving what is inside it -- that is what a transform is -- so the 2px lift was
-// only ever applied to the whole button, never separately to the text, and what
-// you actually noticed was not the pill rising but the label and icon being
-// re-rasterised on the way up and again on the way down. Reading as a twitch is
-// exactly why it is gone. Do not add it back to get "more" hover: adding fill
-// and glow is free, adding motion costs the text its footing.
-//
-// For the same reason nothing INSIDE a primary button gets its own hover
-// transform -- an icon that slides while the pill stays put makes the contents
-// drift apart from each other.
+/* The orange CTA -- the site's primary action.
+ *
+ * HOVER IS THE GLOW, AND ONLY THE GLOW. Flat at rest -- no shadow at all --
+ * and a medium orange glow on hover (0 12px 28px at 38%) over 300ms. The
+ * button does not move, the fill does not change, nothing inside it shifts:
+ *
+ *   - no lift. A 2px translate carries the label and icon with it, and at that
+ *     size what you notice is the text being re-rasterised on the way up and
+ *     again on the way down, which reads as a twitch rather than a response.
+ *   - no fill change. The button stays #ff7a00 the whole time.
+ *   - nothing inside gets its own transform. Put the nudging chevron on
+ *     $pcBtnLink / $pcBtnLinkIcon instead -- a text CTA has no box for its
+ *     contents to come loose inside of.
+ *
+ * Because the button starts with no shadow, the glow appearing IS the whole
+ * response -- so it runs at 300ms rather than the base 200ms, to fade up
+ * instead of snapping on. Keep any hand-rolled orange button in step with this
+ * pair -- components/business/plans.php, pricing.php,
+ * components/ride/hero-fare-section.php and faqs.php all copy it.
+ */
 $pcBtnPrimary =
-  $pcBtnBase .
-  ' tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)] hover:tw-bg-power hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]';
+  str_replace('tw-duration-200', 'tw-duration-300', $pcBtnBase) .
+  ' tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-none' .
+  ' hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]';
 // The same CTA, for use ON a dark surface. $pcBtnPrimary's big soft orange
 // glow exists to lift the button off a white page; over ink it has nothing to
 // separate from and instead blooms into a visible halo around the button --
@@ -221,8 +224,8 @@ $pcBtnPrimary =
 // dark-friendly shadow that still deepens on hover, so the button reads as
 // responsive over ink the same way the orange one does over paper.
 $pcBtnPrimaryOnDark = str_replace(
-  ['tw-shadow-[0_18px_40px_rgba(255,122,0,0.35)]', 'hover:tw-shadow-[0_22px_50px_rgba(255,122,0,0.5)]'],
-  ['tw-shadow-[0_6px_18px_rgba(0,0,0,0.35)]', 'hover:tw-shadow-[0_10px_24px_rgba(0,0,0,0.45)]'],
+  'hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]',
+  'hover:tw-shadow-[0_12px_28px_rgba(0,0,0,0.45)]',
   $pcBtnPrimary
 );
 $pcBtnDark = $pcBtnBase . ' tw-border-0 tw-bg-ink tw-text-white hover:tw-bg-black';
