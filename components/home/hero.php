@@ -7,91 +7,29 @@ $heroServices = [
   ['icon' => 'compass', 'label' => 'City Tour', 'href' => '/city-tours'],
 ];
 
-/* The three frames the hero drifts between. They are one set, not three
-   unrelated pictures: all Irish, all shot at dusk or after dark, all with warm
-   light in them, so the scrim and the orange wash below land the same way on
-   each and the change of frame reads as the hero breathing rather than as a
-   slideshow.
-      1. the Dublin street at dusk this hero already ran on
-      2. the lit corporate blocks on the Liffey
-      3. an aerial interchange, headlight trails
-   `pos` / `posLg` are the object-position each frame needs to keep its subject
-   in shot at the two crops -- a phone sees about a third of the frame's width,
-   a desktop nearly all of it. `dim` is its brightness: the quays frame is lit
-   windows and gold water where the other two are mostly dark, and at the same
-   0.85 as the rest it took the lede's contrast down to 4.14:1 on desktop,
-   under the 4.5 that 1.3rem text needs. Dimming that one frame fixes it
-   without flattening the two that were already fine.
-   All three ride in on custom properties rather than in the class attribute,
-   because a Tailwind class built from a PHP variable is invisible to the
-   build's scanner and would silently never be generated. */
-$heroShots = [
-  [
-    'src' => 'https://images.pexels.com/photos/18662427/pexels-photo-18662427.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    'pos' => '46% center',
-    'posLg' => '62% center',
-    'dim' => '0.85',
-  ],
-  [
-    // Anchored left and slightly high: at 56% a phone cut the mast clean off
-    // the top-left and left only the white sweep of the cables, which reads as
-    // an abstract curve rather than as the Samuel Beckett Bridge.
-    'src' => 'https://images.pexels.com/photos/13158127/pexels-photo-13158127.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    'pos' => '38% 44%',
-    'posLg' => '42% 46%',
-    'dim' => '0.68',
-  ],
-  [
-    // The cars are the subject and they sit in the bottom third of the frame,
-    // which is exactly where the hero's fade-to-dark and the services bar are.
-    // Nudging object-position could not fix it -- at this aspect the crop has
-    // only ~34px of vertical slack -- so the CDN delivers the frame already
-    // cropped to 16:10 anchored to the bottom (fit=crop&crop=bottom). That
-    // trims sky off the top and lifts the whole rank of cars up into the
-    // readable band.
-    'src' =>
-      'https://images.pexels.com/photos/6019124/pexels-photo-6019124.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1200&fit=crop&crop=bottom',
-    'pos' => '45% center',
-    'posLg' => '50% center',
-    'dim' => '0.85',
-  ],
-]; ?>
-<section class="pc-hero tw-relative tw-flex tw-items-center tw-overflow-hidden tw-text-white tw-bg-[linear-gradient(165deg,#0a0807_0%,#14100c_60%,#0a0807_100%)] tw-min-h-[clamp(560px,100svh,900px)] tw-py-[clamp(7.5rem,13vw,9rem)] lg:tw-min-h-[clamp(640px,100vh,980px)]">
-  <div class="pc-hero-canvas tw-absolute tw-inset-0 tw-overflow-hidden tw-pointer-events-none" aria-hidden="true">
-    <?php /* Stacked in one box, so the crossfade has nothing to reflow and the
-             frame in front is the only one anybody sees. Only the first is
-             worth network priority -- it is the one that paints. The other two
-             are fetched at low priority so they cannot compete with it, and
-             they have five and ten seconds before they are needed. */ ?>
-    <?php foreach ($heroShots as $i => $shot): ?>
-      <img src="<?= htmlspecialchars($shot['src']) ?>" alt="" aria-hidden="true" decoding="async"
-        <?= $i === 0 ? 'fetchpriority="high"' : 'fetchpriority="low"' ?>
-        style="--pc-shot-pos: <?= htmlspecialchars($shot['pos']) ?>; --pc-shot-pos-lg: <?= htmlspecialchars(
-  $shot['posLg'],
-) ?>; --pc-shot-dim: <?= htmlspecialchars($shot['dim']) ?>"
-        class="pc-hero-shot tw-absolute tw-left-0 -tw-top-12 tw-h-[calc(100%+6rem)] tw-w-full tw-object-cover tw-object-[var(--pc-shot-pos)] tw-brightness-[var(--pc-shot-dim)] tw-saturate-[0.95] tw-opacity-0 [&.is-active]:tw-opacity-100 motion-safe:[transition:opacity_1900ms_cubic-bezier(0.4,0,0.2,1),transform_5600ms_cubic-bezier(0.22,1,0.36,1)] motion-safe:[&.is-active]:tw-scale-[1.03] lg:tw-object-[var(--pc-shot-pos-lg)]<?= $i === 0
-  ? ' is-active'
-  : '' ?>"
-        data-pc-hero-shot>
-    <?php endforeach; ?>
-    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.9)_0%,rgba(10,7,5,0.88)_60%,rgba(12,8,5,0.84)_100%)] lg:tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.88)_0%,rgba(10,7,5,0.82)_30%,rgba(12,8,5,0.62)_62%,rgba(12,8,5,0.48)_100%)]"></span>
-    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(105deg,transparent_40%,rgba(255,122,0,0.16)_75%,rgba(232,89,12,0.24)_100%)]"></span>
-    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(to_bottom,rgba(10,8,7,0.8)_0%,transparent_22%,transparent_60%,#0a0807_100%)]"></span>
-    <span class="tw-absolute tw-right-[-6rem] tw-top-[18%] tw-h-[34rem] tw-w-[34rem] tw-rounded-full tw-blur-[70px] tw-bg-[radial-gradient(circle,rgba(255,122,0,0.22),transparent_70%)] tw-animate-pc-glow-pulse motion-reduce:tw-animate-none"></span>
+$heroCarShot = 'assets/img/PC-Hero.webp'; ?>
+<section class="pc-hero tw-relative tw-flex tw-items-center tw-overflow-hidden tw-text-white tw-bg-[linear-gradient(165deg,#0a0807_0%,#14100c_60%,#0a0807_100%)] tw-min-h-[clamp(560px,100svh,900px)] tw-py-[clamp(7.5rem,13vw,9rem)] lg:tw-min-h-[clamp(620px,56.25vw,880px)] lg:tw-items-stretch lg:tw-pb-16">
+  <div class="tw-absolute tw-inset-0 tw-overflow-hidden tw-pointer-events-none" aria-hidden="true">
+    <img src="<?= $assetPath . htmlspecialchars($heroCarShot) ?>" alt="" aria-hidden="true"
+      width="1672" height="941" fetchpriority="high" decoding="async"
+      class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-[67%_58%] tw-brightness-[0.9] lg:tw-object-center">
+
+    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.9)_0%,rgba(10,7,5,0.85)_45%,rgba(12,8,5,0.74)_100%)] lg:tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.95)_0%,rgba(10,7,5,0.91)_30%,rgba(12,8,5,0.62)_58%,rgba(12,8,5,0.24)_100%)]"></span>
+    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(105deg,transparent_45%,rgba(255,122,0,0.12)_78%,rgba(232,89,12,0.18)_100%)]"></span>
+    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(to_bottom,rgba(10,8,7,0.78)_0%,transparent_24%,transparent_62%,#0a0807_100%)]"></span>
   </div>
 
-  <div class="tw-relative tw-z-10 <?= $pcContainer ?>">
-    <!-- 75% + the 2.5rem top pad reproduce the original col-lg-9 .pc-hero-text. -->
-    <div class="tw-pt-5 lg:tw-w-3/4 lg:tw-pt-10">
-      <h1 class="tw-mb-6 tw-text-[clamp(4rem,5vw,5.75rem)] tw-font-black tw-leading-[1.05] tw-tracking-[-0.02em] tw-text-white tw-animate-pc-fade-up [animation-delay:0.08s]">
+  <div class="tw-relative tw-z-10 <?= $pcContainer ?> lg:tw-flex lg:tw-flex-col">
+    <div class="tw-pt-5 lg:tw-my-auto lg:tw-w-[56%] lg:tw-pt-0 xl:tw-w-[58%]">
+      <h1 class="tw-mb-5 tw-text-[clamp(2.6rem,4.05vw,3.5rem)] tw-font-black tw-leading-[1.05] tw-tracking-[-0.02em] tw-text-white tw-animate-pc-fade-up [animation-delay:0.08s]">
         Your Journey.<br>Smarter. Faster. Premium.
       </h1>
-      <p class="tw-mb-10 tw-max-w-[52ch] tw-text-[1.3rem] tw-leading-[1.6] tw-text-white/[0.68] tw-animate-pc-fade-up [animation-delay:0.16s]">
+      <p class="tw-mb-8 tw-max-w-[44ch] tw-text-[1.2rem] tw-leading-[1.6] tw-text-white/[0.7] tw-animate-pc-fade-up [animation-delay:0.16s]">
         Book reliable rides, drive with confidence, or manage corporate travel &mdash;
         all from one intelligent mobility platform.
       </p>
 
-      <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3 tw-animate-pc-fade-up [animation-delay:0.32s]">
+      <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3 tw-animate-pc-fade-up [animation-delay:0.24s]">
         <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
           <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="20" height="20" aria-hidden="true">
           <span class="tw-flex tw-flex-col tw-items-start tw-leading-none">
@@ -109,12 +47,10 @@ $heroShots = [
       </div>
     </div>
 
-    <div class="tw-mt-14 sm:tw-mt-16 md:tw-mt-20 lg:tw-mt-24 tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/10 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.03] tw-backdrop-blur-sm md:tw-grid-cols-5 md:tw-divide-y-0">
+    <div class="tw-mt-10 tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/10 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.06] tw-backdrop-blur-md tw-animate-pc-fade-up [animation-delay:0.32s] sm:tw-mt-12 md:tw-grid-cols-5 md:tw-divide-y-0 lg:tw-mt-10">
       <?php foreach ($heroServices as $service): ?>
-        <a href="<?= $assetPath .
-          htmlspecialchars(
-            $service['href'],
-          ) ?>" class="tw-group tw-flex tw-flex-col tw-items-center tw-gap-2 tw-px-3 tw-py-6 tw-text-center tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-white/5">
+        <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>"
+          class="tw-group tw-flex tw-flex-col tw-items-center tw-gap-2 tw-px-3 tw-py-5 tw-text-center tw-text-white tw-no-underline tw-transition-colors tw-duration-200">
           <?php switch ($service['icon']): case 'clock': ?>
               <svg class="tw-h-6 tw-w-6 tw-text-powerlight tw-transition-transform tw-duration-200 group-hover:-tw-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <?php break;case 'briefcase': ?>
@@ -132,7 +68,3 @@ $heroShots = [
     </div>
   </div>
 </section>
-
-<script src="<?= $assetPath ?>assets/js/components/hero-gallery.js?v=<?= @filemtime(
-  __DIR__ . '/../../assets/js/components/hero-gallery.js',
-) ?>"></script>
