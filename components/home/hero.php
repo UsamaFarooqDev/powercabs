@@ -7,6 +7,13 @@ $heroServices = [
   ['icon' => 'compass', 'label' => 'City Tour', 'href' => '/city-tours'],
 ];
 
+$heroTrust = [
+  ['icon' => 'headset', 'title' => '24/7 Support', 'sub' => "We're always here"],
+  ['icon' => 'no-surge', 'title' => 'No peak-time surcharge', 'sub' => 'Fair, always'],
+  ['icon' => 'shamrock', 'title' => 'Irish support', 'sub' => 'Real people, local team'],
+  ['icon' => 'airplane', 'title' => 'Airport transfers', 'sub' => 'Smooth. On time.'],
+];
+
 $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
 <section class="pc-hero tw-relative tw-flex tw-items-center tw-overflow-hidden tw-text-white tw-bg-[linear-gradient(165deg,#0a0807_0%,#14100c_60%,#0a0807_100%)] tw-min-h-[clamp(560px,100svh,900px)] tw-py-[clamp(7.5rem,13vw,9rem)] lg:tw-min-h-[clamp(620px,56.25vw,880px)] lg:tw-items-stretch lg:tw-pb-16">
   <div class="tw-absolute tw-inset-0 tw-overflow-hidden tw-pointer-events-none" aria-hidden="true">
@@ -29,7 +36,16 @@ $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
         all from one intelligent mobility platform.
       </p>
 
-      <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3 tw-animate-pc-fade-up [animation-delay:0.24s]">
+      <div class="tw-mb-6 tw-flex tw-flex-wrap tw-items-center tw-gap-4 tw-animate-pc-fade-up [animation-delay:0.24s]">
+        <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/ride">Book a Ride</a>
+        <a class="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1.5px] tw-border-solid tw-border-white/[0.32] tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-leading-5 tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-border-white/60 hover:tw-bg-white/10" href="<?= $assetPath ?>/drive">Become a Driver</a>
+        <a class="tw-group tw-inline-flex tw-items-center tw-gap-1.5 tw-text-sm tw-font-semibold tw-text-white/80 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-white" href="<?= $assetPath ?>/business">
+          Business Solutions
+          <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover:tw-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3 tw-animate-pc-fade-up [animation-delay:0.3s]">
         <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
           <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="20" height="20" aria-hidden="true">
           <span class="tw-flex tw-flex-col tw-items-start tw-leading-none">
@@ -47,6 +63,11 @@ $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
       </div>
     </div>
 
+    <?php /* Previous services bar, kept for reference. Disabled with if(false)
+             rather than an HTML comment on purpose: PHP inside <!-- --> still
+             executes, so commenting it would run the loop and the switch on
+             every request and bury five anchors in the page source. */ ?>
+    <?php if (false): ?>
     <div class="tw-mt-10 tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/10 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.06] tw-backdrop-blur-md tw-animate-pc-fade-up [animation-delay:0.32s] sm:tw-mt-12 md:tw-grid-cols-5 md:tw-divide-y-0 lg:tw-mt-10">
       <?php foreach ($heroServices as $service): ?>
         <a href="<?= $assetPath . htmlspecialchars($service['href']) ?>"
@@ -64,6 +85,39 @@ $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
             <?php break;endswitch; ?>
           <span class="tw-text-sm tw-font-semibold tw-leading-tight"><?= htmlspecialchars($service['label']) ?></span>
         </a>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
+    <?php /* The ring is drawn three times over: a solid orange border, a tight
+             outer glow, and a deep drop shadow to lift the whole bar off the
+             photograph. rounded-full only from lg, where it is one row -- on a
+             phone the same class on a four-row stack would round it into a
+             capsule. */ ?>
+    <div class="tw-mt-10 tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/[0.09] tw-overflow-hidden tw-rounded-3xl tw-border-2 tw-border-solid tw-border-powerlight/60 tw-bg-[rgba(10,7,5,0.72)] tw-backdrop-blur-md tw-shadow-[0_0_0_1px_rgba(255,122,0,0.2),0_0_34px_rgba(255,122,0,0.3),0_22px_50px_-20px_rgba(0,0,0,0.85)] tw-animate-pc-fade-up [animation-delay:0.32s] sm:tw-mt-12 sm:tw-grid-cols-2 lg:tw-mt-10 lg:tw-grid-cols-4 lg:tw-divide-x-0 lg:tw-divide-y-0 lg:tw-rounded-full">
+      <?php /* From lg the grid's own divide-x is dropped for a centred
+               pseudo-element rule instead: divide-x runs the full height of
+               the cell, which on a pill reads as four boxes rather than one
+               bar. This one is 2.5rem tall and vertically centred, and the
+               first cell suppresses it. */ ?>
+      <?php foreach ($heroTrust as $item): ?>
+        <div class="tw-relative tw-flex tw-items-center tw-gap-3.5 tw-px-5 tw-py-4 lg:tw-px-6 lg:tw-py-5 lg:before:tw-absolute lg:before:tw-left-0 lg:before:tw-top-1/2 lg:before:tw-h-10 lg:before:tw-w-px lg:before:-tw-translate-y-1/2 lg:before:tw-bg-white/[0.14] lg:before:tw-content-[''] lg:first:before:tw-hidden">
+          <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-powerlight/70 tw-bg-powerlight/[0.12] tw-text-powerlight tw-shadow-[0_0_14px_rgba(255,122,0,0.45),inset_0_0_10px_rgba(255,122,0,0.22)]">
+            <?php switch ($item['icon']): case 'headset': ?>
+                <svg class="tw-h-[1.35rem] tw-w-[1.35rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2.5a8 8 0 0116 0V14"/><path d="M4 13.5h1.6a1 1 0 011 1v3.4a1 1 0 01-1 1H4.8A1.8 1.8 0 013 17.1v-1.8a1.8 1.8 0 011-1.8zM20 13.5h-1.6a1 1 0 00-1 1v3.4a1 1 0 001 1h.8a1.8 1.8 0 001.8-1.8v-1.8a1.8 1.8 0 00-1-1.8z"/><path d="M19.2 19.4v.4a2.4 2.4 0 01-2.4 2.4H13.2"/></svg>
+              <?php break;case 'no-surge': ?>
+                <svg class="tw-h-[1.35rem] tw-w-[1.35rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/><path d="M7.8 14.6l2.9-3.3 2.1 1.9 3.4-3.6"/><path d="M13.6 9.6h2.9v2.9"/></svg>
+              <?php break;case 'shamrock': ?>
+                <svg class="tw-h-[1.35rem] tw-w-[1.35rem]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="7.4" r="3.5"/><circle cx="7.7" cy="12.9" r="3.5"/><circle cx="16.3" cy="12.9" r="3.5"/><path d="M11.2 14.4h1.7c0 3.1-.4 5.4-1.4 7.3-.2.4-.9.2-.8-.3.4-2 .5-4.3.5-7z"/></svg>
+              <?php break;case 'airplane': ?>
+                <svg class="tw-h-[1.35rem] tw-w-[1.35rem]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+              <?php break;endswitch; ?>
+          </span>
+          <span class="tw-flex tw-flex-col tw-gap-0.5">
+            <span class="tw-text-[0.95rem] tw-font-bold tw-leading-tight tw-text-white"><?= htmlspecialchars($item['title']) ?></span>
+            <span class="tw-text-[0.8rem] tw-leading-tight tw-text-white/60"><?= htmlspecialchars($item['sub']) ?></span>
+          </span>
+        </div>
       <?php endforeach; ?>
     </div>
   </div>
