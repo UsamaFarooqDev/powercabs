@@ -1,22 +1,83 @@
 <?php
-/* Hero -- migrated to Tailwind. `pc-hero` / `pc-hero-canvas` stay as bare
-   classnames purely as JS selector hooks for initHeroParallax() in main.js
-   (which reads hero.querySelector('.pc-hero-canvas') and animates it on
-   scroll) -- they carry no CSS of their own any more, all visuals below are
-   Tailwind utilities. The two @keyframes this section still animates with
-   (pc-hero-fade-up, pc-hero-glow-pulse) remain in components.css since a
-   Tailwind arbitrary `animate-[name_...]` utility only references a
-   keyframes name, it can't define one inline. */
 $heroServices = [
   ['icon' => 'clock', 'label' => 'Pay Per Hour', 'href' => '/ride'],
   ['icon' => 'briefcase', 'label' => 'Corporate', 'href' => '/corporate-services'],
   ['icon' => 'airplane', 'label' => 'Meet and Greet', 'href' => '/meet-greet'],
   ['icon' => 'card', 'label' => 'Business Solutions', 'href' => '/business-solutions'],
   ['icon' => 'compass', 'label' => 'City Tour', 'href' => '/city-tours'],
+];
+
+/* The three frames the hero drifts between. They are one set, not three
+   unrelated pictures: all Irish, all shot at dusk or after dark, all with warm
+   light in them, so the scrim and the orange wash below land the same way on
+   each and the change of frame reads as the hero breathing rather than as a
+   slideshow.
+      1. the Dublin street at dusk this hero already ran on
+      2. the lit corporate blocks on the Liffey
+      3. an aerial interchange, headlight trails
+   `pos` / `posLg` are the object-position each frame needs to keep its subject
+   in shot at the two crops -- a phone sees about a third of the frame's width,
+   a desktop nearly all of it. `dim` is its brightness: the quays frame is lit
+   windows and gold water where the other two are mostly dark, and at the same
+   0.85 as the rest it took the lede's contrast down to 4.14:1 on desktop,
+   under the 4.5 that 1.3rem text needs. Dimming that one frame fixes it
+   without flattening the two that were already fine.
+   All three ride in on custom properties rather than in the class attribute,
+   because a Tailwind class built from a PHP variable is invisible to the
+   build's scanner and would silently never be generated. */
+$heroShots = [
+  [
+    'src' => 'https://images.pexels.com/photos/18662427/pexels-photo-18662427.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    'pos' => '46% center',
+    'posLg' => '62% center',
+    'dim' => '0.85',
+  ],
+  [
+    // Anchored left and slightly high: at 56% a phone cut the mast clean off
+    // the top-left and left only the white sweep of the cables, which reads as
+    // an abstract curve rather than as the Samuel Beckett Bridge.
+    'src' => 'https://images.pexels.com/photos/13158127/pexels-photo-13158127.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    'pos' => '38% 44%',
+    'posLg' => '42% 46%',
+    'dim' => '0.68',
+  ],
+  [
+    // The cars are the subject and they sit in the bottom third of the frame,
+    // which is exactly where the hero's fade-to-dark and the services bar are.
+    // Nudging object-position could not fix it -- at this aspect the crop has
+    // only ~34px of vertical slack -- so the CDN delivers the frame already
+    // cropped to 16:10 anchored to the bottom (fit=crop&crop=bottom). That
+    // trims sky off the top and lifts the whole rank of cars up into the
+    // readable band.
+    'src' =>
+      'https://images.pexels.com/photos/6019124/pexels-photo-6019124.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1200&fit=crop&crop=bottom',
+    'pos' => '45% center',
+    'posLg' => '50% center',
+    'dim' => '0.85',
+  ],
 ]; ?>
 <section class="pc-hero tw-relative tw-flex tw-items-center tw-overflow-hidden tw-text-white tw-bg-[linear-gradient(165deg,#0a0807_0%,#14100c_60%,#0a0807_100%)] tw-min-h-[clamp(560px,100svh,900px)] tw-py-[clamp(7.5rem,13vw,9rem)] lg:tw-min-h-[clamp(640px,100vh,980px)]">
   <div class="pc-hero-canvas tw-absolute tw-inset-0 tw-overflow-hidden tw-pointer-events-none" aria-hidden="true">
-    <svg class="tw-absolute tw-inset-0 tw-h-full tw-w-full" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+    <?php /* Stacked in one box, so the crossfade has nothing to reflow and the
+             frame in front is the only one anybody sees. Only the first is
+             worth network priority -- it is the one that paints. The other two
+             are fetched at low priority so they cannot compete with it, and
+             they have five and ten seconds before they are needed. */ ?>
+    <?php foreach ($heroShots as $i => $shot): ?>
+      <img src="<?= htmlspecialchars($shot['src']) ?>" alt="" aria-hidden="true" decoding="async"
+        <?= $i === 0 ? 'fetchpriority="high"' : 'fetchpriority="low"' ?>
+        style="--pc-shot-pos: <?= htmlspecialchars($shot['pos']) ?>; --pc-shot-pos-lg: <?= htmlspecialchars(
+  $shot['posLg'],
+) ?>; --pc-shot-dim: <?= htmlspecialchars($shot['dim']) ?>"
+        class="pc-hero-shot tw-absolute tw-left-0 -tw-top-12 tw-h-[calc(100%+6rem)] tw-w-full tw-object-cover tw-object-[var(--pc-shot-pos)] tw-brightness-[var(--pc-shot-dim)] tw-saturate-[0.95] tw-opacity-0 [&.is-active]:tw-opacity-100 motion-safe:[transition:opacity_1900ms_cubic-bezier(0.4,0,0.2,1),transform_5600ms_cubic-bezier(0.22,1,0.36,1)] motion-safe:[&.is-active]:tw-scale-[1.03] lg:tw-object-[var(--pc-shot-pos-lg)]<?= $i === 0
+  ? ' is-active'
+  : '' ?>"
+        data-pc-hero-shot>
+    <?php endforeach; ?>
+    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.9)_0%,rgba(10,7,5,0.88)_60%,rgba(12,8,5,0.84)_100%)] lg:tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.88)_0%,rgba(10,7,5,0.82)_30%,rgba(12,8,5,0.62)_62%,rgba(12,8,5,0.48)_100%)]"></span>
+    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(105deg,transparent_40%,rgba(255,122,0,0.16)_75%,rgba(232,89,12,0.24)_100%)]"></span>
+    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(to_bottom,rgba(10,8,7,0.8)_0%,transparent_22%,transparent_60%,#0a0807_100%)]"></span>
+    <!-- <svg class="tw-absolute tw-inset-0 tw-h-full tw-w-full" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
       <defs>
         <filter id="pcRoadGlow" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="2.5" result="blur"/>
@@ -56,7 +117,7 @@ $heroServices = [
         <path d="M660,700 Q900,470 1200,415" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
         <path d="M520,0 Q900,360 1200,395" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
       </g>
-    </svg>
+    </svg> -->
     <span class="tw-absolute tw-right-[-6rem] tw-top-[18%] tw-h-[34rem] tw-w-[34rem] tw-rounded-full tw-blur-[70px] tw-bg-[radial-gradient(circle,rgba(255,122,0,0.22),transparent_70%)] tw-animate-pc-glow-pulse motion-reduce:tw-animate-none"></span>
   </div>
 
@@ -71,14 +132,14 @@ $heroServices = [
         all from one intelligent mobility platform.
       </p>
 
-      <div class="tw-mb-10 tw-flex tw-flex-wrap tw-items-center tw-gap-4 tw-animate-pc-fade-up [animation-delay:0.24s]">
+      <!-- <div class="tw-mb-10 tw-flex tw-flex-wrap tw-items-center tw-gap-4 tw-animate-pc-fade-up [animation-delay:0.24s]">
         <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/ride">Book a Ride</a>
         <a class="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1.5px] tw-border-solid tw-border-white/[0.32] tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-leading-5 tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-border-white/60 hover:tw-bg-white/10" href="<?= $assetPath ?>/drive">Become a Driver</a>
         <a class="tw-group tw-inline-flex tw-items-center tw-gap-1.5 tw-text-sm tw-font-semibold tw-text-white/80 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-white" href="<?= $assetPath ?>/business">
           Business Solutions
           <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover:tw-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-      </div>
+      </div> -->
 
       <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3 tw-animate-pc-fade-up [animation-delay:0.32s]">
         <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
@@ -98,7 +159,12 @@ $heroServices = [
       </div>
     </div>
 
-    <div class="tw-mt-14 tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/10 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.03] tw-backdrop-blur-sm md:tw-grid-cols-5 md:tw-divide-y-0">
+    <?php /* The gap to the copy above grows with the viewport rather than
+             sitting at one fixed 3.5rem: on a phone that much air is already
+             most of a thumb, while at 1440 and up it read as cramped against
+             the app badges. Steps, not a clamp, so each breakpoint is a value
+             someone chose. */ ?>
+    <div class="tw-mt-14 sm:tw-mt-16 md:tw-mt-20 lg:tw-mt-24 tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/10 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.03] tw-backdrop-blur-sm md:tw-grid-cols-5 md:tw-divide-y-0">
       <?php foreach ($heroServices as $service): ?>
         <a href="<?= $assetPath .
           htmlspecialchars(
@@ -121,3 +187,7 @@ $heroServices = [
     </div>
   </div>
 </section>
+
+<script src="<?= $assetPath ?>assets/js/components/hero-gallery.js?v=<?= @filemtime(
+  __DIR__ . '/../../assets/js/components/hero-gallery.js',
+) ?>"></script>
