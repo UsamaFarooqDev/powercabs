@@ -64,7 +64,7 @@ $canonicalUrl = $siteUrl . ltrim($canonicalPath, '/');
 $pcOgBase = 'https://images.pexels.com/photos/';
 $pcOgCrop = '?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop';
 $pcOgImages = [
-  '' => $siteUrl . 'assets/img/welcome-section-bg.png',
+  '' => $siteUrl . 'assets/img/welcome-section-bg.webp',
   'ride' => $pcOgBase . '1399282/pexels-photo-1399282.jpeg' . $pcOgCrop,
   'book-ride-online' => $pcOgBase . '6945640/pexels-photo-6945640.jpeg' . $pcOgCrop,
   // Not "pexels-photo-69121.jpeg": this one predates that naming and keeps
@@ -90,7 +90,7 @@ $pcOgImages = [
   'positive-feedback-form' => $pcOgBase . '5955023/pexels-photo-5955023.jpeg' . $pcOgCrop,
   'lost-item-report' => $pcOgBase . '12092769/pexels-photo-12092769.jpeg' . $pcOgCrop,
 ];
-$ogImage = $ogImage ?? ($pcOgImages[$canonicalPath] ?? $siteUrl . 'assets/img/meet-and-greet.png');
+$ogImage = $ogImage ?? ($pcOgImages[$canonicalPath] ?? $siteUrl . 'assets/img/meet-and-greet.webp');
 
 /* Robots. Google treats a missing robots meta as "index, follow", so the
    value here is not about switching indexing on -- it is about

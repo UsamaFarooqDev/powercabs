@@ -5,7 +5,9 @@ $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-require __DIR__ . '/components/home/hero.php';
+// Two hero variants exist. hero.php rotates three city frames; hero-alt.php is
+// the car-led still. Only one is ever required -- swap this line to change it.
+require __DIR__ . '/components/home/hero-alt.php';
 require __DIR__ . '/components/home/trusted-by.php';
 // Why PowerCabs now renders inside welcome.php, on that section's
 // photographic background -- requiring it here as well would duplicate

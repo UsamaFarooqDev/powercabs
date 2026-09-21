@@ -77,47 +77,6 @@ $heroShots = [
     <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.9)_0%,rgba(10,7,5,0.88)_60%,rgba(12,8,5,0.84)_100%)] lg:tw-bg-[linear-gradient(96deg,rgba(10,7,5,0.88)_0%,rgba(10,7,5,0.82)_30%,rgba(12,8,5,0.62)_62%,rgba(12,8,5,0.48)_100%)]"></span>
     <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(105deg,transparent_40%,rgba(255,122,0,0.16)_75%,rgba(232,89,12,0.24)_100%)]"></span>
     <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(to_bottom,rgba(10,8,7,0.8)_0%,transparent_22%,transparent_60%,#0a0807_100%)]"></span>
-    <!-- <svg class="tw-absolute tw-inset-0 tw-h-full tw-w-full" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <filter id="pcRoadGlow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="2.5" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-        <linearGradient id="pcRoadFadeW" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/>
-          <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.2"/>
-          <stop offset="0.75" stop-color="#ffffff" stop-opacity="0.35"/>
-          <stop offset="1" stop-color="#ffffff" stop-opacity="0.65"/>
-        </linearGradient>
-        <linearGradient id="pcRoadFadeO" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#ff7a00" stop-opacity="0.12"/>
-          <stop offset="0.45" stop-color="#ff7a00" stop-opacity="0.18"/>
-          <stop offset="0.75" stop-color="#ff7a00" stop-opacity="0.32"/>
-          <stop offset="1" stop-color="#ff7a00" stop-opacity="0.8"/>
-        </linearGradient>
-        <radialGradient id="pcTextMaskGrad" cx="0.32" cy="0.48" r="0.46">
-          <stop offset="0" stop-color="#000000"/>
-          <stop offset="0.65" stop-color="#000000"/>
-          <stop offset="1" stop-color="#ffffff"/>
-        </radialGradient>
-        <mask id="pcHeroTextMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="700">
-          <rect x="0" y="0" width="1200" height="700" fill="url(#pcTextMaskGrad)"/>
-        </mask>
-      </defs>
-      <g fill="none" stroke-linecap="round" filter="url(#pcRoadGlow)" mask="url(#pcHeroTextMask)">
-        <path d="M0,640 Q650,540 1200,415" stroke="url(#pcRoadFadeO)" stroke-width="2"/>
-        <path d="M0,555 Q650,480 1200,410" stroke="url(#pcRoadFadeW)" stroke-width="1.2"/>
-        <path d="M0,470 Q650,425 1200,405" stroke="url(#pcRoadFadeW)" stroke-width="1"/>
-        <path d="M0,350 Q650,370 1200,400" stroke="url(#pcRoadFadeW)" stroke-width="1"/>
-        <path d="M0,265 Q650,320 1200,395" stroke="url(#pcRoadFadeW)" stroke-width="1.2"/>
-        <path d="M0,180 Q650,270 1200,390" stroke="url(#pcRoadFadeO)" stroke-width="1.6"/>
-        <path d="M660,700 Q900,470 1200,415" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
-        <path d="M520,0 Q900,360 1200,395" stroke="url(#pcRoadFadeW)" stroke-width="1" opacity="0.7"/>
-      </g>
-    </svg> -->
     <span class="tw-absolute tw-right-[-6rem] tw-top-[18%] tw-h-[34rem] tw-w-[34rem] tw-rounded-full tw-blur-[70px] tw-bg-[radial-gradient(circle,rgba(255,122,0,0.22),transparent_70%)] tw-animate-pc-glow-pulse motion-reduce:tw-animate-none"></span>
   </div>
 
@@ -131,15 +90,6 @@ $heroShots = [
         Book reliable rides, drive with confidence, or manage corporate travel &mdash;
         all from one intelligent mobility platform.
       </p>
-
-      <!-- <div class="tw-mb-10 tw-flex tw-flex-wrap tw-items-center tw-gap-4 tw-animate-pc-fade-up [animation-delay:0.24s]">
-        <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/ride">Book a Ride</a>
-        <a class="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1.5px] tw-border-solid tw-border-white/[0.32] tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-leading-5 tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-border-white/60 hover:tw-bg-white/10" href="<?= $assetPath ?>/drive">Become a Driver</a>
-        <a class="tw-group tw-inline-flex tw-items-center tw-gap-1.5 tw-text-sm tw-font-semibold tw-text-white/80 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-white" href="<?= $assetPath ?>/business">
-          Business Solutions
-          <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover:tw-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div> -->
 
       <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3 tw-animate-pc-fade-up [animation-delay:0.32s]">
         <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger" target="_blank" rel="noopener">
@@ -159,11 +109,6 @@ $heroShots = [
       </div>
     </div>
 
-    <?php /* The gap to the copy above grows with the viewport rather than
-             sitting at one fixed 3.5rem: on a phone that much air is already
-             most of a thumb, while at 1440 and up it read as cramped against
-             the app badges. Steps, not a clamp, so each breakpoint is a value
-             someone chose. */ ?>
     <div class="tw-mt-14 sm:tw-mt-16 md:tw-mt-20 lg:tw-mt-24 tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/10 tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/10 tw-bg-white/[0.03] tw-backdrop-blur-sm md:tw-grid-cols-5 md:tw-divide-y-0">
       <?php foreach ($heroServices as $service): ?>
         <a href="<?= $assetPath .
