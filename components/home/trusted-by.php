@@ -18,28 +18,6 @@
 ]; ?>
 
 <section class="tw-bg-white tw-mt-16">
-  <!-- <div class="tw-relative tw-mb-16 tw-overflow-hidden tw-aspect-[2460/1128]">
-    <img
-      src="<?= $assetPath ?>assets/img/trusted-bg.svg"
-      alt=""
-      aria-hidden="true"
-      class="tw-block tw-h-full tw-w-full tw-object-cover tw-object-top"
-      loading="lazy"
-    >
-    <p class="tw-absolute tw-left-1/2 tw-top-1/2 tw-mb-0 tw-w-[90%] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-text-center tw-text-[clamp(1.15rem,5.5vw,1.65rem)] tw-font-black tw-leading-tight tw-tracking-tight tw-text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4),0_1px_10px_rgba(0,0,0,0.25)] md:tw-hidden">
-      Powering Every Journey,<br>Every Driver
-    </p>
-    <p class="tw-absolute tw-left-[4%] tw-top-[6%] tw-mb-0 tw-hidden tw-text-[clamp(3rem,6vw,4.75rem)] tw-font-black tw-leading-[1.05] tw-tracking-tight tw-text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4),0_1px_10px_rgba(0,0,0,0.25)] md:tw-block">
-      Powering
-    </p>
-    <p class="tw-absolute tw-left-1/2 tw-top-[42%] tw-mb-0 -tw-translate-x-1/2 tw-text-center tw-text-[clamp(3rem,6vw,4.75rem)] tw-font-black tw-leading-[1.05] tw-tracking-tight tw-text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4),0_1px_10px_rgba(0,0,0,0.25)] tw-hidden md:tw-block">
-      Every<br>Journey
-    </p>
-    <p class="tw-absolute tw-right-[4%] tw-bottom-[14%] tw-mb-0 tw-whitespace-nowrap tw-text-[clamp(3rem,6vw,4.75rem)] tw-font-black tw-leading-[1.05] tw-tracking-tight tw-text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4),0_1px_10px_rgba(0,0,0,0.25)] tw-hidden md:tw-block">
-      Every Driver
-    </p>
-  </div> -->
-
   <div class="<?= $pcContainer ?> tw-mt-16">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[62ch] tw-text-center">
       <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Our Partners</p>
@@ -69,13 +47,6 @@
       <?php endforeach; ?>
     </div>
 
-    <?php /* The panel keeps its dark radial gradient as the base layer: it is
-             what shows if the photograph 404s or has not arrived yet, so the
-             white type is never briefly white-on-white. Over it, a night shot
-             of the Dublin quays -- the same city this panel is inviting
-             businesses to be seen in -- and then a warm-black scrim heavy
-             enough to hold the body copy above 4.5:1 against the lit windows
-             behind it. Lazy, because this sits well below the fold. */ ?>
     <div class="tw-relative tw-mt-12 tw-overflow-hidden tw-rounded-2xl tw-bg-[radial-gradient(120%_140%_at_50%_0%,#2a1a10_0%,#1c1410_55%,#160f0a_100%)] tw-p-8 tw-text-center tw-text-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] md:tw-p-12">
       <img src="https://images.pexels.com/photos/13158057/pexels-photo-13158057.jpeg?auto=compress&cs=tinysrgb&w=1600"
         alt="" aria-hidden="true" loading="lazy" decoding="async"
