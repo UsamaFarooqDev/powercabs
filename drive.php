@@ -4,53 +4,12 @@ $pageDescription =
   'Drive with PowerCabs -- flexible hours, competitive earnings and 24/7 driver support. Apply through the Driver App and start earning on your own schedule.';
 $assetPath = '';
 
+/* The application form no longer posts here. It is eight steps talking to
+   /driver-apply, which verifies the email, uploads the documents to Supabase
+   Storage, creates the auth account and writes the drivers row -- so the
+   four-field POST handler that used to live here is gone with it. env.php
+   stays: components on this page still read PC_* config. */
 require __DIR__ . '/includes/env.php';
-require __DIR__ . '/includes/mailer.php';
-
-$driveFormStatus = null;
-$driveFormError = '';
-$driveOld = ['name' => '', 'mobile' => '', 'email' => '', 'licence' => ''];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  foreach ($driveOld as $key => $default) {
-    $driveOld[$key] = trim($_POST[$key] ?? '');
-  }
-
-  if (
-    $driveOld['name'] === '' ||
-    $driveOld['mobile'] === '' ||
-    $driveOld['email'] === '' ||
-    $driveOld['licence'] === ''
-  ) {
-    $driveFormStatus = 'error';
-    $driveFormError = 'Please fill in all required fields.';
-  } elseif (!filter_var($driveOld['email'], FILTER_VALIDATE_EMAIL)) {
-    $driveFormStatus = 'error';
-    $driveFormError = 'Please enter a valid email address.';
-  } else {
-    $body =
-      "New PowerCabs driver application from the Drive page.\n\n" .
-      "Name: {$driveOld['name']}\n" .
-      "Mobile: {$driveOld['mobile']}\n" .
-      "Email: {$driveOld['email']}\n" .
-      "SPSV / Driver Licence: {$driveOld['licence']}\n";
-
-    $result = pc_send_mail('Driver application: ' . $driveOld['name'], $body, [
-      'name' => $driveOld['name'],
-      'email' => $driveOld['email'],
-    ]);
-
-    if ($result['success']) {
-      $driveFormStatus = 'success';
-      foreach ($driveOld as $key => $default) {
-        $driveOld[$key] = '';
-      }
-    } else {
-      $driveFormStatus = 'error';
-      $driveFormError = 'Sorry, something went wrong sending your application. Please try again or call us directly.';
-    }
-  }
-}
 
 require __DIR__ . '/includes/header.php';
 

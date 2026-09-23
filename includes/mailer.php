@@ -45,9 +45,16 @@ function pc_smtp_dot_stuff($text) {
  *                          the person who submitted the form.
  * @param array  $attachments List of ['tmp_path' => ..., 'filename' => ...,
  *                          'mime' => ...].
+ * @param string $to Optional recipient, defaulting to PC_MAIL_TO -- where all
+ *                          seventeen existing callers send, because every form
+ *                          on the site mails the office. The driver
+ *                          application is the first thing that has to mail the
+ *                          APPLICANT instead (its 6-digit verification code).
+ *                          Added last so every existing call still works.
  * @return array ['success' => bool, 'error' => string|null]
  */
-function pc_send_mail($subject, $bodyText, $replyTo = [], $attachments = []) {
+function pc_send_mail($subject, $bodyText, $replyTo = [], $attachments = [], $to = null) {
+    $to = ($to !== null && $to !== '') ? $to : PC_MAIL_TO;
     $socket = null;
     try {
         $socket = stream_socket_client(
@@ -68,7 +75,7 @@ function pc_send_mail($subject, $bodyText, $replyTo = [], $attachments = []) {
         pc_smtp_command($socket, base64_encode(PC_SMTP_USER), '334');
         pc_smtp_command($socket, base64_encode(PC_SMTP_PASS), '235');
         pc_smtp_command($socket, 'MAIL FROM:<' . PC_SMTP_USER . '>', '250');
-        pc_smtp_command($socket, 'RCPT TO:<' . PC_MAIL_TO . '>', '250');
+        pc_smtp_command($socket, 'RCPT TO:<' . $to . '>', '250');
         pc_smtp_command($socket, 'DATA', '354');
 
         $boundary = 'pc-boundary-' . bin2hex(random_bytes(12));
@@ -77,7 +84,7 @@ function pc_send_mail($subject, $bodyText, $replyTo = [], $attachments = []) {
 
         $headers = [];
         $headers[] = 'From: ' . $fromHeader;
-        $headers[] = 'To: <' . PC_MAIL_TO . '>';
+        $headers[] = 'To: <' . $to . '>';
         if (!empty($replyTo['email'])) {
             $replyName = $replyTo['name'] ?? '';
             $headers[] = 'Reply-To: ' . ($replyName !== ''
