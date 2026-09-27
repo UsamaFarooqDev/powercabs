@@ -17,12 +17,14 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Accessibility';
+$heroEyebrow = 'Accessibility';
 $heroTitleLight = 'Wheelchair';
 $heroTitleBold = 'Accessible Taxis.';
 $heroDescription =
   'PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers with mobility needs. The service focuses on reliability, trained drivers, and vehicles equipped to safely transport wheelchair users.';
 $heroBgImage = 'https://images.pexels.com/photos/35831412/pexels-photo-35831412.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A wheelchair accessible taxi with its ramp lowered';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $whyChoose = [
@@ -87,7 +89,7 @@ function pc_wc_icon(string $icon): void
       </div>
 
       <div>
-        <h2 class="tw-mb-4 tw-text-3xl tw-font-bold tw-leading-[1.08] tw-tracking-tight tw-text-ink md:tw-text-4xl">
+        <h2 class="<?= $pcH2 ?>">
           Mobility for <span class="tw-text-power">everyone.</span>
         </h2>
         <p class="tw-mb-6 tw-max-w-[500px] tw-text-base tw-leading-[1.75] tw-text-ink/60">
@@ -129,8 +131,8 @@ function pc_wc_icon(string $icon): void
 <section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Why Choose PowerCabs</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Accessible Travel, Done Right</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why Choose PowerCabs</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Accessible Travel, Done Right</h2>
     </div>
 
     <div class="tw-mx-auto tw-mb-4 tw-grid tw-max-w-[1320px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 md:tw-grid-cols-3">
@@ -156,12 +158,27 @@ function pc_wc_icon(string $icon): void
 </section>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Book an accessible ride.';
 $ctaText = 'Wheelchair-accessible vehicles and drivers trained to assist, across Dublin, 24/7.';
 $ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book Now'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Us'];
+
+/* Restructured from copy already on this page -- see
+   components/shared/faq-accordion.php on why answers may not be invented. */
+$faqItems = [
+  ['q' => 'Are the vehicles properly equipped?', 'a' => 'Every accessible vehicle and driver meets strict safety standards.'],
+  ['q' => 'Are drivers trained to assist?', 'a' => 'Drivers are trained to help confidently and respectfully, every trip.'],
+  ['q' => 'How do I book an accessible ride?', 'a' => 'Book in seconds through the app, the website, or a quick phone call.'],
+  ['q' => 'Can I rely on the pickup time?', 'a' => 'Yes — punctual pickups you can plan appointments and travel around.'],
+];
+$faqEyebrow = 'Accessible travel';
+$faqHeading = 'Accessibility questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
 
 require __DIR__ . '/includes/footer.php';

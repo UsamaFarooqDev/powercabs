@@ -389,7 +389,13 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
             type="button"
             data-ride-dot="<?= $i ?>"
             aria-label="Show <?= htmlspecialchars($ride['title']) ?>"
-            class="tw-h-1.5 tw-w-1.5 tw-appearance-none tw-rounded-full tw-border-0 tw-bg-ink/15 tw-p-0 tw-transition-all tw-duration-500 hover:tw-bg-ink/35 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-4 focus-visible:tw-outline-power motion-reduce:tw-transition-none [&[aria-current=true]]:tw-w-10 [&[aria-current=true]]:tw-bg-power"
+            <?php /* The DOT is 6px; the button around it is 24px tall with a
+                     transparent border, so the hit area clears §55's mobile
+                     minimum without the dot itself growing. border-box keeps
+                     the painted dot at 6px while the border adds target only.
+                     Measured at 360px these were 6px tall -- a 6px touch
+                     target on a carousel control. */ ?>
+            class="tw-box-content tw-h-1.5 tw-w-1.5 tw-appearance-none tw-rounded-full tw-border-[9px] tw-border-solid tw-border-transparent tw-bg-ink/15 tw-bg-clip-padding tw-p-0 tw-transition-all tw-duration-500 hover:tw-bg-ink/35 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-1 focus-visible:tw-outline-power motion-reduce:tw-transition-none [&[aria-current=true]]:tw-w-10 [&[aria-current=true]]:tw-bg-power"
           ></button>
 
         <?php endforeach; ?>

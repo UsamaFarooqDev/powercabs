@@ -160,12 +160,13 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ City Tours';
+$heroEyebrow = 'City Tours';
 $heroTitleLight = 'City';
 $heroTitleBold = 'Tours.';
 $heroDescription =
   "Explore Ireland's most iconic destinations with PowerCabs. Whether you're visiting historic landmarks, breathtaking coastal scenery, charming villages, or famous attractions, enjoy comfortable private transportation with professional local drivers.";
 $heroBgImage = 'https://images.pexels.com/photos/15592112/pexels-photo-15592112.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'image';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $destinations = [
@@ -276,7 +277,7 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
       <span class="tw-pointer-events-none tw-absolute tw-right-[-6rem] tw-top-[-4rem] tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.28),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
       <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-gap-6 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
         <div class="lg:tw-max-w-[62%]">
-          <p class="<?= $pcEyebrowOnDark ?>">/ Pay Per Hour</p>
+          <p class="<?= $pcEyebrowOnDark ?>">Pay Per Hour</p>
           <h2 class="<?= $pcH2OnDark ?>">Rather set your own route?</h2>
           <p class="tw-mb-0 <?= $pcBodyOnDark ?> tw-max-w-[58ch]">
             Hire a PowerCabs driver by the hour instead &mdash; no fixed
@@ -296,8 +297,8 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Featured Destinations</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Where Would You Like to Go?</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Featured Destinations</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Where Would You Like to Go?</h2>
     </div>
     <!-- Varied hierarchy, one component. The first two destinations run at
          double width across the top row with a wide 16:9 crop and a larger
@@ -308,7 +309,11 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($destinations as $i => $d): ?>
         <?php $isLead = $i < 2; ?>
-        <div class="tw-group tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[28px] tw-bg-white tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)] <?= $isLead
+        <?php /* Hairline instead of a permanent drop shadow on all ten: §43
+                 asks for shadows sparingly, and ten shadowed tiles in one grid
+                 is what makes a gallery read as a dashboard. The shadow moves
+                 to hover, where it means something. */ ?>
+        <div class="tw-group tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[28px] tw-border tw-border-solid tw-border-hairline tw-bg-white <?= $pcCardHover ?> <?= $isLead
           ? 'lg:tw-col-span-2'
           : '' ?>">
           <div class="<?= $isLead ? 'tw-aspect-[16/9]' : 'tw-aspect-[4/3]' ?> tw-overflow-hidden">
@@ -323,11 +328,20 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
             <p class="tw-mb-3 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($d['desc']) ?></p>
             <!-- mt-auto keeps every Book Tour button on the same baseline
                  within a row, whatever length the description runs to. -->
-            <div class="tw-mt-auto">
+            <?php /* A TEXT action, not a filled pill. Ten destination tiles
+                     each carried a solid orange button, so this one section
+                     printed ten orange blocks -- §26 wants orange to feel
+                     intentional, and at ten-per-screen it reads as the page's
+                     background colour rather than as its call to action. The
+                     action itself is unchanged: same button, same modal, same
+                     data attributes, and it is still the only thing to click
+                     in the tile. */ ?>
+            <div class="tw-mt-auto tw-pt-1">
               <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
-              <button type="button" class="<?= $pcBtnPrimary ?>" data-pc-modal-open="#tourModal"
+              <button type="button" class="<?= $pcBtnLink ?> tw-cursor-pointer tw-appearance-none tw-border-0 tw-bg-transparent tw-p-0" data-pc-modal-open="#tourModal"
                 data-tour-name="<?= htmlspecialchars($d['name']) ?>" data-tour-desc="<?= htmlspecialchars($d['desc']) ?>" data-tour-duration="<?= htmlspecialchars($d['duration']) ?>" data-tour-img="<?= htmlspecialchars($d['img']) ?>">
                 Book Tour
+                <svg class="<?= $pcBtnLinkIcon ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
             </div>
           </div>
@@ -354,11 +368,13 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-grid tw-grid-cols-1 tw-items-end tw-gap-6 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
-        <div class="tw-mb-3 tw-flex tw-items-center tw-gap-2">
-          <span class="tw-inline-block tw-h-2 tw-w-2 tw-rounded-full tw-bg-power"></span>
-          <span class="tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-power">Why Choose Our Tours</span>
-        </div>
-        <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl lg:tw-text-5xl">
+        <?php /* Was a hand-built row: an orange dot span, a gap, and a label
+                 span at its own size and tracking. That was this page's private
+                 answer to the same problem the "/ " prefix solved everywhere
+                 else, so the site had two eyebrow decorations. One recipe now,
+                 and the rule replaces the dot. */ ?>
+        <p class="<?= $pcEyebrow ?>">Why Choose Our Tours</p>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">
           Ireland, <span class="tw-font-normal">at Your Own Pace</span>
         </h2>
       </div>
@@ -371,7 +387,18 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
     </div>
 
     <!-- Features -->
-    <div class="tw-grid tw-grid-cols-2 tw-gap-3 lg:tw-grid-cols-4 lg:tw-gap-4">
+    <?php /* Five reasons, laid out as §16's numbered list rather than five
+             boxes. Each used to be a bordered card carrying an icon chip, a
+             5rem ghost numeral, a title, a 3px orange bar and a corner
+             "external link" arrow -- five pieces of decoration around eleven
+             words, and the arrow implied a link on something that was not
+             clickable. The number now does the job the ghost numeral, the bar
+             and the border were all doing at once.
+
+             Five columns at lg, not four: with cols-4 the fifth card sat alone
+             on its own row, which is the ragged last row §35 reads as
+             accidental. */ ?>
+    <div class="tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-8 sm:tw-grid-cols-3 lg:tw-grid-cols-5">
       <?php foreach ($whyChooseTours as $index => $item): ?>
         <?php /* min-h 175, down from 245. Measured: the tallest card's content
                  (icon chip, its margin, and a two-line title) ends 131px from
@@ -397,20 +424,12 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
                  bottom, i.e. 3px INTO the arrow. The extra bottom padding
                  reserves that strip in flow, so the title has to stop above it
                  however many lines it runs to. */ ?>
-        <div class="tw-relative tw-min-h-[175px] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-4 tw-pb-10">
-          <div class="tw-pointer-events-none tw-absolute tw-right-0 tw-top-0 tw-translate-x-2 -tw-translate-y-1 tw-text-[5rem] tw-font-bold tw-leading-none tw-text-black/[0.035]">
-            <?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?>
-          </div>
-          <div class="tw-relative tw-mb-4 tw-flex tw-h-[52px] tw-w-[52px] tw-items-center tw-justify-center tw-rounded-xl tw-bg-[#fff4ec] tw-text-power">
-            <?php pc_ct_icon($item['icon']); ?>
-          </div>
-          <h3 class="tw-relative tw-mb-3 tw-max-w-[180px] tw-text-base tw-font-bold tw-leading-[1.45] tw-text-ink">
+        <div class="<?= $pcStepItem ?>">
+          <span class="<?= $pcStepNum ?>"><?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?></span>
+          <span class="tw-mb-3 tw-block tw-text-power"><?php pc_ct_icon($item['icon']); ?></span>
+          <h3 class="tw-mb-0 tw-text-[0.9375rem] tw-font-semibold tw-leading-[1.45] tw-text-ink">
             <?= htmlspecialchars($item['title']) ?>
           </h3>
-          <div class="tw-absolute tw-bottom-0 tw-left-0 tw-h-[3px] tw-w-[42px] tw-bg-power"></div>
-          <div class="tw-absolute tw-bottom-0 tw-right-0 tw-m-4 tw-text-ink/50">
-            <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
-          </div>
         </div>
       <?php endforeach; ?>
     </div>
@@ -612,6 +631,20 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 ) ?>"></script>
 
 <?php
+
+/* Restructured from copy already on this page -- see
+   components/shared/faq-accordion.php on why answers may not be invented. */
+$faqItems = [
+  ['q' => 'Is the car private to my group?', 'a' => 'Yes — a private car for your group only, with door-to-door pickup.'],
+  ['q' => 'Can I choose where we go?', 'a' => 'The itinerary is flexible and can run as a full or half day.'],
+  ['q' => 'Who drives the tour?', 'a' => 'A professional local driver who knows the routes and the stops.'],
+  ['q' => 'Are families and groups welcome?', 'a' => 'Yes — families and groups are welcome, and vehicles are sized to suit.'],
+];
+$faqEyebrow = 'City tours';
+$faqHeading = 'Tour questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

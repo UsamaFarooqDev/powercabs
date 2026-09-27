@@ -229,7 +229,7 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
       <form method="post" action="" class="tw-p-6 md:tw-p-9">
         <div class="tw-mb-6 tw-flex tw-items-start tw-justify-between">
           <div>
-            <p class="tw-mb-1 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Quick Book</p>
+            <p class="tw-mb-1 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">Quick Book</p>
             <h3 class="tw-mb-0 tw-text-xl tw-font-bold tw-text-ink" id="rfBookModalLabel">Confirm Your Ride</h3>
           </div>
           <button type="button" class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-black/[0.05] tw-text-ink/70 tw-transition-colors hover:tw-bg-black/10 hover:tw-text-ink" data-pc-modal-close aria-label="Close"><svg class="tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg></button>

@@ -10,7 +10,7 @@
       </div>
 
       <div class="tw-order-1 lg:tw-order-2">
-        <h2 class="tw-mb-6 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Behind the Wheel</h2>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Behind the Wheel</h2>
 
         <?php
         $driveSteps = [

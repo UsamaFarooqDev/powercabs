@@ -48,7 +48,7 @@ $trustBadges = [
 <section class="tw-bg-paper <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[64ch] tw-text-center">
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Ready to Take Your Card Machine Journey to the Next Level?</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Ready to Take Your Card Machine Journey to the Next Level?</h2>
       <p class="tw-mb-0 tw-text-ink/60">
         Our card reader payment solutions enable taxi drivers and hospitality businesses
         with secure, efficient and tailored card payment machine services.

@@ -43,7 +43,7 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
 <section class="tw-bg-paper-soft <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
-      <p class="<?= $pcEyebrow ?>">/ Why PowerCabs?</p>
+      <p class="<?= $pcEyebrow ?>">Why PowerCabs?</p>
       <h2 class="<?= $pcH2Display ?>">
         Big-app convenience. <span class="tw-text-power">Local Irish service.</span>
       </h2>

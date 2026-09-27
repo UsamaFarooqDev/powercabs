@@ -1,24 +1,58 @@
 :root {
-  /* Brand colors */
-  --pc-orange: #e8590c;
-  --pc-orange-light: #ff7a00;
-  --pc-orange-dark: #a34406;
-  --pc-cream: #f4efe8;
-  --pc-cream-soft: #f9f4ed;
-  --pc-peach: #fbe4cf;
-  --pc-dark: #1c1410;
-  --pc-dark-soft: #160f0a;
+  /* ── Brand colours ───────────────────────────────────────────────────
+     The orange is sampled from the logo itself (assets/img/powercabs-logo-
+     dark.svg is #f37a20), not inherited from the old template. It replaces
+     the previous #e8590c, which read redder and browner than the mark it was
+     supposed to match.
+
+     One orange, one dark, one tint -- deliberately three, not five. The old
+     scale had --pc-orange, --pc-orange-light and --pc-orange-dark all in
+     circulation at once, which is how orange ended up as the background of
+     most of the site instead of its accent. */
+  --pc-orange: #f97316;
+  --pc-orange-dark: #d85f0b;
+  --pc-orange-soft: #fff4ea;
+
+  /* ── Neutrals ────────────────────────────────────────────────────────
+     The redesign runs on these, not on orange: roughly 55-65% of any page
+     should be white or one of the two surfaces, with orange kept to a few
+     per cent. --pc-surface is the cool off-white for most alternating
+     bands; --pc-surface-warm carries the brand's warmth where a section
+     needs it. */
+  --pc-ink: #111111;
+  --pc-ink-soft: #252525;
   --pc-white: #ffffff;
+  --pc-surface: #f7f7f5;
+  --pc-surface-warm: #fbf8f4;
+  --pc-border: #e7e5e2;
+  --pc-muted: #6b6b6b;
+
+  /* ── Semantic ────────────────────────────────────────────────────────
+     Green for sustainability/EV, blue for informational and safety
+     content, red reserved strictly for errors and destructive actions --
+     never for emphasis. */
+  --pc-success: #17834b;
+  --pc-info: #2563eb;
+
+  /* Retained so the pages not yet migrated keep rendering. Each is now an
+     alias of a token above rather than its own colour; they go once the
+     page-by-page migration is finished. */
+  --pc-orange-light: var(--pc-orange);
+  --pc-cream: var(--pc-surface-warm);
+  --pc-cream-soft: var(--pc-surface);
+  --pc-peach: var(--pc-orange-soft);
+  --pc-dark: var(--pc-ink);
+  --pc-dark-soft: var(--pc-ink-soft);
 
   /* Text */
-  --pc-text-muted: rgba(28, 20, 16, 0.65);
-  --pc-text-on-dark-muted: rgba(250, 246, 241, 0.75);
+  --pc-text-muted: var(--pc-muted);
+  --pc-text-on-dark-muted: rgba(255, 255, 255, 0.72);
 
   /* Typography */
-  /* 'Plus Jakarta Sans Fallback' is metric-matched Arial (see base.css) --
-     it must come straight after the brand font, or the browser paints with
-     Segoe UI first and the swap re-wraps text. */
-  --pc-font-family: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* 'DM Sans Fallback' is metric-matched Arial (see base.css) -- it must come
+     straight after the brand font, or the browser paints with a system face
+     first and the swap re-wraps text. */
+  --pc-font-family: 'DM Sans', 'DM Sans Fallback', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Radius scale */
   --pc-radius-sm: 10px;

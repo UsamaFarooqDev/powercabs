@@ -14,7 +14,7 @@
  * design system recipes -- with only the status and three strings changed.
  */
 $errStatus = 410;
-$errEyebrow = '/ Error 410';
+$errEyebrow = 'Error 410';
 $errHeading = 'This page is no longer here.';
 $errGhost = '410';
 

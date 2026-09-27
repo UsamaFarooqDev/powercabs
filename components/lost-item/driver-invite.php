@@ -21,7 +21,7 @@
       </div>
 
       <div>
-        <p class="<?= $pcEyebrow ?>">/ For drivers</p>
+        <p class="<?= $pcEyebrow ?>">For drivers</p>
         <h2 class="<?= $pcH2 ?>">Great drivers <span class="tw-text-power">do more than drive.</span></h2>
         <p class="tw-mb-4 <?= $pcLead ?> <?= $pcMeasureTight ?>">They help.</p>
         <p class="tw-mb-4 <?= $pcBody ?> <?= $pcMeasureTight ?>">

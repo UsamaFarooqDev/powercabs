@@ -33,7 +33,7 @@ function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Your Business Account</p>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Your Business Account</p>
         <h2 class="<?= $pcH2 ?>">Your business. Your account.<br>Your taxi service.</h2>
 
         <!-- Three stacked rows, not a 3-across grid. These cards sit in one

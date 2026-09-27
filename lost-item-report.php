@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ PowerCabs Lost Item Recovery';
+$heroEyebrow = 'PowerCabs Lost Item Recovery';
 $heroTitleLight = 'Left Something';
 $heroTitleBold = 'in a Taxi?';
 // Names the two things that make this page different from every other "lost
@@ -132,6 +132,7 @@ $heroDescription =
   $lostItemFee .
   ' investigation, with any retrieval cost quoted and approved before we proceed.';
 $heroBgImage = 'https://images.pexels.com/photos/12092769/pexels-photo-12092769.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 
 require __DIR__ . '/components/lost-item/trust-strip.php';
@@ -155,7 +156,7 @@ $submitClass = $pcBtnPrimary;
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="<?= $pcEyebrow ?>">/ Don't worry if you don't know everything</p>
+        <p class="<?= $pcEyebrow ?>">Don't worry if you don't know everything</p>
         <h2 class="<?= $pcH2Small ?>">Tell us what you remember</h2>
         <p class="tw-mb-6 tw-text-ink/60">
           Even small details help the investigation, and nothing below is a dead
@@ -272,6 +273,69 @@ $submitClass = $pcBtnPrimary;
 ) ?>"></script>
 
 <?php
+/* ============ Scroll Scene ============
+ *
+ * The Meet & Greet banner pattern (see components/shared/scroll-scene.php).
+ * It sits AFTER the report form deliberately: the form is this page's whole
+ * purpose, and a half-screen scene above it would be something to scroll past
+ * before reaching the thing you came to do. Here it does what it is good at --
+ * one calm beat between the form and the closing content.
+ *
+ * A route being traced rather than a vehicle: the metaphor is the journey
+ * being retraced to find the item, which is literally what the investigation
+ * described above does. The palette is deliberately quiet -- somebody on this
+ * page has just lost something, and a sunrise-and-taxi treatment would read as
+ * cheerful at them.
+ *
+ * The copy restates the hero's published, carefully hedged promise. That
+ * hedging is load-bearing: the page says "may be able to help", never "we will
+ * get it back", and a headline this size must not quietly upgrade it. */
+ob_start(); ?>
+<svg viewBox="0 0 120 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-h-auto tw-w-full" aria-hidden="true">
+  <ellipse cx="60" cy="140" rx="30" ry="7" fill="#111111" opacity=".16"/>
+  <path d="M60 138 C60 138 104 86 104 56 A44 44 0 0 0 16 56 C16 86 60 138 60 138 Z" fill="#f97316"/>
+  <path d="M60 138 C60 138 104 86 104 56 A44 44 0 0 0 16 56 C16 86 60 138 60 138 Z" fill="url(#pinShade)" opacity=".28"/>
+  <circle cx="60" cy="55" r="17" fill="#ffffff"/>
+  <defs>
+    <linearGradient id="pinShade" x1="16" y1="12" x2="104" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity=".55"/><stop offset="1" stop-color="#7a2e00"/>
+    </linearGradient>
+  </defs>
+</svg>
+<?php $sceneSubject = ob_get_clean();
+
+/* The route sits 215px up, not 150. At 150 the copy block -- which is
+   absolutely positioned to the bottom and is about 148px tall once the
+   headline and the line under it are laid out -- ended exactly on the dashes,
+   so the route ran straight through the middle of the headline. */
+ob_start(); ?>
+<div class="tw-relative tw-h-[215px] tw-w-full">
+  <div class="tw-absolute tw-inset-x-0 tw-top-0 tw-h-[3px] tw-bg-[repeating-linear-gradient(90deg,rgba(249,115,22,0.6)_0_18px,transparent_18px_34px)]"></div>
+  <div class="tw-absolute tw-inset-x-0 tw-top-[62px] tw-h-px tw-bg-[repeating-linear-gradient(90deg,rgba(17,17,17,0.12)_0_10px,transparent_10px_22px)]"></div>
+  <span class="tw-absolute tw-left-[8%] tw-top-[-5px] tw-h-[13px] tw-w-[13px] tw-rounded-full tw-border-[3px] tw-border-solid tw-border-power tw-bg-white"></span>
+</div>
+<?php $sceneGround = ob_get_clean();
+
+$sceneId = 'pcLostItemScene';
+/* The faint grid is two repeating gradients layered over the base one, so the
+   "map" costs no markup and no request. */
+$sceneGradient =
+  'repeating-linear-gradient(0deg,rgba(17,17,17,0.05) 0 1px,transparent 1px 72px),' .
+  'repeating-linear-gradient(90deg,rgba(17,17,17,0.05) 0 1px,transparent 1px 72px),' .
+  'linear-gradient(180deg,#e9eff4 0%,#f4f4f2 58%,#fbf8f4 100%)';
+$sceneSubjectSize = 'tw-w-[clamp(64px,7vw,94px)]';
+$sceneSubjectPos = 'tw-bottom-[215px]'; // the pin's point lands on the route
+$sceneAnchor = '0';
+$sceneHeight = 'tw-h-[clamp(400px,44vw,520px)]';
+$sceneTitle = 'We retrace the journey.';
+$sceneText = 'Tell us what you remember and we may be able to help you get it back — even if you did not travel with PowerCabs.';
+require __DIR__ . '/components/shared/scroll-scene.php';
+?>
+<script src="<?= $assetPath ?>assets/js/components/scroll-scene.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/scroll-scene.js',
+) ?>"></script>
+<?php
+
 require __DIR__ . '/components/lost-item/story.php';
 require __DIR__ . '/components/lost-item/driver-invite.php';
 
@@ -284,6 +348,7 @@ require __DIR__ . '/components/lost-item/driver-invite.php';
 // The fee terms sit after the closing CTA, the same place the client's draft
 // put them: read by anyone who got as far as deciding.
 require __DIR__ . '/components/lost-item/fine-print.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

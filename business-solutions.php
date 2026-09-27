@@ -137,12 +137,14 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Business Solutions';
+$heroEyebrow = 'Business Solutions';
 $heroTitleLight = 'PowerCabs';
 $heroTitleBold = 'Business Solutions.';
 $heroDescription =
   'Business transportation solutions for companies seeking reliable, professional, and efficient travel services for employees and clients.';
 $heroBgImage = 'https://images.pexels.com/photos/7108210/pexels-photo-7108210.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A card terminal being used to take a contactless payment';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -164,6 +166,7 @@ require __DIR__ . '/components/business/payment-solutions/testimonials.php';
 ) ?>"></script>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 // Points back at this page's own application form rather than a generic
@@ -172,6 +175,20 @@ $ctaTitle = 'Start taking card payments.';
 $ctaText = 'Apply in about two minutes. Our team reviews your details and ships the terminal to you.';
 $ctaPrimary = ['href' => '/business-solutions#payment-apply-form', 'label' => 'Apply Now'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Ask a Question'];
+
+/* Restructured from copy already on this page -- see
+   components/shared/faq-accordion.php on why answers may not be invented. */
+$faqItems = [
+  ['q' => 'What does a terminal cost?', 'a' => 'Card reader rental starts at €9.99 a month for the PAX A50, €14.99 for the PAX A920, and €29.99 for EPOS (ex VAT).'],
+  ['q' => 'What are the transaction rates?', 'a' => 'Unbeatable transaction rates from 0.8%, on every plan.'],
+  ['q' => 'Does it take contactless?', 'a' => 'Yes — NFC contactless is included on every plan.'],
+  ['q' => 'How do I get one?', 'a' => 'Apply online, our team reviews your details, your card machine is shipped to you, and you can accept cards instantly.'],
+];
+$faqEyebrow = 'Card terminals';
+$faqHeading = 'Terminal questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
 
 require __DIR__ . '/includes/footer.php';

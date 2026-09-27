@@ -24,7 +24,7 @@ $lostItemFeeCovers = [
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
 
       <div>
-        <p class="<?= $pcEyebrow ?>">/ Simple and transparent</p>
+        <p class="<?= $pcEyebrow ?>">Simple and transparent</p>
         <h2 class="<?= $pcH2 ?>">Why <span class="tw-text-power">&euro;<?= $lostItemFee ?></span>?</h2>
         <p class="tw-mb-4 <?= $pcLead ?> <?= $pcMeasureTight ?>">
           Because a real investigation takes real people.

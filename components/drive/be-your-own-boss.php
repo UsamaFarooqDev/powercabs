@@ -54,7 +54,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
 }
 ?>
 <!-- ============ Be Your Real Boss ============ -->
-<section class="tw-relative tw-overflow-hidden tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-20 lg:tw-px-8">
+<section class="<?= $pcSurfaceSoft ?> tw-relative tw-overflow-hidden tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-20 lg:tw-px-8">
   <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.3),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
   <span class="tw-pointer-events-none tw-absolute tw-bottom-20 tw-left-[-9rem] tw-h-80 tw-w-80 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(68,91,138,0.32),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
 

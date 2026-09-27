@@ -85,12 +85,14 @@ require __DIR__ . '/includes/header.php';
 // this line was already on the page as the how-it-works heading, which is
 // the wrong place for the single sentence a B2B visitor should read first.
 // how-it-works now has a heading about the steps themselves.
-$heroEyebrow = '/ Business';
-$heroTitleLight = 'Business travel,';
-$heroTitleBold = 'without the admin headache.';
+$heroEyebrow = 'Business';
+$heroTitleLight = 'Move your people.';
+$heroTitleBold = 'Not your paperwork.';
 $heroDescription =
   'One account for your whole team, one monthly invoice, and full visibility of every journey booked.';
 $heroBgImage = $assetPath . 'assets/img/services-corporate.jpg';
+$heroVariant = 'split';
+$heroImageAlt = 'Colleagues travelling together in the back of a taxi';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -209,6 +211,7 @@ $supportWhatsapp = 'https://wa.me/353899586092';
 require __DIR__ . '/components/shared/support-band.php';
 
 require __DIR__ . '/components/business/trust-proof.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 // Replaces components/business/final-cta.php, which was a page-local copy of
@@ -217,6 +220,20 @@ $ctaTitle = 'Open a business account.';
 $ctaText = 'One account, one invoice, and a team in Dublin that answers the phone.';
 $ctaPrimary = ['href' => '/business#bizAccountForm', 'label' => 'Request an Account'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Sales'];
+
+/* Restructured from copy already on this page -- see
+   components/shared/faq-accordion.php on why answers may not be invented. */
+$faqItems = [
+  ['q' => 'How does billing work?', 'a' => 'Keep every business journey on one consolidated invoice, with no hidden charges.'],
+  ['q' => 'Can I see what the team is spending?', 'a' => 'See journeys, spend and activity across your whole organisation as it happens.'],
+  ['q' => 'Can more than one person book?', 'a' => 'Yes — multiple users can book against the same business account.'],
+  ['q' => 'Is there support for business accounts?', 'a' => 'Corporate support is part of the account, alongside priority booking and ride history.'],
+];
+$faqEyebrow = 'Business travel';
+$faqHeading = 'Business questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
 ?>
 

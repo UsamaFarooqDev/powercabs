@@ -56,12 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Made Your Day?';
+$heroEyebrow = 'Made Your Day?';
 $heroTitleLight = 'Share A';
 $heroTitleBold = 'Great Experience.';
 $heroDescription =
   "Great service deserves a shout-out. Tell us what stood out and we'll make sure the right people hear about it.";
 $heroBgImage = 'https://images.pexels.com/photos/5955023/pexels-photo-5955023.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -197,6 +198,7 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
 </section>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

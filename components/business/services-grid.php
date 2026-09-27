@@ -28,11 +28,11 @@ function pc_biz_service_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-py-16 md:tw-py-24">
+<section class="<?= $pcSurfaceSoft ?> tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ What We Cover</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Everything Your Business Needs</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What We Cover</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Everything Your Business Needs</h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-6 lg:tw-grid-cols-2">

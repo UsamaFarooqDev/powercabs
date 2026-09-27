@@ -158,7 +158,7 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Airport Service';
+$heroEyebrow = 'Airport Service';
 $heroTitleLight = 'Meet &';
 $heroTitleBold = 'Greet.';
 $heroDescription =
@@ -166,6 +166,7 @@ $heroDescription =
 $heroBgImage =
   'https://images.pexels.com/photos/69121/passenger-traffic-airline-aviation-air-transportation-69121.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Meet & Greet';
+$heroVariant = 'image';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $meetGreetServices = [
@@ -575,16 +576,24 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 </script>
 
 <!-- ============ Our Meet & Greet Services ============ -->
-<section class="tw-bg-white <?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ What's Included</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Our Meet &amp; Greet Services</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What's Included</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Our Meet &amp; Greet Services</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-3">
+    <?php /* Six plain columns, not six shadowed cards.
+             This was §44 almost word for word -- icon, title, paragraph,
+             repeated six times, each in a rounded box with its own drop
+             shadow. Nothing in the list is selectable or comparable, so the
+             boxes were pure boundary with nothing to bound, and six stacked
+             shadows is what made this section read as heavier than the
+             booking form above it. Same six icons, titles and descriptions;
+             the gap between columns now does the separating (§28). */ ?>
+    <div class="tw-grid tw-grid-cols-1 tw-gap-x-10 tw-gap-y-10 sm:tw-grid-cols-2 lg:tw-grid-cols-3">
       <?php foreach ($meetGreetServices as $s): ?>
-        <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-          <span class="tw-mb-3 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-xl tw-bg-[#fbe6d4] tw-text-power">
+        <div class="<?= $pcFeature ?>">
+          <span class="<?= $pcFeatureIcon ?>">
             <?php switch ($s['icon']): case 'badge': ?>
                 <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
               <?php break;case 'bag': ?>
@@ -599,8 +608,10 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                 <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               <?php break;endswitch; ?>
           </span>
-          <h3 class="tw-mb-2 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($s['title']) ?></h3>
-          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($s['desc']) ?></p>
+          <div>
+            <h3 class="<?= $pcH4 ?>"><?= htmlspecialchars($s['title']) ?></h3>
+            <p class="<?= $pcBody ?> tw-mb-0"><?= htmlspecialchars($s['desc']) ?></p>
+          </div>
         </div>
       <?php endforeach; ?>
     </div>
@@ -625,116 +636,43 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
   __DIR__ . '/assets/js/components/meet-greet-map.js',
 ) ?>"></script>
 
-<!-- ============ Flight Path Scroll Animation ============ -->
-<section class="tw-relative tw-min-h-[560px] tw-overflow-hidden tw-h-[90vh] tw-bg-[linear-gradient(180deg,#0c1b2e_0%,#17395c_28%,#3f7cb0_55%,#bfe2f9_78%,#ffffff_100%)]" id="pcFlightBanner">
-  <img src="<?= $assetPath ?>assets/img/plane.avif" alt="" aria-hidden="true"
-    class="tw-pointer-events-none tw-absolute tw-left-0 tw-top-1/2 tw-z-0 tw-w-[clamp(320px,48vw,680px)] tw-origin-center [transform:translate3d(-15%,-50%,0)] tw-will-change-transform tw-drop-shadow-[0_14px_24px_rgba(0,0,0,0.35)]"
-    id="pcFlightPlane">
-  <img src="<?= $assetPath ?>assets/img/clouds.avif" alt="" aria-hidden="true"
-    class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-[1] tw-h-full tw-w-full tw-object-cover tw-will-change-transform [-webkit-mask-image:linear-gradient(180deg,#000_0%,#000_65%,transparent_92%)] [mask-image:linear-gradient(180deg,#000_0%,#000_65%,transparent_92%)]"
-    id="pcFlightCloudsFront" loading="lazy">
+<?php
+/* ============ Flight Path Scroll Animation ============
+ *
+ * This banner was ~110 lines of bespoke markup and inline <script> on this one
+ * page. It now runs on components/shared/scroll-scene.php, which /drive and
+ * /lost-item-report also use -- one implementation of the rAF loop, the
+ * IntersectionObserver and the reduced-motion bail-out instead of three.
+ *
+ * Two bugs were fixed by the move, both invisible on a hard load:
+ *
+ *  - The inline script added window scroll and resize listeners and never
+ *    removed them. PJAX re-executes scripts inside <main>, so every visit to
+ *    this page left another pair running -- against a section that had already
+ *    been swapped out. The shared module binds those listeners once.
+ *  - The section was h-[90vh] with min-h-[560px]. On a 360x820 phone that is
+ *    738px of decoration, and it made the section's height depend on whether
+ *    the browser chrome was showing. It is a clamp now, like the other scenes.
+ *
+ * The composition, the gradient, the plane, the cloud parallax and the copy
+ * are unchanged. */
+$sceneId = 'pcFlightBanner';
+$sceneGradient = 'linear-gradient(180deg,#0c1b2e 0%,#17395c 28%,#3f7cb0 55%,#bfe2f9 78%,#ffffff 100%)';
+$sceneSubjectSize = 'tw-w-[clamp(280px,44vw,620px)]';
+$sceneSubject =
+  '<img src="' . $assetPath . 'assets/img/plane.avif" alt="" aria-hidden="true"' .
+  ' class="tw-h-auto tw-w-full tw-drop-shadow-[0_14px_24px_rgba(0,0,0,0.35)]" loading="lazy">';
+$sceneOverlay =
+  '<img src="' . $assetPath . 'assets/img/clouds.avif" alt="" aria-hidden="true"' .
+  ' class="tw-h-full tw-w-full tw-object-cover [-webkit-mask-image:linear-gradient(180deg,#000_0%,#000_65%,transparent_92%)] [mask-image:linear-gradient(180deg,#000_0%,#000_65%,transparent_92%)]" loading="lazy">';
+$sceneTitle = 'Meet & Greet, Made Easy';
+$sceneText = 'From arrival to destination, PowerCabs makes every journey simple.';
+require __DIR__ . '/components/shared/scroll-scene.php';
+?>
+<script src="<?= $assetPath ?>assets/js/components/scroll-scene.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/scroll-scene.js',
+) ?>"></script>
 
-  <div class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-[2] tw-py-6 tw-text-center">
-    <div class="<?= $pcContainer ?>">
-      <h2 class="<?= $pcH2Small ?>">Meet &amp; Greet, Made Easy</h2>
-      <p class="tw-mb-0 tw-text-[1.0625rem] tw-text-ink/60">From arrival to destination, PowerCabs makes every journey simple.</p>
-    </div>
-  </div>
-</section>
-
-<script>
-  (function () {
-    var section = document.getElementById('pcFlightBanner');
-    var plane = document.getElementById('pcFlightPlane');
-    var cloudsFront = document.getElementById('pcFlightCloudsFront');
-    if (!section || !plane) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var keyframes = [
-      [0, -15],
-      [0.25, 10],
-      [0.5, 40],
-      [0.75, 70],
-      [1, 115]
-    ];
-
-    function progressToPercent(progress) {
-      for (var i = 0; i < keyframes.length - 1; i++) {
-        var a = keyframes[i], b = keyframes[i + 1];
-        if (progress >= a[0] && progress <= b[0]) {
-          var t = (progress - a[0]) / (b[0] - a[0]);
-          return a[1] + (b[1] - a[1]) * t;
-        }
-      }
-      return keyframes[keyframes.length - 1][1];
-    }
-
-    var isVisible = false;
-    var rafId = null;
-    var targetPlaneX = 0;
-    var currentPlaneX = 0;
-    var currentCloudX = 0;
-    var initialised = false;
-    var EASE = 0.09;
-    var CLOUD_PARALLAX_RATIO = -0.12;
-
-    function computeTarget() {
-      var rect = section.getBoundingClientRect();
-      var viewportH = window.innerHeight || document.documentElement.clientHeight;
-      var progress = (viewportH - rect.top) / (rect.height + viewportH);
-      progress = Math.max(0, Math.min(1, progress));
-
-      var percent = progressToPercent(progress);
-      targetPlaneX = rect.width * (percent / 100);
-
-      if (!initialised) {
-        currentPlaneX = targetPlaneX;
-        currentCloudX = targetPlaneX * CLOUD_PARALLAX_RATIO;
-        initialised = true;
-      }
-    }
-
-    function tick() {
-      rafId = null;
-      if (!isVisible) return;
-
-      currentPlaneX += (targetPlaneX - currentPlaneX) * EASE;
-      var targetCloudX = targetPlaneX * CLOUD_PARALLAX_RATIO;
-      currentCloudX += (targetCloudX - currentCloudX) * EASE;
-
-      plane.style.transform = 'translate3d(' + currentPlaneX + 'px, -50%, 0)';
-      if (cloudsFront) {
-        cloudsFront.style.transform = 'translate3d(' + currentCloudX + 'px, 0, 0)';
-      }
-
-      rafId = requestAnimationFrame(tick);
-    }
-
-    function onScroll() {
-      computeTarget();
-      if (isVisible && rafId === null) {
-        rafId = requestAnimationFrame(tick);
-      }
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        isVisible = entry.isIntersecting;
-        if (isVisible) {
-          computeTarget();
-          if (rafId === null) rafId = requestAnimationFrame(tick);
-        } else if (rafId !== null) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-      });
-    }, { threshold: 0 });
-
-    observer.observe(section);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-  })();
-</script>
 
 <?php /* A 520px-tall full-bleed photo banner sat here carrying exactly one
          sentence -- "From the terminal to the car, we've got your bags
@@ -751,7 +689,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                repeated "your arrival is smooth" statements. This section holds
                the reasons to choose PowerCabs and the four booking steps, so
                the heading names that rather than restating the pitch again. */ ?>
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-leading-[1.08] tw-tracking-tight tw-text-ink md:tw-text-4xl">
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">
         Why travellers <span class="tw-text-power">choose PowerCabs.</span>
       </h2>
       <p class="tw-mb-0 tw-text-ink/60">
@@ -768,7 +706,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
           </div>
           <div>
-            <div class="tw-mb-1 tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">Why Choose Us</div>
+            <div class="<?= pc_mb($pcEyebrow, 'tw-mb-1') ?>">Why Choose Us</div>
             <h3 class="tw-mb-0 tw-text-[clamp(1.45rem,2vw,1.9rem)] tw-font-bold tw-leading-[1.15] tw-tracking-tight tw-text-ink">More than just an airport transfer.</h3>
           </div>
         </div>
@@ -814,7 +752,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18M6 3l6 3-6 3m0 6l6 3-6 3M18 3v18M18 9l-6 3 6 3"/></svg>
           </div>
           <div>
-            <div class="tw-mb-1 tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">How It Works</div>
+            <div class="<?= pc_mb($pcEyebrow, 'tw-mb-1') ?>">How It Works</div>
             <h3 class="tw-mb-0 tw-text-[clamp(1.45rem,2vw,1.9rem)] tw-font-bold tw-leading-[1.15] tw-tracking-tight tw-text-ink">Booked in four simple steps.</h3>
           </div>
         </div>
@@ -875,6 +813,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 </section>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 /* Replaces a hand-rolled closing CTA that duplicated the shared block's
@@ -887,6 +826,20 @@ $ctaText = 'Flight tracked, driver waiting inside arrivals, fare fixed before yo
 // pre-escaped entity here would render as "&amp;".
 $ctaPrimary = ['href' => '/meet-greet#pcMeetGreetBook', 'label' => 'Book Meet & Greet'];
 $ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
+
+/* Restructured from copy already on this page -- see
+   components/shared/faq-accordion.php on why answers may not be invented. */
+$faqItems = [
+  ['q' => 'Where will my driver meet me?', 'a' => 'Your driver waits inside the arrivals terminal with a personalised name board.'],
+  ['q' => 'Will I get help with my luggage?', 'a' => 'Yes — professional assistance with luggage from the terminal to the vehicle.'],
+  ['q' => 'Do you track my flight?', 'a' => 'Enter your flight details when booking and your pickup is matched to the flight, so a delay does not cost you your driver.'],
+  ['q' => 'Can you take a family with extra luggage?', 'a' => 'Yes — spacious vehicles are available for families with children and extra luggage.'],
+];
+$faqEyebrow = 'Airport transfers';
+$faqHeading = 'Meet & greet questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
 
 require __DIR__ . '/includes/footer.php';

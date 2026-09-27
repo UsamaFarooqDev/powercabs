@@ -11,7 +11,7 @@ $familyPoints = [
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
 
       <div class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-p-6 lg:tw-p-9">
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ The PowerCabs Family</p>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">The PowerCabs Family</p>
         <h2 class="<?= $pcH2 ?>">
           When you're on the road, you shouldn't feel alone.
         </h2>
@@ -33,7 +33,7 @@ $familyPoints = [
       </div>
 
       <div class="tw-flex tw-h-full tw-flex-col tw-justify-center tw-rounded-2xl tw-bg-powerlight tw-p-6 lg:tw-p-9">
-        <p class="tw-mb-2 tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-ink">/ Keep Your Options Open</p>
+        <p class="tw-mb-2 tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-ink">Keep Your Options Open</p>
         <h2 class="<?= $pcH2 ?>">
           Don't burn your bridges.
         </h2>

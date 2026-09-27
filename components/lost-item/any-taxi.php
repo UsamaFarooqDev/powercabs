@@ -22,7 +22,7 @@ $lostItemJourneys = [
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-9 tw-max-w-[54ch] tw-text-center">
-      <p class="<?= $pcEyebrowOnDark ?>">/ You do not have to be a PowerCabs passenger</p>
+      <p class="<?= $pcEyebrowOnDark ?>">You do not have to be a PowerCabs passenger</p>
       <h2 class="<?= $pcH2OnDark ?>">If it was a taxi, we&rsquo;ll try to help.</h2>
       <p class="tw-mb-0 <?= $pcBodyOnDark ?>">
         Your journey may have been booked through another platform, taken with

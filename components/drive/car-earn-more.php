@@ -21,10 +21,10 @@ $carEarnCards = [
   ],
 ]; ?>
 <!-- ============ Your Car Can Earn More ============ -->
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Your Car Can Earn More</p>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Your Car Can Earn More</p>
       <h2 class="<?= $pcH2Display ?>">Drive. Advertise. <span class="tw-text-power">Earn.</span></h2>
     </div>
 

@@ -115,12 +115,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Book Online';
+$heroEyebrow = 'Book Online';
 $heroTitleLight = 'Book Ride';
 $heroTitleBold = 'Online.';
 $heroDescription =
   'Booking a ride with PowerCabs is now easier than ever. Use our simple and efficient online booking system to schedule your next trip in just a few steps.';
 $heroBgImage = 'https://images.pexels.com/photos/6945640/pexels-photo-6945640.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A passenger booking a ride on the PowerCabs app';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -128,7 +130,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Booking in Four Simple Steps</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Booking in Four Simple Steps</h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">

@@ -13,7 +13,7 @@ $rowCount = count($compareRows);
 <section class="tw-bg-paper-soft <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
-      <p class="<?= $pcEyebrow ?>">/ Compare the Model</p>
+      <p class="<?= $pcEyebrow ?>">Compare the Model</p>
       <h2 class="<?= $pcH2Display ?>">
         Look beyond the headline commission
       </h2>

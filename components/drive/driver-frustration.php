@@ -29,7 +29,7 @@ function pc_frustration_icon(string $icon): void
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ The Driver Frustration</p>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">The Driver Frustration</p>
         <h2 class="<?= $pcH2 ?>">Tired of Saver fares?</h2>
         <p class="tw-mb-6 tw-text-[1.05rem] tw-leading-[1.7] tw-text-ink/60">
           You're still paying the same fuel, insurance, maintenance and time --

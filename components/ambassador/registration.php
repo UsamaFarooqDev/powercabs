@@ -36,7 +36,7 @@ $submitClass = $pcBtnPrimary;
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Join the Programme</p>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Join the Programme</p>
         <h2 class="<?= $pcH2 ?>">Ready to Represent PowerCabs?</h2>
         <p class="tw-mb-8 tw-max-w-[42ch] tw-text-[1.1rem] tw-text-ink/60">
           Registration takes a couple of minutes. Our Ambassador team reviews

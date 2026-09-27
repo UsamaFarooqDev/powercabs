@@ -70,11 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Business';
+$heroEyebrow     = 'Business';
 $heroTitleLight  = 'Partner';
 $heroTitleBold   = 'Programme.';
 $heroDescription = 'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
 $heroBgImage     = 'https://images.pexels.com/photos/7643784/pexels-photo-7643784.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'Two colleagues shaking hands over a signed agreement';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 require __DIR__ . '/components/partner/hero.php';

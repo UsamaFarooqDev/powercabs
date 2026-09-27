@@ -37,7 +37,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-powerlight">/ For Businesses</p>
+        <p class="<?= pc_mb($pcEyebrowOnDark, 'tw-mb-2') ?>">For Businesses</p>
         <h2 class="<?= $pcH2Display ?> tw-text-white">Put Your Fleet to Work on the PowerCabs Network.</h2>
         <p class="tw-mb-8 tw-max-w-[48ch] tw-text-[1.05rem] tw-text-white/[0.78]">
           Reach more passengers across a growing booking network without

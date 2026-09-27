@@ -24,31 +24,38 @@ $ctaPrimary ??= ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
 $ctaSecondary ??= ['href' => '/contact-us', 'label' => 'Talk to Us'];
 ?>
 <!-- ============ Final CTA ============ -->
-<!-- Dark, because this is the page's punctuation mark and the surface change
-     is what makes it read as an ending rather than one more section. The
-     footer below is also dark, so the two meet without a seam -- deliberate:
-     the CTA reads as the top of the closing block. -->
-<!-- tw-bg-ink here, and the footer below sits on the darker tw-bg-ink-soft.
-     Both were tw-bg-ink, which merged the closing CTA and the whole footer
-     into one undifferentiated black slab at the foot of every page. One step
-     of tone is enough to read them as two blocks without adding a rule. -->
-<section class="<?= $pcSurfaceDark ?> <?= $pcSection ?>">
+<?php /* LIGHT, not dark. This was tw-bg-ink on every page that uses it, which
+         put a black slab directly above a black footer -- and on the ten pages
+         that also ran the orange app banner, the page ended orange, then
+         black, then black. §26 asks for dark to be a punctuation mark rather
+         than the default ending.
+
+         The old comment here argued the dark CTA and dark footer "meet without
+         a seam", which was true while the footer was pinned behind <main> and
+         the CTA scrolled up off it. That effect is gone (base.css), so there
+         is no seam to hide -- and a light closing block is now what separates
+         the page's last action from the footer.
+
+         The surface is the warm off-white rather than pure white so it still
+         reads as a distinct closing block on a page whose last section was
+         white, without introducing another colour. */ ?>
+<section class="<?= $pcSurfaceSoft ?> tw-border-0 tw-border-t tw-border-solid tw-border-hairline <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
 
       <div class="tw-max-w-[46ch]">
-        <h2 class="<?= $pcH2OnDark ?>"><?= htmlspecialchars($ctaTitle) ?></h2>
+        <h2 class="<?= $pcH2 ?>"><?= htmlspecialchars($ctaTitle) ?></h2>
         <?php if ($ctaText !== ''): ?>
-          <p class="tw-mb-0 <?= $pcBodyOnDark ?>"><?= htmlspecialchars($ctaText) ?></p>
+          <p class="tw-mb-0 <?= $pcBody ?>"><?= htmlspecialchars($ctaText) ?></p>
         <?php endif; ?>
       </div>
 
       <div class="tw-flex tw-flex-wrap tw-gap-3">
-        <a class="<?= $pcBtnPrimaryOnDark ?>" href="<?= $assetPath . htmlspecialchars($ctaPrimary['href']) ?>">
+        <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath . htmlspecialchars($ctaPrimary['href']) ?>">
           <?= htmlspecialchars($ctaPrimary['label']) ?>
         </a>
         <?php if (!empty($ctaSecondary)): ?>
-          <a class="<?= $pcBtnOutlineLight ?>" href="<?= $assetPath . htmlspecialchars($ctaSecondary['href']) ?>">
+          <a class="<?= $pcBtnGhost ?>" href="<?= $assetPath . htmlspecialchars($ctaSecondary['href']) ?>">
             <?= htmlspecialchars($ctaSecondary['label']) ?>
           </a>
         <?php endif; ?>

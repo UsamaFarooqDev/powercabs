@@ -20,8 +20,8 @@
 <section class="tw-bg-white tw-mt-16">
   <div class="<?= $pcContainer ?> tw-mt-16">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[62ch] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Our Partners</p>
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Trusted by Leading Irish Brands.</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Our Partners</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Trusted by Leading Irish Brands.</h2>
       <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.62]">From national retailers to healthcare, hospitality and media, <br>businesses across Ireland rely on PowerCabs to move their people and guests.</p>
     </div>
 
@@ -58,7 +58,7 @@
       <div class="tw-mb-3 tw-inline-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-[rgba(255,122,0,0.35)] tw-bg-[rgba(255,122,0,0.15)]">
         <svg class="tw-h-7 tw-w-7 tw-text-powerlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13.5l4.286 2.143M18 8.5l4.286-2.143M4.99 9.75h.512c1.14 0 2.243-.288 3.187-.858l1.812-1.088a5.25 5.25 0 012.575-.804h1.174c.53 0 .96.43.96.96v6.16c0 .53-.43.96-.96.96h-1.174a5.25 5.25 0 01-2.575-.804l-1.812-1.088a6.4 6.4 0 00-3.187-.858h-.512a1.5 1.5 0 01-1.5-1.5v-.42a1.5 1.5 0 011.5-1.5z"/></svg>
       </div>
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-powerlight">/ Partner With Us</p>
+      <p class="<?= pc_mb($pcEyebrowOnDark, 'tw-mb-2') ?>">Partner With Us</p>
       <h2 class="<?= $pcH2 ?> tw-mx-auto tw-max-w-[34ch] tw-text-white">Let Dublin Discover Your Business</h2>
       <p class="tw-mx-auto tw-mb-3 tw-max-w-[56ch] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-white/85">Partner with PowerCabs and showcase your business to our customers through our growing taxi network and digital platforms.</p>
       <p class="tw-mx-auto tw-mb-7 tw-max-w-[56ch] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-white/85">Join us today and turn every journey into an opportunity to reach new customers.</p>

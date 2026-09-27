@@ -95,8 +95,8 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
 
   <div class="tw-relative <?= $pcContainerNarrow ?>">
     <div class="tw-mb-10 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Apply Now</p>
-      <h2 class="tw-mb-2 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Apply for Your Card Terminal</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Apply Now</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-2') ?>">Apply for Your Card Terminal</h2>
       <p class="tw-mb-0 tw-text-ink/60">Submit your details and our team will get back to you shortly.</p>
     </div>
 

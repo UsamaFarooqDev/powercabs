@@ -47,8 +47,8 @@ function pc_biz_plan_icon(string $icon): void
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Business Plans</p>
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Built for Businesses of All Sizes</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Business Plans</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Built for Businesses of All Sizes</h2>
       <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-[1.05rem] tw-text-ink/60">
         From a handful of employees to a whole organisation, PowerCabs Business
         scales with your team -- these are service tiers, not price bands.

@@ -69,7 +69,7 @@ $services = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-14 tw-grid tw-grid-cols-1 tw-items-end tw-gap-8 lg:tw-mb-20 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
-        <p class="tw-mb-5 tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.18em] tw-text-power">/ Services We Offer</p>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-5') ?>">Services We Offer</p>
         <h2 class="<?= $pcH2Display ?>">Wherever you're heading</h2>
       </div>
       <div class="lg:tw-col-span-5 lg:tw-pt-10">

@@ -11,11 +11,12 @@ require __DIR__ . '/includes/header.php';
 // was the same sentiment again. This says something only PowerCabs can: where
 // it is from, who runs it, and what it is built on -- and it sets up the three
 // things the page then evidences.
-$heroEyebrow = '/ About PowerCabs Ireland';
+$heroEyebrow = 'About PowerCabs Ireland';
 $heroTitleLight = 'Built in Dublin.';
 $heroTitleBold = 'Driven by people. Powered by technology.';
 $heroDescription = 'An Irish taxi company based in Inchicore, serving the Greater Dublin Area with licensed, Garda-vetted drivers.';
 $heroBgImage = 'https://images.pexels.com/photos/36713443/pexels-photo-36713443.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'image';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -24,7 +25,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Who We Are</p>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Who We Are</p>
         <?php /* Was "Welcome to PowerCabs" over a paragraph listing safe,
                  comfortable and efficient travel, professional courteous
                  drivers, state-of-the-art vehicles and customer satisfaction
@@ -59,7 +60,7 @@ $aboutHighlights = [
   ['icon' => 'tag', 'title' => 'Competitive Rates', 'desc' => 'Easy booking, transparent and fair pricing.'],
 ];
 ?>
-<section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
+<section class="tw-relative tw-overflow-hidden <?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.06] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] md:tw-grid-cols-4 md:tw-divide-y-0">
       <?php foreach ($aboutHighlights as $item): ?>
@@ -112,6 +113,7 @@ $aboutHighlights = [
 </section>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Ride with an Irish company.';

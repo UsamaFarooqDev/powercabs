@@ -11,14 +11,14 @@ $totalBizHowSteps = count($bizHowSteps);
      view, handled below via the `[&.is-visible]:` arbitrary variant. -->
 <?php /* Background comes from the shared band in business.php -- see the
          note in airport-assistance.php. */ ?>
-<section class="tw-py-16 md:tw-py-24" id="pcBizHowItWorks">
+<section class="<?= $pcSurfaceSoft ?> tw-py-16 md:tw-py-24" id="pcBizHowItWorks">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ How It Works</p>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How It Works</p>
       <!-- "Business Travel Without the Admin Headache" was this section's
            heading and is now the page hero: it is the promise of the whole
            page, not of these three steps. This heading describes the steps. -->
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Set up in three steps.</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Set up in three steps.</h2>
     </div>
 
     <div class="tw-relative tw-grid tw-grid-cols-1 tw-gap-8 lg:tw-grid-cols-3 lg:tw-gap-4">

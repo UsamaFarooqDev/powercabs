@@ -13,9 +13,9 @@ require __DIR__ . '/includes/env.php';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Drive';
-$heroTitleLight = 'Join the';
-$heroTitleBold = 'PowerCabs Family.';
+$heroEyebrow = 'Drive';
+$heroTitleLight = 'Drive your way.';
+$heroTitleBold = 'Build your day.';
 // Was three sentences that between them named flexibility, community, safety,
 // reliability, customer service, hours, earnings and support -- every one of
 // which has its own section below, and most of which the old "Join the
@@ -25,6 +25,8 @@ $heroTitleBold = 'PowerCabs Family.';
 $heroDescription =
   'Keep more of every fare. No joining fee, no monthly subscription, and 10% commission only on the PowerCabs jobs you actually complete.';
 $heroBgImage = 'https://images.pexels.com/photos/37310371/pexels-photo-37310371.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A PowerCabs driver at the wheel of their car';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 // The numbers come FIRST, immediately under the hero -- they are the whole
@@ -65,7 +67,7 @@ require __DIR__ . '/components/drive/join-family-form.php';
         </div>
       </div>
       <div>
-        <p class="<?= $pcEyebrow ?>">/ Onboarding</p>
+        <p class="<?= $pcEyebrow ?>">Onboarding</p>
         <h2 class="<?= $pcH2 ?>">Approved and driving in days</h2>
         <p class="tw-mb-6 <?= $pcBody ?> <?= $pcMeasureTight ?>">
           Upload your PSV licence, vehicle documents and insurance in the Driver
@@ -89,6 +91,73 @@ require __DIR__ . '/components/drive/join-family-form.php';
 </div>
 
 <?php
+/* ============ Scroll Scene ============
+ *
+ * The Meet & Greet flight-banner pattern, which is the one the client picked
+ * out: a full-bleed scene, one subject crossing it as you scroll, and exactly
+ * ONE sentence. Placed here because it is the middle of the page -- the break
+ * between "what the deal is" above and "how the model compares" below.
+ *
+ * The subject is inline SVG rather than a photograph: the effect needs a
+ * subject with a transparent background that can travel across the backdrop,
+ * and every car image in assets/img is a full scene with its own sky in it.
+ * An SVG also costs no request and stays sharp at any width.
+ *
+ * The copy restates the page's published commercial promise (the hero's "no
+ * joining fee, no monthly subscription, 10% commission only on jobs you
+ * complete") rather than introducing a new one -- a scene at this size would
+ * read as a guarantee. */
+ob_start(); ?>
+<svg viewBox="0 0 640 250" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-h-auto tw-w-full tw-drop-shadow-[0_18px_28px_rgba(0,0,0,0.35)]" aria-hidden="true">
+  <!-- greenhouse -->
+  <path d="M188 128 L214 74 Q220 60 238 59 L406 59 Q424 60 434 73 L474 128 Z" fill="#1d1d1f"/>
+  <path d="M226 121 L246 80 Q249 73 258 73 L314 73 L314 121 Z" fill="#7fb3d9" opacity=".92"/>
+  <path d="M330 73 L392 73 Q401 73 406 80 L436 121 L330 121 Z" fill="#7fb3d9" opacity=".92"/>
+  <!-- roof sign -->
+  <rect x="288" y="42" width="72" height="19" rx="5" fill="#f9b016"/>
+  <text x="324" y="56" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#1d1d1f" text-anchor="middle">TAXI</text>
+  <!-- body -->
+  <path d="M36 186 L36 152 Q36 133 62 128 L188 122 L474 122 L556 137 Q604 146 604 168 L604 186 Q604 194 596 194 L44 194 Q36 194 36 186 Z" fill="#141416"/>
+  <path d="M36 168 L604 168 L604 176 L36 176 Z" fill="#000" opacity=".25"/>
+  <!-- brand stripe -->
+  <rect x="120" y="146" width="150" height="9" rx="4.5" fill="#f97316"/>
+  <!-- lamps -->
+  <rect x="580" y="144" width="26" height="13" rx="6" fill="#ffe9b0"/>
+  <rect x="34" y="146" width="20" height="11" rx="5" fill="#e0453a"/>
+  <!-- wheels -->
+  <circle cx="163" cy="190" r="46" fill="#17171a"/><circle cx="163" cy="190" r="22" fill="#b9bcc2"/><circle cx="163" cy="190" r="9" fill="#6d7077"/>
+  <circle cx="487" cy="190" r="46" fill="#17171a"/><circle cx="487" cy="190" r="22" fill="#b9bcc2"/><circle cx="487" cy="190" r="9" fill="#6d7077"/>
+</svg>
+<?php $sceneSubject = ob_get_clean();
+
+/* The road is a fixed-height strip at the BOTTOM of the scene, and both the
+   car and the copy are positioned against it: the car stands on it, the copy
+   sits above it on the light end of the gradient. The first draft centred the
+   car and pinned the copy to the very bottom, so the car drove through the
+   headline and the headline's ink text landed on the dark tarmac. */
+ob_start(); ?>
+<div class="tw-relative tw-h-[86px] tw-w-full tw-bg-[#26262b]">
+  <div class="tw-absolute tw-inset-x-0 tw-top-[40px] tw-h-[4px] tw-bg-[repeating-linear-gradient(90deg,rgba(255,255,255,0.5)_0_48px,transparent_48px_112px)]"></div>
+</div>
+<?php $sceneGround = ob_get_clean();
+
+$sceneId = 'pcDriveScene';
+$sceneGradient = 'linear-gradient(180deg,#10131c 0%,#2b2338 22%,#7a4a3a 44%,#e08a42 62%,#f7cf98 78%,#fbf8f4 92%,#fbf8f4 100%)';
+$sceneSubjectSize = 'tw-w-[clamp(200px,32vw,430px)]';
+$sceneSubjectPos = 'tw-bottom-[64px]'; // wheels just onto the tarmac
+$sceneAnchor = '0';
+$sceneCopyPos = 'top'; // the car owns the bottom band; the copy owns the sky
+$sceneTone = 'dark'; // white type on the night end of the gradient
+$sceneHeight = 'tw-h-[clamp(420px,46vw,560px)]';
+$sceneTitle = 'Drive with PowerCabs.';
+$sceneText = 'No joining fee, no monthly subscription — and commission only on the jobs you actually complete.';
+require __DIR__ . '/components/shared/scroll-scene.php';
+?>
+<script src="<?= $assetPath ?>assets/js/components/scroll-scene.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/scroll-scene.js',
+) ?>"></script>
+<?php
+
 require __DIR__ . '/components/drive/compare-model.php';
 require __DIR__ . '/components/drive/preferences.php';
 require __DIR__ . '/components/drive/car-earn-more.php';
@@ -140,6 +209,7 @@ require __DIR__ . '/components/drive/drive-faq.php';
 </section>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Start earning on better terms.';

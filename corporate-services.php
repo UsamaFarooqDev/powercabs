@@ -60,11 +60,13 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Corporate Services';
+$heroEyebrow     = 'Corporate Services';
 $heroTitleLight  = 'Corporate Services with';
 $heroTitleBold   = 'PowerCabs.';
 $heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 -- built around your company's schedule, not the other way around.";
 $heroBgImage     = 'https://images.pexels.com/photos/8425382/pexels-photo-8425382.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A business traveller stepping into a waiting car';
 require __DIR__ . '/components/shared/inner-hero.php';
 require __DIR__ . '/components/corporate/why-businesses.php';
 ?>
@@ -80,7 +82,7 @@ $corporateServices = [
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Services Overview</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Services Overview</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
       <?php foreach ($corporateServices as $service): ?>
@@ -114,7 +116,7 @@ $corporateServices = [
   <img src="https://images.pexels.com/photos/9520551/pexels-photo-9520551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
   <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.72)]" aria-hidden="true"></span>
   <div class="tw-relative <?= $pcContainer ?>">
-    <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight">/ Our Mission</p>
+    <p class="<?= $pcEyebrowOnDark ?>">Our Mission</p>
     <p class="tw-mx-auto tw-mb-0 tw-max-w-[60ch] tw-text-2xl tw-text-white/85">
       To deliver consistent, memorable corporate travel experiences -- so every client,
       colleague, and guest arrives exactly as your business intends them to: on time,
@@ -127,6 +129,20 @@ $corporateServices = [
 
 <?php
 // require __DIR__ . '/components/corporate/account-form.php';
+
+/* Restructured from copy already on this page -- see
+   components/shared/faq-accordion.php on why answers may not be invented. */
+$faqItems = [
+  ['q' => 'How does billing work?', 'a' => 'One account for every journey your team takes, invoiced monthly instead of a month of individual receipts.'],
+  ['q' => 'Can several people book on the account?', 'a' => 'Yes — multiple users can book against a single business account.'],
+  ['q' => 'Can we see what was spent?', 'a' => 'Ride history and reporting are available whenever you need them.'],
+  ['q' => 'Is there dedicated support?', 'a' => 'Corporate accounts have a dedicated support contact rather than the general queue.'],
+];
+$faqEyebrow = 'Corporate travel';
+$faqHeading = 'Account questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

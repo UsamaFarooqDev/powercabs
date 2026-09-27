@@ -11,7 +11,7 @@
 <!-- ============ Lost item: from lost to found ============ -->
 <section class="<?= $pcSurfacePaper ?> <?= $pcSection ?>">
   <div class="<?= $pcContainerNarrow ?>">
-    <p class="<?= $pcEyebrow ?> tw-text-center">/ From lost to found</p>
+    <p class="<?= $pcEyebrow ?> tw-text-center">From lost to found</p>
     <h2 class="<?= $pcH2 ?> tw-text-center">
       One investigation can turn <span class="tw-text-power">&ldquo;I&rsquo;ve lost it&rdquo;</span> into
       <span class="tw-text-power">&ldquo;I&rsquo;ve got it back.&rdquo;</span>

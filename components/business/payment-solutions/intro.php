@@ -24,7 +24,7 @@ $paymentChecklist = [
       </div>
 
       <div class="tw-order-1 lg:tw-order-2">
-        <h2 class="tw-mb-4 tw-text-3xl tw-font-extrabold tw-leading-[1.15] tw-tracking-tight tw-text-ink md:tw-text-4xl">
+        <h2 class="<?= $pcH2 ?>">
           Accept Payments
           <span class="tw-text-power">With Confidence</span>
         </h2>

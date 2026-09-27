@@ -149,15 +149,17 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Ride';
-$heroTitleLight  = 'Seamless and';
-$heroTitleBold   = 'Comfortable Rides.';
+$heroEyebrow     = 'Ride';
+$heroTitleLight  = 'Your ride.';
+$heroTitleBold   = 'Your way.';
 // Trimmed from the four-sentence version: the hero's job is to say what the
 // page is, not to pre-empt every section under it. Booking, safety, pricing
 // and 24/7 availability each have their own section below and were all named
 // here as well.
 $heroDescription = 'Licensed, Garda-vetted drivers across Dublin. See your fare before you book, and pay exactly what you were quoted.';
 $heroBgImage     = 'https://images.pexels.com/photos/1399282/pexels-photo-1399282.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A PowerCabs taxi on a Dublin street at dusk';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 // Order follows the page's job: quote a fare -> show what you can book ->
@@ -195,6 +197,7 @@ $supportWhatsapp = 'https://wa.me/353899728089';
 require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/ride/ride-faq.php';
 
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Know your fare before you book.';

@@ -6,12 +6,14 @@ $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Drivers';
+$heroEyebrow = 'Drivers';
 $heroTitleLight = 'Loyalty';
 $heroTitleBold = 'Program.';
 $heroDescription =
   'Rewarding your commitment and hard work -- PowerCabs rewards drivers for their dedication through a points-based loyalty program.';
 $heroBgImage = 'https://images.pexels.com/photos/35119581/pexels-photo-35119581.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A passenger checking their phone in the back of a taxi';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $howItWorks = [
@@ -184,7 +186,7 @@ function pc_render_loyalty_timeline(array $items): void
            directly -- an h1 -> h3 skip, and a section a screen-reader user
            could not identify. -->
       <div class="<?= $pcSectionHeadCenter ?>">
-        <p class="<?= $pcEyebrow ?>">/ How It Works</p>
+        <p class="<?= $pcEyebrow ?>">How It Works</p>
         <h2 class="<?= $pcH2 ?>">Four steps to your first reward</h2>
       </div>
 
@@ -205,8 +207,8 @@ function pc_render_loyalty_timeline(array $items): void
 <section class="tw-bg-paper tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Membership Levels</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Drive More, Earn More</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Membership Levels</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Drive More, Earn More</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-items-start tw-gap-8 md:tw-grid-cols-3 md:tw-gap-6">
       <?php foreach ($tiers as $tier):
@@ -303,8 +305,8 @@ function pc_render_loyalty_timeline(array $items): void
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Why It Works</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Loyalty That Actually Pays Off</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why It Works</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Loyalty That Actually Pays Off</h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-2 tw-gap-5 [grid-auto-rows:minmax(150px,auto)] md:tw-grid-cols-4">
@@ -342,6 +344,7 @@ function pc_render_loyalty_timeline(array $items): void
          note on $eligibilityNote above for why it went. */ ?>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Start earning points on your next trip.';

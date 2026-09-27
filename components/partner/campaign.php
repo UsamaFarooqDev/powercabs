@@ -32,7 +32,7 @@ function pc_ptn_join_icon(string $icon): void
 ?>
 <section class="tw-scroll-mt-24 <?= $pcSection ?>" id="pcPtnCampaign">
   <div class="<?= $pcContainer ?>">
-    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Partner Programme</p>
+    <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Partner Programme</p>
     <h2 class="<?= $pcH2Display ?>">More miles. More visibility.</h2>
     <p class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
       Join the network, follow a simple set of steps to get onboarded, and start

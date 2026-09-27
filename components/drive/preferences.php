@@ -1,7 +1,7 @@
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
-      <h2 class="tw-mb-2 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">You're In Control</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-2') ?>">You're In Control</h2>
       <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-ink/60">Turn preferences on or off in the Driver App and only receive the bookings that suit you.</p>
     </div>
 
@@ -42,11 +42,18 @@
     ];
     ?>
 
-    <!-- flex-wrap + justify-center (not a 4-col grid) so the 2 leftover
-         cards in row two sit centered instead of stranded on the left. -->
-    <div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-4">
+    <!-- Three up from md, so six items are always 3+3 (and 2+2+2 on a phone).
+         This was four up at lg, which left the last two centred under a row of
+         four -- a deliberate fix for a ragged row, but §35 reads a short
+         centred last row as accidental either way. Six divides by two and by
+         three, so choosing those column counts removes the problem rather than
+         centring it.
+
+         A real grid, not flex-wrap + width calcs: with even rows there is no
+         orphan left to centre, which was the only thing flex was buying. -->
+    <div class="tw-grid tw-grid-cols-2 tw-gap-4 md:tw-grid-cols-3">
       <?php foreach ($driverPreferences as $pref): ?>
-        <div class="tw-group tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-block tw-aspect-[6/5] tw-w-[calc(50%-0.5rem)] tw-overflow-hidden tw-rounded-2xl md:tw-w-[calc(33.333%-0.667rem)] lg:tw-w-[calc(25%-0.75rem)]">
+        <div class="tw-group tw-border tw-border-solid tw-border-hairline tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-block tw-aspect-[6/5] tw-overflow-hidden tw-rounded-2xl">
           <img src="<?= htmlspecialchars($pref['img']) ?>" alt="<?= htmlspecialchars(
             $pref['title'],
           ) ?>" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">

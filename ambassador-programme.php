@@ -50,11 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Drivers';
+$heroEyebrow     = 'Drivers';
 $heroTitleLight  = 'Become a PowerCabs';
 $heroTitleBold   = 'Ambassador.';
 $heroDescription = "Earn More. Spend Less. Be Valued. Join Ireland's most driver-focused ride platform.";
 $heroBgImage     = 'https://images.pexels.com/photos/16702626/pexels-photo-16702626.jpeg?auto=compress&cs=tinysrgb&w=1600';
+$heroVariant = 'split';
+$heroImageAlt = 'A PowerCabs driver talking with a colleague beside their car';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 /* ONE gradient across both sections, declared here rather than twice inside
@@ -80,6 +82,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ) ?>"></script>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Represent PowerCabs on the road.';

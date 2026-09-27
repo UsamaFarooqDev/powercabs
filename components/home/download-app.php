@@ -1,8 +1,8 @@
-<section class="tw-relative tw-z-[2] tw-mt-[clamp(-40px,-7vw,-60px)] tw-bg-[linear-gradient(90deg,#feab38_0%,#fb9e24_25%,#f58220_65%,#e86a00_100%)] tw-py-16 tw-text-ink [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_100%,0_100%)] md:tw-mt-[clamp(-145px,-4vw,-195px)] md:tw-py-[120px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_100%,0_100%)]">
+<section class="tw-relative tw-z-[2] tw-mt-[clamp(-40px,-7vw,-60px)] tw-bg-[linear-gradient(90deg,#fdb071_0%,#fb9748_25%,#f97316_65%,#d85f0b_100%)] tw-py-16 tw-text-ink [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_100%,0_100%)] md:tw-mt-[clamp(-145px,-4vw,-195px)] md:tw-py-[120px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_100%,0_100%)]">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
-        <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Download the PowerCabs App for Instant Access</h2>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Download the PowerCabs App for Instant Access</h2>
         <p class="tw-mb-4 tw-max-w-[46ch] tw-text-[1.1rem] tw-text-ink/70">
           Booking a cab with PowerCabs is now easier than ever. Download our app today
           from the App Store or Google Play and enjoy the convenience of booking a cab
@@ -55,7 +55,7 @@
         $mockupFloatCards = function () {
           ?>
           <!-- Live Tracking card -->
-          <div class="tw-absolute tw-left-[-8%] tw-top-[26%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-bg-white/[0.92] tw-p-2 tw-shadow-[0_24px_48px_rgba(232,89,12,0.14)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.2s] motion-reduce:tw-animate-none">
+          <div class="tw-absolute tw-left-[-8%] tw-top-[26%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-bg-white/[0.92] tw-p-2 tw-shadow-[0_24px_48px_rgba(249,115,22,0.16)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.2s] motion-reduce:tw-animate-none">
             <div class="tw-relative tw-flex tw-h-[38px] tw-w-[38px] tw-shrink-0 tw-items-center tw-justify-center">
               <!-- <span class="tw-absolute tw-inset-0 tw-rounded-full tw-bg-power tw-animate-ping"></span> -->
               <span class="tw-relative tw-flex tw-h-[30px] tw-w-[30px] tw-items-center tw-justify-center tw-rounded-full tw-bg-power tw-text-white">
@@ -81,7 +81,7 @@
           </div>
 
           <!-- Secure Payments card -->
-          <div class="tw-absolute tw-bottom-[27%] tw-right-[-10%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-bg-white/[0.92] tw-p-3 tw-shadow-[0_24px_48px_rgba(232,89,12,0.14)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.9s] motion-reduce:tw-animate-none">
+          <div class="tw-absolute tw-bottom-[27%] tw-right-[-10%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-bg-white/[0.92] tw-p-3 tw-shadow-[0_24px_48px_rgba(249,115,22,0.16)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.9s] motion-reduce:tw-animate-none">
             <div class="tw-flex tw-h-[38px] tw-w-[38px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(25,135,84,0.12)]">
               <svg class="tw-h-[1.05rem] tw-w-[1.05rem] tw-text-[#198754]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
             </div>

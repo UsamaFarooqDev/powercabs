@@ -52,7 +52,7 @@ $supportTelHref = preg_replace('/[^0-9+]/', '', $supportTel);
 
       <div>
         <p class="<?= $pcEyebrowOnDark ?>">/ <?= htmlspecialchars($supportEyebrow) ?></p>
-        <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-white md:tw-text-4xl">
+        <h2 class="<?= pc_mb($pcH2OnDark, 'tw-mb-3') ?>">
           <?= htmlspecialchars($supportHeading) ?>
         </h2>
         <p class="tw-mb-0 tw-max-w-[46ch] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-white/[0.68]">

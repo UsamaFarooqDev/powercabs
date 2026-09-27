@@ -23,14 +23,38 @@
  * stays traceable.
  */
 
+/**
+ * Swap the margin baked into a recipe.
+ *
+ * Appending a margin to a recipe does NOT reliably override it: Tailwind emits
+ * margin utilities sorted by value, so `<?= $pcH2 ?> tw-mb-0` loses -- mb-0 is
+ * written to the stylesheet BEFORE mb-4, and the later rule wins regardless of
+ * the order the classes appear in the attribute. `tw-mb-6` happens to work and
+ * `tw-mb-0` silently does not, which is the worst kind of inconsistency.
+ *
+ * Use this instead:  <?= pc_mb($pcH2, 'tw-mb-0') ?>
+ */
+function pc_mb(string $recipe, string $margin): string
+{
+  return preg_replace('/\btw-mb-[\d.]+\b/', $margin, $recipe, 1);
+}
+
 /* ── Containers ─────────────────────────────────────────────────────────
    One horizontal rhythm for the whole site. Every major section uses
    $pcContainer so left/right alignment matches from page to page; the two
    narrower variants exist for measure-limited content, not for a different
-   page width -- they keep the SAME padding scale so edges still line up. */
-$pcContainer = 'tw-mx-auto tw-w-full tw-max-w-[1320px] tw-px-4 sm:tw-px-6 lg:tw-px-8';
-$pcContainerNarrow = 'tw-mx-auto tw-w-full tw-max-w-[860px] tw-px-4 sm:tw-px-6 lg:tw-px-8';
-$pcContainerProse = 'tw-mx-auto tw-w-full tw-max-w-[720px] tw-px-4 sm:tw-px-6 lg:tw-px-8';
+   page width -- they keep the SAME padding scale so edges still line up.
+
+   Widened from 1320px to the redesign's 1440px, and the side padding now
+   steps 20 -> 32 -> 48 -> 64px across the breakpoints instead of stopping at
+   32px. Both changes exist to buy whitespace: the brief's diagnosis is that
+   the site reads as cramped and flat, and a wider frame with deeper gutters
+   is most of the fix before a single component changes. */
+$pcContainer = 'tw-mx-auto tw-w-full tw-max-w-content tw-px-5 sm:tw-px-8 lg:tw-px-12 xl:tw-px-16';
+$pcContainerNarrow = 'tw-mx-auto tw-w-full tw-max-w-[880px] tw-px-5 sm:tw-px-8 lg:tw-px-12 xl:tw-px-16';
+/* The reading measure for legal and support copy -- long-form text wants
+   ~70-80 characters a line, not the full marketing width. */
+$pcContainerProse = 'tw-mx-auto tw-w-full tw-max-w-reading tw-px-5 sm:tw-px-8 lg:tw-px-12 xl:tw-px-16';
 
 /* ── Section vertical rhythm ────────────────────────────────────────────
    Three steps, not one: identical padding everywhere reads as flat. */
@@ -50,10 +74,55 @@ $pcSectionLoose = 'tw-py-20 md:tw-py-28'; // statement sections that need air
 
    Deviate by appending (`<?= $pcH2 ?> tw-text-white`) so the shared part
    stays greppable -- never by writing a fresh clamp. */
-$pcEyebrow = 'tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power';
+/* The section eyebrow: the small orange label above a heading. No prefix, no
+ * rule, no dot -- just the words.
+ *
+ * The label used to carry a literal "/ " in its own text ('/ Ride',
+ * '/ Business') across 29 strings, which put DECORATION inside the CONTENT:
+ * screen readers read the slash out, and restyling it meant editing every
+ * page. That slash was replaced by a ::before rule, and then the rule was
+ * dropped too -- uppercase, tracked and orange is already enough to mark a
+ * label as an eyebrow, and the extra mark was one more thing on the page
+ * earning nothing.
+ *
+ * So: the label text is just the words. Do not reintroduce a '/ ' prefix, a
+ * leading dash or a dot span in the markup -- that is what this recipe exists
+ * to stop drifting back. */
+$pcEyebrow = 'tw-mb-3 tw-text-[0.8125rem] tw-font-bold tw-uppercase tw-tracking-[0.08em] tw-text-power';
+/* The inner-page H1.
+ *
+ * Retuned from clamp(2.75rem,5.6vw,4.5rem) to the second-pass brief's §6.
+ * That old clamp rendered 72px on EVERY inner page -- measured identical on
+ * /ride, /faqs, /privacy-policy and /contact-us -- which is precisely what §6
+ * warns against: "do not allow utility pages to accidentally inherit a huge
+ * homepage-style H1". A complaint form opened at the same visual volume as a
+ * service landing page.
+ *
+ * Three sizes now, chosen by hero variant rather than by page:
+ *   $pcH1         service / marketing / company pages   ~65px at 1440
+ *   $pcH1Utility  contact, FAQs, forms, support         ~58px at 1440
+ *   $pcH1Legal    privacy, terms, GDPR                  ~46px at 1440
+ * The vw term keys off the VIEWPORT while the container caps at 1440, which
+ * is what the rem ceiling is for -- without it a 2560px screen would render
+ * a 115px headline inside a 1440px column. */
 $pcH1 =
-  'tw-mb-4 tw-text-[clamp(2.25rem,4.6vw,3.5rem)] tw-font-bold tw-leading-[1.12] tw-tracking-[-0.02em] tw-text-ink';
-$pcH2 = 'tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl';
+  'tw-mb-5 tw-text-[clamp(2.5rem,4.5vw,4.75rem)] tw-font-bold tw-leading-[1.05] tw-tracking-[-0.035em] tw-text-ink';
+$pcH1Utility =
+  'tw-mb-4 tw-text-[clamp(2.25rem,4vw,4rem)] tw-font-bold tw-leading-[1.08] tw-tracking-[-0.03em] tw-text-ink';
+/* §12: legal pages get the most restrained treatment on the site. Clarity and
+   navigation matter here; a display headline does not. */
+$pcH1Legal =
+  'tw-mb-4 tw-text-[clamp(2rem,3.2vw,3rem)] tw-font-bold tw-leading-[1.1] tw-tracking-[-0.025em] tw-text-ink';
+/* The one genuinely editorial size, and the redesign's single biggest lever:
+   a statement headline that carries a page on its own. Reserve it for hero
+   moments -- if it appears twice on a page it is no longer a statement.
+   The brief tops out at 7rem; this stops at 5.5rem because these headlines
+   run three and four words wide ("Your Journey. Smarter. Faster. Premium."),
+   and at 7rem that wraps to four lines before it reaches a laptop. */
+$pcDisplay =
+  'tw-mb-5 tw-text-[clamp(3rem,6.4vw,5.5rem)] tw-font-bold tw-leading-[1.02] tw-tracking-[-0.045em] tw-text-ink';
+$pcH2 =
+  'tw-mb-4 tw-text-[clamp(1.875rem,3.4vw,2.75rem)] tw-font-bold tw-leading-[1.1] tw-tracking-[-0.03em] tw-text-ink';
 /* Two sanctioned siblings of $pcH2, added because the site genuinely uses
    three section-heading weights -- and was expressing them through 19
    different one-off clamps across 25 headings. Both values are the dominant
@@ -65,18 +134,23 @@ $pcH2 = 'tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-te
 
    $pcH2Display is for a statement section that carries a page on its own; it
    sits deliberately below $pcH1 so the real <h1> still wins. */
+/* Pulled in from clamp(2.25rem,4.4vw,3.5rem), which rendered 56px against an
+   H1 of 72px -- close enough that the page had no clear top of hierarchy, and
+   on /ride it appeared in several sections at once, so nothing read as the
+   statement. 48px at 1440 sits a clear step under the 65px H1. */
 $pcH2Display =
-  'tw-mb-3 tw-text-[clamp(2rem,4vw,3.25rem)] tw-font-bold tw-leading-[1.12] tw-tracking-[-0.02em] tw-text-ink';
+  'tw-mb-4 tw-text-[clamp(2.125rem,3.6vw,3rem)] tw-font-bold tw-leading-[1.08] tw-tracking-[-0.035em] tw-text-ink';
 $pcH2Small = 'tw-mb-3 tw-text-[clamp(1.5rem,2.5vw,2rem)] tw-font-bold tw-leading-snug tw-tracking-tight tw-text-ink';
-$pcH3 = 'tw-mb-2 tw-text-lg tw-font-bold tw-leading-snug tw-tracking-[-0.01em] tw-text-ink';
+$pcH3 =
+  'tw-mb-2.5 tw-text-[clamp(1.25rem,1.8vw,1.5rem)] tw-font-bold tw-leading-snug tw-tracking-[-0.02em] tw-text-ink';
 $pcH4 = 'tw-mb-1.5 tw-text-base tw-font-semibold tw-leading-snug tw-text-ink';
 
 /* Body copy. $pcBody is the workhorse; $pcLead is the one-paragraph intro
    that sits under a heading. Both are deliberately on the warm ink tint
    rather than a grey, so text never looks washed out against the cream. */
-$pcBody = 'tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.68]';
-$pcLead = 'tw-mb-0 tw-text-lg tw-leading-[1.65] tw-text-ink/[0.62]';
-$pcBodySm = 'tw-text-[0.95rem] tw-leading-[1.6] tw-text-ink/[0.62]';
+$pcBody = 'tw-text-[1.0625rem] tw-leading-[1.6] tw-text-muted';
+$pcLead = 'tw-mb-0 tw-text-[clamp(1.125rem,1.5vw,1.375rem)] tw-leading-[1.55] tw-text-muted';
+$pcBodySm = 'tw-text-[0.9375rem] tw-leading-[1.6] tw-text-muted';
 
 /* Measure. Long lines are the other half of "reads unprofessional" --
    nothing body-sized should run the full 1320px. Apply to the <p>, not the
@@ -109,8 +183,14 @@ $pcSectionHeadCenter = 'tw-mx-auto tw-mb-12 tw-max-w-[720px] tw-text-center';
    so a width utility alone renders nothing (see includes/tailwind.php). */
 $pcCard =
   'tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-6 tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]';
+/* Card hover, per the brief's §63: lift, deepen the shadow, warm the border.
+   -4px is the top of its range -- a card is a large object with no text
+   baseline of its own to wobble, so it takes the full distance where the
+   button takes half. tw-transition (not -shadow) because the border colour
+   and the translate now animate too. */
 $pcCardHover =
-  'tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.10)] motion-reduce:tw-transition-none';
+  'tw-transition tw-duration-300 hover:tw-border-hairline hover:tw-shadow-[0_18px_40px_-12px_rgba(17,17,17,0.18)]' .
+  ' motion-safe:hover:-tw-translate-y-1 motion-reduce:tw-transition-none';
 $pcCardGrid = 'tw-grid tw-gap-6'; // add tw-grid-cols-* per section
 
 // Service: the premium format. Bigger radius and padding, and a lift on
@@ -153,6 +233,50 @@ $pcIconChip =
 $pcIconChipDark =
   'tw-inline-flex tw-h-12 tw-w-12 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-white/10 tw-text-powerlight';
 
+/* ── Editorial blocks: what to use INSTEAD of a card ────────────────────
+   The second-pass brief's §14/§15 diagnosis, and the measurements agreed:
+   /business-solutions rendered 34 card surfaces and /ride 29, with sixteen of
+   the former inside a single "trusted by" section. Almost none of those
+   carried a meaningful boundary -- they were three paragraphs that had each
+   been put in a box.
+
+   The test from §14 is worth keeping in mind before reaching for $pcCard:
+   does this content need a visual BOUNDARY? A selectable option, a plan, a
+   distinct service or a comparison column does. A feature, a statistic, a
+   step in a process and a paragraph do not -- those are the recipes below.
+   They separate with type, space and at most a hairline.
+
+   These are deliberately not "cards without the border": the padding is
+   different too, because a block that is not boxed does not need to hold its
+   content away from an edge that is not there. */
+
+// Icon/eyebrow + heading + copy, in a plain column. Replaces the icon-chip
+// card that appeared in six-up grids across the site.
+$pcFeature = 'tw-flex tw-flex-col tw-gap-3';
+$pcFeatureIcon = 'tw-inline-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-xl tw-bg-peach tw-text-power';
+// The same thing laid out horizontally, for a two-column list of points.
+$pcFeatureRow = 'tw-flex tw-items-start tw-gap-4';
+
+/* §16's numbered process: a big tabular figure, a rule, then the step. The
+   number IS the decoration, so the step needs no box and no icon chip.
+   tabular-nums keeps 01/02/03 optically aligned down the column. */
+$pcStepGrid = 'tw-grid tw-gap-x-10 tw-gap-y-10 sm:tw-grid-cols-2 lg:tw-grid-cols-4';
+$pcStepItem = 'tw-border-0 tw-border-t-2 tw-border-solid tw-border-hairline tw-pt-5';
+$pcStepNum =
+  'tw-mb-3 tw-block tw-text-[0.8125rem] tw-font-bold tw-tabular-nums tw-tracking-[0.12em] tw-text-power';
+
+/* Statistics as type and whitespace rather than a wall of boxes (§16). Pair
+   $pcStatRow with $pcStatPlain; the divider is a hairline between columns,
+   which groups them without drawing four rectangles. */
+$pcStatRow =
+  'tw-grid tw-grid-cols-2 tw-gap-x-8 tw-gap-y-10 lg:tw-grid-cols-4 lg:tw-divide-x lg:tw-divide-solid lg:tw-divide-y-0 lg:tw-divide-hairline';
+$pcStatPlain = 'lg:tw-px-8 lg:first:tw-pl-0 lg:last:tw-pr-0';
+
+/* A hairline that separates two blocks of content without boxing either. The
+   cheapest way to replace a card, and usually the right one. */
+$pcDivider = 'tw-border-0 tw-border-t tw-border-solid tw-border-hairline';
+$pcDivideList = 'tw-divide-y tw-divide-solid tw-divide-hairline';
+
 /* ── Images ─────────────────────────────────────────────────────────────
    Fixed ratios only. Random intrinsic image sizes are why grids currently
    fail to line up; the wrapper owns the ratio and the <img> just covers it.
@@ -183,9 +307,9 @@ $pcSurfaceDark = 'tw-bg-ink tw-text-white';
 // 3.25rem, so the <h1> was the SMALLEST heading on the page. Sizing it from
 // the H1 scale puts it back above $pcH2Display (3.25rem) and $pcH2 (2.25rem).
 $pcH1OnDark = str_replace('tw-text-ink', 'tw-text-white', $pcH1);
-$pcH2OnDark = 'tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-white md:tw-text-4xl';
+$pcH2OnDark = str_replace('tw-text-ink', 'tw-text-white', $pcH2);
 $pcBodyOnDark = 'tw-text-[1.0625rem] tw-leading-[1.7] tw-text-white/[0.72]';
-$pcEyebrowOnDark = 'tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight';
+$pcEyebrowOnDark = str_replace('tw-text-power', 'tw-text-powerlight', $pcEyebrow);
 
 /* ── Buttons ────────────────────────────────────────────────────────────
    One height and one radius across the site. tw-appearance-none +
@@ -195,37 +319,34 @@ $pcBtnBase =
   'tw-inline-flex tw-appearance-none tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-no-underline tw-transition tw-duration-200 disabled:tw-cursor-not-allowed disabled:tw-opacity-60 motion-reduce:tw-transition-none';
 /* The orange CTA -- the site's primary action.
  *
- * HOVER IS THE GLOW, AND ONLY THE GLOW. Flat at rest -- no shadow at all --
- * and a medium orange glow on hover (0 12px 28px at 38%) over 300ms. The
- * button does not move, the fill does not change, nothing inside it shifts:
+ * HOVER: lift, darken, deepen the shadow. This REPLACES the previous
+ * shadow-only rule ("no lift, no fill change") at the redesign brief's
+ * explicit direction -- §63 asks for a 2-4px card lift and a button colour
+ * transition, and that was chosen over the older rule deliberately, not by
+ * accident. If the twitchiness that motivated the old rule comes back, the
+ * fix is a shorter distance, not a return to a motionless button.
  *
- *   - no lift. A 2px translate carries the label and icon with it, and at that
- *     size what you notice is the text being re-rasterised on the way up and
- *     again on the way down, which reads as a twitch rather than a response.
- *   - no fill change. The button stays #ff7a00 the whole time.
- *   - nothing inside gets its own transform. Put the nudging chevron on
- *     $pcBtnLink / $pcBtnLinkIcon instead -- a text CTA has no box for its
- *     contents to come loose inside of.
+ * -2px is the bottom of the brief's range on purpose: this button carries a
+ * label and often an icon, and the further it travels the more the text
+ * re-rasterises on the way. active: puts it back down so a press reads as a
+ * press. motion-reduce drops the movement and keeps the colour and shadow,
+ * which are what actually signal "this is hoverable".
  *
- * Because the button starts with no shadow, the glow appearing IS the whole
- * response -- so it runs at 300ms rather than the base 200ms, to fade up
- * instead of snapping on. Keep any hand-rolled orange button in step with this
- * pair -- components/business/plans.php, pricing.php,
- * components/ride/hero-fare-section.php and faqs.php all copy it.
- */
+ * Keep any hand-rolled orange button in step with this pair --
+ * components/business/plans.php, pricing.php,
+ * components/ride/hero-fare-section.php and faqs.php all copy it. */
 $pcBtnPrimary =
   str_replace('tw-duration-200', 'tw-duration-300', $pcBtnBase) .
-  ' tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-none' .
-  ' hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]';
-// The same CTA, for use ON a dark surface. $pcBtnPrimary's big soft orange
-// glow exists to lift the button off a white page; over ink it has nothing to
-// separate from and instead blooms into a visible halo around the button --
-// it reads as a smudge, not a shadow. This drops the glow to a tight,
-// dark-friendly shadow that still deepens on hover, so the button reads as
-// responsive over ink the same way the orange one does over paper.
+  ' tw-border-0 tw-bg-power tw-text-white tw-shadow-none' .
+  ' hover:tw-shadow-[0_10px_24px_-6px_rgba(249,115,22,0.45)]' .
+  ' motion-safe:hover:-tw-translate-y-0.5 motion-safe:active:tw-translate-y-0';
+// The same CTA, for use ON a dark surface. $pcBtnPrimary's orange glow exists
+// to lift the button off a white page; over ink it has nothing to separate
+// from and instead blooms into a visible halo -- it reads as a smudge, not a
+// shadow. This drops it to a tight, dark-friendly shadow.
 $pcBtnPrimaryOnDark = str_replace(
-  'hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]',
-  'hover:tw-shadow-[0_12px_28px_rgba(0,0,0,0.45)]',
+  'hover:tw-shadow-[0_10px_24px_-6px_rgba(249,115,22,0.45)]',
+  'hover:tw-shadow-[0_10px_24px_-6px_rgba(0,0,0,0.55)]',
   $pcBtnPrimary
 );
 $pcBtnDark = $pcBtnBase . ' tw-border-0 tw-bg-ink tw-text-white hover:tw-bg-black';
@@ -245,8 +366,13 @@ $pcBtnOutlineLight =
 // Text CTA: the lowest-emphasis action. Not a button -- no height, no
 // padding box -- so it can sit inline at the end of a card without
 // competing with the real CTA above it.
+/* tw-py-2 is a TAP TARGET, not decoration: measured at 360px these rendered
+   23px tall, and they are real primary actions -- "Book Tour" on every city
+   tour tile, "All FAQs" under every FAQ. §55 asks for comfortable mobile
+   targets, and 23px is not one. The padding takes them to ~39px without
+   changing how the link reads. */
 $pcBtnLink =
-  'tw-group/link tw-inline-flex tw-items-center tw-gap-1.5 tw-text-[0.95rem] tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark motion-reduce:tw-transition-none';
+  'tw-group/link tw-inline-flex tw-items-center tw-gap-1.5 tw-py-2 tw-text-[0.95rem] tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark motion-reduce:tw-transition-none';
 // The chevron that goes inside a $pcBtnLink; nudges on hover of the link.
 $pcBtnLinkIcon =
   'tw-h-4 tw-w-4 tw-shrink-0 tw-transition-transform tw-duration-200 group-hover/link:tw-translate-x-0.5 motion-reduce:tw-transition-none';

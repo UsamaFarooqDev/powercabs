@@ -14,7 +14,7 @@
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-[1.05fr_0.95fr]">
       <div>
-        <p class="<?= $pcEyebrow ?>">/ We can help</p>
+        <p class="<?= $pcEyebrow ?>">We can help</p>
         <h2 class="<?= $pcH2 ?>">
           Sometimes the problem isn&rsquo;t finding your item.
           <span class="tw-text-power">It&rsquo;s finding the driver.</span>

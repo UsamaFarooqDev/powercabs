@@ -8,7 +8,7 @@
    makes the page correct when it is reached any other way (the php -S dev
    server, or a direct request). */
 $errStatus = $errStatus ?? 404;
-$errEyebrow = $errEyebrow ?? '/ Error 404';
+$errEyebrow = $errEyebrow ?? 'Error 404';
 $errHeading = $errHeading ?? 'This page took a wrong turn.';
 $errGhost = $errGhost ?? '404';
 

@@ -32,7 +32,7 @@ $paymentTestimonialsRealCount = count($paymentTestimonialsHalf);
 <section class="tw-overflow-hidden <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[720px] tw-text-center">
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">
         Trusted by Drivers &amp; Businesses
         <span class="tw-text-power">Across Ireland</span>
       </h2>

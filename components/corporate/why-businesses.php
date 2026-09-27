@@ -12,7 +12,7 @@ $totalWhyBusinesses = count($whyBusinesses);
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>
-        <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Why Businesses Choose PowerCabs</h2>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Why Businesses Choose PowerCabs</h2>
         <p class="tw-mb-4 tw-max-w-[46ch] tw-text-lg tw-text-ink/60">
           A corporate account built around how your business actually runs --
           one point of contact, one invoice, and drivers you can rely on every time.

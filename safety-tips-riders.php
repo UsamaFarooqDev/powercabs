@@ -6,13 +6,15 @@ $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Policies & Safety';
+$heroEyebrow = 'Policies & Safety';
 $heroTitleLight = 'Safety Tips';
 $heroTitleBold = 'for Riders.';
 $heroDescription =
   'A few simple habits make every PowerCabs trip safer -- before you get in, while you ride, and after you arrive.';
 $heroBgImage = 'https://images.pexels.com/photos/13343433/pexels-photo-13343433.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Rider Safety';
+$heroVariant = 'split';
+$heroImageAlt = 'A passenger fastening their seatbelt in the back of a car';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $beforeRide = [
@@ -132,8 +134,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Before the Ride</p>
-        <h2 class="tw-mb-6 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Check Before You Get In</h2>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Before the Ride</p>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Check Before You Get In</h2>
         <div class="tw-flex tw-flex-col tw-gap-6">
           <?php foreach ($beforeRide as $item): ?>
             <div class="tw-flex tw-gap-4">
@@ -159,8 +161,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ During the Ride</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Small Habits, Safer Trips</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">During the Ride</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Small Habits, Safer Trips</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.08] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] sm:tw-grid-cols-2 lg:tw-grid-cols-5">
       <?php foreach ($duringRide as $item): ?>
@@ -187,8 +189,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-bg-paper tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ After the Ride</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Help Us Keep Every Trip Safe</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">After the Ride</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Help Us Keep Every Trip Safe</h2>
     </div>
     <div class="tw-mx-auto tw-grid tw-max-w-[760px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
       <?php foreach ($afterRide as $item): ?>
@@ -207,8 +209,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Additional Safety Tips</p>
-        <h2 class="tw-mb-6 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">A Few More Habits Worth Building</h2>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Additional Safety Tips</p>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">A Few More Habits Worth Building</h2>
         <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-4 tw-p-0">
           <?php foreach ($additionalTips as $tip): ?>
             <li class="tw-flex tw-gap-3">

@@ -77,24 +77,31 @@ function pc_eco_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 }
 ?>
 
-<!-- ============ Hero ============ -->
-<section class="tw-relative tw-overflow-hidden tw-px-4 tw-pb-[clamp(6rem,12vw,9rem)] tw-pt-[calc(var(--pc-navbar-h,110px)+3rem)] tw-text-center tw-text-white sm:tw-px-6 lg:tw-px-8">
-  <img src="https://images.pexels.com/photos/35736786/pexels-photo-35736786.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
-  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(120deg,rgba(15,46,24,0.88)_0%,rgba(15,46,24,0.6)_55%,rgba(15,46,24,0.35)_100%)]" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-mx-auto tw-w-full tw-max-w-[1320px]">
-    <span class="tw-mb-3 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-[rgba(76,175,80,0.12)] tw-px-4 tw-py-[0.4rem] tw-text-[0.85rem] tw-font-semibold tw-text-[#2e7d32]">
-      <?php pc_eco_icon('leaf', 'tw-h-4 tw-w-4'); ?> Eco-Friendly by Design
-    </span>
-    <h1 class="tw-mb-3 tw-text-[clamp(2.25rem,4.5vw,3.5rem)] tw-font-black tw-text-white">Sustainability &amp; Environmental Policy</h1>
-    <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-[1.15rem] tw-text-white/[0.88]">Our Commitment to Eco-Friendly Design and Digital Solutions.</p>
-  </div>
-</section>
+<?php
+/* ============ Hero ============
+ *
+ * Was a hand-rolled 432px dark-green photo band -- the tallest hero on the
+ * site, and the only page not using the shared component, so it also had no
+ * BreadcrumbList JSON-LD. Its "Eco-Friendly by Design" badge set #2e7d32 on a
+ * 12%-white-green pill over a 90% dark-green scrim, which is a mid-green on a
+ * near-black: it failed contrast at any size.
+ *
+ * Now the shared minimal variant (§10: company pages get type and whitespace,
+ * not a cinematic band). The page's green identity is untouched -- it lives in
+ * the eight sections below this, which is where a reader actually meets it. */
+$heroVariant = 'minimal';
+$heroEyebrow = 'Sustainability';
+$heroTitleLight = 'Sustainability &';
+$heroTitleBold = 'Environmental Policy.';
+$heroDescription = 'Our commitment to eco-friendly design and digital solutions — delivering exceptional service while lowering the impact of every journey.';
+require __DIR__ . '/components/shared/inner-hero.php';
+?>
 
 <!-- ============ Our Commitment ============ -->
 <section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-px-4 tw-py-16 tw-text-center sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
   <div class="tw-mx-auto tw-max-w-[780px]">
-    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">/ Our Commitment</p>
-    <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Exceptional Service, Lower Impact</h2>
+    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">Our Commitment</p>
+    <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Exceptional Service, Lower Impact</h2>
     <p class="tw-mb-0 tw-text-ink/60">
       PowerCabs is committed to delivering exceptional digital services while maintaining a
       strong focus on environmental responsibility. We continually improve our environmental
@@ -107,8 +114,8 @@ function pc_eco_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-pb-16">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">/ How We Reduce Our Impact</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Six Ways We Keep It Green</h2>
+      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">How We Reduce Our Impact</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Six Ways We Keep It Green</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-gap-6 md:tw-grid-cols-2 lg:tw-grid-cols-3">
       <?php foreach ($ecoAreas as $area): ?>

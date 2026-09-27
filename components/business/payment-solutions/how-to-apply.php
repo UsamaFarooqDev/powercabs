@@ -8,7 +8,7 @@ $applySteps = [
 ?>
 <section class="tw-bg-white <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <h2 class="tw-mb-8 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Apply in Four Simple Steps</h2>
+    <h2 class="<?= pc_mb($pcH2, 'tw-mb-8') ?>">Apply in Four Simple Steps</h2>
 
     <div class="tw-grid tw-grid-cols-1 tw-items-stretch tw-gap-4 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">

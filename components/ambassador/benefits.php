@@ -59,8 +59,8 @@ function pc_amb_icon(string $icon, string $cls): void
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Benefits</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Everything You Get as an Ambassador</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Benefits</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Everything You Get as an Ambassador</h2>
     </div>
 
     <div class="tw-relative tw-z-[1] tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-4 lg:[grid-auto-flow:dense] lg:[grid-auto-rows:minmax(170px,auto)]">

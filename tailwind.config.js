@@ -49,18 +49,51 @@ module.exports = {
       fontFamily: {
         // Same stack as --pc-font-family in variables.css, including the
         // metric-matched fallback declared in base.css.
-        sans: ['Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', 'Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['DM Sans', 'DM Sans Fallback', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
+      // Names stay FLAT (power, ink, paper) rather than moving to a nested
+      // power.orange / power.ink scale. The redesign brief shows a nested
+      // example, but renaming would rewrite every colour utility in 30 pages
+      // in the same commit as the redesign, making every diff unreadable --
+      // and this file already warns that the analogous tw- prefix migration
+      // belongs in a commit of its own. The VALUES are rebranded here; the
+      // names can follow later, mechanically, on their own.
       colors: {
-        ink: '#1c1410', // --pc-dark
-        'ink-soft': '#160f0a', // --pc-dark-soft
-        paper: '#f4efe8', // --pc-cream
-        'paper-soft': '#f9f4ed', // --pc-cream-soft
-        peach: '#fbe4cf', // --pc-peach
-        power: '#e8590c', // --pc-orange
-        powerlight: '#ff7a00', // --pc-orange-light
-        powerdark: '#a34406', // --pc-orange-dark
+        // Sampled from the logo (#f37a20) rather than carried over from the
+        // old template's redder #e8590c.
+        power: '#f97316', // --pc-orange
+        powerdark: '#d85f0b', // --pc-orange-dark
+        powersoft: '#fff4ea', // --pc-orange-soft, for tinted panels
+        // Was its own brighter orange. Aliased to the brand orange so the
+        // pages still using it do not show a second, competing accent.
+        powerlight: '#f97316',
+
+        ink: '#111111', // --pc-ink
+        'ink-soft': '#252525', // --pc-ink-soft
+        surface: '#f7f7f5', // --pc-surface, the default off-white band
+        'surface-warm': '#fbf8f4', // --pc-surface-warm
+        hairline: '#e7e5e2', // --pc-border; `border` is a Tailwind utility name
+        muted: '#6b6b6b', // --pc-muted
+
+        success: '#17834b', // --pc-success
+        info: '#2563eb', // --pc-info
+
+        // Retained for the pages not yet migrated; aliases, not new colours.
+        paper: '#fbf8f4',
+        'paper-soft': '#f7f7f5',
+        peach: '#fff4ea',
         'power10-red': '#d7263d',
+      },
+      maxWidth: {
+        // The brief's editorial widths. `content` is the marketing container,
+        // `reading` the measure for long-form legal and support copy.
+        content: '1440px',
+        reading: '760px',
+      },
+      borderRadius: {
+        card: '1.5rem',
+        panel: '2rem',
+        pill: '999px',
       },
       // Every animation the site uses. Keyframes live here rather than in a
       // stylesheet because Tailwind only emits a @keyframes block when a
