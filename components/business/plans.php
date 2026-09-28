@@ -44,7 +44,7 @@ function pc_biz_plan_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Business Plans</p>

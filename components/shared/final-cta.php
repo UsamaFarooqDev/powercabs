@@ -39,7 +39,16 @@ $ctaSecondary ??= ['href' => '/contact-us', 'label' => 'Talk to Us'];
          The surface is the warm off-white rather than pure white so it still
          reads as a distinct closing block on a page whose last section was
          white, without introducing another colour. */ ?>
-<section class="<?= $pcSurfaceSoft ?> tw-border-0 tw-border-t tw-border-solid tw-border-hairline <?= $pcSection ?>">
+<?php /* White, with a hairline above it.
+
+         It was the tint, which worked until the section before it was also
+         the tint -- on the homepage the FAQ and this ran together as one long
+         band with no break. White alternates against whatever precedes it in
+         the common case, and the hairline is what separates it when the
+         section above happens to be white too, so it reads as a distinct
+         closing block either way. White into the dark footer is also the
+         cleanest close the page can make. */ ?>
+<section class="tw-bg-white tw-border-0 tw-border-t tw-border-solid tw-border-hairline <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
 

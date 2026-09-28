@@ -83,7 +83,7 @@ require __DIR__ . '/components/drive/join-family-form.php';
   </div>
 </section>
 
-<div class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_15%,#fbe6d4_45%,#f9f4ed_80%,#f9f4ed_100%)]">
+<div class="tw-bg-surface">
   <?php
   require __DIR__ . '/components/drive/behind-wheel.php';
   require __DIR__ . '/components/drive/opportunities.php';
@@ -182,7 +182,7 @@ require __DIR__ . '/components/drive/drive-faq.php';
 ?>
 
 <!-- ============ Driver FAQ Download ============ -->
-<section class="tw-px-4 tw-pb-16 sm:tw-px-6 md:tw-pb-24 lg:tw-px-8">
+<section class="tw-pb-16 md:tw-pb-24">
   <div class="tw-mx-auto tw-w-full tw-max-w-[860px]">
     <div class="tw-rounded-2xl tw-bg-paper tw-p-6 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] sm:tw-p-8 md:tw-p-11">
       <svg class="tw-mx-auto tw-mb-3 tw-h-9 tw-w-9 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l3-3m0 0l-3-3m3 3h-7.5M6 20.25h12A2.25 2.25 0 0020.25 18V9.75L14.25 3.75H6a2.25 2.25 0 00-2.25 2.25v12A2.25 2.25 0 006 20.25z"/></svg>
@@ -209,8 +209,6 @@ require __DIR__ . '/components/drive/drive-faq.php';
 </section>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Start earning on better terms.';
 $ctaText = 'No joining fee, no monthly subscription, and 10% only on completed PowerCabs jobs.';
@@ -218,6 +216,8 @@ $ctaText = 'No joining fee, no monthly subscription, and 10% only on completed P
 $ctaPrimary = ['href' => '/drive#driveJoinForm', 'label' => 'Apply to Drive'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Ask a Question'];
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 

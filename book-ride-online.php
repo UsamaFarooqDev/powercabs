@@ -127,7 +127,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Booking Steps ============ -->
-<section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
+<section class="tw-relative tw-overflow-hidden <?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Booking in Four Simple Steps</h2>

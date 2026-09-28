@@ -274,7 +274,6 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 <section class="<?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-relative tw-overflow-hidden tw-rounded-[28px] tw-bg-ink tw-p-6 sm:tw-p-10">
-      <span class="tw-pointer-events-none tw-absolute tw-right-[-6rem] tw-top-[-4rem] tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.28),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
       <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-gap-6 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
         <div class="lg:tw-max-w-[62%]">
           <p class="<?= $pcEyebrowOnDark ?>">Pay Per Hour</p>
@@ -644,6 +643,7 @@ $faqEyebrow = 'City tours';
 $faqHeading = 'Tour questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';

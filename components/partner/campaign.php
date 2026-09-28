@@ -30,7 +30,7 @@ function pc_ptn_join_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="tw-scroll-mt-24 <?= $pcSection ?>" id="pcPtnCampaign">
+<section class="<?= $pcSurfaceSoft ?> tw-scroll-mt-24 <?= $pcSection ?>" id="pcPtnCampaign">
   <div class="<?= $pcContainer ?>">
     <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Partner Programme</p>
     <h2 class="<?= $pcH2Display ?>">More miles. More visibility.</h2>
@@ -41,7 +41,7 @@ function pc_ptn_join_icon(string $icon): void
 
     <div class="tw-grid tw-grid-cols-1 tw-gap-6 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
-        <article class="tw-relative tw-h-full tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-[#f9f4ed] tw-p-[clamp(1.75rem,3vw,2.5rem)]">
+        <article class="tw-relative tw-h-full tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-surface tw-p-[clamp(1.75rem,3vw,2.5rem)]">
           <span class="tw-absolute tw-inset-x-0 tw-top-0 tw-h-[5px] tw-bg-power" aria-hidden="true"></span>
           <span class="tw-inline-flex tw-rounded-full tw-bg-[#fbe6d4] tw-px-3 tw-py-1 tw-text-xs tw-font-extrabold tw-uppercase tw-tracking-[0.05em] tw-text-power">Partner Benefits</span>
           <h3 class="tw-mb-2 tw-mt-3 tw-text-[clamp(1.4rem,2vw,1.75rem)] tw-font-extrabold tw-tracking-[-0.03em] tw-text-ink">What You Gain as a Partner</h3>
@@ -74,7 +74,7 @@ function pc_ptn_join_icon(string $icon): void
           <h3 class="tw-mb-3 tw-text-lg tw-font-extrabold tw-text-ink">Who Can Join?</h3>
           <div class="tw-mb-7 tw-flex tw-flex-wrap tw-gap-2.5">
             <?php foreach ($whoCanJoin as $item): ?>
-              <span class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-black/[0.08] tw-bg-[#f9f4ed] tw-px-3.5 tw-py-2 tw-text-sm tw-font-bold tw-text-ink">
+              <span class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-black/[0.08] tw-bg-surface tw-px-3.5 tw-py-2 tw-text-sm tw-font-bold tw-text-ink">
                 <span class="tw-text-power"><?php pc_ptn_join_icon($item['icon']); ?></span>
                 <?= htmlspecialchars($item['label']) ?>
               </span>

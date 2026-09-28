@@ -15,7 +15,7 @@ $mockupImgId     = $mockupImgId ?? '';
 <div class="tw-relative tw-mx-auto tw-max-w-[<?= htmlspecialchars($mockupMaxWidth) ?>]<?= $mockupWrapClass
   ? ' ' . htmlspecialchars($mockupWrapClass)
   : '' ?>">
-  <div class="tw-relative tw-mx-auto tw-w-[260px] tw-max-w-full tw-rounded-[2.25rem] tw-bg-ink tw-p-2.5 tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]<?= $mockupFloat
+  <div class="tw-relative tw-mx-auto tw-w-[260px] tw-max-w-full tw-rounded-[2.25rem] tw-bg-ink tw-p-2.5 <?= $mockupFloat
     ? ' tw-animate-pc-float motion-reduce:tw-animate-none'
     : '' ?>">
     <div class="pc-phone-screen tw-relative tw-min-h-[360px] tw-overflow-hidden tw-rounded-[1.65rem] tw-bg-white">

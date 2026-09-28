@@ -157,7 +157,7 @@ function pc_render_loyalty_timeline(array $items): void
 }
 ?>
 
-<div class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_55%,#f9f4ed_100%)]">
+<div class="tw-bg-surface">
   <?php /* Both sections in this band used a hand-rolled container -- the same
            px-4/sm:px-6/lg:px-8 padding as $pcContainer but capped at 720px and
            1040px. The 1040 was the problem: "Membership Levels" and "Why It
@@ -344,14 +344,14 @@ function pc_render_loyalty_timeline(array $items): void
          note on $eligibilityNote above for why it went. */ ?>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Start earning points on your next trip.';
 $ctaText = 'Every completed ride moves you up a tier. Bronze to Gold, no sign-up fee.';
 $ctaPrimary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
 $ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

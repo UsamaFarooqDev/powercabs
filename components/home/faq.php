@@ -31,6 +31,7 @@ $faqItems = [
     'a' => 'You can track your driver in real time from the app, including their live location, vehicle details, and estimated arrival time.',
   ],
 ];
+$faqSurface = 'tw-bg-white'; // keeps the white/tint alternation running to the close
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
 require __DIR__ . '/../shared/faq-accordion.php';

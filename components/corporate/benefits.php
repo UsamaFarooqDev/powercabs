@@ -8,7 +8,7 @@ $corporateBenefits = [
   ['icon' => 'chart', 'label' => 'Reporting'],
 ];
 ?>
-<section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="<?= $pcSectionHeadCenter ?>">
       <h2 class="<?= $pcH2 ?> tw-mb-0">Everything Your Business Needs</h2>

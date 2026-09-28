@@ -28,7 +28,7 @@ function pc_biz_process_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="<?= $pcSurfaceSoft ?> tw-scroll-mt-24 tw-py-16 md:tw-py-24" id="business-booking-form">
+<section class="tw-scroll-mt-24 tw-py-16 md:tw-py-24" id="business-booking-form">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[52rem] tw-text-center">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">How to Book Our Business Rides</h2>

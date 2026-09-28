@@ -130,7 +130,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 ?>
 
 <!-- ============ Before the Ride ============ -->
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
@@ -180,7 +180,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-relative tw-min-h-[280px] tw-overflow-hidden tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/7856880/pexels-photo-7856880.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-ink-soft/[0.65]" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-mx-auto tw-flex tw-min-h-[280px] tw-w-full tw-max-w-[1320px] tw-items-center tw-justify-center tw-px-4 sm:tw-px-6 lg:tw-px-8">
+  <div class="tw-relative tw-z-[1] tw-flex tw-min-h-[280px] tw-items-center tw-justify-center <?= $pcContainer ?>">
     <p class="tw-mb-0 tw-max-w-[46ch] tw-text-xl tw-font-bold tw-text-white md:tw-text-2xl">Follow your trip live in the app, from pickup to drop-off.</p>
   </div>
 </section>

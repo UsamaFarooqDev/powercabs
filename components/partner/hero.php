@@ -25,9 +25,7 @@ $ptnHeroStats = [
 ?>
 
 <!-- ============ PowerCabs Partner Network panel ============ -->
-<section class="tw-relative tw-overflow-hidden tw-bg-[linear-gradient(135deg,#f4efe8_0%,#f9f4ed_48%,#ffffff_100%)] tw-py-[clamp(3.5rem,7vw,5.5rem)]" id="pcPtnHero">
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-8rem] tw-top-[-8rem] tw-z-0 tw-h-[24rem] tw-w-[24rem] tw-rounded-full tw-bg-power/[0.12] tw-blur-[70px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-[-10rem] tw-left-[-6rem] tw-z-0 tw-h-[22rem] tw-w-[22rem] tw-rounded-full tw-bg-ink/[0.06] tw-blur-[70px]" aria-hidden="true"></span>
+<section class="tw-relative tw-overflow-hidden tw-bg-surface tw-py-[clamp(3.5rem,7vw,5.5rem)]" id="pcPtnHero">
 
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12">

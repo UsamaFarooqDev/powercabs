@@ -19,17 +19,18 @@ $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<?php /* No background of its own. This section used to carry a linear gradient
-         that restarted at #f9f4ed exactly where benefits.php's radial one had
-         already worked down to #f4efe8, and the two met at a visible
-         horizontal step. The wash is now painted ONCE on a wrapper in
-         ambassador-programme.php and both sections sit on it transparently --
-         which is the only way to remove the seam, since a repeated
-         `at 85% 0%` radial re-anchors to each element's own box.
+<?php /* No background of its own -- the wrapper in ambassador-programme.php
+         paints the surface for this section and benefits.php together.
 
-         The white fade at the foot is what separates this section from the
-         app-download banner underneath instead: it lands the warm panel on
-         white rather than cutting it off. */ ?>
+         That wrapper used to be a peach radial gradient and this section a
+         linear one that restarted mid-way, so the two met at a visible
+         horizontal step. Both are the flat tint now, so there is no gradient
+         left to mismatch; the wrapper is still the right place for it because
+         one surface under two sections cannot seam by definition.
+
+         The white fade at the foot separates this section from the
+         app-download banner underneath: it lands the tinted panel on white
+         rather than cutting it off. */ ?>
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?> tw-pb-[clamp(5rem,9vw,7rem)]" id="pcAmbRegister">
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-0 tw-h-[clamp(6rem,14vw,11rem)] tw-bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.65)_55%,#ffffff_100%)]" aria-hidden="true"></span>
 

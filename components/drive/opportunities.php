@@ -1,4 +1,4 @@
-<section class="tw-relative tw-overflow-hidden tw-py-16 md:tw-py-20">
+<section class="<?= $pcSurfaceSoft ?> tw-relative tw-overflow-hidden tw-py-16 md:tw-py-20">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
       <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-lg tw-text-ink/60">

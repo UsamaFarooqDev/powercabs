@@ -17,8 +17,6 @@ $lostItemJourneys = [
 <!-- ============ Lost item: any taxi journey ============ -->
 <section class="tw-relative tw-overflow-hidden <?= $pcSurfaceDark ?> <?= $pcSectionTight ?>">
   <?php /* The two brand glows the dark bands elsewhere on the site use. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-8rem] tw-top-[-7rem] tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.26),transparent_70%)] tw-blur-[70px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-[-9rem] tw-left-[-7rem] tw-h-[22rem] tw-w-[22rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.2),transparent_70%)] tw-blur-[70px]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-9 tw-max-w-[54ch] tw-text-center">

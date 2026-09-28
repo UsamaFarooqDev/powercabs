@@ -97,7 +97,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Business Rides & Limousine Services (existing) ============ -->
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
@@ -182,7 +182,7 @@ require __DIR__ . '/components/business/services-grid.php';
 // reads as a single block that eases in from the section above and out into
 // the one below.
 ?>
-<div class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_14%,#f9f4ed_86%,#ffffff_100%)]">
+<div class="tw-bg-surface">
   <?php
   require __DIR__ . '/components/business/airport-assistance.php';
   require __DIR__ . '/components/business/how-it-works.php';
@@ -211,8 +211,6 @@ $supportWhatsapp = 'https://wa.me/353899586092';
 require __DIR__ . '/components/shared/support-band.php';
 
 require __DIR__ . '/components/business/trust-proof.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 // Replaces components/business/final-cta.php, which was a page-local copy of
 // the same closing block every other page now shares.
@@ -233,8 +231,11 @@ $faqEyebrow = 'Business travel';
 $faqHeading = 'Business questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 ?>
 
 <script src="<?= $assetPath ?>assets/js/components/business-page.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/business-page.js') ?>"></script>

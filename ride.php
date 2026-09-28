@@ -197,14 +197,14 @@ $supportWhatsapp = 'https://wa.me/353899728089';
 require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/ride/ride-faq.php';
 
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Know your fare before you book.';
 $ctaText = 'Enter a pickup and drop-off for an instant quote, or talk to a real person in Dublin.';
 $ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Contact Us'];
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

@@ -142,6 +142,8 @@ $gdprNav = [
 </section>
 
 <?php
+$bannerCompact = true; // restrained: a legal page should not end on an orange panel
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 
 ?>

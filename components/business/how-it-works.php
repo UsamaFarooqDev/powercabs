@@ -11,7 +11,7 @@ $totalBizHowSteps = count($bizHowSteps);
      view, handled below via the `[&.is-visible]:` arbitrary variant. -->
 <?php /* Background comes from the shared band in business.php -- see the
          note in airport-assistance.php. */ ?>
-<section class="<?= $pcSurfaceSoft ?> tw-py-16 md:tw-py-24" id="pcBizHowItWorks">
+<section class="tw-py-16 md:tw-py-24" id="pcBizHowItWorks">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How It Works</p>

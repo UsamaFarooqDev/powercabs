@@ -1,4 +1,4 @@
-<section class="tw-py-16 md:tw-py-20">
+<section class="<?= $pcSurfaceSoft ?> tw-py-16 md:tw-py-20">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div class="tw-order-2 lg:tw-order-1">

@@ -70,8 +70,14 @@ module.exports = {
 
         ink: '#111111', // --pc-ink
         'ink-soft': '#252525', // --pc-ink-soft
-        surface: '#f7f7f5', // --pc-surface, the default off-white band
-        'surface-warm': '#fbf8f4', // --pc-surface-warm
+        // ONE light tint, under four names. `surface`/`surface-warm` and the
+        // `paper`/`paper-soft` aliases below all resolve to the same warm
+        // off-white. They used to be two colours -- a cool #f7f7f5 and this
+        // warm one -- and components picked whichever name they met first,
+        // so a single page could paint three different light surfaces. See
+        // variables.css for the full reasoning. Do not split them again.
+        surface: '#fbf8f4', // --pc-surface
+        'surface-warm': '#fbf8f4', // --pc-surface-warm (alias)
         hairline: '#e7e5e2', // --pc-border; `border` is a Tailwind utility name
         muted: '#6b6b6b', // --pc-muted
 
@@ -79,8 +85,11 @@ module.exports = {
         info: '#2563eb', // --pc-info
 
         // Retained for the pages not yet migrated; aliases, not new colours.
+        // Both are the same tint as `surface` above -- paper-soft was the cool
+        // #f7f7f5 and is now the warm value, which is what collapses the site
+        // to a single off-white without editing its 19 call sites.
         paper: '#fbf8f4',
-        'paper-soft': '#f7f7f5',
+        'paper-soft': '#fbf8f4',
         peach: '#fff4ea',
         'power10-red': '#d7263d',
       },

@@ -98,7 +98,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Our Commitment ============ -->
-<section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-px-4 tw-py-16 tw-text-center sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?> tw-text-center">
   <div class="tw-mx-auto tw-max-w-[780px]">
     <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">Our Commitment</p>
     <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Exceptional Service, Lower Impact</h2>

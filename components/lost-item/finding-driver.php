@@ -36,7 +36,6 @@
 
       <div class="tw-flex tw-justify-center lg:tw-justify-end">
         <div class="tw-relative tw-w-full tw-max-w-[260px]">
-          <span class="tw-pointer-events-none tw-absolute tw-inset-x-6 tw-bottom-[-1.25rem] tw-h-10 tw-rounded-[50%] tw-bg-ink/15 tw-blur-2xl" aria-hidden="true"></span>
           <div class="tw-relative tw-overflow-hidden tw-rounded-[2rem] tw-border-[6px] tw-border-solid tw-border-ink tw-bg-ink tw-shadow-[0_30px_70px_-20px_rgba(28,20,16,0.45)]">
             <img src="<?= $assetPath ?>assets/img/driver-ride.jpeg"
               alt="The PowerCabs app showing an assigned driver, vehicle and registration"

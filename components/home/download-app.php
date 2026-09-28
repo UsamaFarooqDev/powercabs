@@ -1,6 +1,42 @@
-<section class="tw-relative tw-z-[2] tw-mt-[clamp(-40px,-7vw,-60px)] tw-bg-[linear-gradient(90deg,#fdb071_0%,#fb9748_25%,#f97316_65%,#d85f0b_100%)] tw-py-16 tw-text-ink [clip-path:polygon(0_3%,20%_1%,50%_3%,80%_1%,100%_4%,100%_100%,0_100%)] md:tw-mt-[clamp(-145px,-4vw,-195px)] md:tw-py-[120px] md:[clip-path:polygon(0_6%,8%_3%,16%_9%,50%_5%,56%_11%,90%_11%,96%_18%,100%_17%,100%_100%,0_100%)]">
+<?php /* The app section: a CONTAINED orange panel, not a full-bleed slab.
+
+         This was 780px of edge-to-edge orange with 120px of padding, pulled up
+         under its neighbour by a negative margin and cut along the top by a
+         torn clip-path polygon. Measured, it was single-handedly responsible
+         for the homepage running 10.7% orange against the 5-8% a comparable
+         mobility site (Bolt) keeps its brand colour to.
+
+         Three things went:
+           - the full bleed, so the orange is now an object ON the page rather
+             than a band the page is interrupted by
+           - the torn clip-path, which only ever existed to blend one slab into
+             the next and is the kind of decorative edge that dates a page
+           - the negative margin that the tear needed to hide its own seam
+         The shared app banner lost the same three for the same reasons; this
+         component is the homepage's own richer version (it has the phone
+         mockup), which is why it did not inherit the fix.
+
+         The copy, the badges, the mockup and its floating cards are all
+         unchanged. */ ?>
+<?php /* $pcSectionTight, not $pcSection: the panel carries its own padding, so
+         the full section rhythm on top of it double-pads and the section came
+         out TALLER than the 780px full-bleed slab it replaced. */ ?>
+<section class="tw-bg-white <?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
+    <?php /* White, not orange.
+             The section directly above this one is the dark "Two ways to work
+             with PowerCabs" band, so an orange panel here put the page's two
+             heaviest surfaces back to back -- dark slab, then orange slab, at
+             the very end of the page. Dropping the orange leaves one dark
+             moment and one bright moment on the homepage instead of two
+             competing ones.
+
+             A white panel on a white section needs something to define it, or
+             it stops being a panel: a hairline and a soft shadow do that
+             without adding another colour. The orange now survives only in the
+             CTA and the phone mockup's own screen, which is where a brand
+             colour should be doing its work. */ ?>
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 tw-overflow-hidden tw-bg-white tw-px-6 tw-py-9 tw-text-ink md:tw-px-12 md:tw-py-10 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Download the PowerCabs App for Instant Access</h2>
         <p class="tw-mb-4 tw-max-w-[46ch] tw-text-[1.1rem] tw-text-ink/70">
@@ -55,7 +91,7 @@
         $mockupFloatCards = function () {
           ?>
           <!-- Live Tracking card -->
-          <div class="tw-absolute tw-left-[-8%] tw-top-[26%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-bg-white/[0.92] tw-p-2 tw-shadow-[0_24px_48px_rgba(249,115,22,0.16)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.2s] motion-reduce:tw-animate-none">
+          <div class="tw-absolute tw-left-[-8%] tw-top-[26%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-2 tw-shadow-[0_18px_40px_-12px_rgba(28,20,16,0.22)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.2s] motion-reduce:tw-animate-none">
             <div class="tw-relative tw-flex tw-h-[38px] tw-w-[38px] tw-shrink-0 tw-items-center tw-justify-center">
               <!-- <span class="tw-absolute tw-inset-0 tw-rounded-full tw-bg-power tw-animate-ping"></span> -->
               <span class="tw-relative tw-flex tw-h-[30px] tw-w-[30px] tw-items-center tw-justify-center tw-rounded-full tw-bg-power tw-text-white">
@@ -81,7 +117,7 @@
           </div>
 
           <!-- Secure Payments card -->
-          <div class="tw-absolute tw-bottom-[27%] tw-right-[-10%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-bg-white/[0.92] tw-p-3 tw-shadow-[0_24px_48px_rgba(249,115,22,0.16)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.9s] motion-reduce:tw-animate-none">
+          <div class="tw-absolute tw-bottom-[27%] tw-right-[-10%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-3 tw-shadow-[0_18px_40px_-12px_rgba(28,20,16,0.22)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.9s] motion-reduce:tw-animate-none">
             <div class="tw-flex tw-h-[38px] tw-w-[38px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(25,135,84,0.12)]">
               <svg class="tw-h-[1.05rem] tw-w-[1.05rem] tw-text-[#198754]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
             </div>

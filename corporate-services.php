@@ -64,9 +64,13 @@ $heroEyebrow     = 'Corporate Services';
 $heroTitleLight  = 'Corporate Services with';
 $heroTitleBold   = 'PowerCabs.';
 $heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 -- built around your company's schedule, not the other way around.";
-$heroBgImage     = 'https://images.pexels.com/photos/8425382/pexels-photo-8425382.jpeg?auto=format&fit=crop&w=1600&q=60';
+/* A local asset rather than a stock traveller: two colleagues and a car
+   outside a modern glass office, which reads as Irish corporate travel
+   rather than generic airport stock. Local also means no third-party
+   round-trip for the page-defining image. */
+$heroBgImage     = $assetPath . 'assets/img/service-city-tour.jpg';
 $heroVariant = 'split';
-$heroImageAlt = 'A business traveller stepping into a waiting car';
+$heroImageAlt = 'Two colleagues beside a PowerCabs car outside a Dublin office building';
 require __DIR__ . '/components/shared/inner-hero.php';
 require __DIR__ . '/components/corporate/why-businesses.php';
 ?>
@@ -142,6 +146,7 @@ $faqEyebrow = 'Corporate travel';
 $faqHeading = 'Account questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';

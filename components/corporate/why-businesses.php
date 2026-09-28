@@ -8,7 +8,7 @@ $whyBusinesses = [
 ];
 $totalWhyBusinesses = count($whyBusinesses);
 ?>
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>

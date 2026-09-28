@@ -15,14 +15,26 @@
 
   /* ── Neutrals ────────────────────────────────────────────────────────
      The redesign runs on these, not on orange: roughly 55-65% of any page
-     should be white or one of the two surfaces, with orange kept to a few
-     per cent. --pc-surface is the cool off-white for most alternating
-     bands; --pc-surface-warm carries the brand's warmth where a section
-     needs it. */
+     should be white or the surface tint, with orange kept to a few per cent.
+
+     THERE IS ONE LIGHT TINT, not two. --pc-surface used to be a cool
+     #f7f7f5 and --pc-surface-warm a warm #fbf8f4, and components picked
+     whichever name they met first: measured across the site, 51 uses of the
+     warm one against 19 of the cool, and on the homepage three different
+     light surfaces inside eleven sections. Two off-whites that close
+     together do not read as a deliberate two-step scale -- they read as one
+     colour being got wrong half the time, which is what made the page look
+     grubby rather than clean.
+
+     Both now resolve to the warm value. Warm, because the brand is orange:
+     a cool grey beside orange is the combination that reads dirty. The warm
+     one was also already the dominant usage, so this moved the fewest
+     surfaces. --pc-surface-warm is kept as an alias so the 51 existing uses
+     keep working; do not give them different values again. */
   --pc-ink: #111111;
   --pc-ink-soft: #252525;
   --pc-white: #ffffff;
-  --pc-surface: #f7f7f5;
+  --pc-surface: #fbf8f4;
   --pc-surface-warm: #fbf8f4;
   --pc-border: #e7e5e2;
   --pc-muted: #6b6b6b;

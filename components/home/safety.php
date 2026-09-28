@@ -18,7 +18,7 @@ $safetyPoints = [
   ['title' => 'Support that answers', 'body' => 'A real Irish team, on the line at any hour.'],
 ];
 ?>
-<section class="tw-bg-white <?= $pcSection ?>">
+<section class="tw-bg-surfac <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16">
 

@@ -59,15 +59,21 @@ $heroVariant = 'split';
 $heroImageAlt = 'A PowerCabs driver talking with a colleague beside their car';
 require __DIR__ . '/components/shared/inner-hero.php';
 
-/* ONE gradient across both sections, declared here rather than twice inside
-   them. Giving each section the same radial gradient is not the same thing:
-   `at 85% 0%` is resolved against each element's OWN box, so the second
-   section restarted the wash at #fbe6d4 exactly where the first had worked
-   down to #f4efe8, and the two met at a visible horizontal step. Painting it
-   once on a wrapper is what actually makes the seam disappear -- both sections
-   are transparent and simply sit on it. */
+/* ONE surface across both sections, declared here rather than twice inside
+   them, so benefits.php and registration.php sit on it transparently.
+
+   It was a peach radial gradient (#fbe6d4 -> #f9f4ed -> #f4efe8) -- three
+   creams that existed nowhere else on the site, which is how this page ended
+   up looking like a different website. It is the standard tint now.
+
+   The wrapper is still the right place for it. A gradient repeated on both
+   sections would NOT have been equivalent: `at 85% 0%` resolves against each
+   element's own box, so the second section restarted the wash where the first
+   had finished it and the two met at a visible step. With a flat tint that
+   particular trap is gone, but one surface under two sections still cannot
+   seam, so this stays. */
 ?>
-<div class="tw-bg-[radial-gradient(120%_100%_at_85%_0%,#fbe6d4_0%,#f9f4ed_50%,#f4efe8_100%)]">
+<div class="tw-bg-surface">
   <?php
   require __DIR__ . '/components/ambassador/benefits.php';
   require __DIR__ . '/components/ambassador/registration.php';
@@ -82,14 +88,14 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ) ?>"></script>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Represent PowerCabs on the road.';
 $ctaText = 'Free card terminals, vehicle branding, fuel discounts and extra loyalty points.';
 $ctaPrimary = ['href' => '/ambassador-programme#pcAmbRegister', 'label' => 'Apply Now'];
 $ctaSecondary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

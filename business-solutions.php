@@ -166,8 +166,6 @@ require __DIR__ . '/components/business/payment-solutions/testimonials.php';
 ) ?>"></script>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 // Points back at this page's own application form rather than a generic
 // contact route -- the whole page builds to that one action.
@@ -188,8 +186,11 @@ $faqEyebrow = 'Card terminals';
 $faqHeading = 'Terminal questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 

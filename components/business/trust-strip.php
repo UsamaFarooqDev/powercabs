@@ -20,7 +20,7 @@ $bizTrustLogos = [
 // Duplicated once so the marquee track can loop seamlessly at exactly -50%.
 $bizTrustMarqueeItems = array_merge($bizTrustLogos, $bizTrustLogos);
 ?>
-<section class="tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.06] tw-bg-white tw-py-[clamp(2.5rem,4vw,3.5rem)]">
+<section class="<?= $pcSurfaceSoft ?> tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.06] tw-bg-white tw-py-[clamp(2.5rem,4vw,3.5rem)]">
   <div class="<?= $pcContainer ?>">
     <p class="tw-mb-4 tw-text-center tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.1em] tw-text-ink/60">
       Trusted by Businesses Across Ireland

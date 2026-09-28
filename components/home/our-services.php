@@ -70,7 +70,14 @@ $services = [
     <div class="tw-mb-14 tw-grid tw-grid-cols-1 tw-items-end tw-gap-8 lg:tw-mb-20 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-5') ?>">Services We Offer</p>
-        <h2 class="<?= $pcH2Display ?>">Wherever you're heading</h2>
+        <?php /* $pcH2, not $pcH2Display. The page was rendering section
+                 headings at 48px here and 44px everywhere else -- a 4px gap,
+                 which is too small to read as a deliberate step in the
+                 hierarchy and just makes the headings look inconsistently
+                 sized. $pcH2Display now appears exactly ONCE on the homepage,
+                 on the statement section, so 48px means "this is the page's
+                 statement" rather than "this heading happens to be bigger". */ ?>
+        <h2 class="<?= $pcH2 ?>">Wherever you're heading</h2>
       </div>
       <div class="lg:tw-col-span-5 lg:tw-pt-10">
         <p class="tw-mb-6 tw-max-w-[46ch] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.62]">
@@ -90,22 +97,48 @@ $services = [
          is a plain grid on the cards' own aspect ratio. -->
     <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 xl:tw-grid-cols-4 xl:tw-items-start xl:tw-gap-6">
       <?php foreach ($services as $i => $service): ?>
-        <?php // [top offset, height]. Widths are identical; only the height
-        // varies, and each card's top offset absorbs exactly what its height
-        // gives up -- offset + height = 31rem for all four -- so the steps
-        // read from the TOP while the bottoms stay level. The decrements are
-        // deliberately uneven (3, 2, 2rem) so the rhythm looks composed
-        // rather than mechanically halved.
-        $stagger = [
-          'xl:tw-h-[31rem]',
-          'xl:tw-mt-12 xl:tw-h-[28rem]',
-          'xl:tw-mt-20 xl:tw-h-[26rem]',
-          'xl:tw-mt-28 xl:tw-h-[24rem]',
-        ][$i] ?? ''; ?>
+        <?php
+        /* Four equal cards, level top and bottom.
+         *
+         * This was a staircase: each card offset further down and made
+         * correspondingly shorter, so offset + height came to 31rem for all
+         * four and the bottoms lined up while the tops stepped away. It worked
+         * exactly as written -- but it is decoration, it cost 112px of empty
+         * space above the last card, and a row of four equal service tiles is
+         * the simpler, calmer thing. Same four cards, same images, same links.
+         */
+        $stagger = 'xl:tw-h-[27rem]';
+
+        /* Fade-and-lift as the row scrolls in, cascading left to right.
+         *
+         * Uses the site's existing helper: initScrollReveal() in main.js
+         * watches .pc-reveal, adds .is-visible once, then unobserves. It is
+         * already in PJAX's re-run list, tears down its own observer, and
+         * falls back to showing everything when IntersectionObserver is
+         * missing. The motion-reduce: utilities mean a reduced-motion visitor
+         * sees the cards from CSS alone, without waiting on JS at all.
+         *
+         * Applied to the CARDS and nothing else. The codebase only ever puts
+         * opacity-0 on secondary blocks, never on a heading, copy or a CTA --
+         * because anything starting invisible depends on JS to become
+         * visible, and the page's message must not. */
+        $reveal =
+          'pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms]' .
+          ' tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100' .
+          ' motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none';
+        $revealDelay = ['', '[transition-delay:90ms]', '[transition-delay:180ms]', '[transition-delay:270ms]'][$i] ?? ''; ?>
+        <?php /* The reveal goes on a WRAPPER, not on the <a>. Putting it on
+                 the link meant its 600ms transition-[opacity,transform]
+                 replaced the card's own transition-[transform,box-shadow], so
+                 box-shadow was no longer a transitioned property and the
+                 hover shadow snapped on instantly. Two elements, two jobs:
+                 the wrapper animates in once, the link keeps its 300ms
+                 hover. */ ?>
+        <div class="<?= $reveal ?> <?= $revealDelay ?>">
         <a href="<?= $assetPath .
           $service[
             'href'
-          ] ?>" class="tw-group tw-relative tw-block tw-aspect-[4/5] xl:tw-aspect-auto tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] tw-no-underline tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-[transform,box-shadow] tw-duration-300 tw-ease-out hover:tw-shadow-[0_24px_50px_-12px_rgba(28,20,16,0.22)] motion-reduce:tw-transition-none motion-reduce:hover:tw-transform-none <?= $stagger ?>">
+          ] ?>" class="tw-group tw-relative tw-block tw-aspect-[4/5] xl:tw-aspect-auto tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-no-underline tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-[transform,box-shadow] tw-duration-300 tw-ease-out hover:tw-shadow-[0_24px_50px_-12px_rgba(28,20,16,0.22)] motion-reduce:tw-transition-none motion-reduce:hover:tw-transform-none <?= $stagger ?>">
           <img src="<?= $assetPath . $service['img'] ?>" alt="<?= htmlspecialchars(
   $service['alt'],
 ) ?>" class="tw-block tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
@@ -135,6 +168,7 @@ $services = [
             </span>
           </span>
         </a>
+        </div>
       <?php endforeach; ?>
     </div>
   </div>

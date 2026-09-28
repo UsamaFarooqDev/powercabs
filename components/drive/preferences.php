@@ -1,4 +1,4 @@
-<section class="tw-bg-white tw-py-16 md:tw-py-24">
+<section class="<?= $pcSurfaceSoft ?> tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-2') ?>">You're In Control</h2>

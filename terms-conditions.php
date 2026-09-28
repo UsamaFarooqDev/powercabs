@@ -50,8 +50,8 @@ $driverNav = [
 ?>
 
 <!-- ============ Audience Toggle ============ -->
-<section class="tw-px-4 tw-pb-3 tw-pt-16 tw-text-center sm:tw-px-6 md:tw-pt-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-inline-flex tw-w-full tw-max-w-[1320px] tw-flex-wrap tw-justify-center tw-gap-2">
+<section class="tw-pb-3 tw-pt-16 tw-text-center md:tw-pt-24">
+  <div class="<?= $pcContainer ?> tw-flex tw-flex-wrap tw-justify-center tw-gap-2">
     <!-- Bare radio + has-checked label: tcInitTermsConditions() in
          terms-conditions.js keeps driving this via getElementById/.checked,
          unchanged -- only the visual toggle styling moved to Tailwind. -->
@@ -315,6 +315,8 @@ $driverNav = [
 <script src="<?= $assetPath ?>assets/js/components/terms-conditions.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/terms-conditions.js') ?>"></script>
 
 <?php
+$bannerCompact = true; // restrained: a legal page should not end on an orange panel
+require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 
 

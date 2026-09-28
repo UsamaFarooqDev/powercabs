@@ -88,7 +88,34 @@ $footerNav = [
 <!-- tw-bg-ink-soft, one step darker than the closing CTA's tw-bg-ink above
      it. Both were tw-bg-ink, which ran the CTA and the footer together into a
      single black slab; the tonal step separates them without a divider. -->
-<footer class="tw-overflow-hidden tw-bg-ink-soft tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white">
+<?php /* The footer's top edge.
+ *
+ * It used to be a flat tw-bg-ink-soft rectangle, so it met the light page
+ * above it as one hard, full-width horizontal line -- the sharpest edge on
+ * the site.
+ *
+ * Three things soften it, none of which need the page above to cooperate
+ * (which matters, because the last section is white on most routes and the
+ * tint on others):
+ *   - rounded top corners, so the silhouette curves away instead of ruling a
+ *     line across the viewport
+ *   - a vertical gradient, lighter at the top and settling to near-black at
+ *     the bottom, so the footer has depth rather than being one flat value
+ *   - a 1px inset highlight along the very top, which reads as a lit edge and
+ *     stops the curve looking cut out
+ *
+ * The corners show the body's white behind them, which is why this works
+ * without a blend band. A blurred overlay above the footer was the other
+ * option and is not possible here: this element is overflow-hidden (it has to
+ * be -- see the note below about text clipping at 390px), so anything drawn
+ * outside its box would simply be clipped away. */ ?>
+<?php /* The gradient runs on two axes: a vertical light-to-dark, plus a warm
+         orange glow bled in from the top-left at very low opacity. The brand
+         colour is doing the same job here that it does elsewhere on the page
+         -- present, but as a tint rather than a block. Keeping it under about
+         8% is what stops the footer reading as an orange panel; it should be
+         felt more than seen. */ ?>
+<footer class="tw-relative tw-overflow-hidden tw-rounded-t-[clamp(1.5rem,3.5vw,2.75rem)] tw-bg-[radial-gradient(90%_140%_at_12%_0%,rgba(249,115,22,0.16)_0%,rgba(249,115,22,0.05)_38%,transparent_70%),linear-gradient(180deg,#333333_0%,#262626_38%,#1c1c1c_72%,#141414_100%)] tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white tw-shadow-[inset_0_1px_0_rgba(255,255,255,0.11)]">
 
   <div class="tw-relative <?= $pcContainer ?>">
 

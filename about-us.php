@@ -21,7 +21,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <!-- ============ Who We Are ============ -->
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>
@@ -90,7 +90,7 @@ $aboutHighlights = [
 <?php require __DIR__ . '/components/about/dublin-story.php'; ?>
 
 <!-- ============ Dublin Map ============ -->
-<section class="tw-pb-16 md:tw-pb-24">
+<section class="<?= $pcSurfaceSoft ?> tw-pb-16 md:tw-pb-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-relative tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] tw-aspect-[3/4] sm:tw-aspect-[16/9] lg:tw-aspect-[21/9]">
       <iframe
@@ -113,14 +113,14 @@ $aboutHighlights = [
 </section>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Ride with an Irish company.';
 $ctaText = 'Licensed, Garda-vetted drivers across the Greater Dublin Area, 24/7.';
 $ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Contact Us'];
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

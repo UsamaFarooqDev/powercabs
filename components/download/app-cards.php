@@ -7,10 +7,10 @@
 $playStoreTarget = 'https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger';
 $appStoreTarget = 'https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981';
 
-function pc_qr_src(string $target): string
-{
-  return 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&ecc=H&data=' . rawurlencode($target);
-}
+/* pc_qr_src() moved to components/download/qr.php -- the compact app row in
+   app-download-banner.php needs it too, and requiring this whole file to
+   reach one helper would pull in $appCards and its markup with it. */
+require_once __DIR__ . '/qr.php';
 
 $appCards = [
   [

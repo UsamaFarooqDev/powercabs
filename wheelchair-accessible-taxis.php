@@ -69,7 +69,6 @@ function pc_wc_icon(string $icon): void
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="tw-relative tw-mx-auto tw-w-full">
-        <span class="tw-pointer-events-none tw-absolute tw-bottom-[-20px] tw-right-[-20px] tw-z-0 tw-h-[150px] tw-w-[150px] tw-rounded-[2rem] tw-bg-power/[0.12] tw-blur-[2px]" aria-hidden="true"></span>
 <?php /* 420px was a fixed floor at every width, so on a 390px phone the panel
          stood taller than it was wide -- a portrait crop of a landscape
          photograph of a car, which cut the vehicle down to its middle third
@@ -158,8 +157,6 @@ function pc_wc_icon(string $icon): void
 </section>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Book an accessible ride.';
 $ctaText = 'Wheelchair-accessible vehicles and drivers trained to assist, across Dublin, 24/7.';
@@ -178,8 +175,11 @@ $faqEyebrow = 'Accessible travel';
 $faqHeading = 'Accessibility questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

@@ -6,7 +6,7 @@ $familyPoints = [
   ['lead' => 'Your success matters.', 'text' => 'A strong driver network makes PowerCabs stronger.'],
 ]; ?>
 <!-- ============ The PowerCabs Family / Keep Your Options Open ============ -->
-<section class="tw-bg-white tw-py-16 md:tw-py-24">
+<section class="<?= $pcSurfaceSoft ?> tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-2">
 

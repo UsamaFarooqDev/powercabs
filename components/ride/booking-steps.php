@@ -66,7 +66,7 @@ $rideSteps = [
          $pcSection/$pcContainer/$pcH2 replace a hand-rolled py-16/md:py-24,
          max-w-[1320px] and text-3xl/md:text-4xl that predate the design
          system and so had drifted off the shared rhythm. */ ?>
-<section class="tw-relative tw-overflow-hidden <?= $pcSurfaceSoft ?> <?= $pcSection ?>">
+<section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="<?= $pcSectionHeadCenter ?>">
       <h2 class="<?= $pcH2 ?>">Simple Steps to Book Your Ride</h2>

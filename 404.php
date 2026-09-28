@@ -52,8 +52,6 @@ $notFoundLinks = [
 <section class="tw-relative tw-flex tw-min-h-screen tw-items-center tw-overflow-hidden tw-bg-paper-soft tw-py-16 md:tw-py-24">
   <!-- Two soft brand glows, the same device the Business hero uses -- enough
        warmth that the page reads as PowerCabs rather than a server error. -->
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-10rem] tw-top-[-6rem] tw-h-[30rem] tw-w-[30rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.18),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-[-8rem] tw-left-[-8rem] tw-h-[24rem] tw-w-[24rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,228,207,0.9),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">

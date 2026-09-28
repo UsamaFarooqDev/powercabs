@@ -28,7 +28,7 @@ function pc_biz_service_icon(string $icon): void
   endswitch;
 }
 ?>
-<section class="<?= $pcSurfaceSoft ?> tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-py-16 md:tw-py-24">
+<section class="<?= $pcSurfaceSoft ?> tw-bg-surface tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What We Cover</p>

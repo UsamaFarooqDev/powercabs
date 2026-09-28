@@ -9,7 +9,7 @@ $joinProcess = [
 <!-- .pc-ptn-step-card is a bare JS hook -- partner-page.js's IntersectionObserver
      adds .is-visible as each card scrolls into view, handled below via the
      `[&.is-visible]:` arbitrary variant. -->
-<section class="tw-bg-[linear-gradient(180deg,#ffffff_0%,#f9f4ed_100%)] <?= $pcSection ?>" id="pcPtnProcess">
+<section class="<?= $pcSurfaceSoft ?> tw-bg-surface <?= $pcSection ?>" id="pcPtnProcess">
   <div class="<?= $pcContainer ?>">
     <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Simple From Day One</p>
     <h2 class="<?= $pcH2Display ?>">How the Partner Programme Works.</h2>

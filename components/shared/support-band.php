@@ -44,8 +44,6 @@ $supportTelHref = preg_replace('/[^0-9+]/', '', $supportTel);
 <section class="tw-relative tw-overflow-hidden tw-bg-ink tw-text-white <?= $pcSectionTight ?>">
   <?php /* Two brand glows, the same device the Business hero and the 404 use.
            They are what stop a flat ink slab reading as a footer. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-8rem] tw-top-[-6rem] tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.28),transparent_70%)] tw-blur-[70px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-[-9rem] tw-left-[-7rem] tw-h-[22rem] tw-w-[22rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.2),transparent_70%)] tw-blur-[70px]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 lg:tw-grid-cols-[1fr_auto] lg:tw-gap-12">

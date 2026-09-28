@@ -254,7 +254,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 
       <!-- LEFT: branding / visual side -->
       <div class="tw-relative tw-flex tw-flex-col tw-overflow-hidden tw-bg-[linear-gradient(155deg,#1c1410_0%,#2a1a10_55%,#160f0a_100%)] tw-p-6 tw-text-white sm:tw-p-10 lg:tw-col-span-5">
-        <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-z-0 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.3),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
         <svg class="tw-pointer-events-none tw-absolute -tw-right-6 -tw-top-6 tw-z-0 tw-h-44 tw-w-44 tw-rotate-[35deg] tw-text-white/[0.05]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
 
         <span class="tw-relative tw-z-[1] tw-mb-4 tw-inline-flex tw-w-fit tw-items-center tw-gap-2 tw-self-start tw-rounded-full tw-border tw-border-solid tw-border-white/[0.16] tw-bg-white/10 tw-px-4 tw-py-2 tw-text-xs tw-font-bold tw-uppercase tw-tracking-[0.04em]">
@@ -746,7 +745,7 @@ require __DIR__ . '/components/shared/scroll-scene.php';
       </div>
 
       <!-- RIGHT — How It Works -->
-      <div class="tw-flex tw-flex-col tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.06] tw-bg-[linear-gradient(145deg,#fff8f3_0%,#f9f4ed_100%)] tw-p-6 sm:tw-p-10 lg:tw-border-t-0 lg:tw-border-l">
+      <div class="tw-flex tw-flex-col tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.06] tw-bg-surface tw-p-6 sm:tw-p-10 lg:tw-border-t-0 lg:tw-border-l">
         <div class="tw-mb-4 tw-flex tw-items-start tw-gap-3">
           <div class="tw-flex tw-h-[46px] tw-w-[46px] tw-shrink-0 tw-items-center tw-justify-center tw-rounded-2xl tw-bg-power tw-text-white tw-shadow-[0_8px_20px_rgba(232,89,12,0.2)]">
             <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18M6 3l6 3-6 3m0 6l6 3-6 3M18 3v18M18 9l-6 3 6 3"/></svg>
@@ -813,8 +812,6 @@ require __DIR__ . '/components/shared/scroll-scene.php';
 </section>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 /* Replaces a hand-rolled closing CTA that duplicated the shared block's
    markup with its own button spellings. Primary points at this page's own
@@ -839,8 +836,11 @@ $faqEyebrow = 'Airport transfers';
 $faqHeading = 'Meet & greet questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

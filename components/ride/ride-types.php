@@ -102,10 +102,8 @@ function pc_ride_spec_icon(string $icon): void
 
 $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
 ?>
-<section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?> tw-relative tw-overflow-hidden">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?> tw-relative tw-overflow-hidden">
   <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-overflow-hidden" aria-hidden="true">
-    <div class="tw-absolute tw-left-[-12rem] tw-top-[8rem] tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-peach/30 tw-blur-3xl"></div>
-    <div class="tw-absolute tw-right-[-12rem] tw-bottom-[4rem] tw-h-[30rem] tw-w-[30rem] tw-rounded-full tw-bg-power/[0.06] tw-blur-3xl"></div>
   </div>
 
   <div class="<?= $pcContainer ?> tw-relative">
@@ -281,7 +279,6 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
 
                   <div class="tw-relative tw-flex tw-h-full tw-items-center tw-justify-center <?= $rideSlidePad ?>">
                     <div class="tw-relative tw-w-full tw-max-w-[23rem] tw-transition-transform tw-duration-700">
-                      <div class="tw-absolute tw-bottom-[-1rem] tw-left-[12%] tw-h-10 tw-w-[76%] tw-rounded-[50%] tw-bg-ink/15 tw-blur-2xl"></div>
                       <div class="tw-relative tw-aspect-square tw-overflow-hidden tw-rounded-[1.75rem] tw-border tw-bg-white/30 tw-shadow-[0_30px_70px_-18px_rgba(28,20,16,0.30)] tw-backdrop-blur-sm sm:tw-rounded-[2rem]">
 
                         <img

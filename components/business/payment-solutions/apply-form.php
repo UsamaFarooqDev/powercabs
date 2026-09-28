@@ -80,7 +80,7 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
     <img src="https://images.pexels.com/photos/28430310/pexels-photo-28430310.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
       alt="" aria-hidden="true" loading="lazy"
       class="tw-h-full tw-w-full tw-scale-110 tw-object-cover tw-object-center tw-blur-[22px]">
-    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,#f9f4ed_0%,rgba(249,244,237,0.86)_12%,rgba(252,250,247,0.62)_42%,rgba(255,255,255,0.8)_72%,#ffffff_100%)]"></span>
+    <span class="tw-absolute tw-inset-0 tw-bg-surface"></span>
   </span>
 
   <?php /* Decorative background blobs, purely visual. Alphas are roughly a
@@ -89,9 +89,6 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
            only need to add brand warmth, and at their old strength the three
            of them plus the image read as clutter behind a form asking for
            bank details. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-z-0 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.2),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-20 tw-left-[-9rem] tw-z-0 tw-h-80 tw-w-80 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(68,91,138,0.2),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-6rem] tw-top-[55%] tw-z-0 tw-h-64 tw-w-64 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.11),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainerNarrow ?>">
     <div class="tw-mb-10 tw-text-center">
