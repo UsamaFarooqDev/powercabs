@@ -36,10 +36,21 @@
              without adding another colour. The orange now survives only in the
              CTA and the phone mockup's own screen, which is where a brand
              colour should be doing its work. */ ?>
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 tw-overflow-hidden tw-bg-white tw-px-6 tw-py-9 tw-text-ink md:tw-px-12 md:tw-py-10 lg:tw-grid-cols-2">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 tw-overflow-hidden tw-bg-white tw-px-0 tw-py-9 tw-text-ink md:tw-px-12 md:tw-py-10 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
-        <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Download the PowerCabs App for Instant Access</h2>
-        <p class="tw-mb-4 tw-max-w-[46ch] tw-text-[1.1rem] tw-text-ink/70">
+        <?php /* The copy was tw-text-ink/70, which composites to about #565656
+                 -- nearly as dark as the headline above it, so the two competed
+                 and the paragraph read as heavy. tw-text-muted (#6b6b6b) is the
+                 site's body tint and steps clearly below the heading while
+                 still measuring 4.85:1 on white, comfortably past AA.
+
+                 The rest is air: leading 1.75 rather than the default, a 44ch
+                 measure so lines break where they should, and more room under
+                 the heading and above the badges. The paragraph had 16px below
+                 it and now has 32px, which is what stops the badges feeling
+                 stuck to the text. */ ?>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-4') ?>">Download the PowerCabs App for Instant Access</h2>
+        <p class="tw-mb-8 tw-max-w-[44ch] tw-text-[1.0625rem] tw-leading-[1.75] tw-tracking-[0.005em] tw-text-muted">
           Booking a cab with PowerCabs is now easier than ever. Download our app today
           from the App Store or Google Play and enjoy the convenience of booking a cab
           with just a few taps.
@@ -93,7 +104,6 @@
           <!-- Live Tracking card -->
           <div class="tw-absolute tw-left-[-8%] tw-top-[26%] tw-z-[2] tw-flex tw-items-center tw-gap-2 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-2 tw-shadow-[0_18px_40px_-12px_rgba(28,20,16,0.22)] tw-backdrop-blur-[10px] tw-animate-pc-float-fast [animation-delay:0.2s] motion-reduce:tw-animate-none">
             <div class="tw-relative tw-flex tw-h-[38px] tw-w-[38px] tw-shrink-0 tw-items-center tw-justify-center">
-              <!-- <span class="tw-absolute tw-inset-0 tw-rounded-full tw-bg-power tw-animate-ping"></span> -->
               <span class="tw-relative tw-flex tw-h-[30px] tw-w-[30px] tw-items-center tw-justify-center tw-rounded-full tw-bg-power tw-text-white">
                 <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.54 22.35a.75.75 0 00.92 0c.294-.229 7.54-5.928 7.54-12.6C20 5.246 16.418 1.5 12 1.5S4 5.246 4 9.75c0 6.672 7.246 12.371 7.54 12.6zM12 13a3.25 3.25 0 100-6.5 3.25 3.25 0 000 6.5z" clip-rule="evenodd"/></svg>
               </span>

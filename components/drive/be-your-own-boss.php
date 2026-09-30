@@ -57,7 +57,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
 <?php /* Horizontal padding removed: it was the old px-4/sm:px-6/lg:px-8
          scale, which puts this section's content at x=60 while the rest of
          /drive sits at 64. The container inside now owns the gutters. */ ?>
-<section class="<?= $pcSurfaceSoft ?> tw-relative tw-overflow-hidden tw-py-16 md:tw-py-20">
+<section class="tw-relative tw-overflow-hidden tw-py-16 md:tw-py-20">
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-max-w-[46rem]">

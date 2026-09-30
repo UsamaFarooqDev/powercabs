@@ -18,7 +18,7 @@ $safetyPoints = [
   ['title' => 'Support that answers', 'body' => 'A real Irish team, on the line at any hour.'],
 ];
 ?>
-<section class="tw-bg-surfac <?= $pcSection ?>">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16">
 
@@ -28,9 +28,17 @@ $safetyPoints = [
           Safety
         </span>
         <h2 class="<?= $pcH2 ?> tw-max-w-[15ch]">Safety starts before the journey begins.</h2>
-        <a class="<?= $pcBtnLinkIcon ?>" href="<?= $assetPath ?>/safety-tips-riders">
+        <?php /* $pcBtnLink on the anchor, $pcBtnLinkIcon on the svg -- the same
+                 pairing components/home/coverage.php documents. They were the
+                 wrong way round here: the anchor carried the ICON recipe, so it
+                 lost tw-text-power, the semibold weight, the inline-flex gap and
+                 its padding, and rendered as plain inherited body text (tw-h-4
+                 does nothing to an inline box). The svg's group-hover: also never
+                 fired, because the unnamed tw-group it needed was never on the
+                 anchor -- $pcBtnLink is what supplies tw-group/link. */ ?>
+        <a class="<?= $pcBtnLink ?>" href="<?= $assetPath ?>/safety-tips-riders">
           Rider safety
-          <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover:tw-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <svg class="<?= $pcBtnLinkIcon ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
 

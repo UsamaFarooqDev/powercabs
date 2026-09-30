@@ -18,6 +18,12 @@
  *   $supportTel       digits for the tel: href, no spaces
  *   $supportHours     availability line; defaults to 24/7
  *   $supportWhatsapp  optional wa.me URL, rendered as a second action
+ *   $supportImage     optional photograph behind the band, with a scrim over
+ *                     it. Each page passes one that matches WHO the band is
+ *                     addressing -- a driver on /drive, a passenger on /ride,
+ *                     a meeting on /business -- which is the same reason the
+ *                     phone number is per page and not baked in here. Leave it
+ *                     unset and the band is flat ink exactly as before.
  *
  * NOTE ON THE NUMBERS. Irish mobiles carry nine national digits
  * (+353 8X XXX XXXX). All three lines below are nine:
@@ -40,16 +46,30 @@ $supportWhatsapp = $supportWhatsapp ?? '';
 // $supportNumber, so the displayed formatting can change freely without any
 // risk of altering what actually gets dialled.
 $supportTelHref = preg_replace('/[^0-9+]/', '', $supportTel);
+$supportImage = $supportImage ?? '';
 ?>
 <section class="tw-relative tw-overflow-hidden tw-bg-ink tw-text-white <?= $pcSectionTight ?>">
-  <?php /* Two brand glows, the same device the Business hero and the 404 use.
-           They are what stop a flat ink slab reading as a footer. */ ?>
+  <?php /* The photograph, when a page supplies one.
+           bg-ink stays on the section as the base, so a 404 on the image
+           leaves a dark band and legible white type rather than a hole.
+           The scrim is heavy and weighted left, where the heading and the
+           phone number are: this band's job is one number, read once, and a
+           picture that competes with it has cost more than it gave. */ ?>
+  <?php if ($supportImage !== ''): ?>
+    <img src="<?= htmlspecialchars($supportImage) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async"
+      class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
+    <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(100deg,rgba(10,7,5,0.92)_0%,rgba(10,7,5,0.8)_40%,rgba(10,7,5,0.46)_100%)]" aria-hidden="true"></span>
+  <?php endif; ?>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 lg:tw-grid-cols-[1fr_auto] lg:tw-gap-12">
 
       <div>
-        <p class="<?= $pcEyebrowOnDark ?>">/ <?= htmlspecialchars($supportEyebrow) ?></p>
+        <?php /* The "/ " prefix is gone. It survived the site-wide strip
+                 because that pass required a letter after the slash to avoid
+                 touching "24/7" and URLs -- and here a PHP tag follows it, not
+                 a letter. */ ?>
+        <p class="<?= $pcEyebrowOnDark ?>"><?= htmlspecialchars($supportEyebrow) ?></p>
         <h2 class="<?= pc_mb($pcH2OnDark, 'tw-mb-3') ?>">
           <?= htmlspecialchars($supportHeading) ?>
         </h2>
@@ -109,4 +129,4 @@ $supportTelHref = preg_replace('/[^0-9+]/', '', $supportTel);
 /* Cleared so a later require of this component on the same page cannot
    inherit the previous one's number -- the same reason final-cta.php unsets
    its variables. */
-unset($supportEyebrow, $supportHeading, $supportText, $supportNumber, $supportTel, $supportHours, $supportWhatsapp, $supportTelHref);
+unset($supportEyebrow, $supportHeading, $supportText, $supportNumber, $supportTel, $supportHours, $supportWhatsapp, $supportTelHref, $supportImage);

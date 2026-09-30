@@ -1,7 +1,6 @@
 <?php
 $bizPlans = [
   [
-    'icon' => 'briefcase',
     'name' => 'Small Business',
     'range' => '1&ndash;10 employees',
     'features' => ['Business account', 'Multiple users', 'Easy booking'],
@@ -10,7 +9,6 @@ $bizPlans = [
     'featured' => false,
   ],
   [
-    'icon' => 'briefcase-fill',
     'name' => 'Business Plus',
     'range' => '10&ndash;50 employees',
     'features' => ['Monthly billing', 'Journey reports', 'Priority service'],
@@ -19,7 +17,6 @@ $bizPlans = [
     'featured' => true,
   ],
   [
-    'icon' => 'building',
     'name' => 'Corporate',
     'range' => '50+ employees',
     'features' => ['Dedicated account support', 'Custom travel solutions', 'Corporate support'],
@@ -28,69 +25,62 @@ $bizPlans = [
     'featured' => false,
   ],
 ];
-
-function pc_biz_plan_icon(string $icon): void
-{
-  switch ($icon):
-    case 'briefcase': ?>
-      <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.25 14.15v4.25a2 2 0 01-2 2H5.75a2 2 0 01-2-2v-4.25m16.5 0a2 2 0 00-2-2H5.75a2 2 0 00-2 2m16.5 0v-1.75a2 2 0 00-2-2H5.75a2 2 0 00-2 2v1.75M9 12.75V9.5A2.25 2.25 0 0111.25 7.25h1.5A2.25 2.25 0 0115 9.5v3.25"/></svg>
-    <?php break;
-    case 'briefcase-fill': ?>
-      <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.25 5.25v.443c-.741.014-1.481.048-2.221.096-1.024.067-1.848.914-1.848 1.921v.591M11.25 5.25V4.5a2.25 2.25 0 012.25-2.25h1.5a2.25 2.25 0 012.25 2.25v.75m-6-.007c1.163-.043 2.335-.05 3.508-.007m0 0c.741.014 1.481.048 2.221.096 1.024.067 1.848.914 1.848 1.921v.591m-9.75.35c1.163-.043 2.335-.05 3.508-.007M4.5 15.75h15M2.25 8.301c1.61-.334 3.263-.578 4.951-.723m0 0V6.25c0-1.007.823-1.854 1.848-1.921A50.293 50.293 0 0111.25 4.5m0 .75c1.163 0 2.335.05 3.508.093m-3.508-.093v.75"/></svg>
-    <?php break;
-    case 'building': ?>
-      <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.75 21h16.5M4.5 3h15v18h-15V3zM9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
-    <?php break;
-  endswitch;
-}
 ?>
-<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
+    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Business Plans</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Built for Businesses of All Sizes</h2>
-      <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-[1.05rem] tw-text-ink/60">
+      <p class="<?= $pcBody ?> tw-mx-auto tw-mb-0 tw-max-w-[56ch]">
         From a handful of employees to a whole organisation, PowerCabs Business
-        scales with your team -- these are service tiers, not price bands.
+        scales with your team &mdash; these are service tiers, not price bands.
       </p>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-justify-center tw-gap-6 md:tw-grid-cols-3">
+    <div class="tw-mx-auto tw-grid tw-max-w-[1100px] tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($bizPlans as $plan): ?>
-        <div class="tw-relative tw-flex tw-h-full tw-flex-col tw-rounded-2xl tw-border tw-border-solid tw-bg-white tw-p-[clamp(1.75rem,3vw,2.25rem)] tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)] <?= $plan[
-          'featured'
-        ]
-          ? 'tw-border-powerlight tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)]'
-          : 'tw-border-black/[0.08]' ?>">
-          <?php if ($plan['featured']): ?>
-            <span class="tw-absolute tw-left-1/2 tw-top-[-0.75rem] tw-inline-block -tw-translate-x-1/2 tw-whitespace-nowrap tw-rounded-full tw-bg-powerlight tw-px-3.5 tw-py-1.5 tw-text-[0.72rem] tw-font-bold tw-uppercase tw-tracking-[0.04em] tw-text-white">Most Popular</span>
-          <?php endif; ?>
+        <?php $featured = $plan['featured']; ?>
+        <div class="tw-flex tw-h-full tw-flex-col tw-rounded-2xl tw-p-7 tw-transition-shadow tw-duration-300 motion-reduce:tw-transition-none sm:tw-p-8 <?= $featured
+          ? 'tw-bg-ink tw-text-white tw-shadow-[0_24px_55px_-22px_rgba(28,20,16,0.5)]'
+          : 'tw-border tw-border-solid tw-border-hairline hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.08)]' ?>">
 
-          <span class="tw-mb-3 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-full tw-bg-paper tw-text-power">
-            <?php pc_biz_plan_icon($plan['icon']); ?>
-          </span>
+          <div class="tw-mb-4 tw-flex tw-h-6 tw-items-center tw-justify-between tw-gap-3">
+            <span class="tw-text-[0.7rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] <?= $featured
+              ? 'tw-text-white/45'
+              : 'tw-text-muted' ?>"><?= $plan['range'] ?></span>
+            <?php if ($featured): ?>
+              <span class="tw-whitespace-nowrap tw-rounded-full tw-bg-power/[0.18] tw-px-2.5 tw-py-1 tw-text-[0.65rem] tw-font-bold tw-uppercase tw-tracking-[0.1em] tw-text-powerlight">Most Popular</span>
+            <?php endif; ?>
+          </div>
 
-          <h3 class="tw-mb-1 tw-text-2xl tw-font-bold tw-text-ink"><?= htmlspecialchars($plan['name']) ?></h3>
-          <p class="tw-mb-6 tw-text-ink/60"><?= $plan['range'] ?></p>
+          <h3 class="tw-mb-6 tw-text-[1.625rem] tw-font-bold tw-tracking-[-0.02em] <?= $featured
+            ? 'tw-text-white'
+            : 'tw-text-ink' ?> sm:tw-text-[1.75rem]"><?= htmlspecialchars($plan['name']) ?></h3>
 
-          <ul class="tw-m-0 tw-mb-6 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
-            <?php foreach ($plan['features'] as $feature): ?>
-              <li class="tw-flex tw-items-center tw-gap-2">
-                <svg class="tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12a9.75 9.75 0 1119.5 0 9.75 9.75 0 01-19.5 0zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-                <span><?= htmlspecialchars($feature) ?></span>
+          <ul class="tw-m-0 tw-mb-8 tw-list-none tw-p-0">
+            <?php foreach ($plan['features'] as $i => $feature): ?>
+              <li class="tw-flex tw-items-start tw-gap-3 tw-py-3 <?= $i > 0
+                ? ($featured
+                  ? 'tw-border-0 tw-border-t tw-border-solid tw-border-white/10'
+                  : 'tw-border-0 tw-border-t tw-border-solid tw-border-hairline')
+                : '' ?>">
+                <svg class="tw-mt-[0.2rem] tw-h-4 tw-w-4 tw-shrink-0 <?= $featured
+                  ? 'tw-text-powerlight'
+                  : 'tw-text-power' ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
+                <span class="tw-text-[0.9375rem] tw-leading-snug <?= $featured
+                  ? 'tw-text-white/[0.78]'
+                  : 'tw-text-ink' ?>"><?= htmlspecialchars($feature) ?></span>
               </li>
             <?php endforeach; ?>
           </ul>
 
-          <a class="tw-mt-auto tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-rounded-full tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-300 <?= $plan[
-            'featured'
-          ]
-            ? /* Hand-rolled because the button is full-width here; keep it in
-                 step with $pcBtnPrimary: hover deepens the glow, and nothing
-                 moves or changes colour. See design-system.php. */
-              'tw-bg-powerlight tw-shadow-none hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]'
-            : 'tw-bg-ink hover:tw-bg-ink-soft' ?>" href="<?= htmlspecialchars($plan['href']) ?>">
+          <a class="tw-mt-auto tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-px-6 tw-py-3 tw-text-sm tw-font-semibold tw-no-underline tw-transition tw-duration-300 motion-reduce:tw-transition-none <?= $featured
+            ? 'tw-bg-power tw-text-white hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]'
+            : 'tw-border tw-border-solid tw-border-ink/20 tw-text-ink hover:tw-border-ink hover:tw-bg-ink hover:tw-text-white' ?>" href="<?= htmlspecialchars(
+  $plan['href'],
+) ?>">
             <?= htmlspecialchars($plan['cta']) ?>
+            <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
       <?php endforeach; ?>

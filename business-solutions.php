@@ -125,9 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-/* Service structured data. Assembled in includes/seo.php, which wires
-   it to the Organization node and supplies the default service area,
-   so the page only states what the service is. */
 $pageService = [
   'name' => 'Card Payment Terminals for Drivers and Businesses',
   'serviceType' => 'Payment terminal supply',
@@ -188,11 +185,8 @@ $faqLayout = 'split';
 $faqMoreHref = '/faqs';
 $faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
-require __DIR__ . '/components/shared/final-cta.php';
 $bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
-
 require __DIR__ . '/includes/footer.php';
-
 
 ?>

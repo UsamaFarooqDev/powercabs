@@ -12,12 +12,6 @@ $old ??= [
 $formStatus ??= null;
 $formError ??= '';
 
-// "For businesses" -- the reference page's audience there is brands buying
-// ad campaigns, which doesn't exist as a PowerCabs product; on this page
-// the equivalent B2B audience is the fleet/taxi operator business itself,
-// so this section keeps the reference's dark CTA + benefits-grid + form
-// layout but carries the existing partner enquiry form (same field
-// ids/names as before, backend untouched).
 $partnerBizBenefits = [
   ['title' => 'Fleet Management', 'desc' => 'Manage multiple vehicles and drivers under one PowerCabs account.'],
   ['title' => 'Business Growth', 'desc' => 'Plug into a growing network instead of relying on word of mouth alone.'],

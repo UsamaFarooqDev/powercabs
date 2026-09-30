@@ -43,7 +43,7 @@ if ($faqItems) {
 
   $faqSplit = $faqLayout === 'split';
   ?>
-  <section class="<?= $faqSurface === 'soft' ? $pcSurfaceSoft : 'tw-bg-white' ?> <?= $pcSection ?>">
+  <section class="<?= $pcSection ?>">
     <div class="<?= $faqSplit ? $pcContainer : $pcContainerNarrow ?>">
       <div class="<?= $faqSplit ? 'tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-20' : '' ?>">
 

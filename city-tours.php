@@ -191,63 +191,10 @@ foreach ($destinations as $d) {
   }
 }
 
-/* Five, down from eight. Eight one-word claims read as a checklist of
-   things any operator could say; the merges below keep every fact but let
-   each line carry a reason to book:
-
-     "Private transportation" + "Comfortable vehicles"  -> one private-car claim
-     "Family friendly" + "Group tours available"        -> one who-it-fits claim
-     "Full day & half day options"                      -> folded into the
-       flexible-itinerary line, which is the same promise stated twice
-
-   Nothing is lost: durations are on every destination card, and the hourly
-   option has its own section at the foot of the page. */
-$whyChooseTours = [
-  ['title' => 'Private car, just your group', 'icon' => 'car'],
-  ['title' => 'Flexible itinerary, full or half day', 'icon' => 'signpost'],
-  ['title' => 'Professional local drivers', 'icon' => 'badge'],
-  ['title' => 'Door-to-door pickup', 'icon' => 'house'],
-  ['title' => 'Families and groups welcome', 'icon' => 'people'],
-];
-
-// Canonical PowerCabs form field recipe (see book-ride-online.php).
-// Was a byte-for-byte copy of $pcInput. Pointed at the recipe instead:
-// $pcInput is already mirrored in custom-select.js and custom-datetime.js so
-// an enhanced control sits flush with a plain one, and every literal copy is
-// one more place that silently stops matching when it changes.
 $ctInputClass = $pcInput;
 $ctLabelClass = $pcLabel;
 $ctSubmitClass = $pcBtnPrimary;
 
-function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
-{
-  switch ($icon):
-    case 'car': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h7.5m-7.5 0h-3.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.83H14.25M16.5 18.75h-2.25m0-11.25h-8.09c-.966 0-1.786.694-1.94 1.646L2.35 14.25m11.15-7.5v7.5m0-7.5h4.093c.53 0 1.023.28 1.293.735L21 14.25M2.35 14.25v3.375c0 .621.504 1.125 1.125 1.125h1.5m14.25-4.5H2.35"/></svg>
-      <?php break;
-    case 'signpost': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18M6 3l6 3-6 3m0 6l6 3-6 3M18 3v18M18 9l-6 3 6 3"/></svg>
-      <?php break;
-    case 'badge': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-      <?php break;
-    case 'house': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 12l8.954-8.955a1.5 1.5 0 012.122 0L22.25 12M4.5 9.75V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V9.75M9 21.75V13.5a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5v8.25"/></svg>
-      <?php break;
-    case 'stars': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
-      <?php break;
-    case 'people': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
-      <?php break;
-    case 'group': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 19.5c0-2.9 2.5-5 5.5-5s5.5 2.1 5.5 5M15 15.5c2.3.2 4 1.8 4 4"/></svg>
-      <?php break;
-    case 'clock': ?>
-      <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <?php break;
-  endswitch;
-}
 ?>
 
 <?php if ($formStatus): ?>
@@ -257,23 +204,25 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   <script>window.pcHourlyFormSubmitted = true;</script>
 <?php endif; ?>
 
-<?php /* A "Prefer to Explore at Your Own Pace?" pay-per-hour banner sat here,
-         above the destinations. It opened the same #hourlyModal as the "Pay
-         Per Hour Booking" section further down the page, so the page pitched
-         hourly hire twice with one booking behind both -- and it did it
-         BEFORE showing a single destination, which is what a visitor came
-         for. The section at the bottom kept the job. */ ?>
-
-<!-- ============ Pay Per Hour ============ -->
-<!-- The hourly option now closes the page, after the destinations and the
-     reasons to book, rather than opening it before a visitor has seen a
-     single tour. This is the ONLY trigger for #hourlyModal below -- the
-     banner that used to sit at the top of the page was the other one, and
-     removing it without putting this here would have made hourly hire
-     unreachable. -->
 <section class="<?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
+    <?php /* A Dublin street behind the panel rather than a flat ink fill --
+             the Four Courts on the quays at sunset, one of the four
+             photographs the homepage coverage grid uses, so the city this
+             offer is set in is the same city in both places.
+           *
+           * It fits what the panel says: "set your own route" is about
+           * choosing where in Dublin to go, so the picture is the city, not a
+           * car. bg-ink stays underneath as the base, and the scrim is heavy
+           * and weighted left where the heading sits -- the button on the
+           * right needs the photograph to stay out of its way more than the
+           * photograph needs to be seen. */ ?>
     <div class="tw-relative tw-overflow-hidden tw-rounded-[28px] tw-bg-ink tw-p-6 sm:tw-p-10">
+      <img src="https://images.pexels.com/photos/38635694/pexels-photo-38635694.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400"
+        alt="" aria-hidden="true" loading="lazy" decoding="async"
+        class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
+      <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(100deg,rgba(10,7,5,0.93)_0%,rgba(10,7,5,0.86)_48%,rgba(10,7,5,0.72)_100%)]" aria-hidden="true"></span>
+
       <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-gap-6 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
         <div class="lg:tw-max-w-[62%]">
           <p class="<?= $pcEyebrowOnDark ?>">Pay Per Hour</p>
@@ -299,20 +248,10 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Featured Destinations</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Where Would You Like to Go?</h2>
     </div>
-    <!-- Varied hierarchy, one component. The first two destinations run at
-         double width across the top row with a wide 16:9 crop and a larger
-         title; the remaining eight sit four-up on a 4:3 crop. Ten identical
-         tiles read as a directory -- this reads as an editorial page with a
-         lead. The split is exactly 2x2 + 8 = two full rows of four, so no
-         card is ever orphaned on a short last row. -->
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($destinations as $i => $d): ?>
         <?php $isLead = $i < 2; ?>
-        <?php /* Hairline instead of a permanent drop shadow on all ten: §43
-                 asks for shadows sparingly, and ten shadowed tiles in one grid
-                 is what makes a gallery read as a dashboard. The shadow moves
-                 to hover, where it means something. */ ?>
-        <div class="tw-group tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[28px] tw-border tw-border-solid tw-border-hairline tw-bg-white <?= $pcCardHover ?> <?= $isLead
+        <div class="tw-group tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[28px] tw-border tw-border-solid tw-border-hairline tw-bg-white <?= $isLead
           ? 'lg:tw-col-span-2'
           : '' ?>">
           <div class="<?= $isLead ? 'tw-aspect-[16/9]' : 'tw-aspect-[4/3]' ?> tw-overflow-hidden">
@@ -325,16 +264,6 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
               ? 'tw-text-2xl'
               : 'tw-text-lg' ?>"><?= htmlspecialchars($d['name']) ?></h3>
             <p class="tw-mb-3 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($d['desc']) ?></p>
-            <!-- mt-auto keeps every Book Tour button on the same baseline
-                 within a row, whatever length the description runs to. -->
-            <?php /* A TEXT action, not a filled pill. Ten destination tiles
-                     each carried a solid orange button, so this one section
-                     printed ten orange blocks -- §26 wants orange to feel
-                     intentional, and at ten-per-screen it reads as the page's
-                     background colour rather than as its call to action. The
-                     action itself is unchanged: same button, same modal, same
-                     data attributes, and it is still the only thing to click
-                     in the tile. */ ?>
             <div class="tw-mt-auto tw-pt-1">
               <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
               <button type="button" class="<?= $pcBtnLink ?> tw-cursor-pointer tw-appearance-none tw-border-0 tw-bg-transparent tw-p-0" data-pc-modal-open="#tourModal"
@@ -350,122 +279,10 @@ function pc_ct_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   </div>
 </section>
 
-<!-- ============ Why Choose Our Tours ============ -->
-<section class="tw-relative tw-overflow-hidden tw-bg-paper <?= $pcSection ?>">
-  <?php /* The paper panel lands on white instead of stopping dead. The band
-           below this is the app-download banner, whose top edge is a torn
-           clip-path polygon with the page showing through the tear -- against
-           flat #f4efe8 that tear read as a second hard edge stacked on the
-           section's own. Fading to white first gives it something to tear out
-           of.
-
-           z-0 with the container lifted to z-[1]: the fade is a sibling that
-           comes first in the DOM, so without the pairing it would paint over
-           the bottom row of cards rather than behind them. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-0 tw-h-[clamp(5rem,12vw,9rem)] tw-bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.72)_55%,#ffffff_100%)]" aria-hidden="true"></span>
-
-  <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
-    <div class="tw-mb-10 tw-grid tw-grid-cols-1 tw-items-end tw-gap-6 lg:tw-grid-cols-12">
-      <div class="lg:tw-col-span-7">
-        <?php /* Was a hand-built row: an orange dot span, a gap, and a label
-                 span at its own size and tracking. That was this page's private
-                 answer to the same problem the "/ " prefix solved everywhere
-                 else, so the site had two eyebrow decorations. One recipe now,
-                 and the rule replaces the dot. */ ?>
-        <p class="<?= $pcEyebrow ?>">Why Choose Our Tours</p>
-        <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">
-          Ireland, <span class="tw-font-normal">at Your Own Pace</span>
-        </h2>
-      </div>
-      <div class="lg:tw-col-span-5">
-        <p class="tw-mb-0 tw-leading-[1.7] tw-text-ink/60">
-          Discover Ireland with the freedom to travel your way,
-          supported by local expertise, comfort and flexibility.
-        </p>
-      </div>
-    </div>
-
-    <!-- Features -->
-    <?php /* Five reasons, laid out as §16's numbered list rather than five
-             boxes. Each used to be a bordered card carrying an icon chip, a
-             5rem ghost numeral, a title, a 3px orange bar and a corner
-             "external link" arrow -- five pieces of decoration around eleven
-             words, and the arrow implied a link on something that was not
-             clickable. The number now does the job the ghost numeral, the bar
-             and the border were all doing at once.
-
-             Five columns at lg, not four: with cols-4 the fifth card sat alone
-             on its own row, which is the ragged last row §35 reads as
-             accidental. */ ?>
-    <div class="tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-8 sm:tw-grid-cols-3 lg:tw-grid-cols-5">
-      <?php foreach ($whyChooseTours as $index => $item): ?>
-        <?php /* min-h 175, down from 245. Measured: the tallest card's content
-                 (icon chip, its margin, and a two-line title) ends 131px from
-                 the card's top, and the corner arrow occupies the bottom 32px
-                 -- so 245px left 114px of nothing between the title and the
-                 arrow on every card, and 137px on the one-line one. Nearly
-                 half of each card was empty.
-
-                 175 is that 131 + the arrow's 32 + a little breathing room, so
-                 the floor is now set by what the card actually contains. It is
-                 only a FLOOR: the grid stretches every card in a row to the
-                 tallest anyway, so a title that needs a third line still grows
-                 the row rather than being clipped. The floor is what keeps the
-                 fifth card -- alone on its own row at lg -- the same height as
-                 the four above it.
-
-                 pb-10 rather than p-4 all round, and that part is load-bearing:
-                 the corner arrow is absolutely positioned in the bottom 32px,
-                 so it takes no space in flow. At 245px there was so much slack
-                 that nothing ever reached it, but at 175px a three-line title
-                 -- which is what "Flexible itinerary, full or half day" becomes
-                 in a 126px column at 360px -- ended 29px above the card's
-                 bottom, i.e. 3px INTO the arrow. The extra bottom padding
-                 reserves that strip in flow, so the title has to stop above it
-                 however many lines it runs to. */ ?>
-        <div class="<?= $pcStepItem ?>">
-          <span class="<?= $pcStepNum ?>"><?= str_pad($index + 1, 2, '0', STR_PAD_LEFT) ?></span>
-          <span class="tw-mb-3 tw-block tw-text-power"><?php pc_ct_icon($item['icon']); ?></span>
-          <h3 class="tw-mb-0 tw-text-[0.9375rem] tw-font-semibold tw-leading-[1.45] tw-text-ink">
-            <?= htmlspecialchars($item['title']) ?>
-          </h3>
-        </div>
-      <?php endforeach; ?>
-    </div>
-
-    <!-- Bottom statement -->
-    <div class="tw-mt-10 tw-flex tw-flex-col tw-items-start tw-gap-3 tw-pt-4 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
-      <div class="tw-flex tw-items-center tw-gap-3">
-        <div class="tw-h-px tw-w-[45px] tw-bg-power"></div>
-        <span class="tw-text-sm tw-text-ink/60">Travel comfortably. Explore freely. Experience more.</span>
-      </div>
-      <span class="tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-ink">Your journey, your way</span>
-    </div>
-  </div>
-</section>
-
 <!-- ============ Shared Tour Modal (Explore + Book Tour) ============ -->
-<!-- Driven by the modal helper in assets/js/components/ui.js
-     (window.pcModal), which replaced Bootstrap's Modal. data-pc-modal marks
-     the shell, data-pc-modal-close any dismiss control; the helper adds the
-     backdrop, traps body scroll and closes on Escape / backdrop click. -->
 <div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="tourModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="tourModalName" aria-hidden="true">
   <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[800px]">
     <div class="tw-w-full tw-overflow-hidden tw-rounded-[2rem] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
-      <?php /* The destination photograph is the modal's header: it runs full
-               bleed across the top with a dark scrim, and the name and
-               duration sit on top of it. That replaces a white title bar plus
-               a separate thumbnail row -- one block instead of two, and the
-               image finally earns its space instead of being a stamp beside
-               the copy.
-
-               The header is a fixed h-40/h-48, NOT an aspect ratio: the modal
-               must stay a predictable height whatever the photo's dimensions,
-               which is what kept it comparable to the Pay Per Hour modal.
-
-               The <img> renders with an empty src until city-tours.js fills it
-               from the clicked button's data-tour-img, hence the bg-ink
-               underneath. Keep every id -- the script writes to all four. */ ?>
       <div class="tw-relative tw-h-40 tw-w-full tw-overflow-hidden tw-bg-ink sm:tw-h-48">
         <img id="tourModalImg" src="<?= htmlspecialchars(
           $reopenDestination['img'] ?? '',
@@ -645,6 +462,7 @@ $faqLayout = 'split';
 $faqMoreHref = '/faqs';
 $faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

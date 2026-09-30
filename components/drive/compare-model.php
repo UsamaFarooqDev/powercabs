@@ -9,17 +9,37 @@ $compareRows = [
 ];
 $rowCount = count($compareRows);
 ?>
-<!-- ============ Compare the Model ============ -->
-<section class="tw-bg-paper-soft <?= $pcSection ?>">
+
+<section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= $pcEyebrow ?>">Compare the Model</p>
       <h2 class="<?= $pcH2Display ?>">
         Look beyond the headline commission
       </h2>
-      <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.62]">
-        Different platforms use different pricing models. Compare the real cost
-        of access, not just the commission headline.
+    </div>
+
+    <div class="tw-mx-auto tw-mb-12 tw-max-w-[720px] md:tw-mb-14">
+      <p class="tw-mb-3 tw-text-center tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-muted">
+        Example &mdash; one completed &euro;100 PowerCabs job
+      </p>
+
+      <div class="tw-flex tw-h-[2.9rem] tw-w-full tw-overflow-hidden tw-rounded-full tw-bg-ink/[0.06] tw-shadow-[inset_0_0_0_1px_rgba(28,20,16,0.08)] sm:tw-h-[3.45rem]"
+        role="img" aria-label="On a completed €100 PowerCabs job, €90 of the fare is yours and €10 is commission.">
+        <div class="tw-flex tw-w-[90%] tw-items-center tw-justify-center tw-bg-[linear-gradient(90deg,#e8590c_0%,#f97316_100%)] tw-px-3 sm:tw-justify-start sm:tw-px-8">
+          <span class="tw-text-[1.15rem] tw-font-extrabold tw-tracking-[-0.02em] tw-text-white sm:tw-text-[1.625rem]">&euro;90 yours</span>
+        </div>
+        <div class="tw-w-[10%]" aria-hidden="true"></div>
+      </div>
+
+      <div class="tw-mt-3 tw-flex tw-items-baseline tw-justify-between tw-gap-4">
+        <span class="tw-text-[0.8rem] tw-font-bold tw-uppercase tw-tracking-[0.08em] tw-text-power sm:tw-text-[0.875rem]">90% of the fare</span>
+        <span class="tw-text-[0.8rem] tw-text-muted sm:tw-text-[0.875rem]">&euro;10 commission</span>
+      </div>
+
+      <p class="tw-mx-auto tw-mb-0 tw-mt-5 tw-max-w-[54ch] tw-text-center tw-text-[0.8125rem] tw-leading-relaxed tw-text-muted">
+        Illustrative split of PowerCabs commission on a single completed job. It is
+        not an earnings estimate and does not account for your own running costs.
       </p>
     </div>
 
@@ -30,7 +50,7 @@ $rowCount = count($compareRows);
            the eye reads it as the answer rather than as one of three equal
            columns. The grid keeps all three in lockstep row by row. -->
       <div class="tw-hidden md:tw-block">
-        <div class="tw-relative tw-rounded-[20px] tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">
+        <div class="tw-relative tw-rounded-[20px] tw-border tw-border-solid tw-border-hairline tw-bg-white tw-shadow-[0_18px_45px_-20px_rgba(28,20,16,0.28)]">
 
           <!-- The highlighted middle column, drawn as one continuous panel
                behind the rows rather than per-cell backgrounds -- that is what
@@ -78,7 +98,7 @@ $rowCount = count($compareRows);
            PowerCabs answer keeps its brand ring so the hierarchy survives. -->
       <div class="tw-flex tw-flex-col tw-gap-3 md:tw-hidden">
         <?php foreach ($compareRows as $row): ?>
-          <div class="tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-4 tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">
+          <div class="tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-4 tw-shadow-[0_6px_18px_-10px_rgba(28,20,16,0.22)]">
             <p class="tw-mb-3 tw-text-[0.975rem] tw-font-semibold tw-leading-snug tw-text-ink"><?= htmlspecialchars(
               $row['label'],
             ) ?></p>
@@ -99,9 +119,9 @@ $rowCount = count($compareRows);
         <?php endforeach; ?>
       </div>
 
-      <div class="tw-mt-6 tw-flex tw-items-start tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-power/[0.18] tw-bg-power/[0.07] tw-p-4">
+      <div class="tw-mt-6 tw-flex tw-items-start tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-power/25 tw-bg-power/[0.07] tw-p-4">
         <svg class="tw-mt-0.5 tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-        <p class="tw-mb-0 tw-text-[0.975rem] tw-leading-relaxed tw-font-semibold tw-text-ink">
+        <p class="tw-mb-0 tw-text-[0.975rem] tw-font-semibold tw-leading-relaxed tw-text-ink">
           The PowerCabs advantage: no joining fee, no monthly subscription and no Saver fare
           cut &mdash; just a flat 10% on completed jobs.
         </p>

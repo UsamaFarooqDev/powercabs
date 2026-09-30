@@ -10,8 +10,16 @@
  *
  *   $sceneId          required. Unique per page.
  *   $sceneGradient    required. The backdrop, as a CSS gradient value.
- *   $sceneSubject     required. HTML for the travelling element -- an <img>
- *                     with a transparent background, or inline SVG.
+ *   $sceneSubject     optional. HTML for the travelling element -- an <img>
+ *                     with a transparent background, or inline SVG. Leave it
+ *                     unset for a scene that is the backdrop and the sentence
+ *                     and nothing else: a colour field carrying one line is a
+ *                     composition in its own right, and it is the right call
+ *                     whenever the only available subject is weaker than the
+ *                     backdrop it would sit on. Build the interest into
+ *                     $sceneGradient instead -- it takes a full CSS background
+ *                     value, so a radial glow layered over the linear ramp
+ *                     gives the scene a light source at no markup cost.
  *   $sceneSubjectSize optional. Width utility for the subject.
  *                     Default: clamp(260px,42vw,560px).
  *   $sceneOverlay     optional. HTML painted ABOVE the subject, drifting the
@@ -53,6 +61,20 @@ $sceneSubjectSize = $sceneSubjectSize ?? 'tw-w-[clamp(260px,42vw,560px)]';
 $sceneTone = $sceneTone ?? 'light';
 $sceneHeight = $sceneHeight ?? 'tw-h-[clamp(460px,58vw,680px)]';
 $sceneFlip = !empty($sceneFlip);
+/* STATIC VARIANT. Set $sceneStatic = true to keep the composition -- the
+   gradient, the subject, the ground layer and the message -- but drop the
+   scroll-driven travel.
+ *
+ * The scene reads as a composed picture either way; the motion was the
+ * enhancement, not the substance. A static scene also stops carrying any JS
+ * cost at all: no data-pc-scroll-scene attribute means the observer never
+ * picks it up, so a page using only static scenes does not need
+ * scroll-scene.js loaded.
+ *
+ * The subject is centred when static. Its animated start position is -15% --
+ * deliberately off the left edge, because it is about to travel in -- and
+ * leaving it there without the travel just looks like a cropped image. */
+$sceneStatic = !empty($sceneStatic);
 $sceneAnchor = $sceneAnchor ?? '-50%';
 $sceneSubjectPos = $sceneSubjectPos ?? 'tw-top-1/2';
 $sceneCopyPos = $sceneCopyPos ?? 'bottom';
@@ -65,17 +87,31 @@ $sceneDark = $sceneTone === 'dark';
 <!-- ============ Scroll Scene: <?= htmlspecialchars($sceneId) ?> ============ -->
 <section class="tw-relative tw-overflow-hidden <?= $sceneHeight ?>" id="<?= htmlspecialchars($sceneId) ?>"
   style="background:<?= htmlspecialchars($sceneGradient) ?>"
-  data-pc-scroll-scene<?= $sceneFlip ? ' data-pc-scene-flip="true"' : '' ?> data-pc-scene-anchor="<?= htmlspecialchars($sceneAnchor) ?>">
+  <?= $sceneStatic
+    ? ''
+    : 'data-pc-scroll-scene' .
+      ($sceneFlip ? ' data-pc-scene-flip="true"' : '') .
+      ' data-pc-scene-anchor="' . htmlspecialchars($sceneAnchor) . '"' ?>>
 
-  <?php /* The subject sits at left:0 and is moved by translate3d from JS, so
-           its start position is a transform rather than a layout property --
-           nothing here triggers layout on scroll. will-change promotes it to
-           its own layer so the whole band is not repainted each frame. */ ?>
-  <div class="tw-pointer-events-none tw-absolute tw-left-0 <?= $sceneSubjectPos ?> tw-z-[1] <?= $sceneSubjectSize ?> tw-will-change-transform"
-    style="transform:translate3d(<?= $sceneFlip ? '100%' : '-15%' ?>, <?= htmlspecialchars($sceneAnchor) ?>, 0)"
-    data-pc-scene-subject>
-    <?= $sceneSubject ?>
-  </div>
+  <?php /* When animated the subject sits at left:0 and is moved by translate3d
+           from JS, so its position is a transform rather than a layout
+           property and nothing triggers layout on scroll; will-change promotes
+           it to its own layer so the band is not repainted each frame.
+
+           When static it is centred with left-1/2 and a -50% X translate, and
+           the will-change is dropped -- promoting a layer that will never
+           move just costs memory.
+
+           No subject is a valid scene. The wrapper is skipped entirely rather
+           than emitted empty, so an animated scene without one does not hand
+           scroll-scene.js an element with nothing in it to move. */ ?>
+  <?php if (!empty($sceneSubject)): ?>
+    <div class="tw-pointer-events-none tw-absolute <?= $sceneStatic ? 'tw-left-1/2' : 'tw-left-0 tw-will-change-transform' ?> <?= $sceneSubjectPos ?> tw-z-[1] <?= $sceneSubjectSize ?>"
+      style="transform:translate3d(<?= $sceneStatic ? '-50%' : ($sceneFlip ? '100%' : '-15%') ?>, <?= htmlspecialchars($sceneAnchor) ?>, 0)"
+      data-pc-scene-subject>
+      <?= $sceneSubject ?>
+    </div>
+  <?php endif; ?>
 
   <?php if (!empty($sceneOverlay)): ?>
     <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-[2] tw-will-change-transform" data-pc-scene-overlay>
@@ -114,6 +150,7 @@ unset(
   $sceneText,
   $sceneTone,
   $sceneFlip,
+  $sceneStatic,
   $sceneAnchor,
   $sceneSubjectPos,
   $sceneCopyPos,

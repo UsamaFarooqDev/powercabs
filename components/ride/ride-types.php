@@ -102,7 +102,7 @@ function pc_ride_spec_icon(string $icon): void
 
 $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
 ?>
-<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?> tw-relative tw-overflow-hidden">
+<section class="<?= $pcSection ?> tw-relative tw-overflow-hidden">
   <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-overflow-hidden" aria-hidden="true">
   </div>
 

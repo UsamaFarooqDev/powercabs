@@ -150,8 +150,12 @@ $footerNav = [
         <address class="tw-mb-4 tw-not-italic tw-text-[0.92rem] tw-leading-[1.75] tw-text-white/[0.6]">
           Kylmore Road, Inchicore<br>
           Dublin D10 K729<br>
-          <a class="<?= $fLegal ?> tw-text-[0.92rem]" href="tel:+35312030727">+353 12 03 0727</a><br>
-          <a class="<?= $fLegal ?> tw-text-[0.92rem]" href="mailto:info@powercabs.ie">info@powercabs.ie</a>
+          <?php /* py-1 with no margin compensation, deliberately: these two stay
+                   INLINE inside the <address>, and padding on an inline box grows
+                   the hit area without touching the line box -- so the tap target
+                   goes 20px -> 28px and the address block does not reflow. */ ?>
+          <a class="<?= $fLegal ?> tw-text-[0.92rem] tw-py-1" href="tel:+35312030727">+353 12 03 0727</a><br>
+          <a class="<?= $fLegal ?> tw-text-[0.92rem] tw-py-1" href="mailto:info@powercabs.ie">info@powercabs.ie</a>
         </address>
 
         <!-- Registration numbers live with the company identity, not in the
@@ -232,10 +236,15 @@ $footerNav = [
       </p>
 
       <div class="tw-flex tw-flex-col tw-gap-5 sm:tw-flex-row sm:tw-items-center sm:tw-gap-8">
+        <?php /* py-1 -my-1 on each link, not on the row: these are 13.6px text
+                 that measured 20px tall, under the 24px WCAG 2.5.8 asks of a
+                 tap target. The padding buys 8px of hit area and the negative
+                 margin hands the same 8px back to the flex row, so the legal
+                 strip keeps its exact height. */ ?>
         <div class="tw-flex tw-flex-wrap tw-gap-x-5 tw-gap-y-2">
-          <a class="<?= $fLegal ?>" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
-          <a class="<?= $fLegal ?>" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
-          <a class="<?= $fLegal ?>" href="<?= $assetPath ?>/gdpr">GDPR</a>
+          <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
+          <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
+          <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/gdpr">GDPR</a>
         </div>
         <div class="tw-flex tw-gap-2.5">
           <a class="<?= $fSocial ?>" href="https://www.facebook.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Facebook">

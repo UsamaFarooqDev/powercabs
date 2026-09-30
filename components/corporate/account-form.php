@@ -29,7 +29,7 @@ $inputClass = $pcInput;
          against. This section sits between the image-led services row and the
          dark mission band, which makes it the natural place for the change of
          tone. */ ?>
-<section class="tw-scroll-mt-24 <?= $pcSurfaceSoft ?> <?= $pcSection ?>" id="corporate-account-form">
+<section class="tw-scroll-mt-24 <?= $pcSection ?>" id="corporate-account-form">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>

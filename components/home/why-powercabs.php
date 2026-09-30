@@ -35,7 +35,7 @@ $whyItems = [
   ],
 ];
 ?>
-<section class="tw-bg-surfac <?= $pcSection ?>">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="<?= $pcSectionHead ?>">
       <p class="<?= $pcEyebrow ?>">The power of local</p>

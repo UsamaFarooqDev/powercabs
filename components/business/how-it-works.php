@@ -9,9 +9,12 @@ $totalBizHowSteps = count($bizHowSteps);
 <!-- #pcBizHowItWorks / bare .pc-biz-step are JS hooks -- business-page.js's
      IntersectionObserver toggles .is-visible as each step scrolls into
      view, handled below via the `[&.is-visible]:` arbitrary variant. -->
-<?php /* Background comes from the shared band in business.php -- see the
-         note in airport-assistance.php. */ ?>
-<section class="tw-py-16 md:tw-py-24" id="pcBizHowItWorks">
+<?php /* Carries its own surface now. It used to be transparent because
+         business.php wrapped it and airport-assistance.php in one soft band;
+         that wrapper went when airport-assistance.php was removed, which would
+         have left this the only section on the page with no background of its
+         own -- and therefore whatever the page behind it happened to be. */ ?>
+<section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>" id="pcBizHowItWorks">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How It Works</p>

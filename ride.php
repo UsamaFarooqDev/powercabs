@@ -42,18 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quickBookFormStatus = 'error';
     $quickBookFormError  = 'Please enter a valid email address.';
   } else {
-    // The client only ever supplies the trip-dependent inputs (distance/
-    // duration, from Google Directions) -- the fare itself is always
-    // recomputed here, never trusted from the submitted form. Whatever
-    // fare the browser displayed was itself sourced from
-    // api/estimate_fare.php, so this recompute should normally just
-    // confirm it -- but the server is what actually goes in the email.
-    //
-    // The promo code is re-validated by the same recompute, which is the
-    // point: the discount the browser showed came from an endpoint anyone
-    // can call, so a hand-edited promo_code (or one that expired between
-    // the estimate and the submit) is caught here rather than emailed to
-    // dispatch as a real price.
     $quickBookPromoDiscount = 0.0;
     $quickBookPromoApplied  = '';
     $quickBookFareBeforePromo = '';
@@ -100,18 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $body .= "\nEstimated Distance: {$quickBookOld['distance_km']} km\n"
         . "Estimated Duration: {$quickBookOld['duration_min']} min\n";
 
-      // Only itemise the promo when one actually survived re-validation --
-      // dispatch needs to see which code was honoured and for how much, not
-      // merely what the passenger typed.
       if ($quickBookPromoApplied !== '' && $quickBookPromoDiscount > 0) {
         $body .= "Fare Before Promo: \u{20AC}{$quickBookFareBeforePromo}\n"
           . "Promo Code: {$quickBookPromoApplied} (-\u{20AC}"
           . number_format($quickBookPromoDiscount, 2, '.', '') . ")\n";
       } elseif ($quickBookOld['promo_code'] !== '') {
-        // Echoed so dispatch can see what the passenger actually typed (a
-        // near-miss is worth knowing about), but this is the one unvalidated
-        // string that reaches the email -- flattened to a single line and
-        // capped so a pasted essay can't reshape the message.
         $rejectedCode = substr(preg_replace('/\s+/', ' ', $quickBookOld['promo_code']), 0, 32);
         $body .= "Promo Code: {$rejectedCode} (NOT APPLIED -- invalid, expired or not eligible)\n";
       }
@@ -137,9 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-/* Service structured data. Assembled in includes/seo.php, which wires
-   it to the Organization node and supplies the default service area,
-   so the page only states what the service is. */
 $pageService = [
   'name' => 'Taxi and Private Hire Rides',
   'serviceType' => 'Taxi service',
@@ -152,15 +130,14 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow     = 'Ride';
 $heroTitleLight  = 'Your ride.';
 $heroTitleBold   = 'Your way.';
-// Trimmed from the four-sentence version: the hero's job is to say what the
-// page is, not to pre-empt every section under it. Booking, safety, pricing
-// and 24/7 availability each have their own section below and were all named
-// here as well.
 $heroDescription = 'Licensed, Garda-vetted drivers across Dublin. See your fare before you book, and pay exactly what you were quoted.';
-$heroBgImage     = 'https://images.pexels.com/photos/1399282/pexels-photo-1399282.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'split';
-$heroImageAlt = 'A PowerCabs taxi on a Dublin street at dusk';
-require __DIR__ . '/components/shared/inner-hero.php';
+/* /ride has its own hero rather than the shared inner-hero.php, because the
+   fare estimate is IN it -- the same arrangement /drive uses for the driver
+   application. See components/ride/hero.php for why that is a page-specific
+   component and not a sixth variant of the shared one. The hero requires
+   fare-widget.php itself, so that card is no longer a column of the section
+   below. */
+require __DIR__ . '/components/ride/hero.php';
 
 // Order follows the page's job: quote a fare -> show what you can book ->
 // explain the process -> justify the choice -> answer objections -> act.
@@ -194,17 +171,12 @@ $supportNumber = '+353 89 972 8089';
 $supportTel = '+353899728089';
 $supportHours = 'Customer support is available 24/7, every day of the year.';
 $supportWhatsapp = 'https://wa.me/353899728089';
+/* a passenger in the back seat -- this band is the CUSTOMER line. The band stays dark; this only replaces the flat fill behind
+   the scrim. See components/shared/support-band.php. */
+$supportImage = 'https://images.pexels.com/photos/4606338/pexels-photo-4606338.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/ride/ride-faq.php';
-
-
-$ctaTitle = 'Know your fare before you book.';
-$ctaText = 'Enter a pickup and drop-off for an instant quote, or talk to a real person in Dublin.';
-$ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book a Ride'];
-$ctaSecondary = ['href' => '/contact-us', 'label' => 'Contact Us'];
-require __DIR__ . '/components/shared/final-cta.php';
 $bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
-
 require __DIR__ . '/includes/footer.php';
 ?>

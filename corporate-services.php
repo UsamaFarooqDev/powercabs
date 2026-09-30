@@ -1,6 +1,6 @@
 <?php
 $pageTitle       = 'Corporate Taxi Accounts in Dublin | PowerCabs';
-$pageDescription = 'Reliable, flexible, safe corporate transportation in Dublin from PowerCabs -- business travel, event transportation and ongoing corporate accounts, available 24/7.';
+$pageDescription = 'Reliable, flexible, safe corporate transportation in Dublin from PowerCabs - business travel, event transportation and ongoing corporate accounts, available 24/7.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
@@ -48,9 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-/* Service structured data. Assembled in includes/seo.php, which wires
-   it to the Organization node and supplies the default service area,
-   so the page only states what the service is. */
 $pageService = [
   'name' => 'Corporate Taxi Accounts',
   'serviceType' => 'Corporate account',
@@ -63,11 +60,7 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow     = 'Corporate Services';
 $heroTitleLight  = 'Corporate Services with';
 $heroTitleBold   = 'PowerCabs.';
-$heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 -- built around your company's schedule, not the other way around.";
-/* A local asset rather than a stock traveller: two colleagues and a car
-   outside a modern glass office, which reads as Irish corporate travel
-   rather than generic airport stock. Local also means no third-party
-   round-trip for the page-defining image. */
+$heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 - built around your company's schedule, not the other way around.";
 $heroBgImage     = $assetPath . 'assets/img/service-city-tour.jpg';
 $heroVariant = 'split';
 $heroImageAlt = 'Two colleagues beside a PowerCabs car outside a Dublin office building';
@@ -105,17 +98,6 @@ $corporateServices = [
 
 <?php require __DIR__ . '/components/corporate/account-form.php'; ?>
 
-<!-- ============ Mission ============ -->
-<?php /* This band was pointing at assets/img/trusted-bg.svg, which is NOT ON
-         DISK -- it was deleted from the working tree and only the homepage's
-         copy of the reference was updated (components/home/trusted-by.php has
-         its block commented out). So this section has been rendering as a flat
-         black slab with a broken image behind it.
-
-         The replacement is a photograph of a passenger being driven, which is
-         the subject the mission statement is actually about. It sits under the
-         same rgba(10,7,5,0.72) scrim the SVG did, so the white type keeps
-         exactly the contrast it was designed against. */ ?>
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6rem)] tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/9520551/pexels-photo-9520551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
   <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.72)]" aria-hidden="true"></span>
@@ -132,10 +114,6 @@ $corporateServices = [
 <?php require __DIR__ . '/components/corporate/benefits.php'; ?>
 
 <?php
-// require __DIR__ . '/components/corporate/account-form.php';
-
-/* Restructured from copy already on this page -- see
-   components/shared/faq-accordion.php on why answers may not be invented. */
 $faqItems = [
   ['q' => 'How does billing work?', 'a' => 'One account for every journey your team takes, invoiced monthly instead of a month of individual receipts.'],
   ['q' => 'Can several people book on the account?', 'a' => 'Yes — multiple users can book against a single business account.'],
@@ -148,6 +126,7 @@ $faqLayout = 'split';
 $faqMoreHref = '/faqs';
 $faqSurface = 'soft'; // alternates against the white section above it
 require __DIR__ . '/components/shared/faq-accordion.php';
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

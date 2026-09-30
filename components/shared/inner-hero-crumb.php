@@ -15,7 +15,11 @@
 <nav aria-label="breadcrumb" class="<?= $heroCrumbFirst ? 'tw-mb-4' : '' ?>">
   <ol class="tw-m-0 tw-flex tw-list-none tw-items-center tw-gap-2 tw-p-0 tw-text-[0.8125rem] tw-tracking-[0.02em]">
     <li>
-      <a class="<?= $heroCrumbLink ?> tw-no-underline tw-transition-colors tw-duration-200" href="<?= $assetPath ?>/">Home</a>
+      <?php /* py-1 with -my-1: the padding lifts the tap target from 17px to
+               25px (WCAG 2.5.8 wants 24), and the negative margin gives the
+               space straight back to the layout, so the crumb row and the H1
+               below it do not move by even a pixel. */ ?>
+      <a class="<?= $heroCrumbLink ?> tw-inline-block tw-py-1 -tw-my-1 tw-no-underline tw-transition-colors tw-duration-200" href="<?= $assetPath ?>/">Home</a>
     </li>
     <li aria-hidden="true" class="<?= $heroCrumbSep ?>">/</li>
     <li class="tw-font-semibold <?= $heroCrumbCurrent ?>" aria-current="page"><?= htmlspecialchars($heroBreadcrumbLabel) ?></li>

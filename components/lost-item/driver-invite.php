@@ -10,7 +10,7 @@
  */
 ?>
 <!-- ============ Lost item: drivers ============ -->
-<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
 

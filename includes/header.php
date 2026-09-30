@@ -246,7 +246,22 @@ $megaSubitem =
                           </button>
                           <div class="<?= $megaSubmenu ?>">
                             <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/">Driver Training</a>
-                            <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/">SPSV Manual</a>
+                            <?php /* The NTA's official SPSV manual, served from
+                                     doc/. Both nav items pointed at "/" -- this
+                                     one now goes to the document it names.
+                                     target=_blank + noopener because a PDF
+                                     should not replace the page you were
+                                     reading, and data-no-pjax because pjax.js
+                                     would otherwise intercept the click as a
+                                     same-origin navigation and try to swap a
+                                     PDF into <main>.
+
+                                     doc/ is served as-is: .htaccess blocks only
+                                     includes|lib|bin, and the clean-URL rule
+                                     needs a matching .php file to fire, so it
+                                     never touches a .pdf. */ ?>
+                            <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>doc/NTA_SPSV_OfficialManual_v0.14.pdf"
+                              target="_blank" rel="noopener" data-no-pjax>SPSV Manual</a>
                           </div>
                         </div>
                       </div>

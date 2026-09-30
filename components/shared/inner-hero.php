@@ -58,9 +58,19 @@ $breadcrumbSchema = [
 
 $heroCompact = $heroCompact ?? false;
 $heroVariant = $heroVariant ?? ($heroCompact ? 'utility' : 'split');
-// 'split' needs a photograph to split with; fall back rather than render an
-// empty frame on a page that never set one.
-if ($heroVariant === 'split' && empty($heroBgImage)) {
+
+/* COLLAGE. $heroImages = [['id' => '<pexels id>', 'alt' => '...'], ...] makes
+   the 'split' variant render a 2x2 grid of photographs instead of one frame.
+   It is the same treatment as components/home/coverage.php, and for the same
+   reason: where one picture cannot carry the claim, four registers of the same
+   subject can. Everything else about the hero is unchanged, so a page opting
+   in keeps the shared breadcrumb, schema, padding and type.
+   Leave it unset and nothing about this component behaves differently. */
+$heroImages = $heroImages ?? [];
+
+// 'split' needs something to split with; fall back rather than render an
+// empty frame on a page that set neither a photograph nor a collage.
+if ($heroVariant === 'split' && empty($heroBgImage) && empty($heroImages)) {
   $heroVariant = 'minimal';
 }
 $heroOnDark = $heroVariant === 'image';
@@ -123,8 +133,15 @@ $heroCrumbFirst = $heroVariant !== 'image';
              ORANGE wash running on all 26 inner pages -- the single biggest
              reason the site read as "orange everywhere", and the reason every
              hero looked like the same picture. */ ?>
+    <?php /* NOT loading="lazy". This photograph fills the top of the viewport,
+             so it is the LCP element on every page using this variant
+             (/about-us, /city-tours, /meet-greet) -- deferring it is deferring
+             the metric itself. Measured at top=0 with heights of 467-547px, so
+             there is no reading of "below the fold" that applies. Same rule the
+             collage below and components/drive/hero.php already follow. */ ?>
     <img src="<?= htmlspecialchars($heroBgImage ?? '') ?>" alt="" aria-hidden="true"
-      class="tw-absolute tw-left-0 tw-top-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
+      class="tw-absolute tw-left-0 tw-top-0 tw-h-full tw-w-full tw-object-cover"
+      fetchpriority="high" decoding="async">
     <span class="tw-absolute tw-left-0 tw-top-0 tw-h-full tw-w-full tw-bg-[linear-gradient(105deg,rgba(10,7,5,0.86)_0%,rgba(10,7,5,0.68)_46%,rgba(12,8,5,0.4)_100%)]" aria-hidden="true"></span>
   <?php endif; ?>
 
@@ -163,24 +180,54 @@ $heroCrumbFirst = $heroVariant !== 'image';
                  communicates, and the same pictures were already on these
                  pages -- they were just underneath a scrim. */ ?>
         <div class="lg:tw-col-span-6">
-          <?php /* A HEIGHT, not an aspect ratio. Ratio-sizing made the image
-                   as tall as the column was wide -- 499px inside a 624px
-                   column -- which pushed the whole hero to 687px and put it in
-                   exactly the 700-800px territory §7 tells you not to force.
-                   Sizing the frame directly caps the hero near 600px on
-                   desktop and 420px on a phone, and object-cover absorbs the
-                   difference in the photograph instead of in the layout. */ ?>
-          <?php /* 190px on a phone, not 240. Stacked under the copy, a 240px
-                   frame pushed the split hero to 690-775px on a 360x820
-                   screen -- the entire first viewport, which is what §40 and
-                   §45 both warn about: the reader scrolls a screen of hero
-                   before learning what the page is for. The photograph is
-                   supporting material on a phone, so it gives up the height. */ ?>
-          <div class="tw-relative tw-h-[190px] tw-overflow-hidden tw-rounded-3xl tw-bg-paper sm:tw-h-[clamp(240px,32vw,400px)]">
-            <img src="<?= htmlspecialchars($heroBgImage) ?>"
-              alt="<?= htmlspecialchars($heroImageAlt ?? '') ?>"
-              class="tw-h-full tw-w-full tw-object-cover" fetchpriority="high" decoding="async">
-          </div>
+          <?php if ($heroImages): ?>
+            <?php /* The collage. Same recipe as the homepage coverage grid --
+                     2x2, 4:3 tiles, a 6px gutter and a small radius -- so the
+                     two read as one device rather than two takes on the same
+                     idea. 4:3 rather than square because these are landscape
+                     photographs and a square tile throws a third of each away.
+                     mx-auto keeps the block centred in its half instead of
+                     pinned to the right edge. */ ?>
+            <div class="tw-grid tw-grid-cols-2 tw-gap-1.5 lg:tw-mx-auto lg:tw-max-w-[460px]">
+              <?php foreach ($heroImages as $i => $shot): ?>
+                <div class="tw-relative tw-aspect-[4/3] tw-overflow-hidden tw-rounded-lg tw-bg-ink/[0.04]">
+                  <img src="https://images.pexels.com/photos/<?= htmlspecialchars(
+                    $shot['id'],
+                  ) ?>/pexels-photo-<?= htmlspecialchars($shot['id']) ?>.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
+                    alt="<?= htmlspecialchars($shot['alt'] ?? '') ?>"
+                    width="700" height="525" decoding="async"
+                    <?= $i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>
+                    class="<?= $pcImgCover ?>">
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php else: ?>
+            <?php /* A HEIGHT, not an aspect ratio. Ratio-sizing made the image
+                     as tall as the column was wide -- 499px inside a 624px
+                     column -- which pushed the whole hero to 687px and put it in
+                     exactly the 700-800px territory §7 tells you not to force.
+                     Sizing the frame directly caps the hero near 600px on
+                     desktop and 420px on a phone, and object-cover absorbs the
+                     difference in the photograph instead of in the layout. */ ?>
+            <?php /* 190px on a phone, not 240. Stacked under the copy, a 240px
+                     frame pushed the split hero to 690-775px on a 360x820
+                     screen -- the entire first viewport, which is what §40 and
+                     §45 both warn about: the reader scrolls a screen of hero
+                     before learning what the page is for. The photograph is
+                     supporting material on a phone, so it gives up the height. */ ?>
+            <?php /* Capped and CENTRED in its half, not stretched across it.
+                     Sized to the column, the frame ran 619x400 at 1440 -- a
+                     photograph wider than the sentence beside it, on every
+                     split hero on the site. 440px lines it up with the collage
+                     block above and leaves the heading as the loudest thing in
+                     the row. mx-auto rather than ml-auto so it sits in the
+                     middle of its half instead of against the page edge. */ ?>
+            <div class="tw-relative tw-mx-auto tw-h-[180px] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl tw-bg-paper sm:tw-h-[clamp(230px,24vw,330px)]">
+              <img src="<?= htmlspecialchars($heroBgImage) ?>"
+                alt="<?= htmlspecialchars($heroImageAlt ?? '') ?>"
+                class="tw-h-full tw-w-full tw-object-cover" fetchpriority="high" decoding="async">
+            </div>
+          <?php endif; ?>
         </div>
       <?php endif; ?>
 
@@ -195,6 +242,7 @@ unset(
   $heroEyebrow,
   $heroDescription,
   $heroActions,
+  $heroImages,
   $heroImageAlt,
   $heroTitleLight,
   $heroTitleBold,

@@ -295,9 +295,14 @@ new, because each replaced several hand-rolled copies and a fifth copy is the th
   `/lost-item-report` (a route being retraced). Motion lives in
   [scroll-scene.js](assets/js/components/scroll-scene.js). Put the copy at the opposite end of the scene from the
   subject's travel line, or the subject drives straight through the headline.
-- **[app-download-banner.php](components/shared/app-download-banner.php)** — `$bannerCompact = true` gives a quiet
-  one-row version, used on pages that already close with their own CTA so the page does not end with an orange
-  slab and then a second one.
+- **[app-download-banner.php](components/shared/app-download-banner.php)** — two variants, both white. The default
+  is a bordered white panel (heading, copy, both store badges, Book/Track/Pay) on 8 pages; `$bannerCompact = true`
+  gives a quiet one-row version, used on the 17 pages that already close with their own CTA so the page does not
+  end with two full-width slabs in a row. **There is no orange field in either any more** — the panel is defined by
+  a hairline and a soft shadow, and the Book/Track/Pay inset is `bg-paper-soft`. Don't reintroduce a coloured fill:
+  this band is on 25 pages, so a tint here is a tint on most of the site (it was 23% of
+  /wheelchair-accessible-taxis on its own). Anything inside it that relied on the orange showing through — the
+  frosted-glass inset, the tiles before that — has to be rebuilt, not recoloured.
 
 ## Conventions
 

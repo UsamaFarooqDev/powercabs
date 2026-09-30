@@ -1,6 +1,6 @@
 <?php
 $pageTitle       = 'Ambassador Programme | PowerCabs';
-$pageDescription = 'Join the PowerCabs Ambassador Programme -- free card terminals, exclusive vehicle branding, fuel discounts, extra loyalty points and dedicated support.';
+$pageDescription = 'Join the PowerCabs Ambassador Programme - free card terminals, exclusive vehicle branding, fuel discounts, extra loyalty points and dedicated support.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
@@ -54,26 +54,22 @@ $heroEyebrow     = 'Drivers';
 $heroTitleLight  = 'Become a PowerCabs';
 $heroTitleBold   = 'Ambassador.';
 $heroDescription = "Earn More. Spend Less. Be Valued. Join Ireland's most driver-focused ride platform.";
-$heroBgImage     = 'https://images.pexels.com/photos/16702626/pexels-photo-16702626.jpeg?auto=compress&cs=tinysrgb&w=1600';
+/* The previous frame was a portrait head-and-shoulders of a man at the wheel,
+   and its alt text described something else entirely ("talking with a
+   colleague beside their car") -- the two had drifted apart, so a screen
+   reader was being told about a scene that is not in the picture.
+
+   This one is landscape, which is what the 'split' hero frame actually wants,
+   and it shows the thing the page is about: a driver standing at the open door
+   of a black saloon. The alt text below describes THIS image. Keep the two in
+   step if it is swapped again. */
+$heroBgImage     = 'https://images.pexels.com/photos/15774577/pexels-photo-15774577.jpeg?auto=compress&cs=tinysrgb&w=1600';
 $heroVariant = 'split';
-$heroImageAlt = 'A PowerCabs driver talking with a colleague beside their car';
+$heroImageAlt = 'A PowerCabs driver holding the door open for a passenger stepping out of a black car';
 require __DIR__ . '/components/shared/inner-hero.php';
 
-/* ONE surface across both sections, declared here rather than twice inside
-   them, so benefits.php and registration.php sit on it transparently.
-
-   It was a peach radial gradient (#fbe6d4 -> #f9f4ed -> #f4efe8) -- three
-   creams that existed nowhere else on the site, which is how this page ended
-   up looking like a different website. It is the standard tint now.
-
-   The wrapper is still the right place for it. A gradient repeated on both
-   sections would NOT have been equivalent: `at 85% 0%` resolves against each
-   element's own box, so the second section restarted the wash where the first
-   had finished it and the two met at a visible step. With a flat tint that
-   particular trap is gone, but one surface under two sections still cannot
-   seam, so this stays. */
 ?>
-<div class="tw-bg-surface">
+<div>
   <?php
   require __DIR__ . '/components/ambassador/benefits.php';
   require __DIR__ . '/components/ambassador/registration.php';

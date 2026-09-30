@@ -11,9 +11,18 @@ $submitClass = $pcBtnPrimary;
 <!-- id is the jump target for the page's closing CTA (business.php) and for
      any "request an account" link elsewhere -- scroll-margin keeps the panel
      clear of the fixed navbar when jumped to. -->
-<div id="bizAccountForm" class="tw-h-full tw-scroll-mt-[calc(var(--pc-navbar-h,110px)+2rem)] tw-rounded-[2rem] tw-bg-white tw-p-6 tw-shadow-[0_10px_30px_rgba(28,20,16,0.1)] md:tw-p-11">
-  <h3 class="tw-mb-2 tw-text-xl tw-font-bold tw-text-ink">Request a Business Account</h3>
-  <p class="tw-mb-6 tw-text-ink/60">Tell us a little about your business and our team will be in touch.</p>
+<?php /* Sized for the hero it now sits in (components/business/hero.php), not
+         for the half-width section it used to fill: rounded-2xl rather than
+         2rem, p-6/p-8 rather than p-6/p-11, and a deeper shadow because it
+         floats on a photograph instead of on a tinted band. tw-h-full is gone
+         -- in the hero's grid it would have stretched the card to the height
+         of the copy beside it.
+
+         The heading is an <h2>: the hero's <h1> is beside it, and the section
+         this card used to live in supplied an <h2> that has gone with it. */ ?>
+<div id="bizAccountForm" class="tw-scroll-mt-[calc(var(--pc-navbar-h,110px)+2rem)] tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:tw-p-8">
+  <h2 class="tw-mb-1.5 tw-text-xl tw-font-bold tw-tracking-[-0.01em] tw-text-ink sm:tw-text-2xl">Request a Business Account</h2>
+  <p class="<?= $pcBodySm ?> tw-mb-6">Tell us a little about your business and our team will be in touch.</p>
 
   <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
     <div>

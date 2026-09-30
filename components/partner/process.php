@@ -6,10 +6,8 @@ $joinProcess = [
   ['n' => '04', 'title' => 'Start Receiving Trips', 'desc' => 'Bookings start flowing straight to your fleet.'],
 ];
 ?>
-<!-- .pc-ptn-step-card is a bare JS hook -- partner-page.js's IntersectionObserver
-     adds .is-visible as each card scrolls into view, handled below via the
-     `[&.is-visible]:` arbitrary variant. -->
-<section class="<?= $pcSurfaceSoft ?> tw-bg-surface <?= $pcSection ?>" id="pcPtnProcess">
+
+<section class="<?= $pcSection ?>" id="pcPtnProcess">
   <div class="<?= $pcContainer ?>">
     <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Simple From Day One</p>
     <h2 class="<?= $pcH2Display ?>">How the Partner Programme Works.</h2>

@@ -74,12 +74,20 @@ if ($faqListItems) {
       </<?= $faqListTag ?>>
       <div id="<?= $panelId ?>" class="tw-max-h-0 tw-overflow-hidden tw-transition-[max-height] tw-duration-200 tw-ease-[cubic-bezier(0.4,0,0.2,1)] [&.is-open]:tw-max-h-[80rem] motion-reduce:tw-transition-none"
         data-pc-collapse-panel data-pc-collapse-parent="<?= htmlspecialchars($faqListParent) ?>">
-        <?php /* -mt-2 closes the gap between the question and its answer. The
-                 space there is the button's own 20px bottom padding, which has
-                 to stay that size to keep the closed rows a comfortable tap
-                 target -- pulling the answer up instead tightens the open
-                 state without shrinking the control. */ ?>
-        <div class="<?= $pcBody ?> -tw-mt-2 tw-max-w-[68ch] tw-pb-6 tw-pr-8"><?= $faqListAnswerRaw
+        <?php /* NO negative top margin here, and it must not come back.
+                 This carried -mt-2 to close the gap left by the button's 20px
+                 bottom padding. The parent is the collapse panel, which is
+                 `overflow-hidden` so its max-height can animate -- so a child
+                 pulled 8px above the panel's content box had those 8px CLIPPED
+                 rather than merely shifted. The visible symptom was the first
+                 line of every open answer losing the top of its letterforms,
+                 on every FAQ on the site.
+
+                 The gap it was fighting is the button's own padding, which
+                 stays 20px so the closed rows keep a 64px tap target. The
+                 answer's bottom padding absorbed the difference instead, so the
+                 open block is the same height it was. */ ?>
+        <div class="<?= $pcBody ?> tw-max-w-[68ch] tw-pb-5 tw-pr-8"><?= $faqListAnswerRaw
           ? $item['a']
           : htmlspecialchars($item['a']) ?></div>
       </div>

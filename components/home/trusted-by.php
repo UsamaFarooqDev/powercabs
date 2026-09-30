@@ -18,26 +18,39 @@
  * The bordered 5x3 grid went with it -- fifteen boxed cells drew sixty border
  * segments to group logos that a row already groups.
  *
- * `big` marks the logos whose artwork is square-ish rather than wide; they
- * need more height to read at the same optical size. It replaces an
- * `$index >= 7` test, which silently depended on the array's order.
+ * SIZING IS PER LOGO, and it has to be. A two-bucket `big` flag (46px for the
+ * square-ish artwork, 30px for the wide) sized the FILES rather than the
+ * marks inside them, and four of these files carry a lot of baked-in
+ * whitespace:
+ *
+ *   pennys.png        470x200, the wordmark is about a quarter of the height,
+ *                     so a 30px cap rendered ~10px of actual letterform
+ *   Star_Cineworld    1024x512 with deep padding top and bottom, same problem
+ *   skylon.png        a STACKED lockup -- mark over wordmark over strapline --
+ *                     so at 46px the word "SKYLON" was a third of that
+ *   elmpark.png       a tall crest with "ELM PARK" beneath it, same again
+ *
+ * Each logo now declares its own cap, and the value is a literal class string
+ * in this array rather than composed from a variable -- the Tailwind scanner
+ * reads this file as text, so a composed `tw-max-h-[{$n}px]` would silently
+ * not exist. Judge new values by the height of the MARK, not the file.
  */
 $trustedLogos = [
-  ['file' => 'Boots.png', 'alt' => 'Boots'],
-  ['file' => 'boylesports.png', 'alt' => 'BoyleSports'],
-  ['file' => 'svuh.png', 'alt' => "St. Vincent's University Hospital", 'big' => true],
-  ['file' => 'westpark.webp', 'alt' => 'Westpark Fitness'],
-  ['file' => 'RIU_Hotels.webp', 'alt' => 'RIU Hotels & Resorts'],
-  ['file' => 'rte.webp', 'alt' => 'RTE'],
-  ['file' => 'Mediahuis.webp', 'alt' => 'Mediahuis'],
-  ['file' => 'skylon.png', 'alt' => 'Skylon Hotel', 'big' => true],
-  ['file' => 'greenisle.png', 'alt' => 'Green Isle Hotel', 'big' => true],
-  ['file' => 'elmpark.png', 'alt' => 'Elm Park', 'big' => true],
-  ['file' => 'st-james-social.jpg', 'alt' => "St. James's Hospital", 'big' => true],
-  ['file' => 'Irish_ferries.webp', 'alt' => 'Irish Ferries', 'big' => true],
-  ['file' => 'griffith-college.png', 'alt' => 'Griffith College', 'big' => true],
-  ['file' => 'pennys.png', 'alt' => 'Penneys'],
-  ['file' => 'Star_Cineworld.jpg', 'alt' => 'Cineworld'],
+  ['file' => 'Boots.png', 'alt' => 'Boots', 'h' => 'tw-max-h-[30px]'],
+  ['file' => 'boylesports.png', 'alt' => 'BoyleSports', 'h' => 'tw-max-h-[30px]'],
+  ['file' => 'svuh.png', 'alt' => "St. Vincent's University Hospital", 'h' => 'tw-max-h-[46px]'],
+  ['file' => 'westpark.webp', 'alt' => 'Westpark Fitness', 'h' => 'tw-max-h-[30px]'],
+  ['file' => 'RIU_Hotels.webp', 'alt' => 'RIU Hotels & Resorts', 'h' => 'tw-max-h-[30px]'],
+  ['file' => 'rte.webp', 'alt' => 'RTE', 'h' => 'tw-max-h-[30px]'],
+  ['file' => 'Mediahuis.webp', 'alt' => 'Mediahuis', 'h' => 'tw-max-h-[30px]'],
+  ['file' => 'skylon.png', 'alt' => 'Skylon Hotel', 'h' => 'tw-max-h-[64px]'],
+  ['file' => 'greenisle.png', 'alt' => 'Green Isle Hotel', 'h' => 'tw-max-h-[46px]'],
+  ['file' => 'elmpark.png', 'alt' => 'Elm Park', 'h' => 'tw-max-h-[66px]'],
+  ['file' => 'st-james-social.jpg', 'alt' => "St. James's Hospital", 'h' => 'tw-max-h-[46px]'],
+  ['file' => 'Irish_ferries.webp', 'alt' => 'Irish Ferries', 'h' => 'tw-max-h-[46px]'],
+  ['file' => 'griffith-college.png', 'alt' => 'Griffith College', 'h' => 'tw-max-h-[46px]'],
+  ['file' => 'pennys.png', 'alt' => 'Penneys', 'h' => 'tw-max-h-[54px]'],
+  ['file' => 'Star_Cineworld.jpg', 'alt' => 'Cineworld', 'h' => 'tw-max-h-[56px]'],
 ];
 ?>
 <!-- ============ Trusted by ============ -->
@@ -64,7 +77,7 @@ $trustedLogos = [
         <li class="tw-flex tw-items-center tw-justify-center">
           <img src="<?= $assetPath ?>assets/img/<?= $logo['file'] ?>"
             alt="<?= htmlspecialchars($logo['alt']) ?>"
-            class="<?= !empty($logo['big']) ? 'tw-max-h-[46px]' : 'tw-max-h-[30px]' ?> tw-w-auto tw-max-w-full tw-object-contain tw-opacity-[0.72] tw-transition-opacity tw-duration-300 hover:tw-opacity-100 motion-reduce:tw-transition-none"
+            class="<?= $logo['h'] ?> tw-w-auto tw-max-w-full tw-object-contain tw-opacity-[0.72] tw-transition-opacity tw-duration-300 hover:tw-opacity-100 motion-reduce:tw-transition-none"
             loading="lazy">
         </li>
       <?php endforeach; ?>

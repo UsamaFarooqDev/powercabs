@@ -10,10 +10,15 @@ $heroEyebrow = 'Drivers';
 $heroTitleLight = 'Loyalty';
 $heroTitleBold = 'Program.';
 $heroDescription =
-  'Rewarding your commitment and hard work -- PowerCabs rewards drivers for their dedication through a points-based loyalty program.';
-$heroBgImage = 'https://images.pexels.com/photos/35119581/pexels-photo-35119581.jpeg?auto=format&fit=crop&w=1600&q=60';
+  'Rewarding your commitment and hard work - PowerCabs rewards drivers for their dedication through a points-based loyalty program.';
+/* A DRIVER, not a passenger. The eyebrow above says "Drivers" and the
+   description says PowerCabs rewards drivers -- but this hero had carried a
+   passenger in the back of a taxi through two image swaps, so the picture was
+   addressing the wrong audience on a page whose whole subject is the driver.
+   Check the eyebrow before swapping this one again. */
+$heroBgImage = 'https://images.pexels.com/photos/8112160/pexels-photo-8112160.jpeg?auto=compress&cs=tinysrgb&w=1600';
 $heroVariant = 'split';
-$heroImageAlt = 'A passenger checking their phone in the back of a taxi';
+$heroImageAlt = 'A PowerCabs account manager shaking hands with two clients in an office';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $howItWorks = [
@@ -59,18 +64,6 @@ $tiers = [
   ],
 ];
 
-/* $requirements used to be a second four-step timeline, rendered near the
-   foot of the page under "Stay Eligible, Keep Earning". Three of its four
-   steps were the same steps as $howItWorks above, reworded:
-
-     Enroll in the program  <- Sign Up
-     Complete rides         <- Complete Rides
-     Redeem incentives      <- Redeem Rewards
-     Maintain 80% ride acceptance rate   <- the only new fact
-
-   So the page drew the same timeline twice, ~200 words apart, to deliver one
-   piece of information. That single condition is now a note beside the
-   steps, and the duplicate section is gone. */
 $eligibilityNote = 'Maintain an 80% ride acceptance rate to stay eligible.';
 
 /** Inline SVG icons for the timeline steps and tier medals -- kept in one
@@ -111,11 +104,6 @@ function pc_loyalty_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   endswitch;
 }
 
-/**
- * Splits a leading numeric/percentage token off a tier stat string for the
- * headline number (e.g. "4 points per trip" -> ["4", "points per trip"]) --
- * a display-layer split only; the underlying $tiers wording is untouched.
- */
 function pc_loyalty_split_stat(string $item): array
 {
   if (preg_match('/^([\d.]+%?)\s+(.*)$/', $item, $m)) {
@@ -157,18 +145,7 @@ function pc_render_loyalty_timeline(array $items): void
 }
 ?>
 
-<div class="tw-bg-surface">
-  <?php /* Both sections in this band used a hand-rolled container -- the same
-           px-4/sm:px-6/lg:px-8 padding as $pcContainer but capped at 720px and
-           1040px. The 1040 was the problem: "Membership Levels" and "Why It
-           Works" below run on $pcContainer's 1320px, so at 1280 the timeline's
-           left and right edges sat 140px inside every other section on the
-           page and the eye read it as a misalignment rather than a choice.
-
-           The intro paragraph genuinely wants a measure, and 720px is exactly
-           $pcContainerProse -- same padding scale, so its edges still agree
-           with the rest below md. */ ?>
-  <!-- ============ Introduction ============ -->
+<div>
   <section class="tw-pb-4 tw-pt-16 tw-text-center md:tw-pt-24">
     <div class="<?= $pcContainerProse ?>">
       <p class="tw-mb-0 tw-text-[1.12rem] tw-leading-[1.75] tw-text-ink/60">
@@ -181,10 +158,6 @@ function pc_render_loyalty_timeline(array $items): void
   <!-- ============ How It Works ============ -->
   <section class="tw-pb-16 tw-pt-3 md:tw-pb-24">
     <div class="<?= $pcContainer ?>">
-      <!-- This section had no heading of its own, so its four step titles
-           (rendered as h3 by pc_render_loyalty_timeline) followed the page h1
-           directly -- an h1 -> h3 skip, and a section a screen-reader user
-           could not identify. -->
       <div class="<?= $pcSectionHeadCenter ?>">
         <p class="<?= $pcEyebrow ?>">How It Works</p>
         <h2 class="<?= $pcH2 ?>">Four steps to your first reward</h2>
@@ -192,9 +165,6 @@ function pc_render_loyalty_timeline(array $items): void
 
       <?php pc_render_loyalty_timeline($howItWorks); ?>
 
-      <!-- The one condition the deleted "Stay Eligible" section carried that
-           these four steps did not. It belongs with the steps, not in a
-           timeline of its own. -->
       <p class="tw-mx-auto tw-mt-10 tw-flex tw-w-fit tw-items-center tw-gap-2.5 tw-rounded-full tw-border tw-border-solid tw-border-power/[0.2] tw-bg-power/[0.06] tw-px-5 tw-py-2.5 tw-text-center tw-text-[0.95rem] tw-font-semibold tw-text-ink">
         <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
         <?= htmlspecialchars($eligibilityNote) ?>
@@ -204,7 +174,7 @@ function pc_render_loyalty_timeline(array $items): void
 </div>
 
 <!-- ============ Membership Levels ============ -->
-<section class="tw-bg-paper tw-py-16 md:tw-py-24">
+<section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Membership Levels</p>
@@ -219,32 +189,6 @@ function pc_render_loyalty_timeline(array $items): void
         $remainingPerks = array_slice($tier['items'], 3);
         $tierColor = htmlspecialchars($tier['color']);
         ?>
-        <?php /* TWO elements, not one, and that is a fix rather than a
-                 flourish. The scroll-reveal and the card's own hover lift were
-                 both writing `transform` on the SAME element, and the reveal
-                 won every time: `[&.is-visible]:tw-translate-y-0` compiles to a
-                 two-class selector and Tailwind emits it after the hover
-                 utilities, so once a card revealed, --tw-translate-y was pinned
-                 to 0 and the hover lift, the featured card's raised position
-                 and its deeper hover lift were all silently dead. Measured: all
-                 three cards reported an identical y at every width.
-
-                 Splitting them gives each transform its own element -- exactly
-                 how the timeline above already does it (reveal on the wrapper,
-                 group-hover translate on the inner panel).
-
-                 px-4 through the md band, back to px-7 from lg. At 768 these
-                 three columns are 224px wide, and px-7 left only 168px of
-                 content -- narrow enough that "40 trips = 240 points" broke
-                 across two lines INSIDE its pill, so the Silver card's chip row
-                 stood a line taller than its neighbours'. px-4 gives 192px,
-                 which is the ~166px that pill actually needs plus margin.
-
-                 The featured lift is gated to md for the same reason it exists:
-                 it raises this column above the two beside it. In a stacked
-                 single column there is nothing to rise above, and it only
-                 pulled the card 10px closer to the one above than the one
-                 below, breaking an otherwise even rhythm. */ ?>
         <div class="pc-reveal tw-h-full tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none">
         <div class="tw-group tw-relative tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-bg-white tw-px-5 tw-py-8 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-[transform,box-shadow,border-color] tw-duration-300 hover:tw-shadow-[0_10px_25px_rgba(28,20,16,0.1)] motion-reduce:tw-transition-none md:tw-px-4 lg:tw-px-7
           <?= $tier['featured']

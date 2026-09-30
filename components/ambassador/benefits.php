@@ -51,10 +51,6 @@ function pc_amb_icon(string $icon, string $cls): void
          own decorative overlays, which ARE anchored to its own box. */ ?>
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6.5rem)]" id="pcAmbBenefits">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-opacity-[0.035] tw-bg-[url('data:image/svg+xml,%3Csvg_xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter_id=%27n%27%3E%3CfeTurbulence_type=%27fractalNoise%27_baseFrequency=%270.85%27_numOctaves=%272%27_stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect_width=%27100%25%27_height=%27100%25%27_filter=%27url(%23n)%27/%3E%3C/svg%3E')]" aria-hidden="true"></span>
-  <svg class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-hidden md:tw-block" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
-    <line x1="0" y1="18%" x2="100%" y2="18%" stroke="rgba(232,89,12,0.15)" stroke-width="1"/>
-    <line x1="0" y1="82%" x2="100%" y2="82%" stroke="rgba(232,89,12,0.15)" stroke-width="1"/>
-  </svg>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">

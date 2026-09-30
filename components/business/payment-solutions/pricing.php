@@ -1,20 +1,4 @@
 <?php
-/* Each card used to carry four bullets, of which only ONE actually differed
-   between plans:
-
-     "Unbeatable transaction rates from 0.8%"  -- identical on all three
-     "NFC contactless"                          -- identical on all three
-     "Low card reader rental fee from EUR 9.99" -- the headline price again,
-                                                   restated as a bullet
-     "Deliver receipts by ..."                  -- the only real difference
-
-   So the eye read twelve lines to find three facts, and the price appeared
-   twice per card, which is why neither instance read as the price. The two
-   shared terms moved to one line under the grid -- they still apply to every
-   plan, so nothing is lost -- and the price bullet is gone, because the price
-   is already the price. `note` carries the one per-plan qualifier (EPOS is
-   ex VAT) that was buried inside that bullet and would otherwise have been
-   dropped with it. */
 $pricingPlans = [
   [
     'n' => 1, 'name' => 'PAX A50', 'price' => '9.99', 'for' => 'Taxi industry & small retail shops',
@@ -35,9 +19,7 @@ $pricingPlans = [
     'featured' => false,
   ],
 ];
-// The terms every plan shares, stated once instead of three times each.
-// Both are lifted verbatim from the per-card bullets they replace -- no new
-// claim is introduced here.
+
 $pricingSharedTerms = ['Unbeatable transaction rates from 0.8%', 'NFC contactless'];
 $trustBadges = [
   ['icon' => 'people', 'label' => '100+ Drivers Onboarded'],
@@ -45,7 +27,7 @@ $trustBadges = [
   ['icon' => 'card', 'label' => 'Thousands of Payments Processed'],
 ];
 ?>
-<section class="tw-bg-paper <?= $pcSection ?>">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[64ch] tw-text-center">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Ready to Take Your Card Machine Journey to the Next Level?</h2>
@@ -63,9 +45,6 @@ $trustBadges = [
           <?php endif; ?>
           <div class="tw-mb-6 tw-text-center">
             <span class="tw-mb-3 tw-inline-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(245,132,31,0.1)] tw-text-sm tw-font-bold tw-text-power"><?= $plan['n'] ?></span>
-            <!-- Hierarchy: device -> who it is for -> price -> what differs.
-                 The price label says what the number IS (the card reader
-                 rental), which the removed bullet used to have to explain. -->
             <h3 class="tw-mb-1 tw-text-xl tw-font-bold tw-text-ink"><?= htmlspecialchars($plan['name']) ?></h3>
             <p class="tw-mb-3 tw-text-[0.95rem] tw-leading-snug tw-text-ink/[0.55]"><?= htmlspecialchars($plan['for']) ?></p>
             <p class="tw-mb-0 tw-leading-none">
@@ -87,27 +66,12 @@ $trustBadges = [
               </li>
             <?php endforeach; ?>
           </ul>
-          <?php /* Same hover as every other button on the site: the shadow
-                   deepens and nothing else changes. tw-transition rather than
-                   tw-transition-colors, or the glow would snap on instead of
-                   blooming. */ ?>
           <a href="#payment-apply-form" class="tw-block tw-w-full tw-rounded-full tw-px-6 tw-py-2.5 tw-text-center tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-300 motion-reduce:tw-transition-none <?= $plan['featured']
             ? 'tw-bg-powerlight tw-shadow-none hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]'
             : 'tw-bg-ink tw-shadow-none hover:tw-shadow-[0_12px_28px_rgba(28,20,16,0.28)]' ?>">Choose Plan</a>
         </div>
       <?php endforeach; ?>
     </div>
-
-    <!-- The terms that used to be repeated inside all three cards. Stated
-         once, they read as "these apply whichever you pick", which is what
-         they always meant. -->
-    <p class="tw-mx-auto tw-mt-6 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-2 tw-gap-y-1 tw-text-center tw-text-[0.9rem] tw-text-ink/[0.6]">
-      <span class="tw-font-semibold tw-text-ink">Every plan includes:</span>
-      <?php foreach ($pricingSharedTerms as $i => $term): ?>
-        <?php if ($i > 0): ?><span class="tw-text-ink/25" aria-hidden="true">&middot;</span><?php endif; ?>
-        <span><?= htmlspecialchars($term) ?></span>
-      <?php endforeach; ?>
-    </p>
 
     <div class="tw-mt-10 tw-grid tw-grid-cols-1 tw-gap-4 tw-text-center md:tw-grid-cols-3">
       <?php foreach ($trustBadges as $badge): ?>

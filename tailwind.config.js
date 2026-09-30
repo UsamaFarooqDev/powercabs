@@ -22,6 +22,12 @@ module.exports = {
   safelist: [
     'tw-max-w-[280px]', // components/shared/app-mockup.php default
     'tw-max-w-[300px]', // components/home/download-app.php
+    // app-mockup.php also composes the DEVICE's own width from $mockupWidth.
+    // Only the default is in use today; any caller that passes a different
+    // value has to add it here, and must add the matching tw-max-w-[...] too,
+    // or tw-max-w-full on the device clamps it back to the wrapper and the
+    // width silently has no effect.
+    'tw-w-[260px]', // components/shared/app-mockup.php default
     // loyalty-program.php renders one tier card per colour, and composes
     // three separate utilities from that colour -- all nine are listed
     // because the scanner only ever sees `<?= $tierColor ?>`.

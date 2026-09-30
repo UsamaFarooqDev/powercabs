@@ -144,9 +144,6 @@ $services = [
 ) ?>" class="tw-block tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
           <span class="tw-absolute tw-inset-0 tw-bg-black/[0.15] tw-transition-opacity tw-duration-500 group-hover:tw-opacity-30 motion-reduce:tw-transition-none" aria-hidden="true"></span>
           <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-p-4 tw-pt-[4.5rem] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)]">
-            <!-- <span class="tw-mb-1.5 tw-block tw-text-[0.8rem] tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-white/75"><?= htmlspecialchars(
-              $service['eyebrow'],
-            ) ?></span> -->
             <?php /* Type steps down a notch across all three lines and the gaps
                      close with it -- at the old sizes the title crowded the
                      description inside a card this size. Sizes only; the

@@ -13,24 +13,10 @@ $formError ??= '';
 
 $ambRecap = ['Free card terminals', 'Exclusive vehicle branding', 'Fuel discounts', 'Extra loyalty points'];
 
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly
-// so every form on the site shares one input/label/button language.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<?php /* No background of its own -- the wrapper in ambassador-programme.php
-         paints the surface for this section and benefits.php together.
-
-         That wrapper used to be a peach radial gradient and this section a
-         linear one that restarted mid-way, so the two met at a visible
-         horizontal step. Both are the flat tint now, so there is no gradient
-         left to mismatch; the wrapper is still the right place for it because
-         one surface under two sections cannot seam by definition.
-
-         The white fade at the foot separates this section from the
-         app-download banner underneath: it lands the tinted panel on white
-         rather than cutting it off. */ ?>
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?> tw-pb-[clamp(5rem,9vw,7rem)]" id="pcAmbRegister">
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-z-0 tw-h-[clamp(6rem,14vw,11rem)] tw-bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.65)_55%,#ffffff_100%)]" aria-hidden="true"></span>
 
@@ -43,38 +29,6 @@ $submitClass = $pcBtnPrimary;
           Registration takes a couple of minutes. Our Ambassador team reviews
           every application personally and will be in touch to confirm your spot.
         </p>
-
-        <?php /* A row of $ambRecap chips rendered here: "Free card terminals /
-                 Exclusive vehicle branding / Fuel discounts / Extra loyalty
-                 points". Those are the first four of the six benefit cards in
-                 benefits.php, restated one section later with less detail --
-                 the repeated promotional language this page was asked to
-                 lose. The three steps below say what the application actually
-                 involves, which is what this column is for. */ ?>
-
-        <div class="tw-flex tw-flex-col tw-gap-4">
-          <div class="tw-flex tw-gap-3">
-            <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-power tw-text-sm tw-font-bold tw-text-power">01</span>
-            <div>
-              <h3 class="tw-mb-1 tw-text-base tw-font-bold tw-text-ink">Your Details</h3>
-              <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">Name, email and phone number.</p>
-            </div>
-          </div>
-          <div class="tw-flex tw-gap-3">
-            <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-power tw-text-sm tw-font-bold tw-text-power">02</span>
-            <div>
-              <h3 class="tw-mb-1 tw-text-base tw-font-bold tw-text-ink">Ride &amp; License Info</h3>
-              <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">Current affiliation, PowerCabs status and license number.</p>
-            </div>
-          </div>
-          <div class="tw-flex tw-gap-3">
-            <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-power tw-text-sm tw-font-bold tw-text-power">03</span>
-            <div>
-              <h3 class="tw-mb-1 tw-text-base tw-font-bold tw-text-ink">Submit Application</h3>
-              <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60">Our team reviews and follows up directly.</p>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div>

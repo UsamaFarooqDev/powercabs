@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Safety Tips for Drivers | PowerCabs';
 $pageDescription =
-  'Safety guidance for PowerCabs drivers -- before, during and after every ride, plus emergency features, cashless payments and more.';
+  'Safety guidance for PowerCabs drivers - before, during and after every ride, plus emergency features, cashless payments and more.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -10,8 +10,8 @@ $heroEyebrow = 'Policies & Safety';
 $heroTitleLight = 'Safety Tips';
 $heroTitleBold = 'for Drivers.';
 $heroDescription =
-  'Practical guidance to help you stay safe, confident and prepared on every trip -- before you set off, while you drive, and after you drop off.';
-$heroBgImage = 'https://images.pexels.com/photos/5834950/pexels-photo-5834950.jpeg?auto=format&fit=crop&w=1600&q=60';
+  'Practical guidance to help you stay safe, confident and prepared on every trip - before you set off, while you drive, and after you drop off.';
+$heroBgImage = 'https://images.pexels.com/photos/32654425/pexels-photo-32654425.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Driver Safety';
 $heroVariant = 'split';
 $heroImageAlt = 'A driver checking mirrors before setting off';
@@ -131,7 +131,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 ?>
 
 <!-- ============ Before the Ride ============ -->
-<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
@@ -150,7 +150,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
         </div>
       </div>
       <div>
-        <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
+        <div class="tw-mx-auto tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl">
           <img src="https://images.pexels.com/photos/5835467/pexels-photo-5835467.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A driver checking passenger details on their phone before a ride" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
@@ -187,7 +187,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 </section>
 
 <!-- ============ After the Ride ============ -->
-<section class="tw-bg-paper tw-py-16 md:tw-py-24">
+<section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">After the Ride</p>
@@ -222,21 +222,11 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
         </ul>
       </div>
       <div class="lg:tw-order-1">
-        <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
+        <div class="tw-mx-auto tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl">
           <img src="https://images.pexels.com/photos/7709231/pexels-photo-7709231.jpeg?auto=format&fit=crop&w=1200&q=60" alt="PowerCabs 24/7 support ready to help drivers" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============ CTA ============ -->
-<section class="tw-pb-16 tw-text-center md:tw-pb-24">
-  <div class="<?= $pcContainer ?>">
-    <a class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-ink tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-bg-ink-soft" href="<?= $assetPath ?>/safety-tips-riders">
-      See Safety Tips for Riders
-      <?php pc_safety_icon('chevron', 'tw-h-3.5 tw-w-3.5'); ?>
-    </a>
   </div>
 </section>
 

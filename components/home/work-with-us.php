@@ -42,7 +42,40 @@ $driverPoints = [
 ];
 ?>
 <!-- ============ Work with PowerCabs ============ -->
+<?php /* A photograph behind the ink rather than flat ink.
+ *
+ * welcome-section-bg.webp is the view over a driver's shoulder with a
+ * PowerCabs badge on the dashboard, and that badge is the only part of it that
+ * has to survive: everything else is texture behind two columns of white type.
+ *
+ * ONE gradient layer, not two. A flat scrim plus a lighter "spotlight" on top
+ * does not work -- two semi-transparent dark layers composite, so the second
+ * one only ever makes the first darker. The single radial below opens to 0.46
+ * over the badge (white artwork at 0.46 composites to about 130, clearly
+ * legible) and closes to 0.92 everywhere else, which is darker than the flat
+ * ink it replaced.
+ *
+ * THE BADGE HAD TO MOVE, and object-position could not do it. At its natural
+ * crop the badge sits at about 61.5% across and 51% down -- directly under the
+ * driver column's paragraph, so lifting the scrim enough to read it put a
+ * bright patch behind white body text. The image and the section are almost
+ * the same aspect (1.86 vs 1.90), so object-cover crops only ~16px vertically
+ * and object-position has no slack to work with.
+ *
+ * scale + transform-origin does have slack. At scale 1.5 with the origin at
+ * 24.5% 117%, a point p maps to o + (p - o) * 1.5, which puts the badge at
+ * roughly 80% 18% -- the clear area to the right of the section heading, where
+ * nothing else is. The radial's centre follows it there. Both numbers are
+ * solved from those two equations, so if the image, the crop or the section's
+ * proportions change, re-solve rather than nudge.
+ *
+ * bg-ink stays on the section as the base, so if the image 404s the block is
+ * still dark and the white type still reads. */ ?>
 <section class="tw-relative tw-overflow-hidden tw-bg-ink tw-text-white <?= $pcSection ?>">
+  <img src="<?= $assetPath ?>assets/img/welcome-section-bg.webp" alt="" aria-hidden="true"
+    class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-origin-[24.5%_117%] tw-scale-150 tw-object-cover tw-object-center" loading="lazy" decoding="async">
+  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[radial-gradient(17%_24%_at_80%_18%,rgba(10,7,5,0.28)_0%,rgba(10,7,5,0.74)_58%,rgba(10,7,5,0.92)_100%)]" aria-hidden="true"></span>
+
   <div class="tw-relative <?= $pcContainer ?>">
 
     <div class="tw-mb-12 tw-max-w-[46ch]">
