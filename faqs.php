@@ -159,13 +159,14 @@ foreach ($driverFaqGroups as $group) {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Got Questions?';
+$heroEyebrow = 'Got Questions?';
 $heroTitleLight = 'Everything You';
 $heroTitleBold = 'Need to Know.';
 $heroDescription =
   "Whether you're booking a ride or driving with us, find quick answers to the most common questions from passengers and drivers alike.";
 $heroBgImage = 'https://images.pexels.com/photos/36507933/pexels-photo-36507933.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'FAQs';
+$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -193,8 +194,8 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 <section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
   <div class="tw-mx-auto tw-w-full tw-max-w-[860px]">
     <div class="tw-mb-10 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Frequently Asked Questions</p>
-      <h2 class="tw-mb-6 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Passenger &amp; Driver FAQs</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Frequently Asked Questions</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Passenger &amp; Driver FAQs</h2>
 
       <!-- Bare radio + has-checked label: pcInitFaqs() in faqs.js keeps
            driving this via getElementById/.checked, unchanged -- only the
@@ -215,25 +216,18 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
          shared fade-in animation. Each accordion item is driven by the
          collapse helper in assets/js/components/ui.js -- same
          data-pc-collapse contract as components/shared/faq-accordion.php. -->
-    <div class="tw-flex tw-flex-col tw-gap-3" id="passengerFaqAccordion">
-      <?php foreach ($passengerFaqs as $i => $item): ?>
-        <div class="tw-overflow-hidden tw-rounded-xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white">
-          <h3 class="tw-m-0">
-            <button class="tw-group tw-flex tw-w-full tw-appearance-none tw-items-center tw-justify-between tw-gap-4 tw-border-0 tw-bg-transparent tw-px-5 tw-py-4 tw-text-left tw-text-[0.98rem] tw-font-medium tw-text-ink tw-transition-colors tw-duration-200 aria-expanded:tw-text-power" type="button" data-pc-collapse data-pc-target="#passengerFaq<?= $i ?>" aria-expanded="<?= $i ===
-              0
-                ? 'true'
-                : 'false' ?>" aria-controls="passengerFaq<?= $i ?>">
-              <span><?= htmlspecialchars($item['q']) ?></span>
-              <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-power tw-transition-transform tw-duration-200 group-aria-expanded:tw-rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
-            </button>
-          </h3>
-          <div id="passengerFaq<?= $i ?>" class="tw-max-h-0 [&.is-open]:tw-max-h-[80rem] tw-overflow-hidden tw-transition-[max-height] tw-duration-300 tw-ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:tw-transition-none <?= $i === 0
-  ? 'is-open'
-  : '' ?>" data-pc-collapse-panel data-pc-collapse-parent="#passengerFaqAccordion">
-            <div class="tw-px-5 tw-pb-4 tw-leading-[1.6] tw-text-ink/60"><?= $item['a'] ?></div>
-          </div>
-        </div>
-      <?php endforeach; ?>
+    <div id="passengerFaqAccordion">
+      <?php
+      $faqListItems = $passengerFaqs;
+      $faqListId = 'passengerFaq';
+      // The id that scopes the accordion is the WRAPPER's, not the panel-id
+      // stem -- they differ here, and defaulting the parent to '#passengerFaq'
+      // pointed at nothing, so querySelector returned null and every question
+      // stayed open alongside the others.
+      $faqListParent = '#passengerFaqAccordion';
+      $faqListAnswerRaw = true; // these answers contain real links
+      require __DIR__ . '/components/shared/faq-list.php';
+      ?>
     </div>
 
     <?php /* Fifteen driver questions in one undifferentiated column was the
@@ -256,33 +250,27 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 
              PHP comment, not HTML: this is a note for whoever edits the file,
              and it would otherwise be served to every visitor. */ ?>
-    <div class="tw-hidden tw-mt-3 tw-flex tw-flex-col tw-gap-8" id="driverFaqAccordion">
+    <div class="tw-hidden tw-mt-3 tw-flex tw-flex-col tw-gap-10" id="driverFaqAccordion">
       <?php $i = 0; ?>
       <?php foreach ($driverFaqGroups as $group): ?>
         <div>
-          <h3 class="tw-mb-3 tw-text-[0.78rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-ink/45">
+          <h3 class="tw-mb-1 tw-text-[0.78rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-ink/45">
             <?= htmlspecialchars($group['title']) ?>
           </h3>
-          <div class="tw-flex tw-flex-col tw-gap-3">
-            <?php foreach ($group['items'] as $item): ?>
-              <div class="tw-overflow-hidden tw-rounded-xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white">
-                <h4 class="tw-m-0">
-                  <button class="tw-group tw-flex tw-w-full tw-appearance-none tw-items-center tw-justify-between tw-gap-4 tw-border-0 tw-bg-transparent tw-px-5 tw-py-4 tw-text-left tw-text-[0.98rem] tw-font-medium tw-text-ink tw-transition-colors tw-duration-200 aria-expanded:tw-text-power" type="button" data-pc-collapse data-pc-target="#driverFaq<?= $i ?>" aria-expanded="<?= $i === 0
-                    ? 'true'
-                    : 'false' ?>" aria-controls="driverFaq<?= $i ?>">
-                    <span><?= htmlspecialchars($item['q']) ?></span>
-                    <svg class="tw-h-4 tw-w-4 tw-shrink-0 tw-text-power tw-transition-transform tw-duration-200 group-aria-expanded:tw-rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
-                  </button>
-                </h4>
-                <div id="driverFaq<?= $i ?>" class="tw-max-h-0 [&.is-open]:tw-max-h-[80rem] tw-overflow-hidden tw-transition-[max-height] tw-duration-300 tw-ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:tw-transition-none <?= $i === 0
-  ? 'is-open'
-  : '' ?>" data-pc-collapse-panel data-pc-collapse-parent="#driverFaqAccordion">
-                  <div class="tw-px-5 tw-pb-4 tw-leading-[1.6] tw-text-ink/60"><?= $item['a'] ?></div>
-                </div>
-              </div>
-              <?php $i++; ?>
-            <?php endforeach; ?>
-          </div>
+          <?php
+          // One accordion split across four group headings: $i keeps running
+          // and every list points its parent at #driverFaqAccordion, so
+          // opening a question in "Earnings" still closes the open one in
+          // "Joining". Restarting $i per group would collide panel ids.
+          $faqListItems = $group['items'];
+          $faqListId = 'driverFaq';
+          $faqListParent = '#driverFaqAccordion';
+          $faqListStart = $i;
+          $faqListTag = 'h4';
+          $faqListAnswerRaw = true;
+          require __DIR__ . '/components/shared/faq-list.php';
+          $i += count($group['items']);
+          ?>
         </div>
       <?php endforeach; ?>
     </div>
@@ -293,8 +281,8 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Step By Step</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Video Guides</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Step By Step</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Video Guides</h2>
     </div>
 
     <!-- tw-hidden / pc-tutorial-card / pc-tutorial-play-btn / pc-tutorial-card-label
@@ -350,6 +338,7 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 <script src="<?= $assetPath ?>assets/js/components/video-tutorials.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/video-tutorials.js') ?>"></script>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

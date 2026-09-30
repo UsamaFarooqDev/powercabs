@@ -23,12 +23,18 @@ $whatWeDo = [
 // ring/glow.
 $inputClass = $pcInput;
 ?>
+<?php /* Soft surface, not white. /corporate-services measured EIGHT consecutive
+         white sections, so the page had no grouping and no separation -- §26's
+         "Light -> Image -> Light -> Dark" rhythm needs something to alternate
+         against. This section sits between the image-led services row and the
+         dark mission band, which makes it the natural place for the change of
+         tone. */ ?>
 <section class="tw-scroll-mt-24 <?= $pcSection ?>" id="corporate-account-form">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ What We Do</p>
-        <h2 class="tw-mb-4 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Occasions we Cover</h2>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What We Do</p>
+        <h2 class="<?= $pcH2 ?>">Occasions we Cover</h2>
         <p class="tw-mb-6 tw-max-w-[46ch] tw-text-lg tw-text-ink/60">
           From seminars to state visits, PowerCabs handles the transportation
           so your team can stay focused on the event itself.

@@ -54,11 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Get In Touch';
+$heroEyebrow     = 'Get In Touch';
 $heroTitleLight  = "We're Here";
 $heroTitleBold   = 'To Help, Anytime.';
 $heroDescription = "Have a question about booking, billing, or partnering with PowerCabs? Send us a message and our team will get back to you shortly.";
 $heroBgImage     = 'https://images.pexels.com/photos/8867176/pexels-photo-8867176.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -78,7 +79,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
          shows through those tears -- white. Without the fade, a flat cream
          block butted straight into that white, which is the seam this
          removes. Content sits on tw-relative above the overlay. */ ?>
-<section class="tw-relative tw-overflow-hidden <?= $pcSectionTight ?> tw-bg-paper">
+<section class="tw-relative tw-overflow-hidden <?= $pcSectionTight ?>">
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainerNarrow ?>">
@@ -127,6 +128,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 </section>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

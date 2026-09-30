@@ -1,11 +1,4 @@
 <?php
-/**
- * "If it was a taxi, we'll try to help."
- *
- * The single most surprising thing about this service -- it is not limited to
- * PowerCabs journeys -- so it gets the dark band treatment the site uses for
- * statements it wants read (same device as components/shared/support-band).
- */
 $lostItemJourneys = [
   ['label' => 'PowerCabs', 'sub' => 'Booked with us', 'icon' => '<path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h7.5m-7.5 0h-3.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.83H14.25M16.5 18.75h-2.25m0-11.25h-8.09c-.966 0-1.786.694-1.94 1.646L2.35 14.25m11.15-7.5v7.5m0-7.5h4.093c.53 0 1.023.28 1.293.735L21 14.25M2.35 14.25v3.375c0 .621.504 1.125 1.125 1.125h1.5m14.25-4.5H2.35"/>'],
   ['label' => 'Another taxi company', 'sub' => 'Any operator', 'icon' => '<path d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/>'],
@@ -17,18 +10,11 @@ $lostItemJourneys = [
 <!-- ============ Lost item: any taxi journey ============ -->
 <section class="tw-relative tw-overflow-hidden <?= $pcSurfaceDark ?> <?= $pcSectionTight ?>">
   <?php /* The two brand glows the dark bands elsewhere on the site use. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-8rem] tw-top-[-7rem] tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(255,122,0,0.26),transparent_70%)] tw-blur-[70px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-[-9rem] tw-left-[-7rem] tw-h-[22rem] tw-w-[22rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.2),transparent_70%)] tw-blur-[70px]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-9 tw-max-w-[54ch] tw-text-center">
-      <p class="<?= $pcEyebrowOnDark ?>">/ You do not have to be a PowerCabs passenger</p>
+      <p class="<?= $pcEyebrowOnDark ?>">You do not have to be a PowerCabs passenger</p>
       <h2 class="<?= $pcH2OnDark ?>">If it was a taxi, we&rsquo;ll try to help.</h2>
-      <p class="tw-mb-0 <?= $pcBodyOnDark ?>">
-        Your journey may have been booked through another platform, taken with
-        another taxi company, or simply hailed on the street. You can still ask
-        us to investigate.
-      </p>
     </div>
 
     <div class="tw-grid tw-grid-cols-2 tw-gap-3 sm:tw-grid-cols-3 lg:tw-grid-cols-5">

@@ -19,12 +19,12 @@ $lostItemFeeCovers = [
 ];
 ?>
 <!-- ============ Lost item: the investigation fee ============ -->
-<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>" id="investigation">
+<section class="<?= $pcSection ?>" id="investigation">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
 
       <div>
-        <p class="<?= $pcEyebrow ?>">/ Simple and transparent</p>
+        <p class="<?= $pcEyebrow ?>">Simple and transparent</p>
         <h2 class="<?= $pcH2 ?>">Why <span class="tw-text-power">&euro;<?= $lostItemFee ?></span>?</h2>
         <p class="tw-mb-4 <?= $pcLead ?> <?= $pcMeasureTight ?>">
           Because a real investigation takes real people.
@@ -33,10 +33,6 @@ $lostItemFeeCovers = [
           The &euro;<?= $lostItemFee ?> is not a charge for your belongings. It covers the work
           involved in trying to locate them &mdash; and it is the only fee you pay
           unless you later ask us to arrange a retrieval.
-        </p>
-        <p class="tw-mb-0 <?= $pcBodySm ?> <?= $pcMeasureTight ?>">
-          Recovery cannot be guaranteed. If your item is found and you want it
-          returned, we tell you what that costs and you decide.
         </p>
       </div>
 

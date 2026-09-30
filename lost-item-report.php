@@ -9,11 +9,6 @@ $assetPath = '';
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
-/* Lost item search fee. The amount is what the page SAYS; what the visitor is
-   actually charged is whatever the Stripe Payment Link is configured for in
-   the Stripe dashboard -- the site cannot change that. Keep the two in step.
-   The link comes from .env (STRIPE_LOST_ITEM_LINK, see includes/env.php) and
-   is empty when not configured, which the card below handles. */
 $lostItemFee = 15;
 $lostItemFeeLink = PC_STRIPE_LOST_ITEM_LINK;
 
@@ -35,13 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $old[$key] = trim($_POST[$key] ?? '');
   }
 
-  /* Taxi number and the receipt are NOT required.
-     The page now invites reports about any taxi journey -- another operator,
-     another app, or a street hail -- and someone who hailed a cab on the
-     street has neither a PowerCabs booking confirmation nor a taxi number to
-     give. Demanding them would have turned this page's own promise into a
-     dead end at the last field. Both are still asked for, and both still go
-     into the email when supplied; the body prints "-" when they do not. */
   if (
     $old['name'] === '' ||
     $old['email'] === '' ||
@@ -122,23 +110,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ PowerCabs Lost Item Recovery';
+$heroEyebrow = 'PowerCabs Lost Item Recovery';
 $heroTitleLight = 'Left Something';
 $heroTitleBold = 'in a Taxi?';
 // Names the two things that make this page different from every other "lost
 // property" form: it covers any taxi journey, and the fee is stated up front.
 $heroDescription =
-  'Don\'t panic -- we may be able to help you get it back, even if you didn\'t travel with PowerCabs. A EUR' .
+  'Don\'t panic - we may be able to help you get it back, even if you didn\'t travel with PowerCabs. A EUR' .
   $lostItemFee .
   ' investigation, with any retrieval cost quoted and approved before we proceed.';
 $heroBgImage = 'https://images.pexels.com/photos/12092769/pexels-photo-12092769.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
-
 require __DIR__ . '/components/lost-item/trust-strip.php';
 require __DIR__ . '/components/lost-item/finding-driver.php';
 require __DIR__ . '/components/lost-item/any-taxi.php';
-// The fee and what it buys come BEFORE the form: nobody should meet the price
-// for the first time next to a submit button.
 require __DIR__ . '/components/lost-item/investigation-fee.php';
 require __DIR__ . '/components/lost-item/retrieval-steps.php';
 ?>
@@ -155,14 +141,8 @@ $submitClass = $pcBtnPrimary;
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="<?= $pcEyebrow ?>">/ Don't worry if you don't know everything</p>
+        <p class="<?= $pcEyebrow ?>">Don't worry if you don't know everything</p>
         <h2 class="<?= $pcH2Small ?>">Tell us what you remember</h2>
-        <p class="tw-mb-6 tw-text-ink/60">
-          Even small details help the investigation, and nothing below is a dead
-          end if you cannot answer it. Pickup and drop-off, the rough time, the
-          taxi company, a registration, anything about the driver, and a clear
-          description of the item all give us something to work with.
-        </p>
         <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-4 tw-p-0">
           <li class="tw-flex tw-gap-3">
             <svg class="tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h7.5m-7.5 0h-3.375c-.621 0-1.125-.504-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.83H14.25M16.5 18.75h-2.25m0-11.25h-8.09c-.966 0-1.786.694-1.94 1.646L2.35 14.25m11.15-7.5v7.5m0-7.5h4.093c.53 0 1.023.28 1.293.735L21 14.25M2.35 14.25v3.375c0 .621.504 1.125 1.125 1.125h1.5m14.25-4.5H2.35"/></svg>
@@ -174,14 +154,10 @@ $submitClass = $pcBtnPrimary;
           </li>
           <li class="tw-flex tw-gap-3">
             <svg class="tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25l2 2 4-4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
-            <span class="tw-text-ink/60">A clear description of the item -- colour, brand, and any identifying details.</span>
+            <span class="tw-text-ink/60">A clear description of the item - colour, brand, and any identifying details.</span>
           </li>
         </ul>
 
-        <?php /* The fee card itself now lives in
-                 components/lost-item/investigation-fee.php, above the form --
-                 this is only the reminder, so the price is never a surprise
-                 at the submit button. */ ?>
         <div class="tw-mt-8 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2 tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-peach/45 tw-px-5 tw-py-4">
           <span class="tw-text-[1.35rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-power">&euro;<?= $lostItemFee ?></span>
           <span class="tw-min-w-0 tw-flex-1 tw-text-[0.92rem] tw-leading-snug tw-text-ink/70">
@@ -267,23 +243,10 @@ $submitClass = $pcBtnPrimary;
   </div>
 </section>
 
-<script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
-  __DIR__ . '/assets/js/components/custom-datetime.js',
-) ?>"></script>
-
 <?php
-require __DIR__ . '/components/lost-item/story.php';
-require __DIR__ . '/components/lost-item/driver-invite.php';
 
-// $ctaTitle = 'Lost something? Don\'t give up yet.';
-// $ctaText = 'Tell us what you remember and our team will start looking.';
-// $ctaPrimary = ['href' => '/lost-item-report#lostItemForm', 'label' => 'Report a Lost Item'];
-// $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Support'];
-// require __DIR__ . '/components/shared/final-cta.php';
-
-// The fee terms sit after the closing CTA, the same place the client's draft
-// put them: read by anyone who got as far as deciding.
 require __DIR__ . '/components/lost-item/fine-print.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

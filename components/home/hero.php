@@ -39,7 +39,9 @@ $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
       <div class="tw-mb-6 tw-flex tw-flex-wrap tw-items-center tw-gap-4 tw-animate-pc-fade-up [animation-delay:0.24s]">
         <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/ride">Book a Ride</a>
         <a class="tw-inline-flex tw-items-center tw-justify-center tw-rounded-full tw-border-[1.5px] tw-border-solid tw-border-white/[0.32] tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-leading-5 tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-border-white/60 hover:tw-bg-white/10" href="<?= $assetPath ?>/drive">Become a Driver</a>
-        <a class="tw-group tw-inline-flex tw-items-center tw-gap-1.5 tw-text-sm tw-font-semibold tw-text-white/80 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-white" href="<?= $assetPath ?>/business">
+        <?php /* py-1 -my-1 lifts this from a 20px tap target to 28px without
+                 moving the button row it sits in -- see includes/footer.php. */ ?>
+        <a class="tw-group tw-inline-flex tw-items-center tw-gap-1.5 tw-py-1 -tw-my-1 tw-text-sm tw-font-semibold tw-text-white/80 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-white" href="<?= $assetPath ?>/business">
           Business Solutions
           <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover:tw-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -94,7 +96,14 @@ $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
              photograph. rounded-full only from lg, where it is one row -- on a
              phone the same class on a four-row stack would round it into a
              capsule. */ ?>
-    <div class="tw-mt-10 tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/[0.09] tw-overflow-hidden tw-rounded-3xl tw-border-2 tw-border-solid tw-border-powerlight/60 tw-bg-[rgba(10,7,5,0.72)] tw-backdrop-blur-md tw-shadow-[0_0_0_1px_rgba(255,122,0,0.2),0_0_34px_rgba(255,122,0,0.3),0_22px_50px_-20px_rgba(0,0,0,0.85)] tw-animate-pc-fade-up [animation-delay:0.32s] sm:tw-mt-12 sm:tw-grid-cols-2 lg:tw-mt-10 lg:tw-grid-cols-4 lg:tw-divide-x-0 lg:tw-divide-y-0 lg:tw-rounded-full">
+    <?php /* The trust bar is SUPPORTING, so it is bordered like a hairline
+             and not lit up. It used to carry a 2px orange border plus a 34px
+             orange glow plus an orange ring, which made a row of small
+             reassurances the brightest object in the hero -- brighter than
+             the headline and the Book a Ride button it sits under. The
+             orange is still here, in the four icons, where it marks the
+             content rather than the container. */ ?>
+    <div class="tw-mt-10 tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-white/[0.09] tw-overflow-hidden tw-rounded-3xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-[rgba(10,7,5,0.72)] tw-backdrop-blur-md tw-shadow-[0_22px_50px_-20px_rgba(0,0,0,0.85)] tw-animate-pc-fade-up [animation-delay:0.32s] sm:tw-mt-12 sm:tw-grid-cols-2 lg:tw-mt-10 lg:tw-grid-cols-4 lg:tw-divide-x-0 lg:tw-divide-y-0 lg:tw-rounded-full">
       <?php /* From lg the grid's own divide-x is dropped for a centred
                pseudo-element rule instead: divide-x runs the full height of
                the cell, which on a pill reads as four boxes rather than one
@@ -102,7 +111,10 @@ $heroCarShot = 'assets/img/PC-Hero.webp'; ?>
                first cell suppresses it. */ ?>
       <?php foreach ($heroTrust as $item): ?>
         <div class="tw-relative tw-flex tw-items-center tw-gap-3.5 tw-px-5 tw-py-4 lg:tw-px-6 lg:tw-py-5 lg:before:tw-absolute lg:before:tw-left-0 lg:before:tw-top-1/2 lg:before:tw-h-10 lg:before:tw-w-px lg:before:-tw-translate-y-1/2 lg:before:tw-bg-white/[0.14] lg:before:tw-content-[''] lg:first:before:tw-hidden">
-          <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-solid tw-border-powerlight/70 tw-bg-powerlight/[0.12] tw-text-powerlight tw-shadow-[0_0_14px_rgba(255,122,0,0.45),inset_0_0_10px_rgba(255,122,0,0.22)]">
+          <?php /* Orange icon on a soft orange disc -- no glow. The 14px
+                   outer glow and inset bloom read as four lights in a row and
+                   were most of the hero's visual noise. */ ?>
+          <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-powerlight/[0.14] tw-text-powerlight">
             <?php switch ($item['icon']): case 'headset': ?>
                 <svg class="tw-h-[1.35rem] tw-w-[1.35rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2.5a8 8 0 0116 0V14"/><path d="M4 13.5h1.6a1 1 0 011 1v3.4a1 1 0 01-1 1H4.8A1.8 1.8 0 013 17.1v-1.8a1.8 1.8 0 011-1.8zM20 13.5h-1.6a1 1 0 00-1 1v3.4a1 1 0 001 1h.8a1.8 1.8 0 001.8-1.8v-1.8a1.8 1.8 0 00-1-1.8z"/><path d="M19.2 19.4v.4a2.4 2.4 0 01-2.4 2.4H13.2"/></svg>
               <?php break;case 'no-surge': ?>

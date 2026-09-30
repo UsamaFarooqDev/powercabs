@@ -1,8 +1,14 @@
 <?php
 $bizAccountBenefits = [
-  ['icon' => 'workspace', 'title' => 'One Account', 'desc' => "Manage your team's travel from one place -- book for anyone, anytime."],
-  ['icon' => 'receipt', 'title' => 'Simple Billing', 'desc' => 'Keep every business journey on one consolidated invoice, with no hidden charges.'],
-  ['icon' => 'chart', 'title' => 'Full Visibility', 'desc' => 'See journeys, spend and activity across your whole organisation as it happens.'],
+  ['icon' => 'receipt', 'title' => 'Simple Billing', 'desc' => 'Keep every business journey on a consolidated invoice, no hidden charges.'],
+  ['icon' => 'chart', 'title' => 'Full Visibility', 'desc' => 'See journeys, spend and activity across whole organisation as it happens.'],
+  /* The two account features that were NOT already said here, moved up from
+     booking-process.php's icon row. That row restated One Account, Simple
+     Billing and Full Visibility under a heading promising booking steps; these
+     two were the only part of it saying anything new, so they join the list
+     that was already making the argument. */
+  ['icon' => 'workspace', 'title' => 'Priority Booking', 'desc' => 'Business journeys are prioritised when you need a car quickly.'],
+  ['icon' => 'receipt', 'title' => 'Corporate Support', 'desc' => 'A dedicated contact for your account, not the general queue.'],
 ];
 
 function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
@@ -29,53 +35,41 @@ function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
   endswitch;
 }
 ?>
-<section class="tw-bg-gradient-to-b tw-from-white tw-to-paper-soft tw-py-16 md:tw-py-24">
+
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
+    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Your Business Account</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Your business. Your account. Your taxi service.</h2>
+      <p class="<?= $pcBody ?> tw-mb-0">
+        Everything your team books in one place, billed once and visible the
+        whole way through.
+      </p>
+    </div>
+
+    <ul class="tw-m-0 tw-mb-14 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 tw-lg:gap-6 lg:tw-grid-cols-4">
+      <?php foreach ($bizAccountBenefits as $benefit): ?>
+        <li class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-p-6 tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_14px_34px_-14px_rgba(28,20,16,0.2)] motion-reduce:tw-transition-none">
+          <span class="<?= $pcFeatureIcon ?> tw-mb-4">
+            <?php pc_biz_icon($benefit['icon']); ?>
+          </span>
+          <span class="tw-mb-1.5 tw-block tw-text-[1.0625rem] tw-font-bold tw-leading-snug tw-text-ink"><?= htmlspecialchars(
+            $benefit['title'],
+          ) ?></span>
+          <span class="<?= $pcBodySm ?> tw-block"><?= htmlspecialchars($benefit['desc']) ?></span>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
+    <div class="tw-grid tw-grid-cols-1">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Your Business Account</p>
-        <h2 class="<?= $pcH2 ?>">Your business. Your account.<br>Your taxi service.</h2>
-
-        <!-- Three stacked rows, not a 3-across grid. These cards sit in one
-             half of a two-column section, so md:grid-cols-3 gave each card
-             about a sixth of the container: three narrow boxes with centred
-             text wrapping to four or five lines. As rows the icon anchors the
-             left, the copy gets the full column width, and the step numbers
-             read as a sequence.
-
-             Hover fills the row instead of lifting it -- a translate inside a
-             column this narrow reads as a wobble rather than a lift. -->
-        <ol class="tw-m-0 tw-mt-8 tw-flex tw-list-none tw-flex-col tw-gap-3 tw-p-0">
-          <?php foreach ($bizAccountBenefits as $i => $benefit): ?>
-            <li class="tw-group tw-flex tw-items-start tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-4 tw-transition-colors tw-duration-300 hover:tw-border-power/25 hover:tw-bg-power/[0.03] motion-reduce:tw-transition-none lg:tw-p-5">
-              <span class="tw-relative tw-flex tw-h-12 tw-w-12 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-paper tw-text-power tw-transition-colors tw-duration-300 group-hover:tw-bg-peach motion-reduce:tw-transition-none">
-                <?php pc_biz_icon($benefit['icon']); ?>
-                <span class="tw-absolute -tw-right-1.5 -tw-top-1.5 tw-flex tw-h-5 tw-w-5 tw-items-center tw-justify-center tw-rounded-full tw-bg-ink tw-text-[0.62rem] tw-font-bold tw-text-white" aria-hidden="true"><?= $i +
-                  1 ?></span>
-              </span>
-              <span class="tw-min-w-0">
-                <span class="tw-mb-1 tw-block tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars(
-                  $benefit['title'],
-                ) ?></span>
-                <span class="tw-block tw-text-[0.95rem] tw-leading-[1.6] tw-text-ink/[0.6]"><?= htmlspecialchars(
-                  $benefit['desc'],
-                ) ?></span>
-              </span>
-            </li>
-          <?php endforeach; ?>
-        </ol>
-      </div>
-
-      <div>
-        <!-- Lightweight illustration of the PowerCabs Business account -- a
-             visual mockup in the site's own UI language, not a screenshot. -->
-        <div class="tw-mx-auto tw-w-full tw-max-w-[420px] tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-[clamp(1.5rem,3vw,2rem)] tw-shadow-[0_24px_60px_rgba(28,20,16,0.1)]">
-          <div class="tw-mb-6 tw-flex tw-items-center tw-justify-between">
+        <div class="tw-mx-auto tw-w-full tw-max-w-[560px] tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-[clamp(1.5rem,3vw,2rem)] tw-shadow-[0_24px_60px_-20px_rgba(28,20,16,0.28)]">
+          <div class="tw-mb-6 tw-flex tw-items-center tw-justify-between tw-gap-3">
             <span class="tw-flex tw-items-center tw-gap-2 tw-font-bold tw-text-ink">
               <img src="<?= $assetPath ?>assets/img/powercabs-horse-icon.png" alt="" width="22" height="22" aria-hidden="true">
               PowerCabs Business
             </span>
-            <span class="tw-rounded-full tw-bg-[rgba(25,135,84,0.12)] tw-px-2.5 tw-py-1 tw-text-[0.68rem] tw-font-medium tw-text-[#198754]">Account Active</span>
+            <span class="tw-rounded-full tw-border tw-border-solid tw-border-hairline tw-bg-surface tw-px-2.5 tw-py-1 tw-text-[0.68rem] tw-font-medium tw-text-muted">Example account</span>
           </div>
 
           <div class="tw-mb-6 tw-grid tw-grid-cols-2 tw-gap-3">

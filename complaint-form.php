@@ -157,11 +157,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ We Want To Know';
+$heroEyebrow     = 'We Want To Know';
 $heroTitleLight  = 'Tell Us';
 $heroTitleBold   = 'What Went Wrong.';
 $heroDescription = "We're sorry your experience didn't meet our standards. Share the details below and our support team will review it and follow up.";
 $heroBgImage     = 'https://images.pexels.com/photos/6830863/pexels-photo-6830863.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $categoryLabels = [
@@ -410,6 +411,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
 ) ?>"></script>
 
 <?php
+$bannerCompact = true; // §30: this page already closes with its own CTA.
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

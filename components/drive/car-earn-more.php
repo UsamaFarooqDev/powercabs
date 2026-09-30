@@ -1,5 +1,4 @@
 <?php
-
 $carEarnCards = [
   [
     'step' => '01',
@@ -17,46 +16,51 @@ $carEarnCards = [
     'step' => '03',
     'title' => 'Earn',
     'desc' => 'Get paid extra for eligible campaigns, on top of your fares.',
-    'img' => 'https://images.pexels.com/photos/6289026/pexels-photo-6289026.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    'img' => 'https://images.pexels.com/photos/259251/pexels-photo-259251.jpeg?auto=compress&cs=tinysrgb&w=1200',
   ],
 ]; ?>
 <!-- ============ Your Car Can Earn More ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Your Car Can Earn More</p>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Your Car Can Earn More</p>
       <h2 class="<?= $pcH2Display ?>">Drive. Advertise. <span class="tw-text-power">Earn.</span></h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 lg:tw-gap-6">
+      <?php /* The $isPanel branches that used to be here are gone with the
+               panel: all three cards are photographs again, so there is one
+               path through this loop instead of two. */ ?>
       <?php foreach ($carEarnCards as $card): ?>
-        <div class="tw-group tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-block tw-aspect-[3/2] tw-overflow-hidden tw-rounded-2xl">
-          <img src="<?= str_starts_with(
-            $card['img'],
-            'http',
-          )
+        <div class="tw-group tw-relative tw-block tw-aspect-[3/2] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none">
+
+          <img src="<?= str_starts_with($card['img'], 'http')
             ? htmlspecialchars($card['img'])
             : $assetPath . htmlspecialchars($card['img']) ?>" alt="<?= htmlspecialchars(
   $card['title'],
-) ?>" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">
-          <span class="tw-bg-[rgba(10,7,5,0.15)] tw-transition-opacity tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:tw-opacity-30 motion-reduce:tw-transition-none tw-absolute tw-inset-0" aria-hidden="true"></span>
+) ?>" class="<?= $pcImgCover ?> tw-block tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none" loading="lazy">
+          <span class="tw-absolute tw-inset-0 tw-bg-[rgba(10,7,5,0.15)] tw-transition-opacity tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:tw-opacity-30 motion-reduce:tw-transition-none" aria-hidden="true"></span>
 
           <span class="tw-absolute tw-left-3 tw-top-3 tw-rounded-full tw-bg-power tw-px-3 tw-py-1 tw-text-[0.68rem] tw-font-semibold tw-tracking-[0.04em] tw-text-white">
             Step <?= htmlspecialchars($card['step']) ?>
           </span>
 
-          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.62)_0%,rgba(10,7,5,0.22)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[8px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-4 tw-pt-3 md:tw-p-5 md:tw-pt-4">
+          <?php /* The gradient + blur is what keeps the caption legible over
+                   whatever part of the photograph ends up behind it. */ ?>
+          <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.62)_0%,rgba(10,7,5,0.22)_65%,rgba(10,7,5,0)_100%)] tw-p-4 tw-pt-3 tw-backdrop-blur-[8px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_30%)] md:tw-p-5 md:tw-pt-4">
             <span class="tw-mb-1 tw-block tw-text-2xl tw-font-bold tw-tracking-[-0.01em] tw-text-white"><?= htmlspecialchars(
               $card['title'],
             ) ?></span>
-            <span class="tw-block tw-text-sm tw-text-white/60"><?= htmlspecialchars($card['desc']) ?></span>
+            <span class="tw-block tw-text-sm tw-text-white/60"><?= htmlspecialchars(
+              $card['desc'],
+            ) ?></span>
           </span>
         </div>
       <?php endforeach; ?>
     </div>
 
     <div class="tw-mx-auto tw-mt-10 tw-max-w-[640px] tw-text-center">
-      <p class="tw-mb-4 tw-text-ink/60">
+      <p class="<?= $pcBody ?> tw-mb-5">
         Eligible drivers can participate in approved vehicle marketing campaigns
         and potentially earn <strong class="tw-text-ink">&euro;100+ per month</strong>,
         depending on campaign and eligibility.

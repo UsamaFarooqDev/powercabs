@@ -37,7 +37,7 @@ $assetPath ??= '';
            the same origin, or the preloaded copy is not reused. Only latin is
            preloaded: latin-ext is rarely needed and unicode-range fetches it
            on demand. */ ?>
-  <link rel="preload" href="/assets/fonts/plus-jakarta-sans/plus-jakarta-sans-v12-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-sans/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <?php /* Most page heroes and many section photos are Pexels URLs. Opening
            that connection now saves its DNS + TLS setup at the moment the
            hero image is actually requested. */ ?>

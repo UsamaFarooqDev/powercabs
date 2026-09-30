@@ -1,39 +1,14 @@
 </main>
 
-<!-- Decides the desktop footer-reveal BEFORE the footer is first painted.
-     This is the site's largest Core Web Vitals problem and it has one cause:
-     syncFooterHeightVar() in main.js adds .pc-footer-reveal on DOMContentLoaded
-     and again on load, and that class flips the footer from normal flow to
-     position:fixed. By then the footer has already been laid out and painted
-     at the bottom of the document, so it teleports the full height of itself
-     -- measured at CLS 0.52 on the homepage and 0.64 on /ride, against
-     Google's 0.1 "good" threshold, with the footer accounting for 99% of it.
-
-     Running the same test here works because this point in the document is
-     after </main> (so <main> is parsed and measurable) but before the <footer>
-     element exists (so it has never been laid out in flow). The condition is
-     identical to the one in syncFooterHeightVar, which still runs afterwards
-     and still owns resize and PJAX -- this only removes the first, visible
-     flip. Inline and synchronous on purpose: a deferred script would run after
-     paint and change nothing.
-
-     For the record, the 44 content images without width/height attributes are
-     NOT a meaningful contributor -- they measured 0.004 combined, because the
-     design system's aspect-ratio wrappers ($pcImgLandscape and friends)
-     already reserve the space. -->
-<script>
-  (function () {
-    try {
-      var main = document.querySelector('main');
-      if (main && main.getBoundingClientRect().height >= window.innerHeight) {
-        document.documentElement.classList.add('pc-footer-reveal');
-      }
-    } catch (e) {
-      /* Leave it to syncFooterHeightVar; a failure here costs layout shift,
-         never the footer itself. */
-    }
-  })();
-</script>
+<?php
+/* A render-blocking inline script sat here to decide the desktop footer-reveal
+   before the footer was first painted, because that effect flipped the footer
+   to position:fixed after layout and cost CLS 0.52 on the homepage and 0.64 on
+   /ride. The effect is gone (see base.css), so the mitigation goes with it --
+   which also removes a synchronous script from the critical path of every
+   page. The footer is in normal flow now and never moves, so there is nothing
+   left to pre-empt. */
+?>
 
 <?php
 $assetPath = $assetPath ?? '';
@@ -113,7 +88,34 @@ $footerNav = [
 <!-- tw-bg-ink-soft, one step darker than the closing CTA's tw-bg-ink above
      it. Both were tw-bg-ink, which ran the CTA and the footer together into a
      single black slab; the tonal step separates them without a divider. -->
-<footer class="tw-overflow-hidden tw-bg-ink-soft tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white">
+<?php /* The footer's top edge.
+ *
+ * It used to be a flat tw-bg-ink-soft rectangle, so it met the light page
+ * above it as one hard, full-width horizontal line -- the sharpest edge on
+ * the site.
+ *
+ * Three things soften it, none of which need the page above to cooperate
+ * (which matters, because the last section is white on most routes and the
+ * tint on others):
+ *   - rounded top corners, so the silhouette curves away instead of ruling a
+ *     line across the viewport
+ *   - a vertical gradient, lighter at the top and settling to near-black at
+ *     the bottom, so the footer has depth rather than being one flat value
+ *   - a 1px inset highlight along the very top, which reads as a lit edge and
+ *     stops the curve looking cut out
+ *
+ * The corners show the body's white behind them, which is why this works
+ * without a blend band. A blurred overlay above the footer was the other
+ * option and is not possible here: this element is overflow-hidden (it has to
+ * be -- see the note below about text clipping at 390px), so anything drawn
+ * outside its box would simply be clipped away. */ ?>
+<?php /* The gradient runs on two axes: a vertical light-to-dark, plus a warm
+         orange glow bled in from the top-left at very low opacity. The brand
+         colour is doing the same job here that it does elsewhere on the page
+         -- present, but as a tint rather than a block. Keeping it under about
+         8% is what stops the footer reading as an orange panel; it should be
+         felt more than seen. */ ?>
+<footer class="tw-relative tw-overflow-hidden tw-rounded-t-[clamp(1.5rem,3.5vw,2.75rem)] tw-bg-[radial-gradient(90%_140%_at_12%_0%,rgba(249,115,22,0.16)_0%,rgba(249,115,22,0.05)_38%,transparent_70%),linear-gradient(180deg,#333333_0%,#262626_38%,#1c1c1c_72%,#141414_100%)] tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white tw-shadow-[inset_0_1px_0_rgba(255,255,255,0.11)]">
 
   <div class="tw-relative <?= $pcContainer ?>">
 
@@ -148,8 +150,12 @@ $footerNav = [
         <address class="tw-mb-4 tw-not-italic tw-text-[0.92rem] tw-leading-[1.75] tw-text-white/[0.6]">
           Kylmore Road, Inchicore<br>
           Dublin D10 K729<br>
-          <a class="<?= $fLegal ?> tw-text-[0.92rem]" href="tel:+35312030727">+353 12 03 0727</a><br>
-          <a class="<?= $fLegal ?> tw-text-[0.92rem]" href="mailto:info@powercabs.ie">info@powercabs.ie</a>
+          <?php /* py-1 with no margin compensation, deliberately: these two stay
+                   INLINE inside the <address>, and padding on an inline box grows
+                   the hit area without touching the line box -- so the tap target
+                   goes 20px -> 28px and the address block does not reflow. */ ?>
+          <a class="<?= $fLegal ?> tw-text-[0.92rem] tw-py-1" href="tel:+35312030727">+353 12 03 0727</a><br>
+          <a class="<?= $fLegal ?> tw-text-[0.92rem] tw-py-1" href="mailto:info@powercabs.ie">info@powercabs.ie</a>
         </address>
 
         <!-- Registration numbers live with the company identity, not in the
@@ -230,10 +236,15 @@ $footerNav = [
       </p>
 
       <div class="tw-flex tw-flex-col tw-gap-5 sm:tw-flex-row sm:tw-items-center sm:tw-gap-8">
+        <?php /* py-1 -my-1 on each link, not on the row: these are 13.6px text
+                 that measured 20px tall, under the 24px WCAG 2.5.8 asks of a
+                 tap target. The padding buys 8px of hit area and the negative
+                 margin hands the same 8px back to the flex row, so the legal
+                 strip keeps its exact height. */ ?>
         <div class="tw-flex tw-flex-wrap tw-gap-x-5 tw-gap-y-2">
-          <a class="<?= $fLegal ?>" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
-          <a class="<?= $fLegal ?>" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
-          <a class="<?= $fLegal ?>" href="<?= $assetPath ?>/gdpr">GDPR</a>
+          <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
+          <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
+          <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/gdpr">GDPR</a>
         </div>
         <div class="tw-flex tw-gap-2.5">
           <a class="<?= $fSocial ?>" href="https://www.facebook.com/powercabs.ie/" target="_blank" rel="noopener" aria-label="PowerCabs on Facebook">

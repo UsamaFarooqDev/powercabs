@@ -25,22 +25,9 @@ $countries = [
   'Romania', 'Slovakia', 'Slovenia', 'South Africa', 'Spain', 'Sweden', 'Switzerland', 'Ukraine',
 ];
 
-// Canonical PowerCabs form field recipe, matched from book-ride-online.php
-// (which itself matches the enhanced Ride Type / Date custom-select /
-// custom-datetime triggers pixel for pixel) -- reused here so every form on
-// the site looks and behaves the same.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 
-/** Yes/No toggle: two pill buttons driven by real radio inputs, so the pair
- * is mutually exclusive natively and stays keyboard/AT accessible with no JS.
- *
- * Each input+label pair MUST be wrapped in its own element. Tailwind compiles
- * `peer-checked:x` to `.peer:checked ~ .peer-checked\:x`, and `~` matches ANY
- * later sibling -- so with all four elements flat in one row, checking "Yes"
- * highlighted the "No" label too, because that label is also a following
- * sibling of the Yes input. The wrapper stops `~` reaching across pairs.
- */
 function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool $required = true): void
 {
   foreach (['yes' => 'Yes', 'no' => 'No'] as $value => $label) {
@@ -56,70 +43,14 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
   }
 }
 ?>
-<section class="tw-scroll-mt-24 tw-relative tw-overflow-hidden <?= $pcSection ?>" id="payment-apply-form">
-  <?php /* Glendalough, Co. Wicklow -- blurred into soft colour and frosted
-           over. Chosen because roughly the top half of the frame is bright
-           sky and the bottom is green: blurred, that becomes light blue and
-           green masses rather than a dark smear, so the band stays light
-           without needing a heavy white wash to rescue it.
-
-           blur-[22px] with scale-110 is the standard pairing: a CSS blur
-           samples past the element's edge and leaves a soft transparent
-           fringe, so the image is scaled up and the fringe pushed outside the
-           overflow-hidden wrapper. Without the scale you get a visible pale
-           halo around all four sides.
-
-           Because the blur does the softening, the wash is much lighter than
-           a sharp photo would need -- 0.62 through the middle instead of
-           0.80. More colour, less detail. It still ends OPAQUE at both ends:
-           #f9f4ed at the top matches tw-bg-paper on pricing.php directly
-           above, #ffffff at the bottom matches testimonials.php directly
-           below, so the band fades up out of one section and down into the
-           next with no seam. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-overflow-hidden" aria-hidden="true">
-    <img src="https://images.pexels.com/photos/28430310/pexels-photo-28430310.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
-      alt="" aria-hidden="true" loading="lazy"
-      class="tw-h-full tw-w-full tw-scale-110 tw-object-cover tw-object-center tw-blur-[22px]">
-    <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,#f9f4ed_0%,rgba(249,244,237,0.86)_12%,rgba(252,250,247,0.62)_42%,rgba(255,255,255,0.8)_72%,#ffffff_100%)]"></span>
-  </span>
-
-  <?php /* Decorative background blobs, purely visual. Alphas are roughly a
-           third lower than before: they used to sit on a flat surface and had
-           to carry the whole background on their own. Over a photograph they
-           only need to add brand warmth, and at their old strength the three
-           of them plus the image read as clutter behind a form asking for
-           bank details. */ ?>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-z-0 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.2),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-20 tw-left-[-9rem] tw-z-0 tw-h-80 tw-w-80 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(68,91,138,0.2),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-6rem] tw-top-[55%] tw-z-0 tw-h-64 tw-w-64 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.11),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
-
+<section class="tw-scroll-mt-24 <?= $pcSection ?>" id="payment-apply-form">
   <div class="tw-relative <?= $pcContainerNarrow ?>">
     <div class="tw-mb-10 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Apply Now</p>
-      <h2 class="tw-mb-2 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Apply for Your Card Terminal</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Apply Now</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-2') ?>">Apply for Your Card Terminal</h2>
       <p class="tw-mb-0 tw-text-ink/60">Submit your details and our team will get back to you shortly.</p>
     </div>
 
-    <?php /* Frosted glass: translucent white over a backdrop-blur, a bright
-             hairline edge and a deep shadow.
-
-             85% and not lower, deliberately. This form asks for a date of
-             birth, an IBAN and a bank name -- every field has to stay
-             unambiguously legible, and a fashionable 60% panel would put
-             moving colour behind 14 labels. At 85% over a backdrop-blur the
-             card reads as solid to the eye while the edges still pick up the
-             green and blue behind, which is where the glass effect actually
-             registers.
-
-             backdrop-blur on top of an already-blurred image is not
-             redundant: the image blur softens the photo, the backdrop blur is
-             what makes the CARD look like glass sitting on it, and it also
-             smooths whatever the 15% transparency lets through into flat
-             colour rather than detail.
-
-             No transition on this element on purpose -- animating a property
-             on a box that owns a backdrop-filter forces the whole layer to
-             re-rasterise and flashes for a frame. */ ?>
     <div class="tw-rounded-[2rem] tw-border tw-border-solid tw-border-white/70 tw-bg-white/[0.85] tw-p-4 tw-shadow-[0_28px_60px_-12px_rgba(28,20,16,0.28)] tw-backdrop-blur-2xl sm:tw-p-6 md:tw-p-8">
       <form method="post" action="#payment-apply-form" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2" enctype="multipart/form-data">
         <div>
@@ -137,10 +68,6 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
 
         <div class="md:tw-col-span-2 md:tw-grid md:tw-grid-cols-3 md:tw-gap-4">
           <div>
-            <!-- pc-custom-select-enhance stays as a bare functional hook --
-                 custom-select.js progressively enhances any <select>
-                 carrying this class, styling what it builds with Tailwind
-                 utilities that reproduce $inputClass below exactly. -->
             <label class="<?= $labelClass ?>" for="paTitle">Title</label>
             <select class="<?= $inputClass ?> pc-custom-select-enhance" id="paTitle" name="title">
               <option value="" <?= $old['title'] === '' ? 'selected' : '' ?>>- Select -</option>

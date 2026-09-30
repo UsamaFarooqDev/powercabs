@@ -7,10 +7,10 @@
 $playStoreTarget = 'https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger';
 $appStoreTarget = 'https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981';
 
-function pc_qr_src(string $target): string
-{
-  return 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&ecc=H&data=' . rawurlencode($target);
-}
+/* pc_qr_src() moved to components/download/qr.php -- the compact app row in
+   app-download-banner.php needs it too, and requiring this whole file to
+   reach one helper would pull in $appCards and its markup with it. */
+require_once __DIR__ . '/qr.php';
 
 $appCards = [
   [
@@ -60,7 +60,9 @@ $appCards = [
             </span>
           </div>
 
-          <a class="tw-group/dl tw-mb-6 tw-inline-flex tw-items-center tw-gap-1 tw-text-[0.95rem] tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= htmlspecialchars($card['playStore']) ?>" target="_blank" rel="noopener">
+          <?php /* py-2 is the tap target: this rendered 23px tall at 360px and
+                   it is the card's primary action (§55). */ ?>
+          <a class="tw-group/dl tw-mb-4 tw-inline-flex tw-items-center tw-gap-1 tw-py-2 tw-text-[0.95rem] tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= htmlspecialchars($card['playStore']) ?>" target="_blank" rel="noopener">
             <span class="tw-underline-offset-4 group-hover/dl:tw-underline">Click here to Download</span>
             <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover/dl:tw-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
           </a>

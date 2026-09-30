@@ -146,6 +146,10 @@
       // Collapse panels are inert until primed -- without this every
       // accordion reached via a PJAX click renders fully open.
       if (window.pcInitUi) window.pcInitUi();
+      // Rebuilds the scroll-scene list against the new <main> and disconnects
+      // the previous IntersectionObserver. The module binds its window
+      // listeners once, so this does not stack them.
+      if (window.pcInitScrollScenes) window.pcInitScrollScenes();
 
       window.scrollTo({ top: 0, behavior: "auto" });
     } catch (err) {

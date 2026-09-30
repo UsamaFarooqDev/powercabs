@@ -181,18 +181,21 @@ function syncNavbarHeightVar() {
   document.documentElement.style.setProperty("--pc-navbar-h", `${navbar.getBoundingClientRect().height}px`);
 }
 
-/** Keeps --pc-footer-h in sync with the footer's real rendered height */
-function syncFooterHeightVar() {
-  const footer = document.querySelector("footer");
-  const main = document.querySelector("main");
-  if (!footer || !main) return;
-
-  document.documentElement.style.setProperty("--pc-footer-h", `${footer.getBoundingClientRect().height}px`);
-
-  const currentPaddingBottom = parseFloat(getComputedStyle(main).paddingBottom) || 0;
-  const naturalMainHeight = main.getBoundingClientRect().height - currentPaddingBottom;
-  document.documentElement.classList.toggle("pc-footer-reveal", naturalMainHeight >= window.innerHeight);
-}
+/**
+ * Kept as a no-op shim, deliberately.
+ *
+ * This used to write --pc-footer-h and toggle .pc-footer-reveal, which pinned
+ * the footer behind <main> on desktop. That effect is gone (see base.css for
+ * why -- it was the site's largest CLS source), and with it the only consumer
+ * of --pc-footer-h.
+ *
+ * The function itself stays because pjax.js re-runs a fixed list of globals by
+ * name after every navigation, and that list is shared with several call
+ * sites. Removing the name would mean editing the PJAX contract for no gain;
+ * an empty function is the smaller, safer surface. If something later needs
+ * the footer's height, measure it here.
+ */
+function syncFooterHeightVar() {}
 
 /**
  * Home hero. PJAX navigation can call this again every time the homepage is

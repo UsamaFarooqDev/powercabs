@@ -5,11 +5,12 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Policies & Safety';
+$heroEyebrow     = 'Policies & Safety';
 $heroTitleLight  = 'Privacy';
 $heroTitleBold   = 'Policy.';
 $heroDescription = 'How we collect, use, disclose and safeguard your personal information when you visit the PowerCabs website, and your rights regarding that information.';
 $heroBgImage     = 'https://images.pexels.com/photos/4973899/pexels-photo-4973899.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'legal'; // §12: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $ppNav = [
@@ -30,10 +31,10 @@ $ppNav = [
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-3">
         <div class="tw-sticky tw-top-[100px]">
-          <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">On This Page</p>
+          <p class="<?= $pcEyebrow ?>">On This Page</p>
           <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
             <?php foreach ($ppNav as $item): ?>
-              <li><a class="tw-block tw-border-0 tw-border-l-2 tw-border-solid tw-border-transparent tw-py-[0.15rem] tw-pl-3 tw-text-sm tw-text-ink/[0.65] tw-transition-[color,border-color] tw-duration-200 hover:tw-border-l-power hover:tw-text-power focus-visible:tw-border-l-power focus-visible:tw-text-power" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
+              <li><a class="tw-block tw-border-0 tw-border-l-2 tw-border-solid tw-border-transparent tw-py-1.5 tw-pl-3 tw-text-sm tw-text-ink/[0.65] tw-transition-[color,border-color] tw-duration-200 hover:tw-border-l-power hover:tw-text-power focus-visible:tw-border-l-power focus-visible:tw-text-power" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -131,6 +132,7 @@ $ppNav = [
 </section>
 
 <?php
+$bannerCompact = true; // restrained: a legal page should not end on an orange panel
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

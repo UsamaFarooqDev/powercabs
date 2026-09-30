@@ -1,57 +1,100 @@
-/* ── Brand font: Plus Jakarta Sans, self-hosted ─────────────────────────
-   This used to be an @import of Google Fonts at the top of this file, which
-   is the slowest way a web font can load: the browser only discovers the
-   font after downloading THIS stylesheet, then opens two more origins
-   (fonts.googleapis.com for the CSS, fonts.gstatic.com for the files) before
-   the first byte of the font arrives -- measured at 1.5s for the CSS alone.
-   Until then every heading and paragraph painted in Segoe UI and then jumped
-   to the wider brand font, re-wrapping lines. That was the visible "font
-   disturb".
+/* ── Brand font: DM Sans, self-hosted ───────────────────────────────────
+   Chosen over Inter, Nunito, Roboto, Manrope, Figtree and Plus Jakarta Sans
+   after rendering this site in each (probe: scratchpad/font_try.mjs, which
+   loads a candidate and forces it site-wide, so the real pages can be compared
+   without six file swaps).
 
-   Now: one variable woff2 per script (every weight 200-800 in one 27KB
-   latin file, not a file per weight), served from our own origin and
-   preloaded from includes/tailwind.php so it downloads in parallel with the
-   CSS. latin-ext only downloads if a page actually uses one of its
-   characters -- that is what unicode-range does. The preload href and these
-   url()s must resolve to the SAME address or the browser fetches it twice.
-   Font files and OFL licence: assets/fonts/plus-jakarta-sans/. No italic is
-   used anywhere on the site, so none is shipped. */
+   Why this one: low-contrast geometric forms with soft joins and no sharp
+   spurs or flared terminals. Clean and neat without Nunito's rounded, casual
+   feel, and without Inter reading as the default SaaS grotesque that the
+   redesign brief's §52 warns against.
+
+   Measured at 1000px, against the faces it was weighed up with:
+     face            x-height  x/cap   note
+     Inter (was)       0.547   0.745   the baseline this type scale was tuned to
+     DM Sans           0.516   0.733   ~6% smaller lowercase, same openness
+     Manrope           0.547   0.761   the only metric-EXACT swap for Inter
+     Nunito, Figtree   0.500   ~0.70   ~9% smaller; body copy reads small
+     Plus Jakarta      0.547   0.729   quirky y and tight full stops
+
+   DM Sans lowercase is ~6% smaller than Inter at the same px size, so body
+   copy now sits at the lower end of the brief's 16-18px band rather than the
+   middle. If it ever reads small the fix is $pcBody in
+   includes/design-system.php, not swapping the font back.
+
+   Never an @import or a <link> to Google Fonts. That is the slowest way a web
+   font can load: the browser only discovers the font after downloading THIS
+   stylesheet, then opens two more origins before the first byte of the font
+   arrives -- measured at 1.5s for the CSS alone. That was the visible "font
+   disturb", and it must not come back. One variable woff2 per script, so every
+   weight lives in one file; latin-ext only downloads when a page actually uses
+   one of its characters, which is what unicode-range is for. The preload href
+   in includes/tailwind.php and these url()s must resolve to the SAME address
+   or the browser fetches the file twice. Licence: assets/fonts/dm-sans/. */
 @font-face {
-  font-family: 'Plus Jakarta Sans';
+  font-family: 'DM Sans';
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 100 1000;
   font-display: swap;
-  src: url('../fonts/plus-jakarta-sans/plus-jakarta-sans-v12-latin.woff2') format('woff2');
+  src: url('../fonts/dm-sans/dm-sans-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
     U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'Plus Jakarta Sans';
+  font-family: 'DM Sans';
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 100 1000;
   font-display: swap;
-  src: url('../fonts/plus-jakarta-sans/plus-jakarta-sans-v12-latin-ext.woff2') format('woff2');
+  src: url('../fonts/dm-sans/dm-sans-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
     U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* The stand-in for the few hundred ms before the brand font arrives: Arial,
-   resized and re-proportioned to occupy the same space as Plus Jakarta Sans.
-   With it, the swap changes letter shapes but not line lengths or heights,
-   so nothing re-wraps or moves. Values measured, not eyeballed, with
-   fontTools: size-adjust is the ratio of average advance widths over this
-   site's own copy at weight 400; the overrides are Plus Jakarta Sans's
-   vertical metrics (it sets USE_TYPO_METRICS: ascender 1038, descender -222,
-   no line gap, 1000 UPM) divided by that size-adjust. Re-measure if the font
-   file is ever replaced. */
+/* Arial, resized to stand in for DM Sans for the few hundred ms before it
+   arrives, so the swap changes letter shapes but not line lengths or heights
+   and nothing re-wraps.
+
+   MEASURED in a real browser against this repo's own woff2, not copied from a
+   table: average advance over a mixed alphanumeric sample gives size-adjust
+   99.31%, and DM Sans's own ascent/descent each divided by that give the two
+   overrides. Note the descent -- 31.22% against Inter's 23.05%, because DM
+   Sans has deeper descenders, so its line boxes are taller at the same
+   font-size.
+
+   Re-measure with scratchpad/font_compare.mjs if the file is ever replaced.
+   The numbers do not carry over between families. */
 @font-face {
-  font-family: 'Plus Jakarta Sans Fallback';
+  font-family: 'DM Sans Fallback';
   src: local('Arial'), local('ArialMT');
-  size-adjust: 105.54%;
-  ascent-override: 98.35%;
-  descent-override: 21.03%;
+  size-adjust: 99.31%;
+  ascent-override: 99.89%;
+  descent-override: 31.22%;
   line-gap-override: 0%;
 }
+
+/* ── Earlier brand fonts, and how to go back ────────────────────────────
+   Inter was the brand font before DM Sans, and Plus Jakarta Sans before that.
+   Their @font-face pairs lived here and have been removed rather than
+   commented out: CSS comments do not nest, so a commented-out block that
+   contains its own comment closes early and leaks live rules.
+
+   Both sets of woff2 are still on disk, with their OFL licences:
+     assets/fonts/inter/             48KB latin + 85KB latin-ext
+     assets/fonts/plus-jakarta-sans/ 27KB latin + 22KB latin-ext
+   and their measured fallback values were:
+     Inter              size-adjust 104.55%  ascent 92.69%   descent 23.05%
+     Plus Jakarta Sans  size-adjust 103.52%  ascent 100.27%  descent 21.45%
+
+   CHANGING THE FONT IS FOUR EDITS, and all four must name the same family or
+   the stack falls through to a system sans and the metric matching does
+   nothing:
+     1. this file            -- the @font-face pair and the Fallback block
+     2. variables.css        -- --pc-font-family
+     3. tailwind.config.js   -- fontFamily.sans
+     4. includes/tailwind.php-- the preload href
+   Then rebuild tailwind.css. scratchpad/font_try.mjs renders the live site in
+   any candidate without touching these files, and font_compare.mjs prints the
+   size-adjust/ascent/descent a new face needs. */
 
 /* Element normalisation lives in reboot.css (Bootstrap's Reboot, vendored),
    which loads before this file. Everything here is a PowerCabs layer on top
@@ -104,29 +147,25 @@ main {
   background-clip: content-box;
 }
 
-/* Desktop-only "footer reveal": the footer is pinned behind <main>, which
-   scrolls up off it. main.js adds .pc-footer-reveal only when the page is
-   tall enough for the effect to make sense. */
-@media (min-width: 992px) {
-  html.pc-footer-reveal main {
-    position: relative;
-    z-index: 1;
-    padding-bottom: var(--pc-footer-h, 460px);
-    pointer-events: none;
-  }
+/* The desktop "footer reveal" was removed here.
 
-  html.pc-footer-reveal main > * {
-    pointer-events: auto;
-  }
+   It pinned the footer with position:fixed behind <main> and gave <main> a
+   padding-bottom equal to the footer's height, so the page scrolled up off a
+   stationary footer. Three reasons it is gone:
 
-  html.pc-footer-reveal footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 0;
-  }
-}
+   1. It was the site's largest Core Web Vitals problem. The class flipped the
+      footer out of normal flow AFTER it had been laid out and painted, so the
+      footer teleported its own height -- measured at CLS 0.52 on the homepage
+      and 0.64 on /ride against Google's 0.1 "good" threshold, with the footer
+      accounting for 99% of it. A render-blocking inline script in footer.php
+      existed solely to pre-empt that flip; it is gone too.
+   2. pointer-events:none on <main> with the children switching it back on is
+      a fragile way to let clicks through to a fixed layer.
+   3. The padding-bottom reserved a full footer's height of empty page at the
+      bottom of every long route.
+
+   The footer is in normal flow now, and the closing CTA above it is a light
+   surface, so the two still read as separate blocks without the effect. */
 
 /* Brand weight/tracking on top of Reboot's type scale, which supplies the
    sizes and the margins. */

@@ -58,13 +58,19 @@ $rideSteps = [
 ];
 ?>
 
-<section class="tw-relative tw-overflow-hidden tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <span class="tw-pointer-events-none tw-absolute tw-right-[-9rem] tw-top-16 tw-h-72 tw-w-72 tw-rounded-full tw-bg-[radial-gradient(circle,rgba(251,157,69,0.3),transparent_70%)] tw-blur-[55px]" aria-hidden="true"></span>
-
-  <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[1320px]">
-    <div class="tw-mb-12 tw-text-center">
-      <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Simple Steps to Book Your Ride</h2>
-      <p class="tw-mx-auto tw-max-w-[60ch] tw-text-[1.1rem] tw-text-ink/60">
+<?php /* The soft surface is this page's main rhythm break: /ride measured 11
+         sections of which 10 were white, so nothing grouped and nothing
+         separated (§26). A decorative orange radial blob sat top-right here
+         and is gone -- §27 lists exactly that among the things "modern" is
+         not, and it was the only orange on an otherwise neutral section.
+         $pcSection/$pcContainer/$pcH2 replace a hand-rolled py-16/md:py-24,
+         max-w-[1320px] and text-3xl/md:text-4xl that predate the design
+         system and so had drifted off the shared rhythm. */ ?>
+<section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
+  <div class="tw-relative <?= $pcContainer ?>">
+    <div class="<?= $pcSectionHeadCenter ?>">
+      <h2 class="<?= $pcH2 ?>">Simple Steps to Book Your Ride</h2>
+      <p class="<?= $pcBody ?> tw-mx-auto tw-mb-0 tw-max-w-[60ch]">
         Book your ride easily through our app or website and enjoy a seamless journey
         every time. We monitor every trip you make, ensuring that you are never charged extra.
       </p>
@@ -88,7 +94,15 @@ $rideSteps = [
         <div class="tw-flex tw-flex-col tw-gap-3 lg:tw-ml-auto lg:tw-max-w-[26rem]" role="tablist" aria-label="Book Your Ride steps">
           <?php foreach ($rideSteps as $i => $step): ?>
             <button type="button"
-              class="pc-book-step-tab tw-flex tw-appearance-none tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-black/10 tw-bg-white tw-p-3 tw-text-left tw-transition-colors tw-duration-200 hover:tw-border-power/40 [&.is-active]:tw-border-power [&.is-active]:tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]<?= $i ===
+              <?php /* Only the SELECTED step carries a surface. Every step
+                       used to sit in its own bordered white box, so five equal
+                       boxes competed and the active one was distinguished by
+                       a border colour alone -- five cards to communicate one
+                       selection (§14/§43). Now the unselected steps are plain
+                       rows and the active one lifts onto white with a hairline
+                       and a soft shadow, which is both quieter and a clearer
+                       signal of which step you are on. */ ?>
+              class="pc-book-step-tab tw-flex tw-appearance-none tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-transparent tw-bg-transparent tw-p-3 tw-text-left tw-transition tw-duration-200 hover:tw-bg-white/70 [&.is-active]:tw-border-hairline [&.is-active]:tw-bg-white [&.is-active]:tw-shadow-[0_6px_18px_-8px_rgba(28,20,16,0.18)]<?= $i ===
               0
                 ? ' is-active'
                 : '' ?>"

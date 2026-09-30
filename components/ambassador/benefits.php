@@ -51,16 +51,11 @@ function pc_amb_icon(string $icon, string $cls): void
          own decorative overlays, which ARE anchored to its own box. */ ?>
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6.5rem)]" id="pcAmbBenefits">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-opacity-[0.035] tw-bg-[url('data:image/svg+xml,%3Csvg_xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter_id=%27n%27%3E%3CfeTurbulence_type=%27fractalNoise%27_baseFrequency=%270.85%27_numOctaves=%272%27_stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect_width=%27100%25%27_height=%27100%25%27_filter=%27url(%23n)%27/%3E%3C/svg%3E')]" aria-hidden="true"></span>
-  <span class="tw-pointer-events-none tw-absolute tw-bottom-[-6rem] tw-left-[-6rem] tw-z-0 tw-h-[22rem] tw-w-[22rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(232,89,12,0.14),transparent_70%)] tw-blur-[60px]" aria-hidden="true"></span>
-  <svg class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-hidden md:tw-block" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">
-    <line x1="0" y1="18%" x2="100%" y2="18%" stroke="rgba(232,89,12,0.15)" stroke-width="1"/>
-    <line x1="0" y1="82%" x2="100%" y2="82%" stroke="rgba(232,89,12,0.15)" stroke-width="1"/>
-  </svg>
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ Benefits</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Everything You Get as an Ambassador</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Benefits</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Everything You Get as an Ambassador</h2>
     </div>
 
     <div class="tw-relative tw-z-[1] tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-4 lg:[grid-auto-flow:dense] lg:[grid-auto-rows:minmax(170px,auto)]">

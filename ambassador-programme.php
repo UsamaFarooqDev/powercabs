@@ -1,6 +1,6 @@
 <?php
 $pageTitle       = 'Ambassador Programme | PowerCabs';
-$pageDescription = 'Join the PowerCabs Ambassador Programme -- free card terminals, exclusive vehicle branding, fuel discounts, extra loyalty points and dedicated support.';
+$pageDescription = 'Join the PowerCabs Ambassador Programme - free card terminals, exclusive vehicle branding, fuel discounts, extra loyalty points and dedicated support.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
@@ -50,22 +50,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Drivers';
+$heroEyebrow     = 'Drivers';
 $heroTitleLight  = 'Become a PowerCabs';
 $heroTitleBold   = 'Ambassador.';
 $heroDescription = "Earn More. Spend Less. Be Valued. Join Ireland's most driver-focused ride platform.";
-$heroBgImage     = 'https://images.pexels.com/photos/16702626/pexels-photo-16702626.jpeg?auto=compress&cs=tinysrgb&w=1600';
+/* The previous frame was a portrait head-and-shoulders of a man at the wheel,
+   and its alt text described something else entirely ("talking with a
+   colleague beside their car") -- the two had drifted apart, so a screen
+   reader was being told about a scene that is not in the picture.
+
+   This one is landscape, which is what the 'split' hero frame actually wants,
+   and it shows the thing the page is about: a driver standing at the open door
+   of a black saloon. The alt text below describes THIS image. Keep the two in
+   step if it is swapped again. */
+$heroBgImage     = 'https://images.pexels.com/photos/15774577/pexels-photo-15774577.jpeg?auto=compress&cs=tinysrgb&w=1600';
+$heroVariant = 'split';
+$heroImageAlt = 'A PowerCabs driver holding the door open for a passenger stepping out of a black car';
 require __DIR__ . '/components/shared/inner-hero.php';
 
-/* ONE gradient across both sections, declared here rather than twice inside
-   them. Giving each section the same radial gradient is not the same thing:
-   `at 85% 0%` is resolved against each element's OWN box, so the second
-   section restarted the wash at #fbe6d4 exactly where the first had worked
-   down to #f4efe8, and the two met at a visible horizontal step. Painting it
-   once on a wrapper is what actually makes the seam disappear -- both sections
-   are transparent and simply sit on it. */
 ?>
-<div class="tw-bg-[radial-gradient(120%_100%_at_85%_0%,#fbe6d4_0%,#f9f4ed_50%,#f4efe8_100%)]">
+<div>
   <?php
   require __DIR__ . '/components/ambassador/benefits.php';
   require __DIR__ . '/components/ambassador/registration.php';
@@ -80,13 +84,14 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ) ?>"></script>
 
 <?php
-require __DIR__ . '/components/shared/app-download-banner.php';
 
 $ctaTitle = 'Represent PowerCabs on the road.';
 $ctaText = 'Free card terminals, vehicle branding, fuel discounts and extra loyalty points.';
 $ctaPrimary = ['href' => '/ambassador-programme#pcAmbRegister', 'label' => 'Apply Now'];
 $ctaSecondary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
 require __DIR__ . '/components/shared/final-cta.php';
+$bannerCompact = true; // §30: this page already closes with its own CTA.
+require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';
 ?>

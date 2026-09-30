@@ -1,7 +1,7 @@
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-8">
-      <h2 class="tw-relative tw-mb-0 tw-inline-block tw-pb-3 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink after:tw-absolute after:tw-bottom-0 after:tw-left-0 after:tw-h-px after:tw-w-14 after:tw-rounded-full after:tw-bg-power after:tw-content-[''] md:tw-text-4xl">Our Dublin Story</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?> tw-relative tw-inline-block tw-pb-3 after:tw-absolute after:tw-bottom-0 after:tw-left-0 after:tw-h-px after:tw-w-14 after:tw-rounded-full after:tw-bg-power after:tw-content-['']">Our Dublin Story</h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-1 tw-gap-6 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-auto-rows-[minmax(56px,auto)]">

@@ -1,6 +1,6 @@
 <?php
 $pageTitle       = 'Corporate Taxi Accounts in Dublin | PowerCabs';
-$pageDescription = 'Reliable, flexible, safe corporate transportation in Dublin from PowerCabs -- business travel, event transportation and ongoing corporate accounts, available 24/7.';
+$pageDescription = 'Reliable, flexible, safe corporate transportation in Dublin from PowerCabs - business travel, event transportation and ongoing corporate accounts, available 24/7.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
@@ -48,9 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-/* Service structured data. Assembled in includes/seo.php, which wires
-   it to the Organization node and supplies the default service area,
-   so the page only states what the service is. */
 $pageService = [
   'name' => 'Corporate Taxi Accounts',
   'serviceType' => 'Corporate account',
@@ -60,11 +57,13 @@ $pageService = [
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Corporate Services';
+$heroEyebrow     = 'Corporate Services';
 $heroTitleLight  = 'Corporate Services with';
 $heroTitleBold   = 'PowerCabs.';
-$heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 -- built around your company's schedule, not the other way around.";
-$heroBgImage     = 'https://images.pexels.com/photos/8425382/pexels-photo-8425382.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroDescription = "Reliable, flexible, and safe business transportation, available 24/7 - built around your company's schedule, not the other way around.";
+$heroBgImage     = $assetPath . 'assets/img/service-city-tour.jpg';
+$heroVariant = 'split';
+$heroImageAlt = 'Two colleagues beside a PowerCabs car outside a Dublin office building';
 require __DIR__ . '/components/shared/inner-hero.php';
 require __DIR__ . '/components/corporate/why-businesses.php';
 ?>
@@ -80,7 +79,7 @@ $corporateServices = [
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Services Overview</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Services Overview</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
       <?php foreach ($corporateServices as $service): ?>
@@ -99,22 +98,11 @@ $corporateServices = [
 
 <?php require __DIR__ . '/components/corporate/account-form.php'; ?>
 
-<!-- ============ Mission ============ -->
-<?php /* This band was pointing at assets/img/trusted-bg.svg, which is NOT ON
-         DISK -- it was deleted from the working tree and only the homepage's
-         copy of the reference was updated (components/home/trusted-by.php has
-         its block commented out). So this section has been rendering as a flat
-         black slab with a broken image behind it.
-
-         The replacement is a photograph of a passenger being driven, which is
-         the subject the mission statement is actually about. It sits under the
-         same rgba(10,7,5,0.72) scrim the SVG did, so the white type keeps
-         exactly the contrast it was designed against. */ ?>
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6rem)] tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/9520551/pexels-photo-9520551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
   <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.72)]" aria-hidden="true"></span>
   <div class="tw-relative <?= $pcContainer ?>">
-    <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-powerlight">/ Our Mission</p>
+    <p class="<?= $pcEyebrowOnDark ?>">Our Mission</p>
     <p class="tw-mx-auto tw-mb-0 tw-max-w-[60ch] tw-text-2xl tw-text-white/85">
       To deliver consistent, memorable corporate travel experiences -- so every client,
       colleague, and guest arrives exactly as your business intends them to: on time,
@@ -126,7 +114,19 @@ $corporateServices = [
 <?php require __DIR__ . '/components/corporate/benefits.php'; ?>
 
 <?php
-// require __DIR__ . '/components/corporate/account-form.php';
+$faqItems = [
+  ['q' => 'How does billing work?', 'a' => 'One account for every journey your team takes, invoiced monthly instead of a month of individual receipts.'],
+  ['q' => 'Can several people book on the account?', 'a' => 'Yes — multiple users can book against a single business account.'],
+  ['q' => 'Can we see what was spent?', 'a' => 'Ride history and reporting are available whenever you need them.'],
+  ['q' => 'Is there dedicated support?', 'a' => 'Corporate accounts have a dedicated support contact rather than the general queue.'],
+];
+$faqEyebrow = 'Corporate travel';
+$faqHeading = 'Account questions.';
+$faqLayout = 'split';
+$faqMoreHref = '/faqs';
+$faqSurface = 'soft'; // alternates against the white section above it
+require __DIR__ . '/components/shared/faq-accordion.php';
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

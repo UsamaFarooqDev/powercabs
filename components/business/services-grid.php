@@ -5,6 +5,19 @@ $bizServiceModules = [
   ['icon' => 'mic', 'title' => 'Events &amp; Conferences', 'desc' => 'Coordinated arrivals and departures for conferences and corporate events.'],
   ['icon' => 'building', 'title' => 'Hotel Guest Travel', 'desc' => 'Reliable transfers for hotel guests, booked straight to your account.'],
   ['icon' => 'briefcase', 'title' => 'Executive Travel', 'desc' => 'Discreet, punctual rides for executives and leadership teams.'],
+  /* Airport Transfers was a featured PHOTO CARD beside this list, and it is a
+     sixth service rather than a different kind of thing -- so it is a sixth
+     card. That also makes the grid 3x2 instead of five items stranded in a
+     column next to a picture.
+     No 'href': this section lists what a business account covers, and every
+     card states it and stops. The 'href' branch in the loop below is kept
+     because it costs nothing and is the mechanism if any service ever does
+     need somewhere to go. */
+  [
+    'icon' => 'plane',
+    'title' => 'Airport Transfers',
+    'desc' => 'Meet &amp; Greet arrivals for executives, clients and guests.',
+  ],
 ];
 
 function pc_biz_service_icon(string $icon): void
@@ -25,50 +38,40 @@ function pc_biz_service_icon(string $icon): void
     case 'briefcase': ?>
       <svg class="tw-h-[1.15rem] tw-w-[1.15rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.25 14.15v4.25a2 2 0 01-2 2H5.75a2 2 0 01-2-2v-4.25m16.5 0a2 2 0 00-2-2H5.75a2 2 0 00-2 2m16.5 0v-1.75a2 2 0 00-2-2H5.75a2 2 0 00-2 2v1.75M9 12.75V9.5A2.25 2.25 0 0111.25 7.25h1.5A2.25 2.25 0 0115 9.5v3.25"/></svg>
     <?php break;
+    case 'plane': ?>
+      <svg class="tw-h-[1.15rem] tw-w-[1.15rem]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+    <?php break;
   endswitch;
 }
 ?>
-<section class="tw-bg-[linear-gradient(180deg,#f9f4ed_0%,#ffffff_100%)] tw-py-16 md:tw-py-24">
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-power">/ What We Cover</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Everything Your Business Needs</h2>
+    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What We Cover</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Everything Your Business Needs</h2>
+      <p class="<?= $pcBody ?> tw-mb-0">
+        Every kind of journey your people take, booked against the one account.
+      </p>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-6 lg:tw-grid-cols-2">
-      <div>
-        <?php /* Was a full-width 4/3 block, which made this image taller than
-                 the service list beside it and left the row bottom-heavy.
-                 16/10 plus a max-width brings it back into scale with the
-                 list; mx-auto keeps it centred once the cap bites. */ ?>
-        <a href="#business-booking-form" class="tw-group tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-relative tw-mx-auto tw-block tw-max-w-[520px] tw-aspect-[16/10] tw-overflow-hidden tw-rounded-2xl tw-no-underline">
-          <img src="<?= $assetPath ?>assets/img/meet-and-greet.webp" alt="A PowerCabs Meet and Greet host welcoming a business traveller at Dublin Airport" class="tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none tw-block tw-h-full tw-w-full tw-object-cover" loading="lazy">
-          <span class="tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-backdrop-blur-[10px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] tw-absolute tw-inset-x-0 tw-bottom-0 tw-p-6 tw-pt-[4.5rem]">
-            <span class="tw-mb-1 tw-block tw-text-xs tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-white/70">Featured</span>
-            <span class="tw-mb-1 tw-block tw-text-2xl tw-font-bold tw-text-white">Airport Transfers</span>
-            <span class="tw-block tw-text-white/60">Meet &amp; Greet arrivals for executives, clients and guests -- every time.</span>
+    <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-6">
+      <?php foreach ($bizServiceModules as $service): ?>
+        <?php
+        $svcLink = $service['href'] ?? '';
+        $svcTag = $svcLink !== '' ? 'a' : 'div';
+        $svcClass =
+          'tw-group tw-flex tw-h-full tw-flex-col tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-6 tw-no-underline tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_14px_34px_-14px_rgba(28,20,16,0.2)] motion-reduce:tw-transition-none';
+        ?>
+        <<?= $svcTag ?> class="<?= $svcClass ?>"<?= $svcLink !== ''
+          ? ' href="' . $assetPath . htmlspecialchars($svcLink) . '"'
+          : '' ?>>
+          <span class="<?= $pcFeatureIcon ?> tw-mb-4">
+            <?php pc_biz_service_icon($service['icon']); ?>
           </span>
-        </a>
-      </div>
-
-      <div>
-        <div class="tw-flex tw-flex-col">
-          <?php foreach ($bizServiceModules as $i => $service): ?>
-            <div class="tw-flex tw-items-center tw-gap-3 <?= $i === 0 ? 'tw-pb-4' : 'tw-py-4' ?> <?= $i <
-              count($bizServiceModules) - 1
-              ? 'tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.08]'
-              : '' ?>">
-              <span class="tw-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-paper tw-text-power">
-                <?php pc_biz_service_icon($service['icon']); ?>
-              </span>
-              <span class="tw-flex-1">
-                <span class="tw-block tw-font-bold tw-text-ink"><?= $service['title'] ?></span>
-                <span class="tw-block tw-text-sm tw-text-ink/60"><?= $service['desc'] ?></span>
-              </span>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
+          <span class="tw-mb-1.5 tw-block tw-text-[1.0625rem] tw-font-bold tw-leading-snug tw-text-ink"><?= $service['title'] ?></span>
+          <span class="<?= $pcBodySm ?> tw-block"><?= $service['desc'] ?></span>
+        </<?= $svcTag ?>>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>

@@ -10,7 +10,7 @@
 $p10Reveal =
   'pc-reveal tw-relative tw-z-[1] tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none';
 ?>
-<section class="tw-relative tw-overflow-hidden tw-bg-gradient-to-b tw-from-white tw-to-paper-soft tw-py-[clamp(1.5rem,4vw,3rem)]">
+<section class="<?= $pcSection ?> tw-relative tw-overflow-hidden tw-py-[clamp(1.5rem,4vw,3rem)]">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-relative tw-overflow-hidden tw-rounded-[clamp(1.5rem,3vw,2.25rem)] tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-[clamp(1.75rem,4vw,3.5rem)] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
       <span class="tw-pointer-events-none tw-absolute tw-right-[-10%] tw-top-[-18%] tw-z-0 tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(220,38,38,0.08)_0%,transparent_70%)]" aria-hidden="true"></span>

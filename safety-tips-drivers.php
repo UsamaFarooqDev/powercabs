@@ -1,18 +1,20 @@
 <?php
 $pageTitle = 'Safety Tips for Drivers | PowerCabs';
 $pageDescription =
-  'Safety guidance for PowerCabs drivers -- before, during and after every ride, plus emergency features, cashless payments and more.';
+  'Safety guidance for PowerCabs drivers - before, during and after every ride, plus emergency features, cashless payments and more.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Policies & Safety';
+$heroEyebrow = 'Policies & Safety';
 $heroTitleLight = 'Safety Tips';
 $heroTitleBold = 'for Drivers.';
 $heroDescription =
-  'Practical guidance to help you stay safe, confident and prepared on every trip -- before you set off, while you drive, and after you drop off.';
-$heroBgImage = 'https://images.pexels.com/photos/5834950/pexels-photo-5834950.jpeg?auto=format&fit=crop&w=1600&q=60';
+  'Practical guidance to help you stay safe, confident and prepared on every trip - before you set off, while you drive, and after you drop off.';
+$heroBgImage = 'https://images.pexels.com/photos/32654425/pexels-photo-32654425.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Driver Safety';
+$heroVariant = 'split';
+$heroImageAlt = 'A driver checking mirrors before setting off';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $beforeRide = [
@@ -133,8 +135,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Before the Ride</p>
-        <h2 class="tw-mb-6 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Set Yourself Up for a Safe Shift</h2>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Before the Ride</p>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Set Yourself Up for a Safe Shift</h2>
         <div class="tw-flex tw-flex-col tw-gap-6">
           <?php foreach ($beforeRide as $item): ?>
             <div class="tw-flex tw-gap-4">
@@ -148,7 +150,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
         </div>
       </div>
       <div>
-        <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
+        <div class="tw-mx-auto tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl">
           <img src="https://images.pexels.com/photos/5835467/pexels-photo-5835467.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A driver checking passenger details on their phone before a ride" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
@@ -160,8 +162,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ During the Ride</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Stay Alert, Stay in Control</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">During the Ride</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Stay Alert, Stay in Control</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.08] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] sm:tw-grid-cols-2 lg:tw-grid-cols-5">
       <?php foreach ($duringRide as $item): ?>
@@ -179,17 +181,17 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-relative tw-min-h-[280px] tw-overflow-hidden tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/5834921/pexels-photo-5834921.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-ink-soft/[0.65]" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-mx-auto tw-flex tw-min-h-[280px] tw-w-full tw-max-w-[1320px] tw-items-center tw-justify-center tw-px-4 sm:tw-px-6 lg:tw-px-8">
+  <div class="tw-relative tw-z-[1] tw-flex tw-min-h-[280px] tw-items-center tw-justify-center <?= $pcContainer ?>">
     <p class="tw-mb-0 tw-max-w-[46ch] tw-text-xl tw-font-bold tw-text-white md:tw-text-2xl">Well-lit, busy pickup points keep every trip safer, day or night.</p>
   </div>
 </section>
 
 <!-- ============ After the Ride ============ -->
-<section class="tw-bg-paper tw-py-16 md:tw-py-24">
+<section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ After the Ride</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Carry the Same Care Into Your Next Trip</h2>
+      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">After the Ride</p>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Carry the Same Care Into Your Next Trip</h2>
     </div>
     <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($afterRide as $item): ?>
@@ -208,8 +210,8 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div class="lg:tw-order-2">
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">/ Additional Tips</p>
-        <h2 class="tw-mb-6 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">A Few More Habits Worth Building</h2>
+        <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Additional Tips</p>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">A Few More Habits Worth Building</h2>
         <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-4 tw-p-0">
           <?php foreach ($additionalTips as $tip): ?>
             <li class="tw-flex tw-gap-3">
@@ -220,21 +222,11 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
         </ul>
       </div>
       <div class="lg:tw-order-1">
-        <div class="tw-aspect-[4/3] tw-overflow-hidden tw-rounded-2xl">
+        <div class="tw-mx-auto tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl">
           <img src="https://images.pexels.com/photos/7709231/pexels-photo-7709231.jpeg?auto=format&fit=crop&w=1200&q=60" alt="PowerCabs 24/7 support ready to help drivers" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============ CTA ============ -->
-<section class="tw-pb-16 tw-text-center md:tw-pb-24">
-  <div class="<?= $pcContainer ?>">
-    <a class="tw-inline-flex tw-items-center tw-gap-1 tw-rounded-full tw-bg-ink tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition tw-duration-200 hover:tw-bg-ink-soft" href="<?= $assetPath ?>/safety-tips-riders">
-      See Safety Tips for Riders
-      <?php pc_safety_icon('chevron', 'tw-h-3.5 tw-w-3.5'); ?>
-    </a>
   </div>
 </section>
 

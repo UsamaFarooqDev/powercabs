@@ -16,7 +16,7 @@
          shows through those tears -- white. Without the fade, a flat cream
          block butted straight into that white, which is the seam this
          removes. Content sits on tw-relative above the overlay. */ ?>
-<section class="tw-relative tw-overflow-hidden <?= $pcSurfacePaper ?> tw-py-10 md:tw-py-12">
+<section class="tw-relative tw-overflow-hidden tw-py-10 md:tw-py-12">
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainerNarrow ?>">

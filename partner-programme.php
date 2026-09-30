@@ -70,17 +70,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow     = '/ Business';
+$heroEyebrow     = 'Business';
 $heroTitleLight  = 'Partner';
 $heroTitleBold   = 'Programme.';
 $heroDescription = 'PowerCabs welcomes taxi operators, fleet owners, and business partners to join the growing transportation network and expand their business opportunities.';
-$heroBgImage     = 'https://images.pexels.com/photos/7643784/pexels-photo-7643784.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImages = [
+  ['id' => '7433910', 'alt' => 'A business owner reviewing notes during a meeting with her team.'],
+  ['id' => '7433930', 'alt' => 'Two colleagues talking over a document in a boardroom.'],
+  ['id' => '7434020', 'alt' => 'A manager taking notes while a colleague checks her phone.'],
+  ['id' => '7433846', 'alt' => 'Two business partners in discussion at a meeting table.'],
+];
 require __DIR__ . '/components/shared/inner-hero.php';
-
 require __DIR__ . '/components/partner/hero.php';
-
-require __DIR__ . '/components/partner/campaign.php';
-require __DIR__ . '/components/partner/growth.php';
 require __DIR__ . '/components/partner/process.php';
 require __DIR__ . '/components/partner/enquiry.php';
 ?>

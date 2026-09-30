@@ -1,31 +1,4 @@
 <?php
-/**
- * Router for PHP's built-in dev server ONLY -- lets clean, extension-less
- * URLs (e.g. /ride, /about-us) work locally the same way the production
- * .htaccess makes them work on Apache. Not used in production; Apache never
- * looks at this file.
- *
- * Run the site locally with:
- *   php -S localhost:8000 router.php
- *
- * (Not "php -S localhost:8000" alone, and not "php -S localhost:8000
- * index.php" -- either of those makes every non-matching request just
- * re-run index.php, which is why every link was showing the homepage.)
- *
- * The sections below mirror .htaccess section for section, in the same
- * order. That order is load-bearing in both files: the WordPress rules have
- * to answer before the trailing-slash canonicalisation, or /wp-admin/
- * becomes a 301 to a 410 instead of a 410.
- *
- * Keeping the two in step is the point. Before, this file had neither the
- * .php-to-clean redirect nor the /index.php normalisation that .htaccess
- * has always had, so /business.php and /index.php answered 200 locally and
- * 301 in production -- which meant redirect behaviour could not be tested
- * anywhere except live. Host and scheme canonicalisation is deliberately
- * NOT mirrored: there is no https on the dev server and forcing the
- * production host would send local testing to the live site.
- */
-
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
 /** Serve an error document with the right status, the way ErrorDocument does. */

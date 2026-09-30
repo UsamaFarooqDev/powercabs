@@ -3,11 +3,6 @@ $pageTitle       = 'Sustainability & Environmental Policy | PowerCabs';
 $pageDescription = "PowerCabs's commitment to eco-friendly design and digital solutions -- remote-first working, paperless operations, and 100% renewable-energy hosting.";
 $assetPath       = '';
 
-/* This page has a bespoke green hero rather than the shared
-   components/shared/inner-hero.php, and inner-hero is what emits the
-   BreadcrumbList on every other inner page -- so this was the one indexable
-   page on the site with no breadcrumb markup. Declared here instead; the
-   node is assembled in includes/seo.php. */
 $pageBreadcrumb = ['Sustainability' => '/sustainability'];
 
 require __DIR__ . '/includes/header.php';
@@ -77,50 +72,66 @@ function pc_eco_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 }
 ?>
 
-<!-- ============ Hero ============ -->
-<section class="tw-relative tw-overflow-hidden tw-px-4 tw-pb-[clamp(6rem,12vw,9rem)] tw-pt-[calc(var(--pc-navbar-h,110px)+3rem)] tw-text-center tw-text-white sm:tw-px-6 lg:tw-px-8">
-  <img src="https://images.pexels.com/photos/35736786/pexels-photo-35736786.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
-  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(120deg,rgba(15,46,24,0.88)_0%,rgba(15,46,24,0.6)_55%,rgba(15,46,24,0.35)_100%)]" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-mx-auto tw-w-full tw-max-w-[1320px]">
-    <span class="tw-mb-3 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-[rgba(76,175,80,0.12)] tw-px-4 tw-py-[0.4rem] tw-text-[0.85rem] tw-font-semibold tw-text-[#2e7d32]">
-      <?php pc_eco_icon('leaf', 'tw-h-4 tw-w-4'); ?> Eco-Friendly by Design
-    </span>
-    <h1 class="tw-mb-3 tw-text-[clamp(2.25rem,4.5vw,3.5rem)] tw-font-black tw-text-white">Sustainability &amp; Environmental Policy</h1>
-    <p class="tw-mx-auto tw-mb-0 tw-max-w-[56ch] tw-text-[1.15rem] tw-text-white/[0.88]">Our Commitment to Eco-Friendly Design and Digital Solutions.</p>
-  </div>
-</section>
+<?php
+$heroVariant = 'utility';
+$heroEyebrow = 'Sustainability';
+$heroTitleLight = 'Sustainability &';
+$heroTitleBold = 'Environmental Policy.';
+$heroDescription = 'Our commitment to eco-friendly design and digital solutions — delivering exceptional service while lowering the impact of every journey.';
+require __DIR__ . '/components/shared/inner-hero.php';
+?>
 
-<!-- ============ Our Commitment ============ -->
-<section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-px-4 tw-py-16 tw-text-center sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-max-w-[780px]">
-    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">/ Our Commitment</p>
-    <h2 class="tw-mb-3 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Exceptional Service, Lower Impact</h2>
-    <p class="tw-mb-0 tw-text-ink/60">
-      PowerCabs is committed to delivering exceptional digital services while maintaining a
-      strong focus on environmental responsibility. We continually improve our environmental
-      practices and promote sustainable operations throughout the business.
-    </p>
+<section class="<?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2 lg:tw-gap-16">
+      <div>
+        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">Our Commitment</p>
+        <h2 class="<?= pc_mb($pcH2, 'tw-mb-4') ?>">Exceptional Service, Lower Impact</h2>
+        <p class="<?= $pcBody ?> tw-mb-0 tw-max-w-[56ch]">
+          PowerCabs is committed to delivering exceptional digital services while maintaining a
+          strong focus on environmental responsibility. We continually improve our environmental
+          practices and promote sustainable operations throughout the business.
+        </p>
+      </div>
+
+      <div class="tw-flex tw-justify-center">
+        <div class="tw-relative tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl tw-bg-paper tw-shadow-[0_18px_40px_-20px_rgba(46,125,50,0.45)]">
+          <img src="https://images.pexels.com/photos/32062124/pexels-photo-32062124.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"
+            alt="A winding road through the green hills of the Gap of Dunloe, County Kerry"
+            width="900" height="675" loading="lazy" decoding="async"
+            class="<?= $pcImgCover ?>">
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ============ How We Reduce Our Environmental Impact ============ -->
-<section class="tw-bg-[linear-gradient(180deg,#f2faf3_0%,#ffffff_100%)] tw-pb-16">
+<section class="tw-relative tw-overflow-hidden tw-bg-[#12301a] tw-py-[clamp(3.5rem,7vw,5.5rem)] tw-text-center">
+  <img src="https://images.pexels.com/photos/38054700/pexels-photo-38054700.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
+    alt="" aria-hidden="true" loading="lazy" decoding="async"
+    class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
+  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,rgba(11,35,18,0.82)_0%,rgba(11,35,18,0.74)_50%,rgba(11,35,18,0.86)_100%)]" aria-hidden="true"></span>
+
+  <div class="tw-relative <?= $pcContainer ?>">
+    <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#9ad7a3]">How We Reduce Our Impact</p>
+    <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?> tw-text-white">Six Ways We Keep It Green</h2>
+  </div>
+</section>
+
+<section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
-      <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">/ How We Reduce Our Impact</p>
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-text-ink md:tw-text-4xl">Six Ways We Keep It Green</h2>
-    </div>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-6 md:tw-grid-cols-2 lg:tw-grid-cols-3">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($ecoAreas as $area): ?>
-        <div class="tw-h-full tw-rounded-[28px] tw-border tw-border-solid tw-border-[rgba(76,175,80,0.18)] tw-bg-white/75 tw-p-6 tw-shadow-[0_20px_45px_rgba(46,125,50,0.1)] tw-backdrop-blur-[14px] tw-transition-[transform,box-shadow] tw-duration-[250ms] hover:-tw-translate-y-1 hover:tw-shadow-[0_28px_55px_rgba(46,125,50,0.16)] motion-reduce:tw-transform-none motion-reduce:tw-transition-none">
-          <span class="tw-mb-3 tw-inline-flex tw-h-[3.25rem] tw-w-[3.25rem] tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(76,175,80,0.14)] tw-text-[1.4rem] tw-text-[#2e7d32]">
-            <?php pc_eco_icon($area['icon']); ?>
+        <div class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(46,125,50,0.16)] tw-bg-white tw-p-6 tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_14px_34px_-14px_rgba(46,125,50,0.3)] motion-reduce:tw-transition-none">
+          <span class="tw-mb-4 tw-inline-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-xl tw-bg-[rgba(76,175,80,0.14)] tw-text-[#2e7d32]">
+            <?php pc_eco_icon($area['icon'], 'tw-h-5 tw-w-5'); ?>
           </span>
-          <h3 class="tw-mb-3 tw-text-lg tw-font-bold tw-text-ink"><?= htmlspecialchars($area['title']) ?></h3>
+          <h3 class="tw-mb-3 tw-text-[1.0625rem] tw-font-bold tw-leading-snug tw-text-ink"><?= htmlspecialchars($area['title']) ?></h3>
           <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
             <?php foreach ($area['items'] as $item): ?>
-              <li class="tw-flex tw-gap-2 tw-text-sm tw-text-ink/60">
-                <span class="tw-mt-0.5 tw-shrink-0 tw-text-[#4caf50]"><?php pc_eco_icon('check', 'tw-h-4 tw-w-4'); ?></span>
+              <li class="tw-flex tw-gap-2 <?= $pcBodySm ?>">
+                <span class="tw-mt-[3px] tw-shrink-0 tw-text-[#4caf50]"><?php pc_eco_icon('check', 'tw-h-4 tw-w-4'); ?></span>
                 <span><?= htmlspecialchars($item) ?></span>
               </li>
             <?php endforeach; ?>

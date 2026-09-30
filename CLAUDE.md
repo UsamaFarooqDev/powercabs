@@ -26,6 +26,12 @@ that config's `safelist` (the `$tierColor` utilities on loyalty-program.php are 
 the `tw-` prefix applies to *utilities* only -- an arbitrary property is `[grid-auto-rows:...]`, never
 `tw-[grid-auto-rows:...]`, which silently generates nothing.
 
+**Never put double quotes inside an arbitrary value.** Write `before:tw-content-['']`, not
+`before:tw-content-[""]`. Both compile to correct CSS, so the utility is there in `tailwind.css` and everything
+looks fine -- but the class is emitted into `class="..."`, where its own `"` closes the attribute early. The
+browser then never sees the class and the rule simply does not apply. The symptom is indistinguishable from a
+missing utility, and it sent a whole debugging pass after the stylesheet when the markup was at fault.
+
 Bootstrap's components, utilities, icon font and JS bundle are all gone. Nothing may reintroduce a `.btn`,
 `.row`, `.col-*`, `.d-flex`, `bi bi-*` or `data-bs-*` -- none of them have styling or behaviour behind them.
 
@@ -139,8 +145,8 @@ bottom of the page or component that needs them (e.g. `book-ride-map.js` in `boo
 **PJAX is the constraint that shapes everything else.** [assets/js/components/pjax.js](assets/js/components/pjax.js)
 intercepts same-origin link clicks and swaps only `<main>`'s innerHTML, then re-executes scripts inside it and
 manually re-runs a fixed list of globals: `highlightActiveNavLink`, `syncFooterHeightVar`, `initHeroParallax`,
-`initWhyChooseReveal`, `initScrollReveal`, `initLoopVideos`, `pcInitAjaxForms`, `pcInitUi`. Consequences for any new
-code:
+`initWhyChooseReveal`, `initScrollReveal`, `initLoopVideos`, `pcInitAjaxForms`, `pcInitUi`, `pcInitScrollScenes`.
+Consequences for any new code:
 
 - Header, footer, nav and mega-menus live **outside** `<main>` and survive navigation — anything stateful there
   must be reset explicitly (that's why `highlightActiveNavLink` clears old `.active` classes and PJAX closes open
@@ -149,6 +155,13 @@ code:
   **idempotent**: store the cleanup/observer in a module-level variable and tear down the previous run first, as
   `initHeroParallax` and `initWhyChooseReveal` in [assets/js/main.js](assets/js/main.js) do. Otherwise listeners
   stack up one per navigation.
+- **That module-level variable only works for scripts loaded once, in the footer.** A page-specific
+  `<script src>` inside `<main>` is *re-executed* on every PJAX navigation, and each execution gets a brand-new
+  closure — so a `var bound = false` guard inside the IIFE resets every time and the listeners stack anyway
+  (measured: 1 → 2 → 3 → 4 scroll listeners over three visits). A script that lives inside `<main>` must hang its
+  guard off `window`: check `if (window.pcInitThing) { window.pcInitThing(); return; }` at the top and bind the
+  window listeners only on the first run. [assets/js/components/scroll-scene.js](assets/js/components/scroll-scene.js)
+  is the worked example.
 - New globals that need re-running after a swap must be added to the call list in `navigate()`.
 - The Google Maps SDK is deliberately not re-inserted once `window.google.maps` exists; map scripts self-invoke
   their init instead of relying on the `callback=` parameter, which only fires on first load.
@@ -186,14 +199,21 @@ The Tailwind Play CDN and the whole theme config live in [includes/tailwind.php]
   `tw-appearance-none tw-border-0` to shed its native chrome. This bites constantly; check it first when a border
   or button looks wrong.
 
-**The brand font is self-hosted**: Plus Jakarta Sans as one variable woff2 per script in
-`assets/fonts/plus-jakarta-sans/` (OFL licence alongside), declared in [base.css](assets/css/base.css) and preloaded
-from [includes/tailwind.php](includes/tailwind.php). Never reintroduce a Google Fonts `@import` or `<link>` -- that
-chain was ~1.5s+ before the first font byte and caused the visible text jump. The preload href is root-absolute and
-must resolve to the same URL as base.css's `url()`, or the font downloads twice. `'Plus Jakarta Sans Fallback'` is
-Arial with measured `size-adjust`/`ascent-override`/`descent-override` so the swap does not re-wrap text; it must
-stay second in the stack (`--pc-font-family` and the Tailwind `fontFamily.sans`), and must be re-measured if the font
-file is ever replaced.
+**The brand font is self-hosted**: DM Sans as one variable woff2 per script in `assets/fonts/dm-sans/`
+(OFL licence alongside), declared in [base.css](assets/css/base.css) and preloaded from
+[includes/tailwind.php](includes/tailwind.php). Never reintroduce a Google Fonts `@import` or `<link>` -- that chain
+was ~1.5s+ before the first font byte and caused the visible text jump. The preload href is root-absolute and must
+resolve to the same URL as base.css's `url()`, or the font downloads twice. `'DM Sans Fallback'` is Arial with
+measured `size-adjust`/`ascent-override`/`descent-override` so the swap does not re-wrap text; it must stay second
+in the stack (`--pc-font-family` and the Tailwind `fontFamily.sans`).
+
+**Changing the brand font is four edits plus a rebuild**, and all four must name the same family or the stack falls
+through to a system sans and the metric matching silently does nothing: the `@font-face` pair and the `Fallback`
+block in `base.css`, `--pc-font-family` in `variables.css`, `fontFamily.sans` in `tailwind.config.js`, and the
+preload href in `includes/tailwind.php`. **Re-measure the fallback** -- the size-adjust/ascent/descent numbers do not
+carry between families, and a guessed value re-wraps every paragraph on the swap. The previous faces are still on
+disk with their licences (`assets/fonts/inter/`, `assets/fonts/plus-jakarta-sans/`) and base.css records their
+measured values, so a revert does not need re-measuring.
 
 Every `@keyframes` the site uses is declared in that same config as a named `animation` (`tw-animate-pc-float`,
 `-pc-fade-up`, `-pc-marquee`, …). Do **not** write `[animation:name_…]` as an arbitrary utility — Tailwind only
@@ -202,7 +222,7 @@ Stagger with an arbitrary `[animation-delay:…]` alongside the named animation.
 
 Cascade order matters, and is fixed: [reboot.css](assets/css/reboot.css) (element normalisation) →
 [variables.css](assets/css/variables.css) (`--pc-*` brand tokens, plus the `--bs-*` overrides Reboot reads) →
-[base.css](assets/css/base.css) (brand type, scrollbar, the footer-reveal behaviour, `.pc-required`, and at its
+[base.css](assets/css/base.css) (brand type, scrollbar, `.pc-required`, and at its
 end the Google Places `.pac-*` rules — that markup is injected by the Maps SDK and has no hook of ours to style,
 so it is the one place plain CSS is unavoidable) → `tailwind.css` (the compiled utilities).
 
@@ -219,8 +239,11 @@ do not re-add it to base.css.
   arbitrary variants — `[&.is-open]:tw-block` on the element itself, or `group-[.is-open]:` from an ancestor
   marked `tw-group`.
 - Theme via the `--pc-*` tokens / the `ink`/`power`/`paper` Tailwind colors rather than hard-coded hex.
-- `--pc-navbar-h` and `--pc-footer-h` are written from JS on load/resize — use them instead of guessing the
-  fixed header's height.
+- `--pc-navbar-h` is written from JS on load/resize — use it instead of guessing the fixed header's height.
+  There is no `--pc-footer-h` any more: the footer used to be pinned behind `<main>` on desktop
+  (`.pc-footer-reveal`), and that variable reserved the space for it. The effect is gone — it flipped the footer
+  out of flow after paint and was the site's largest CLS source — so the footer is in normal flow and never moves.
+  `syncFooterHeightVar()` survives as an empty shim only because PJAX re-runs it by name.
 - Prettier config: 120 cols, 2-space indent, single quotes. Existing PHP files mix 2- and 4-space indentation;
   match the file you are editing.
 
@@ -236,6 +259,12 @@ they were copy-pasted rather than shared, which is how the site drifted into ten
   measure-limited content and keep the *same* padding scale. Do not hand-roll a container.
 - **Section rhythm** — `$pcSection` (`py-16 md:py-24`), `$pcSectionTight`, `$pcSectionLoose`. Three steps, not
   one: identical padding everywhere reads as flat.
+- **Eyebrow** — `$pcEyebrow` / `$pcEyebrowOnDark`. The small orange label above a heading: uppercase, tracked,
+  and nothing else. The label text is **just the words** — write `'Ride'`, never `'/ Ride'`, and do not add a
+  leading dash, rule or dot span in the markup. The slash used to live in the copy across 29 strings, which meant
+  screen readers read it out and it could not be restyled without editing every page. Use `pc_mb()` to change its
+  margin -- appending `tw-mb-0` to a recipe does not override it, because Tailwind emits `mb-0` before `mb-4` and
+  the later rule wins.
 - **Cards** — `$pcCard` (`rounded-2xl` / `p-6` / hairline border), `$pcCardGrid` (`gap-6`), `$pcCardHover`.
 - **Buttons** — `$pcBtnPrimary` / `$pcBtnDark` / `$pcBtnGhost` / `$pcBtnSm`, all one height and radius.
 - **Forms** — `$pcInput` / `$pcLabel` / `$pcFormGrid`. `$pcInput` is the canonical field recipe;
@@ -245,6 +274,35 @@ they were copy-pasted rather than shared, which is how the site drifted into ten
 Deviating is fine when a component genuinely needs it — append rather than rewrite (`<?= $pcCard ?> lg:tw-p-8`)
 so the shared part stays greppable. Prefer Tailwind's scale over arbitrary values; `py-[clamp(3.5rem,6vw,6rem)]`
 was folded into `py-16 md:py-24` because they compute to the same rhythm and only one is on the scale.
+
+## Shared page components
+
+`components/shared/` holds the pieces every page composes from. Four are worth knowing before building anything
+new, because each replaced several hand-rolled copies and a fifth copy is the thing to avoid:
+
+- **[inner-hero.php](components/shared/inner-hero.php)** — every inner page's hero, in five variants chosen with
+  `$heroVariant`: `split` (text beside a framed photo), `image` (full-bleed photo), `minimal`, `utility` and
+  `legal`. Each carries its own H1 size and padding, so a complaint form does not open at the same visual volume
+  as a service page. `$heroCompact = true` still maps to `utility`. It renders `$heroDescription`, which 24 pages
+  were already setting.
+- **[faq-accordion.php](components/shared/faq-accordion.php)** — the FAQ section (heading, optional
+  through-link), rendering **[faq-list.php](components/shared/faq-list.php)** for the questions themselves.
+  `faqs.php` renders `faq-list.php` directly for its two audience accordions. Behaviour is fixed by the brief and
+  verified: all items start closed, only one opens at a time, plus/minus rather than a chevron, 200ms.
+  **Answers must come from the page** — an invented FAQ answer is an invented business claim.
+- **[scroll-scene.php](components/shared/scroll-scene.php)** — a full-bleed scene with one subject travelling
+  across it on scroll and exactly ONE sentence. Used by `/meet-greet` (the plane), `/drive` (a car at dawn) and
+  `/lost-item-report` (a route being retraced). Motion lives in
+  [scroll-scene.js](assets/js/components/scroll-scene.js). Put the copy at the opposite end of the scene from the
+  subject's travel line, or the subject drives straight through the headline.
+- **[app-download-banner.php](components/shared/app-download-banner.php)** — two variants, both white. The default
+  is a bordered white panel (heading, copy, both store badges, Book/Track/Pay) on 8 pages; `$bannerCompact = true`
+  gives a quiet one-row version, used on the 17 pages that already close with their own CTA so the page does not
+  end with two full-width slabs in a row. **There is no orange field in either any more** — the panel is defined by
+  a hairline and a soft shadow, and the Book/Track/Pay inset is `bg-paper-soft`. Don't reintroduce a coloured fill:
+  this band is on 25 pages, so a tint here is a tint on most of the site (it was 23% of
+  /wheelchair-accessible-taxis on its own). Anything inside it that relied on the orange showing through — the
+  frosted-glass inset, the tiles before that — has to be rebuilt, not recoloured.
 
 ## Conventions
 

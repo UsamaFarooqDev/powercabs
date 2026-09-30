@@ -1,6 +1,6 @@
 <?php
 $faqAccordionId = 'driveFaqAccordion';
-$faqEyebrow = '/ FAQ';
+$faqEyebrow = 'FAQ';
 $faqHeading = 'Driver Questions, Answered.';
 
 $faqItems = [

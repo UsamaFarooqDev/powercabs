@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Book a Taxi Online in Dublin | PowerCabs';
 $pageDescription =
-  'Book a taxi online in Dublin with PowerCabs in a few simple steps -- no extra charge for pre-booking, no cancellation fee.';
+  'Book a taxi online in Dublin with PowerCabs in a few simple steps - no extra charge for pre-booking, no cancellation fee.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
@@ -115,12 +115,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Book Online';
+$heroEyebrow = 'Book Online';
 $heroTitleLight = 'Book Ride';
 $heroTitleBold = 'Online.';
 $heroDescription =
   'Booking a ride with PowerCabs is now easier than ever. Use our simple and efficient online booking system to schedule your next trip in just a few steps.';
 $heroBgImage = 'https://images.pexels.com/photos/6945640/pexels-photo-6945640.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroVariant = 'split';
+$heroImageAlt = 'A passenger booking a ride on the PowerCabs app';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -128,7 +130,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
-      <h2 class="tw-mb-0 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-ink md:tw-text-4xl">Booking in Four Simple Steps</h2>
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Booking in Four Simple Steps</h2>
     </div>
 
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
@@ -407,22 +409,31 @@ require __DIR__ . '/components/shared/inner-hero.php';
   ['icon' => 'calendar', 'title' => 'Book In Advance', 'desc' => 'Schedule your ride well ahead of time.'],
   ['icon' => 'smile', 'title' => 'Hassle-Free', 'desc' => 'A smooth, stress-free journey, start to finish.'],
 ]; ?>
-<section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
-  <div class="tw-relative <?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-2 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.06] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.06] md:tw-grid-cols-4 md:tw-divide-y-0">
+<?php /* Four features, not a four-cell table -- the same rebuild as the
+         highlights row on about-us.php, and deliberately identical to it: both
+         are "four short reasons" blocks with no heading over them, and having
+         two different treatments for the same job across two pages is how the
+         site drifted in the first place. $pcStepGrid for the row, $pcStepItem
+         for the 2px rule that opens each column, $pcFeatureIcon for the tinted
+         chip. No wording has changed. */ ?>
+<section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
+  <div class="<?= $pcContainer ?>">
+    <div class="<?= $pcStepGrid ?>">
       <?php foreach ($bookingBenefits as $benefit): ?>
-        <div class="tw-flex tw-flex-col tw-items-center tw-px-3 tw-py-8 tw-text-center md:tw-py-10">
-          <?php switch ($benefit['icon']): case 'cash': ?>
-              <svg class="tw-mb-3 tw-h-8 tw-w-8 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.25" y="6" width="19.5" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M5.25 9v.008M18.75 15v.008"/></svg>
-            <?php break;case 'x-circle': ?>
-              <svg class="tw-mb-3 tw-h-8 tw-w-8 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5"/></svg>
-            <?php break;case 'calendar': ?>
-              <svg class="tw-mb-3 tw-h-8 tw-w-8 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3.75 18.75V7.5a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v11.25m-16.5 0A2.25 2.25 0 006 21h12a2.25 2.25 0 002.25-2.25m-16.5 0V11.25a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v7.5M9 16.5l1.5 1.5 3.5-3.5"/></svg>
-            <?php break;case 'smile': ?>
-              <svg class="tw-mb-3 tw-h-8 tw-w-8 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.25 14.25s1 1.5 3.75 1.5 3.75-1.5 3.75-1.5M9 9.75h.008M15 9.75h.008"/></svg>
-            <?php break;endswitch; ?>
-          <h3 class="tw-mb-2 tw-text-[1.05rem] tw-font-bold tw-leading-snug tw-text-ink"><?= htmlspecialchars($benefit['title']) ?></h3>
-          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/[0.62]"><?= htmlspecialchars($benefit['desc']) ?></p>
+        <div class="<?= $pcStepItem ?>">
+          <span class="<?= $pcFeatureIcon ?> tw-mb-4">
+            <?php switch ($benefit['icon']): case 'cash': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.25" y="6" width="19.5" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M5.25 9v.008M18.75 15v.008"/></svg>
+              <?php break;case 'x-circle': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5"/></svg>
+              <?php break;case 'calendar': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3.75 18.75V7.5a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v11.25m-16.5 0A2.25 2.25 0 006 21h12a2.25 2.25 0 002.25-2.25m-16.5 0V11.25a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v7.5M9 16.5l1.5 1.5 3.5-3.5"/></svg>
+              <?php break;case 'smile': ?>
+                <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.25 14.25s1 1.5 3.75 1.5 3.75-1.5 3.75-1.5M9 9.75h.008M15 9.75h.008"/></svg>
+              <?php break;endswitch; ?>
+          </span>
+          <h3 class="tw-mb-1.5 tw-text-[1.0625rem] tw-font-bold tw-leading-snug tw-text-ink"><?= htmlspecialchars($benefit['title']) ?></h3>
+          <p class="<?= $pcBodySm ?> tw-mb-0"><?= htmlspecialchars($benefit['desc']) ?></p>
         </div>
       <?php endforeach; ?>
     </div>

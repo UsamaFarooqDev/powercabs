@@ -6,13 +6,14 @@ $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
 
-$heroEyebrow = '/ Policies & Safety';
+$heroEyebrow = 'Policies & Safety';
 $heroTitleLight = 'Terms &';
 $heroTitleBold = 'Conditions.';
 $heroDescription =
   'Our agreements with Passengers and Drivers who use PowerCabs Services -- please read the version that applies to you.';
 $heroBgImage = 'https://images.pexels.com/photos/7580644/pexels-photo-7580644.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Terms & Conditions';
+$heroVariant = 'legal'; // §12: compact hero, straight into the useful content.
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $passengerNav = [
@@ -49,8 +50,8 @@ $driverNav = [
 ?>
 
 <!-- ============ Audience Toggle ============ -->
-<section class="tw-px-4 tw-pb-3 tw-pt-16 tw-text-center sm:tw-px-6 md:tw-pt-24 lg:tw-px-8">
-  <div class="tw-mx-auto tw-inline-flex tw-w-full tw-max-w-[1320px] tw-flex-wrap tw-justify-center tw-gap-2">
+<section class="tw-pb-3 tw-pt-16 tw-text-center md:tw-pt-24">
+  <div class="<?= $pcContainer ?> tw-flex tw-flex-wrap tw-justify-center tw-gap-2">
     <!-- Bare radio + has-checked label: tcInitTermsConditions() in
          terms-conditions.js keeps driving this via getElementById/.checked,
          unchanged -- only the visual toggle styling moved to Tailwind. -->
@@ -71,10 +72,10 @@ $driverNav = [
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-3">
         <div class="tw-sticky tw-top-[100px]">
-          <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">On This Page</p>
+          <p class="<?= $pcEyebrow ?>">On This Page</p>
           <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
             <?php foreach ($passengerNav as $item): ?>
-              <li><a class="tw-block tw-border-0 tw-border-l-2 tw-border-solid tw-border-transparent tw-py-[0.15rem] tw-pl-3 tw-text-sm tw-text-ink/[0.65] tw-transition-[color,border-color] tw-duration-200 hover:tw-border-l-power hover:tw-text-power focus-visible:tw-border-l-power focus-visible:tw-text-power" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
+              <li><a class="tw-block tw-border-0 tw-border-l-2 tw-border-solid tw-border-transparent tw-py-1.5 tw-pl-3 tw-text-sm tw-text-ink/[0.65] tw-transition-[color,border-color] tw-duration-200 hover:tw-border-l-power hover:tw-text-power focus-visible:tw-border-l-power focus-visible:tw-text-power" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -201,10 +202,10 @@ $driverNav = [
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-3">
         <div class="tw-sticky tw-top-[100px]">
-          <p class="tw-mb-3 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-power">On This Page</p>
+          <p class="<?= $pcEyebrow ?>">On This Page</p>
           <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-2 tw-p-0">
             <?php foreach ($driverNav as $item): ?>
-              <li><a class="tw-block tw-border-0 tw-border-l-2 tw-border-solid tw-border-transparent tw-py-[0.15rem] tw-pl-3 tw-text-sm tw-text-ink/[0.65] tw-transition-[color,border-color] tw-duration-200 hover:tw-border-l-power hover:tw-text-power focus-visible:tw-border-l-power focus-visible:tw-text-power" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
+              <li><a class="tw-block tw-border-0 tw-border-l-2 tw-border-solid tw-border-transparent tw-py-1.5 tw-pl-3 tw-text-sm tw-text-ink/[0.65] tw-transition-[color,border-color] tw-duration-200 hover:tw-border-l-power hover:tw-text-power focus-visible:tw-border-l-power focus-visible:tw-text-power" href="#<?= $item['id'] ?>"><?= $item['label'] ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -314,6 +315,7 @@ $driverNav = [
 <script src="<?= $assetPath ?>assets/js/components/terms-conditions.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/terms-conditions.js') ?>"></script>
 
 <?php
+$bannerCompact = true; // restrained: a legal page should not end on an orange panel
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

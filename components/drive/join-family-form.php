@@ -1,6 +1,6 @@
 <?php
 /**
- * "Start Your Application" -- the driver sign-up, in eight steps.
+ * "Become a driver" -- the driver sign-up, in eight steps.
  *
  * The real onboarding runs to fourteen steps; this groups them into eight so
  * the web form asks for exactly the same information without reading like a
@@ -11,6 +11,22 @@
  * assets/js/components/driver-application.js adds `is-ready`, which is what
  * hides all but the current one. With JS off the applicant sees one long, valid
  * form and the "call us" number rather than a dead stack of buttons.
+ *
+ * THIS IS THE CARD ONLY. It used to be a full dark section two screens down
+ * the page, with its own background photograph and its own half-width headline
+ * ("You're not just a driver, You're family.") beside it. It now renders
+ * inside components/drive/hero.php, on the right of the hero, so the first
+ * thing a driver sees on /drive is the thing /drive is for. That section
+ * wrapper, its photograph and its scrim are gone -- the hero supplies all
+ * three -- and the headline went with them, because it was making the same
+ * argument as the <h1> it now sits beside.
+ *
+ * The badge that sat above that headline ("Irish Taxi Platform - Driver
+ * First") moved into the hero's left column rather than being dropped.
+ *
+ * ajax-forms.js does NOT intercept this form: it only takes over
+ * form[method="post"] with an empty or anchor action, and this one posts to a
+ * real endpoint. That was true before the move and is unchanged by it.
  */
 
 $labelClass = 'tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
@@ -33,38 +49,15 @@ $driverPrefs = [
   ['name' => 'wheelchair', 'label' => 'Wheelchair / disability friendly'],
 ];
 ?>
-<section class="tw-relative tw-overflow-hidden tw-bg-ink tw-py-16 md:tw-py-24">
-  <img src="https://images.pexels.com/photos/31335088/pexels-photo-31335088.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
-    alt="" aria-hidden="true"
-    class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
-  <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-[linear-gradient(155deg,rgba(28,20,16,0.93)_0%,rgba(42,26,16,0.86)_55%,rgba(22,15,10,0.94)_100%)]" aria-hidden="true"></span>
-
-  <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
-
-      <div>
-        <span class="tw-mb-4 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-px-3.5 tw-py-1.5 tw-text-xs tw-font-semibold tw-text-white">
-          <span class="tw-font-bold">IE</span>
-          Irish Taxi Platform &bull; Driver First
-        </span>
-
-        <h2 class="<?= $pcH2Display ?> tw-text-white">
-          You're not just a driver,<br>
-          <span class="tw-text-powerlight">You're family.</span>
-        </h2>
-        <p class="tw-mb-0 tw-max-w-[46ch] tw-text-[1.08rem] tw-leading-[1.7] tw-text-white/75">
-          Your taxi. Your meter. Your choice. Earn properly, avoid platform-created
-          Saver pricing, save on the costs of driving and get real local support.
-        </p>
-      </div>
-
-      <div>
-        <div class="tw-mx-auto tw-w-full tw-max-w-[520px] tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:tw-p-9" id="driveJoinForm">
+<?php /* scroll-mt clears the fixed header: #driveJoinForm is linked from
+         keep-options-open.php and from the closing CTA, and without it the
+         card's own heading lands underneath the navbar. */ ?>
+        <div class="tw-mx-auto tw-w-full tw-max-w-[520px] tw-scroll-mt-28 tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:tw-p-8" id="driveJoinForm">
           <form novalidate data-driver-app class="tw-m-0" action="<?= $assetPath ?>/driver-apply" method="post">
             <div class="tw-mb-5">
               <div class="tw-mb-2 tw-flex tw-items-baseline tw-justify-between tw-gap-3">
-                <h3 class="tw-mb-0 tw-text-lg tw-font-bold tw-text-ink">Start Your Application</h3>
-                <span class="tw-text-xs tw-font-semibold tw-text-ink/50" data-app-count>Step 1 of 8</span>
+                <h2 class="tw-mb-0 tw-text-xl tw-font-bold tw-tracking-[-0.01em] tw-text-ink sm:tw-text-2xl">Become a driver</h2>
+                <span class="tw-shrink-0 tw-text-xs tw-font-semibold tw-text-ink/50" data-app-count>Step 1 of 8</span>
               </div>
               <?php /* A real progress element would announce a percentage on
                        every keystroke; this is decorative and the step count
@@ -314,10 +307,6 @@ $driverPrefs = [
             </div>
           </form>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <script src="<?= $assetPath ?>assets/js/components/driver-application.js?v=<?= @filemtime(
   __DIR__ . '/../../assets/js/components/driver-application.js',

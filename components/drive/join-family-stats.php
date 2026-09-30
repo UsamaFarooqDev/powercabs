@@ -4,22 +4,27 @@ $driveStats = [
   ['value' => '€0', 'label' => 'Monthly subscription'],
   ['value' => '10%', 'label' => 'Completed PowerCabs jobs'],
   ['value' => '€0', 'label' => 'Commission if no job is completed'],
-  ['value' => '150', 'label' => 'Drivers Joined'],
-  ['value' => '230', 'label' => 'Customers'],
-  ['value' => '33', 'label' => 'Businesses Joined'],
-]; ?>
-<!-- ============ Stats badge ============ -->
-<section class="tw-relative tw-z-[2] -tw-mt-9 tw-px-4 sm:tw-px-6 lg:tw-px-8">
-  <div class="tw-mx-auto tw-w-full tw-max-w-[1200px]">
-    <div class="tw-flex tw-flex-wrap tw-justify-center tw-gap-y-2 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-px-2 tw-py-2 tw-shadow-[0_20px_45px_rgba(28,20,16,0.12)]">
-      <?php foreach ($driveStats as $stat): ?>
-        <div class="tw-min-w-[150px] tw-max-w-[190px] tw-flex-1 tw-px-3 tw-py-3 tw-text-center">
-          <p class="tw-mb-1 tw-text-2xl tw-font-bold tw-tracking-[-0.02em] tw-text-ink"><?= htmlspecialchars(
-            $stat['value'],
-          ) ?></p>
-          <p class="tw-mb-0 tw-text-[0.74rem] tw-text-ink/60"><?= htmlspecialchars($stat['label']) ?></p>
-        </div>
-      <?php endforeach; ?>
+];
+?>
+<section class="tw-relative tw-z-[2] -tw-mt-9">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-mx-auto tw-w-full tw-max-w-[920px]">
+      <div class="tw-grid tw-grid-cols-2 tw-gap-y-5 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-px-2 tw-py-3 tw-shadow-[0_20px_45px_rgba(28,20,16,0.12)] sm:tw-grid-cols-4 sm:tw-gap-y-0">
+        <?php foreach ($driveStats as $i => $stat): ?>
+          <div class="tw-px-3 tw-text-center<?= $i % 2 !== 0
+            ? ' tw-border-0 tw-border-l tw-border-solid tw-border-hairline'
+            : '' ?><?= $i % 2 === 0
+  ? ' sm:tw-border-0' . ($i > 0 ? ' sm:tw-border-l sm:tw-border-solid sm:tw-border-hairline' : '')
+  : '' ?>">
+            <p class="tw-mb-1 tw-text-[1.6rem] tw-font-bold tw-tracking-[-0.02em] tw-text-ink sm:tw-text-[1.875rem]"><?= htmlspecialchars(
+              $stat['value'],
+            ) ?></p>
+            <p class="tw-mb-0 tw-text-[0.75rem] tw-leading-snug tw-text-muted sm:tw-text-[0.8rem]"><?= htmlspecialchars(
+              $stat['label'],
+            ) ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
     </div>
   </div>
 </section>

@@ -12,12 +12,6 @@ $old ??= [
 $formStatus ??= null;
 $formError ??= '';
 
-// "For businesses" -- the reference page's audience there is brands buying
-// ad campaigns, which doesn't exist as a PowerCabs product; on this page
-// the equivalent B2B audience is the fleet/taxi operator business itself,
-// so this section keeps the reference's dark CTA + benefits-grid + form
-// layout but carries the existing partner enquiry form (same field
-// ids/names as before, backend untouched).
 $partnerBizBenefits = [
   ['title' => 'Fleet Management', 'desc' => 'Manage multiple vehicles and drivers under one PowerCabs account.'],
   ['title' => 'Business Growth', 'desc' => 'Plug into a growing network instead of relying on word of mouth alone.'],
@@ -37,7 +31,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
       <div>
-        <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.08em] tw-text-powerlight">/ For Businesses</p>
+        <p class="<?= pc_mb($pcEyebrowOnDark, 'tw-mb-2') ?>">For Businesses</p>
         <h2 class="<?= $pcH2Display ?> tw-text-white">Put Your Fleet to Work on the PowerCabs Network.</h2>
         <p class="tw-mb-8 tw-max-w-[48ch] tw-text-[1.05rem] tw-text-white/[0.78]">
           Reach more passengers across a growing booking network without
