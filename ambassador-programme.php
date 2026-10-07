@@ -72,6 +72,10 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <div>
   <?php
   require __DIR__ . '/components/ambassador/benefits.php';
+  /* Between the benefits and the application form: an ambassador is a driver
+     first, so "where do the jobs come from" belongs with what they get, and
+     directly before the form that asks them to sign up. */
+  require __DIR__ . '/components/shared/booking-sources.php';
   require __DIR__ . '/components/ambassador/registration.php';
   ?>
 </div>
@@ -86,11 +90,25 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php
 
 $ctaTitle = 'Represent PowerCabs on the road.';
-$ctaText = 'Free card terminals, vehicle branding, fuel discounts and extra loyalty points.';
+/* Condensed from the supplied copy rather than carried over whole: the source
+   ran to three paragraphs, and $ctaText is one line under a heading. The three
+   points it actually made -- visibility, a growing network, and what that is
+   for -- survive; the restatement of the perks did not, because the benefits
+   section higher up this page already lists every one of them. */
+$ctaText =
+  'More visibility, more customers, more opportunities. As the network grows so does the work coming your way, so you spend less time chasing jobs and more time with the people you are doing it for.';
 $ctaPrimary = ['href' => '/ambassador-programme#pcAmbRegister', 'label' => 'Apply Now'];
 $ctaSecondary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
 require __DIR__ . '/components/shared/final-cta.php';
 $bannerCompact = true; // §30: this page already closes with its own CTA.
+/* Driver-facing copy for a driver-facing page -- the shared default talks to
+   the passenger ("track your driver door to door"), which is the wrong reader
+   here. "part of the family" rather than the supplied "you are a family",
+   which reads as addressing a group when it is addressing one driver. */
+$bannerTitle = 'Get the PowerCabs Driver app';
+// Literal em dash, not &mdash;: both of these are printed through
+// htmlspecialchars(), which would escape the entity and show it as text.
+$bannerText = "With PowerCabs you are not just a driver \u{2014} you are part of the family.";
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

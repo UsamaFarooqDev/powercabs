@@ -13,7 +13,7 @@ $driveSteps = [
 
       <div class="tw-order-2 [&_.pc-phone-screen]:tw-min-h-[520px] lg:tw-order-1">
         <?php
-        $mockupImage = 'driver-go-online.jpeg';
+        $mockupImage = 'driver-go-online.png';
         $mockupAlt = 'The PowerCabs app open on a phone, showing a route across Dublin';
         $mockupNotch = true;
         require __DIR__ . '/../shared/app-mockup.php';

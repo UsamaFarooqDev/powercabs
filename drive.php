@@ -10,8 +10,9 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = 'Drive';
 $heroTitleLight = 'Drive your way.';
 $heroTitleBold = 'Build your day.';
+$heroLead = 'You work hard to keep your car on the road. You should have a platform that respects that.';
 $heroDescription =
-  'Keep more of every fare. No joining fee, no monthly subscription, and 10% commission only on the PowerCabs jobs you actually complete.';
+  "With PowerCabs you pay 10% commission only on the PowerCabs trips you complete \u{2014} no joining fee, no monthly subscription, and nothing at all when you don't get a job.";
 require __DIR__ . '/components/drive/hero.php';
 require __DIR__ . '/components/drive/be-your-own-boss.php';
 require __DIR__ . '/components/drive/join-family-stats.php';
@@ -22,6 +23,12 @@ require __DIR__ . '/components/drive/behind-wheel.php';
 <?php
 require __DIR__ . '/components/drive/compare-model.php';
 require __DIR__ . '/components/drive/car-earn-more.php';
+
+/* Straight after the earnings argument: the page has just said what a driver
+   keeps, and the obvious next question is where the work comes from in the
+   first place. paper-soft here sits between car-earn-more's plain surface and
+   the dark support band below, so no two adjacent sections share a fill. */
+require __DIR__ . '/components/shared/booking-sources.php';
 
 $supportEyebrow = 'Driver Support';
 $supportHeading = 'Still have a question? Talk to us.';

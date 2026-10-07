@@ -37,6 +37,15 @@ $appStoreTarget = 'https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id664
  */
 $bannerCompact = null;
 
+/* $bannerTitle / $bannerText -- optional, and defaulted to the rider copy that
+   24 pages want. They exist because /ambassador-programme is addressed to
+   DRIVERS: "track your driver door to door" is written for the person in the
+   back seat, and on a page asking drivers to sign up it speaks to the wrong
+   reader entirely. Overriding beats forking the component, and leaving the
+   defaults alone means no other page moves. Both are unset at the bottom. */
+$bannerTitle ??= 'Get the PowerCabs app';
+$bannerText ??= 'Book in seconds, track your driver door to door, and pay the fare you were quoted.';
+
 // Same badge recipe as components/drive/behind-wheel.php, in its large size.
 $storeBadgeClass =
   'tw-inline-flex tw-w-fit tw-items-center tw-gap-[0.65rem] tw-rounded-lg tw-bg-ink tw-py-[0.65rem] tw-pl-[0.65rem] tw-pr-6 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-bg-black';
@@ -54,8 +63,8 @@ $storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max
   <div class="<?= $pcContainer ?>">
     <div class="<?= $pcDivider ?> tw-flex tw-flex-col tw-gap-6 tw-pt-10 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
       <div>
-        <p class="tw-mb-1 tw-text-[1.0625rem] tw-font-bold tw-text-ink">Get the PowerCabs app</p>
-        <p class="<?= $pcBodySm ?> tw-mb-0 tw-max-w-[46ch]">Book in seconds, track your driver door to door, and pay the fare you were quoted.</p>
+        <p class="tw-mb-1 tw-text-[1.0625rem] tw-font-bold tw-text-ink"><?= htmlspecialchars($bannerTitle) ?></p>
+        <p class="<?= $pcBodySm ?> tw-mb-0 tw-max-w-[46ch]"><?= htmlspecialchars($bannerText) ?></p>
       </div>
       <?php /* Store badges only. Two QR codes sat beside these briefly and
                were removed; the comment and the pc_qr_src() require that
@@ -88,4 +97,4 @@ $storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max
 </section>
 <?php
 /* Page globals: a later require on the same page must not inherit this. */
-unset($bannerCompact);
+unset($bannerCompact, $bannerTitle, $bannerText);

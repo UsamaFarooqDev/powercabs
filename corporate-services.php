@@ -65,6 +65,12 @@ $heroBgImage     = $assetPath . 'assets/img/service-city-tour.jpg';
 $heroVariant = 'split';
 $heroImageAlt = 'Two colleagues beside a PowerCabs car outside a Dublin office building';
 require __DIR__ . '/components/shared/inner-hero.php';
+/* The portal tour sits directly under the hero: a prospect arriving on this
+   page is asking "what do I actually get?", and the software is the answer
+   that no amount of service copy further down substitutes for. It is
+   paper-soft against the white why-businesses section below it, so the two
+   do not run together. */
+require __DIR__ . '/components/corporate/portal-tour.php';
 require __DIR__ . '/components/corporate/why-businesses.php';
 ?>
 

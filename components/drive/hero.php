@@ -1,54 +1,4 @@
 <?php
-/**
- * /drive's own hero -- photograph, headline, and the application form in it.
- *
- * WHY THIS IS NOT components/shared/inner-hero.php.
- * That component has five compositions and 26 pages use them; none of the five
- * can hold an eight-step form, and a sixth variant used by exactly one page is
- * how a shared component turns into a switch statement. The homepage already
- * owns its hero for the same reason. Everything else stays shared: the
- * breadcrumb markup is components/shared/inner-hero-crumb.php, the type is
- * $pcH1OnDark / $pcEyebrowOnDark, and the BreadcrumbList JSON-LD below is the
- * same shape inner-hero.php emits, so /drive is not the one page missing it.
- *
- * WHAT MOVED. The driver application used to be a full dark section two
- * screens down, behind a photograph of its own. /drive exists to get drivers
- * to apply, and it was asking them to read three sections first. The form is
- * the hero's right-hand column now and the page opens on it.
- *
- * THE PHOTOGRAPH. The previous hero image was a motorway seen from the back
- * seat: near-black silhouettes around a blown-out sky, which as a full-bleed
- * background put its brightest area exactly where the headline sits.
- *
- * THE PHOTOGRAPH IS LANDSCAPE-NATIVE, and that is the whole point of this
- * choice. The previous one was a 2:3 PORTRAIT frame forced into a 16:9 crop,
- * which is a tight band out of the middle of the picture -- the reason it read
- * as a giant out-of-focus steering wheel rather than as a scene. This frame is
- * 3:2 as shot, so in a full-height hero (roughly 1.6:1) object-cover trims
- * about 30px off the top and bottom and shows essentially the whole picture:
- * a driver at the wheel, rain on the glass, a street moving past.
- *
- * Keep that property if this image is ever swapped. A portrait source in a
- * landscape hero is always going to look zoomed, however it is cropped.
- *
- * One known imperfection, flagged rather than hidden: the car is left-hand
- * drive and Ireland is right-hand drive. At this scrim weight it is not
- * something most people will read, and the alternatives were worse -- the
- * best-lit landscape options in stock are yellow New York cabs, and the one
- * sharp taxi-cockpit frame has a Dubai meter reading AED in the middle of it.
- * Mirroring the image would fix the side and reverse the signage in the
- * street behind, so it is left as shot.
- *
- * Two sources for bytes, not for framing: the same crop at two widths, so a
- * phone does not pull a 1920px file. Composition is identical at both, with
- * object-position biased left below md so the driver stays in frame when the
- * hero is narrow and tall. It is the LCP image: fetchpriority="high", and
- * never loading="lazy".
- *
- * HEIGHT. Full viewport height from lg. Below that the content sets the
- * height: on a phone the form alone is ~520px, so a viewport floor there
- * would only add empty space under the tallest section on the page.
- */
 $driveHeroImgWide =
   'https://images.pexels.com/photos/1405665/pexels-photo-1405665.jpeg?auto=compress&cs=tinysrgb&w=1920';
 $driveHeroImgSmall =
@@ -117,6 +67,18 @@ $heroCrumbFirst = true;
           <?= htmlspecialchars(trim(($heroTitleLight ?? '') . ' ' . ($heroTitleBold ?? ''))) ?>
         </h1>
 
+        <?php /* $heroLead -- optional, and set only by /drive. One line of
+                 plain address to the reader, in full white and a heavier
+                 weight, before $heroDescription gives the numbers underneath
+                 it. Two paragraphs rather than one long one because the first
+                 is an argument and the second is the terms; run together they
+                 read as a single block of small print under the headline. */ ?>
+        <?php if (!empty($heroLead)): ?>
+          <p class="tw-mb-3 tw-max-w-[46ch] tw-text-[1.1875rem] tw-font-semibold tw-leading-[1.45] tw-text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.3)]"><?= htmlspecialchars(
+            $heroLead,
+          ) ?></p>
+        <?php endif; ?>
+
         <?php if (!empty($heroDescription)): ?>
           <p class="tw-mb-0 tw-max-w-[50ch] tw-text-[1.0625rem] tw-leading-[1.65] tw-text-white/[0.82]"><?= htmlspecialchars(
             $heroDescription,
@@ -126,10 +88,10 @@ $heroCrumbFirst = true;
         <?php /* Kept from the application section this hero absorbed, where it
                  sat above a headline that has gone. It is the only thing on
                  the page that says "Irish" before a driver scrolls. */ ?>
-        <span class="tw-mt-7 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-white/[0.16] tw-bg-white/[0.08] tw-px-3.5 tw-py-1.5 tw-text-xs tw-font-semibold tw-text-white tw-backdrop-blur-sm">
+        <!-- <span class="tw-mt-7 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-white/[0.16] tw-bg-white/[0.08] tw-px-3.5 tw-py-1.5 tw-text-xs tw-font-semibold tw-text-white tw-backdrop-blur-sm">
           <span class="tw-font-bold">IE</span>
           Irish Taxi Platform &bull; Driver First
-        </span>
+        </span> -->
       </div>
 
       <div class="lg:tw-col-span-6 xl:tw-col-span-5">
@@ -142,4 +104,4 @@ $heroCrumbFirst = true;
 <?php
 /* Cleared so nothing further down the page inherits this hero's variables --
    the same contract inner-hero.php keeps. */
-unset($heroEyebrow, $heroTitleLight, $heroTitleBold, $heroDescription, $heroBreadcrumbLabel);
+unset($heroEyebrow, $heroTitleLight, $heroTitleBold, $heroLead, $heroDescription, $heroBreadcrumbLabel);

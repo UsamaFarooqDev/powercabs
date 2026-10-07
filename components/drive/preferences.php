@@ -5,9 +5,21 @@
       <h2 class="<?= pc_mb($pcH2Display, 'tw-mb-3') ?>">
         Spend less on the car. <span class="tw-text-power">Earn more from it.</span>
       </h2>
-      <p class="<?= $pcLead ?> tw-mx-auto tw-max-w-[52ch]">
-        Partner rates on the costs every driver already carries &mdash; and ways
-        to earn beyond the meter.
+      <?php /* The supplied copy ran its perks together in one unpunctuated line
+               ("Fuel Discounts Card Terminals from just 0.8% instead of 1.69%,
+               Car Valet Discounts & Vouchers Marketing Opportunities ...").
+               Split in two here: the promise, then what it covers. The figures
+               stay off this paragraph because the tiles below already carry
+               every one of them -- repeating 0.8% here would mean two places
+               to update the day that rate changes. */ ?>
+      <p class="<?= $pcLead ?> tw-mx-auto tw-mb-3 tw-max-w-[52ch]">
+        We are always working to bring more value to the drivers on the
+        platform.
+      </p>
+      <p class="<?= $pcBody ?> tw-mx-auto tw-mb-0 tw-max-w-[54ch]">
+        Partner rates on the costs you already carry &mdash; fuel, valeting and
+        card terminals &mdash; plus valet vouchers, referrals and paid branding
+        campaigns that earn you money beyond the meter.
       </p>
     </div>
 
@@ -76,6 +88,19 @@
           </figcaption>
         </figure>
       <?php endforeach; ?>
+    </div>
+
+    <?php /* The sign-off from the supplied copy. It closes the section on the
+             point the tiles have just made rather than leaving the grid to end
+             on a photograph, and the brand line takes the same orange second
+             half as the H2 above it, so the two bookend the section. */ ?>
+    <div class="tw-mt-10 tw-text-center md:tw-mt-12">
+      <p class="<?= $pcBodySm ?> tw-mx-auto tw-mb-2.5 tw-max-w-[46ch]">
+        Perks that help you maximise your earnings while you drive with us.
+      </p>
+      <p class="tw-mb-0 tw-text-[1.0625rem] tw-font-bold tw-tracking-[-0.01em] tw-text-ink">
+        PowerCabs &mdash; <span class="tw-text-power">Power Your Earnings.</span>
+      </p>
     </div>
 
   </div>

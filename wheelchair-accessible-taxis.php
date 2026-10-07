@@ -18,7 +18,7 @@ $heroTitleLight = 'Wheelchair';
 $heroTitleBold = 'Accessible Taxis.';
 $heroDescription =
   'PowerCabs provides safe, comfortable, and fully accessible taxi services for passengers with mobility needs. The service focuses on reliability, trained drivers, and vehicles equipped to safely transport wheelchair users.';
-$heroBgImage = 'https://images.pexels.com/photos/35831412/pexels-photo-35831412.jpeg?auto=format&fit=crop&w=1600&q=60';
+$heroBgImage = '/assets/img/wheelchair-accessible-hero.jpeg';
 $heroVariant = 'split';
 $heroImageAlt = 'A wheelchair accessible taxi with its ramp lowered';
 require __DIR__ . '/components/shared/inner-hero.php';
@@ -54,6 +54,36 @@ function pc_wc_icon(string $icon): void
 }
 ?>
 
+<!-- ============ Why Choose PowerCabs ============ -->
+<section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
+  <div class="tw-relative <?= $pcContainer ?>">
+    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+      <!-- <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why Choose PowerCabs</p> -->
+      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Accessible Travel, Done Right</h2>
+    </div>
+
+    <div class="tw-mx-auto tw-mb-4 tw-grid tw-max-w-[1320px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 md:tw-grid-cols-3">
+      <?php foreach (array_slice($whyChoose, 0, 3) as $item): ?>
+        <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
+          <?php pc_wc_icon($item['icon']); ?>
+          <h3 class="tw-mb-2 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($item['title']) ?></h3>
+          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($item['desc']) ?></p>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <div class="tw-mx-auto tw-grid tw-max-w-[700px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
+      <?php foreach (array_slice($whyChoose, 3, 2) as $item): ?>
+        <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
+          <?php pc_wc_icon($item['icon']); ?>
+          <h3 class="tw-mb-2 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($item['title']) ?></h3>
+          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($item['desc']) ?></p>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
@@ -80,36 +110,6 @@ function pc_wc_icon(string $icon): void
 
         <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/book-ride-online">Book an Accessible Ride</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ Why Choose PowerCabs ============ -->
-<section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
-  <div class="tw-relative <?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
-      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why Choose PowerCabs</p>
-      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Accessible Travel, Done Right</h2>
-    </div>
-
-    <div class="tw-mx-auto tw-mb-4 tw-grid tw-max-w-[1320px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 md:tw-grid-cols-3">
-      <?php foreach (array_slice($whyChoose, 0, 3) as $item): ?>
-        <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-          <?php pc_wc_icon($item['icon']); ?>
-          <h3 class="tw-mb-2 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($item['title']) ?></h3>
-          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($item['desc']) ?></p>
-        </div>
-      <?php endforeach; ?>
-    </div>
-
-    <div class="tw-mx-auto tw-grid tw-max-w-[700px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
-      <?php foreach (array_slice($whyChoose, 3, 2) as $item): ?>
-        <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
-          <?php pc_wc_icon($item['icon']); ?>
-          <h3 class="tw-mb-2 tw-text-base tw-font-bold tw-text-ink"><?= htmlspecialchars($item['title']) ?></h3>
-          <p class="tw-mb-0 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($item['desc']) ?></p>
-        </div>
-      <?php endforeach; ?>
     </div>
   </div>
 </section>

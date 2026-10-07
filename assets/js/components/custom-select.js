@@ -46,6 +46,60 @@ if (window.pcCustomSelectCleanup) {
 (function () {
   var teardownFns = [];
 
+  /**
+   * OPTIONAL per-option icons.
+   *
+   * An <option> can hold text and nothing else, so a native <select> can only
+   * ever fake an icon with a character like an arrow. The enhanced control
+   * builds its own list, which is the one place a real SVG can go.
+   *
+   * Opt in by putting data-icon="<key>" on an <option>. Anything without it
+   * renders exactly as before, so no other select on the site is affected.
+   * Add a key here when a form needs one; keep them 24-viewBox and stroked
+   * with currentColor so they inherit the option's hover and selected colour.
+   */
+  var OPTION_ICONS = {
+    // A journey out: origin dot, line, arrowhead. Reads as a single leg.
+    "one-way":
+      '<circle cx="5" cy="12" r="2.2" fill="currentColor"/>' +
+      '<path d="M9 12h8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<path d="M14.5 9l3.5 3-3.5 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    // Out and back: two opposed arrows, the standard round-trip mark.
+    // Quoted: `return` is a reserved word, and an unquoted reserved word as a
+    // property name is only legal from ES5 on. Quoting costs nothing.
+    "return":
+      '<path d="M4.5 9h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<path d="M12.8 6l2.9 3-2.9 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M19.5 15h-11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<path d="M11.2 12l-2.9 3 2.9 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  };
+
+  /**
+   * Paint an <option> into a target element: icon (if any) then label.
+   *
+   * The SVG comes from the table above -- our own markup -- so innerHTML is
+   * safe for it. The LABEL never goes through innerHTML; it is appended as a
+   * text node, because that text comes from the page's own options and could
+   * one day come from somewhere less trusted.
+   */
+  function renderOptionInto(el, opt) {
+    el.textContent = "";
+    var key = opt.getAttribute("data-icon");
+    var svg = key && Object.prototype.hasOwnProperty.call(OPTION_ICONS, key) ? OPTION_ICONS[key] : null;
+    if (svg) {
+      var icon = document.createElement("span");
+      icon.className = "tw-inline-flex tw-shrink-0 tw-items-center tw-text-current";
+      icon.setAttribute("aria-hidden", "true");
+      icon.innerHTML =
+        '<svg class="tw-h-[1.15rem] tw-w-[1.15rem]" viewBox="0 0 24 24" fill="none" aria-hidden="true">' + svg + "</svg>";
+      el.appendChild(icon);
+    }
+    var text = document.createElement("span");
+    text.className = "tw-min-w-0 tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap";
+    text.appendChild(document.createTextNode(opt.textContent.trim()));
+    el.appendChild(text);
+  }
+
   function enhanceOne(select) {
     if (select.dataset.pcEnhanced) return;
     select.dataset.pcEnhanced = "1";
@@ -76,7 +130,9 @@ if (window.pcCustomSelectCleanup) {
     trigger.setAttribute("aria-expanded", "false");
     if (labelText) trigger.setAttribute("aria-label", labelText);
     trigger.innerHTML =
-      '<span class="pc-custom-select-value tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap ' +
+      // flex + min-w-0 so an option icon can sit beside the label; the inner
+      // text span added by renderOptionInto() still truncates with an ellipsis.
+      '<span class="pc-custom-select-value tw-flex tw-min-w-0 tw-items-center tw-gap-2.5 ' +
       '[.is-placeholder_&]:tw-text-ink/[0.65]"></span>' +
       '<svg class="tw-h-3.5 tw-w-3.5 tw-shrink-0 tw-text-ink/[0.65] tw-transition-transform ' +
       'tw-duration-200 group-[.is-open]:tw-rotate-180 motion-reduce:tw-transition-none" ' +
@@ -107,12 +163,12 @@ if (window.pcCustomSelectCleanup) {
       selectableOptions().forEach(function (opt) {
         var item = document.createElement("div");
         item.className =
-          "pc-custom-select-option tw-cursor-pointer tw-rounded-[10px] tw-px-3 tw-py-[0.55rem] tw-text-[0.95rem] " +
+          "pc-custom-select-option tw-flex tw-items-center tw-gap-2.5 tw-cursor-pointer tw-rounded-[10px] tw-px-3 tw-py-[0.55rem] tw-text-[0.95rem] " +
           "tw-text-ink tw-transition-colors tw-duration-150 hover:tw-bg-[#fbe4cf] hover:tw-text-power " +
           "[&.is-selected]:tw-font-semibold [&.is-selected]:tw-text-power";
         item.setAttribute("role", "option");
         item.dataset.value = opt.value;
-        item.textContent = opt.textContent.trim();
+        renderOptionInto(item, opt);
         item.addEventListener("click", function () {
           select.value = opt.value;
           select.dispatchEvent(new Event("change", { bubbles: true }));
@@ -126,7 +182,11 @@ if (window.pcCustomSelectCleanup) {
 
     function syncFromSelect() {
       var opt = select.options[select.selectedIndex];
-      valueEl.textContent = opt ? opt.textContent.trim() : "";
+      if (opt) {
+        renderOptionInto(valueEl, opt);
+      } else {
+        valueEl.textContent = "";
+      }
       trigger.classList.toggle("is-placeholder", !opt || opt.disabled);
       Array.prototype.forEach.call(panel.children, function (item) {
         item.classList.toggle("is-selected", item.dataset.value === select.value);

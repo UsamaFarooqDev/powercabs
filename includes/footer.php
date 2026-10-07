@@ -167,13 +167,13 @@ $footerNav = [
           Tax Number 04301619NH
         </p>
 
-        <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-full tw-border tw-border-solid tw-border-white/15 tw-bg-white/[0.06] tw-py-1.5 tw-pl-1.5 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-border-[#25d366]/60 hover:tw-bg-white/10" href="https://wa.me/353899728089" target="_blank" rel="noopener" aria-label="Chat with PowerCabs on WhatsApp">
+        <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-full tw-border tw-border-solid tw-border-white/15 tw-bg-white/[0.06] tw-py-1.5 tw-pl-1.5 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-border-[#25d366]/60 hover:tw-bg-white/10" href="https://wa.me/353899654467" target="_blank" rel="noopener" aria-label="Chat with PowerCabs on WhatsApp">
           <span class="tw-flex tw-h-8 tw-w-8 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#25d366] tw-text-white">
             <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.71 14.02c-.24.68-1.38 1.3-1.9 1.38-.49.08-1.1.11-1.77-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.09-4.85-4.28-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.37.26-.28.57-.35.76-.35h.55c.18 0 .41-.07.64.49.24.57.81 1.97.88 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.04.94 1.92 1.23 2.19 1.37.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.53.72 1.79.85.26.14.44.21.5.32.07.12.07.68-.17 1.35z"/></svg>
           </span>
           <span class="tw-flex tw-flex-col tw-leading-tight">
             <strong class="tw-text-[0.8rem] tw-font-semibold tw-text-white">Book via WhatsApp</strong>
-            <small class="tw-text-[0.72rem] tw-text-white/50">+353 89 972 8089</small>
+            <small class="tw-text-[0.72rem] tw-text-white/50">+353 89 965 4467</small>
           </span>
         </a>
       </div>
@@ -213,6 +213,43 @@ $footerNav = [
               <?php endforeach; ?>
             </ul>
           </div>
+
+          <?php if ($groupTitle === 'Contact'): ?>
+            <?php /* LEFT ALIGNMENT IS data-style-width, not CSS. Trustpilot
+                     replaces this div's contents with a cross-origin iframe and
+                     centres the button inside it, so flex/justify-start on the
+                     wrapper has nothing to act on -- at width 100% the iframe
+                     was 225px wide holding a ~180px button, leaving a ~22px
+                     gutter that read as a left indent against the links above.
+                     Sizing the iframe to the button removes the slack, so the
+                     button starts at the column's left edge.
+
+                     226px is a measured floor, not a round number: the widget
+                     reflows with the iframe, and at 186/196/216px the button
+                     wrapped to two lines and was then clipped by the 36px
+                     height. 226px is the first width tested that keeps
+                     "Review us on Trustpilot" on one line. Narrow it and it
+                     wraps again.
+
+                     At that width the button measures 180px centred with a
+                     23px gutter each side (pixel-scanned, not estimated), and
+                     the gutter is what made the badge look indented. So the
+                     iframe is pulled 23px left and the wrapper clips it:
+                     overflow-hidden eats exactly the transparent gutter, the
+                     button lands flush on the column's left edge, and nothing
+                     pokes past the viewport on a phone -- which a bare
+                     negative margin would do, since this sits only 20px from
+                     the screen edge at 375px.
+
+                     If Trustpilot ever changes that padding, re-scan the
+                     gutter and change the 23 in both places together. */ ?>
+            <div class="tw-mt-4 tw-min-h-[36px] tw-min-w-[203px] tw-overflow-hidden">
+              <div class="trustpilot-widget -tw-ml-[23px]" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6abb8b70c3782eeee1a6a38a" data-style-height="36px" data-style-width="226px" data-token="60a5c414-a923-4900-b83e-83c280a0fff7" data-theme="dark">
+                <a class="<?= $fLegal ?>" href="https://www.trustpilot.com/review/powercabs.ie" target="_blank" rel="noopener">Trustpilot</a>
+              </div>
+            </div>
+            <!-- End TrustBox widget -->
+          <?php endif; ?>
         </div>
       <?php endforeach; ?>
     </div>
@@ -283,5 +320,21 @@ $footerNav = [
 <script src="<?= $assetPath ?>assets/js/components/page-loader.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/page-loader.js',
 ) ?>"></script>
+
+<?php /* Trustpilot's bootstrap, for the Review Collector widget in the footer
+         above. Third-party and versioned at their end, so it carries no
+         ?v=filemtime -- that convention is for OUR files, and @filemtime on a
+         remote URL would simply return false.
+
+         https://, not the protocol-relative //widget.trustpilot.com that
+         Trustpilot's snippet ships: .htaccess forces https site-wide, so the
+         scheme is never in doubt and being explicit costs nothing.
+
+         async: nothing on the page waits for this, and it must not block the
+         footer. It finds .trustpilot-widget itself on load -- the widget markup
+         is already in the DOM above by the time this runs. */ ?>
+<!-- TrustBox script -->
+<script type="text/javascript" src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+<!-- End TrustBox script -->
 </body>
 </html>
