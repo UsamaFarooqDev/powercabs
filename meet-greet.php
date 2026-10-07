@@ -25,9 +25,17 @@ $mgOld = [
   'pickup_address' => '', // Dropping Off flow: where to collect you from
   'dropoff_terminal' => '', // Dropping Off flow: which terminal to drop you at
   'passengers' => '',
+  'pickup_date' => '', // the date the flight lands / the car is wanted
+  'pickup_time' => '',
   'special_requirements' => '',
   'journey_type' => '', // 'one_way' | 'return'
+  'service_level' => '', // key of $mgServiceLevels -- which tier was chosen
 ];
+
+/* Today, as the floor for the date field. A meet & greet in the past is never
+   a real booking, and the browser enforces it via min= before the request is
+   ever sent. Re-checked server-side below, because min= is only a hint. */
+$mgMinDate = date('Y-m-d');
 
 $mgTerminalOptions = ['Terminal 1', 'Terminal 2', 'Platinum Service'];
 // Pickups can also start at Heuston Station; drop-offs stay airport-only, so
@@ -39,10 +47,81 @@ $mgServiceTypeLabels = [
 ];
 $mgJourneyTypeLabels = ['one_way' => 'One Way', 'return' => 'Return / Both Ways'];
 // The single source for the fare that goes in the enquiry email. The same two
-// numbers are printed in the price cards, the journey <option> labels and their
-// data-fare attributes further down -- all of those read from here, so a
-// price change is this one line.
+// numbers reach the price cards in the dark panel, the journey options'
+// data-fare attributes, the fare box and the pay button -- all of them read
+// from here, so a price change is this one line. The <option> LABELS no longer
+// print it: they carry an arrow instead, so the dropdown does not quote a
+// second euro figure beside the tier cards higher up the page.
 $mgFares = ['one_way' => 10, 'return' => 18];
+
+/* ── Service levels ──────────────────────────────────────────────────────
+   The three tiers rendered by components/meet-greet/service-tiers.php and
+   offered as "Service Level" in the form below. Prices and feature lists are
+   exactly as supplied -- nothing here is inferred, because a tier list with
+   euro amounts on it is a price list.
+
+   HEADS UP, AND THIS NEEDS A DECISION: the page now prints two price scales.
+   $mgFares above (one way 10 / return 18) still drives the journey-type
+   <option> labels, the two cards in the dark panel, the fare in the enquiry
+   email and the Stripe button's label. The tiers below are per booking. They
+   are deliberately NOT wired into the fare or the payment link: that button
+   charges whatever the Stripe dashboard says, so guessing at a reconciliation
+   here would risk quoting one number and taking another. Decide which scale
+   is authoritative and the other should go. */
+$mgServiceLevels = [
+  'standard' => [
+    'eyebrow' => 'Standard',
+    'price' => 10,
+    'title' => 'Simple Meet &amp; Greet',
+    'desc' => 'A simple and convenient airport welcome.',
+    'featured' => false,
+    'includes' => [
+      'Driver meets you inside the terminal',
+      'Driver accompanies you to the vehicle',
+      '10 minutes waiting time',
+      'Professional airport meet &amp; greet',
+    ],
+    'excludes' => ['Flight monitoring', 'Personalised name board', 'Luggage assistance'],
+  ],
+  'assist' => [
+    'eyebrow' => 'Assist',
+    'price' => 15,
+    'title' => 'Meet, Greet &amp; Assist',
+    'desc' => 'A more personal welcome with help from terminal to vehicle.',
+    'featured' => false,
+    'includes' => [
+      'Driver meets you inside the terminal',
+      'Personalised name board',
+      'Luggage assistance',
+      'Driver accompanies you to the vehicle',
+      '10 minutes waiting time',
+    ],
+    'note' => [
+      'title' => 'Need additional assistance?',
+      'text' =>
+        'Elderly passengers, passengers with disabilities, reduced mobility, or anyone requiring additional assistance can request priority support.',
+    ],
+    'excludes' => ['Flight monitoring'],
+  ],
+  'first_class' => [
+    'eyebrow' => 'First Class',
+    'price' => 30,
+    'title' => 'Your Arrival, Completely Taken Care Of',
+    'desc' => 'Our complete airport arrival service, managed by PowerCabs.',
+    'featured' => true,
+    'includes' => [
+      'PowerCabs monitors your flight',
+      'Driver coordinated according to flight status',
+      'Driver meets you inside the terminal',
+      'Personalised name board',
+      'Luggage assistance',
+      'Live chat with PowerCabs',
+      'Priority dispatch support',
+      '15 minutes waiting time',
+    ],
+    'idealFor' => ['Business guests', 'Corporate travellers', 'Families', 'VIP guests'],
+  ],
+];
 
 // From .env (STRIPE_MEET_GREET_LINK) -- see includes/env.php. Empty when not
 // configured, and every use below handles that.
@@ -82,6 +161,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   $mgPassengersOk =
     ctype_digit($mgOld['passengers']) && (int) $mgOld['passengers'] >= 1 && (int) $mgOld['passengers'] <= 20;
 
+  /* Re-validated here, not just via the input's own type= and min=: both are
+     browser hints and neither survives a hand-rolled POST. checkdate() on the
+     split parts rejects 2026-02-30, which a plain regex would wave through. */
+  $mgDateOk = (bool) preg_match('/^\d{4}-\d{2}-\d{2}$/', $mgOld['pickup_date']);
+  if ($mgDateOk) {
+    [$y, $m, $d] = array_map('intval', explode('-', $mgOld['pickup_date']));
+    $mgDateOk = checkdate($m, $d, $y) && $mgOld['pickup_date'] >= $mgMinDate;
+  }
+  $mgTimeOk = (bool) preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $mgOld['pickup_time']);
+
+  // Optional, so an empty value stays empty rather than failing the form; a
+  // value that is not one of the three tiers is dropped instead of trusted.
+  if ($mgOld['service_level'] !== '' && !isset($mgServiceLevels[$mgOld['service_level']])) {
+    $mgOld['service_level'] = '';
+  }
+
   $mgMissing =
     $mgOld['name'] === '' ||
     $mgOld['email'] === '' ||
@@ -89,6 +184,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgOld['flight_number'] === '' ||
     $mgOld['service_type'] === '' ||
     $mgOld['journey_type'] === '' ||
+    $mgOld['pickup_date'] === '' ||
+    $mgOld['pickup_time'] === '' ||
     !$mgPassengersOk;
 
   if ($mgOld['service_type'] === 'pickup') {
@@ -100,6 +197,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   if ($mgMissing) {
     $mgFormStatus = 'error';
     $mgFormError = 'Please fill in all required fields.';
+  } elseif (!$mgDateOk || !$mgTimeOk) {
+    // Its own message: "fill in all required fields" is wrong and confusing
+    // when the field IS filled in and the problem is that the date has passed.
+    $mgFormStatus = 'error';
+    $mgFormError = 'Please enter a valid pickup date and time. The date cannot be in the past.';
   } elseif (!filter_var($mgOld['email'], FILTER_VALIDATE_EMAIL)) {
     $mgFormStatus = 'error';
     $mgFormError = 'Please enter a valid email address.';
@@ -123,8 +225,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
         "Pickup Address: {$mgOld['pickup_address']}\n" . "Drop-off / Airport Terminal: {$mgOld['dropoff_terminal']}\n";
     }
 
+    $mgLevel =
+      $mgOld['service_level'] !== ''
+        ? html_entity_decode($mgServiceLevels[$mgOld['service_level']]['eyebrow'], ENT_QUOTES, 'UTF-8') .
+          " (listed at \u{20AC}" .
+          $mgServiceLevels[$mgOld['service_level']]['price'] .
+          ')'
+        : '(not selected)';
+
     $body .=
       "Number of Passengers: {$mgOld['passengers']}\n" .
+      "Pickup Date: {$mgOld['pickup_date']}\n" .
+      "Pickup Time: {$mgOld['pickup_time']}\n" .
+      "Service Level: {$mgLevel}\n" .
       "Journey Type: {$mgJourneyTypeLabels[$mgOld['journey_type']]}\n" .
       "Fare: \u{20AC}{$mgFare}\n\n" .
       "Special Requirements:\n" .
@@ -307,7 +420,28 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           <?php endforeach; ?>
         </ul>
 
-        <div class="tw-relative tw-z-[1] tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-3">
+        <?php /* The cancellation policy, in the gap this panel used to leave
+                 between the feature list and the price cards. mt-auto on the
+                 cards below still pins them to the bottom of the column, so
+                 this fills the space rather than pushing anything down.
+
+                 Same glass treatment as the cards it sits above -- it is
+                 panel furniture, not a warning, so it does not get a red or
+                 orange alert box. */ ?>
+        <div class="tw-relative tw-z-[1] tw-mt-7 tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4 tw-backdrop-blur-md sm:tw-p-5">
+          <p class="tw-mb-1.5 tw-flex tw-items-center tw-gap-2 tw-text-[0.72rem] tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-powerlight">
+            <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Free cancellation
+          </p>
+          <p class="tw-mb-0 tw-text-[0.82rem] tw-leading-[1.65] tw-text-white/[0.68]">
+            All bookings are eligible for free cancellation up to 4 hours before
+            the booking time for Meet &amp; Greet services and up to 2 hours before
+            the booking time for standard airport bookings. Transaction reversal
+            charges may apply to cover administrative costs.
+          </p>
+        </div>
+
+        <div class="tw-relative tw-z-[1] tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-3 tw-pt-6">
           <div class="tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4">
             <span class="tw-text-xs tw-font-semibold tw-text-white/70">One Way</span>
             <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;<?= $mgFares['one_way'] ?></span>
@@ -365,13 +499,19 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               placeholder="e.g. +353 89 123 4567" value="<?= htmlspecialchars($mgOld['phone']) ?>" required>
           </div>
 
-          <div class="<?= $mgFieldHalf ?>">
+          <?php /* Flight number, service type and journey type share one row as
+                   three thirds, matching the name/email/phone row above it and
+                   the passengers/date/time row below. Journey Type moved up
+                   here when the Service Level select was removed -- left where
+                   it was it would have sat alone on a half-width row with
+                   nothing beside it. */ ?>
+          <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgFlightNumber">Flight Number</label>
             <input type="text" class="<?= $mgInputClass ?>" id="mgFlightNumber" name="flight_number"
               placeholder="e.g. EI164" value="<?= htmlspecialchars($mgOld['flight_number']) ?>" required>
           </div>
 
-          <div class="<?= $mgFieldHalf ?>">
+          <div class="<?= $mgFieldThird ?>">
             <!-- pc-custom-select-enhance stays as a bare functional hook, shared with book-ride-online.php via custom-select.js. -->
             <label class="pc-required <?= $mgLabelClass ?>" for="mgServiceType">Service Type</label>
             <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgServiceType" name="service_type" required>
@@ -384,6 +524,40 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               <option value="dropoff" <?= $mgOld['service_type'] === 'dropoff'
                 ? 'selected'
                 : '' ?>>Dropping Off (to the airport)</option>
+            </select>
+          </div>
+
+          <div class="<?= $mgFieldThird ?>">
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgJourneyType">Journey Type</label>
+            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgJourneyType" name="journey_type" required>
+              <option value="" disabled <?= $mgOld['journey_type'] === ''
+                ? 'selected'
+                : '' ?>>Select journey type</option>
+              <?php /* data-icon draws a real SVG in the enhanced dropdown --
+                       an origin dot and an arrow for one way, two opposed
+                       arrows for a round trip. See OPTION_ICONS in
+                       assets/js/components/custom-select.js; the keys must
+                       match. The text arrows these replaced were the best a
+                       bare <option> can manage, and they read as punctuation
+                       rather than as a picture of the journey.
+
+                       The LABEL stays plain text on purpose: that is what the
+                       native <select> falls back to with JS off, and what a
+                       screen reader announces.
+
+                       No price here. data-fare still carries it, the fare box
+                       and the pay button still print it, and keeping it out
+                       stops the dropdown quoting a second euro figure beside
+                       the tier cards further up the page.
+
+                       SAFE TO RELABEL: applyJourneyType() builds its own
+                       strings from option.value, never from this text. */ ?>
+              <option value="one_way" data-icon="one-way" data-fare="<?= $mgFares['one_way'] ?>" <?= $mgOld['journey_type'] === 'one_way'
+                ? 'selected'
+                : '' ?>>One Way</option>
+              <option value="return" data-icon="return" data-fare="<?= $mgFares['return'] ?>" <?= $mgOld['journey_type'] === 'return'
+                ? 'selected'
+                : '' ?>>Return / Both Ways</option>
             </select>
           </div>
 
@@ -435,26 +609,46 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             </select>
           </div>
 
-          <div class="<?= $mgFieldHalf ?>">
+          <?php /* Passengers, date and time share one row: three thirds of the
+                   six-column grid. The date and time inputs carry
+                   pc-custom-datetime-enhance, the same bare hook
+                   book-ride-online, city-tours and complaint-form use -- it is
+                   a JS selector with no CSS behind it, and custom-datetime.js
+                   reproduces $pcInput verbatim so an enhanced control sits
+                   flush with the plain number field beside it. Without the
+                   script the native pickers still work; this is enhancement,
+                   not a dependency. */ ?>
+          <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgPassengers">Number of Passengers</label>
             <input type="number" min="1" max="20" class="<?= $mgInputClass ?>" id="mgPassengers" name="passengers"
               value="<?= htmlspecialchars($mgOld['passengers']) ?>" required>
           </div>
 
-          <div class="<?= $mgFieldHalf ?>">
-            <label class="pc-required <?= $mgLabelClass ?>" for="mgJourneyType">Journey Type</label>
-            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgJourneyType" name="journey_type" required>
-              <option value="" disabled <?= $mgOld['journey_type'] === ''
-                ? 'selected'
-                : '' ?>>Select journey type</option>
-              <option value="one_way" data-fare="<?= $mgFares['one_way'] ?>" <?= $mgOld['journey_type'] === 'one_way'
-                ? 'selected'
-                : '' ?>>One Way &ndash; &euro;<?= $mgFares['one_way'] ?></option>
-              <option value="return" data-fare="<?= $mgFares['return'] ?>" <?= $mgOld['journey_type'] === 'return'
-                ? 'selected'
-                : '' ?>>Return / Both Ways &ndash; &euro;<?= $mgFares['return'] ?></option>
-            </select>
+          <div class="<?= $mgFieldThird ?>">
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgPickupDate">Date</label>
+            <input type="date" class="<?= $mgInputClass ?> pc-custom-datetime-enhance" id="mgPickupDate"
+              name="pickup_date" min="<?= htmlspecialchars($mgMinDate) ?>"
+              value="<?= htmlspecialchars($mgOld['pickup_date']) ?>" required>
           </div>
+
+          <div class="<?= $mgFieldThird ?>">
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgPickupTime">Time</label>
+            <input type="time" class="<?= $mgInputClass ?> pc-custom-datetime-enhance" id="mgPickupTime"
+              name="pickup_time" value="<?= htmlspecialchars($mgOld['pickup_time']) ?>" required>
+          </div>
+
+          <?php /* The Service Level SELECT is gone. This hidden input keeps its
+                   name and id so the "Select Standard / Assist / First Class"
+                   buttons in the tier section still record which card was
+                   clicked, and the enquiry email still names it -- without that
+                   those buttons would scroll and nothing more, and the office
+                   would not know which tier the customer chose. input[type=hidden]
+                   is display:none per the UA stylesheet, so it takes no grid
+                   cell and the row above is unaffected. Delete this line and
+                   the two service_level references in the POST block if the
+                   tier choice should not be captured at all. */ ?>
+          <input type="hidden" id="mgServiceLevel" name="service_level"
+            value="<?= htmlspecialchars($mgOld['service_level']) ?>">
 
           <div class="<?= $mgFieldFull ?>">
             <label class="<?= $mgLabelClass ?>" for="mgSpecialRequirements">Special Requirements</label>
@@ -611,6 +805,40 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
     serviceTypeSelect.addEventListener('change', applyServiceType);
     journeyTypeSelect.addEventListener('change', applyJourneyType);
 
+    /* "Select Standard / Assist / First Class" in the tier section above.
+       Each button carries the tier key, so this sets the form's Service Level
+       to it and brings the form into view -- the button does what its label
+       says rather than just scrolling.
+
+       mgServiceLevel is a hidden input now, not a <select>, so there is no
+       visible control to keep in step -- the value simply rides along with the
+       enquiry. The change event is still dispatched so anything that listens
+       for form state (today: nothing) sees the update rather than silently
+       missing a programmatic assignment, which never fires one by itself.
+
+       Listeners go on the buttons, which live inside <main> and are discarded
+       by a PJAX swap along with everything bound to them -- so re-running this
+       script on the next visit cannot stack handlers. */
+    var tierButtons = document.querySelectorAll('[data-mg-tier]');
+    var serviceLevelSelect = document.getElementById('mgServiceLevel');
+    var bookingSection = document.getElementById('pcMeetGreetBook');
+
+    Array.prototype.forEach.call(tierButtons, function (btn) {
+      btn.addEventListener('click', function () {
+        var tier = btn.getAttribute('data-mg-tier');
+        if (serviceLevelSelect) {
+          serviceLevelSelect.value = tier;
+          serviceLevelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        if (bookingSection) {
+          bookingSection.scrollIntoView({
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
     applyServiceType();
     applyJourneyType();
   })();
@@ -658,18 +886,40 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',
 ) ?>"></script>
+<?php /* New on this page, for the Date and Time fields added to the booking
+         form. Same script book-ride-online, city-tours and complaint-form
+         already load; it reproduces $pcInput verbatim so the enhanced pickers
+         line up with the plain fields beside them. */ ?>
+<script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
+  __DIR__ . '/assets/js/components/custom-datetime.js',
+) ?>"></script>
 
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initMeetGreetAutocomplete"
-  async defer></script>
+<?php /* ORDER MATTERS, AND IT USED TO BE WRONG HERE. The Maps tag below is
+         async defer with callback=initMeetGreetAutocomplete, and it used to sit
+         ABOVE these two files -- so on a cold load the SDK called the callback
+         before meet-greet-map.js had defined it. The browser threw
+         "initMeetGreetAutocomplete is not a function" (reproduced in a headless
+         run), and the self-invoke at the bottom of meet-greet-map.js could not
+         cover for it, because on that same cold load window.google.maps is not
+         ready yet and it returns early. Net effect: no Dublin-restricted
+         address autocomplete until something else re-ran it.
+
+         Defining the callback first makes it exist whenever the SDK fires.
+         Identical to the fix already applied to ride-fare-estimate.js on
+         /ride; do not move the SDK tag back above these. */ ?>
 <script src="<?= $assetPath ?>assets/js/components/dublin-places-autocomplete.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/dublin-places-autocomplete.js',
 ) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/meet-greet-map.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/meet-greet-map.js',
 ) ?>"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initMeetGreetAutocomplete"
+  async defer></script>
 
 <?php
+require __DIR__ . '/components/meet-greet/service-tiers.php';
+
 $sceneId = 'pcFlightBanner';
 $sceneGradient = 'linear-gradient(180deg,#0c1b2e 0%,#17395c 28%,#3f7cb0 55%,#bfe2f9 78%,#ffffff 100%)';
 $sceneSubjectSize = 'tw-w-[clamp(280px,44vw,620px)]';

@@ -1,6 +1,6 @@
 <?php
 $rideHeroImgWide =
-  'https://images.pexels.com/photos/4901945/pexels-photo-4901945.jpeg?auto=compress&cs=tinysrgb&w=1920';
+  'https://images.pexels.com/photos/4964920/pexels-photo-4964920.jpeg?auto=compress&cs=tinysrgb&w=1920';
 $rideHeroImgSmall =
   'https://images.pexels.com/photos/4901945/pexels-photo-4901945.jpeg?auto=compress&cs=tinysrgb&w=1000';
 

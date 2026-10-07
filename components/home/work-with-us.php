@@ -90,6 +90,16 @@ $driverPoints = [
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-2 lg:tw-gap-16">
 
       <div class="tw-border-0 tw-border-t tw-border-solid tw-border-white/15 tw-pt-8 lg:tw-border-t-0 lg:tw-border-r lg:tw-pr-16 lg:tw-pt-0">
+        <?php /* A mark for each column, so the two halves are told apart at a
+                 glance rather than only by reading their eyebrows. Glass over
+                 the photograph -- the same white/[0.06] + hairline treatment
+                 as the phone panel in components/shared/support-band.php, so
+                 it sits on the image instead of punching a solid hole in it.
+                 aria-hidden: the heading underneath already names the
+                 audience, so announcing "briefcase" adds nothing. */ ?>
+        <span class="tw-mb-5 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-text-powerlight tw-backdrop-blur-md" aria-hidden="true">
+          <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 14.15v4.25a2 2 0 01-2 2H5.75a2 2 0 01-2-2v-4.25m16.5 0a2 2 0 00-2-2H5.75a2 2 0 00-2 2m16.5 0v-1.75a2 2 0 00-2-2H5.75a2 2 0 00-2 2v1.75M9 12.75V9.5A2.25 2.25 0 0111.25 7.25h1.5A2.25 2.25 0 0115 9.5v3.25"/></svg>
+        </span>
         <p class="<?= pc_mb($pcEyebrowOnDark, 'tw-mb-2') ?>">Business</p>
         <h3 class="<?= pc_mb($pcH2OnDark, 'tw-mb-3') ?> tw-text-[clamp(1.5rem,2.2vw,1.875rem)]">Move your business forward.</h3>
         <p class="<?= $pcBodyOnDark ?> tw-mb-6 tw-max-w-[42ch]">
@@ -111,6 +121,14 @@ $driverPoints = [
       </div>
 
       <div class="tw-border-0 tw-border-t tw-border-solid tw-border-white/15 tw-pt-8 lg:tw-border-t-0 lg:tw-pt-0">
+        <span class="tw-mb-5 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-text-powerlight tw-backdrop-blur-md" aria-hidden="true">
+          <?php /* A steering wheel, not a car: the column is addressed to the
+                   person doing the driving, and a car is already the site's
+                   mark for a ride. Hub r=2.6 inside a r=9 rim, with the three
+                   spokes solved on that geometry (down, and out at 150/30
+                   degrees) so they meet both circles instead of floating. */ ?>
+          <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.6"/><path d="M12 14.6V21M9.75 10.7L4.2 7.5M14.25 10.7L19.8 7.5"/></svg>
+        </span>
         <p class="<?= pc_mb($pcEyebrowOnDark, 'tw-mb-2') ?>">Drive with PowerCabs</p>
         <h3 class="<?= pc_mb($pcH2OnDark, 'tw-mb-3') ?> tw-text-[clamp(1.5rem,2.2vw,1.875rem)]">Make the city your workplace.</h3>
         <p class="<?= $pcBodyOnDark ?> tw-mb-6 tw-max-w-[42ch]">

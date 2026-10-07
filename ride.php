@@ -167,10 +167,10 @@ $supportText =
   // htmlspecialchars, so an &mdash; entity would print as literal text; the
   // page is UTF-8 so the character itself passes through untouched.
   'Fares, bookings, a driver you cannot find, or something left in the car — call and speak to the PowerCabs team directly.';
-$supportNumber = '+353 89 972 8089';
-$supportTel = '+353899728089';
+$supportNumber = '+353 89 965 4467';
+$supportTel = '+353899654467';
 $supportHours = 'Customer support is available 24/7, every day of the year.';
-$supportWhatsapp = 'https://wa.me/353899728089';
+$supportWhatsapp = 'https://wa.me/+353899654467';
 /* a passenger in the back seat -- this band is the CUSTOMER line. The band stays dark; this only replaces the flat fill behind
    the scrim. See components/shared/support-band.php. */
 $supportImage = 'https://images.pexels.com/photos/4606338/pexels-photo-4606338.jpeg?auto=compress&cs=tinysrgb&w=1600';
