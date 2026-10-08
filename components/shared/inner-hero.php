@@ -161,7 +161,13 @@ $heroCrumbFirst = $heroVariant !== 'image';
 
         <h1 class="<?= $heroTitleClass ?>"><?= htmlspecialchars($heroTitle) ?></h1>
 
-        <?php if (!empty($heroDescription)): ?>
+        <?php /* $heroDescriptionHtml -- optional, and TRUSTED: it is echoed raw
+                 so a page can put a tel: or mailto: link in its hero line.
+                 Page-authored only; never assign request data to it.
+                 $heroDescription stays escaped and is the default. */ ?>
+        <?php if (!empty($heroDescriptionHtml)): ?>
+          <p class="<?= $heroLedeClass ?>"><?= $heroDescriptionHtml ?></p>
+        <?php elseif (!empty($heroDescription)): ?>
           <p class="<?= $heroLedeClass ?>"><?= htmlspecialchars($heroDescription) ?></p>
         <?php endif; ?>
 
@@ -241,6 +247,7 @@ unset(
   $heroCompact,
   $heroEyebrow,
   $heroDescription,
+  $heroDescriptionHtml,
   $heroActions,
   $heroImages,
   $heroImageAlt,

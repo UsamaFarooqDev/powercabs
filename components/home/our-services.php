@@ -1,24 +1,6 @@
 <?php
-/* Two of these four cards use genuinely PowerCabs-branded photography from
-   assets/img (Meet & Greet, Corporate Services). The remaining Pexels image
-   was checked against its own listing page before being used, rather than
-   picked on the strength of an id alone.
-
-   NOTE for whoever owns the brand assets: stock libraries have no
-   PowerCabs-liveried cars, so a roof sign, rear-screen or door decal can only
-   come from the company's own vehicle photography. Where a card here is not
-   using a branded asset, it is standing in until one exists. */
 $services = [
   [
-    // The core product, and until now the only one of the four missing from
-    // this grid -- the everyday ride was reachable from the hero CTA but had
-    // no card of its own, which read as if PowerCabs led with airport work.
-    //
-    // Image is service-city-tour.jpg, chosen by the client. Note the filename
-    // is a misnomer: the photograph is a driver in a suit holding open the
-    // rear door of a black saloon outside a glass office building -- there is
-    // no city-tour content in it. The alt text below describes what is
-    // actually in the frame rather than what the file is called.
     'href' => '/ride',
     'img' => 'assets/img/service-city-tour.jpg',
     'alt' => 'A driver holding open the rear door of a car for a passenger',
@@ -27,13 +9,6 @@ $services = [
     'desc' => 'Licensed, Garda-vetted drivers across Dublin, 24/7.',
   ],
   [
-    /* Was service-airport.png -- a generic silhouette of a man watching a
-       plane through a terminal window, no taxi and no branding.
-       meet-and-greet.png is the single best asset in the library for this
-       card and was sitting unused here: a PowerCabs-liveried car, a driver in
-       a PowerCabs jacket holding a passenger name board, under Dublin
-       Airport's bilingual "Eitiltí Isteach / Arrivals" sign. Branded AND
-       unmistakably Irish. */
     'href' => '/meet-greet',
     'img' => 'assets/img/service-airport.png',
     'alt' => 'A PowerCabs driver holding a welcome board at Dublin Airport arrivals',
@@ -42,11 +17,6 @@ $services = [
     'desc' => 'Flight-tracked pickups and drop-offs, any time of day.',
   ],
   [
-    /* services_rides.png -- PowerCabs-branded throughout: the route map on
-       the laptop and the printed plan, the mugs, the orange PowerCabs polo,
-       and a liveried model cab on the table. A business-account conversation
-       is exactly what this card links to, and the branding is real rather
-       than implied. */
     'href' => '/corporate-services',
     'img' => 'https://images.pexels.com/photos/4606396/pexels-photo-4606396.jpeg?auto=compress&cs=tinysrgb&w=1200',
     'alt' => 'A PowerCabs account manager reviewing a city route plan with a business team',
@@ -70,19 +40,11 @@ $services = [
     <div class="tw-mb-14 tw-grid tw-grid-cols-1 tw-items-end tw-gap-8 lg:tw-mb-20 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-5') ?>">Services We Offer</p>
-        <?php /* $pcH2, not $pcH2Display. The page was rendering section
-                 headings at 48px here and 44px everywhere else -- a 4px gap,
-                 which is too small to read as a deliberate step in the
-                 hierarchy and just makes the headings look inconsistently
-                 sized. $pcH2Display now appears exactly ONCE on the homepage,
-                 on the statement section, so 48px means "this is the page's
-                 statement" rather than "this heading happens to be bigger". */ ?>
         <h2 class="<?= $pcH2 ?>">Wherever you're heading</h2>
       </div>
       <div class="lg:tw-col-span-5 lg:tw-pt-10">
         <p class="tw-mb-6 tw-max-w-[46ch] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.62]">
-          From airport runs to boardroom travel and city sightseeing, we've got your
-          journey covered. Book with confidence, every time.
+          From airport transfers to executive travel and city sightseeing, PowerCabs gets you there with ease. Enjoy seamless booking, dependable service, and confidence in every journey.
         </p>
         <div class="tw-flex tw-flex-wrap tw-gap-3">
           <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/book-ride-online">Book Online</a>
