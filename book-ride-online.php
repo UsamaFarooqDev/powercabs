@@ -118,8 +118,13 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = 'Book Online';
 $heroTitleLight = 'Book Ride';
 $heroTitleBold = 'Online.';
-$heroDescription =
-  'Booking a ride with PowerCabs is now easier than ever. Use our simple and efficient online booking system to schedule your next trip in just a few steps.';
+/* HTML, not $heroDescription: the number is a tel: link, and $heroDescription
+   is escaped by inner-hero.php so an <a> in it would print as text. Same
+   tel:+35312030727 the footer dials -- the spaced version is for reading. */
+$heroDescriptionHtml =
+  'Power your next ride through PowerCabs app, our web booking form, WhatsApp booking assistance or simply by calling on ' .
+  '<a class="tw-font-medium tw-text-inherit tw-decoration-power/50 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 tw-text-power hover:tw-decoration-power" href="tel:+35312030727">+353 12 03 0727</a>' .
+  ', no matter which option you choose you&rsquo;ll get one reliable service to get you where you need to be.';
 $heroBgImage = 'https://images.pexels.com/photos/6945640/pexels-photo-6945640.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroVariant = 'split';
 $heroImageAlt = 'A passenger booking a ride on the PowerCabs app';
