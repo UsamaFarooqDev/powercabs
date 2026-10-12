@@ -13,12 +13,6 @@
            the detail these two chips could not carry.
 
    What is left is the set of claims this section is the only place to make. */
-// $driverPerks = [
-//   ['icon' => 'clock', 'label' => 'Pay Per Hour'],
-//   ['icon' => 'route', 'label' => 'Long Trips'],
-//   ['icon' => 'headset', 'label' => 'Irish Support'],
-//   ['icon' => 'bolt', 'label' => 'Fast Onboarding'],
-// ];
 
 function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
 {
@@ -89,14 +83,6 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
           With PowerCabs, you keep more of what you earn. The choice is yours.
         </p> -->
 
-        <!-- <div class="tw-mb-10 tw-flex tw-flex-wrap tw-gap-2.5">
-          <?php foreach ($driverPerks as $perk): ?>
-            <span class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-px-4 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-colors tw-duration-200 hover:tw-border-power/25">
-              <span class="tw-text-power"><?php pc_drive_icon($perk['icon']); ?></span>
-              <?= htmlspecialchars($perk['label']) ?>
-            </span>
-          <?php endforeach; ?>
-        </div> -->
 
         <a class="<?= $pcBtnPrimary ?> tw-whitespace-nowrap" href="<?= $assetPath ?>/ambassador-programme">
           <span>Explore Ambassador Programme</span>

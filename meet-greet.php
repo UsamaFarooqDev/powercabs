@@ -28,7 +28,6 @@ $mgOld = [
   'pickup_date' => '', // the date the flight lands / the car is wanted
   'pickup_time' => '',
   'special_requirements' => '',
-  'journey_type' => '', // 'one_way' | 'return'
   'service_level' => '', // key of $mgServiceLevels -- which tier was chosen
 ];
 
@@ -45,29 +44,6 @@ $mgServiceTypeLabels = [
   'pickup' => 'Pickup (collected from the airport)',
   'dropoff' => 'Dropping Off (taken to the airport)',
 ];
-$mgJourneyTypeLabels = ['one_way' => 'One Way', 'return' => 'Return / Both Ways'];
-// The single source for the fare that goes in the enquiry email. The same two
-// numbers reach the price cards in the dark panel, the journey options'
-// data-fare attributes, the fare box and the pay button -- all of them read
-// from here, so a price change is this one line. The <option> LABELS no longer
-// print it: they carry an arrow instead, so the dropdown does not quote a
-// second euro figure beside the tier cards higher up the page.
-$mgFares = ['one_way' => 10, 'return' => 18];
-
-/* ── Service levels ──────────────────────────────────────────────────────
-   The three tiers rendered by components/meet-greet/service-tiers.php and
-   offered as "Service Level" in the form below. Prices and feature lists are
-   exactly as supplied -- nothing here is inferred, because a tier list with
-   euro amounts on it is a price list.
-
-   HEADS UP, AND THIS NEEDS A DECISION: the page now prints two price scales.
-   $mgFares above (one way 10 / return 18) still drives the journey-type
-   <option> labels, the two cards in the dark panel, the fare in the enquiry
-   email and the Stripe button's label. The tiers below are per booking. They
-   are deliberately NOT wired into the fare or the payment link: that button
-   charges whatever the Stripe dashboard says, so guessing at a reconciliation
-   here would risk quoting one number and taking another. Decide which scale
-   is authoritative and the other should go. */
 $mgServiceLevels = [
   'standard' => [
     'eyebrow' => 'Standard',
@@ -123,9 +99,11 @@ $mgServiceLevels = [
   ],
 ];
 
-// From .env (STRIPE_MEET_GREET_LINK) -- see includes/env.php. Empty when not
-// configured, and every use below handles that.
-$mgStripeLink = PC_STRIPE_MEET_GREET_LINK;
+/* PC_STRIPE_MEET_GREET_LINK is no longer read here. This form is an enquiry
+   that is answered by email, so there is nothing to pay for at this point and
+   no pay button to render. The constant still exists in includes/env.php and
+   .env.example; nothing on the site uses it now, so it can be retired there
+   whenever the key is removed from the production .env. */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'meet_greet') {
   foreach ($mgOld as $key => $default) {
@@ -134,9 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
 
   if (!isset($mgServiceTypeLabels[$mgOld['service_type']])) {
     $mgOld['service_type'] = '';
-  }
-  if (!isset($mgJourneyTypeLabels[$mgOld['journey_type']])) {
-    $mgOld['journey_type'] = '';
   }
   if ($mgOld['pickup_terminal'] !== '' && !in_array($mgOld['pickup_terminal'], $mgPickupLocationOptions, true)) {
     $mgOld['pickup_terminal'] = '';
@@ -171,8 +146,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   }
   $mgTimeOk = (bool) preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $mgOld['pickup_time']);
 
-  // Optional, so an empty value stays empty rather than failing the form; a
-  // value that is not one of the three tiers is dropped instead of trusted.
+  // The plan is a visible required field now, not the optional hidden one it
+  // started as. Anything outside the three tiers is dropped rather than
+  // trusted, and an empty value then fails $mgMissing below.
   if ($mgOld['service_level'] !== '' && !isset($mgServiceLevels[$mgOld['service_level']])) {
     $mgOld['service_level'] = '';
   }
@@ -183,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgOld['phone'] === '' ||
     $mgOld['flight_number'] === '' ||
     $mgOld['service_type'] === '' ||
-    $mgOld['journey_type'] === '' ||
+    $mgOld['service_level'] === '' ||
     $mgOld['pickup_date'] === '' ||
     $mgOld['pickup_time'] === '' ||
     !$mgPassengersOk;
@@ -206,8 +182,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgFormStatus = 'error';
     $mgFormError = 'Please enter a valid email address.';
   } else {
-    $mgFare = $mgFares[$mgOld['journey_type']];
-
     $body =
       "New Meet & Greet enquiry from the PowerCabs website.\n\n" .
       "Name: {$mgOld['name']}\n" .
@@ -225,25 +199,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
         "Pickup Address: {$mgOld['pickup_address']}\n" . "Drop-off / Airport Terminal: {$mgOld['dropoff_terminal']}\n";
     }
 
+    /* The plan is required now, so there is no "(not selected)" branch left.
+       The listed price rides along so whoever answers the enquiry can see
+       which tier was quoted on the page without looking it up. */
     $mgLevel =
-      $mgOld['service_level'] !== ''
-        ? html_entity_decode($mgServiceLevels[$mgOld['service_level']]['eyebrow'], ENT_QUOTES, 'UTF-8') .
-          " (listed at \u{20AC}" .
-          $mgServiceLevels[$mgOld['service_level']]['price'] .
-          ')'
-        : '(not selected)';
+      html_entity_decode($mgServiceLevels[$mgOld['service_level']]['eyebrow'], ENT_QUOTES, 'UTF-8') .
+      " (listed at \u{20AC}" .
+      $mgServiceLevels[$mgOld['service_level']]['price'] .
+      ')';
 
     $body .=
       "Number of Passengers: {$mgOld['passengers']}\n" .
       "Pickup Date: {$mgOld['pickup_date']}\n" .
       "Pickup Time: {$mgOld['pickup_time']}\n" .
-      "Service Level: {$mgLevel}\n" .
-      "Journey Type: {$mgJourneyTypeLabels[$mgOld['journey_type']]}\n" .
-      "Fare: \u{20AC}{$mgFare}\n\n" .
+      "Plan: {$mgLevel}\n\n" .
       "Special Requirements:\n" .
       ($mgOld['special_requirements'] !== '' ? $mgOld['special_requirements'] : '-') .
-      "\n\n" .
-      'Payment Link: ' . ($mgStripeLink !== '' ? $mgStripeLink : '(not configured -- arrange payment directly)') . "\n";
+      "\n";
 
     $result = pc_send_mail('Meet & Greet enquiry: ' . $mgOld['name'], $body, [
       'name' => $mgOld['name'],
@@ -404,8 +376,8 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 
         <p class="tw-relative tw-z-[1] tw-mb-6 tw-max-w-[40ch] tw-text-[0.98rem] tw-leading-[1.7] tw-text-white/75">
           Your driver tracks your flight, waits for you inside arrivals with a
-          name board, and helps with your bags. Simple, fixed pricing --
-          no surprises.
+          name board, and helps with your bags. Choose a plan above and we
+          confirm the rest by email.
         </p>
 
         <ul class="tw-relative tw-z-[1] tw-m-0 tw-mb-6 tw-flex tw-flex-col tw-gap-3.5 tw-p-0">
@@ -428,7 +400,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                  Same glass treatment as the cards it sits above -- it is
                  panel furniture, not a warning, so it does not get a red or
                  orange alert box. */ ?>
-        <div class="tw-relative tw-z-[1] tw-mt-7 tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4 tw-backdrop-blur-md sm:tw-p-5">
+        <div class="tw-relative tw-z-[1] tw-mt-auto tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4 tw-pt-4 tw-backdrop-blur-md sm:tw-p-5">
           <p class="tw-mb-1.5 tw-flex tw-items-center tw-gap-2 tw-text-[0.72rem] tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-powerlight">
             <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             Free cancellation
@@ -441,17 +413,11 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           </p>
         </div>
 
-        <div class="tw-relative tw-z-[1] tw-mt-auto tw-grid tw-grid-cols-2 tw-gap-3 tw-pt-6">
-          <div class="tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4">
-            <span class="tw-text-xs tw-font-semibold tw-text-white/70">One Way</span>
-            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;<?= $mgFares['one_way'] ?></span>
-          </div>
-          <div class="tw-relative tw-flex tw-flex-col tw-gap-1 tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(255,122,0,0.4)] tw-bg-[rgba(232,89,12,0.18)] tw-p-4">
-            <span class="tw-absolute tw-right-3.5 -tw-top-2.5 tw-rounded-full tw-bg-power tw-px-2 tw-py-1 tw-text-[0.6rem] tw-font-bold tw-uppercase tw-tracking-[0.05em] tw-text-white">Best Value</span>
-            <span class="tw-text-xs tw-font-semibold tw-text-white/70">Return / Both Ways</span>
-            <span class="tw-text-2xl tw-font-extrabold tw-tracking-tight">&euro;<?= $mgFares['return'] ?></span>
-          </div>
-        </div>
+        <?php /* The One Way / Return price cards that used to close this panel
+                 are gone with the rest of the fare machinery. The cancellation
+                 note above now carries mt-auto in their place, so it still sits
+                 at the foot of the column rather than leaving a gap where the
+                 cards were. */ ?>
       </div>
 
       <!-- RIGHT: booking form -->
@@ -527,37 +493,22 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             </select>
           </div>
 
+          <?php /* The plan, where Journey Type used to be. It is the choice the
+                   tier cards further up the page are selling, so it belongs in
+                   the form rather than in the hidden input it was carried in
+                   before. Same id and name, so the "Select Standard / Assist /
+                   First Class" buttons in the tier section still drive it. */ ?>
           <div class="<?= $mgFieldThird ?>">
-            <label class="pc-required <?= $mgLabelClass ?>" for="mgJourneyType">Journey Type</label>
-            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgJourneyType" name="journey_type" required>
-              <option value="" disabled <?= $mgOld['journey_type'] === ''
+            <label class="pc-required <?= $mgLabelClass ?>" for="mgServiceLevel">Plan</label>
+            <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgServiceLevel" name="service_level" required>
+              <option value="" disabled <?= $mgOld['service_level'] === ''
                 ? 'selected'
-                : '' ?>>Select journey type</option>
-              <?php /* data-icon draws a real SVG in the enhanced dropdown --
-                       an origin dot and an arrow for one way, two opposed
-                       arrows for a round trip. See OPTION_ICONS in
-                       assets/js/components/custom-select.js; the keys must
-                       match. The text arrows these replaced were the best a
-                       bare <option> can manage, and they read as punctuation
-                       rather than as a picture of the journey.
-
-                       The LABEL stays plain text on purpose: that is what the
-                       native <select> falls back to with JS off, and what a
-                       screen reader announces.
-
-                       No price here. data-fare still carries it, the fare box
-                       and the pay button still print it, and keeping it out
-                       stops the dropdown quoting a second euro figure beside
-                       the tier cards further up the page.
-
-                       SAFE TO RELABEL: applyJourneyType() builds its own
-                       strings from option.value, never from this text. */ ?>
-              <option value="one_way" data-icon="one-way" data-fare="<?= $mgFares['one_way'] ?>" <?= $mgOld['journey_type'] === 'one_way'
-                ? 'selected'
-                : '' ?>>One Way</option>
-              <option value="return" data-icon="return" data-fare="<?= $mgFares['return'] ?>" <?= $mgOld['journey_type'] === 'return'
-                ? 'selected'
-                : '' ?>>Return / Both Ways</option>
+                : '' ?>>Select your plan</option>
+              <?php foreach ($mgServiceLevels as $mgLevelKey => $mgLevelData): ?>
+                <option value="<?= htmlspecialchars($mgLevelKey) ?>" <?= $mgOld['service_level'] === $mgLevelKey
+                  ? 'selected'
+                  : '' ?>><?= $mgLevelData['eyebrow'] ?> &mdash; &euro;<?= (int) $mgLevelData['price'] ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
 
@@ -637,18 +588,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               name="pickup_time" value="<?= htmlspecialchars($mgOld['pickup_time']) ?>" required>
           </div>
 
-          <?php /* The Service Level SELECT is gone. This hidden input keeps its
-                   name and id so the "Select Standard / Assist / First Class"
-                   buttons in the tier section still record which card was
-                   clicked, and the enquiry email still names it -- without that
-                   those buttons would scroll and nothing more, and the office
-                   would not know which tier the customer chose. input[type=hidden]
-                   is display:none per the UA stylesheet, so it takes no grid
-                   cell and the row above is unaffected. Delete this line and
-                   the two service_level references in the POST block if the
-                   tier choice should not be captured at all. */ ?>
-          <input type="hidden" id="mgServiceLevel" name="service_level"
-            value="<?= htmlspecialchars($mgOld['service_level']) ?>">
 
           <div class="<?= $mgFieldFull ?>">
             <label class="<?= $mgLabelClass ?>" for="mgSpecialRequirements">Special Requirements</label>
@@ -656,52 +595,27 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               rows="3"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
           </div>
 
-          <!-- <div class="md:tw-col-span-2">
-            <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-3 tw-rounded-2xl tw-bg-[#fbe6d4] tw-px-5 tw-py-4">
-              <div>
-                <span class="tw-block tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.07em] tw-text-powerdark">Your Fare</span>
-                <span class="tw-text-[0.82rem] tw-font-semibold tw-text-ink" id="mgFareHint">Select a journey type above</span>
+          <?php /* What the Secure Payment panel used to occupy. Nothing is
+                   charged here any more, so the closing note says what DOES
+                   happen -- it is an enquiry, answered by email -- rather than
+                   leaving the form to end on a bare button. */ ?>
+          <div class="<?= $mgFieldFull ?> tw-pt-1">
+            <div class="tw-flex tw-flex-col tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-paper-soft tw-p-5 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
+              <div class="tw-flex tw-items-start tw-gap-3">
+                <span class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-peach tw-text-power">
+                  <svg class="tw-h-[1.05rem] tw-w-[1.05rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 6.75l9.07 5.66a1.5 1.5 0 001.36 0l9.07-5.66M3.75 19.5h16.5a1.5 1.5 0 001.5-1.5V6A1.5 1.5 0 0020.25 4.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5z"/></svg>
+                </span>
+                <span>
+                  <span class="tw-block tw-text-[0.95rem] tw-font-bold tw-leading-snug tw-text-ink">No payment needed now</span>
+                  <span class="<?= $pcBodySm ?> tw-mt-0.5 tw-block">Send your details and we&rsquo;ll confirm your Meet &amp; Greet by email.</span>
+                </span>
               </div>
-              <span class="tw-text-3xl tw-font-extrabold tw-tracking-tight tw-text-power" id="mgFareValue">&euro;&ndash;</span>
+              <!-- tw-appearance-none tw-border-0 strip the native <button> chrome -- see book-ride-online.php. -->
+              <button type="submit" class="tw-inline-flex tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-border-0 tw-bg-ink tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black">
+                <span>Send Enquiry</span>
+                <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
+              </button>
             </div>
-          </div> -->
-
-          <div class="<?= $mgFieldFull ?>">
-            <div class="tw-rounded-2xl tw-border tw-border-dashed tw-border-[rgba(232,89,12,0.35)] tw-bg-paper-soft tw-px-5 tw-py-[1.1rem]">
-              <div class="tw-mb-2 tw-flex tw-items-center tw-gap-2">
-                <svg class="tw-h-4 tw-w-4 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
-                <span class="tw-font-bold tw-text-ink">Secure Payment</span>
-              </div>
-              <?php /* STRIPE_MEET_GREET_LINK missing from .env: no pay button
-                       rather than one that goes nowhere. The enquiry still sends
-                       -- it never required payment first. */ ?>
-              <?php if ($mgStripeLink === ''): ?>
-              <p class="tw-mb-0 tw-text-[0.95rem] tw-leading-[1.55] tw-text-ink/70">
-                Online payment is unavailable right now. Send your enquiry below and we'll confirm how to pay.
-              </p>
-              <?php else: ?>
-              <a href="<?= htmlspecialchars($mgStripeLink) ?>" target="_blank" rel="noopener noreferrer"
-                class="<?= $pcBtnPrimary ?> tw-flex tw-w-full"
-                id="mgPayBtn">
-                <svg class="tw-hidden tw-h-3.5 tw-w-3.5 sm:tw-inline-block" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3H6a1.5 1.5 0 00-1.5 1.5v9A1.5 1.5 0 006 21h12a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0018 9h-1.5V6a4.5 4.5 0 00-4.5-4.5zm3 7.5V6a3 3 0 10-6 0v3h6z" clip-rule="evenodd"/></svg>
-                <span id="mgPayBtnLabel" class="tw-hidden sm:tw-inline">Select journey type to see fare</span>
-                <span id="mgPayBtnLabelShort" class="sm:tw-hidden">Select your journey</span>
-              </a>
-              <p class="tw-mb-0 tw-mt-2 tw-text-ink/60">
-                You'll be taken to our secure Stripe payment page to complete payment for the
-                fare shown above. Submitting the enquiry below does not require payment first -
-                your booking is never lost if you pay afterwards.
-              </p>
-              <?php endif; ?>
-            </div>
-          </div>
-
-          <div class="<?= $mgFieldFull ?> tw-pt-2">
-            <!-- tw-appearance-none tw-border-0 strip the native <button> chrome -- see book-ride-online.php. -->
-            <button type="submit" class="tw-inline-flex tw-appearance-none tw-items-center tw-gap-2 tw-rounded-full tw-border-0 tw-bg-ink tw-px-6 tw-py-2 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black">
-              <span>Send Enquiry</span>
-              <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
-            </button>
           </div>
 
           <!-- .alert-success / .alert-danger stay as bare classnames -- the contract ajax-forms.js parses out of the returned HTML. -->
@@ -728,11 +642,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
     if (!form) return;
 
     var serviceTypeSelect = document.getElementById('mgServiceType');
-    var journeyTypeSelect = document.getElementById('mgJourneyType');
-    var fareHint = document.getElementById('mgFareHint');
-    var fareValue = document.getElementById('mgFareValue');
-    var payBtnLabel = document.getElementById('mgPayBtnLabel');
-    var payBtnLabelShort = document.getElementById('mgPayBtnLabelShort');
 
     var groups = {
       pickup: form.querySelectorAll('[data-mg-group="pickup"]'),
@@ -762,85 +671,61 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
       setGroupState('dropoff', value === 'dropoff');
     }
 
-    function applyJourneyType() {
-      var option = journeyTypeSelect.options[journeyTypeSelect.selectedIndex];
-      var fare = option ? option.getAttribute('data-fare') : null;
-
-      // EVERY node this touches is optional, and that is the whole bug.
-      //
-      // The pay button is not rendered when STRIPE_MEET_GREET_LINK is unset, so
-      // its two labels were already guarded. The fare box was not -- and when
-      // the "Your Fare" block above was commented out, #mgFareValue and
-      // #mgFareHint stopped existing. The first line of this function then
-      // threw a TypeError on null, which killed it BEFORE setPayLabels() ran,
-      // so the pay button was stuck on "Select journey type to see fare" for
-      // every journey type. Nothing looked broken; the label just never moved.
-      //
-      // Guarded the same way now, so commenting either block in or out cannot
-      // take the other one down with it.
-      function setText(node, value) {
-        if (node) node.textContent = value;
-      }
-      function setPayLabels(full, short) {
-        setText(payBtnLabel, full);
-        setText(payBtnLabelShort, short);
-      }
-
-      if (!fare) {
-        setText(fareValue, '€–');
-        setText(fareHint, 'Select a journey type above');
-        setPayLabels('Select a journey type to see your fare', 'Select your journey');
-        return;
-      }
-
-      var label = option.value === 'return' ? 'Return / Both Ways' : 'One Way';
-      // The phone label drops "Return / " -- "Both Ways" already says it, and
-      // the full string wraps to two lines inside the button at 360px.
-      var shortLabel = option.value === 'return' ? 'Both Ways' : 'One Way';
-      setText(fareValue, '€' + fare);
-      setText(fareHint, label + ' fare');
-      setPayLabels('Pay €' + fare + ' — ' + label, 'Pay €' + fare + ' — ' + shortLabel);
-    }
 
     serviceTypeSelect.addEventListener('change', applyServiceType);
-    journeyTypeSelect.addEventListener('change', applyJourneyType);
 
     /* "Select Standard / Assist / First Class" in the tier section above.
        Each button carries the tier key, so this sets the form's Service Level
        to it and brings the form into view -- the button does what its label
        says rather than just scrolling.
 
-       mgServiceLevel is a hidden input now, not a <select>, so there is no
-       visible control to keep in step -- the value simply rides along with the
-       enquiry. The change event is still dispatched so anything that listens
-       for form state (today: nothing) sees the update rather than silently
-       missing a programmatic assignment, which never fires one by itself.
+       The change event is dispatched by hand because custom-select.js renders
+       the visible control from the native <select> and only redraws on that
+       event; a programmatic assignment never fires one by itself, so without
+       it the enhanced field would keep showing "Select your plan".
 
-       Listeners go on the buttons, which live inside <main> and are discarded
-       by a PJAX swap along with everything bound to them -- so re-running this
-       script on the next visit cannot stack handlers. */
-    var tierButtons = document.querySelectorAll('[data-mg-tier]');
-    var serviceLevelSelect = document.getElementById('mgServiceLevel');
-    var bookingSection = document.getElementById('pcMeetGreetBook');
+       BOUND AFTER THE DOM IS PARSED, NOT INLINE. This script sits at the
+       bottom of the booking section, and the tier cards are rendered BELOW it
+       -- so at the moment this file runs, querySelectorAll('[data-mg-tier]')
+       matches nothing and every button silently did nothing. Waiting for
+       DOMContentLoaded makes the binding independent of where the tier section
+       is required, which has already moved once.
 
-    Array.prototype.forEach.call(tierButtons, function (btn) {
-      btn.addEventListener('click', function () {
-        var tier = btn.getAttribute('data-mg-tier');
-        if (serviceLevelSelect) {
-          serviceLevelSelect.value = tier;
-          serviceLevelSelect.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-        if (bookingSection) {
-          bookingSection.scrollIntoView({
-            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-            block: 'start'
-          });
-        }
+       The listener on `document` is removed by once:true the first time it
+       fires, so it cannot accumulate across PJAX navigations the way a
+       permanent document listener would. On a PJAX visit readyState is already
+       'complete', so the else branch runs and no document listener is added at
+       all. The click listeners themselves go on the buttons, which are inside
+       <main> and die with it. */
+    function bindTierButtons() {
+      var tierButtons = document.querySelectorAll('[data-mg-tier]');
+      var serviceLevelSelect = document.getElementById('mgServiceLevel');
+      var bookingSection = document.getElementById('pcMeetGreetBook');
+
+      Array.prototype.forEach.call(tierButtons, function (btn) {
+        btn.addEventListener('click', function () {
+          var tier = btn.getAttribute('data-mg-tier');
+          if (serviceLevelSelect) {
+            serviceLevelSelect.value = tier;
+            serviceLevelSelect.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+          if (bookingSection) {
+            bookingSection.scrollIntoView({
+              behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+              block: 'start'
+            });
+          }
+        });
       });
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindTierButtons, { once: true });
+    } else {
+      bindTierButtons();
+    }
 
     applyServiceType();
-    applyJourneyType();
   })();
 </script>
 

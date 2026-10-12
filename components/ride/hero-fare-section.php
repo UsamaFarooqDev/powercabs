@@ -33,35 +33,77 @@ $addonCardClass =
   'tw-flex tw-w-full tw-cursor-pointer tw-items-center tw-gap-2.5 tw-rounded-lg tw-border tw-border-solid tw-border-ink/15 tw-px-3.5 tw-py-2.5 tw-text-left tw-text-sm tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-ink has-[:checked]:tw-bg-ink has-[:checked]:tw-text-white';
 ?>
 <!-- ============ "Your Taxi. Your Choice." ============ -->
+<?php
+/* Eight points now, not four. A wrapped row of eight pills runs to three
+   ragged lines and reads as a tag cloud, so the section is two columns: the
+   argument on the left, the list beside it in a fixed 2-up grid. */
+/* One icon per line, not eight identical ticks. A repeated check mark carries
+   no information past the first row -- it only says "this is a list", which
+   the list already says. These say what each line is about. */
+$rideChoicePoints = [
+  ['icon' => 'badge', 'label' => 'Licensed drivers'],
+  ['icon' => 'sparkle', 'label' => 'Clean vehicles'],
+  ['icon' => 'crosshair', 'label' => 'Real-time tracking'],
+  ['icon' => 'clock', 'label' => 'Available 24/7'],
+  ['icon' => 'paw', 'label' => 'Pet-friendly rides'],
+  ['icon' => 'hourglass', 'label' => 'Book per hour'],
+  ['icon' => 'compass', 'label' => 'City tours'],
+  ['icon' => 'search', 'label' => 'Lost &amp; found assistance'],
+];
+?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-  <?php /* Measures reset for the wider column. Both of these were sized for
-           half a grid -- 42ch of body text inside a 620px column. At the
-           container's full width that same 42ch left two thirds of the line
-           empty and the paragraph read as a stranded caption. 66ch is still a
-           reading measure, just one matched to the space it now has. */ ?>
-  <h2 class="<?= $pcH2Display ?> tw-max-w-[22ch]">
-    Your Taxi. Your Choice. <span class="tw-text-power">Irish-owned.</span>
-  </h2>
+    <?php /* items-center, not items-start: the card is shorter than the copy
+             beside it, and top-aligned it left a long tail of empty space
+             under it. Centred, the two columns read as a pair. */ ?>
+    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16">
 
-  <p class="tw-mb-7 tw-max-w-[66ch] tw-text-[1.05rem] tw-leading-[1.7] tw-text-ink/60">
-    PowerCabs is an Irish taxi company based in Dublin, connecting you
-    with licensed, Garda-vetted drivers for everyday journeys, airport
-    transfers, business travel and more.
-  </p>
+      <div class="lg:tw-col-span-7">
+        <h2 class="<?= $pcH2Display ?> tw-max-w-[22ch]">
+          Your Taxi. Your Choice. <span class="tw-text-power">Irish-owned.</span>
+        </h2>
 
-  <div class="tw-flex tw-flex-wrap tw-gap-2">
-    <?php foreach ([
-      'Licensed &amp; Garda-vetted drivers',
-      'Available 24/7',
-      'Real-time tracking',
-      'Irish local support',
-    ] as $badge): ?>
-      <span class="tw-inline-flex tw-items-center tw-gap-1.5 tw-rounded-full tw-border tw-border-solid tw-border-black/[0.1] tw-px-3.5 tw-py-2 tw-text-[0.8rem] tw-font-semibold tw-text-ink">
-        <span class="tw-text-power"><?php pc_ride_hero_icon('check', 'tw-h-4 tw-w-4'); ?></span> <?= $badge ?>
-      </span>
-    <?php endforeach; ?>
-  </div>
+        <?php /* The tagline as its own line in ink rather than buried at the
+                 head of the paragraph -- it is a claim, and it was carrying a
+                 comma splice into the sentence that follows it. */ ?>
+        <p class="tw-mb-3 tw-max-w-[60ch] tw-text-[1.1875rem] tw-font-semibold tw-leading-[1.5] tw-tracking-[-0.005em] tw-text-ink">
+          PowerCabs &mdash; the Irish way to travel.
+        </p>
+
+        <p class="tw-mb-4 tw-max-w-[62ch] tw-text-[1.05rem] tw-leading-[1.7] tw-text-ink/60">
+          With an effortless booking process, professional Garda-vetted drivers
+          and a responsive support team ready to assist you by email, WhatsApp
+          or through the PowerCabs app, every journey is designed around your
+          convenience and peace of mind.
+        </p>
+
+        <p class="tw-mb-0 tw-max-w-[62ch] tw-text-[1.05rem] tw-leading-[1.7] tw-text-ink/60">
+          Whether it&rsquo;s your daily commute, an airport transfer or an
+          important business trip, PowerCabs makes getting there easier than
+          ever.
+        </p>
+      </div>
+
+      <div class="lg:tw-col-span-5">
+        <?php /* A bordered panel rather than loose pills: eight items need a
+                 container or they read as debris beside a block of copy. */ ?>
+        <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-x-5 tw-gap-y-3 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-6 tw-shadow-[0_1px_3px_rgba(28,20,16,0.05)] sm:tw-grid-cols-2 lg:tw-grid-cols-1 xl:tw-grid-cols-2">
+          <?php foreach ($rideChoicePoints as $point): ?>
+            <li class="tw-group/pt tw-flex tw-items-center tw-gap-3 tw-text-[0.9rem] tw-font-semibold tw-leading-snug tw-text-ink">
+              <?php /* Rounded square, not a circle: these are eight different
+                       marks at different widths, and a square tile gives each
+                       the same optical weight where a circle crops the wider
+                       ones. */ ?>
+              <span class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-peach tw-text-power tw-transition-colors tw-duration-200 group-hover/pt:tw-bg-power group-hover/pt:tw-text-white motion-reduce:tw-transition-none">
+                <?php pc_ride_hero_icon($point['icon'], 'tw-h-[1.05rem] tw-w-[1.05rem]'); ?>
+              </span>
+              <?= $point['label'] ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+
+    </div>
   </div>
 </section>
 
