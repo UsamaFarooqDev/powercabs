@@ -45,6 +45,10 @@ $megaSubmenu =
 $megaSubitem =
   'tw-block tw-py-1.5 tw-text-[0.875rem] tw-font-medium tw-text-ink/[0.58] tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-text-power focus-visible:tw-text-power';
 
+$megaCtaPrimary = $pcBtnSm . ' tw-border-0 tw-bg-power tw-text-white hover:tw-bg-powerdark';
+$megaCtaGhost =
+  $pcBtnSm . ' tw-border tw-border-solid tw-border-ink/15 tw-bg-white tw-text-ink hover:tw-bg-paper';
+
 ?>
 <!DOCTYPE html>
 <?php  ?>
@@ -101,40 +105,16 @@ $megaSubitem =
                     <div class="tw-grid tw-grid-cols-1 tw-gap-x-10 tw-gap-y-2 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
 
                       <div class="pc-mega-col">
-                        <p class="<?= $megaColTitle ?>">Get Started</p>
+                        <p class="<?= $megaColTitle ?>">Our Services</p>
 
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/book-ride-online">
-                          <span class="<?= $megaItemTitle ?>">Book Ride Online</span>
-                          <span class="<?= $megaItemDesc ?>">Instant online cab booking</span>
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/ride">
+                          <span class="<?= $megaItemTitle ?>">Ride with Us</span>
+                          <span class="<?= $megaItemDesc ?>">Everyday taxis across Ireland</span>
                         </a>
 
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/download-our-app">
-                          <span class="<?= $megaItemTitle ?>">Download App</span>
-                          <span class="<?= $megaItemDesc ?>">Get the PowerCabs app</span>
-                        </a>
-
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/about-us">
-                          <span class="<?= $megaItemTitle ?>">About Us</span>
-                          <span class="<?= $megaItemDesc ?>">Our story and mission</span>
-                        </a>
-                      </div>
-
-                      <div class="pc-mega-col">
-                        <p class="<?= $megaColTitle ?>">Business</p>
-
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/corporate-services">
-                          <span class="<?= $megaItemTitle ?>">Corporate Services</span>
-                          <span class="<?= $megaItemDesc ?>">Business travel accounts Ireland</span>
-                        </a>
-
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/business-solutions">
-                          <span class="<?= $megaItemTitle ?>">PowerCabs Business Solutions</span>
-                          <span class="<?= $megaItemDesc ?>">Card terminals and payments</span>
-                        </a>
-
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/wheelchair-accessible-taxis">
-                          <span class="<?= $megaItemTitle ?>">Wheelchair Accessible Taxis</span>
-                          <span class="<?= $megaItemDesc ?>">Inclusive rides for everyone</span>
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/meet-greet">
+                          <span class="<?= $megaItemTitle ?>">Meet &amp; Greet</span>
+                          <span class="<?= $megaItemDesc ?>">Airport pickups, done right</span>
                         </a>
 
                         <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/pets-taxi">
@@ -142,9 +122,9 @@ $megaSubitem =
                           <span class="<?= $megaItemDesc ?>">Travel with your dog or cat</span>
                         </a>
 
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/meet-greet">
-                          <span class="<?= $megaItemTitle ?>">Meet &amp; Greet</span>
-                          <span class="<?= $megaItemDesc ?>">Airport pickups, done right</span>
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/wheelchair-accessible-taxis">
+                          <span class="<?= $megaItemTitle ?>">Wheelchair Accessible Taxis</span>
+                          <span class="<?= $megaItemDesc ?>">Inclusive rides for everyone</span>
                         </a>
 
                         <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/city-tours">
@@ -154,7 +134,31 @@ $megaSubitem =
                       </div>
 
                       <div class="pc-mega-col">
-                        <p class="<?= $megaColTitle ?>">Drivers</p>
+                        <p class="<?= $megaColTitle ?>">For Business</p>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/business">
+                          <span class="<?= $megaItemTitle ?>">Business Travel</span>
+                          <span class="<?= $megaItemDesc ?>">Accounts for teams and guests</span>
+                        </a>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/corporate-services">
+                          <span class="<?= $megaItemTitle ?>">Corporate Services</span>
+                          <span class="<?= $megaItemDesc ?>">Business travel accounts Ireland</span>
+                        </a>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/business-solutions">
+                          <span class="<?= $megaItemTitle ?>">Business Solutions</span>
+                          <span class="<?= $megaItemDesc ?>">Card terminals and payments</span>
+                        </a>
+                      </div>
+
+                      <div class="pc-mega-col">
+                        <p class="<?= $megaColTitle ?>">For Drivers</p>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/drive">
+                          <span class="<?= $megaItemTitle ?>">Drive with PowerCabs</span>
+                          <span class="<?= $megaItemDesc ?>">Earnings, hours and sign-up</span>
+                        </a>
 
                         <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/ambassador-programme">
                           <span class="<?= $megaItemTitle ?>">Ambassador Programme</span>
@@ -180,10 +184,8 @@ $megaSubitem =
                             <span class="<?= $megaItemDesc ?>">Licensing and onboarding resources</span>
                           </button>
                           <div class="<?= $megaSubmenu ?>">
-                            <?php  ?>
                             <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/driver-training"
                               data-pc-driver-training-link data-no-pjax>Driver Training</a>
-                            <?php  ?>
                             <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>doc/NTA_SPSV_OfficialManual_v0.14.pdf"
                               target="_blank" rel="noopener" data-no-pjax>SPSV Manual</a>
                           </div>
@@ -191,7 +193,17 @@ $megaSubitem =
                       </div>
 
                       <div class="pc-mega-col">
-                        <p class="<?= $megaColTitle ?>">Policies &amp; Safety</p>
+                        <p class="<?= $megaColTitle ?>">Company</p>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/about-us">
+                          <span class="<?= $megaItemTitle ?>">About Us</span>
+                          <span class="<?= $megaItemDesc ?>">Our story and mission</span>
+                        </a>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/sustainability">
+                          <span class="<?= $megaItemTitle ?>">Sustainability &amp; Environment</span>
+                          <span class="<?= $megaItemDesc ?>">Our environmental commitment</span>
+                        </a>
 
                         <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/terms-conditions">
                           <span class="<?= $megaItemTitle ?>">Terms &amp; Conditions</span>
@@ -203,15 +215,10 @@ $megaSubitem =
                           <span class="<?= $megaItemDesc ?>">How we handle data</span>
                         </a>
 
-                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/sustainability">
-                          <span class="<?= $megaItemTitle ?>">Sustainability &amp; Environment</span>
-                          <span class="<?= $megaItemDesc ?>">Our environmental commitment</span>
-                        </a>
-
                         <div class="pc-mega-nested">
                           <button type="button" class="pc-mega-item-parent <?= $megaItem ?>">
                             <span class="<?= $megaItemTitle ?> tw-flex tw-items-center tw-justify-between">
-                              Safety
+                              Safety Tips
                               <svg class="<?= $megaChevron ?>" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
                             </span>
                             <span class="<?= $megaItemDesc ?>">Tips for staying safe</span>
@@ -222,7 +229,7 @@ $megaSubitem =
                             <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a>
                           </div>
                         </div>
-
+                        
                       </div>
                     </div>
                   </div>
