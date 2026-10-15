@@ -1,27 +1,4 @@
 <?php
-/**
- * Social proof, immediately under the hero -- the position Bolt's business
- * page puts it in, and for the same reason: the first thing a buyer wants
- * after a promise is evidence that somebody else took it.
- *
- * A STATIC GRID, NOT A MARQUEE. This scrolled two copies of the list past a
- * mask on a 46s loop. Three problems with that here:
- *   - the homepage already shows these same logos as a static grid
- *     (components/home/trusted-by.php), so the site had two treatments of one
- *     asset and they did not look related;
- *   - a moving strip asks to be watched, and a logo wall is meant to be
- *     glanced at on the way past;
- *   - the track is wider than the viewport by design, which is why every
- *     overflow audit on this page flagged twelve elements it then had to
- *     explain away.
- *
- * Sizing is per logo for the same reason it is on the homepage: the two-bucket
- * cap sized the FILES, and several of these carry heavy baked-in whitespace,
- * so a flat 34px cap rendered about 10px of actual letterform on Penneys and
- * Cineworld. Judge a new value by the height of the MARK, not the file. The
- * class strings are literals in this array because a composed
- * `tw-max-h-[{$n}px]` is invisible to the Tailwind scanner.
- */
 $bizTrustLogos = [
   ['file' => 'Boots.png', 'alt' => 'Boots', 'h' => 'tw-max-h-[30px]'],
   ['file' => 'boylesports.png', 'alt' => 'BoyleSports', 'h' => 'tw-max-h-[30px]'],
@@ -42,9 +19,7 @@ $bizTrustLogos = [
 ?>
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <?php /* A real sentence at reading size, not a 0.875rem uppercase label.
-             This line is the claim the logos below are evidence for, so it
-             gets to be read rather than skimmed. */ ?>
+    <?php  ?>
     <p class="tw-mx-auto tw-mb-12 tw-max-w-[42ch] tw-text-center tw-text-[1.0625rem] tw-font-semibold tw-text-ink">
       Businesses across Ireland already move their people with PowerCabs.
     </p>

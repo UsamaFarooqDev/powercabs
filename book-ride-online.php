@@ -60,13 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
   } else {
-    // The client only ever supplies the trip-dependent inputs (distance/
-    // duration, from Google Directions) -- the fare itself is always
-    // recomputed here, never trusted from the submitted form. Whatever
-    // fare the browser displayed was itself sourced from
-    // api/estimate_fare.php, so this recompute should normally just
-    // confirm it -- but the server is what actually goes in the email.
-    if (
+if (
       $old['distance_km'] !== '' &&
       is_numeric($old['distance_km']) &&
       $old['duration_min'] !== '' &&
@@ -118,9 +112,7 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = 'Book Online';
 $heroTitleLight = 'Book Ride';
 $heroTitleBold = 'Online.';
-/* HTML, not $heroDescription: the number is a tel: link, and $heroDescription
-   is escaped by inner-hero.php so an <a> in it would print as text. Same
-   tel:+35312030727 the footer dials -- the spaced version is for reading. */
+
 $heroDescriptionHtml =
   'Power your next ride through PowerCabs app, our web booking form, WhatsApp booking assistance or simply by calling on ' .
   '<a class="tw-font-medium tw-text-inherit tw-decoration-power/50 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 tw-text-power hover:tw-decoration-power" href="tel:+35312030727">+353 1 2030 727</a>' .
@@ -131,7 +123,6 @@ $heroImageAlt = 'A passenger booking a ride on the PowerCabs app';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
-<!-- ============ Booking Steps ============ -->
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-mb-10 tw-text-center">
@@ -141,12 +132,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="tw-grid tw-grid-cols-2 tw-gap-3">
         <?php
-        /* Each step carries an icon that depicts the action, not a repeat of
-           the step number -- the numeral is already the watermark behind the
-           card, so a numbered chip on top of it said the same thing twice.
-           Icons match the ones the rest of the site uses for these concepts
-           (pin for a location, car for a vehicle, clock for a time, tick for
-           a confirmation). */
+        
         $bookingSteps = [
           ['n' => 1, 'icon' => 'pin', 'title' => 'Enter Your Pickup and Drop-off Location'],
           ['n' => 2, 'icon' => 'car', 'title' => 'Select Your Ride'],
@@ -173,39 +159,9 @@ require __DIR__ . '/components/shared/inner-hero.php';
           endswitch;
         }
         ?>
-        <?php /* Each card was a flat white box carrying a heavy drop shadow and
-                 a ghost numeral, with the title floated against nothing:
-
-                 - the chip at the top holds an icon for the action, while the
-                   watermark behind carries the step number -- two different
-                   pieces of information rather than the number twice;
-                 - the shadow drops to the site's hairline + 1px recipe and the
-                   lift moves to hover, so four cards side by side stop
-                   competing for depth;
-                 - the title is pinned to the bottom with mt-auto, so all four
-                   baselines line up however long each label runs. */ ?>
+        <?php  ?>
         <?php foreach ($bookingSteps as $step): ?>
           <div class="tw-group tw-relative tw-flex tw-h-full tw-flex-col tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-4 tw-text-left tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] sm:tw-p-5 tw-transition-[transform,box-shadow,border-color] tw-duration-300 tw-ease-out hover:-tw-translate-y-1 hover:tw-border-power/25 hover:tw-shadow-[0_18px_40px_-12px_rgba(28,20,16,0.18)] motion-reduce:tw-transition-none motion-reduce:hover:tw-translate-y-0">
-            <!-- Ghost numeral, bottom-right, inset equally from both edges
-                 (right-4 / bottom-4) rather than bled off the corner, and light
-                 enough to read as a watermark. Hidden from AT: it carries
-                 nothing the title does not.
-
-                 The title below carries sm:pr-[4.5rem] BECAUSE of this
-                 position. The numeral occupies roughly 70px at the
-                 bottom-right, which is exactly where the longest label's last
-                 line lands ("...and Drop-off Location") -- without that padding
-                 the two overlap and the text becomes unreadable. Move or resize
-                 this numeral and that padding has to move with it.
-
-                 Below sm the numeral moves to the TOP-right and shrinks, and
-                 the title's right padding goes away with it. These cards sit
-                 two-across even on a 360px phone, so each one is ~160px wide;
-                 4.5rem of that reserved for a watermark left about 50px for the
-                 label, which broke "Enter Your Pickup and Drop-off Location"
-                 into a column of single words. Top-right is free space on a
-                 phone -- the icon chip is top-LEFT and the title is pinned to
-                 the bottom with mt-auto -- so nothing has to give. -->
             <span class="tw-pointer-events-none tw-absolute tw-right-3 tw-top-3 tw-select-none tw-text-[2.25rem] tw-font-black tw-leading-none tw-text-power/[0.06] tw-transition-colors tw-duration-300 group-hover:tw-text-power/[0.09] motion-reduce:tw-transition-none sm:tw-bottom-4 sm:tw-right-4 sm:tw-top-auto sm:tw-text-[3.5rem] sm:tw-text-power/[0.05]" aria-hidden="true">
               <?= str_pad($step['n'], 2, '0', STR_PAD_LEFT) ?>
             </span>
@@ -222,31 +178,13 @@ require __DIR__ . '/components/shared/inner-hero.php';
       </div>
 
       <div class="tw-hidden tw-items-center tw-justify-center tw-p-5 lg:tw-flex">
-        <!-- rounded-[2rem] matches the radius the rest of the site uses on
-             image panels; the soft shadow stops the artwork sitting flat on
-             the section background now that the step cards beside it are on a
-             hairline rather than a heavy drop shadow. -->
         <img src="<?= $assetPath ?>assets/img/booking-ride.webp" class="tw-h-auto tw-w-full tw-max-w-[420px] tw-rounded-[2rem] tw-shadow-[0_18px_45px_-12px_rgba(28,20,16,0.22)]" alt="Book your ride">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ Booking Form (floating over a full-bleed map) ============ -->
-<!-- The map fills the section on its own (`lg:inset-0`), so it can never
-     render wider/taller than the section -- no overflow clipping needed
-     here. That matters because clipping would also cut off the bottom of
-     the Ride Type / Date / Time dropdown panels opened from the form's last
-     rows; leaving overflow unset lets those render past the section's own
-     bottom edge, same as anywhere else on the site. -->
 <section class="tw-relative tw-min-h-[280px]">
-  <!-- tw-overflow-hidden is load-bearing, not decoration. The Maps SDK sizes
-       its own child div in pixels from whatever this container measured when
-       the map initialised. If that happens a frame before the page grows tall
-       enough for a vertical scrollbar, the child keeps the pre-scrollbar width
-       and pushes the document ~10px wider than the viewport -- an intermittent
-       horizontal scroll on mobile (reproduced roughly 1 load in 6 at 390px).
-       Clipping here bounds the child to the container whatever it caches. -->
   <div id="pcRideMap" class="tw-relative tw-h-[280px] tw-w-full tw-overflow-hidden lg:tw-absolute lg:tw-inset-0 lg:tw-h-auto lg:tw-w-auto"></div>
 
   <div class="tw-relative tw-z-[1] tw-flex tw-justify-end">
@@ -258,20 +196,8 @@ require __DIR__ . '/components/shared/inner-hero.php';
         </div>
 
         <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
-          <?php // This is the canonical PowerCabs field recipe -- the one every
+          <?php 
 
-// other form on the site copies, and the one the shared JS
-          // (custom-select.js / custom-datetime.js) reproduces verbatim in
-          // its CLS.trigger string, so the enhanced Ride Type / Date / Time
-          // triggers next to these fields line up with them pixel for
-          // pixel. border-radius 6px, border #dee2e6, font-size 16px, and
-          // on focus just a border-color swap to --pc-orange-light with no
-          // ring/box-shadow, so nothing focuses with a heavier glow than
-          // anything else. text-base (1rem) + leading-normal (1.5) +
-          // py-1.5 (0.375rem) + px-3 (0.75rem) + border is what makes the
-          // 38px height. Change it here and it has to change in
-          // custom-datetime.js's CLS.trigger and custom-select.js's trigger
-          // className too.
           $inputClass = $pcInput; ?>
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brName">Full Name</label>
@@ -289,11 +215,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
               value="<?= htmlspecialchars($old['phone']) ?>" required>
           </div>
           <div>
-            <!-- pc-custom-select-enhance stays as a bare functional hook --
-                 custom-select.js (shared with meet-greet.php) progressively
-                 enhances any <select> carrying this class into a styled
-                 dropdown, which it now styles with Tailwind utilities of
-                 its own; there is no .pc-custom-select* stylesheet. -->
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brRideType">Ride Type</label>
             <select class="<?= $inputClass ?> pc-custom-select-enhance" id="brRideType" name="ride_type" required>
               <option value="" disabled <?= $old['ride_type'] === '' ? 'selected' : '' ?>>Select ride type</option>
@@ -308,10 +229,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brPickup">Pickup Location</label>
             <input type="text" class="<?= $inputClass ?>" id="brPickup" name="pickup_location"
               value="<?= htmlspecialchars($old['pickup_location']) ?>" autocomplete="off" required>
-            <!-- tw-hidden is the exact class string
-                 dublin-places-autocomplete.js (shared with meet-greet.php)
-                 hardcodes to show/hide this warning -- renaming it means
-                 editing that shared file too. -->
             <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="brPickupWarning">Please choose a pickup address within Dublin.</div>
           </div>
           <div>
@@ -321,7 +238,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
             <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="brDropoffWarning">Please choose a drop-off address within Dublin.</div>
           </div>
           <div>
-            <!-- pc-custom-datetime-enhance: same story as pc-custom-select-enhance above, driven by custom-datetime.js. -->
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brDate">Date</label>
             <input type="date" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="brDate" name="ride_date"
               value="<?= htmlspecialchars($old['ride_date']) ?>" required>
@@ -332,10 +248,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
               value="<?= htmlspecialchars($old['ride_time']) ?>" required>
           </div>
 
-          <!-- book-ride-map.js toggles this box via the native `hidden`
-               property (el.hidden = true/false), not a CSS class, so no
-               display utility is needed for the on/off switch itself -- [&:not([hidden])]:flex only supplies the
-               *layout* for while it's shown. -->
           <div class="tw-col-span-full tw-hidden tw-flex-wrap tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 [&:not([hidden])]:tw-flex" id="pcFareEstimate" hidden>
             <span class="tw-flex tw-h-10 tw-w-10 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#198754] tw-text-white">
               <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.25" y="6" width="19.5" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M5.25 9v.008M18.75 15v.008"/></svg>
@@ -358,22 +270,12 @@ require __DIR__ . '/components/shared/inner-hero.php';
           <input type="hidden" name="fare_eur" id="pcFareEur" value="<?= htmlspecialchars($old['fare_eur']) ?>">
 
           <div class="tw-col-span-full tw-pt-2">
-            <!-- tw-appearance-none tw-border-0 strip the native <button> chrome
-                 (Chrome's UA stylesheet gives buttons a default 2px outset
-                 border + native rendering that Preflight would normally
-                 reset -- disabled site-wide here) -- without it the button
-                 rendered ~10px taller than an identically-classed <a>. -->
             <button type="submit" class="<?= $pcBtnPrimary ?>">
               <span>Confirm Booking</span>
               <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
             </button>
           </div>
 
-          <!-- .alert-success / .alert-danger stay as bare classnames -- they
-               are the exact contract ajax-forms.js parses out of the
-               returned HTML (doc.querySelector('.alert-success' / '.alert-danger'))
-               to decide the toast it shows; everything visual here is
-               Tailwind. -->
           <?php if ($formStatus === 'success'): ?>
             <div class="tw-col-span-full">
               <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your booking request has been sent.
@@ -407,20 +309,13 @@ require __DIR__ . '/components/shared/inner-hero.php';
   __DIR__ . '/assets/js/components/custom-datetime.js',
 ) ?>"></script>
 
-<!-- ============ Benefits ============ -->
 <?php $bookingBenefits = [
   ['icon' => 'cash', 'title' => 'No Extra Charge', 'desc' => 'No extra charge for pre-booking your ride.'],
   ['icon' => 'x-circle', 'title' => 'No Cancellation Fee', 'desc' => 'Plans change -- cancel with no extra cost.'],
   ['icon' => 'calendar', 'title' => 'Book In Advance', 'desc' => 'Schedule your ride well ahead of time.'],
   ['icon' => 'smile', 'title' => 'Hassle-Free', 'desc' => 'A smooth, stress-free journey, start to finish.'],
 ]; ?>
-<?php /* Four features, not a four-cell table -- the same rebuild as the
-         highlights row on about-us.php, and deliberately identical to it: both
-         are "four short reasons" blocks with no heading over them, and having
-         two different treatments for the same job across two pages is how the
-         site drifted in the first place. $pcStepGrid for the row, $pcStepItem
-         for the 2px rule that opens each column, $pcFeatureIcon for the tinted
-         chip. No wording has changed. */ ?>
+<?php  ?>
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="<?= $pcStepGrid ?>">
@@ -448,6 +343,5 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
-
 
 ?>

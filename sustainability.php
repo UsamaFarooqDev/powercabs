@@ -40,7 +40,6 @@ $ecoAreas = [
   ],
 ];
 
-/** Inline SVG icons for this page's eco-initiative cards. */
 function pc_eco_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 {
   switch ($icon):
@@ -106,7 +105,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
   </div>
 </section>
 
-<!-- ============ How We Reduce Our Environmental Impact ============ -->
 <section class="tw-relative tw-overflow-hidden tw-bg-[#12301a] tw-py-[clamp(3.5rem,7vw,5.5rem)] tw-text-center">
   <img src="https://images.pexels.com/photos/38054700/pexels-photo-38054700.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600"
     alt="" aria-hidden="true" loading="lazy" decoding="async"
@@ -142,20 +140,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
   </div>
 </section>
 
-<?php /* A full-width green gradient banner headed "Powered by 100% Renewable
-         Energy" closed this page. It was removed for two reasons.
-
-         Its claim is not new: "100% renewable energy infrastructure" is
-         already the fourth bullet of the Green Hosting principle above, where
-         it is attributable (Hosting Ireland) rather than a slogan. Restated
-         at banner size and detached from its source, it reads as marketing
-         rather than policy -- and a marketing banner is precisely what a
-         published environmental policy should not end on. Its second
-         sentence ("from remote-first working to green hosting...") is a
-         summary of the six principles directly above it.
-
-         The page now ends where a policy should: on the last principle,
-         Continuous Improvement. */ ?>
+<?php  ?>
 
 <?php
 require __DIR__ . '/components/shared/app-download-banner.php';

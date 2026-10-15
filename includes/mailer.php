@@ -35,24 +35,6 @@ function pc_smtp_dot_stuff($text) {
     return implode("\r\n", $lines);
 }
 
-/**
- * Sends one email with optional attachments.
- *
- * @param string $subject
- * @param string $bodyText Plain-text body.
- * @param array  $replyTo  ['name' => ..., 'email' => ...] -- set as the
- *                          Reply-To header so replying goes straight to
- *                          the person who submitted the form.
- * @param array  $attachments List of ['tmp_path' => ..., 'filename' => ...,
- *                          'mime' => ...].
- * @param string $to Optional recipient, defaulting to PC_MAIL_TO -- where all
- *                          seventeen existing callers send, because every form
- *                          on the site mails the office. The driver
- *                          application is the first thing that has to mail the
- *                          APPLICANT instead (its 6-digit verification code).
- *                          Added last so every existing call still works.
- * @return array ['success' => bool, 'error' => string|null]
- */
 function pc_send_mail($subject, $bodyText, $replyTo = [], $attachments = [], $to = null) {
     $to = ($to !== null && $to !== '') ? $to : PC_MAIL_TO;
     $socket = null;
@@ -69,7 +51,7 @@ function pc_send_mail($subject, $bodyText, $replyTo = [], $attachments = [], $to
         }
         stream_set_timeout($socket, 15);
 
-        pc_smtp_read_response($socket); // initial 220 greeting
+        pc_smtp_read_response($socket); 
         pc_smtp_command($socket, 'EHLO powercabs.ie', '250');
         pc_smtp_command($socket, 'AUTH LOGIN', '334');
         pc_smtp_command($socket, base64_encode(PC_SMTP_USER), '334');

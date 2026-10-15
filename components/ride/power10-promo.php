@@ -1,12 +1,4 @@
 <?php
-// The Power10 promo runs on a deliberate red accent, not the site orange --
-// it is a limited-time campaign and is meant to read as separate from the
-// brand furniture around it. Tailwind's red-600/red-700 are exactly the two
-// reds this campaign used (#dc2626 / #b91c1c), so they are used directly.
-//
-// pc-reveal / is-visible stay as bare classnames with no CSS behind them:
-// they are the scroll-reveal hook initScrollReveal() in assets/js/main.js
-// queries for. The transition itself is Tailwind, on the elements below.
 $p10Reveal =
   'pc-reveal tw-relative tw-z-[1] tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none';
 ?>
@@ -17,7 +9,6 @@ $p10Reveal =
       <span class="tw-pointer-events-none tw-absolute tw-bottom-[-22%] tw-left-[-8%] tw-z-0 tw-h-80 tw-w-80 tw-rounded-full tw-bg-[radial-gradient(circle,#fbe4cf_0%,transparent_70%)] tw-opacity-60" aria-hidden="true"></span>
 
       <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 lg:tw-grid-cols-2 lg:tw-gap-12">
-        <!-- LEFT: promotional content -->
         <div class="<?= $p10Reveal ?>">
           <span class="tw-mb-3 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-red-600/[0.08] tw-py-[0.45rem] tw-pl-3 tw-pr-[0.9rem] tw-text-[0.72rem] tw-font-extrabold tw-uppercase tw-tracking-[0.06em] tw-text-red-700">
             <span class="tw-h-[0.45rem] tw-w-[0.45rem] tw-shrink-0 tw-animate-pc-dot-pulse tw-rounded-full tw-bg-red-600 motion-reduce:tw-animate-none" aria-hidden="true"></span>
@@ -32,8 +23,6 @@ $p10Reveal =
           </p>
 
           <div class="tw-mb-4 tw-flex tw-flex-wrap tw-items-center tw-gap-3">
-            <!-- Dashed border is the "coupon" cue -- keep it, and note the
-                 button must NOT carry tw-border-0 or it disappears. -->
             <button type="button" class="tw-inline-flex tw-cursor-pointer tw-appearance-none tw-items-center tw-gap-[0.6rem] tw-rounded-2xl tw-border-[1.5px] tw-border-dashed tw-border-red-600 tw-bg-red-600/[0.08] tw-px-[1.1rem] tw-py-[0.65rem] tw-text-red-700 tw-transition-[background-color,transform] tw-duration-[250ms] hover:tw-bg-red-600/[0.14] focus-visible:tw-bg-red-600/[0.14] active:tw-translate-y-0 motion-reduce:tw-transition-none" id="power10CopyBtn" data-code="POWER10" aria-label="Copy promo code POWER10">
               <span class="tw-hidden tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.05em] tw-opacity-75 sm:tw-block">Promo Code</span>
               <span class="tw-text-[1.05rem] tw-font-extrabold tw-tracking-[0.06em]">POWER10</span>
@@ -49,8 +38,6 @@ $p10Reveal =
           </a>
         </div>
 
-        <!-- RIGHT: promotional image. 0.12s behind the copy so the two halves
-             reveal in sequence rather than together. -->
         <div class="<?= $p10Reveal ?> [transition-delay:0.12s]">
           <div class="tw-group tw-relative tw-mx-auto tw-max-w-[320px] lg:tw-max-w-[420px]">
             <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-rotate-[6deg] tw-scale-[0.96] tw-rounded-[clamp(1.25rem,3vw,2rem)] tw-bg-[linear-gradient(135deg,#dc2626_0%,#fbe4cf_100%)] tw-opacity-25" aria-hidden="true"></span>

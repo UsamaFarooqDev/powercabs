@@ -3,23 +3,11 @@ $old ??= ['contact_name' => '', 'business_name' => '', 'business_email' => '', '
 $formStatus ??= null;
 $formError ??= '';
 
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<!-- id is the jump target for the page's closing CTA (business.php) and for
-     any "request an account" link elsewhere -- scroll-margin keeps the panel
-     clear of the fixed navbar when jumped to. -->
-<?php /* Sized for the hero it now sits in (components/business/hero.php), not
-         for the half-width section it used to fill: rounded-2xl rather than
-         2rem, p-6/p-8 rather than p-6/p-11, and a deeper shadow because it
-         floats on a photograph instead of on a tinted band. tw-h-full is gone
-         -- in the hero's grid it would have stretched the card to the height
-         of the copy beside it.
-
-         The heading is an <h2>: the hero's <h1> is beside it, and the section
-         this card used to live in supplied an <h2> that has gone with it. */ ?>
+<?php  ?>
 <div id="bizAccountForm" class="tw-scroll-mt-[calc(var(--pc-navbar-h,110px)+2rem)] tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:tw-p-8">
   <h2 class="tw-mb-1.5 tw-text-xl tw-font-bold tw-tracking-[-0.01em] tw-text-ink sm:tw-text-2xl">Request a Business Account</h2>
   <p class="<?= $pcBodySm ?> tw-mb-6">Tell us a little about your business and our team will be in touch.</p>

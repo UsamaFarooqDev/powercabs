@@ -117,6 +117,13 @@ module.exports = {
       // defined. Always use the named tw-animate-pc-* utilities, paired with
       // an arbitrary [animation-delay:...] when staggering.
       keyframes: {
+        // The step that has just filled in on /driver-training. A short pop
+        // rather than a loop: it marks a moment, it is not decoration.
+        'pc-pop': {
+          '0%': { transform: 'scale(1)' },
+          '45%': { transform: 'scale(1.06)' },
+          '100%': { transform: 'scale(1)' },
+        },
         'pc-float': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-8px)' },
@@ -143,6 +150,7 @@ module.exports = {
         },
       },
       animation: {
+        'pc-pop': 'pc-pop 0.5s ease-out 1',
         'pc-float': 'pc-float 6s ease-in-out infinite',
         'pc-float-fast': 'pc-float 5s ease-in-out infinite',
         'pc-fade-up': 'pc-fade-up 0.7s ease both',

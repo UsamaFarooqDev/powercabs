@@ -1,12 +1,4 @@
 <?php
-/* Doubles as the 410 Gone page. 410.php sets the four $err* variables below
-   and requires this file, rather than duplicating ~100 lines of markup for
-   a page that differs only in its status code and three strings.
-
-   Both statuses are served by ErrorDocument in .htaccess, which has already
-   set the status by the time PHP runs -- http_response_code() below is what
-   makes the page correct when it is reached any other way (the php -S dev
-   server, or a direct request). */
 $errStatus = $errStatus ?? 404;
 $errEyebrow = $errEyebrow ?? 'Error 404';
 $errHeading = $errHeading ?? 'This page took a wrong turn.';
@@ -17,13 +9,8 @@ $pageTitle = $pageTitle ?? '404 - Page Not Found | PowerCabs';
 $pageDescription = $pageDescription ?? "The page you're looking for doesn't exist or may have been moved.";
 $assetPath = '/';
 
-// This page stands alone -- no header.php, so no <main>, no nav, no footer
-// (a 404 should not invite the user back into a broken navigation). It still
-// pulls in the design system so its container and buttons are the same
-// recipes every other page uses, rather than a one-off.
 require __DIR__ . '/includes/design-system.php';
 
-// Somewhere useful to go next, rather than a dead end.
 $notFoundLinks = [
   ['href' => '/ride', 'label' => 'Book a Ride', 'desc' => 'Fares, ride types and quick booking'],
   ['href' => '/drive', 'label' => 'Drive with Us', 'desc' => 'Earn on your own schedule'],
@@ -50,13 +37,10 @@ $notFoundLinks = [
 <?php require __DIR__ . '/components/shared/page-loader.php'; ?>
 
 <section class="tw-relative tw-flex tw-min-h-screen tw-items-center tw-overflow-hidden tw-bg-paper-soft tw-py-16 md:tw-py-24">
-  <!-- Two soft brand glows, the same device the Business hero uses -- enough
-       warmth that the page reads as PowerCabs rather than a server error. -->
 
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
 
-      <!-- LEFT: the message -->
       <div class="tw-order-2 lg:tw-order-1">
         <p class="<?= $pcEyebrow ?>"><?= htmlspecialchars($errEyebrow) ?></p>
 
@@ -79,8 +63,6 @@ $notFoundLinks = [
           </a>
         </div>
 
-        <!-- Rather than dead-ending, offer the four places people actually
-             want. Same card language as the rest of the site. -->
         <p class="tw-mb-3 tw-text-xs tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-ink/50">Or try one of these</p>
         <div class="tw-grid tw-grid-cols-1 tw-gap-2 sm:tw-grid-cols-2">
           <?php foreach ($notFoundLinks as $link): ?>
@@ -96,7 +78,6 @@ $notFoundLinks = [
         </div>
       </div>
 
-      <!-- RIGHT: illustration, with a ghost 404 behind it -->
       <div class="tw-order-1 lg:tw-order-2">
         <div class="tw-relative tw-mx-auto tw-max-w-[520px]">
           <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-select-none tw-items-center tw-justify-center tw-text-[clamp(9rem,22vw,16rem)] tw-font-black tw-leading-none tw-tracking-tight tw-text-ink/[0.04]" aria-hidden="true"><?= htmlspecialchars($errGhost) ?></span>

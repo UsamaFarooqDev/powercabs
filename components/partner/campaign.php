@@ -1,7 +1,4 @@
 <?php
-// "More miles. More visibility." -- combines what used to be two separate
-// sections (Benefits + Who Can Join) into the reference design's single
-// campaign-card + info-sidebar layout.
 $partnerBenefits = ['Grow your business', 'Increased bookings', 'Dedicated support', 'Weekly payments'];
 $partnerWhyChoose = ['Marketing support', 'Technology platform', 'Driver &amp; fleet management'];
 

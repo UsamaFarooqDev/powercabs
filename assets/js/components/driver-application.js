@@ -1,33 +1,3 @@
-/**
- * Drive page: the eight-step driver application.
- *
- * Progressive enhancement, not a takeover. The markup in
- * components/drive/join-family-form.php renders all eight fieldsets; this file
- * hides every one but the current step and wires the three points where the
- * browser has to talk to /driver-apply:
- *
- *   step 1 -> `start`   validates the details and emails a 6-digit code
- *   step 2 -> `verify`  checks that code
- *   files  -> `upload`  one request per file, as it is chosen
- *   step 8 -> `submit`  creates the account and writes the drivers row
- *
- * Steps 3-7 are validated locally and cost no request, so the applicant only
- * waits where something real is happening.
- *
- * WHY THE FILES GO UP IMMEDIATELY. Seven files held back to the end would make
- * the final submit a ~35MB multipart POST, which is over the default
- * post_max_size on most shared hosting -- it would fail late, after the
- * applicant had filled in everything. Sending each file as it is picked keeps
- * every request small and reports a bad file while the applicant is still
- * looking at it.
- *
- * PJAX NOTE -- this is a page-specific <script src> inside <main>, so pjax.js
- * re-executes the whole file on every visit to /drive. Every listener below is
- * attached to a node inside the form, and those are destroyed when PJAX
- * replaces <main>'s innerHTML, so the listeners die with them. Nothing here
- * touches window or document, and nothing sets a timer. Keep it that way: a
- * document-level listener added here would stack up one per navigation.
- */
 (function () {
   var LAST_STEP = 8;
 
@@ -64,8 +34,7 @@
       errorBox.textContent = message;
       errorBox.classList.toggle('is-ok', !!isOk);
       errorBox.classList.add('is-shown');
-      // The message replaces the panel's own guidance, so move focus to it --
-      // otherwise a screen reader user tabs on past the reason it failed.
+
       errorBox.setAttribute('tabindex', '-1');
       errorBox.focus({ preventScroll: true });
     }
@@ -94,9 +63,7 @@
       count.textContent = 'Step ' + current + ' of ' + LAST_STEP;
       hint.textContent = HINTS[current];
       back.classList.toggle('is-shown', current > 1);
-      // Step 3 is the first one after the address is verified. Going back into
-      // the code panel from there would offer to re-verify something already
-      // verified, so the door closes behind it.
+
       back.disabled = current === 3;
       back.classList.toggle('tw-opacity-40', current === 3);
       nextLabel.textContent = current === LAST_STEP ? 'Submit application' : 'Continue';
@@ -120,7 +87,6 @@
         });
     }
 
-    /** Native validity for the visible panel only -- hidden steps never block. */
     function localValid() {
       var panel = form.querySelector('[data-app-step="' + current + '"]');
       var fields = panel.querySelectorAll('input, select, textarea');
@@ -141,7 +107,6 @@
       return true;
     }
 
-    /* ------------------------------------------------- reveal password */
     form.querySelectorAll('[data-app-reveal]').forEach(function (button) {
       var field = form.querySelector('#' + button.getAttribute('data-app-reveal'));
       if (!field) return;
@@ -155,20 +120,16 @@
         eyeOff.classList.toggle('tw-hidden', !reveal);
         button.setAttribute('aria-pressed', reveal ? 'true' : 'false');
         button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
-        // Clicking the button takes focus off the field; hand it back with the
-        // caret at the end, so revealing does not cost you your place.
+
         var end = field.value.length;
         field.focus();
         try {
           field.setSelectionRange(end, end);
         } catch (err) {
-          // Older engines refuse setSelectionRange on some input types; the
-          // focus above is the part that matters.
         }
       });
     });
 
-    /* ------------------------------------------------------------ uploads */
     var uploaded = {};
 
     form.querySelectorAll('[data-app-upload]').forEach(function (input) {
@@ -205,8 +166,6 @@
           if (slot === 'profile') {
             var avatar = form.querySelector('[data-app-avatar]');
             if (avatar) {
-              // Object URL rather than the Supabase one: it is already in
-              // memory, so the preview does not wait on a round trip.
               avatar.innerHTML = '';
               var img = document.createElement('img');
               img.src = URL.createObjectURL(file);
@@ -219,7 +178,6 @@
       });
     });
 
-    /* -------------------------------------------------------------- steps */
     function advance() {
       current += 1;
       render();
@@ -287,8 +245,7 @@
         post(body).then(function (res) {
           setBusy(false);
           if (!res.ok) return showError(res.error);
-          // Swap the whole form for the confirmation: re-submitting would only
-          // fail now that the session has been cleared server-side.
+
           for (var i = 0; i < steps.length; i++) steps[i].hidden = true;
           next.parentNode.hidden = true;
           done.classList.add('is-shown');

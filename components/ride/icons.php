@@ -1,11 +1,4 @@
 <?php
-/**
- * The /ride icon set, in its own file because two components draw from it now:
- * components/ride/fare-widget.php (which moved into the hero) and
- * components/ride/hero-fare-section.php (which kept the trust bar and the
- * Quick Book modal). Both are required on the same request, so the definition
- * is guarded -- a second declaration would be a fatal, not a warning.
- */
 if (!function_exists('pc_ride_hero_icon')):
 function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 {
@@ -22,17 +15,12 @@ function pc_ride_hero_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
     case 'badge': ?>
       <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
     <?php break;
-    /* The four below were added for the "Your Taxi. Your Choice." point list,
-       which needed a distinct mark per line rather than eight identical ticks.
-       Stroked at 1.5 like the rest of the set so they sit together.
-
-       A plain PHP comment, not `?> <?php ... ?> <?php`: inside a switch, going
-       out to HTML mode between two cases is a parse error, not just untidy. */
+    
     case 'sparkle': ?>
       <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3l1.9 4.6L19.5 9.5l-4.6 1.9L13 16l-1.9-4.6L6.5 9.5l4.6-1.9L13 3z"/><path d="M6 15l.9 2.1 2.1.9-2.1.9L6 21l-.9-2.1L3 18l2.1-.9L6 15z"/></svg>
     <?php break;
     case 'paw': ?>
-      <?php /* Filled, not stroked: a stroked paw closes into a blob at 14px. */ ?>
+      <?php  ?>
       <svg class="<?= $cls ?>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="7.4" cy="8.6" rx="2.1" ry="2.7"/><ellipse cx="12" cy="6.9" rx="2.2" ry="2.9"/><ellipse cx="16.6" cy="8.6" rx="2.1" ry="2.7"/><path d="M12 11.4c2.8 0 5.2 2.1 5.2 4.5 0 2.1-1.8 3.4-3.8 3.4-.9 0-1.3-.3-1.4-.3s-.5.3-1.4.3c-2 0-3.8-1.3-3.8-3.4 0-2.4 2.4-4.5 5.2-4.5z"/></svg>
     <?php break;
     case 'hourglass': ?>

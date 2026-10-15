@@ -1,15 +1,4 @@
 <?php
-/**
- * "Why EUR15?" -- what the fee buys, stated as five concrete actions, plus
- * the two sentences that stop it being mistaken for a ransom on the item:
- * the fee is for the work, and recovery cannot be guaranteed.
- *
- * This is where the pay button now lives (it used to sit beside the form),
- * because a visitor should meet the price with the explanation, not next to
- * a submit button.
- *
- * Reads $lostItemFee and $lostItemFeeLink from lost-item-report.php.
- */
 $lostItemFeeCovers = [
   'Review the information you provide',
   'Investigate the journey information available to us',
@@ -18,7 +7,6 @@ $lostItemFeeCovers = [
   'Help you through the recovery process',
 ];
 ?>
-<!-- ============ Lost item: the investigation fee ============ -->
 <section class="<?= $pcSection ?>" id="investigation">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
@@ -56,8 +44,7 @@ $lostItemFeeCovers = [
         </ul>
 
         <?php if ($lostItemFeeLink === ''): ?>
-          <?php /* STRIPE_LOST_ITEM_LINK missing from .env -- say so rather than
-                   render a pay button that goes nowhere. */ ?>
+          <?php  ?>
           <p class="tw-mb-0 tw-rounded-xl tw-bg-paper tw-px-4 tw-py-3 tw-text-center tw-text-[0.9rem] tw-font-semibold tw-text-ink/70">
             Online payment is unavailable right now. Send your report below and we&rsquo;ll confirm how to pay.
           </p>

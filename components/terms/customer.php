@@ -1,16 +1,4 @@
 <?php
-/**
- * Customer Terms -- the passenger/customer panel of /terms-conditions.
- *
- * GENERATED FROM: PowerCabs Customer 06 10 26.docx
- * Converted verbatim -- headings, paragraphs and lists only, no edits to
- * the wording. If the Word file is reissued, regenerate this rather than
- * patching it by hand, or the page and the signed document drift apart.
- *
- * Section ids are 'c-N' by position, so an inserted clause renumbers the
- * anchors below it. They are in-page only and nothing external links to
- * them.
- */
 $termsPanelId = 'customerTerms';
 $termsIntro = 'Terms and Conditions for Customers and Passengers of PowerCabs Ireland Limited';
 $termsMeta = 'Effective Date: 06/10/2026 &middot; Last Updated: 06/10/2026';

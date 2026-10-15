@@ -1,9 +1,4 @@
 <?php
-// Same six benefits as before, unchanged -- only the presentation changes.
-// Order kept as-is; the first card becomes the visually dominant "feature"
-// tile and the rest fill out an asymmetric bento grid around it. Every
-// card except the feature tile now carries a real photo instead of a flat
-// white background.
 $benefits = [
   ['icon' => 'card', 'title' => 'Free Card Terminals', 'items' => ['Save &euro;120/year', '0.8% transaction fee', 'Accept more card payments', 'Increase earnings'], 'image' => null],
   ['icon' => 'car', 'title' => 'Exclusive Vehicle Branding', 'items' => ['Roof branding', 'Door branding', 'Rear branding', 'More passenger visibility'], 'image' => 'ambassador-program.png'],
@@ -12,8 +7,7 @@ $benefits = [
   ['icon' => 'bag', 'title' => 'Swag Pack', 'items' => ['Jacket or Gilet', 'PowerCabs merchandise'], 'image' => 'https://images.pexels.com/photos/6044143/pexels-photo-6044143.jpeg?auto=compress&cs=tinysrgb&w=900'],
   ['icon' => 'headset', 'title' => 'Dedicated Support', 'items' => ['Priority assistance', 'Dedicated Ambassador team'], 'image' => 'https://images.pexels.com/photos/8867630/pexels-photo-8867630.jpeg?auto=compress&cs=tinysrgb&w=900'],
 ];
-// Bento sizing per card index -- one dominant feature, two "wide" cards,
-// two standard cards. Keeps the grid asymmetric instead of six equal boxes.
+
 $bizAmbSpans = ['feature', 'wide', 'normal', 'normal', 'wide', 'wide'];
 
 function pc_amb_icon(string $icon, string $cls): void
@@ -40,15 +34,7 @@ function pc_amb_icon(string $icon, string $cls): void
   endswitch;
 }
 ?>
-<!-- #pcAmbBenefits and .pc-amb-card stay as bare classnames -- JS selector
-     hooks for ambassador-page.js's IntersectionObserver, which toggles
-     .is-visible on each card as it scrolls into view (one-shot: it
-     unobserves once revealed). The reveal itself is Tailwind's
-     `[&.is-visible]:` arbitrary variant below, no custom CSS needed. -->
-<?php /* The warm radial wash lives on the wrapper in ambassador-programme.php,
-         shared with registration.php below -- see the note there for why it
-         cannot be declared per-section without a seam. This section keeps its
-         own decorative overlays, which ARE anchored to its own box. */ ?>
+<?php  ?>
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6.5rem)]" id="pcAmbBenefits">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-opacity-[0.035] tw-bg-[url('data:image/svg+xml,%3Csvg_xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter_id=%27n%27%3E%3CfeTurbulence_type=%27fractalNoise%27_baseFrequency=%270.85%27_numOctaves=%272%27_stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect_width=%27100%25%27_height=%27100%25%27_filter=%27url(%23n)%27/%3E%3C/svg%3E')]" aria-hidden="true"></span>
 

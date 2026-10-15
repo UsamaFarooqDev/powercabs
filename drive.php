@@ -24,10 +24,6 @@ require __DIR__ . '/components/drive/behind-wheel.php';
 require __DIR__ . '/components/drive/compare-model.php';
 require __DIR__ . '/components/drive/car-earn-more.php';
 
-/* Straight after the earnings argument: the page has just said what a driver
-   keeps, and the obvious next question is where the work comes from in the
-   first place. paper-soft here sits between car-earn-more's plain surface and
-   the dark support band below, so no two adjacent sections share a fill. */
 require __DIR__ . '/components/shared/booking-sources.php';
 
 $supportEyebrow = 'Driver Support';
@@ -38,8 +34,7 @@ $supportNumber = '+353 89 965 4467';
 $supportTel = '+353899654467';
 $supportHours = 'Driver support is available 24/7, every day of the year.';
 $supportWhatsapp = 'https://wa.me/353899654467';
-/* a driver at the wheel -- this band is the DRIVER line. The band stays dark; this only replaces the flat fill behind
-   the scrim. See components/shared/support-band.php. */
+
 $supportImage = 'https://images.pexels.com/photos/33493503/pexels-photo-33493503.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/drive/drive-faq.php';
@@ -68,13 +63,12 @@ require __DIR__ . '/components/drive/drive-faq.php';
 </section>
 
 <?php
-
 $ctaTitle = 'Start earning on better terms.';
 $ctaText = 'No joining fee, no monthly subscription, and 10% only on completed PowerCabs jobs.';
-// Anchors the existing form panel in join-family-form.php -- id="driveJoinForm".
+
 $ctaPrimary = ['href' => '/drive#driveJoinForm', 'label' => 'Apply to Drive'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Ask a Question'];
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

@@ -3,7 +3,6 @@ $old ??= ['first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', '
 $formStatus ??= null;
 $formError ??= '';
 
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;

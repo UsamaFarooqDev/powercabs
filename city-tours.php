@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Dublin City Tours & Private Day Trips | PowerCabs';
 $pageDescription =
-  // 147 chars. Was 156 raw / 166 rendered, past the ~160 Google will show.
+  
   "Private Dublin city tours and Irish day trips with PowerCabs -- a local driver to the city's top sights, the Cliffs of Moher and Giant's Causeway.";
 $assetPath = '';
 
@@ -148,9 +148,6 @@ if ($nowSlotMinute === 60) {
 $hourlyNextSlot = sprintf('%02d:%02d', $nowHour, $nowSlotMinute);
 $hourlyOld['tour_time'] = $hourlyOld['tour_time'] !== '' ? $hourlyOld['tour_time'] : $hourlyNextSlot;
 
-/* Service structured data. Assembled in includes/seo.php, which wires
-   it to the Organization node and supplies the default service area,
-   so the page only states what the service is. */
 $pageService = [
   'name' => 'Private City Tours and Day Trips',
   'serviceType' => 'Sightseeing tour',
@@ -206,17 +203,7 @@ $ctSubmitClass = $pcBtnPrimary;
 
 <section class="<?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
-    <?php /* A Dublin street behind the panel rather than a flat ink fill --
-             the Four Courts on the quays at sunset, one of the four
-             photographs the homepage coverage grid uses, so the city this
-             offer is set in is the same city in both places.
-           *
-           * It fits what the panel says: "set your own route" is about
-           * choosing where in Dublin to go, so the picture is the city, not a
-           * car. bg-ink stays underneath as the base, and the scrim is heavy
-           * and weighted left where the heading sits -- the button on the
-           * right needs the photograph to stay out of its way more than the
-           * photograph needs to be seen. */ ?>
+    <?php  ?>
     <div class="tw-relative tw-overflow-hidden tw-rounded-[28px] tw-bg-ink tw-p-6 sm:tw-p-10">
       <img src="https://images.pexels.com/photos/38635694/pexels-photo-38635694.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400"
         alt="" aria-hidden="true" loading="lazy" decoding="async"
@@ -232,7 +219,6 @@ $ctSubmitClass = $pcBtnPrimary;
             itinerary, and as long as you like at every stop.
           </p>
         </div>
-        <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
         <button type="button" class="<?= $pcBtnPrimary ?> tw-shrink-0" data-pc-modal-open="#hourlyModal">
           Book Per Hour
         </button>
@@ -241,7 +227,6 @@ $ctSubmitClass = $pcBtnPrimary;
   </div>
 </section>
 
-<!-- ============ Featured Destinations ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
@@ -265,7 +250,6 @@ $ctSubmitClass = $pcBtnPrimary;
               : 'tw-text-lg' ?>"><?= htmlspecialchars($d['name']) ?></h3>
             <p class="tw-mb-3 tw-text-[1.0625rem] tw-leading-relaxed tw-text-ink/60"><?= htmlspecialchars($d['desc']) ?></p>
             <div class="tw-mt-auto tw-pt-1">
-              <!-- data-pc-modal-open: the ui.js modal helper picks this up. -->
               <button type="button" class="<?= $pcBtnLink ?> tw-cursor-pointer tw-appearance-none tw-border-0 tw-bg-transparent tw-p-0" data-pc-modal-open="#tourModal"
                 data-tour-name="<?= htmlspecialchars($d['name']) ?>" data-tour-desc="<?= htmlspecialchars($d['desc']) ?>" data-tour-duration="<?= htmlspecialchars($d['duration']) ?>" data-tour-img="<?= htmlspecialchars($d['img']) ?>">
                 Book Tour
@@ -279,7 +263,6 @@ $ctSubmitClass = $pcBtnPrimary;
   </div>
 </section>
 
-<!-- ============ Shared Tour Modal (Explore + Book Tour) ============ -->
 <div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="tourModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="tourModalName" aria-hidden="true">
   <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[800px]">
     <div class="tw-w-full tw-overflow-hidden tw-rounded-[2rem] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
@@ -316,7 +299,6 @@ $ctSubmitClass = $pcBtnPrimary;
               <input type="text" class="<?= $ctInputClass ?>" id="ctFullName" name="full_name" value="<?= htmlspecialchars($old['full_name']) ?>" required>
             </div>
             <div>
-              <!-- pc-custom-datetime-enhance stays as a bare functional hook, driven by custom-datetime.js. -->
               <label class="<?= $ctLabelClass ?>" for="ctTourDate">Preferred Tour Date</label>
               <input type="date" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="ctTourDate" name="tour_date" value="<?= htmlspecialchars($old['tour_date']) ?>" required>
             </div>
@@ -348,7 +330,6 @@ $ctSubmitClass = $pcBtnPrimary;
               </button>
             </div>
 
-            <!-- .alert-success / .alert-danger stay as bare classnames -- the contract ajax-forms.js parses out of the returned HTML. -->
             <?php if ($formStatus === 'success'): ?>
               <div class="md:tw-col-span-2">
                 <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div>
@@ -365,7 +346,6 @@ $ctSubmitClass = $pcBtnPrimary;
   </div>
 </div>
 
-<!-- ============ Pay Per Hour Modal ============ -->
 <div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="hourlyModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="hourlyModalLabel" aria-hidden="true">
   <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[800px]">
     <div class="tw-w-full tw-overflow-hidden tw-rounded-[2rem] tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
@@ -403,7 +383,6 @@ $ctSubmitClass = $pcBtnPrimary;
             <input type="number" min="1" class="<?= $ctInputClass ?>" id="phHours" name="hours" value="<?= htmlspecialchars($hourlyOld['hours']) ?>" required>
           </div>
           <div>
-            <!-- pc-custom-datetime-enhance stays as a bare functional hook, driven by custom-datetime.js. -->
             <label class="<?= $ctLabelClass ?>" for="phDate">Preferred Date</label>
             <input type="date" class="<?= $ctInputClass ?> pc-custom-datetime-enhance" id="phDate" name="tour_date" min="<?= htmlspecialchars($hourlyMinDate) ?>" value="<?= htmlspecialchars($hourlyOld['tour_date']) ?>" required>
           </div>
@@ -447,9 +426,6 @@ $ctSubmitClass = $pcBtnPrimary;
 ) ?>"></script>
 
 <?php
-
-/* Restructured from copy already on this page -- see
-   components/shared/faq-accordion.php on why answers may not be invented. */
 $faqItems = [
   ['q' => 'Is the car private to my group?', 'a' => 'Yes — a private car for your group only, with door-to-door pickup.'],
   ['q' => 'Can I choose where we go?', 'a' => 'The itinerary is flexible and can run as a full or half day.'],
@@ -460,7 +436,7 @@ $faqEyebrow = 'City tours';
 $faqHeading = 'Tour questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; // alternates against the white section above it
+$faqSurface = 'soft'; 
 require __DIR__ . '/components/shared/faq-accordion.php';
 $bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';

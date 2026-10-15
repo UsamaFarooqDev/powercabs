@@ -23,8 +23,7 @@ function pc_biz_trust_icon(string $icon): void
 <section class="<?= $pcSurfaceWhite ?> tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <figure class="tw-m-0 tw-mx-auto tw-max-w-[46rem] tw-text-center">
-      <?php /* aria-hidden: the mark is punctuation the <blockquote> already
-               carries semantically, and read aloud it is just noise. */ ?>
+      <?php  ?>
       <span class="tw-mb-[-0.35em] tw-block tw-font-bold tw-leading-none tw-text-power/40 tw-text-[clamp(4rem,9vw,6rem)]" aria-hidden="true">&ldquo;</span>
 
       <blockquote class="tw-m-0 tw-p-0">

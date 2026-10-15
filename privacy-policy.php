@@ -10,7 +10,7 @@ $heroTitleLight  = 'Privacy';
 $heroTitleBold   = 'Policy.';
 $heroDescription = 'How we collect, use, disclose and safeguard your personal information when you visit the PowerCabs website, and your rights regarding that information.';
 $heroBgImage     = 'https://images.pexels.com/photos/4973899/pexels-photo-4973899.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'legal'; // §12: compact hero, straight into the useful content.
+$heroVariant = 'legal'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $ppNav = [
@@ -132,7 +132,7 @@ $ppNav = [
 </section>
 
 <?php
-$bannerCompact = true; // restrained: a legal page should not end on an orange panel
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

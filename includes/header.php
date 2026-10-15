@@ -6,45 +6,19 @@ $pageDescription =
 $assetPath = $assetPath ?? '';
 $currentPage = basename($_SERVER['PHP_SELF']);
 
-// $siteUrl, $canonicalUrl, $ogImage and the JSON-LD graph now come from
-// includes/seo.php, required from inside <head> below. They are defined
-// there rather than here because the whole SEO head is one concern and was
-// being maintained in three places (this block, the inline <head> tags, and
-// the inline LocalBusiness script).
 $navActive = static fn(string $page): string => $currentPage === $page ? 'active' : '';
 
-// The shared Tailwind class recipes ($pcContainer, $pcSection, $pcCard,
-// $pcInput ...). Required here so every page and component below can use
-// them without importing anything.
 require __DIR__ . '/design-system.php';
 
-// ---- Mega-menu class recipes -------------------------------------------
-// Below 992px the panel renders inline inside the mobile nav (static, just a
-// hairline top rule). At >=992px it becomes a floating card: kept in the
-// layout but invisible so it can fade, then revealed by `is-open`, which
-// initMegaMenus() in main.js toggles (it replaced Bootstrap's Dropdown).
 $megaPanelBase =
   'tw-hidden tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.08] [&.is-open]:tw-block ' .
-  // Desktop: a quiet sheet, not a card -- square-ish corners, a hairline
-  // rule, and a shadow soft enough that the panel reads as an extension of
-  // the bar rather than something floating over it.
+
   'lg:tw-block lg:tw-border lg:tw-border-solid lg:tw-border-black/[0.07] lg:tw-rounded-xl ' .
   'lg:tw-bg-white lg:tw-shadow-[0_24px_60px_-12px_rgba(28,20,16,0.16)] ' .
   'lg:tw-invisible lg:tw-opacity-0 lg:tw-transition-[opacity,transform,visibility] lg:tw-duration-200 ' .
   'lg:tw-ease-out lg:[&.is-open]:tw-visible lg:[&.is-open]:tw-opacity-100 ' .
   'motion-reduce:lg:tw-transition-none';
-// Both panels are absolute against the <nav> -- the pill -- rather than
-// against their own <li>, so `top: calc(100% + 0.5rem)` means the same
-// distance below the bar for both and they line up with each other.
-// Wide (About) centres on the pill; narrow (Contact) sits flush to its
-// right edge. Neither is given a min-height: each hugs its own content.
-//
-// Both panels are positioned to sit tight against the bar (the wide one even
-// overlaps it by 4px) so there is no dead zone between the link and the
-// panel for the pointer to cross. That, plus the fact that each panel is a
-// DOM child of its .pc-mega-parent -- so mouseleave does not fire when
-// moving into it -- plus initMegaMenus()'s 250ms close delay, is what keeps
-// the hover from flickering.
+
 $megaPanelWide =
   $megaPanelBase .
   ' lg:tw-absolute lg:tw-left-1/2 lg:tw-top-[calc(100%+0.5rem)] lg:tw-w-[min(1040px,calc(100vw-4rem))] lg:-tw-translate-x-1/2 lg:tw-translate-y-1 lg:[&.is-open]:tw-translate-y-0';
@@ -53,11 +27,10 @@ $megaPanelNarrow =
   ' lg:tw-absolute lg:tw-left-1/2 lg:tw-top-[calc(100%+1.375rem)] lg:tw-w-[320px] lg:-tw-translate-x-1/2 lg:tw-translate-y-1 lg:[&.is-open]:tw-translate-y-0';
 
 $megaInner = 'tw-px-1 tw-py-4 lg:tw-px-9 lg:tw-py-8';
-// Column headings: small, tracked, muted -- a label, not a title.
+
 $megaColTitle =
   'tw-mb-4 tw-mt-7 tw-border-0 tw-pb-0 tw-text-[0.74rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-ink/45 lg:tw-mt-0 [.pc-mega-col:first-child_&]:tw-mt-2 lg:[.pc-mega-col:first-child_&]:tw-mt-0';
-// Rows: no hover background box -- just the title shifting to brand colour
-// and a small nudge. Editorial, not e-commerce.
+
 $megaItem =
   'tw-group tw-block tw-w-full tw-cursor-pointer tw-appearance-none tw-border-0 tw-bg-transparent tw-py-2 tw-text-left tw-font-[inherit] tw-text-inherit tw-no-underline tw-outline-none';
 $megaItemTitle =
@@ -66,7 +39,7 @@ $megaItemDesc =
   'tw-mt-1 tw-block tw-text-[0.82rem] tw-leading-relaxed tw-text-ink/[0.5] tw-transition-colors tw-duration-200 group-hover:tw-text-ink/[0.6]';
 $megaChevron =
   'tw-h-3 tw-w-3 tw-shrink-0 tw-text-ink/30 tw-transition-transform tw-duration-300 tw-ease-out [.pc-mega-nested:hover_&]:tw-rotate-90 [.pc-mega-nested:focus-within_&]:tw-rotate-90 [.pc-mega-nested-open_&]:tw-rotate-90';
-// grid-template-rows 0fr -> 1fr is the height-agnostic open/close trick.
+
 $megaSubmenu =
   'tw-ml-0 tw-grid [grid-template-rows:0fr] tw-border-0 tw-border-l tw-border-solid tw-border-black/[0.08] tw-pl-4 tw-opacity-0 tw-transition-[grid-template-rows,opacity] tw-duration-300 tw-ease-out [.pc-mega-nested:hover_&]:[grid-template-rows:1fr] [.pc-mega-nested:hover_&]:tw-opacity-100 [.pc-mega-nested:focus-within_&]:[grid-template-rows:1fr] [.pc-mega-nested:focus-within_&]:tw-opacity-100 [.pc-mega-nested-open_&]:[grid-template-rows:1fr] [.pc-mega-nested-open_&]:tw-opacity-100 motion-reduce:tw-transition-none';
 $megaSubitem =
@@ -74,11 +47,7 @@ $megaSubitem =
 
 ?>
 <!DOCTYPE html>
-<?php /* en-IE, not plain en. og:locale already said en_IE and the business is
-         Dublin-based; matching them removes a small inconsistency and tells
-         Google the regional variant of English the content is written in.
-         Purely a declaration -- there is no second language, so no hreflang
-         is needed or added. */ ?>
+<?php  ?>
 <html lang="en-IE">
 
 <head>
@@ -86,9 +55,6 @@ $megaSubitem =
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php require __DIR__ . '/seo.php'; ?>
 
-  <!-- Order matters: reboot (element normalisation) -> variables (brand
-       tokens, which override reboot's --bs-* defaults) -> base (PowerCabs
-       layer, incl. Google Places) -> tailwind (utilities). -->
   <link rel="stylesheet"
     href="<?= $assetPath ?>assets/css/reboot.css?v=<?= @filemtime(__DIR__ . '/../assets/css/reboot.css') ?>">
   <link rel="stylesheet"
@@ -98,15 +64,6 @@ $megaSubitem =
 
   <?php require __DIR__ . '/tailwind.php'; ?>
 
-  <!--
-    The navbar -- the fixed glass pill, its links, the CTA, the mobile
-    toggle and panel, and BOTH mega-menu dropdown panels -- is fully
-    Tailwind on the markup below. Nothing here depends on Bootstrap any
-    more: the mobile panel and the dropdowns are driven by initNavToggle()
-    and initMegaMenus() in assets/js/main.js, which replaced Bootstrap's
-    Collapse and Dropdown. The class recipes for the panels are the
-    $mega* variables built at the top of this file.
-  -->
 </head>
 
 <body data-page="<?= htmlspecialchars($currentPage) ?>">
@@ -114,17 +71,6 @@ $megaSubitem =
   <?php require __DIR__ . '/../components/shared/page-loader.php'; ?>
 
   <header class="tw-fixed tw-top-0 tw-inset-x-0 tw-w-full" style="z-index: 1030;">
-    <!-- A floating translucent pill inset from the viewport edges. The OUTER
-         div owns the inset so the bar itself stays a self-contained shape;
-         the <nav> owns the shape and the blur. No border at all -- the pill is
-         defined by its translucent fill and the soft all-round shadow; a white
-         stroke on top of those read as a hard outline against pale sections. -->
-    <!-- The pill now sits inside $pcContainer, so its outer edge lands exactly
-         where every section's content starts. Before, the wrapper owned its own
-         px-3/5/6 inset and the pill was capped at the full 1320px, which put
-         the bar's edge ~68px further out than the page content at 1440 -- the
-         navbar visibly wider than everything under it. Vertical padding stays
-         on the wrapper; $pcContainer only supplies the horizontal rhythm. -->
     <div class="tw-w-full tw-pt-1 sm:tw-pt-1.5 lg:tw-pt-2">
       <div class="<?= $pcContainer ?>">
       <nav class="tw-relative tw-flex tw-w-full tw-items-center tw-justify-between tw-gap-3 tw-rounded-[30px] tw-bg-white/70 tw-px-4 tw-py-1.5 tw-shadow-[0_0_24px_rgba(28,20,16,0.07),0_0_8px_rgba(28,20,16,0.04)] tw-backdrop-blur-[24px] sm:tw-px-5 lg:tw-px-6 lg:tw-py-2.5">
@@ -132,18 +78,6 @@ $megaSubitem =
           <img src="<?= $assetPath ?>assets/img/powercabs-logo-dark.svg" alt="PowerCabs" height="47" class="tw-block tw-h-9 lg:tw-h-11 tw-w-auto">
         </a>
 
-        <!-- Below lg the panel is tw-absolute (out of flow), drops below the
-             pill and is toggled by `is-open`; at lg it becomes a flex row
-             that grows to fill the space between the logo and the action
-             group, so tw-mx-auto on the <ul> centres the links in the bar. -->
-        <!-- tw-max-h-[...]/tw-overflow-y-auto (mobile only) restore scrolling
-             for a tall expanded panel -- e.g. tapping "About" inlines the
-             whole mega-menu content beneath the links, which alone can
-             exceed the viewport on a short phone. Without this the panel
-             just clips silently at the bottom with no way to reach the rest.
-             Keyed off --pc-navbar-h, the same live-measured custom property
-             main.js already keeps in sync (syncNavbarHeightVar()), so this
-             tracks the bar's real height instead of a guessed constant. -->
         <div class="tw-hidden [&.is-open]:tw-flex lg:tw-flex lg:tw-grow tw-w-full lg:tw-w-auto tw-absolute lg:tw-static tw-inset-x-0 tw-top-[calc(100%+0.6rem)] lg:tw-top-auto tw-max-h-[calc(100vh-var(--pc-navbar-h,76px)-2.5rem)] tw-overflow-y-auto lg:tw-max-h-none lg:tw-overflow-visible tw-flex-col lg:tw-flex-row lg:tw-items-center tw-rounded-[24px] lg:tw-rounded-none tw-border tw-border-solid lg:tw-border-0 tw-border-black/[0.06] tw-bg-white lg:tw-bg-transparent tw-p-2 lg:tw-p-0 tw-shadow-[0_16px_44px_-12px_rgba(28,20,16,0.22)] lg:tw-shadow-none" id="mainNav">
           <ul class="navbar-nav tw-flex tw-w-full lg:tw-w-auto lg:tw-self-stretch tw-flex-col lg:tw-flex-row lg:tw-items-center tw-gap-0 lg:tw-gap-8 tw-list-none tw-m-0 tw-p-0 lg:tw-mx-auto tw-divide-y tw-divide-x-0 tw-divide-solid tw-divide-black/[0.07] lg:tw-divide-y-0">
               <li>
@@ -153,7 +87,6 @@ $megaSubitem =
                   href="<?= $assetPath ?>/">Home</a>
               </li>
 
-              <!-- ============ About: hover mega menu ============ -->
               <li class="pc-mega-parent lg:tw-flex lg:tw-items-center lg:tw-self-stretch">
                 <a class="tw-group nav-link tw-relative tw-flex tw-w-full lg:tw-w-auto tw-cursor-pointer tw-items-center tw-justify-between lg:tw-justify-start tw-gap-1.5 tw-px-3 tw-py-3.5 lg:tw-px-0 lg:tw-py-1.5 tw-text-base lg:tw-text-[0.95rem] tw-font-medium tw-tracking-[-0.01em] tw-text-ink/[0.62] hover:tw-text-ink aria-expanded:tw-text-ink tw-transition-colors tw-duration-200 tw-no-underline tw-outline-none focus-visible:tw-text-ink" href="#"
                   id="aboutMegaToggle" role="button" data-pc-dropdown aria-expanded="false">
@@ -167,7 +100,6 @@ $megaSubitem =
                   <div class="<?= $megaInner ?>">
                     <div class="tw-grid tw-grid-cols-1 tw-gap-x-10 tw-gap-y-2 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
 
-                      <!-- Col 1: Get Started -->
                       <div class="pc-mega-col">
                         <p class="<?= $megaColTitle ?>">Get Started</p>
 
@@ -187,7 +119,6 @@ $megaSubitem =
                         </a>
                       </div>
 
-                      <!-- Col 2: Business -->
                       <div class="pc-mega-col">
                         <p class="<?= $megaColTitle ?>">Business</p>
 
@@ -206,6 +137,11 @@ $megaSubitem =
                           <span class="<?= $megaItemDesc ?>">Inclusive rides for everyone</span>
                         </a>
 
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/pets-taxi">
+                          <span class="<?= $megaItemTitle ?>">Pets Taxi</span>
+                          <span class="<?= $megaItemDesc ?>">Travel with your dog or cat</span>
+                        </a>
+
                         <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/meet-greet">
                           <span class="<?= $megaItemTitle ?>">Meet &amp; Greet</span>
                           <span class="<?= $megaItemDesc ?>">Airport pickups, done right</span>
@@ -217,7 +153,6 @@ $megaSubitem =
                         </a>
                       </div>
 
-                      <!-- Col 3: Drivers -->
                       <div class="pc-mega-col">
                         <p class="<?= $megaColTitle ?>">Drivers</p>
 
@@ -245,28 +180,16 @@ $megaSubitem =
                             <span class="<?= $megaItemDesc ?>">Licensing and onboarding resources</span>
                           </button>
                           <div class="<?= $megaSubmenu ?>">
-                            <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/">Driver Training</a>
-                            <?php /* The NTA's official SPSV manual, served from
-                                     doc/. Both nav items pointed at "/" -- this
-                                     one now goes to the document it names.
-                                     target=_blank + noopener because a PDF
-                                     should not replace the page you were
-                                     reading, and data-no-pjax because pjax.js
-                                     would otherwise intercept the click as a
-                                     same-origin navigation and try to swap a
-                                     PDF into <main>.
-
-                                     doc/ is served as-is: .htaccess blocks only
-                                     includes|lib|bin, and the clean-URL rule
-                                     needs a matching .php file to fire, so it
-                                     never touches a .pdf. */ ?>
+                            <?php  ?>
+                            <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/driver-training"
+                              data-pc-driver-training-link data-no-pjax>Driver Training</a>
+                            <?php  ?>
                             <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>doc/NTA_SPSV_OfficialManual_v0.14.pdf"
                               target="_blank" rel="noopener" data-no-pjax>SPSV Manual</a>
                           </div>
                         </div>
                       </div>
 
-                      <!-- Col 4: Policies & Safety -->
                       <div class="pc-mega-col">
                         <p class="<?= $megaColTitle ?>">Policies &amp; Safety</p>
 
@@ -325,7 +248,6 @@ $megaSubitem =
                   href="<?= $assetPath ?>/business">Business</a>
               </li>
 
-              <!-- ============ Contact: hover mega menu (single column) ============ -->
               <li class="pc-mega-parent lg:tw-flex lg:tw-items-center lg:tw-self-stretch lg:tw-relative">
                 <a class="tw-group nav-link tw-relative tw-flex tw-w-full lg:tw-w-auto tw-cursor-pointer tw-items-center tw-justify-between lg:tw-justify-start tw-gap-1.5 tw-px-3 tw-py-3.5 lg:tw-px-0 lg:tw-py-1.5 tw-text-base lg:tw-text-[0.95rem] tw-font-medium tw-tracking-[-0.01em] tw-text-ink/[0.62] hover:tw-text-ink aria-expanded:tw-text-ink tw-transition-colors tw-duration-200 tw-no-underline tw-outline-none focus-visible:tw-text-ink" href="#"
                   id="contactMegaToggle" role="button" data-pc-dropdown aria-expanded="false">
@@ -365,8 +287,6 @@ $megaSubitem =
               </li>
           </ul>
 
-          <!-- Mobile-only twin of the bar CTA: below lg the bar hides its
-               copy and the action lands here, at the end of the menu. -->
           <a class="tw-mt-2 tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-px-5 tw-py-3 tw-text-[0.95rem] tw-font-semibold tw-text-white tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30 lg:tw-hidden"
             href="<?= $assetPath ?>/book-ride-online">
             <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -376,17 +296,13 @@ $megaSubitem =
           </a>
 
         </div>
-        <!-- Action group: the CTA at lg and up, the toggle below it); only the toggle is mobile-only. -->
         <div class="tw-flex tw-shrink-0 tw-items-center tw-gap-2">
           <a class="tw-group tw-hidden lg:tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-text-white tw-text-[0.86rem] tw-font-semibold tw-tracking-[-0.01em] tw-px-5 tw-py-2.5 tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30"
               href="<?= $assetPath ?>/book-ride-online">
               <svg class="tw-w-4 tw-h-4 tw-shrink-0 tw-hidden sm:tw-block" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <?php /* The label used to slide 2px left on hover while the taxi
-                       icon beside it stayed put, so the two drifted together and
-                       the pill's contents looked loose. The background darkening
-                       is the hover state. */ ?>
+              <?php  ?>
               <span class="tw-inline-block">Book Online</span>
             </a>
           <button type="button" id="pcNavToggle" class="tw-group tw-relative tw-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-flex-col tw-items-center tw-justify-center tw-gap-[5px] tw-rounded-xl tw-border-0 tw-bg-black/[0.05] tw-shadow-none tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black/[0.09] focus-visible:tw-bg-black/[0.09] focus-visible:tw-outline-none lg:tw-hidden"

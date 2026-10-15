@@ -28,7 +28,6 @@ function pcInitComplaintForm() {
   });
 
   updateCategoryState();
-  // Submit-button loading state is handled generically by ajax-forms.js.
 }
 
 if (document.readyState !== "loading") {

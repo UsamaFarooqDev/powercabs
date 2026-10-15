@@ -1,19 +1,4 @@
 <?php
-/* Four chips, not eight. The four that were removed each said something the
-   page already says better somewhere else, so nothing was actually lost:
-
-     "Only 10% Commission" / "No Membership Fee"
-        -> the stat band directly under the hero states both as headline
-           numbers, and compare-model puts them in context against other
-           platforms. Saying them a third time as chips made them look like
-           small print rather than the offer.
-
-     "Advertise and Earn" / "Branding Opportunity"
-        -> car-earn-more.php is an entire section about exactly this, with
-           the detail these two chips could not carry.
-
-   What is left is the set of claims this section is the only place to make. */
-
 function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
 {
   switch ($icon):
@@ -47,18 +32,11 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
   endswitch;
 }
 ?>
-<!-- ============ Be Your Real Boss ============ -->
-<?php /* Horizontal padding removed: it was the old px-4/sm:px-6/lg:px-8
-         scale, which puts this section's content at x=60 while the rest of
-         /drive sits at 64. The container inside now owns the gutters. */ ?>
+<?php  ?>
 <section class="tw-relative tw-overflow-hidden tw-py-16 md:tw-py-20">
 
   <div class="tw-relative <?= $pcContainer ?>">
-    <?php /* Two columns now. The copy used to run to max-w-46rem with the whole
-             right-hand side of the section empty, which is where the commission
-             explainer below now sits -- it answers the argument on the left with
-             the actual arithmetic, so the two belong beside each other rather
-             than stacked a screen apart. */ ?>
+    <?php  ?>
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-14">
 
       <div class="lg:tw-col-span-7">
@@ -66,23 +44,12 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
           Be Your Real Boss &mdash; Not Just on Paper.
         </h2>
 
-        <?php /* NOTE ON THE COMPARISON. The supplied copy named a competitor's
-                 product by name alongside "over 25%". The percentage stays --
-                 components/drive/compare-model.php on this same page already
-                 publishes "15-25%" and "Up to 25% cut" for other models, so it
-                 is not a new claim -- but the brand name is gone. Naming a
-                 named competitor's pricing in a comparative claim is a
-                 different kind of exposure from describing a pricing MODEL,
-                 and the sentence loses nothing without it. */ ?>
+        <?php  ?>
         <p class="tw-mb-4 tw-max-w-[52ch] tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/60">
           You became a taxi driver for <strong class="tw-font-semibold tw-text-ink">freedom and flexibility</strong>
           &mdash; not to work harder while handing over as much as a quarter of your
           earnings to fixed-fare models, and paying a monthly membership fee on top.
         </p>
-        <!-- <p class="tw-mb-8 tw-max-w-[52ch] tw-text-[1.0625rem] tw-font-semibold tw-leading-[1.7] tw-text-ink">
-          With PowerCabs, you keep more of what you earn. The choice is yours.
-        </p> -->
-
 
         <a class="<?= $pcBtnPrimary ?> tw-whitespace-nowrap" href="<?= $assetPath ?>/ambassador-programme">
           <span>Explore Ambassador Programme</span>
@@ -90,15 +57,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
         </a>
       </div>
 
-      <?php /* The commission explainer. Ink panel for the rule, white card for
-               the worked example overlapping it -- the example is the proof of
-               the rule, so it reads as attached to it rather than as a seventh
-               unrelated box on the page.
-
-               The example uses the SAME 10% the hero, the stat band and
-               compare-model state, so 50 - 5 = 45 is arithmetic off a published
-               number, not a new price. If the commission ever changes, these
-               three figures change with it. */ ?>
+      <?php  ?>
       <div class="lg:tw-col-span-5">
         <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[30rem] lg:tw-max-w-none">
 
@@ -117,14 +76,12 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
               </li>
               <li class="tw-flex tw-items-start tw-gap-2.5 tw-text-[0.9375rem] tw-leading-[1.5] tw-text-white/[0.82]">
                 <svg class="tw-mt-[3px] tw-h-4 tw-w-4 tw-shrink-0 tw-text-powerlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>
-                <span><strong class="tw-font-semibold tw-text-white">No PowerCabs job?</strong> No completed-job commission.</span>
+                <span><strong class="tw-font-semibold tw-text-white">No PowerCabs job?</strong> Nothing to pay</span>
               </li>
             </ul>
           </div>
 
-          <?php /* -mt-5 and a ring: the card lifts off the panel above it
-                   instead of butting against it. The ring, not a border, so the
-                   white edge sits outside the radius cleanly on the ink. */ ?>
+          <?php  ?>
           <div class="tw--mt-5 tw-ml-auto tw-w-[92%] tw-rounded-2xl tw-bg-white tw-p-5 tw-shadow-[0_18px_40px_-18px_rgba(28,20,16,0.35)] tw-ring-1 tw-ring-black/[0.06] sm:tw-p-6">
             <p class="tw-mb-3 tw-text-[0.95rem] tw-font-bold tw-text-ink">Example trip</p>
             <dl class="tw-m-0">

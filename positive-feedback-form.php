@@ -62,12 +62,11 @@ $heroTitleBold = 'Great Experience.';
 $heroDescription =
   "Great service deserves a shout-out. Tell us what stood out and we'll make sure the right people hear about it.";
 $heroBgImage = 'https://images.pexels.com/photos/5955023/pexels-photo-5955023.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
+$heroVariant = 'utility'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <?php
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
@@ -138,15 +137,6 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?> pc-required tw-mb-3">Rate Your Experience</label>
-              <!-- Pure-CSS star rating, no JS: each radio is a Tailwind `peer`
-                   and every label reacts to `peer-checked:`/`peer-hover:` from
-                   ANY earlier sibling -- the same trick the old
-                   `.btn-check:checked + .pc-rating-star ~ .pc-rating-star`
-                   selector used, just expressed with Tailwind's peer variant.
-                   Stars are in reverse DOM order (5..1) and laid out with
-                   flex-row-reverse so a later DOM sibling is an earlier
-                   (already-passed) visual star, which is what makes "hover/
-                   check star 3" also fill in stars 1-2. -->
               <div class="tw-flex tw-flex-row-reverse tw-items-center tw-justify-end tw-gap-2">
                 <?php for ($i = 5; $i >= 1; $i--): ?>
                   <input
@@ -198,9 +188,8 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
 </section>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
-
 
 ?>

@@ -131,52 +131,31 @@ $heroEyebrow     = 'Ride';
 $heroTitleLight  = 'Your ride.';
 $heroTitleBold   = 'Your way.';
 $heroDescription = 'Licensed, Garda-vetted drivers across Dublin. See your fare before you book, and pay exactly what you were quoted.';
-/* /ride has its own hero rather than the shared inner-hero.php, because the
-   fare estimate is IN it -- the same arrangement /drive uses for the driver
-   application. See components/ride/hero.php for why that is a page-specific
-   component and not a sixth variant of the shared one. The hero requires
-   fare-widget.php itself, so that card is no longer a column of the section
-   below. */
+
 require __DIR__ . '/components/ride/hero.php';
 
-// Order follows the page's job: quote a fare -> show what you can book ->
-// explain the process -> justify the choice -> answer objections -> act.
 require __DIR__ . '/components/ride/hero-fare-section.php';
-// Directly after the fare widget, because that widget now has a promo-code
-// field and this section is where POWER10 is copied from.
+
 require __DIR__ . '/components/ride/power10-promo.php';
 require __DIR__ . '/components/ride/ride-types.php';
 require __DIR__ . '/components/ride/booking-steps.php';
-// built-around.php used to sit here. Its four claims (Instant Booking,
-// Trusted Drivers, Fair Pricing, Available 24/7) were already made by the
-// hero badge row, the trust bar in hero-fare-section, AND the comparison in
-// why-powercabs -- three statements of the same thing on one page. The
-// comparison is the one with substance, so it is the one that stayed.
+
 require __DIR__ . '/components/ride/why-powercabs.php';
 
-/* Straight after the FAQ on purpose -- this is exactly where a passenger
-   whose question was not answered goes looking for a person.
-   +353 89 972 8089 is the CUSTOMER line; drivers have a separate number and
-   it only appears on /drive. This is also the number behind the footer's
-   WhatsApp badge and wa.me/353899728089, so the WhatsApp action here reaches
-   the same team rather than introducing a second channel. */
 $supportEyebrow = 'Customer Support';
 $supportHeading = 'Need a hand with a booking?';
 $supportText =
-  // A real em dash, not "--". support-band.php runs this through
-  // htmlspecialchars, so an &mdash; entity would print as literal text; the
-  // page is UTF-8 so the character itself passes through untouched.
+
   'Fares, bookings, a driver you cannot find, or something left in the car — call and speak to the PowerCabs team directly.';
 $supportNumber = '+353 89 965 4467';
 $supportTel = '+353899654467';
 $supportHours = 'Customer support is available 24/7, every day of the year.';
 $supportWhatsapp = 'https://wa.me/+353899654467';
-/* a passenger in the back seat -- this band is the CUSTOMER line. The band stays dark; this only replaces the flat fill behind
-   the scrim. See components/shared/support-band.php. */
+
 $supportImage = 'https://images.pexels.com/photos/4606338/pexels-photo-4606338.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/ride/ride-faq.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

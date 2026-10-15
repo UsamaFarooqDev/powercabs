@@ -54,7 +54,6 @@ function pc_wc_icon(string $icon): void
 }
 ?>
 
-<!-- ============ Why Choose PowerCabs ============ -->
 <section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
@@ -87,9 +86,7 @@ function pc_wc_icon(string $icon): void
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
-      <?php /* Capped and centred, like the split hero frame and the other
-               one-sided photographs on the site. It filled its half at 631x420,
-               which made the picture wider than the sentence beside it. */ ?>
+      <?php  ?>
       <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[440px]">
         <div class="tw-relative tw-z-[1] tw-aspect-[3/2] tw-overflow-hidden tw-rounded-2xl tw-shadow-[0_20px_45px_-18px_rgba(28,20,16,0.3)] sm:tw-aspect-auto sm:tw-min-h-[330px]">
           <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.webp"
@@ -115,14 +112,11 @@ function pc_wc_icon(string $icon): void
 </section>
 
 <?php
-
 $ctaTitle = 'Book an accessible ride.';
 $ctaText = 'Wheelchair-accessible vehicles and drivers trained to assist, across Dublin, 24/7.';
 $ctaPrimary = ['href' => '/book-ride-online', 'label' => 'Book Now'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Us'];
 
-/* Restructured from copy already on this page -- see
-   components/shared/faq-accordion.php on why answers may not be invented. */
 $faqItems = [
   ['q' => 'Are the vehicles properly equipped?', 'a' => 'Every accessible vehicle and driver meets strict safety standards.'],
   ['q' => 'Are drivers trained to assist?', 'a' => 'Drivers are trained to help confidently and respectfully, every trip.'],
@@ -133,10 +127,10 @@ $faqEyebrow = 'Accessible travel';
 $faqHeading = 'Accessibility questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; // alternates against the white section above it
+$faqSurface = 'soft'; 
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

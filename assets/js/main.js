@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroParallax();
   initWhyChooseReveal();
   initScrollReveal();
-  initLoopVideos();
   initScrollIndicator();
 });
 
@@ -17,16 +16,10 @@ window.addEventListener("resize", syncFooterHeightVar);
 window.addEventListener("load", syncFooterHeightVar);
 
 function highlightActiveNavLink() {
-  // URLs are served without a ".php" extension, but data-page attributes may
-  // still carry one -- strip it from both sides so the comparison works
-  // regardless of which form either side happens to be in.
-  const stripPhp = (value) => value.replace(/\.php$/i, "");
+const stripPhp = (value) => value.replace(/\.php$/i, "");
   const currentPath = stripPhp(window.location.pathname.split("/").pop() || "") || "index";
 
-  // The nav bar lives outside <main> and survives every PJAX swap, so any
-  // "active" state left over from a previous page has to be cleared first --
-  // otherwise it just accumulates, one extra "active" link per navigation.
-  document.querySelectorAll(".navbar-nav .nav-link[data-page]").forEach((link) => {
+document.querySelectorAll(".navbar-nav .nav-link[data-page]").forEach((link) => {
     const isActive = stripPhp(link.dataset.page) === currentPath;
     link.classList.toggle("active", isActive);
     if (isActive) {
@@ -37,11 +30,6 @@ function highlightActiveNavLink() {
   });
 }
 
-/**
- * Mobile nav panel. Replaces Bootstrap's Collapse: #pcNavToggle flips
- * `is-open` on #mainNav and its own aria-expanded (which the hamburger's
- * three bars animate off, via group-aria-expanded: variants).
- */
 function initNavToggle() {
   const toggle = document.getElementById("pcNavToggle");
   const panel = document.getElementById("mainNav");
@@ -56,7 +44,6 @@ function initNavToggle() {
   });
 }
 
-/** Closes every open mega menu and resets its toggle's aria-expanded. */
 function pcCloseAllMegaMenus() {
   document.querySelectorAll(".pc-mega-parent").forEach((parent) => {
     const toggle = parent.querySelector("[data-pc-dropdown]");
@@ -67,7 +54,6 @@ function pcCloseAllMegaMenus() {
   document.querySelectorAll(".pc-mega-nested-open").forEach((g) => g.classList.remove("pc-mega-nested-open"));
 }
 
-/** Closes the mobile panel too -- what PJAX calls before swapping pages. */
 function pcCloseNav() {
   const toggle = document.getElementById("pcNavToggle");
   const panel = document.getElementById("mainNav");
@@ -77,16 +63,6 @@ function pcCloseNav() {
 }
 window.pcCloseNav = pcCloseNav;
 
-/**
- * The About/Contact mega menus. Replaces Bootstrap's Dropdown: open on
- * hover at desktop (with a short delay each way so the pointer can cross
- * the gap between the link and the panel), and on click below 992px where
- * the panel renders inline inside the mobile nav instead.
- *
- * A click inside an open panel must NOT close it -- that was Bootstrap's
- * data-bs-auto-close="outside" -- so the document listener checks
- * containment against the whole .pc-mega-parent.
- */
 let pcMegaCleanup = null;
 function initMegaMenus() {
   if (pcMegaCleanup) {
@@ -153,7 +129,6 @@ function initMegaMenus() {
   };
 }
 
-/** Explicit tap-to-open for the "Training" / "Safety" nested flyouts */
 function initMegaMenuNestedToggle() {
   const nestedGroups = document.querySelectorAll(".pc-mega-nested");
   if (!nestedGroups.length) return;
@@ -173,35 +148,14 @@ function initMegaMenuNestedToggle() {
   });
 }
 
-/**
- * Keeps --pc-navbar-h in sync with the fixed header's real rendered */
 function syncNavbarHeightVar() {
   const navbar = document.querySelector("header");
   if (!navbar) return;
   document.documentElement.style.setProperty("--pc-navbar-h", `${navbar.getBoundingClientRect().height}px`);
 }
 
-/**
- * Kept as a no-op shim, deliberately.
- *
- * This used to write --pc-footer-h and toggle .pc-footer-reveal, which pinned
- * the footer behind <main> on desktop. That effect is gone (see base.css for
- * why -- it was the site's largest CLS source), and with it the only consumer
- * of --pc-footer-h.
- *
- * The function itself stays because pjax.js re-runs a fixed list of globals by
- * name after every navigation, and that list is shared with several call
- * sites. Removing the name would mean editing the PJAX contract for no gain;
- * an empty function is the smaller, safer surface. If something later needs
- * the footer's height, measure it here.
- */
 function syncFooterHeightVar() {}
 
-/**
- * Home hero. PJAX navigation can call this again every time the homepage is
- * (re)loaded into <main> -- tear down the previous scroll listener first so
- * repeated visits don't stack up duplicate listeners on a detached hero.
- */
 let pcHeroParallaxCleanup = null;
 function initHeroParallax() {
   if (pcHeroParallaxCleanup) {
@@ -235,7 +189,6 @@ function initHeroParallax() {
   pcHeroParallaxCleanup = () => window.removeEventListener("scroll", onScroll);
 }
 
-/* Home page "Why Choose PowerCabs" cards -- same re-init story as the hero. */
 let pcWhyChooseObserver = null;
 function initWhyChooseReveal() {
   if (pcWhyChooseObserver) {
@@ -260,14 +213,6 @@ function initWhyChooseReveal() {
   items.forEach((item) => pcWhyChooseObserver.observe(item));
 }
 
-/**
- * Generic fade/slide-up-on-scroll reveal for any element carrying
- * .pc-reveal (currently the Loyalty Program page's timeline steps and
- * membership tier cards). Unlike initWhyChooseReveal() above (which toggles
- * its cards back out of view if you scroll back up past them), this one is
- * one-shot: once an element has been revealed it stays revealed and is
- * unobserved, so scrolling back up never makes content vanish again.
- */
 let pcRevealObserver = null;
 function initScrollReveal() {
   if (pcRevealObserver) {
@@ -300,71 +245,6 @@ function initScrollReveal() {
   items.forEach((item) => pcRevealObserver.observe(item));
 }
 
-/**
- * Muted looping "animated illustration" videos -- the MP4s that replaced two
- * multi-megabyte GIFs on /business and /drive.
- *
- * Markup: <video data-pc-loop-video muted loop playsinline preload="none"
- * poster="..."> with <source data-src="...">. There is deliberately no src
- * and no autoplay attribute: a GIF could be loading="lazy", but an autoplay
- * video downloads immediately however far down the page it sits, which
- * measured as +168KB up front on /drive. This fills in the source and plays it
- * only once it is within 300px of the viewport.
- *
- * Reduced motion: never started -- the poster, which is the finished
- * illustration, is the whole experience. Without JS the poster shows too.
- * Idempotent like initScrollReveal (PJAX re-runs it after every swap).
- */
-let pcLoopVideoObserver = null;
-function initLoopVideos() {
-  if (pcLoopVideoObserver) {
-    pcLoopVideoObserver.disconnect();
-    pcLoopVideoObserver = null;
-  }
-
-  const videos = document.querySelectorAll("video[data-pc-loop-video]");
-  if (!videos.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const start = (video) => {
-    if (video.dataset.pcLoopStarted) return;
-    video.dataset.pcLoopStarted = "1";
-    video.querySelectorAll("source[data-src]").forEach((source) => {
-      source.src = source.dataset.src;
-      source.removeAttribute("data-src");
-    });
-    // Set the property as well as the attribute: some browsers only allow a
-    // scripted play() without a user gesture when .muted is true on the element.
-    video.muted = true;
-    video.load();
-    const playing = video.play();
-    // Refused (iOS Low Power Mode, data saver): the poster simply stays.
-    if (playing && playing.catch) playing.catch(() => {});
-  };
-
-  if (!("IntersectionObserver" in window)) {
-    videos.forEach(start);
-    return;
-  }
-
-  pcLoopVideoObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        start(entry.target);
-        pcLoopVideoObserver.unobserve(entry.target);
-      });
-    },
-    { rootMargin: "300px 0px" }
-  );
-
-  videos.forEach((video) => pcLoopVideoObserver.observe(video));
-}
-
-/**
- * Simple floating scroll-to-top button: appears after the page has
- * scrolled a bit, click scrolls back to top.
- */
 function initScrollIndicator() {
   const el = document.getElementById("pcScrollIndicator");
   if (!el) return;

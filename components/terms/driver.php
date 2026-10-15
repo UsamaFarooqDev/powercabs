@@ -1,16 +1,4 @@
 <?php
-/**
- * Driver Terms -- the driver panel of /terms-conditions.
- *
- * GENERATED FROM: PowerCabs Driver Terms and Conditions 06 10 26.docx
- * Converted verbatim -- headings, paragraphs and lists only, no edits to
- * the wording. If the Word file is reissued, regenerate this rather than
- * patching it by hand, or the page and the signed document drift apart.
- *
- * Section ids are 'd-N' by position, so an inserted clause renumbers the
- * anchors below it. They are in-page only and nothing external links to
- * them.
- */
 $termsPanelId = 'driverTerms';
 $termsIntro = 'Terms and Conditions for SPSV Drivers and authorised operators using PowerCabs';
 $termsMeta = 'Effective Date: 06/10/2026 &middot; Last Updated: 04/10/2026';

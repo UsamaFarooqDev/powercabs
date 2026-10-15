@@ -1,5 +1,4 @@
 <?php
-
 $rideTypes = [
   [
     'img'   => 'Economy.png',
@@ -155,23 +154,14 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
             'tw-group tw-inline-flex tw-h-10 tw-w-10 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full ' .
             'tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-text-ink ' .
             'tw-shadow-[0_4px_14px_rgba(28,20,16,0.05)] tw-transition-all tw-duration-300 ' .
-            // Nothing moves on hover, matching $pcBtnPrimary: the shadow deepens.
-            // These two keep their orange fill as well -- they are white circles
-            // at rest, and on a 40px icon button a shadow alone is almost
-            // invisible. Drop the three hover:tw-*-power classes if the fill
-            // should go too.
+
             'hover:tw-border-power/30 hover:tw-bg-power hover:tw-text-white hover:tw-shadow-[0_10px_26px_rgba(28,20,16,0.16)] ' .
             'focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-power ' .
             'disabled:tw-cursor-not-allowed disabled:tw-opacity-35 disabled:hover:tw-border-black/[0.08] disabled:hover:tw-bg-white disabled:hover:tw-text-ink ' .
             'motion-reduce:tw-transition-none';
           ?>
 
-          <?php /* Pause / play for the autoplay. Hidden until the script marks it
-                   .is-ready, so with JS off -- or with reduced motion, where
-                   nothing auto-plays -- there is no button that does nothing.
-                   It comes first, before prev/next, which is where the WAI
-                   carousel pattern puts the rotation control. The script
-                   toggles .is-paused, which swaps the two icons. */ ?>
+          <?php  ?>
           <button
             type="button"
             class="<?= str_replace('tw-inline-flex', 'tw-hidden [&.is-ready]:tw-inline-flex', $rideNavBtn) ?>"
@@ -338,10 +328,7 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
                         class="<?= $pcBtnPrimary ?>"
                       >
                         Book this ride
-                        <?php /* No hover nudge on the arrow. $pcBtnPrimary's hover
-                                 is its fill and glow, on the pill only -- an icon
-                                 that slides as well makes the label and the
-                                 chevron drift apart inside it. */ ?>
+                        <?php  ?>
                         <svg
                           class="tw-h-4 tw-w-4 tw-shrink-0"
                           viewBox="0 0 24 24"
@@ -386,12 +373,7 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
             type="button"
             data-ride-dot="<?= $i ?>"
             aria-label="Show <?= htmlspecialchars($ride['title']) ?>"
-            <?php /* The DOT is 6px; the button around it is 24px tall with a
-                     transparent border, so the hit area clears §55's mobile
-                     minimum without the dot itself growing. border-box keeps
-                     the painted dot at 6px while the border adds target only.
-                     Measured at 360px these were 6px tall -- a 6px touch
-                     target on a carousel control. */ ?>
+            <?php  ?>
             class="tw-box-content tw-h-1.5 tw-w-1.5 tw-appearance-none tw-rounded-full tw-border-[9px] tw-border-solid tw-border-transparent tw-bg-ink/15 tw-bg-clip-padding tw-p-0 tw-transition-all tw-duration-500 hover:tw-bg-ink/35 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-1 focus-visible:tw-outline-power motion-reduce:tw-transition-none [&[aria-current=true]]:tw-w-10 [&[aria-current=true]]:tw-bg-power"
           ></button>
 
@@ -403,8 +385,7 @@ $rideSlidePad = 'tw-p-3 sm:tw-p-4 md:tw-p-5 lg:tw-p-6 xl:tw-p-8';
 
 </section>
 
-<?php /* Slider behaviour: looping prev/next, dots, swipe, arrow keys, and
-         autoplay with pause. See the notes at the top of the script. */ ?>
+<?php  ?>
 <script src="<?= $assetPath ?>assets/js/components/ride-types-slider.js?v=<?= @filemtime(
   __DIR__ . '/../../assets/js/components/ride-types-slider.js',
 ) ?>"></script>

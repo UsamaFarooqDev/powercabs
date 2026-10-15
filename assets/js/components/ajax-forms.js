@@ -1,23 +1,9 @@
-/**
- * Generic AJAX submission for every "POST to self" form on the site
- * (booking, contact, complaint, feedback, lost item, ambassador/partner
- * sign-up, corporate/business account requests, payment terminal
- * application). The PHP side is untouched -- it still receives a normal
- * POST and renders the full page with a ".alert-success" or ".alert-danger"
- * message baked in, exactly as before. This just submits that POST in the
- * background instead of navigating, shows a small spinner in the submit
- * button while it's in flight, and surfaces the result as a toast instead
- * of a full reload (which was both flashing the full-page loader and
- * resetting scroll position on every submit).
- *
- * Opt a form out with data-no-ajax on the <form>.
- */
+
 function pcInitAjaxForms() {
   document.querySelectorAll('form[method="post"]').forEach((form) => {
     if (form.dataset.ajaxBound) return;
     const action = (form.getAttribute("action") || "").trim();
-    // Only forms that post back to the current page (action="" or an
-    // in-page anchor) -- that's every form in the project today.
+
     if (action !== "" && action.charAt(0) !== "#") return;
     if (form.dataset.noAjax !== undefined) return;
 
@@ -67,23 +53,13 @@ async function pcHandleAjaxSubmit(event) {
   }
 }
 
-/**
- * Disables the button and, in place, swaps just its trailing icon (submit
- * buttons on the site end in an inline <svg>, or an <i> on any not yet
- * converted) for a small borderless spinner -- the label text stays put,
- * nothing else about the button's size or styling changes. Falls back to
- * appending a spinner if a button has no icon. Returns a restore function.
- */
 function pcSetButtonBusy(btn) {
   if (!btn) return () => {};
 
   btn.disabled = true;
   const icon = btn.querySelector(":scope > svg, :scope > i");
 
-  // The arc is drawn in the button's own text colour (border-t-current over a
-  // transparent ring), so one spinner works on the orange, dark and outline
-  // buttons alike without a per-variant rule.
-  const spinner = document.createElement("span");
+const spinner = document.createElement("span");
   spinner.className = [
     icon ? "" : "tw-ml-2",
     "tw-inline-block tw-h-[0.85rem] tw-w-[0.85rem] tw-shrink-0 tw-animate-spin tw-rounded-full",

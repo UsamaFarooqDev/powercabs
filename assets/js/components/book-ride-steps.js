@@ -8,7 +8,7 @@ function pcInitBookSteps() {
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const SLIDE_MS = 420;
-  const EASE = "cubic-bezier(0.22, 1, 0.36, 1)"; // the site's signature "premium" easing
+  const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
   let currentIndex = tabs.findIndex((t) => t.classList.contains("is-active"));
   if (currentIndex < 0) currentIndex = 0;
@@ -34,23 +34,18 @@ function pcInitBookSteps() {
       return;
     }
 
-    // Later step -> swipe left (new screen enters from the right).
-    // Earlier step -> swipe right (new screen enters from the left).
-    const direction = index > currentIndex ? 1 : -1;
+const direction = index > currentIndex ? 1 : -1;
     currentIndex = index;
     animating = true;
 
-    // A real swipe needs both screens on stage at once -- clone the current
-    // image, point it at the new screen, and park it just off the entering
-    // edge before the outgoing one has moved at all.
-    const incoming = screen.cloneNode(false);
+const incoming = screen.cloneNode(false);
     incoming.removeAttribute("id");
     incoming.src = nextSrc;
     incoming.alt = tab.dataset.alt || "";
     incoming.style.transition = "none";
     incoming.style.transform = `translateX(${direction * 100}%)`;
     screen.insertAdjacentElement("afterend", incoming);
-    void incoming.offsetWidth; // force layout so the parked position isn't animated
+    void incoming.offsetWidth;
 
     const transition = `transform ${SLIDE_MS}ms ${EASE}`;
     screen.style.transition = transition;

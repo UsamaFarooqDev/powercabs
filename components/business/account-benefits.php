@@ -2,11 +2,7 @@
 $bizAccountBenefits = [
   ['icon' => 'receipt', 'title' => 'Simple Billing', 'desc' => 'Keep every business journey on a consolidated invoice, no hidden charges.'],
   ['icon' => 'chart', 'title' => 'Full Visibility', 'desc' => 'See journeys, spend and activity across whole organisation as it happens.'],
-  /* The two account features that were NOT already said here, moved up from
-     booking-process.php's icon row. That row restated One Account, Simple
-     Billing and Full Visibility under a heading promising booking steps; these
-     two were the only part of it saying anything new, so they join the list
-     that was already making the argument. */
+  
   ['icon' => 'workspace', 'title' => 'Priority Booking', 'desc' => 'Business journeys are prioritised when you need a car quickly.'],
   ['icon' => 'receipt', 'title' => 'Corporate Support', 'desc' => 'A dedicated contact for your account, not the general queue.'],
 ];

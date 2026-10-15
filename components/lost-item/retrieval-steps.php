@@ -7,7 +7,6 @@ $lostItemSteps = [
   ['title' => 'We arrange the return', 'desc' => 'If you approve, we coordinate getting your belongings back to you.'],
 ];
 ?>
-<!-- ============ Lost item: what happens if we find it ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="<?= $pcSectionHeadCenter ?>">

@@ -1,17 +1,4 @@
 <?php
-/**
- * What is left of the old "Fare Estimate + Your Taxi. Your Choice." block.
- *
- * The fare widget that used to sit in the right-hand column has moved into
- * the hero (components/ride/hero.php via fare-widget.php), which is where a
- * rider actually wants it. That left this block as one column of copy in a
- * two-column grid, so the grid is gone and the copy runs at the container's
- * own width instead of half of it.
- *
- * The trust bar, the Quick Book modal and the three script tags below are
- * unchanged and still live here. The scripts must stay AFTER the hero in the
- * document, which they are: ride.php requires the hero first.
- */
 $rideTrustItems = [
   ['icon' => 'badge', 'title' => 'NTA Licensed', 'sub' => 'DH12616'],
   ['icon' => 'ie-badge', 'title' => 'Irish Company', 'sub' => 'PowerCabs Ireland Limited'],
@@ -21,25 +8,13 @@ $rideTrustItems = [
 
 require_once __DIR__ . '/icons.php';
 
-/* Field styling for the Quick Book modal further down this file. These used to
-   be declared once for both the fare widget and the modal; the widget took its
-   own copy of $inputClass when it moved into the hero, and these four stayed
-   here with the markup that still uses them. Canonical PowerCabs field
-   styling -- mirrors book-ride-online.php exactly. */
 $inputClass = $pcInput;
 $labelClass = 'pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
 $submitClass = $pcBtnPrimary . ' tw-w-full';
 $addonCardClass =
   'tw-flex tw-w-full tw-cursor-pointer tw-items-center tw-gap-2.5 tw-rounded-lg tw-border tw-border-solid tw-border-ink/15 tw-px-3.5 tw-py-2.5 tw-text-left tw-text-sm tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-ink has-[:checked]:tw-bg-ink has-[:checked]:tw-text-white';
 ?>
-<!-- ============ "Your Taxi. Your Choice." ============ -->
 <?php
-/* Eight points now, not four. A wrapped row of eight pills runs to three
-   ragged lines and reads as a tag cloud, so the section is two columns: the
-   argument on the left, the list beside it in a fixed 2-up grid. */
-/* One icon per line, not eight identical ticks. A repeated check mark carries
-   no information past the first row -- it only says "this is a list", which
-   the list already says. These say what each line is about. */
 $rideChoicePoints = [
   ['icon' => 'badge', 'label' => 'Licensed drivers'],
   ['icon' => 'sparkle', 'label' => 'Clean vehicles'],
@@ -53,9 +28,7 @@ $rideChoicePoints = [
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <?php /* items-center, not items-start: the card is shorter than the copy
-             beside it, and top-aligned it left a long tail of empty space
-             under it. Centred, the two columns read as a pair. */ ?>
+    <?php  ?>
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16">
 
       <div class="lg:tw-col-span-7">
@@ -63,9 +36,7 @@ $rideChoicePoints = [
           Your Taxi. Your Choice. <span class="tw-text-power">Irish-owned.</span>
         </h2>
 
-        <?php /* The tagline as its own line in ink rather than buried at the
-                 head of the paragraph -- it is a claim, and it was carrying a
-                 comma splice into the sentence that follows it. */ ?>
+        <?php  ?>
         <p class="tw-mb-3 tw-max-w-[60ch] tw-text-[1.1875rem] tw-font-semibold tw-leading-[1.5] tw-tracking-[-0.005em] tw-text-ink">
           PowerCabs &mdash; the Irish way to travel.
         </p>
@@ -85,15 +56,11 @@ $rideChoicePoints = [
       </div>
 
       <div class="lg:tw-col-span-5">
-        <?php /* A bordered panel rather than loose pills: eight items need a
-                 container or they read as debris beside a block of copy. */ ?>
+        <?php  ?>
         <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-x-5 tw-gap-y-3 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-6 tw-shadow-[0_1px_3px_rgba(28,20,16,0.05)] sm:tw-grid-cols-2 lg:tw-grid-cols-1 xl:tw-grid-cols-2">
           <?php foreach ($rideChoicePoints as $point): ?>
             <li class="tw-group/pt tw-flex tw-items-center tw-gap-3 tw-text-[0.9rem] tw-font-semibold tw-leading-snug tw-text-ink">
-              <?php /* Rounded square, not a circle: these are eight different
-                       marks at different widths, and a square tile gives each
-                       the same optical weight where a circle crops the wider
-                       ones. */ ?>
+              <?php  ?>
               <span class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-peach tw-text-power tw-transition-colors tw-duration-200 group-hover/pt:tw-bg-power group-hover/pt:tw-text-white motion-reduce:tw-transition-none">
                 <?php pc_ride_hero_icon($point['icon'], 'tw-h-[1.05rem] tw-w-[1.05rem]'); ?>
               </span>
@@ -107,7 +74,6 @@ $rideChoicePoints = [
   </div>
 </section>
 
-<!-- ============ Trust badge bar ============ -->
 <section class="tw-pb-16 md:tw-pb-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-divide-y tw-divide-solid tw-divide-black/[0.08] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-shadow-[0_20px_45px_rgba(28,20,16,0.1)] sm:tw-grid-cols-2 md:tw-grid-cols-4 md:tw-divide-x md:tw-divide-y-0">
@@ -132,11 +98,6 @@ $rideChoicePoints = [
   </div>
 </section>
 
-<!-- ============ Quick Book Modal (opens after "Continue") ============ -->
-<!-- Driven by the modal helper in assets/js/components/ui.js;
-     ride-fare-estimate.js opens it via pcModal.getOrCreateInstance() and
-     relocates this element to a direct child of <body> to escape <main>'s
-     stacking context. -->
 <div class="tw-hidden tw-fixed tw-inset-0 tw-z-[1055] tw-overflow-y-auto tw-overscroll-contain tw-px-4 tw-py-8" id="rfBookModal" data-pc-modal tabindex="-1" role="dialog" aria-labelledby="rfBookModalLabel" aria-hidden="true">
   <div class="tw-mx-auto tw-flex tw-min-h-full tw-items-center tw-opacity-0 tw-translate-y-3 tw-transition-[opacity,transform] tw-duration-200 [.is-open_&]:tw-opacity-100 [.is-open_&]:tw-translate-y-0 motion-reduce:tw-transition-none tw-max-w-[500px]">
     <div class="tw-w-full tw-overflow-hidden tw-rounded-2xl tw-bg-white tw-shadow-[0_30px_70px_rgba(28,20,16,0.25)]">
@@ -176,9 +137,6 @@ $rideChoicePoints = [
         <input type="hidden" name="distance_km" id="rfModalDistance">
         <input type="hidden" name="duration_min" id="rfModalDuration">
         <input type="hidden" name="fare_eur" id="rfModalFare">
-        <!-- Carried through so ride.php can re-validate it on submit. The
-             fare above is display only -- the POST handler recomputes both
-             the fare and the promo rather than trusting either field. -->
         <input type="hidden" name="promo_code" id="rfModalPromoCode">
 
         <div class="tw-mb-4">
@@ -213,6 +171,9 @@ $rideChoicePoints = [
               <span>Only Luggage <span class="tw-opacity-75">(no passengers or pets)</span></span>
             </label>
           </div>
+          <p class="tw-mb-0 tw-mt-2.5 tw-text-[0.8125rem] tw-leading-relaxed tw-text-ink/55">
+            Estimated fare is for one person with standard luggage, any extra passenger will incure &euro;1 extra to the booking.
+          </p>
         </div>
 
         <button type="submit" class="<?= $submitClass ?>">
@@ -230,18 +191,7 @@ $rideChoicePoints = [
   </div>
 </div>
 
-<?php /* ORDER MATTERS, and it was wrong. The Maps SDK tag used to come FIRST,
-         with async defer and callback=initRideFareMap -- so on a fast
-         connection the SDK finished and called the callback before
-         ride-fare-estimate.js had run and defined it. The console showed
-         "initRideFareMap is not a function" and Places autocomplete never
-         attached to the pickup and drop-off fields on a first load.
-
-         ride-fare-estimate.js goes first now. It sets window.initRideFareMap
-         and ALSO self-invokes when window.google.maps already exists, which is
-         the PJAX case CLAUDE.md describes -- the SDK is never re-inserted once
-         loaded, so the callback= parameter only ever fires on the very first
-         page view and cannot be relied on alone. */ ?>
+<?php  ?>
 <script src="<?= $assetPath ?>assets/js/components/ride-fare-estimate.js?v=<?= @filemtime(__DIR__ . '/../../assets/js/components/ride-fare-estimate.js') ?>"></script>
 <script
   src="https://maps.googleapis.com/maps/api/js?key=<?= PC_GOOGLE_MAPS_API_KEY ?>&libraries=places&callback=initRideFareMap"

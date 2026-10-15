@@ -1,17 +1,13 @@
 <?php
 $pageTitle = 'Dublin Airport Transfers & Meet and Greet | PowerCabs';
 $pageDescription =
-  /* 150 chars, and no ampersand. It was 172 raw and rendered at 176: "&"
-     becomes "&amp;" in the meta tag, so every one silently costs four
-     characters against the ~160 Google shows. "meet and greet" spelled out
-     is also the way people type the search. */
+  
   'Dublin Airport taxi transfers with PowerCabs -- flight tracking, a personal meet and greet at arrivals, luggage help and a direct transfer, 24/7.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
-// ============ Meet & Greet booking/enquiry form ============
 $mgFormStatus = null;
 $mgFormError = '';
 $mgOld = [
@@ -19,26 +15,22 @@ $mgOld = [
   'email' => '',
   'phone' => '',
   'flight_number' => '',
-  'service_type' => '', // 'pickup' | 'dropoff'
-  'pickup_terminal' => '', // Pickup flow: which terminal you're arriving at
-  'destination_address' => '', // Pickup flow: where to drop you off
-  'pickup_address' => '', // Dropping Off flow: where to collect you from
-  'dropoff_terminal' => '', // Dropping Off flow: which terminal to drop you at
+  'service_type' => '', 
+  'pickup_terminal' => '', 
+  'destination_address' => '', 
+  'pickup_address' => '', 
+  'dropoff_terminal' => '', 
   'passengers' => '',
-  'pickup_date' => '', // the date the flight lands / the car is wanted
+  'pickup_date' => '', 
   'pickup_time' => '',
   'special_requirements' => '',
-  'service_level' => '', // key of $mgServiceLevels -- which tier was chosen
+  'service_level' => '', 
 ];
 
-/* Today, as the floor for the date field. A meet & greet in the past is never
-   a real booking, and the browser enforces it via min= before the request is
-   ever sent. Re-checked server-side below, because min= is only a hint. */
 $mgMinDate = date('Y-m-d');
 
 $mgTerminalOptions = ['Terminal 1', 'Terminal 2', 'Platinum Service'];
-// Pickups can also start at Heuston Station; drop-offs stay airport-only, so
-// the drop-off select and its validation keep using $mgTerminalOptions alone.
+
 $mgPickupLocationOptions = array_merge($mgTerminalOptions, ['Heuston Station']);
 $mgServiceTypeLabels = [
   'pickup' => 'Pickup (collected from the airport)',
@@ -99,12 +91,6 @@ $mgServiceLevels = [
   ],
 ];
 
-/* PC_STRIPE_MEET_GREET_LINK is no longer read here. This form is an enquiry
-   that is answered by email, so there is nothing to pay for at this point and
-   no pay button to render. The constant still exists in includes/env.php and
-   .env.example; nothing on the site uses it now, so it can be retired there
-   whenever the key is removed from the production .env. */
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'meet_greet') {
   foreach ($mgOld as $key => $default) {
     $mgOld[$key] = trim($_POST[$key] ?? '');
@@ -136,9 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   $mgPassengersOk =
     ctype_digit($mgOld['passengers']) && (int) $mgOld['passengers'] >= 1 && (int) $mgOld['passengers'] <= 20;
 
-  /* Re-validated here, not just via the input's own type= and min=: both are
-     browser hints and neither survives a hand-rolled POST. checkdate() on the
-     split parts rejects 2026-02-30, which a plain regex would wave through. */
   $mgDateOk = (bool) preg_match('/^\d{4}-\d{2}-\d{2}$/', $mgOld['pickup_date']);
   if ($mgDateOk) {
     [$y, $m, $d] = array_map('intval', explode('-', $mgOld['pickup_date']));
@@ -146,9 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   }
   $mgTimeOk = (bool) preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $mgOld['pickup_time']);
 
-  // The plan is a visible required field now, not the optional hidden one it
-  // started as. Anything outside the three tiers is dropped rather than
-  // trusted, and an empty value then fails $mgMissing below.
   if ($mgOld['service_level'] !== '' && !isset($mgServiceLevels[$mgOld['service_level']])) {
     $mgOld['service_level'] = '';
   }
@@ -174,9 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
     $mgFormStatus = 'error';
     $mgFormError = 'Please fill in all required fields.';
   } elseif (!$mgDateOk || !$mgTimeOk) {
-    // Its own message: "fill in all required fields" is wrong and confusing
-    // when the field IS filled in and the problem is that the date has passed.
-    $mgFormStatus = 'error';
+$mgFormStatus = 'error';
     $mgFormError = 'Please enter a valid pickup date and time. The date cannot be in the past.';
   } elseif (!filter_var($mgOld['email'], FILTER_VALIDATE_EMAIL)) {
     $mgFormStatus = 'error';
@@ -199,9 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
         "Pickup Address: {$mgOld['pickup_address']}\n" . "Drop-off / Airport Terminal: {$mgOld['dropoff_terminal']}\n";
     }
 
-    /* The plan is required now, so there is no "(not selected)" branch left.
-       The listed price rides along so whoever answers the enquiry can see
-       which tier was quoted on the page without looking it up. */
     $mgLevel =
       html_entity_decode($mgServiceLevels[$mgOld['service_level']]['eyebrow'], ENT_QUOTES, 'UTF-8') .
       " (listed at \u{20AC}" .
@@ -234,9 +209,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'me
   }
 }
 
-/* Service structured data. Assembled in includes/seo.php, which wires
-   it to the Organization node and supplies the default service area,
-   so the page only states what the service is. */
 $pageService = [
   'name' => 'Dublin Airport Transfers and Meet and Greet',
   'serviceType' => 'Airport transfer',
@@ -301,66 +273,25 @@ $whyChoose = [
   'Safe & reliable transportation',
 ];
 
-// Canonical PowerCabs form field recipe (see book-ride-online.php).
-// Was a byte-for-byte copy of $pcInput. Pointed at the recipe instead:
-// $pcInput is already mirrored in custom-select.js and custom-datetime.js so
-// an enhanced control sits flush with a plain one, and every literal copy is
-// one more place that silently stops matching when it changes.
 $mgInputClass = $pcInput;
-// A real deviation, not a copy: these labels carry an inline icon, so the
-// label is a flex row rather than a block. Derived from $pcLabel so the size,
-// weight, colour and spacing stay in step with every other label on the site.
+
 $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcLabel);
 ?>
 
-<?php /* An intro section headed "Welcome from the moment you arrive." used to
-         sit here, between the hero and the booking panel. It was removed for
-         two reasons.
+<?php  ?>
 
-         First, it was the second of FIVE sections on this page that all made
-         the same claim -- that your arrival is smooth and someone handles
-         your bags. Its paragraph ("your driver is there to welcome you,
-         assist with your luggage and get you comfortably on your way") is
-         the booking section's own intro line directly below, reworded.
-
-         Second, and more important: this page's job is to take a booking,
-         and that block pushed the booking panel a full screen further down.
-         The panel now follows the hero directly. */ ?>
-
-<!-- ============ Meet & Greet Booking ============ -->
-<!-- scroll-mt clears the fixed navbar when the closing CTA jumps here. -->
+<?php  ?>
 <section class="tw-relative tw-overflow-hidden tw-scroll-mt-[calc(var(--pc-navbar-h,110px)+1rem)] <?= $pcSection ?>" id="pcMeetGreetBook">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-overflow-hidden tw-rounded-[1.75rem] tw-border tw-border-solid tw-border-black/[0.07] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] lg:tw-grid-cols-12">
 
-      <!-- LEFT: branding / visual side -->
       <div class="tw-relative tw-flex tw-flex-col tw-overflow-hidden tw-bg-[linear-gradient(155deg,#1c1410_0%,#2a1a10_55%,#160f0a_100%)] tw-p-6 tw-text-white sm:tw-p-10 lg:tw-col-span-5">
-        <?php /* Watermark layer. The plane in the top-right corner was on its
-                 own, which left the middle of this panel -- the band between
-                 the feature list and the price cards that mt-auto pushes to the
-                 bottom -- as flat gradient.
-               *
-               * Four more marks fill it, one per thing the service actually
-               * does: luggage help, flight tracking, the name board at
-               * arrivals, and the car. Same treatment as the plane, so they
-               * read as one watermark rather than as five icons: white at
-               * 4-5%, rotated off-axis, z-0 and pointer-events-none. Every
-               * piece of content in this panel already carries relative z-[1],
-               * so it all sits above this layer.
-               *
-               * Kept faint deliberately. At any more than ~6% these stop being
-               * texture and start competing with the price cards, which are
-               * the only thing in here a visitor has to read. */ ?>
+        <?php  ?>
         <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-overflow-hidden" aria-hidden="true">
-          <!-- plane, top right -->
           <svg class="tw-absolute -tw-right-6 -tw-top-6 tw-h-44 tw-w-44 tw-rotate-[35deg] tw-text-white/[0.05]" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
-          <!-- suitcase, mid left -->
           <svg class="tw-absolute -tw-left-7 tw-top-[42%] tw-h-32 tw-w-32 -tw-rotate-[14deg] tw-text-white/[0.045]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.25 9V5.25A2.25 2.25 0 0110.5 3h3a2.25 2.25 0 012.25 2.25V9m-9 10.5h9a2.25 2.25 0 002.25-2.25V11.25A2.25 2.25 0 0015.75 9H8.25A2.25 2.25 0 006 11.25v6a2.25 2.25 0 002.25 2.25z"/></svg>
-          <!-- clock, mid right -->
           <svg class="tw-absolute -tw-right-4 tw-top-[38%] tw-h-24 tw-w-24 tw-rotate-[12deg] tw-text-white/[0.04]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <!-- name board, centre -->
           <svg class="tw-absolute tw-left-[42%] tw-top-[56%] tw-h-20 tw-w-20 -tw-rotate-[8deg] tw-text-white/[0.04]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6m-6 3h4m3-9.75h1.5A2.25 2.25 0 0119.75 7.5v12a2.25 2.25 0 01-2.25 2.25h-11A2.25 2.25 0 014.25 19.5v-12A2.25 2.25 0 016.5 5.25H8m4-2.25a1.5 1.5 0 011.5 1.5v.75A.75.75 0 0112.75 6h-1.5a.75.75 0 01-.75-.75V4.5A1.5 1.5 0 0112 3z"/></svg>
-          <!-- car, lower left -->
           <svg class="tw-absolute tw-bottom-[16%] tw-left-[24%] tw-h-24 tw-w-24 tw-rotate-[6deg] tw-text-white/[0.04]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h7.5m3 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.9 17.9 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.83H14.25M4.5 18.75H3.375c-.621 0-1.125-.504-1.125-1.125V14.25m2.25 4.5H2.35m0-4.5l1.72-5.354A2.25 2.25 0 016.16 7.5h8.09v6.75H2.35z"/></svg>
         </div>
 
@@ -392,14 +323,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           <?php endforeach; ?>
         </ul>
 
-        <?php /* The cancellation policy, in the gap this panel used to leave
-                 between the feature list and the price cards. mt-auto on the
-                 cards below still pins them to the bottom of the column, so
-                 this fills the space rather than pushing anything down.
-
-                 Same glass treatment as the cards it sits above -- it is
-                 panel furniture, not a warning, so it does not get a red or
-                 orange alert box. */ ?>
+        <?php  ?>
         <div class="tw-relative tw-z-[1] tw-mt-auto tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-4 tw-pt-4 tw-backdrop-blur-md sm:tw-p-5">
           <p class="tw-mb-1.5 tw-flex tw-items-center tw-gap-2 tw-text-[0.72rem] tw-font-bold tw-uppercase tw-tracking-[0.12em] tw-text-powerlight">
             <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -413,27 +337,12 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           </p>
         </div>
 
-        <?php /* The One Way / Return price cards that used to close this panel
-                 are gone with the rest of the fare machinery. The cancellation
-                 note above now carries mt-auto in their place, so it still sits
-                 at the foot of the column rather than leaving a gap where the
-                 cards were. */ ?>
+        <?php  ?>
       </div>
 
-      <!-- RIGHT: booking form -->
       <div class="tw-bg-white tw-p-6 sm:tw-p-10 lg:tw-col-span-7">
 
-        <?php /* SIX columns, not two, so the first row can hold three fields
-                 and every other row can hold two. A 3-up and a 2-up cannot
-                 share a 2-column grid; six is the smallest number both divide
-                 into, so a third of the row is col-span-2 and a half is
-                 col-span-3. $mgFieldThird / $mgFieldHalf / $mgFieldFull below
-                 name those three widths so the intent is readable at each
-                 field rather than being arithmetic scattered through the
-                 markup.
-               *
-               * Nothing changes below md -- the grid is still one column, and
-               * the fields still stack in source order. */ ?>
+        <?php  ?>
         <?php
         $mgFieldThird = 'md:tw-col-span-2';
         $mgFieldHalf = 'md:tw-col-span-3';
@@ -456,21 +365,14 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 ) ?>" required>
           </div>
 
-          <?php /* New field. It is in $mgOld, in the required check and in the
-                   enquiry email -- a phone number that only appears in the
-                   markup would be collected and then silently dropped. */ ?>
+          <?php  ?>
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgPhone">Phone Number</label>
             <input type="tel" class="<?= $mgInputClass ?>" id="mgPhone" name="phone" autocomplete="tel"
               placeholder="e.g. +353 89 123 4567" value="<?= htmlspecialchars($mgOld['phone']) ?>" required>
           </div>
 
-          <?php /* Flight number, service type and journey type share one row as
-                   three thirds, matching the name/email/phone row above it and
-                   the passengers/date/time row below. Journey Type moved up
-                   here when the Service Level select was removed -- left where
-                   it was it would have sat alone on a half-width row with
-                   nothing beside it. */ ?>
+          <?php  ?>
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgFlightNumber">Flight Number</label>
             <input type="text" class="<?= $mgInputClass ?>" id="mgFlightNumber" name="flight_number"
@@ -478,7 +380,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           </div>
 
           <div class="<?= $mgFieldThird ?>">
-            <!-- pc-custom-select-enhance stays as a bare functional hook, shared with book-ride-online.php via custom-select.js. -->
             <label class="pc-required <?= $mgLabelClass ?>" for="mgServiceType">Service Type</label>
             <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgServiceType" name="service_type" required>
               <option value="" disabled <?= $mgOld['service_type'] === ''
@@ -493,11 +394,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             </select>
           </div>
 
-          <?php /* The plan, where Journey Type used to be. It is the choice the
-                   tier cards further up the page are selling, so it belongs in
-                   the form rather than in the hidden input it was carried in
-                   before. Same id and name, so the "Select Standard / Assist /
-                   First Class" buttons in the tier section still drive it. */ ?>
+          <?php  ?>
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgServiceLevel">Plan</label>
             <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgServiceLevel" name="service_level" required>
@@ -512,7 +409,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             </select>
           </div>
 
-          <!-- Pickup flow fields -->
           <div class="pc-mg-field-group <?= $mgFieldHalf ?>" data-mg-group="pickup">
             <label class="<?= $mgLabelClass ?>" for="mgPickupTerminal">Pickup / Airport Terminal</label>
             <select class="<?= $mgInputClass ?> pc-custom-select-enhance" id="mgPickupTerminal" name="pickup_terminal">
@@ -531,14 +427,9 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             <input type="text" class="<?= $mgInputClass ?>" id="mgDestinationAddress" name="destination_address"
               placeholder="Where should we drop you off?" autocomplete="off"
               value="<?= htmlspecialchars($mgOld['destination_address']) ?>">
-            <!-- `tw-hidden` here is an unavoidable, narrow exception: it's the
-                 exact class string dublin-places-autocomplete.js (shared
-                 with book-ride-online.php) hardcodes for showing/hiding this
-                 warning. -->
             <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="mgDestinationAddressWarning">Please choose a destination address within Dublin.</div>
           </div>
 
-          <!-- Dropping Off flow fields -->
           <div class="pc-mg-field-group <?= $mgFieldHalf ?>" data-mg-group="dropoff">
             <label class="<?= $mgLabelClass ?>" for="mgPickupAddress">Pickup Address</label>
             <input type="text" class="<?= $mgInputClass ?>" id="mgPickupAddress" name="pickup_address"
@@ -560,15 +451,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             </select>
           </div>
 
-          <?php /* Passengers, date and time share one row: three thirds of the
-                   six-column grid. The date and time inputs carry
-                   pc-custom-datetime-enhance, the same bare hook
-                   book-ride-online, city-tours and complaint-form use -- it is
-                   a JS selector with no CSS behind it, and custom-datetime.js
-                   reproduces $pcInput verbatim so an enhanced control sits
-                   flush with the plain number field beside it. Without the
-                   script the native pickers still work; this is enhancement,
-                   not a dependency. */ ?>
+          <?php  ?>
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgPassengers">Number of Passengers</label>
             <input type="number" min="1" max="20" class="<?= $mgInputClass ?>" id="mgPassengers" name="passengers"
@@ -588,17 +471,13 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               name="pickup_time" value="<?= htmlspecialchars($mgOld['pickup_time']) ?>" required>
           </div>
 
-
           <div class="<?= $mgFieldFull ?>">
             <label class="<?= $mgLabelClass ?>" for="mgSpecialRequirements">Special Requirements</label>
             <textarea class="<?= $mgInputClass ?> tw-py-2" id="mgSpecialRequirements" name="special_requirements"
               rows="3"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
           </div>
 
-          <?php /* What the Secure Payment panel used to occupy. Nothing is
-                   charged here any more, so the closing note says what DOES
-                   happen -- it is an enquiry, answered by email -- rather than
-                   leaving the form to end on a bare button. */ ?>
+          <?php  ?>
           <div class="<?= $mgFieldFull ?> tw-pt-1">
             <div class="tw-flex tw-flex-col tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-paper-soft tw-p-5 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
               <div class="tw-flex tw-items-start tw-gap-3">
@@ -610,7 +489,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
                   <span class="<?= $pcBodySm ?> tw-mt-0.5 tw-block">Send your details and we&rsquo;ll confirm your Meet &amp; Greet by email.</span>
                 </span>
               </div>
-              <!-- tw-appearance-none tw-border-0 strip the native <button> chrome -- see book-ride-online.php. -->
               <button type="submit" class="tw-inline-flex tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-border-0 tw-bg-ink tw-px-6 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black">
                 <span>Send Enquiry</span>
                 <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
@@ -618,7 +496,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             </div>
           </div>
 
-          <!-- .alert-success / .alert-danger stay as bare classnames -- the contract ajax-forms.js parses out of the returned HTML. -->
           <?php if ($mgFormStatus === 'success'): ?>
             <div class="<?= $mgFieldFull ?>">
               <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your Meet &amp; Greet enquiry has been sent. We'll confirm shortly.</div>
@@ -670,7 +547,6 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
       setGroupState('pickup', value === 'pickup');
       setGroupState('dropoff', value === 'dropoff');
     }
-
 
     serviceTypeSelect.addEventListener('change', applyServiceType);
 
@@ -729,17 +605,17 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
   })();
 </script>
 
-<!-- ============ Our Meet & Greet Services ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What's Included</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Our Meet &amp; Greet Services</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-x-10 tw-gap-y-10 sm:tw-grid-cols-2 lg:tw-grid-cols-3">
+    <?php  ?>
+    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-5">
       <?php foreach ($meetGreetServices as $s): ?>
-        <div class="<?= $pcFeature ?>">
-          <span class="<?= $pcFeatureIcon ?>">
+        <div class="tw-group <?= $pcFeature ?> tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-6 tw-shadow-[0_1px_2px_rgba(28,20,16,0.04)] tw-transition tw-duration-300 hover:tw--translate-y-0.5 hover:tw-border-power/25 hover:tw-shadow-[0_14px_30px_-14px_rgba(28,20,16,0.22)] motion-reduce:tw-transform-none motion-reduce:tw-transition-none">
+          <span class="<?= $pcFeatureIcon ?> tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none">
             <?php switch ($s['icon']): case 'badge': ?>
                 <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.96 11.96 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
               <?php break;case 'bag': ?>
@@ -771,27 +647,12 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 <script src="<?= $assetPath ?>assets/js/components/custom-select.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-select.js',
 ) ?>"></script>
-<?php /* New on this page, for the Date and Time fields added to the booking
-         form. Same script book-ride-online, city-tours and complaint-form
-         already load; it reproduces $pcInput verbatim so the enhanced pickers
-         line up with the plain fields beside them. */ ?>
+<?php  ?>
 <script src="<?= $assetPath ?>assets/js/components/custom-datetime.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/custom-datetime.js',
 ) ?>"></script>
 
-<?php /* ORDER MATTERS, AND IT USED TO BE WRONG HERE. The Maps tag below is
-         async defer with callback=initMeetGreetAutocomplete, and it used to sit
-         ABOVE these two files -- so on a cold load the SDK called the callback
-         before meet-greet-map.js had defined it. The browser threw
-         "initMeetGreetAutocomplete is not a function" (reproduced in a headless
-         run), and the self-invoke at the bottom of meet-greet-map.js could not
-         cover for it, because on that same cold load window.google.maps is not
-         ready yet and it returns early. Net effect: no Dublin-restricted
-         address autocomplete until something else re-ran it.
-
-         Defining the callback first makes it exist whenever the SDK fires.
-         Identical to the fix already applied to ride-fare-estimate.js on
-         /ride; do not move the SDK tag back above these. */ ?>
+<?php  ?>
 <script src="<?= $assetPath ?>assets/js/components/dublin-places-autocomplete.js?v=<?= @filemtime(
   __DIR__ . '/assets/js/components/dublin-places-autocomplete.js',
 ) ?>"></script>
@@ -822,36 +683,9 @@ require __DIR__ . '/components/shared/scroll-scene.php';
   __DIR__ . '/assets/js/components/scroll-scene.js',
 ) ?>"></script>
 
+<?php  ?>
 
-<?php /* A 520px-tall full-bleed photo banner sat here carrying exactly one
-         sentence -- "From the terminal to the car, we've got your bags
-         covered." That is the "Luggage Assistance" service card above,
-         restated at billboard size, and it also loaded a second remote
-         hero-sized photo. Half a screen of scrolling for a duplicate claim. */ ?>
-
-<!-- ============ Why Choose Us ============ -->
-<?php /* "How It Works" is gone from here, and it was the half to lose.
- *
- * This was one bordered white panel split down the middle: Why Choose Us on
- * the left, How It Works on the right. The right half listed four bare labels
- * -- Enter Flight Details, Choose Vehicle, Confirm Booking, Driver Meets You
- * at Arrivals -- which is a narration of the booking form that sits higher up
- * THIS SAME PAGE at #pcMeetGreetBook. No step carried a description, step 4 is
- * the service promise the FAQ and the closing CTA both already state, and it
- * finished on a "That's it. You're all set." box that says nothing at all.
- * $bookingSteps went with it; nothing else referenced it.
- *
- * The left half stays because it carries claims that appear nowhere else on
- * the page in list form -- fixed transparent pricing, no hidden charges,
- * flight monitoring, 24/7, licensed drivers. Note that it is NOT the same list
- * as "Our Meet & Greet Services" directly above: that one is four services
- * with descriptions, this is what comes with all of them.
- *
- * The panel went too. A 2rem-radius white card with a 70px shadow, an inner
- * 2x4 grid of bordered chips, two icon tiles and two footer reassurance strips
- * was a lot of chrome around eight short labels. A ruled grid says it in one
- * screen-width, and it is the same treatment the feature rows on /about-us
- * and /book-ride-online use. */ ?>
+<?php  ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[720px] tw-text-center md:tw-mb-12">
@@ -864,10 +698,11 @@ require __DIR__ . '/components/shared/scroll-scene.php';
       </p>
     </div>
 
-    <ul class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-12 tw-gap-y-7 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <?php  ?>
+    <ul class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-10 tw-gap-y-7 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($whyChoose as $item): ?>
-        <li class="tw-flex tw-items-start tw-gap-3 tw-border-0 tw-border-t-2 tw-border-solid tw-border-hairline tw-pt-5">
-          <span class="tw-mt-0.5 tw-inline-flex tw-h-5 tw-w-5 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-md tw-bg-power tw-text-white" aria-hidden="true">
+        <li class="tw-group tw-relative tw-flex tw-items-start tw-gap-3 tw-pt-5 before:tw-absolute before:tw-left-0 before:tw-top-0 before:tw-h-0.5 before:tw-w-full before:tw-bg-gradient-to-r before:tw-from-hairline before:tw-to-hairline/0 before:tw-content-[''] after:tw-absolute after:tw-left-0 after:tw-top-0 after:tw-h-0.5 after:tw-w-full after:tw-bg-gradient-to-r after:tw-from-power after:tw-to-power/0 after:tw-opacity-0 after:tw-transition-opacity after:tw-duration-300 after:tw-content-[''] hover:after:tw-opacity-100 motion-reduce:after:tw-transition-none">
+          <span class="tw-mt-0.5 tw-inline-flex tw-h-5 tw-w-5 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-md tw-bg-peach tw-text-power tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none" aria-hidden="true">
             <svg class="tw-h-3 tw-w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
           </span>
           <span class="tw-text-[0.9375rem] tw-font-semibold tw-leading-snug tw-text-ink"><?= htmlspecialchars($item) ?></span>
@@ -880,13 +715,10 @@ require __DIR__ . '/components/shared/scroll-scene.php';
 <?php
 $ctaTitle = 'Ready to book your airport transfer?';
 $ctaText = 'Flight tracked, driver waiting inside arrivals, fare fixed before you travel.';
-// Raw "&", not "&amp;" -- final-cta.php escapes the label on output, so a
-// pre-escaped entity here would render as "&amp;".
+
 $ctaPrimary = ['href' => '/meet-greet#pcMeetGreetBook', 'label' => 'Book Meet & Greet'];
 $ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
 
-/* Restructured from copy already on this page -- see
-   components/shared/faq-accordion.php on why answers may not be invented. */
 $faqItems = [
   ['q' => 'Where will my driver meet me?', 'a' => 'Your driver waits inside the arrivals terminal with a personalised name board.'],
   ['q' => 'Will I get help with my luggage?', 'a' => 'Yes — professional assistance with luggage from the terminal to the vehicle.'],
@@ -897,10 +729,10 @@ $faqEyebrow = 'Airport transfers';
 $faqHeading = 'Meet & greet questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; // alternates against the white section above it
+
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

@@ -5,26 +5,7 @@ $paymentTestimonials = [
   ['img' => 'ahmed-pbs.jpg', 'quote' => 'Setup took minutes and the support team talked me through everything. My passengers love being able to tap and go.', 'name' => 'Ahmed', 'role' => 'Taxi Driver, Dublin'],
   ['img' => 'sara-pbs.jpg', 'quote' => 'Managing payments and stock in one place has saved me hours every week. Highly recommend for any small shop.', 'name' => 'Sara', 'role' => 'Shop Owner, Galway'],
 ];
-/* Back to an infinite marquee, at the client's request. It replaced one for a
-   while -- the argument being that a 25-word quote cannot be read before it
-   slides away, which a logo strip does not have to worry about. Three things
-   here are what make it readable anyway, and they are the parts to leave
-   alone:
 
-   - it pauses on hover, so a quote that catches the eye can be finished;
-   - 60s over a ~3,200px half is ~53px/s, matching trust-strip.php's pace
-     rather than the snappier default the animation ships with;
-   - prefers-reduced-motion stops it dead and turns the rail into a plain
-     horizontal scroller, which is also how it behaves for anyone driving it
-     by touch.
-
-   FOUR copies of the list, not two. The animation runs 0 -> -50%, so the
-   track has to be two identical halves and each half has to be at least as
-   wide as the viewport or a gap opens at the right edge mid-loop. Four
-   testimonials at ~400px is a 1,600px half -- fine on a laptop, visibly
-   broken on a 1920px monitor. Two copies per half (8 cards, ~3,200px) clears
-   every desktop width. Only the first half is exposed to assistive tech; the
-   rest is aria-hidden decoration. */
 $paymentTestimonialsHalf = array_merge($paymentTestimonials, $paymentTestimonials);
 $paymentTestimonialsTrack = array_merge($paymentTestimonialsHalf, $paymentTestimonialsHalf);
 $paymentTestimonialsRealCount = count($paymentTestimonialsHalf);
@@ -43,13 +24,6 @@ $paymentTestimonialsRealCount = count($paymentTestimonialsHalf);
     </div>
   </div>
 
-  <!-- Full-bleed, deliberately outside $pcContainer: a marquee that stops at
-       the container's edge reads as a broken carousel rather than a rail
-       running past the page. The mask feathers both ends so cards fade out
-       instead of being sliced off by the viewport.
-
-       py-2 gives the cards' shadows somewhere to land -- without it the
-       overflow-hidden above clips them flat. -->
   <div class="tw-group tw-overflow-hidden tw-py-2 [-webkit-mask-image:linear-gradient(90deg,transparent,#000_5%,#000_95%,transparent)] [mask-image:linear-gradient(90deg,transparent,#000_5%,#000_95%,transparent)] motion-reduce:tw-overflow-x-auto">
     <div class="tw-flex tw-w-max tw-animate-pc-marquee [animation-duration:60s] group-hover:[animation-play-state:paused] motion-reduce:tw-animate-none">
       <?php foreach ($paymentTestimonialsTrack as $tIndex => $t): ?>

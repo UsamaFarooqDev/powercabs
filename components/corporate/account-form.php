@@ -15,20 +15,9 @@ $whatWeDo = [
   ['icon' => 'shield', 'label' => 'Professional Sports Organizations'],
 ];
 
-// Every plain field shares this exact recipe -- the canonical PowerCabs
-// form system, defined in book-ride-online.php and reproduced by the
-// triggers custom-select.js / custom-datetime.js build (CLS.trigger there),
-// so any field elsewhere on the site lines up with these: border-radius
-// 6px, border #dee2e6, focus border-color swap to --pc-orange-light with no
-// ring/glow.
 $inputClass = $pcInput;
 ?>
-<?php /* Soft surface, not white. /corporate-services measured EIGHT consecutive
-         white sections, so the page had no grouping and no separation -- §26's
-         "Light -> Image -> Light -> Dark" rhythm needs something to alternate
-         against. This section sits between the image-led services row and the
-         dark mission band, which makes it the natural place for the change of
-         tone. */ ?>
+<?php  ?>
 <section class="tw-scroll-mt-24 <?= $pcSection ?>" id="corporate-account-form">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
@@ -111,18 +100,12 @@ $inputClass = $pcInput;
             </div>
 
             <div class="tw-col-span-full tw-pt-2">
-              <!-- tw-appearance-none tw-border-0: strip the native <button>
-                   chrome (default 2px outset border + native rendering)
-                   Preflight would otherwise reset -- see book-ride-online.php
-                   for the full story. -->
               <button type="submit" class="<?= $pcBtnPrimary ?>">
                 <span>Submit</span>
                 <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
               </button>
             </div>
 
-            <!-- .alert-success / .alert-danger stay as bare classnames --
-                 the contract ajax-forms.js parses out of the returned HTML. -->
             <?php if ($formStatus === 'success'): ?>
               <div class="tw-col-span-full">
                 <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your registration has been sent. Our Business Team will be in touch shortly.</div>

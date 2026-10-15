@@ -1,15 +1,5 @@
 <?php
-/**
- * The other half of the client's brief for this page: a lost item is often
- * someone's first contact with PowerCabs, and the driver is the person who
- * actually solves it. So the page closes the loop -- what the service says
- * about the kind of drivers we want, with a route to /drive.
- *
- * Kept to one section rather than the two in the source draft: the same CTA
- * twice on one page reads as a recruitment ad, not a help page.
- */
 ?>
-<!-- ============ Lost item: drivers ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">

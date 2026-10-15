@@ -1,44 +1,13 @@
 <?php
-/**
- * XML sitemap, generated from the pages that actually exist.
- *
- * Served at /sitemap.xml via an internal rewrite in .htaccess, which is the
- * URL robots.txt points at and the one already registered in Search Console.
- *
- * It replaced a hand-maintained sitemap.xml. The problem with that file was
- * not that it was wrong on the day it was written -- it listed the right 26
- * URLs -- but that nothing connected it to the site. Adding or removing a
- * page left it silently stale, and every <lastmod> was the same hard-coded
- * date, which tells a crawler nothing. Here the URL list and the timestamps
- * are both derived from the filesystem, so neither can drift.
- *
- * WHAT IS DEPRECATELY EXCLUDED, and why it matters: a sitemap is a
- * statement that every URL in it is canonical and indexable. Putting a
- * redirect, a 404, a noindex page or a duplicate in it contradicts the rest
- * of the site's signals, and Search Console reports that back as an error.
- * So the list here is built by exclusion from a single source -- the root
- * *.php files -- rather than by hand:
- *
- *   404.php / 410.php   error documents, never a destination
- *   reset-password.php  noindex (single-use Supabase token target)
- *   router.php          dev-server front controller, not a page
- *   sitemap.php         this file
- *
- * Anything else added to the repository root becomes a page and appears
- * here automatically.
- */
-
-// Same origin as includes/seo.php builds its canonical tags from, so a URL
-// here and the canonical on the page it points to can never disagree.
 $pcOrigin = 'https://www.powercabs.ie';
 
-/** Root .php files that are not indexable pages. */
-$excluded = ['404', '410', 'reset-password', 'router', 'sitemap'];
+// POST-only JSON endpoints belong here: a sitemap entry that 404s or 405s is a crawl error.
+$excluded = [
+  '404', '410', 'reset-password', 'router', 'sitemap',
+  
+  'driver-apply', 'driver-auth', 'driver-training-api', 'driver-certificate',
+];
 
-/* Crawl priority and change frequency. Both are hints Google has said it
-   largely ignores, kept only because they cost nothing and other crawlers
-   (Bing among them) still read them. The real signal here is <lastmod>.
-   Anything not listed falls back to the default below. */
 $profiles = [
   '' => ['1.0', 'daily'],
   'book-ride-online' => ['0.9', 'weekly'],
@@ -49,6 +18,7 @@ $profiles = [
   'corporate-services' => ['0.8', 'weekly'],
   'business-solutions' => ['0.8', 'weekly'],
   'wheelchair-accessible-taxis' => ['0.8', 'monthly'],
+  'pets-taxi' => ['0.8', 'monthly'],
   'city-tours' => ['0.8', 'monthly'],
   'download-our-app' => ['0.8', 'monthly'],
   'contact-us' => ['0.7', 'monthly'],
@@ -76,10 +46,6 @@ foreach (glob(__DIR__ . '/*.php') as $file) {
     continue;
   }
 
-  /* A page carrying $pageNoIndex must never appear in the sitemap. Read from
-     the source rather than maintained as a second list here, so marking a
-     page noindex is enough on its own to drop it -- there is no way to set
-     one and forget the other. */
   $source = @file_get_contents($file);
   if ($source !== false && preg_match('/^\s*\$pageNoIndex\s*=\s*true/mi', $source)) {
     continue;
@@ -88,19 +54,6 @@ foreach (glob(__DIR__ . '/*.php') as $file) {
   $path = $slug === 'index' ? '' : $slug;
   [$priority, $changefreq] = $profiles[$path] ?? $default;
 
-  /* lastmod from the page file, but a page is mostly its components, and
-     editing components/ride/ride-types.php changes /ride without touching
-     ride.php. So take the newest mtime across the page and the components it
-     requires, one level deep -- which is how these pages are built.
-
-     includes/ and components/shared/ are deliberately NOT counted, even
-     though they do change the rendered page. They are required by all 26
-     pages, so a one-line edit to header.php or the footer would stamp every
-     single URL with today's date at once. A sitemap where every lastmod
-     moves together carries no information -- it is indistinguishable from a
-     site that hard-codes the date, which is what this replaced. Counting
-     only page-specific files keeps the date meaning "this page's content
-     changed". */
   $times = [filemtime($file)];
   if ($source !== false && preg_match_all('/require(?:_once)?\s+__DIR__\s*\.\s*[\'"]([^\'"]+)[\'"]/', $source, $m)) {
     foreach ($m[1] as $rel) {
@@ -122,8 +75,6 @@ foreach (glob(__DIR__ . '/*.php') as $file) {
   ];
 }
 
-// Highest priority first, then alphabetically -- purely so the file is
-// readable when someone opens it.
 uasort($entries, static function (array $a, array $b): int {
   return [$b['priority'], $a['loc']] <=> [$a['priority'], $b['loc']];
 });

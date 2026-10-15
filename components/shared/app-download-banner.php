@@ -2,57 +2,14 @@
 $playStoreTarget = 'https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger';
 $appStoreTarget = 'https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981';
 
-/**
- * The app band, on 25 of the site's pages -- now ONE composition, not two.
- *
- * Its history is four steps, and the direction has been the same at every one:
- *   1. a full-bleed ORANGE slab with a torn clip-path edge. Measured at 23% of
- *      /wheelchair-accessible-taxis, 16% of /corporate-services and
- *      /city-tours, against a 3-8% target for orange. One shared component,
- *      four pages over budget.
- *   2. a light band with the orange contained in a panel.
- *   3. a white bordered panel, still carrying a heading, a paragraph, the two
- *      badges, "Buckle up Ireland!" and a Book/Track/Pay inset -- and a quiet
- *      one-row COMPACT variant behind a $bannerCompact flag, used by 17 pages
- *      that already closed with their own CTA.
- *   4. this: the compact row everywhere, and the panel gone.
- *
- * Which is the right end point. Those 17 pages had already voted -- more than
- * two thirds of the callers were opting out of the panel because it was a
- * second full-width closing block stacked on the one the page already had.
- * A band that most of its callers suppress is not a band, it is a default
- * nobody wanted.
- *
- * WHAT WENT WITH THE PANEL, so nobody has to go looking: the heading
- * "Download the PowerCabs App for Instant Access", its paragraph, the
- * "Buckle up Ireland!" line, and the Book / Track / Pay inset. The three
- * inset facts survive as the row's own sentence -- "Book in seconds, track
- * your driver door to door, and pay the fare you were quoted" -- which is the
- * same three claims in the same order. Both store links are untouched, so
- * nothing a reader can act on has been removed.
- *
- * $bannerCompact is accepted and discarded. Seventeen pages still set it to
- * true before requiring this file; that is now a no-op rather than an error,
- * and those lines can be deleted whenever those pages are next edited.
- */
 $bannerCompact = null;
 
-/* $bannerTitle / $bannerText -- optional, and defaulted to the rider copy that
-   24 pages want. They exist because /ambassador-programme is addressed to
-   DRIVERS: "track your driver door to door" is written for the person in the
-   back seat, and on a page asking drivers to sign up it speaks to the wrong
-   reader entirely. Overriding beats forking the component, and leaving the
-   defaults alone means no other page moves. Both are unset at the bottom. */
 $bannerTitle ??= 'Get the PowerCabs app';
 $bannerText ??= 'Book in seconds, track your driver door to door, and pay the fare you were quoted.';
 
-// Same badge recipe as components/drive/behind-wheel.php, in its large size.
 $storeBadgeClass =
   'tw-inline-flex tw-w-fit tw-items-center tw-gap-[0.65rem] tw-rounded-lg tw-bg-ink tw-py-[0.65rem] tw-pl-[0.65rem] tw-pr-6 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-bg-black';
-// 0.625rem, not 0.5rem, below 400px. 0.5rem computes to 8px -- which is the
-// size this line rendered at on a 375px and a 320px screen, the two commonest
-// phone widths there are. The badge has room for it: nothing on any page using
-// this banner overflows at 320px with the larger value (measured).
+
 $storeBadgeEyebrow =
   'tw-block tw-text-[0.6rem] tw-uppercase tw-leading-none tw-tracking-[0.02em] tw-text-white/75 max-[399px]:tw-text-[0.625rem]';
 $storeBadgeTitle =
@@ -66,14 +23,7 @@ $storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max
         <p class="tw-mb-1 tw-text-[1.0625rem] tw-font-bold tw-text-ink"><?= htmlspecialchars($bannerTitle) ?></p>
         <p class="<?= $pcBodySm ?> tw-mb-0 tw-max-w-[46ch]"><?= htmlspecialchars($bannerText) ?></p>
       </div>
-      <?php /* Store badges only. Two QR codes sat beside these briefly and
-               were removed; the comment and the pc_qr_src() require that
-               described them went with them rather than being left behind to
-               explain markup that is no longer here.
-
-               The helper itself still lives at components/download/qr.php and
-               is used by the /download-our-app cards, so restoring a QR here
-               is a require plus an <img> -- nothing needs rebuilding. */ ?>
+      <?php  ?>
       <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-4">
         <div class="tw-flex tw-flex-wrap tw-gap-2">
           <a class="<?= $storeBadgeClass ?>" href="<?= htmlspecialchars($playStoreTarget) ?>" target="_blank" rel="noopener">
@@ -96,5 +46,4 @@ $storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max
   </div>
 </section>
 <?php
-/* Page globals: a later require on the same page must not inherit this. */
 unset($bannerCompact, $bannerTitle, $bannerText);

@@ -1,5 +1,4 @@
 <?php
-
 function pc_load_env(string $path): void {
     static $loaded = false;
     if ($loaded) {
@@ -21,8 +20,6 @@ function pc_load_env(string $path): void {
         $key   = trim($key);
         $value = trim($value);
 
-        // Allow "quoted" or 'quoted' values so a secret can safely contain
-        // spaces or a literal # without being read as a comment.
         if (strlen($value) >= 2 && in_array($value[0], ['"', "'"], true) && str_ends_with($value, $value[0])) {
             $value = substr($value, 1, -1);
         }
@@ -37,7 +34,6 @@ function pc_load_env(string $path): void {
     }
 }
 
-/** getenv() with a default fallback. */
 function pc_env(string $key, $default = null) {
     $value = getenv($key);
     return $value === false ? $default : $value;
@@ -53,37 +49,10 @@ define('PC_SMTP_FROM_NAME', pc_env('SMTP_FROM_NAME', 'PowerCabs Website'));
 define('PC_MAIL_TO', pc_env('MAIL_TO', ''));
 define('PC_GOOGLE_MAPS_API_KEY', pc_env('GOOGLE_MAPS_API_KEY', ''));
 
-// Shared Supabase backend (pricing_config / ride_types / promo_codes) -- the
-// same project the PowerCabs Dispatcher and passenger app read from. Three
-// consumers: lib/fare_calculator.php resolves the live pricing config and
-// promo codes with the service key (server-side only, never rendered), and
-// reset-password.php redeems password-recovery links with the anon key
-// (necessarily exposed in markup).
-//
-// ALL THREE COME FROM .env ONLY -- do not re-add a literal fallback here.
-// An earlier version of this file hard-coded the project URL and the anon
-// key as defaults, which put both into git history. Even though the anon key
-// is meant to be public (it ships inside the mobile apps and is only useful
-// together with row-level security), committing it pins the repo to one live
-// project and turns rotating that key into a code change.
-//
-// The empty default is safe everywhere it lands: pc_supabase_get() reads an
-// empty URL or service key as "Supabase not configured" and falls back to the
-// hard-coded rate card, and reset-password.js shows "password resets are
-// temporarily unavailable" rather than failing silently.
 define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', ''));
 define('PC_SUPABASE_SERVICE_KEY', pc_env('SUPABASE_SERVICE_KEY', ''));
 define('PC_SUPABASE_ANON_KEY', pc_env('SUPABASE_ANON_KEY', ''));
 
-// Stripe Payment Links -- the hosted checkout URLs created in the Stripe
-// dashboard (Payment Links), one per thing a visitor can pay for. The site
-// uses no Stripe API key at all: a Payment Link needs none, and the amount a
-// customer is charged is set on the link inside Stripe, not by these pages.
-//
-// Same rule as Supabase above: .env only, no literal fallback. Only an https
-// URL is accepted, so a typo or a stray value can never be rendered into an
-// href. Empty is safe -- both pages then show "online payment unavailable"
-// instead of a dead button.
 function pc_env_https_url(string $key): string {
     $value = trim((string) pc_env($key, ''));
     return preg_match('#^https://[^\s"\'<>]+$#i', $value) ? $value : '';

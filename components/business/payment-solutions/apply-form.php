@@ -91,7 +91,6 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
           <input type="email" class="<?= $inputClass ?>" id="paEmail" name="email" placeholder="Email address" value="<?= htmlspecialchars($old['email']) ?>" required>
         </div>
         <div>
-          <!-- pc-custom-datetime-enhance: same story as pc-custom-select-enhance above, driven by custom-datetime.js. -->
           <label class="pc-required <?= $labelClass ?>" for="paDob">Date of Birth</label>
           <input type="date" class="<?= $inputClass ?> pc-custom-datetime-enhance" id="paDob" name="dob" value="<?= htmlspecialchars($old['dob']) ?>" max="<?= date('Y-m-d') ?>" data-dt-quick-year="1" required>
         </div>
@@ -142,15 +141,12 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
         </div>
 
         <div class="md:tw-col-span-2 tw-pt-2">
-          <!-- tw-appearance-none tw-border-0 strip the native <button> chrome -- see book-ride-online.php. -->
           <button type="submit" class="<?= $pcBtnPrimary ?>">
             <span>Submit Form</span>
             <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12L3.269 3.126A59.77 59.77 0 0121.485 12 59.77 59.77 0 013.27 20.876L6 12zm0 0h7.5"/></svg>
           </button>
         </div>
 
-        <!-- .alert-success / .alert-danger stay as bare classnames -- the
-             contract ajax-forms.js parses out of the returned HTML. -->
         <?php if ($formStatus === 'success'): ?>
           <div class="md:tw-col-span-2">
             <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your application has been sent. Our team will be in touch shortly.</div>

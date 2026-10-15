@@ -1,18 +1,4 @@
 <?php
-/**
- * The fare estimate card -- markup only, no section around it.
- *
- * It used to be the right-hand column of hero-fare-section.php, one screen
- * below the hero. It is the first thing a rider wants on /ride, so it is in
- * the hero now (components/ride/hero.php), in the same position the driver
- * application occupies on /drive. Same markup, same ids, same behaviour --
- * ride-fare-estimate.js drives every one of these by id and none of them
- * changed.
- *
- * The scripts that drive it still load at the END of hero-fare-section.php,
- * which ride.php requires after the hero, so this markup is always in the DOM
- * before they run.
- */
 $rideTypeOptions ??= [
   'Economy',
   'Economy XL',
@@ -26,7 +12,6 @@ $rideTypeOptions ??= [
 
 require_once __DIR__ . '/icons.php';
 
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 ?>
 <div class="tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-[clamp(1.5rem,3vw,2.5rem)] tw-shadow-[0_24px_60px_rgba(28,20,16,0.1)]">
@@ -56,14 +41,6 @@ $inputClass = $pcInput;
     </div>
   </div>
 
-  <!-- Promo code. Optional, and deliberately above the ride-type
-       select: the Power10 section further down this same page has a
-       copy-to-clipboard POWER10 chip, so a visitor arrives back here
-       with a code on the clipboard and this is the first field they
-       look for. Nothing about it gates the estimate -- the button
-       enables on pickup/drop-off/ride type alone.
-       The code is only ever CHECKED server-side (the discount comes
-       back from api/estimate_fare.php); this field is just input. -->
   <div class="tw-mt-3">
     <input type="text" id="rfPromoCode" aria-label="Promo code (optional)" name="promo_code" maxlength="32" autocomplete="off"
            spellcheck="false" aria-describedby="rfPromoStatus"
@@ -81,13 +58,6 @@ $inputClass = $pcInput;
     </select>
   </div>
 
-  <!-- Bare functional hooks -- ride-fare-estimate.js drives all
-       state here (disabled toggling, textContent, tw-hidden, spinner
-       swap via .spinner-border) directly by id/class, unchanged.
-       The pill repeats $pcBtnPrimary inline because it is full-width
-       and has a disabled state; it must stay in step with the recipe:
-       hover deepens the glow and changes nothing else, and a disabled
-       button drops the shadow entirely. -->
   <button type="button" id="rfSubmit" class="tw-mt-4 tw-inline-flex tw-w-full tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-none tw-transition tw-duration-300 hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)] disabled:tw-pointer-events-none disabled:tw-opacity-40" disabled>
     Get Fare Estimate
   </button>
@@ -105,11 +75,10 @@ $inputClass = $pcInput;
       </span>
     </div>
 
-    <!-- Shown only when a code actually came back applied. The
-         wrapper carries tw-hidden and the row inside carries
-         tw-flex, rather than both on one element -- two display
-         utilities on the same element only resolve correctly by
-         source order, which is not a thing to rely on. -->
+    <p class="tw-mb-0 tw-mt-3 tw-text-[0.8125rem] tw-leading-relaxed tw-text-ink/55">
+      Fare estimate is excluded to any usage of tolls road.
+    </p>
+
     <div id="rfFarePromoRow" class="tw-hidden tw-mt-3 tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.08] tw-pt-3">
       <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-2">
         <span class="tw-inline-flex tw-items-center tw-gap-1.5 tw-text-[0.85rem] tw-font-bold tw-uppercase tw-tracking-[0.06em] tw-text-[#146c43]">

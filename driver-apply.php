@@ -1,27 +1,4 @@
 <?php
-/**
- * Driver application endpoint -- JSON only, not a page.
- *
- * The form in components/drive/join-family-form.php walks through eight steps
- * in the browser; this is what each of them talks to. Four actions:
- *
- *   start   -- validate the applicant's details, mail them a 6-digit code
- *   verify  -- check that code
- *   upload  -- put one file in Supabase Storage, return its url
- *   submit  -- create the auth account, write the drivers row, notify the office
- *
- * WHY A SESSION. The site is otherwise stateless -- no other page calls
- * session_start(). One is unavoidable here: the verification code must not be
- * round-tripped through the browser (the applicant could simply read it), and
- * the uploaded file urls have to survive between steps. Only this endpoint
- * starts a session, so nothing else on the site pays for it.
- *
- * WHY THE ORDER MATTERS. The auth account is created in `submit`, never
- * earlier, so an abandoned application leaves nothing behind. And `submit`
- * refuses to run unless the session says the address was verified, which is
- * what stops the whole endpoint being an open account-creation API.
- */
-
 declare(strict_types=1);
 
 require __DIR__ . '/includes/env.php';
@@ -34,17 +11,15 @@ header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 
-const PC_APP_OTP_TTL = 600; // 10 minutes
-const PC_APP_OTP_RESEND = 45; // seconds between sends
+const PC_APP_OTP_TTL = 600; 
+const PC_APP_OTP_RESEND = 45; 
 const PC_APP_OTP_MAX_TRIES = 6;
-const PC_APP_MAX_UPLOAD = 5242880; // 5MB per file
+const PC_APP_MAX_UPLOAD = 5242880; 
 
-/** Which upload slot lands in which bucket and which drivers column. */
 const PC_APP_UPLOADS = [
   'profile' => ['bucket' => 'driver_photos', 'column' => 'profile_pic_url', 'label' => 'Profile photo'],
   'license' => ['bucket' => 'driver_documents', 'column' => 'license_url', 'label' => 'Driving licence'],
-  // other_docs_url is the only document column the app leaves unused (0 of 60
-  // rows), so the NTA licence claims it rather than overwriting something.
+
   'nta_license' => ['bucket' => 'driver_documents', 'column' => 'other_docs_url', 'label' => 'NTA licence'],
   'insurance' => ['bucket' => 'driver_documents', 'column' => 'insurance_url', 'label' => 'Insurance certificate'],
   'nct' => ['bucket' => 'driver_documents', 'column' => 'nct_cert', 'label' => 'NCT certificate'],
@@ -75,7 +50,7 @@ function pc_app_fail(string $message, int $status = 422): never
 function pc_app_field(string $key, int $max = 255): string
 {
   $value = trim((string) ($_POST[$key] ?? ''));
-  // Strip control characters so nothing can smuggle a newline into the email.
+  
   $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value) ?? '';
   return mb_substr($value, 0, $max);
 }
@@ -100,7 +75,6 @@ if (!pc_sb_ready()) {
 
 $action = pc_app_field('action', 20);
 
-/* ------------------------------------------------------------------ start */
 if ($action === 'start') {
   $name = pc_app_field('full_name', 120);
   $email = mb_strtolower(pc_app_field('email', 160));
@@ -143,8 +117,6 @@ if ($action === 'start') {
     pc_app_fail('We could not send your code. Please check the address and try again.', 502);
   }
 
-  // Only the hash is kept: a session store is safer than the wire, but there
-  // is no reason for the plain code to sit anywhere once it has been mailed.
   pc_app_set([
     'full_name' => $name,
     'email' => $email,
@@ -159,7 +131,6 @@ if ($action === 'start') {
   pc_app_out(['ok' => true, 'email' => $email]);
 }
 
-/* ----------------------------------------------------------------- verify */
 if ($action === 'verify') {
   $state = pc_app_state();
   if (empty($state['otp_hash'])) {
@@ -183,7 +154,6 @@ if ($action === 'verify') {
   pc_app_out(['ok' => true]);
 }
 
-/* ----------------------------------------------------------------- upload */
 if ($action === 'upload') {
   $state = pc_app_state();
   if (empty($state['email'])) {
@@ -204,7 +174,6 @@ if ($action === 'upload') {
     pc_app_fail('That file is too large. Please keep it under 5MB.');
   }
 
-  // Trust the sniffed type, never the browser-supplied one.
   $mime = (new finfo(FILEINFO_MIME_TYPE))->file($_FILES['file']['tmp_name']) ?: '';
   if (!isset(PC_APP_ALLOWED_TYPES[$mime])) {
     pc_app_fail('Please upload a JPG, PNG, WEBP or PDF.');
@@ -215,8 +184,6 @@ if ($action === 'upload') {
     pc_app_fail('We could not read that file. Please try again.', 500);
   }
 
-  // Keyed by a per-application token, not by email: the path should not leak
-  // an address to anyone who guesses at a public bucket.
   $token = $state['token'] ?? bin2hex(random_bytes(8));
   $path = 'web-applications/' . $token . '/' . $slot . '.' . PC_APP_ALLOWED_TYPES[$mime];
 
@@ -233,7 +200,6 @@ if ($action === 'upload') {
   pc_app_out(['ok' => true, 'slot' => $slot, 'url' => $put['url']]);
 }
 
-/* ----------------------------------------------------------------- submit */
 if ($action === 'submit') {
   $state = pc_app_state();
   if (empty($state['verified'])) {
@@ -267,8 +233,6 @@ if ($action === 'submit') {
     pc_app_fail('Still to upload: ' . implode(', ', $missing) . '.');
   }
 
-  // Re-check at the last moment: the address was free when the code went out,
-  // but that could have been ten minutes ago.
   if (pc_sb_driver_email_taken((string) $state['email'])) {
     pc_app_fail('An application already exists for that email address.');
   }
@@ -296,8 +260,7 @@ if ($action === 'submit') {
     'iban' => strtoupper(str_replace(' ', '', pc_app_field('iban', 40))),
     'license_number' => pc_app_field('license_number', 60),
     'nta_license_number' => pc_app_field('nta_license_number', 60),
-    // The app's own rows use jsonb meta for anything without a column; the
-    // three ride preferences and the terms acceptance go there.
+
     'meta' => [
       'source' => 'website',
       'night_rides' => pc_app_field('night_rides', 10) === 'yes',
@@ -318,8 +281,7 @@ if ($action === 'submit') {
 
   $insert = pc_sb_insert('drivers', $row);
   if (!$insert['ok']) {
-    // Roll the account back, or the address is locked out of re-applying.
-    pc_sb_auth_delete_user((string) $account['id']);
+pc_sb_auth_delete_user((string) $account['id']);
     error_log('[driver-apply] drivers insert failed: ' . (string) $insert['error']);
     pc_app_fail('We could not save your application. Please try again or contact us.', 502);
   }
@@ -332,9 +294,6 @@ if ($action === 'submit') {
     }
   }
 
-  // The office notification is best-effort on purpose: the application is
-  // already safely in Supabase, so a mail failure must not tell the driver
-  // their submission was lost.
   pc_send_mail(
     'New PowerCabs driver: ' . $row['full_name'],
     "A new driver {$row['full_name']} has joined PowerCabs through the website.\n\n" .
@@ -352,7 +311,6 @@ if ($action === 'submit') {
     ['name' => $row['full_name'], 'email' => $row['email']]
   );
 
-  // Nothing left worth keeping, and it stops a refresh re-submitting.
   unset($_SESSION['pc_driver_app']);
 
   pc_app_out(['ok' => true, 'name' => $row['full_name']]);

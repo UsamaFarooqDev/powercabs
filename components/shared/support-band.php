@@ -1,60 +1,12 @@
 <?php
-/**
- * Prominent "talk to a human" band -- a phone number big enough to be the
- * loudest thing on the band, on the dark surface so it separates from the
- * white sections around it.
- *
- * PowerCabs runs three separate support lines and they are NOT
- * interchangeable, so this component deliberately takes one number rather
- * than listing them all: a driver reading /drive should not have to work out
- * which of three numbers is theirs. Each page sets its own.
- *
- * Variables, set before the require (same convention as final-cta.php):
- *
- *   $supportEyebrow   small label above the heading        (required)
- *   $supportHeading   the headline                         (required)
- *   $supportText      one supporting sentence              (required)
- *   $supportNumber    human formatting, e.g. +353 89 965 4467
- *   $supportTel       digits for the tel: href, no spaces
- *   $supportHours     availability line; defaults to 24/7
- *   $supportWhatsapp  optional wa.me URL, rendered as a second action
- *   $supportImage     optional photograph behind the band, with a scrim over
- *                     it. Each page passes one that matches WHO the band is
- *                     addressing -- a driver on /drive, a passenger on /ride,
- *                     a meeting on /business -- which is the same reason the
- *                     phone number is per page and not baked in here. Leave it
- *                     unset and the band is flat ink exactly as before.
- *
- * NOTE ON THE NUMBERS. Irish mobiles carry nine national digits
- * (+353 8X XXX XXXX). All three lines below are nine:
- *
- *   customer  +353 89 972 8089  -> 899728089
- *   driver    +353 89 965 4467  -> 899654467
- *   business  +353 89 958 6092  -> 899586092
- *
- * Each page's WhatsApp action goes to that page's own line: /ride uses
- * wa.me/353899728089 (the customer number, also the footer's WhatsApp),
- * /drive uses wa.me/353899654467 (the driver number) and /business uses
- * wa.me/353899586092 (the business number). If any line ever changes,
- * change it on the page that sets it -- there is no copy of them in here.
- */
-
 $supportHours = $supportHours ?? 'Lines open 24/7, every day of the year.';
 $supportWhatsapp = $supportWhatsapp ?? '';
 
-// tel: must carry digits only. Built from $supportTel rather than stripping
-// $supportNumber, so the displayed formatting can change freely without any
-// risk of altering what actually gets dialled.
 $supportTelHref = preg_replace('/[^0-9+]/', '', $supportTel);
 $supportImage = $supportImage ?? '';
 ?>
 <section class="tw-relative tw-overflow-hidden tw-bg-ink tw-text-white <?= $pcSectionTight ?>">
-  <?php /* The photograph, when a page supplies one.
-           bg-ink stays on the section as the base, so a 404 on the image
-           leaves a dark band and legible white type rather than a hole.
-           The scrim is heavy and weighted left, where the heading and the
-           phone number are: this band's job is one number, read once, and a
-           picture that competes with it has cost more than it gave. */ ?>
+  <?php  ?>
   <?php if ($supportImage !== ''): ?>
     <img src="<?= htmlspecialchars($supportImage) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async"
       class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
@@ -65,10 +17,7 @@ $supportImage = $supportImage ?? '';
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-8 lg:tw-grid-cols-[1fr_auto] lg:tw-gap-12">
 
       <div>
-        <?php /* The "/ " prefix is gone. It survived the site-wide strip
-                 because that pass required a letter after the slash to avoid
-                 touching "24/7" and URLs -- and here a PHP tag follows it, not
-                 a letter. */ ?>
+        <?php  ?>
         <p class="<?= $pcEyebrowOnDark ?>"><?= htmlspecialchars($supportEyebrow) ?></p>
         <h2 class="<?= pc_mb($pcH2OnDark, 'tw-mb-3') ?>">
           <?= htmlspecialchars($supportHeading) ?>
@@ -78,13 +27,7 @@ $supportImage = $supportImage ?? '';
         </p>
       </div>
 
-      <?php /* The number IS the call to action, so it is the largest type in
-               the band and the whole block is the tap target -- not a button
-               sitting next to a number you then have to select by hand. On a
-               phone this is one tap to dial.
-
-               aria-label spells out what the link does, because "+353 89 965
-               4467" read aloud on its own does not say it dials anyone. */ ?>
+      <?php  ?>
       <div class="tw-w-full tw-rounded-3xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-p-6 tw-backdrop-blur-xl sm:tw-p-7 lg:tw-w-auto lg:tw-min-w-[22rem]">
         <div class="tw-mb-4 tw-flex tw-items-center tw-gap-3">
           <span class="tw-inline-flex tw-h-11 tw-w-11 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-powerlight tw-text-white">
@@ -126,7 +69,4 @@ $supportImage = $supportImage ?? '';
   </div>
 </section>
 <?php
-/* Cleared so a later require of this component on the same page cannot
-   inherit the previous one's number -- the same reason final-cta.php unsets
-   its variables. */
 unset($supportEyebrow, $supportHeading, $supportText, $supportNumber, $supportTel, $supportHours, $supportWhatsapp, $supportTelHref, $supportImage);

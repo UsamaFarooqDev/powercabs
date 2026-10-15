@@ -1,10 +1,4 @@
 <?php
-/**
- * Ride page: "Why PowerCabs?" comparison -- PowerCabs vs large taxi apps vs
- * traditional phone booking, scanned side by side across a shared feature
- * list (a comparison grid, not three separate "pick one" plan cards).
- */
-
 function pc_why_icon(string $type, string $label): string
 {
   $markup = match ($type) {
@@ -39,7 +33,6 @@ $whyComparisonRows = [
 
 $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' => 'Varies'];
 ?>
-<!-- ============ Why PowerCabs? ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
@@ -55,16 +48,11 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
 
     <div class="tw-mx-auto tw-max-w-[940px]">
 
-      <!-- Desktop/tablet. Same treatment as the Drive page's comparison: the
-           PowerCabs column is lifted out of the table onto its own ringed
-           panel so it reads as the answer, not as one of three equal columns.
-           Four columns here rather than three, so the shares differ. -->
       <div class="tw-hidden md:tw-block">
         <div class="tw-relative tw-rounded-[20px] tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">
 
           <div class="tw-pointer-events-none tw-absolute tw-bottom-0 tw-left-[40%] tw-top-0 tw-w-[20%] tw-rounded-[20px] tw-bg-white tw-shadow-[0_18px_45px_-12px_rgba(232,89,12,0.35)] tw-ring-2 tw-ring-power/[0.35]" aria-hidden="true"></div>
 
-          <!-- Header -->
           <div class="tw-relative tw-grid tw-grid-cols-[40%_20%_20%_20%] tw-items-stretch tw-overflow-hidden tw-rounded-t-[20px] tw-bg-ink">
             <div class="tw-flex tw-items-center tw-px-6 tw-py-4">
               <span class="tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-white/45">What you need</span>
@@ -80,7 +68,6 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
             </div>
           </div>
 
-          <!-- Feature rows -->
           <?php foreach ($whyComparisonRows as $i => $row): ?>
             <div class="tw-relative tw-grid tw-grid-cols-[40%_20%_20%_20%] tw-items-stretch<?= $i < count($whyComparisonRows) - 1
               ? ' tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.06]'
@@ -104,8 +91,6 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
         </div>
       </div>
 
-      <!-- Mobile: one card per feature, PowerCabs keeping its brand ring so
-           the hierarchy survives the stack. -->
       <div class="tw-flex tw-flex-col tw-gap-3 md:tw-hidden">
         <?php foreach ($whyComparisonRows as $row): ?>
           <div class="tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-4 tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">
@@ -128,7 +113,6 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
         <?php endforeach; ?>
       </div>
 
-      <!-- Legend: the three icon states, spelled out. -->
       <div class="tw-mt-6 tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-6 tw-gap-y-2 tw-text-[0.8rem] tw-text-ink/[0.55]">
         <?php foreach ($whyLabels as $type => $label): ?>
           <span class="tw-inline-flex tw-items-center tw-gap-2">

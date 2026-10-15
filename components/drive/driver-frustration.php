@@ -24,7 +24,6 @@ function pc_frustration_icon(string $icon): void
   endswitch;
 }
 ?>
-<!-- ============ The Driver Frustration ============ -->
 <section class="<?= $pcSurfaceWhite ?> tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-start tw-gap-x-12 tw-gap-y-8 lg:tw-grid-cols-12">
@@ -38,8 +37,7 @@ function pc_frustration_icon(string $icon): void
       </div>
 
       <figure class="tw-m-0 lg:tw-col-span-7 lg:tw-pt-1">
-        <?php /* aria-hidden: the mark is punctuation the <blockquote> already
-                 carries semantically, and read aloud it is just noise. */ ?>
+        <?php  ?>
         <span class="tw-mb-[-0.3em] tw-block tw-text-[clamp(3rem,5.5vw,4.25rem)] tw-font-bold tw-leading-none tw-text-power/35" aria-hidden="true">&ldquo;</span>
         <blockquote class="tw-m-0 tw-p-0">
           <p class="tw-mb-0 tw-text-[clamp(1.375rem,2.5vw,1.9375rem)] tw-font-semibold tw-leading-[1.35] tw-tracking-[-0.015em] tw-text-ink">

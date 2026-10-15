@@ -1,16 +1,4 @@
 <?php
-/**
- * Homepage §09 -- safety, deliberately on a light background.
- *
- * The brief calls for a light section here, and it is the right call for more
- * than rhythm: safety copy set in white-on-black reads as a warning, and the
- * point of this section is reassurance. Blue is the semantic colour for
- * informational/safety content (§6), which is why the chip is --pc-info and
- * not orange.
- *
- * All four points are already on /safety-tips-riders and /faqs; this is a
- * summary with a route through to them, not a new set of promises.
- */
 $safetyPoints = [
   ['title' => 'Licensed drivers', 'body' => 'NTA licensed and vetted before they take a single fare.'],
   ['title' => 'You see who is coming', 'body' => 'Driver name, photo, vehicle and plate, before they arrive.'],
@@ -28,14 +16,7 @@ $safetyPoints = [
           Safety
         </span>
         <h2 class="<?= $pcH2 ?> tw-max-w-[15ch]">Safety starts before the journey begins.</h2>
-        <?php /* $pcBtnLink on the anchor, $pcBtnLinkIcon on the svg -- the same
-                 pairing components/home/coverage.php documents. They were the
-                 wrong way round here: the anchor carried the ICON recipe, so it
-                 lost tw-text-power, the semibold weight, the inline-flex gap and
-                 its padding, and rendered as plain inherited body text (tw-h-4
-                 does nothing to an inline box). The svg's group-hover: also never
-                 fired, because the unnamed tw-group it needed was never on the
-                 anchor -- $pcBtnLink is what supplies tw-group/link. */ ?>
+        <?php  ?>
         <a class="<?= $pcBtnLink ?>" href="<?= $assetPath ?>/safety-tips-riders">
           Rider safety
           <svg class="<?= $pcBtnLinkIcon ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>

@@ -73,7 +73,6 @@ $additionalTips = [
   ['icon' => 'telephone', 'label' => 'Keep emergency contacts easily accessible on your phone'],
 ];
 
-/** Inline SVG icons shared across this page's safety-tip lists. */
 function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 {
   switch ($icon):
@@ -129,7 +128,6 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 }
 ?>
 
-<!-- ============ Before the Ride ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
@@ -157,7 +155,6 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   </div>
 </section>
 
-<!-- ============ During the Ride ============ -->
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
@@ -176,7 +173,6 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   </div>
 </section>
 
-<!-- ============ Photo Banner ============ -->
 <section class="tw-relative tw-min-h-[280px] tw-overflow-hidden tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/7856880/pexels-photo-7856880.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-ink-soft/[0.65]" aria-hidden="true"></span>
@@ -185,7 +181,6 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   </div>
 </section>
 
-<!-- ============ After the Ride ============ -->
 <section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
@@ -204,7 +199,6 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
   </div>
 </section>
 
-<!-- ============ Additional Safety Tips ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">

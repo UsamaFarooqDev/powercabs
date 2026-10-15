@@ -1,15 +1,7 @@
 <?php
-/**
- * Download page: Passenger/Driver app download cards with QR codes.
- * Requires $assetPath from the including page.
- */
-
 $playStoreTarget = 'https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger';
 $appStoreTarget = 'https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981';
 
-/* pc_qr_src() moved to components/download/qr.php -- the compact app row in
-   app-download-banner.php needs it too, and requiring this whole file to
-   reach one helper would pull in $appCards and its markup with it. */
 require_once __DIR__ . '/qr.php';
 
 $appCards = [
@@ -60,23 +52,13 @@ $appCards = [
             </span>
           </div>
 
-          <?php /* py-2 is the tap target: this rendered 23px tall at 360px and
-                   it is the card's primary action (§55). */ ?>
+          <?php  ?>
           <a class="tw-group/dl tw-mb-4 tw-inline-flex tw-items-center tw-gap-1 tw-py-2 tw-text-[0.95rem] tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= htmlspecialchars($card['playStore']) ?>" target="_blank" rel="noopener">
             <span class="tw-underline-offset-4 group-hover/dl:tw-underline">Click here to Download</span>
             <svg class="tw-h-4 tw-w-4 tw-transition-transform tw-duration-200 group-hover/dl:tw-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
           </a>
 
-          <?php /* One row on every width, phones included. It was flex-wrap,
-                   and the two badges came to ~273px against ~280px of usable
-                   card width at 360px -- so close that the tiniest variation in
-                   font rendering dropped the App Store badge onto its own line,
-                   leaving a lopsided stack under a centred card.
-
-                   nowrap plus a tighter gap and right padding below sm buys
-                   ~26px, which clears it outright rather than by a pixel. The
-                   badges keep their own widths (shrink-0 would let them
-                   overflow instead of the row simply being narrower). */ ?>
+          <?php  ?>
           <div class="tw-flex tw-flex-nowrap tw-items-center tw-justify-center tw-gap-2 sm:tw-gap-2.5">
             <a class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-lg tw-bg-ink tw-py-2 tw-pl-2 tw-pr-2.5 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black sm:tw-gap-2.5 sm:tw-pr-4" href="<?= htmlspecialchars($card['playStore']) ?>" target="_blank" rel="noopener">
               <img src="<?= $assetPath ?>assets/img/playstore.png" alt="" width="18" height="18" aria-hidden="true">

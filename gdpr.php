@@ -13,14 +13,9 @@ $heroDescription =
   'PowerCabs is committed to protecting customer privacy and processing personal data in compliance with GDPR.';
 $heroBgImage = 'https://images.pexels.com/photos/2882659/pexels-photo-2882659.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'GDPR';
-$heroVariant = 'legal'; // §12: compact hero, straight into the useful content.
+$heroVariant = 'legal'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 
-/* The ten section anchors already existed on this page's headings -- only the
-   table of contents that uses them was missing, which is why this was the one
-   legal page without the sticky ToC and update date its two siblings have
-   (§20, Template D). Same markup and same labels-from-an-array pattern as
-   privacy-policy.php and terms-conditions.php, so the three stay in step. */
 $gdprNav = [
   ['id' => 'controller', 'label' => 'Data Controller'],
   ['id' => 'data', 'label' => 'Data Collected'],
@@ -127,9 +122,7 @@ $gdprNav = [
     <h2 id="contact" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">10. Contact</h2>
     <p class="tw-mb-0 tw-text-ink/60">Email: <a class="tw-text-power tw-transition-colors tw-duration-200 hover:tw-text-powerdark focus-visible:tw-text-powerdark" href="mailto:info@powercabs.ie">info@powercabs.ie</a></p>
 
-        <?php /* The other two legal pages close by pointing at their siblings
-                 -- §20 asks for related policy links, and someone reading one
-                 policy is the likeliest person to want the next. */ ?>
+        <?php  ?>
         <p class="tw-mb-0 tw-mt-10 tw-border-0 tw-border-t tw-border-solid tw-border-hairline tw-pt-6 tw-text-sm tw-text-muted">
           See also:
           <a class="tw-font-semibold tw-text-power tw-no-underline hover:tw-underline" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
@@ -142,7 +135,7 @@ $gdprNav = [
 </section>
 
 <?php
-$bannerCompact = true; // restrained: a legal page should not end on an orange panel
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

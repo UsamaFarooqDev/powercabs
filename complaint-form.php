@@ -50,9 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formStatus = 'error';
         $formError  = 'Please select a service type and a complaint category.';
     } elseif (!$isMinimalForm && !$isFullForm) {
-        // Defensive: every real category is one of the three lists above,
-        // so this only fires if complaint_category was tampered with.
-        $formStatus = 'error';
+$formStatus = 'error';
         $formError  = 'Please select a valid complaint category.';
     } elseif ($isFullForm && ($old['email'] === '' || $old['phone'] === '' || $old['pickup_location'] === '' || $old['destination_location'] === '' || $old['journey_date'] === '' || $old['journey_time'] === '' || $old['experience_description'] === '' || $old['experience_name'] === '' || $old['experience_date'] === '')) {
         $formStatus = 'error';
@@ -162,7 +160,7 @@ $heroTitleLight  = 'Tell Us';
 $heroTitleBold   = 'What Went Wrong.';
 $heroDescription = "We're sorry your experience didn't meet our standards. Share the details below and our support team will review it and follow up.";
 $heroBgImage     = 'https://images.pexels.com/photos/6830863/pexels-photo-6830863.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
+$heroVariant = 'utility'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $categoryLabels = [
@@ -189,22 +187,18 @@ $categoryModes = [
 ?>
 
 <?php
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
-// Segmented pill toggle (service type) -- has-[:checked] reproduces
-// Bootstrap's .btn-check + .btn sibling-selector trick without it.
+
 $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink/20 tw-px-4 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-power has-[:checked]:tw-bg-power has-[:checked]:tw-text-white';
-// Left-aligned selectable card (complaint category) -- same has-checked
-// mechanism, styled as a full-width list item instead of a pill.
+
 $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border tw-border-solid tw-border-ink/15 tw-px-4 tw-py-2.5 tw-text-left tw-text-sm tw-font-medium tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-ink has-[:checked]:tw-bg-ink has-[:checked]:tw-text-white';
 ?>
 <section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
   <div class="tw-mx-auto tw-max-w-[820px]">
     <form id="complaintForm" method="post" action="" enctype="multipart/form-data" novalidate>
 
-      <!-- ============ Step 1: Service type ============ -->
       <div class="tw-mb-6">
         <p class="tw-mb-3 tw-font-semibold tw-text-ink">You have chosen to make a complaint regarding the services offered by one of the following:</p>
         <div class="tw-flex tw-flex-wrap tw-gap-2">
@@ -227,12 +221,6 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         </div>
       </div>
 
-      <!-- ============ Step 2: Complaint category ============ -->
-      <!-- Bare radio + has-checked label: complaint-form.js's
-           updateCategoryState() keeps driving this via
-           form.querySelector('input[name="complaint_category"]:checked')
-           and each input's data-mode -- unchanged, only the visual toggle
-           styling moved to Tailwind. -->
       <div class="tw-mb-6">
         <p class="tw-mb-3 tw-font-semibold tw-text-ink">Please select the category of complaint that best suits the nature of the incident:</p>
         <div class="tw-flex tw-flex-col tw-gap-2">
@@ -245,14 +233,10 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         </div>
       </div>
 
-      <!-- Shown instead of the form for the 3 police-matter categories.
-           tw-hidden stays bare -- complaint-form.js toggles it via classList. -->
       <div id="criminalNotice" class="alert-danger tw-hidden tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert">
         If the matter to which your complaint relates is of a criminal nature, you should contact An Garda S&iacute;och&aacute;na. In an emergency ring 999 or 112.
       </div>
 
-      <!-- tw-hidden stays bare on #complaintFields / #experienceSection --
-           complaint-form.js toggles both directly via classList. -->
       <div id="complaintFields" class="tw-hidden">
         <hr class="tw-my-6 tw-border-0 tw-border-t tw-border-solid tw-border-black/[0.08]">
 
@@ -388,7 +372,6 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         </div>
       </div>
 
-      <!-- tw-hidden stays bare -- complaint-form.js reveals it once a category is chosen. -->
       <div id="complaintSubmitWrapper" class="tw-hidden">
         <button type="submit" id="complaintSubmitBtn" class="<?= $submitClass ?>">
           <span id="complaintSubmitLabel">Submit Complaint</span>
@@ -411,7 +394,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
 ) ?>"></script>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

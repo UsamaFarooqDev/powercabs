@@ -1,16 +1,4 @@
 <?php
-/**
- * Business Terms -- the business panel of /terms-conditions.
- *
- * GENERATED FROM: PowerCabs Business terms and conditions 16 10 26.docx
- * Converted verbatim -- headings, paragraphs and lists only, no edits to
- * the wording. If the Word file is reissued, regenerate this rather than
- * patching it by hand, or the page and the signed document drift apart.
- *
- * Section ids are 'b-N' by position, so an inserted clause renumbers the
- * anchors below it. They are in-page only and nothing external links to
- * them.
- */
 $termsPanelId = 'businessTerms';
 $termsIntro = 'Terms and Conditions for Corporate and Business account holders of PowerCabs';
 $termsMeta = 'Effective Date: 06/10/2026 &middot; Last Updated: 03/10/2026';

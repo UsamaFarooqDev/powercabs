@@ -11,11 +11,7 @@ $heroTitleLight = 'Loyalty';
 $heroTitleBold = 'Program.';
 $heroDescription =
   'Rewarding your commitment and hard work - PowerCabs rewards drivers for their dedication through a points-based loyalty program.';
-/* A DRIVER, not a passenger. The eyebrow above says "Drivers" and the
-   description says PowerCabs rewards drivers -- but this hero had carried a
-   passenger in the back of a taxi through two image swaps, so the picture was
-   addressing the wrong audience on a page whose whole subject is the driver.
-   Check the eyebrow before swapping this one again. */
+
 $heroBgImage = 'https://images.pexels.com/photos/8112160/pexels-photo-8112160.jpeg?auto=compress&cs=tinysrgb&w=1600';
 $heroVariant = 'split';
 $heroImageAlt = 'A PowerCabs account manager shaking hands with two clients in an office';
@@ -66,8 +62,6 @@ $tiers = [
 
 $eligibilityNote = 'Maintain an 80% ride acceptance rate to stay eligible.';
 
-/** Inline SVG icons for the timeline steps and tier medals -- kept in one
- * place since the same handful of icons are reused across both timelines. */
 function pc_loyalty_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 {
   switch ($icon):
@@ -112,17 +106,6 @@ function pc_loyalty_split_stat(string $item): array
   return [null, $item];
 }
 
-/**
- * Shared connected-timeline renderer -- used by both "How It Works" and
- * "Requirements" below (same markup/CSS, different icons/content) instead
- * of duplicating the layout per section.
- *
- * .pc-reveal / .is-visible are the shared scroll-reveal hook (see
- * assets/js/main.js) -- also used by the Power10 promo on ride.php, so the
- * classnames stay bare and its CSS (components.css) is untouched here.
- *
- * @param array<int,array{n:int,title:string,icon:string}> $items
- */
 function pc_render_loyalty_timeline(array $items): void
 {
   ?>
@@ -155,7 +138,6 @@ function pc_render_loyalty_timeline(array $items): void
     </div>
   </section>
 
-  <!-- ============ How It Works ============ -->
   <section class="tw-pb-16 tw-pt-3 md:tw-pb-24">
     <div class="<?= $pcContainer ?>">
       <div class="<?= $pcSectionHeadCenter ?>">
@@ -173,7 +155,6 @@ function pc_render_loyalty_timeline(array $items): void
   </section>
 </div>
 
-<!-- ============ Membership Levels ============ -->
 <section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
@@ -245,7 +226,6 @@ function pc_render_loyalty_timeline(array $items): void
   </div>
 </section>
 
-<!-- ============ Why It Works (bento) ============ -->
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
@@ -283,18 +263,15 @@ function pc_render_loyalty_timeline(array $items): void
   </div>
 </section>
 
-<!-- ============ Requirements ============ -->
-<?php /* The "Stay Eligible, Keep Earning" timeline stood here -- see the
-         note on $eligibilityNote above for why it went. */ ?>
+<?php  ?>
 
 <?php
-
 $ctaTitle = 'Start earning points on your next trip.';
 $ctaText = 'Every completed ride moves you up a tier. Bronze to Gold, no sign-up fee.';
 $ctaPrimary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
 $ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

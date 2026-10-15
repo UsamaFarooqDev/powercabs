@@ -12,7 +12,7 @@ function pcInitFaqs() {
     hideEl.classList.add("tw-hidden");
     showEl.classList.remove("tw-hidden");
     showEl.classList.remove("tw-animate-pc-fade-in-sm");
-    // restart the animation each time it swaps in
+
     void showEl.offsetWidth;
     showEl.classList.add("tw-animate-pc-fade-in-sm", "motion-reduce:tw-animate-none");
   }

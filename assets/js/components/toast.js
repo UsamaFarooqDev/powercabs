@@ -1,9 +1,4 @@
-/**
- * Shared toast notifications. Exposes window.pcToast(message, type),
- * type is "success" | "error". Used by ajax-forms.js (and available for
- * anything else, e.g. pjax.js, that wants a lightweight status message
- * without a full-page reload).
- */
+
 window.pcToast = function pcToast(message, type) {
   if (!message) return;
 
@@ -11,8 +6,7 @@ window.pcToast = function pcToast(message, type) {
   if (!container) {
     container = document.createElement("div");
     container.id = "pcToastContainer";
-    // top offset tracks the live-measured navbar height so a toast never
-    // slides in underneath the fixed header.
+
     container.className =
       "tw-fixed tw-right-4 tw-top-[calc(var(--pc-navbar-h,90px)+1rem)] tw-z-[2050] tw-flex tw-max-w-[min(360px,calc(100vw-2rem))] tw-flex-col tw-gap-[0.6rem]";
     container.setAttribute("aria-live", "polite");
@@ -24,8 +18,7 @@ window.pcToast = function pcToast(message, type) {
   const accent = isSuccess ? "tw-border-l-[#198754]" : "tw-border-l-[#dc3545]";
 
   const toast = document.createElement("div");
-  // is-visible is toggled below to drive the slide/fade, so the two
-  // visible-state utilities hang off an [&.is-visible]: variant.
+
   toast.className =
     "tw-flex tw-items-center tw-gap-[0.6rem] tw-rounded-2xl tw-border-0 tw-border-l-4 tw-border-solid tw-bg-white tw-px-4 tw-py-[0.85rem] tw-text-sm tw-text-ink tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] -tw-translate-y-2 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[250ms] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-transition-none " +
     accent;
@@ -60,7 +53,7 @@ window.pcToast = function pcToast(message, type) {
     window.clearTimeout(dismissTimer);
     toast.classList.remove("is-visible");
     toast.addEventListener("transitionend", () => toast.remove(), { once: true });
-    // Fallback in case the transition never fires (e.g. display:none ancestor).
+
     window.setTimeout(() => toast.remove(), 500);
   }
 

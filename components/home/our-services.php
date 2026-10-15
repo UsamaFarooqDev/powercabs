@@ -25,8 +25,7 @@ $services = [
     'desc' => 'Dependable travel accounts for teams and executives.',
   ],
   [
-    // Pexels 37920104 -- "bustling Dublin street at sunset, classic
-    // architecture". Sightseeing is about the city, not the car.
+
     'href' => '/city-tours',
     'img' => 'https://images.pexels.com/photos/5057600/pexels-photo-5057600.jpeg?auto=compress&cs=tinysrgb&w=1200',
     'alt' => 'A bustling Dublin street at sunset',
@@ -53,49 +52,18 @@ $services = [
       </div>
     </div>
 
-    <!-- Four cards now, so the stagger moves from lg to xl: at lg four of
-         these tall cards side by side would be too narrow to read, so lg gets
-         an even 2x2 and only xl goes four-across-and-stepped. Below that it
-         is a plain grid on the cards' own aspect ratio. -->
     <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 xl:tw-grid-cols-4 xl:tw-items-start xl:tw-gap-6">
       <?php foreach ($services as $i => $service): ?>
         <?php
-        /* Four equal cards, level top and bottom.
-         *
-         * This was a staircase: each card offset further down and made
-         * correspondingly shorter, so offset + height came to 31rem for all
-         * four and the bottoms lined up while the tops stepped away. It worked
-         * exactly as written -- but it is decoration, it cost 112px of empty
-         * space above the last card, and a row of four equal service tiles is
-         * the simpler, calmer thing. Same four cards, same images, same links.
-         */
+        
         $stagger = 'xl:tw-h-[27rem]';
 
-        /* Fade-and-lift as the row scrolls in, cascading left to right.
-         *
-         * Uses the site's existing helper: initScrollReveal() in main.js
-         * watches .pc-reveal, adds .is-visible once, then unobserves. It is
-         * already in PJAX's re-run list, tears down its own observer, and
-         * falls back to showing everything when IntersectionObserver is
-         * missing. The motion-reduce: utilities mean a reduced-motion visitor
-         * sees the cards from CSS alone, without waiting on JS at all.
-         *
-         * Applied to the CARDS and nothing else. The codebase only ever puts
-         * opacity-0 on secondary blocks, never on a heading, copy or a CTA --
-         * because anything starting invisible depends on JS to become
-         * visible, and the page's message must not. */
         $reveal =
           'pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms]' .
           ' tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100' .
           ' motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none';
         $revealDelay = ['', '[transition-delay:90ms]', '[transition-delay:180ms]', '[transition-delay:270ms]'][$i] ?? ''; ?>
-        <?php /* The reveal goes on a WRAPPER, not on the <a>. Putting it on
-                 the link meant its 600ms transition-[opacity,transform]
-                 replaced the card's own transition-[transform,box-shadow], so
-                 box-shadow was no longer a transitioned property and the
-                 hover shadow snapped on instantly. Two elements, two jobs:
-                 the wrapper animates in once, the link keeps its 300ms
-                 hover. */ ?>
+        <?php  ?>
         <div class="<?= $reveal ?> <?= $revealDelay ?>">
         <a href="<?= $assetPath .
           $service[
@@ -106,15 +74,7 @@ $services = [
 ) ?>" class="tw-block tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
           <span class="tw-absolute tw-inset-0 tw-bg-black/[0.15] tw-transition-opacity tw-duration-500 group-hover:tw-opacity-30 motion-reduce:tw-transition-none" aria-hidden="true"></span>
           <span class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.8)_0%,rgba(10,7,5,0.35)_65%,rgba(10,7,5,0)_100%)] tw-p-4 tw-pt-[4.5rem] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_40%)]">
-            <?php /* Type steps down a notch across all three lines and the gaps
-                     close with it -- at the old sizes the title crowded the
-                     description inside a card this size. Sizes only; the
-                     weights and colours are unchanged.
-
-                     The Read More row is a flex row so the label and chevron
-                     stay centred against each other, but the row itself is
-                     left-aligned (justify-start) to sit on the same left edge
-                     as the title and description above it. */ ?>
+            <?php  ?>
             <span class="tw-mb-1 tw-block tw-text-[1.45rem] tw-font-bold tw-leading-tight tw-text-white tw-transition-colors tw-duration-500"><?= $service[
               'title'
             ] ?></span>

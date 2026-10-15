@@ -1,66 +1,16 @@
 <?php
-/* This section used to be a standalone "Power Your Every Journey" statement.
-   It now carries the "Why PowerCabs" content that previously lived in
-   components/home/why-choose-us.php -- same editorial structure (a hairline
-   rule with a brand marker, a muted index, title, copy), moved onto this
-   section's photographic background.
-
-   `#why-choose` and the `pc-why-item` classname move with it: they are the
-   JS selector hooks initWhyChooseReveal() in main.js queries ("#why-choose
-   .pc-why-item", toggling .is-visible on scroll). They must exist exactly
-   once on the page, which is why index.php no longer requires
-   why-choose-us.php.
-
-   Colours are the one thing that could not carry over unchanged -- the
-   original used tw-text-ink on a pale background, which is unreadable on
-   this dark photo, so every value has its white counterpart here. */
 $whyChooseItems = [
   ['title' => 'Easy Booking', 'desc' => "Enter your pickup and drop-off locations, select your ride, you're all set."],
   ['title' => 'Affordable Rates', 'desc' => 'Competitive rates for all our rides, ensuring great value for your money.'],
   ['title' => 'Safe and Reliable', 'desc' => 'All drivers are licensed and experienced; vehicles are regularly inspected.'],
   ['title' => '24/7 Service', 'desc' => "Need a ride any time of day or night? We're always here for you."],
 ];
-// Approximates the original 0/80/160/240ms stagger on Tailwind's delay scale.
+
 $revealDelays = ['tw-delay-0', 'tw-delay-75', 'tw-delay-150', 'tw-delay-200'];
 ?>
-<!-- bg-scroll, not bg-fixed: the image now scrolls with the page like every
-     other section rather than pinning behind it. -->
-<!-- The photo is 1536x825. With bg-cover the image is cropped on whichever
-     axis is proportionally longer, so a short section crops it vertically --
-     which is why only half of it was showing. min-h-[66.7vw] makes the
-     section tall enough that cover has essentially nothing left to crop
-     horizontally. Below lg the section is too narrow for that to work, so it
-     falls back to a content-driven height and accepts the crop.
-
-     That crop is severe on a phone: the four "why" columns stack, so the
-     section runs ~1100px tall against a 390px viewport, and cover scales the
-     image to ~2050px wide to fill that height -- leaving only ~19% of the
-     frame on screen. Centred, that window lands between the driver's phone
-     and the roof sign, so the one thing in the photograph that says
-     PowerCabs -- the lit roof sign on the car ahead, at 61% across the
-     frame -- was cropped out entirely on every phone.
-
-     bg-[position:64%_center] moves the crop window onto it. 64% rather than
-     61% because percentage background-position aligns the same *fraction* of
-     image and container, so the focal fraction f lands centred at
-     p = (f*imageW - containerW/2) / (imageW - containerW) -- which works out
-     at 0.64 for every plausible section height between 900 and 1300px. From
-     sm up the section is wide enough that the crop is mild and plain
-     bg-center frames the whole cab interior properly again.
-
-     Content is pushed to the bottom (flex + justify-end) so the image reads
-     above it. The large bottom padding is deliberate: the next section
-     (download-app) pulls itself up by as much as 195px with a negative
-     margin so its torn polygon edge overlaps this image -- without the
-     padding that polygon would sit on top of the four columns. -->
 <section id="why-choose" class="tw-relative tw-flex tw-flex-col tw-justify-end tw-overflow-hidden tw-bg-scroll tw-bg-cover tw-bg-[position:64%_center] sm:tw-bg-center tw-text-white tw-pt-20 tw-pb-28 md:tw-pt-28 md:tw-pb-[15rem] lg:tw-min-h-[66.7vw] tw-bg-[url('/assets/img/welcome-section-bg.webp')]">
   <span class="tw-absolute tw-inset-0 tw-bg-[linear-gradient(120deg,rgba(18,18,18,0.62)_0%,rgba(232,89,12,0.5)_55%,rgba(255,122,0,0.38)_100%)]" aria-hidden="true"></span>
 
-  <!-- The blur sits only over the lower half, masked so it fades in rather
-       than starting on a hard edge -- it quietens the busiest part of the
-       photo so the four columns stay readable. Kept OUTSIDE the animated
-       wrapper below: a backdrop-filter inside a transforming ancestor gets
-       re-rasterised on the first frame and flashes un-blurred. -->
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-[52%] tw-bg-[linear-gradient(to_top,rgba(18,18,18,0.5),transparent)] tw-backdrop-blur-[7px] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,#000_38%)] [mask-image:linear-gradient(to_bottom,transparent_0%,#000_38%)]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainer ?>">
@@ -77,8 +27,6 @@ $revealDelays = ['tw-delay-0', 'tw-delay-75', 'tw-delay-150', 'tw-delay-200'];
           $index
         ] ?? '' ?> [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none">
 
-          <!-- The rule is the column's own top border so it starts and ends
-               exactly with the column; the marker sits on it at the left. -->
           <div class="tw-relative tw-mb-6 tw-h-px tw-w-full tw-bg-white/25">
             <span class="tw-absolute tw-left-0 tw-top-1/2 tw-h-[7px] tw-w-[7px] -tw-translate-y-1/2 tw-bg-powerlight" aria-hidden="true"></span>
           </div>

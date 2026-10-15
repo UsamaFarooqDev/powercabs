@@ -127,29 +127,6 @@ $driverFaqGroups = [
   ],
 ];
 
-$riderTutorials = [
-  ['file' => 'order-booking.mp4', 'label' => 'Order Booking'],
-  ['file' => 'ride-tracking.mp4', 'label' => 'Order Tracking'],
-  ['file' => 'payment-method.mp4', 'label' => 'Payment'],
-  ['file' => 'complete-video.mp4', 'label' => 'Complete Guide'],
-];
-
-$driverTutorials = [
-  ['file' => 'sign-up-driver.mp4', 'label' => 'Sign Up as a Driver'],
-  ['file' => 'accept-trips.mp4', 'label' => 'Accept Trips'],
-  ['file' => 'pickup-ride.mp4', 'label' => 'Pickup &amp; Ride'],
-  ['file' => 'final-completion.mp4', 'label' => 'Trip Completion'],
-];
-
-/* FAQPage structured data, built from the SAME two arrays this page renders
-   its accordions from -- which is why the data now sits above the header
-   require instead of below it. That ordering is the whole point: Google
-   requires FAQ markup to match the visible page, and the only reliable way
-   to guarantee that is to have one source. Add a question below and it is
-   in the schema; delete one and it is gone from both.
-
-   Flattened because $driverFaqGroups nests its questions under headings,
-   and FAQPage.mainEntity is a flat list of Questions. */
 $pageFaq = $passengerFaqs;
 foreach ($driverFaqGroups as $group) {
   foreach ($group['items'] as $item) {
@@ -166,40 +143,22 @@ $heroDescription =
   "Whether you're booking a ride or driving with us, find quick answers to the most common questions from passengers and drivers alike.";
 $heroBgImage = 'https://images.pexels.com/photos/36507933/pexels-photo-36507933.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'FAQs';
-$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
+$heroVariant = 'utility'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <?php
-// Canonical PowerCabs pill-toggle -- reproduces Bootstrap's .btn-check +
-// .btn sibling-selector trick with the has-[:checked] variant instead.
 $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-full tw-border tw-border-solid tw-border-ink/20 tw-px-5 tw-py-2 tw-text-sm tw-font-semibold tw-text-ink tw-transition-colors tw-duration-200 has-[:checked]:tw-border-power has-[:checked]:tw-bg-power has-[:checked]:tw-text-white';
 ?>
 
-<?php /* A "Watch How PowerCabs Works" section stood here. It was not a video:
-         it was a stock city-tour photograph with a dark overlay and a large
-         play button whose aria-label read "Play demo video" -- and that button
-         had no click handler, no data attribute and no reference in any JS
-         file on the site. Pressing it did nothing, on any page load, ever.
+<?php  ?>
 
-         Meanwhile the "Video Guides" section further down plays eight REAL
-         tutorials from assets/vid/. So the page opened by promising a demo
-         that did not exist, above the working videos that did.
-
-         Removed rather than wired up: inventing a demo video is not a markup
-         decision, and the eight real guides already cover booking, tracking,
-         payment and the full driver flow. */ ?>
-
-<!-- ============ FAQ ============ -->
 <section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
   <div class="tw-mx-auto tw-w-full tw-max-w-[860px]">
     <div class="tw-mb-10 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Frequently Asked Questions</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Passenger &amp; Driver FAQs</h2>
 
-      <!-- Bare radio + has-checked label: pcInitFaqs() in faqs.js keeps
-           driving this via getElementById/.checked, unchanged -- only the
-           visual toggle styling moved to Tailwind. -->
       <div class="tw-inline-flex tw-flex-wrap tw-justify-center tw-gap-2">
         <label class="<?= $audienceToggleClass ?>" for="faqAudiencePassenger">
           <input type="radio" class="tw-sr-only" name="faqAudience" id="faqAudiencePassenger" autocomplete="off" checked>
@@ -212,44 +171,17 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
       </div>
     </div>
 
-    <!-- pcInitFaqs() swaps the two panels by toggling tw-hidden plus the
-         shared fade-in animation. Each accordion item is driven by the
-         collapse helper in assets/js/components/ui.js -- same
-         data-pc-collapse contract as components/shared/faq-accordion.php. -->
     <div id="passengerFaqAccordion">
       <?php
       $faqListItems = $passengerFaqs;
       $faqListId = 'passengerFaq';
-      // The id that scopes the accordion is the WRAPPER's, not the panel-id
-      // stem -- they differ here, and defaulting the parent to '#passengerFaq'
-      // pointed at nothing, so querySelector returned null and every question
-      // stayed open alongside the others.
       $faqListParent = '#passengerFaqAccordion';
-      $faqListAnswerRaw = true; // these answers contain real links
+      $faqListAnswerRaw = true; 
       require __DIR__ . '/components/shared/faq-list.php';
       ?>
     </div>
 
-    <?php /* Fifteen driver questions in one undifferentiated column was the
-             "wall of questions" this page most needed to lose. They are
-             grouped now, in the order a driver meets them: join, then earn,
-             then on the road, then account admin. Every question and answer
-             is unchanged.
-
-             $i runs CONTINUOUSLY across the groups rather than restarting per
-             group, because the panel ids and, more importantly,
-             data-pc-collapse-parent are what make this one exclusive
-             accordion. Restarting the counter would collide ids and break the
-             only-one-open-at-a-time behaviour across group boundaries.
-
-             tw-hidden AND tw-flex together is deliberate and matches the
-             passenger panel: faqs.js only ever adds/removes tw-hidden, so
-             tw-flex is what lays the groups out once shown. Tailwind emits
-             `hidden` after `flex` in the display plugin, so hidden wins while
-             it is present.
-
-             PHP comment, not HTML: this is a note for whoever edits the file,
-             and it would otherwise be served to every visitor. */ ?>
+    <?php  ?>
     <div class="tw-hidden tw-mt-3 tw-flex tw-flex-col tw-gap-10" id="driverFaqAccordion">
       <?php $i = 0; ?>
       <?php foreach ($driverFaqGroups as $group): ?>
@@ -258,10 +190,6 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
             <?= htmlspecialchars($group['title']) ?>
           </h3>
           <?php
-          // One accordion split across four group headings: $i keeps running
-          // and every list points its parent at #driverFaqAccordion, so
-          // opening a question in "Earnings" still closes the open one in
-          // "Joining". Restarting $i per group would collide panel ids.
           $faqListItems = $group['items'];
           $faqListId = 'driverFaq';
           $faqListParent = '#driverFaqAccordion';
@@ -277,69 +205,10 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
   </div>
 </section>
 
-<!-- ============ Video Tutorials ============ -->
-<section class="<?= $pcSection ?>">
-  <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-10 tw-text-center">
-      <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Step By Step</p>
-      <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Video Guides</h2>
-    </div>
-
-    <!-- tw-hidden / pc-tutorial-card / pc-tutorial-play-btn / pc-tutorial-card-label
-         stay bare -- video-tutorials.js and pcInitFaqs() (faqs.js) query and
-         toggle these directly. -->
-    <div class="tw-grid tw-grid-cols-2 tw-gap-3 lg:tw-grid-cols-4" id="riderTutorialGrid">
-      <?php foreach ($riderTutorials as $video): ?>
-        <div class="pc-tutorial-card tw-relative tw-overflow-hidden tw-rounded-2xl">
-          <video class="tw-h-full tw-w-full tw-object-cover" preload="metadata" muted playsinline poster="<?= $assetPath ?>assets/img/vid-covers/<?= str_replace(
-  '.mp4',
-  '.jpg',
-  $video['file'],
-) ?>">
-            <source src="<?= $assetPath ?>assets/vid/<?= $video['file'] ?>" type="video/mp4">
-          </video>
-          <button type="button" class="pc-tutorial-play-btn tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-[3.25rem] tw-w-[3.25rem] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-none tw-transition tw-duration-300 hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.45)] motion-reduce:tw-transition-none" aria-label="Play <?= htmlspecialchars(
-            strip_tags($video['label']),
-          ) ?> video">
-            <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="pc-tutorial-card-label tw-absolute tw-inset-x-0 tw-bottom-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.85),transparent)] tw-p-3 tw-text-sm tw-font-semibold tw-text-white"><?= $video[
-            'label'
-          ] ?></span>
-        </div>
-      <?php endforeach; ?>
-    </div>
-
-    <div class="tw-hidden tw-grid tw-grid-cols-2 tw-gap-3 lg:tw-grid-cols-4" id="driverTutorialGrid">
-      <?php foreach ($driverTutorials as $video): ?>
-        <div class="pc-tutorial-card tw-relative tw-overflow-hidden tw-rounded-2xl">
-          <video class="tw-h-full tw-w-full tw-object-cover" preload="metadata" muted playsinline poster="<?= $assetPath ?>assets/img/vid-covers/<?= str_replace(
-  '.mp4',
-  '.jpg',
-  $video['file'],
-) ?>">
-            <source src="<?= $assetPath ?>assets/vid/<?= $video['file'] ?>" type="video/mp4">
-          </video>
-          <button type="button" class="pc-tutorial-play-btn tw-absolute tw-left-1/2 tw-top-1/2 tw-flex tw-h-[3.25rem] tw-w-[3.25rem] -tw-translate-x-1/2 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-powerlight tw-text-white tw-shadow-none tw-transition tw-duration-300 hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.45)] motion-reduce:tw-transition-none" aria-label="Play <?= htmlspecialchars(
-            strip_tags($video['label']),
-          ) ?> video">
-            <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="pc-tutorial-card-label tw-absolute tw-inset-x-0 tw-bottom-0 tw-bg-[linear-gradient(to_top,rgba(10,7,5,0.85),transparent)] tw-p-3 tw-text-sm tw-font-semibold tw-text-white"><?= $video[
-            'label'
-          ] ?></span>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-
 <script src="<?= $assetPath ?>assets/js/components/faqs.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/faqs.js') ?>"></script>
-<script src="<?= $assetPath ?>assets/js/components/video-tutorials.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/video-tutorials.js') ?>"></script>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
-
 ?>

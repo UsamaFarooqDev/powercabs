@@ -1,27 +1,15 @@
 <?php
-/**
- * Landing page for the Supabase "Reset Password" email template.
- *
- * Point the template's link at this page and let Supabase fill in the token:
- *   <a href="{{ .SiteURL }}/reset-password?token_hash={{ .TokenHash }}&type=recovery">Reset password</a>
- *
- * Everything happens client-side against Supabase Auth (see
- * assets/js/components/reset-password.js) -- the token never reaches this
- * PHP file, and there is no session or database on the website side.
- */
 $pageTitle       = 'Reset Your Password | PowerCabs';
 $pageDescription = 'Choose a new password for your PowerCabs account.';
 $assetPath       = '';
-$pageNoIndex     = true; // recovery links are single-use -- keep them out of search results
+$pageNoIndex     = true; 
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/header.php';
 
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = 'pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
-// The hover lift is cancelled while the button is disabled by
-// disabled:hover:tw-translate-y-0, which lives in $pcBtnPrimary itself.
+
 $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
 ?>
 
@@ -30,15 +18,11 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
     data-supabase-url="<?= htmlspecialchars(PC_SUPABASE_URL) ?>"
     data-supabase-key="<?= htmlspecialchars(PC_SUPABASE_ANON_KEY) ?>">
 
-    <!-- ============ Verifying / booting ============ -->
     <div class="tw-py-4 tw-text-center" id="pcResetLoading">
       <span class="tw-inline-block tw-h-8 tw-w-8 tw-animate-spin tw-rounded-full tw-border-[3px] tw-border-solid tw-border-[#fbe6d4] tw-border-t-power motion-reduce:[animation-duration:1.4s]" aria-hidden="true"></span>
       <p class="tw-mb-0 tw-mt-3 tw-text-ink/60">Checking your reset link&hellip;</p>
     </div>
 
-    <!-- ============ Set a new password ============ -->
-    <!-- tw-hidden on this and the other panels below is toggled directly by
-         showPanel() in reset-password.js, swapping the four states. -->
     <div class="tw-hidden" id="pcResetFormWrap">
       <div class="tw-mb-6 tw-text-center">
         <span class="tw-inline-flex tw-h-14 tw-w-14 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#fbe6d4] tw-text-power" aria-hidden="true">
@@ -50,17 +34,12 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
         </p>
       </div>
 
-      <!-- data-no-ajax: ajax-forms.js scrapes a PHP-rendered .alert-* out of a
-           POST response, but nothing here posts to PHP -- it all goes to Supabase. -->
       <form id="pcResetForm" method="post" action="" data-no-ajax novalidate>
         <div class="tw-mb-4">
           <label class="<?= $labelClass ?>" for="pcResetNew">New Password</label>
           <div class="tw-relative">
             <input type="password" class="<?= $inputClass ?>" id="pcResetNew" name="password" autocomplete="new-password"
               minlength="8" required>
-            <!-- .pc-reset-toggle + data-target stay bare -- reset-password.js
-                 queries this exact classname to wire up the show/hide button,
-                 and swaps the .pc-icon <svg>'s path on click. -->
             <button type="button" class="pc-reset-toggle tw-absolute tw-right-1 tw-top-1/2 tw-flex tw-h-8 tw-w-8 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-transparent tw-text-ink/50 tw-transition-colors tw-duration-200 hover:tw-bg-paper hover:tw-text-power" data-target="pcResetNew" aria-label="Show password">
               <svg class="pc-icon tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.13 13.13 0 011.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0114.828 8a13.13 13.13 0 01-1.66 2.043C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 011.172 8z"/><path d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
             </button>
@@ -78,9 +57,6 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
           </div>
         </div>
 
-        <!-- reset-password.js's updateRules() swaps each .pc-icon <svg>'s
-             path (empty circle <-> filled check) and toggles .is-met on the
-             <li>; the [&.is-met_svg]: variants below key off that. -->
         <ul class="tw-mb-6 tw-flex tw-list-none tw-flex-col tw-gap-1 tw-p-0 tw-text-sm" id="pcResetRules">
           <li class="tw-flex tw-items-center tw-gap-2 tw-text-ink/60 [&.is-met]:tw-text-[#198754] [&_svg]:tw-h-4 [&_svg]:tw-w-4 [&_svg]:tw-shrink-0 [&_svg]:tw-opacity-55 [&.is-met_svg]:tw-opacity-100" data-rule="length"><svg class="pc-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 15A7 7 0 118 1a7 7 0 010 14zm0 1A8 8 0 108 0a8 8 0 000 16z"/></svg><span>At least 8 characters</span></li>
           <li class="tw-flex tw-items-center tw-gap-2 tw-text-ink/60 [&.is-met]:tw-text-[#198754] [&_svg]:tw-h-4 [&_svg]:tw-w-4 [&_svg]:tw-shrink-0 [&_svg]:tw-opacity-55 [&.is-met_svg]:tw-opacity-100" data-rule="match"><svg class="pc-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 15A7 7 0 118 1a7 7 0 010 14zm0 1A8 8 0 108 0a8 8 0 000 16z"/></svg><span>Both passwords match</span></li>
@@ -95,7 +71,6 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
       </form>
     </div>
 
-    <!-- ============ Done ============ -->
     <div class="tw-hidden tw-text-center" id="pcResetDone">
       <span class="tw-inline-flex tw-h-14 tw-w-14 tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(25,135,84,0.12)] tw-text-[#198754]" aria-hidden="true">
         <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
@@ -110,7 +85,6 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
       </a>
     </div>
 
-    <!-- ============ Bad / expired / already-used link ============ -->
     <div class="tw-hidden tw-text-center" id="pcResetInvalid">
       <span class="tw-inline-flex tw-h-14 tw-w-14 tw-items-center tw-justify-center tw-rounded-full tw-bg-red-50 tw-text-red-600" aria-hidden="true">
         <svg class="tw-h-6 tw-w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>

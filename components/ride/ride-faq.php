@@ -1,9 +1,4 @@
 <?php
-/**
- * Ride page FAQ -- data + copy only; the accordion markup itself lives in
- * the shared components/shared/faq-accordion.php partial (also used by
- * drive.php's FAQ) so the two pages don't duplicate the implementation.
- */
 $faqAccordionId = 'rideFaqAccordion';
 $faqEyebrow = 'FAQ';
 $faqHeading = "Got Questions? We've Got Answers.";

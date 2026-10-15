@@ -1,33 +1,6 @@
 <?php
-/**
- * Homepage §07 -- Dublin coverage.
- *
- * Deliberately a real photograph of the city rather than a stylised map
- * graphic: the site has no coverage-polygon data to draw from, and inventing
- * a map with boundaries on it would be claiming a service area nobody has
- * verified. The airport-to-city line and "Greater Dublin Area" are both
- * already stated on /meet-greet and /ride.
- */
 $coverageStops = ['Dublin Airport', 'City centre', 'Docklands', 'Dún Laoghaire', 'Swords', 'Tallaght'];
 
-/* Four Dublin views rather than one landscape photograph: this section is
-   about covering a city, so four places carry the claim better than one.
- *
- * Every one is verifiably DUBLIN, which matters more here than on a
- * decorative section -- the photographs ARE the argument that PowerCabs covers
- * the city, so a shot of somewhere else is a false claim about coverage. An
- * earlier draft used the Giant's Causeway (County Antrim, 180km away, a
- * different jurisdiction) captioned "Dublin rooftops"; the other candidates in
- * the repo's Pexels set turned out to be the Cliffs of Moher, Blarney Castle
- * and Titanic Belfast -- all Ireland, none Dublin. Check before swapping one.
- *
- * All four are PHOTOGRAPHS. Two of the tiles were briefly the brand's own
- * rendered marketing images, which is fine on a service page but wrong here:
- * a coverage section is evidence, and a render is not evidence of a city.
- *
- * Four different registers of Dublin so the grid does not read as one view
- * repeated: a modern bridge by day, the city centre with a Dublin bus in it,
- * the Four Courts at sunset, and a Georgian street at eye level. */
 $coverageShots = [
   ['id' => '13158127', 'alt' => 'The Samuel Beckett Bridge over the River Liffey, Dublin.'],
   ['id' => '35809675', 'alt' => "O'Connell Bridge over the Liffey, with a Dublin bus crossing."],
@@ -57,28 +30,14 @@ $coverageShots = [
           <?php endforeach; ?>
         </ul>
 
-        <?php /* $pcBtnLink on the anchor, $pcBtnLinkIcon on the svg. They were
-                 the wrong way round: the anchor carried the ICON recipe, so
-                 this link lost its orange and its weight, and the arrow's
-                 group-hover: never fired because $pcBtnLink -- which supplies
-                 the tw-group/link it hangs off -- was not on it. Same swap as
-                 the one in faq-accordion.php. */ ?>
+        <?php  ?>
         <a class="<?= $pcBtnLink ?>" href="<?= $assetPath ?>/ride">
           Check your route
           <svg class="<?= $pcBtnLinkIcon ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
 
-      <?php /* mx-auto, not ml-auto: the block is centred in its half of the
-               grid rather than pushed against the right edge.
-
-               aspect-[4/3], not square: these are landscape photographs, and
-               object-cover on a square tile threw away a third of each one --
-               the bridge lost its span. A 4:3 frame crops far less, so each
-               shot reads as itself.
-
-               The max-width keeps the block at roughly the height of the copy
-               beside it rather than towering over it. */ ?>
+      <?php  ?>
       <div class="tw-grid tw-grid-cols-2 tw-gap-1.5 lg:tw-mx-auto lg:tw-max-w-[440px]">
         <?php foreach ($coverageShots as $shot): ?>
           <div class="tw-group tw-relative tw-aspect-[4/3] tw-overflow-hidden tw-rounded-lg tw-bg-ink/[0.04]">

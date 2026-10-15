@@ -1,7 +1,4 @@
-<?php /* No background of its own: business.php wraps this section and
-         how-it-works.php in a single soft band so the two read as one
-         block. Both used to carry white -> paper-soft themselves, which
-         meant the tint reset to white at the seam between them. */ ?>
+<?php  ?>
 <section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-bg-peach tw-shadow-[0_8px_20px_rgba(28,20,16,0.12)] tw-rounded-2xl tw-p-6 md:tw-p-10">

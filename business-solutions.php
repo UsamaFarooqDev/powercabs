@@ -25,9 +25,6 @@ $old = [
   'device_type' => '',
 ];
 
-// Kept aside so a successful submit can restore the form to its pristine
-// state rather than blanking every field -- the three Yes/No radio pairs
-// default to "yes" and must come back checked, not unchecked.
 $formDefaults = $old;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -146,7 +143,6 @@ require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <?php
-// ============ Payment Solutions (NPI card terminal partnership) ============
 require __DIR__ . '/components/business/payment-solutions/intro.php';
 require __DIR__ . '/components/business/payment-solutions/how-to-apply.php';
 require __DIR__ . '/components/business/payment-solutions/solutions.php';
@@ -163,16 +159,11 @@ require __DIR__ . '/components/business/payment-solutions/testimonials.php';
 ) ?>"></script>
 
 <?php
-
-// Points back at this page's own application form rather than a generic
-// contact route -- the whole page builds to that one action.
 $ctaTitle = 'Start taking card payments.';
 $ctaText = 'Apply in about two minutes. Our team reviews your details and ships the terminal to you.';
 $ctaPrimary = ['href' => '/business-solutions#payment-apply-form', 'label' => 'Apply Now'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Ask a Question'];
 
-/* Restructured from copy already on this page -- see
-   components/shared/faq-accordion.php on why answers may not be invented. */
 $faqItems = [
   ['q' => 'What does a terminal cost?', 'a' => 'Card reader rental starts at €9.99 a month for the PAX A50, €14.99 for the PAX A920, and €29.99 for EPOS (ex VAT).'],
   ['q' => 'What are the transaction rates?', 'a' => 'Unbeatable transaction rates from 0.8%, on every plan.'],
@@ -183,9 +174,9 @@ $faqEyebrow = 'Card terminals';
 $faqHeading = 'Terminal questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; // alternates against the white section above it
+$faqSurface = 'soft'; 
 require __DIR__ . '/components/shared/faq-accordion.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

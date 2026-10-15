@@ -1,31 +1,10 @@
 <?php
-/**
- * The three Meet & Greet service levels, as pricing cards.
- *
- * Reads $mgServiceLevels from meet-greet.php -- the same array the "Service
- * Level" field in the booking form is built from, so a tier cannot appear here
- * and be missing from the form, or be priced differently in the two places.
- *
- * Every price, feature, exclusion and note is exactly as supplied. Nothing is
- * inferred or rounded: this is a price list, and an invented line on it is an
- * invented commitment.
- *
- * The featured card is ink with an orange badge, matching
- * components/business/plans.php -- the site already has a three-tier pricing
- * section and a second visual language for the same job would read as a
- * different product.
- *
- * The buttons set the form's Service Level and scroll to it rather than
- * linking out, so "Select First Class" does what it says. The handler lives in
- * the page's existing inline script, next to the rest of the form wiring.
- */
 $mgTierCheck =
   '<svg class="tw-mt-[3px] tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>';
 $mgTierCross =
   '<svg class="tw-mt-[3px] tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 ?>
-<!-- ============ Meet & Greet service levels ============ -->
-<section class="<?= $pcSection ?>">
+<section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
 
     <div class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
@@ -37,10 +16,7 @@ $mgTierCross =
       <p class="<?= $pcBody ?> tw-mb-0">Choose the level of service that suits you or your passenger.</p>
     </div>
 
-    <?php /* items-stretch, and each card is a flex column with the button
-             pushed down by mt-auto: the three tiers carry different numbers of
-             features, and without that the buttons land at three different
-             heights, which reads as three unrelated boxes. */ ?>
+    <?php  ?>
     <div class="tw-mx-auto tw-grid tw-max-w-[1100px] tw-grid-cols-1 tw-items-stretch tw-gap-5 md:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($mgServiceLevels as $mgKey => $mgTier): ?>
         <?php $mgFeatured = !empty($mgTier['featured']); ?>
@@ -105,8 +81,7 @@ $mgTierCross =
           <?php endif; ?>
 
           <?php if (!empty($mgTier['excludes'])): ?>
-            <?php /* Stated, not hidden: a tier list that only ever says yes
-                     makes the reader hunt for the catch. */ ?>
+            <?php  ?>
             <div class="tw-mb-4 tw-rounded-xl tw-px-4 tw-py-3.5 <?= $mgFeatured
               ? 'tw-bg-white/[0.06]'
               : 'tw-bg-paper-soft' ?>">
@@ -139,16 +114,8 @@ $mgTierCross =
             </div>
           <?php endif; ?>
 
-          <?php /* A <button>, not an <a>: it drives the form on this page, it
-                   does not navigate. type="button" so it can never submit
-                   anything, and appearance-none/border-0 because preflight is
-                   off and a bare <button> keeps its native chrome otherwise. */ ?>
-          <?php /* NO tw-border-0 in the base string. It was there, alongside
-                   tw-border in the outline branch, and border-0 won -- which
-                   utility wins is decided by the order Tailwind emits them,
-                   not by the order they appear in this attribute, so the two
-                   unfeatured buttons rendered with no outline at all. Each
-                   branch now sets its own border-width and nothing competes. */ ?>
+          <?php  ?>
+          <?php  ?>
           <button type="button" data-mg-tier="<?= htmlspecialchars($mgKey) ?>"
             class="tw-mt-auto tw-inline-flex tw-w-full tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-px-6 tw-py-3 tw-font-[inherit] tw-text-[0.78rem] tw-font-bold tw-uppercase tw-tracking-[0.08em] tw-transition tw-duration-300 motion-reduce:tw-transition-none <?= $mgFeatured
               ? 'tw-border-0 tw-bg-power tw-text-white hover:tw-shadow-[0_12px_28px_rgba(255,122,0,0.38)]'

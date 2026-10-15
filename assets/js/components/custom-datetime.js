@@ -1,55 +1,4 @@
-/**
- * Progressive-enhancement custom date/time picker. Wraps every
- * <input class="pc-custom-datetime-enhance"> of type "date", "time" or
- * "datetime-local" with a styled trigger button + panel (a calendar grid
- * for date, a scrollable time list for time), while leaving the original
- * <input> in the DOM -- same id/name/value/required/disabled behavior as
- * before, just made invisible and non-interactive (pointer-events: none,
- * tabindex -1) so nothing else on the page (backend validation, a min-date
- * default set from PHP, whatever) has to know or care that the visible
- * control is no longer the browser's native picker.
- *
- * Shares the same visual language (trigger/panel border, shadow, radius,
- * orange focus border, peach hover) as the dropdown in custom-select.js, so
- * the two feel like one consistent design system. Both are styled entirely
- * with the Tailwind class strings collected in the CLS block below -- there
- * is no .pc-custom-dt* stylesheet any more. Open/disabled state still rides
- * on the same bare `is-open` / `is-disabled` classnames JS has always
- * toggled; each anchor (the wrapper for a standalone field, each segment
- * for a datetime-local) is a Tailwind `tw-group`, so those states reach the
- * trigger and panel through `group-[.is-open]:` / `group-[.is-disabled]:`
- * variants instead of descendant rules. The pc-custom-dt-* classnames that
- * survive (value, day, month-cell, year-cell, time-option) are
- * querySelector hooks, not styling.
- *
- * This is a generic, page-agnostic component. To reuse it on any form:
- *
- *   1. Add class="pc-custom-datetime-enhance" to any
- *      <input type="date">, <input type="time"> or
- *      <input type="datetime-local">. Its id, name, value, required,
- *      disabled and (for date/datetime-local) min/max attributes all
- *      carry over automatically -- no markup changes needed beyond that
- *      one class.
- *   2. Load this script on that page, with the same filemtime()
- *      cache-busting convention used elsewhere on the site.
- *
- * Optional per-field tuning, both read from data-* attributes so no JS
- * changes are ever needed to use them:
- *
- *   - data-dt-quick-year="1"   Opens the calendar straight into its "pick
- *     a year" view instead of the day grid -- for a field like Date of
- *     Birth, where clicking "previous month" a few hundred times to reach
- *     1990 would be painful. Combine with data-dt-years-back="N" (default
- *     30) to change how far back that initial year view centers.
- *   - A "time" input renders a scrollable list in 15-minute steps by
- *     default; add data-dt-step="30" (etc, in minutes) to change that.
- *
- * A datetime-local input is rendered as two adjacent segments (a date
- * trigger + a time trigger, each with its own panel) sharing one hidden
- * native <input> -- the two segments' picks are combined into the single
- * "YYYY-MM-DDTHH:MM" value the native control expects, written back (and
- * a "change" event dispatched) every time either side changes.
- */
+
 if (window.pcCustomDatetimeCleanup) {
   window.pcCustomDatetimeCleanup();
   window.pcCustomDatetimeCleanup = null;
@@ -65,29 +14,14 @@ if (window.pcCustomDatetimeCleanup) {
   var MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var WEEKDAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-  // -------------------------------------------------------------------
-  // Tailwind class strings, kept in one place so the calendar and the time
-  // list can't drift apart. #fbe4cf is --pc-peach and #ff7a00 is
-  // --pc-orange-light; both are written literally because these strings end
-  // up in arbitrary values, which can't read CSS custom properties.
-  // tw-appearance-none + tw-border-0 are load-bearing on every <button>
-  // here: Tailwind's Preflight is disabled site-wide (see header.php), so
-  // nothing else resets the browser's default button chrome.
-  // -------------------------------------------------------------------
-  var CLS = {
-    // Reproduces the canonical PowerCabs field recipe from
-    // book-ride-online.php ($inputClass) so a picker trigger is pixel-
-    // identical to the plain <input> beside it -- 38px tall, 6px radius,
-    // #dee2e6 border, orange border on focus, no ring.
-    trigger:
+var CLS = {
+trigger:
       "tw-flex tw-w-full tw-appearance-none tw-items-center tw-gap-[0.55rem] tw-rounded-md tw-border " +
       "tw-border-solid tw-border-[#dee2e6] tw-bg-white tw-px-3 tw-py-1.5 tw-text-left tw-text-base " +
       "tw-leading-normal tw-text-ink tw-cursor-pointer tw-outline-none tw-transition-colors tw-duration-200 " +
       "focus-visible:tw-border-powerlight group-[.is-open]:tw-border-powerlight " +
       "group-[.is-disabled]:tw-cursor-not-allowed group-[.is-disabled]:tw-opacity-[0.65]",
-    // An <svg> with no width/height falls back to the SVG default of
-    // 300x150 -- explicit sizing is not optional here the way it was
-    // for the icon font this replaced.
+
     icon: "tw-h-4 tw-w-4 tw-shrink-0 tw-text-ink/[0.65]",
     value:
       "pc-custom-dt-value tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap " +
@@ -113,8 +47,7 @@ if (window.pcCustomDatetimeCleanup) {
       "tw-mb-[0.15rem] tw-grid tw-grid-cols-7 tw-text-center tw-text-[0.7rem] tw-font-semibold tw-uppercase " +
       "tw-tracking-[0.03em] tw-text-ink/[0.65]",
     daysGrid: "tw-grid tw-grid-cols-7 tw-gap-[2px]",
-    // enabled:/disabled: rather than :not(.is-disabled) -- a blocked day
-    // gets the real `disabled` attribute as well as the class.
+
     day:
       "pc-custom-dt-day tw-flex tw-aspect-square tw-appearance-none tw-items-center tw-justify-center " +
       "tw-rounded-[10px] tw-border-0 tw-bg-transparent tw-text-[0.85rem] tw-text-ink tw-cursor-pointer " +
@@ -145,9 +78,7 @@ if (window.pcCustomDatetimeCleanup) {
       "tw-bg-transparent tw-px-[0.65rem] tw-py-2 tw-text-left tw-text-[0.9rem] tw-text-ink tw-cursor-pointer " +
       "tw-transition-colors tw-duration-150 hover:tw-bg-[#fbe4cf] hover:tw-text-power " +
       "[&.is-selected]:tw-font-semibold [&.is-selected]:tw-text-power",
-    // `tw-group` is what makes group-[.is-open]:/group-[.is-disabled]: on
-    // the trigger and panel above resolve -- it goes on whichever element
-    // JS toggles those classes on, i.e. the anchor.
+
     anchor: "tw-group tw-relative",
     segment: "tw-group tw-relative tw-min-w-0 tw-flex-1",
   };
@@ -156,18 +87,13 @@ if (window.pcCustomDatetimeCleanup) {
     return n < 10 ? "0" + n : "" + n;
   }
 
-  // ---------------------------------------------------------------------
-  // Date helpers -- all dates are plain {y, m, d} objects (m is 0-11) so
-  // comparisons never trip over timezone conversion the way epoch-ms
-  // Date math can.
-  // ---------------------------------------------------------------------
-  function daysInMonth(y, m) {
+function daysInMonth(y, m) {
     return new Date(y, m + 1, 0).getDate();
   }
 
   function firstWeekdayMonIndex(y, m) {
-    var jsDay = new Date(y, m, 1).getDay(); // Sun=0..Sat=6
-    return (jsDay + 6) % 7; // Mon=0..Sun=6
+    var jsDay = new Date(y, m, 1).getDay();
+    return (jsDay + 6) % 7;
   }
 
   function todayYMD() {
@@ -195,11 +121,7 @@ if (window.pcCustomDatetimeCleanup) {
     return a.d - b.d;
   }
 
-  // ---------------------------------------------------------------------
-  // Time helpers -- plain {h, min} objects, always 24h internally; only
-  // the display text is formatted as 12h with AM/PM.
-  // ---------------------------------------------------------------------
-  function parseTimeValue(v) {
+function parseTimeValue(v) {
     if (!v || !/^\d{2}:\d{2}/.test(v)) return null;
     var p = v.split(":");
     return { h: +p[0], min: +p[1] };
@@ -224,13 +146,7 @@ if (window.pcCustomDatetimeCleanup) {
     return slots;
   }
 
-  // ---------------------------------------------------------------------
-  // Shared open/close behavior for a trigger + panel pair: click to
-  // toggle, click outside or Escape to close, aria-expanded kept in sync.
-  // Registers its own close() as a teardown so a re-init can't leak a
-  // stray document-level listener from a panel left open.
-  // ---------------------------------------------------------------------
-  function makeOpenClose(anchorEl, trigger, panel, onOpen) {
+function makeOpenClose(anchorEl, trigger, panel, onOpen) {
     function onDocClick(event) {
       if (!anchorEl.contains(event.target)) close();
     }
@@ -265,8 +181,7 @@ if (window.pcCustomDatetimeCleanup) {
     return { open: open, close: close };
   }
 
-  /** prev / title / next header shared by the day, month and year views. */
-  function navRowHtml(title, unit) {
+function navRowHtml(title, unit) {
     return (
       '<div class="' +
       CLS.navRow +
@@ -290,8 +205,7 @@ if (window.pcCustomDatetimeCleanup) {
     );
   }
 
-  /** One toolbar button ("Today" / "Now" / "Clear"). */
-  function toolbarBtnHtml(action, label, disabled) {
+function toolbarBtnHtml(action, label, disabled) {
     return (
       '<button type="button" class="' +
       CLS.toolbarBtn +
@@ -305,11 +219,7 @@ if (window.pcCustomDatetimeCleanup) {
     );
   }
 
-  // ---------------------------------------------------------------------
-  // Calendar (date) picker. cfg: { segmentEl, getValue, setValue, getMin,
-  // getMax, required, quickYear, yearsBack, labelText, placeholder }
-  // ---------------------------------------------------------------------
-  function buildDatePicker(cfg) {
+function buildDatePicker(cfg) {
     var trigger = document.createElement("button");
     trigger.type = "button";
     trigger.className = CLS.trigger;
@@ -497,7 +407,7 @@ if (window.pcCustomDatetimeCleanup) {
       var dayBtn = event.target.closest(".pc-custom-dt-day");
       if (dayBtn && !dayBtn.disabled) {
         cfg.setValue({ y: +dayBtn.dataset.y, m: +dayBtn.dataset.m, d: +dayBtn.dataset.d });
-        render(); // so the just-picked day shows as selected during the close fade, not just after the next open
+        render();
         sync();
         oc.close();
         trigger.focus();
@@ -549,11 +459,7 @@ if (window.pcCustomDatetimeCleanup) {
     return { trigger: trigger, sync: sync };
   }
 
-  // ---------------------------------------------------------------------
-  // Time list picker. cfg: { segmentEl, getValue, setValue, required,
-  // step, labelText, placeholder }
-  // ---------------------------------------------------------------------
-  function buildTimePicker(cfg) {
+function buildTimePicker(cfg) {
     var step = cfg.step || 15;
     var slots = buildTimeSlots(step);
 
@@ -611,7 +517,7 @@ if (window.pcCustomDatetimeCleanup) {
       var opt = event.target.closest(".pc-custom-dt-time-option");
       if (!opt) return;
       cfg.setValue({ h: +opt.dataset.h, min: +opt.dataset.min });
-      renderList(); // so the just-picked option shows as selected during the close fade, not just after the next open
+      renderList();
       sync();
       oc.close();
       trigger.focus();
@@ -651,16 +557,12 @@ if (window.pcCustomDatetimeCleanup) {
     return { trigger: trigger, sync: sync };
   }
 
-  // ---------------------------------------------------------------------
-  // Wiring for the three native input types.
-  // ---------------------------------------------------------------------
-  function commonWrapperSetup(input, wrapperClass) {
+function commonWrapperSetup(input, wrapperClass) {
     var wrapper = document.createElement("div");
     wrapper.className = wrapperClass;
     input.parentNode.insertBefore(wrapper, input);
     wrapper.appendChild(input);
-    // The native input stays in the DOM (name/value/required all still
-    // submit) but is made invisible and untouchable behind the trigger.
+
     input.classList.add("tw-absolute", "tw-inset-0", "tw-h-full", "tw-w-full", "tw-opacity-0", "tw-pointer-events-none");
     input.setAttribute("tabindex", "-1");
     input.setAttribute("aria-hidden", "true");
@@ -736,9 +638,7 @@ if (window.pcCustomDatetimeCleanup) {
     split.className = "tw-flex tw-gap-2";
     wrapper.appendChild(split);
 
-    // Each segment is its own anchor/group here (not the wrapper), so the
-    // date half can be open while the time half stays closed.
-    var dateSeg = document.createElement("div");
+var dateSeg = document.createElement("div");
     dateSeg.className = CLS.segment;
     split.appendChild(dateSeg);
 
@@ -755,15 +655,7 @@ if (window.pcCustomDatetimeCleanup) {
     }
 
     var state = parseComposite(input.value);
-    // A native datetime-local input can't hold just a date or just a time --
-    // .value has to be the full "YYYY-MM-DDTHH:MM" or "". So while only one
-    // half of `state` is picked, commit() below writes "" to the input,
-    // which would otherwise round-trip straight back through the "change"
-    // listener a few lines down and reparse that "" over the in-memory
-    // `state`, wiping out the half that *was* just picked before the other
-    // half ever gets a chance to join it. This flag tells that listener to
-    // skip reparsing for the "change" event we dispatch ourselves here,
-    // while still picking up any genuinely external change to the input.
+
     var internalChange = false;
 
     function commit() {

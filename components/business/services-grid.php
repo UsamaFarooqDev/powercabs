@@ -5,14 +5,7 @@ $bizServiceModules = [
   ['icon' => 'mic', 'title' => 'Events &amp; Conferences', 'desc' => 'Coordinated arrivals and departures for conferences and corporate events.'],
   ['icon' => 'building', 'title' => 'Hotel Guest Travel', 'desc' => 'Reliable transfers for hotel guests, booked straight to your account.'],
   ['icon' => 'briefcase', 'title' => 'Executive Travel', 'desc' => 'Discreet, punctual rides for executives and leadership teams.'],
-  /* Airport Transfers was a featured PHOTO CARD beside this list, and it is a
-     sixth service rather than a different kind of thing -- so it is a sixth
-     card. That also makes the grid 3x2 instead of five items stranded in a
-     column next to a picture.
-     No 'href': this section lists what a business account covers, and every
-     card states it and stops. The 'href' branch in the loop below is kept
-     because it costs nothing and is the mechanism if any service ever does
-     need somewhere to go. */
+  
   [
     'icon' => 'plane',
     'title' => 'Airport Transfers',

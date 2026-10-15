@@ -1,39 +1,7 @@
 <?php
-/**
- * "Become a driver" -- the driver sign-up, in eight steps.
- *
- * The real onboarding runs to fourteen steps; this groups them into eight so
- * the web form asks for exactly the same information without reading like a
- * form. Nothing here posts to this page: every step talks to /driver-apply,
- * which is where the Supabase writes and the verification email live.
- *
- * Progressive enhancement is deliberate. All eight panels are in the markup;
- * assets/js/components/driver-application.js adds `is-ready`, which is what
- * hides all but the current one. With JS off the applicant sees one long, valid
- * form and the "call us" number rather than a dead stack of buttons.
- *
- * THIS IS THE CARD ONLY. It used to be a full dark section two screens down
- * the page, with its own background photograph and its own half-width headline
- * ("You're not just a driver, You're family.") beside it. It now renders
- * inside components/drive/hero.php, on the right of the hero, so the first
- * thing a driver sees on /drive is the thing /drive is for. That section
- * wrapper, its photograph and its scrim are gone -- the hero supplies all
- * three -- and the headline went with them, because it was making the same
- * argument as the <h1> it now sits beside.
- *
- * The badge that sat above that headline ("Irish Taxi Platform - Driver
- * First") moved into the hero's left column rather than being dropped.
- *
- * ajax-forms.js does NOT intercept this form: it only takes over
- * form[method="post"] with an empty or anchor action, and this one posts to a
- * real endpoint. That was true before the move and is unchanged by it.
- */
-
 $labelClass = 'tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
 $labelReq = 'pc-required ' . $labelClass;
 
-/* The six documents, in the order the licensing pack lists them. `slot` is the
-   key /driver-apply maps to a bucket and a drivers column. */
 $driverDocs = [
   ['slot' => 'license', 'label' => 'Driving licence'],
   ['slot' => 'nta_license', 'label' => 'NTA licence'],
@@ -49,9 +17,7 @@ $driverPrefs = [
   ['name' => 'wheelchair', 'label' => 'Wheelchair / disability friendly'],
 ];
 ?>
-<?php /* scroll-mt clears the fixed header: #driveJoinForm is linked from
-         keep-options-open.php and from the closing CTA, and without it the
-         card's own heading lands underneath the navbar. */ ?>
+<?php  ?>
         <div class="tw-mx-auto tw-w-full tw-max-w-[520px] tw-scroll-mt-28 tw-rounded-2xl tw-bg-white tw-p-6 tw-shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:tw-p-8" id="driveJoinForm">
           <form novalidate data-driver-app class="tw-m-0" action="<?= $assetPath ?>/driver-apply" method="post">
             <div class="tw-mb-5">
@@ -59,9 +25,7 @@ $driverPrefs = [
                 <h2 class="tw-mb-0 tw-text-xl tw-font-bold tw-tracking-[-0.01em] tw-text-ink sm:tw-text-2xl">Become a driver</h2>
                 <span class="tw-shrink-0 tw-text-xs tw-font-semibold tw-text-ink/50" data-app-count>Step 1 of 8</span>
               </div>
-              <?php /* A real progress element would announce a percentage on
-                       every keystroke; this is decorative and the step count
-                       beside it is what carries the information. */ ?>
+              <?php  ?>
               <div class="tw-h-1 tw-w-full tw-overflow-hidden tw-rounded-full tw-bg-ink/10" aria-hidden="true">
                 <span class="tw-block tw-h-full tw-w-0 tw-rounded-full tw-bg-powerlight tw-transition-[width] tw-duration-300" data-app-bar></span>
               </div>
@@ -70,7 +34,6 @@ $driverPrefs = [
               </p>
             </div>
 
-            <!-- 1. Details ------------------------------------------------ -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="1">
               <legend class="tw-sr-only">Your details</legend>
               <div class="tw-grid tw-grid-cols-1 tw-gap-4">
@@ -93,12 +56,7 @@ $driverPrefs = [
               </div>
             </fieldset>
 
-            <?php /* Order matters here and is not arbitrary: the code goes out
-                     at the end of step 1, so it is already in the inbox by the
-                     time this panel appears. Verifying before the password and
-                     the photo also means an abandoned application never gets
-                     as far as creating anything. */ ?>
-            <!-- 2. Verify email ------------------------------------------- -->
+            <?php  ?>
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="2" hidden>
               <legend class="tw-sr-only">Verify your email</legend>
               <p class="tw-mb-4 tw-text-[0.95rem] tw-leading-relaxed tw-text-ink/65">
@@ -109,30 +67,18 @@ $driverPrefs = [
               <input class="<?= $pcInput ?> tw-text-center tw-text-2xl tw-font-bold tw-tracking-[0.5em]"
                 id="daCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
                 maxlength="6" pattern="[0-9]{6}" required>
-              <?php /* A plain underlined link, not a button: preflight is off,
-                       so appearance-none + border-0 is what sheds the native
-                       button chrome. */ ?>
+              <?php  ?>
               <button class="tw-mt-3 tw-inline-block tw-cursor-pointer tw-appearance-none tw-border-0 tw-bg-transparent tw-p-0 tw-text-sm tw-font-semibold tw-text-power tw-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark"
                 type="button" data-app-resend>Resend OTP</button>
             </fieldset>
 
-            <!-- 3. Password ----------------------------------------------- -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="3" hidden>
               <legend class="tw-sr-only">Choose a password</legend>
               <p class="tw-mb-4 tw-text-[0.95rem] tw-leading-relaxed tw-text-ink/65">
                 This is what you'll use to sign into the PowerCabs Driver app.
               </p>
               <?php
-              /* The reveal toggle sits INSIDE the field, so the input carries
-                 extra right padding to keep a long password from running under
-                 it. $pcInput is the shared recipe and stays untouched -- the
-                 padding is appended here rather than changed there, because
-                 custom-select.js and custom-datetime.js reproduce $pcInput
-                 verbatim and would have to change with it.
-
-                 Both icons are in the markup and one is hidden, rather than
-                 swapping innerHTML on click: no re-parse, and the button keeps
-                 its focus ring while you toggle it. */
+              
               $pwWrap = 'tw-relative';
               $pwInput = $pcInput . ' tw-pr-11';
               $pwToggle =
@@ -166,7 +112,6 @@ $driverPrefs = [
               </div>
             </fieldset>
 
-            <!-- 4. Profile photo ------------------------------------------ -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="4" hidden>
               <legend class="tw-sr-only">Profile photo</legend>
               <div class="tw-flex tw-flex-col tw-items-center tw-gap-4 tw-rounded-xl tw-border tw-border-dashed tw-border-ink/15 tw-bg-paper-soft tw-px-5 tw-py-7 tw-text-center">
@@ -181,7 +126,6 @@ $driverPrefs = [
               </div>
             </fieldset>
 
-            <!-- 5. Vehicle ------------------------------------------------ -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="5" hidden>
               <legend class="tw-sr-only">Vehicle information</legend>
               <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
@@ -212,7 +156,6 @@ $driverPrefs = [
               </div>
             </fieldset>
 
-            <!-- 6. Licence ------------------------------------------------ -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="6" hidden>
               <legend class="tw-sr-only">Licence details</legend>
               <div class="tw-grid tw-grid-cols-1 tw-gap-4">
@@ -231,7 +174,6 @@ $driverPrefs = [
               </div>
             </fieldset>
 
-            <!-- 7. Documents ---------------------------------------------- -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="7" hidden>
               <legend class="tw-sr-only">Upload your licences and certificates</legend>
               <p class="tw-mb-4 tw-text-[0.95rem] tw-leading-relaxed tw-text-ink/65">
@@ -254,7 +196,6 @@ $driverPrefs = [
               </ul>
             </fieldset>
 
-            <!-- 8. Preferences -------------------------------------------- -->
             <fieldset class="tw-m-0 tw-min-w-0 tw-border-0 tw-p-0" data-app-step="8" hidden>
               <legend class="tw-sr-only">Preferences</legend>
               <div class="tw-flex tw-flex-col tw-gap-3">
@@ -274,15 +215,8 @@ $driverPrefs = [
               </div>
             </fieldset>
 
-            <?php /* One live region for the whole form. Errors from
-                     /driver-apply are written here rather than beside a field,
-                     because most of them are about the step as a whole. The
-                     .alert-danger / .alert-success classnames are the contract
-                     ajax-forms.js reads -- kept so the toast still fires. */ ?>
-            <?php /* Red by default; `.is-ok` recolours it for confirmations
-                     such as "a new code is on its way". Doing that with
-                     variants rather than by rewriting className in JS means
-                     the two states cannot drift apart. */ ?>
+            <?php  ?>
+            <?php  ?>
             <p class="tw-mb-0 tw-mt-4 tw-hidden tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700 [&.is-shown]:tw-block [&.is-ok]:tw-border-[rgba(25,135,84,0.25)] [&.is-ok]:tw-bg-[rgba(25,135,84,0.1)] [&.is-ok]:tw-text-[#146c43]"
               data-app-error role="alert" aria-live="polite"></p>
 
@@ -294,7 +228,7 @@ $driverPrefs = [
               </button>
             </div>
 
-            <?php /* Shown in place of the form once Supabase has the row. */ ?>
+            <?php  ?>
             <div class="tw-hidden tw-text-center [&.is-shown]:tw-block" data-app-done>
               <span class="tw-mx-auto tw-mb-4 tw-flex tw-h-14 tw-w-14 tw-items-center tw-justify-center tw-rounded-full tw-bg-[rgba(25,135,84,0.12)] tw-text-[#146c43]">
                 <svg class="tw-h-7 tw-w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.75l5.25 5.25 9.75-10.5"/></svg>

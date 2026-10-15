@@ -1,26 +1,11 @@
 </main>
 
 <?php
-/* A render-blocking inline script sat here to decide the desktop footer-reveal
-   before the footer was first painted, because that effect flipped the footer
-   to position:fixed after layout and cost CLS 0.52 on the homepage and 0.64 on
-   /ride. The effect is gone (see base.css), so the mitigation goes with it --
-   which also removes a synchronous script from the critical path of every
-   page. The footer is in normal flow now and never moves, so there is nothing
-   left to pre-empt. */
 ?>
 
 <?php
 $assetPath = $assetPath ?? '';
 
-/* The footer runs on the dark surface -- the one place the site commits to
-   ink full-bleed. It anchors the page, and it is what the desktop
-   footer-reveal (base.css) scrolls <main> up off, which only reads as
-   deliberate when the panel behind is clearly a different surface.
-
-   Link markup used to be a ~400-character class attribute copy-pasted onto
-   all 17 links. It is one recipe now: change the hover here and every column
-   follows. */
 $fLink =
   'tw-relative tw-inline-block tw-py-0.5 tw-text-[0.92rem] tw-text-white/[0.6] tw-no-underline ' .
   'tw-transition-colors tw-duration-200 hover:tw-text-white ' .
@@ -30,18 +15,6 @@ $fLink =
 $fColTitle = 'tw-mb-4 tw-text-[0.72rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-white/40';
 $fList = 'tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-2.5 tw-p-0';
 
-/* Below md each link group is an accordion row instead of a column. Four
-   columns of five links each is 21 tappable lines of footer under every page
-   on a phone -- longer than most of the pages themselves, and it pushed the
-   legal band and the social links so far down that nobody scrolled to them.
-   Collapsed, the same four groups are four rows.
-
-   The mechanism is ui.js's collapse helper, which already does exclusive
-   accordions (data-pc-collapse-parent) -- opening one closes the other, which
-   is what was asked for. data-pc-collapse-media is new: it confines all of
-   that to the phone breakpoint, so from md up these are untouched <ul>s in a
-   grid with no toggle and no inline height. See collapseIsActive() in ui.js
-   for why that gate has to live in JS rather than in a CSS override. */
 $fAccordionMedia = '(max-width: 767.98px)';
 $fGroupToggle =
   'tw-group tw-flex tw-w-full tw-appearance-none tw-items-center tw-justify-between tw-gap-4 tw-border-0 ' .
@@ -52,7 +25,6 @@ $fLegal =
 $fSocial =
   'tw-flex tw-h-9 tw-w-9 tw-items-center tw-justify-center tw-rounded-full tw-bg-white/[0.08] tw-text-white/70 tw-transition-colors tw-duration-200 hover:tw-bg-power hover:tw-text-white';
 
-// The four groups the nav is organised around, so footer and header agree.
 $footerNav = [
   'Get Started' => [
     '/book-ride-online' => 'Book a Ride',
@@ -60,6 +32,7 @@ $footerNav = [
     '/download-our-app' => 'Download App',
     '/city-tours' => 'City Tours',
     '/wheelchair-accessible-taxis' => 'Wheelchair Accessible Taxis',
+    '/pets-taxi' => 'Pets Taxi',
   ],
   'Business &amp; Drivers' => [
     '/business' => 'Business Travel',
@@ -85,83 +58,26 @@ $footerNav = [
   ],
 ];
 ?>
-<!-- tw-bg-ink-soft, one step darker than the closing CTA's tw-bg-ink above
-     it. Both were tw-bg-ink, which ran the CTA and the footer together into a
-     single black slab; the tonal step separates them without a divider. -->
-<?php /* The footer's top edge.
- *
- * It used to be a flat tw-bg-ink-soft rectangle, so it met the light page
- * above it as one hard, full-width horizontal line -- the sharpest edge on
- * the site.
- *
- * Three things soften it, none of which need the page above to cooperate
- * (which matters, because the last section is white on most routes and the
- * tint on others):
- *   - rounded top corners, so the silhouette curves away instead of ruling a
- *     line across the viewport
- *   - a vertical gradient, lighter at the top and settling to near-black at
- *     the bottom, so the footer has depth rather than being one flat value
- *   - a 1px inset highlight along the very top, which reads as a lit edge and
- *     stops the curve looking cut out
- *
- * The corners show the body's white behind them, which is why this works
- * without a blend band. A blurred overlay above the footer was the other
- * option and is not possible here: this element is overflow-hidden (it has to
- * be -- see the note below about text clipping at 390px), so anything drawn
- * outside its box would simply be clipped away. */ ?>
-<?php /* The gradient runs on two axes: a vertical light-to-dark, plus a warm
-         orange glow bled in from the top-left at very low opacity. The brand
-         colour is doing the same job here that it does elsewhere on the page
-         -- present, but as a tint rather than a block. Keeping it under about
-         8% is what stops the footer reading as an orange panel; it should be
-         felt more than seen. */ ?>
+<?php  ?>
+<?php  ?>
 <footer class="tw-relative tw-overflow-hidden tw-rounded-t-[clamp(1.5rem,3.5vw,2.75rem)] tw-bg-[radial-gradient(90%_140%_at_12%_0%,rgba(249,115,22,0.16)_0%,rgba(249,115,22,0.05)_38%,transparent_70%),linear-gradient(180deg,#333333_0%,#262626_38%,#1c1c1c_72%,#141414_100%)] tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white tw-shadow-[inset_0_1px_0_rgba(255,255,255,0.11)]">
 
   <div class="tw-relative <?= $pcContainer ?>">
 
-    <!-- Contact column sits alongside the four link groups at xl, and above
-         them below that -- five equal columns would squeeze the link labels
-         to two lines each. -->
-    <!-- One column right up to md, not two. The longest labels here
-         ("Wheelchair Accessible Taxis", "Ambassador Programme") need roughly
-         210px to sit on one line, so a two-column grid inside a 390px viewport
-         gives each column ~167px and the labels ran past the footer's edge --
-         clipped rather than scrolling, because this <footer> is
-         overflow-hidden, which is why a scrollWidth overflow check could not
-         see it. Measured: at 390px text reached pixel 389 of 390.
-
-         The old min-[480px] two-column step is gone with the accordion: a
-         collapsible row only reads as a row at full width. gap-y goes to 0
-         below md for the same reason -- the rows are separated by their own
-         hairline borders, not by grid spacing. -->
     <div id="pcFooterNav" class="tw-grid tw-grid-cols-1 tw-gap-x-6 tw-gap-y-0 md:tw-grid-cols-4 md:tw-gap-y-12 xl:tw-grid-cols-[1.4fr_repeat(4,1fr)]">
 
       <div class="tw-pb-8 md:tw-col-span-4 md:tw-pb-0 xl:tw-col-span-1">
-        <?php /* The logo used to head this column. It is gone: the fixed
-                 navbar carries the same mark on every page, so repeating it
-                 here bought nothing and made the column start with an image
-                 while the other four start with a label. The registered
-                 address moved up from the legal band to take its place --
-                 that is the information a visitor is actually looking for in
-                 a footer's first column, and it now sits directly above the
-                 WhatsApp action rather than in small print below. */ ?>
+        <?php  ?>
         <h2 class="<?= $fColTitle ?>">PowerCabs Ireland</h2>
 
         <address class="tw-mb-4 tw-not-italic tw-text-[0.92rem] tw-leading-[1.75] tw-text-white/[0.6]">
           Kylmore Road, Inchicore<br>
           Dublin D10 K729<br>
-          <?php /* py-1 with no margin compensation, deliberately: these two stay
-                   INLINE inside the <address>, and padding on an inline box grows
-                   the hit area without touching the line box -- so the tap target
-                   goes 20px -> 28px and the address block does not reflow. */ ?>
+          <?php  ?>
           <a class="<?= $fLegal ?> tw-text-[0.92rem] tw-py-1" href="tel:+35312030727">+353 12 03 0727</a><br>
           <a class="<?= $fLegal ?> tw-text-[0.92rem] tw-py-1" href="mailto:info@powercabs.ie">info@powercabs.ie</a>
         </address>
 
-        <!-- Registration numbers live with the company identity, not in the
-             legal strip: they belong to the same block as the registered
-             address, and down there they were competing with the copyright
-             for a single line. -->
         <p class="tw-mb-5 tw-text-[0.82rem] tw-leading-[1.7] tw-text-white/40">
           NTA Licence DH12616<br>
           Tax Number 04301619NH
@@ -180,14 +96,9 @@ $footerNav = [
 
       <?php $groupIndex = 0; ?>
       <?php foreach ($footerNav as $groupTitle => $groupLinks): ?>
-        <?php // Counter, not the title: the titles carry spaces and &amp;.
+        <?php 
         $groupPanelId = 'pcFooterGroup' . ++$groupIndex; ?>
         <div class="tw-border-0 tw-border-b tw-border-solid tw-border-white/[0.08] md:tw-border-b-0">
-          <!-- Two headings, one visible at a time. Both are <h2>: the group
-               title has to stay a heading at every width, or the footer's
-               outline loses four levels on a phone -- so the mobile one wraps
-               the button rather than replacing it. A collapsed group has to be
-               operable, and a bare <h2> is not. -->
           <h2 class="<?= $fColTitle ?> tw-hidden md:tw-block"><?= $groupTitle ?></h2>
 
           <h2 class="tw-m-0 md:tw-hidden">
@@ -199,10 +110,6 @@ $footerNav = [
             </button>
           </h2>
 
-          <!-- No max-h-0 in the markup: with JS off nothing should be hidden,
-               so the closed state is written by primeCollapsePanels() instead.
-               From md up that function clears the inline height entirely and
-               overflow-visible lets the link underlines through. -->
           <div id="<?= $groupPanelId ?>" data-pc-collapse-panel
             data-pc-collapse-parent="#pcFooterNav"
             data-pc-collapse-media="<?= $fAccordionMedia ?>"
@@ -215,55 +122,17 @@ $footerNav = [
           </div>
 
           <?php if ($groupTitle === 'Contact'): ?>
-            <?php /* LEFT ALIGNMENT IS data-style-width, not CSS. Trustpilot
-                     replaces this div's contents with a cross-origin iframe and
-                     centres the button inside it, so flex/justify-start on the
-                     wrapper has nothing to act on -- at width 100% the iframe
-                     was 225px wide holding a ~180px button, leaving a ~22px
-                     gutter that read as a left indent against the links above.
-                     Sizing the iframe to the button removes the slack, so the
-                     button starts at the column's left edge.
-
-                     226px is a measured floor, not a round number: the widget
-                     reflows with the iframe, and at 186/196/216px the button
-                     wrapped to two lines and was then clipped by the 36px
-                     height. 226px is the first width tested that keeps
-                     "Review us on Trustpilot" on one line. Narrow it and it
-                     wraps again.
-
-                     At that width the button measures 180px centred with a
-                     23px gutter each side (pixel-scanned, not estimated), and
-                     the gutter is what made the badge look indented. So the
-                     iframe is pulled 23px left and the wrapper clips it:
-                     overflow-hidden eats exactly the transparent gutter, the
-                     button lands flush on the column's left edge, and nothing
-                     pokes past the viewport on a phone -- which a bare
-                     negative margin would do, since this sits only 20px from
-                     the screen edge at 375px.
-
-                     If Trustpilot ever changes that padding, re-scan the
-                     gutter and change the 23 in both places together. */ ?>
+            <?php  ?>
             <div class="tw-mt-4 tw-min-h-[36px] tw-min-w-[203px] tw-overflow-hidden">
               <div class="trustpilot-widget -tw-ml-[23px]" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6abb8b70c3782eeee1a6a38a" data-style-height="36px" data-style-width="226px" data-token="60a5c414-a923-4900-b83e-83c280a0fff7" data-theme="dark">
                 <a class="<?= $fLegal ?>" href="https://www.trustpilot.com/review/powercabs.ie" target="_blank" rel="noopener">Trustpilot</a>
               </div>
             </div>
-            <!-- End TrustBox widget -->
           <?php endif; ?>
         </div>
       <?php endforeach; ?>
     </div>
 
-    <!-- Legal band: ONE line of copyright on the left, everything else right.
-         It used to carry three stacked lines (address, licence numbers,
-         copyright) which made the band as tall as a content column and buried
-         the address in small print. The address moved into the first column
-         above; the licence and tax numbers -- which are compliance
-         information, and must stay accessible -- sit inline beside the
-         copyright rather than on their own rows. -->
-    <!-- mt-8 below md: the accordion rows above end on their own hairline, so
-         a 56px gap on top of that read as a hole in a footer whose whole point
-         on a phone is now to be short. -->
     <div class="tw-mt-8 tw-h-px tw-w-full tw-bg-white/10 md:tw-mt-14"></div>
 
     <div class="tw-flex tw-flex-col tw-gap-5 tw-pt-6 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
@@ -273,11 +142,7 @@ $footerNav = [
       </p>
 
       <div class="tw-flex tw-flex-col tw-gap-5 sm:tw-flex-row sm:tw-items-center sm:tw-gap-8">
-        <?php /* py-1 -my-1 on each link, not on the row: these are 13.6px text
-                 that measured 20px tall, under the 24px WCAG 2.5.8 asks of a
-                 tap target. The padding buys 8px of hit area and the negative
-                 margin hands the same 8px back to the flex row, so the legal
-                 strip keeps its exact height. */ ?>
+        <?php  ?>
         <div class="tw-flex tw-flex-wrap tw-gap-x-5 tw-gap-y-2">
           <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/privacy-policy">Privacy Policy</a>
           <a class="<?= $fLegal ?> tw-inline-block tw-py-1 -tw-my-1" href="<?= $assetPath ?>/terms-conditions">Terms &amp; Conditions</a>
@@ -304,6 +169,9 @@ $footerNav = [
 
 <?php require __DIR__ . '/../components/shared/scroll-indicator.php'; ?>
 
+<?php  ?>
+<?php require __DIR__ . '/../components/shared/driver-login-modal.php'; ?>
+
 <script src="<?= $assetPath ?>assets/js/main.js?v=<?= @filemtime(__DIR__ . '/../assets/js/main.js') ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/ui.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/ui.js',
@@ -314,6 +182,10 @@ $footerNav = [
 <script src="<?= $assetPath ?>assets/js/components/ajax-forms.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/ajax-forms.js',
 ) ?>"></script>
+<?php  ?>
+<script src="<?= $assetPath ?>assets/js/components/driver-training.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/driver-training.js',
+) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/pjax.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/pjax.js',
 ) ?>"></script>
@@ -321,20 +193,7 @@ $footerNav = [
   __DIR__ . '/../assets/js/components/page-loader.js',
 ) ?>"></script>
 
-<?php /* Trustpilot's bootstrap, for the Review Collector widget in the footer
-         above. Third-party and versioned at their end, so it carries no
-         ?v=filemtime -- that convention is for OUR files, and @filemtime on a
-         remote URL would simply return false.
-
-         https://, not the protocol-relative //widget.trustpilot.com that
-         Trustpilot's snippet ships: .htaccess forces https site-wide, so the
-         scheme is never in doubt and being explicit costs nothing.
-
-         async: nothing on the page waits for this, and it must not block the
-         footer. It finds .trustpilot-widget itself on load -- the widget markup
-         is already in the DOM above by the time this runs. */ ?>
-<!-- TrustBox script -->
+<?php  ?>
 <script type="text/javascript" src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-<!-- End TrustBox script -->
 </body>
 </html>

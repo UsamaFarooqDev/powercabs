@@ -1,15 +1,13 @@
 <?php
 $pageTitle       = 'Contact Us | PowerCabs';
-// 141 chars. The previous one ran to 105, which left Google padding the
-// snippet from the page body; naming Dublin and the actual reasons someone
-// contacts a taxi company gives the result something to match on.
+
 $pageDescription = 'Contact the PowerCabs team in Dublin by phone, email or message -- ride support, lost property, complaints and business account enquiries.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
 
-$formStatus = null; // 'success' | 'error' | null
+$formStatus = null; 
 $formError  = '';
 $old = ['first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'subject' => '', 'message' => ''];
 
@@ -59,26 +57,14 @@ $heroTitleLight  = "We're Here";
 $heroTitleBold   = 'To Help, Anytime.';
 $heroDescription = "Have a question about booking, billing, or partnering with PowerCabs? Send us a message and our team will get back to you shortly.";
 $heroBgImage     = 'https://images.pexels.com/photos/8867176/pexels-photo-8867176.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
+$heroVariant = 'utility'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
 <?php require __DIR__ . '/components/contact/contact-form.php'; ?>
 
-<?php /* Three specific forms exist for three specific jobs, and until now
-         nothing on this page pointed at any of them -- they were reachable
-         only from the footer. That was a real dead end, not just a missing
-         link: the FAQ page tells passengers to "submit a Lost Item request
-         through the Contact page", and the Contact page had no such route.
-
-         It also fixes the only three pages on the site with no contextual
-         inbound link at all. The anchor text describes the destination
-         rather than repeating a keyword. */ ?>
-<?php /* The cream fades out to white over the lower half. The app-download
-         banner that follows has a torn top edge, and the page background
-         shows through those tears -- white. Without the fade, a flat cream
-         block butted straight into that white, which is the seam this
-         removes. Content sits on tw-relative above the overlay. */ ?>
+<?php  ?>
+<?php  ?>
 <section class="tw-relative tw-overflow-hidden <?= $pcSectionTight ?>">
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
 
@@ -128,7 +114,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 </section>
 
 <?php
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

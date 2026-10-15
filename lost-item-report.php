@@ -1,8 +1,7 @@
 <?php
 $pageTitle = 'Lost Something in a Taxi? | PowerCabs Lost Item Recovery';
 $pageDescription =
-  // 154 characters. Leads with the two things that separate this page from
-  // every other lost-property form: any taxi journey, and a stated fee.
+
   'Lost something in a taxi? PowerCabs investigates and tries to identify the driver -- even if you did not travel with us. EUR15 investigation fee.';
 $assetPath = '';
 
@@ -48,8 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $attachments = [];
     $hasUpload = !empty($_FILES['receipt']['tmp_name']) && ($_FILES['receipt']['error'] ?? 1) === UPLOAD_ERR_OK;
 
-    // Only an upload that was actually attempted gets validated -- but if one
-    // was attempted, the type and size rules are exactly as strict as before.
     if ($hasUpload) {
       $allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
       $mime = mime_content_type($_FILES['receipt']['tmp_name']);
@@ -113,14 +110,13 @@ require __DIR__ . '/includes/header.php';
 $heroEyebrow = 'PowerCabs Lost Item Recovery';
 $heroTitleLight = 'Left Something';
 $heroTitleBold = 'in a Taxi?';
-// Names the two things that make this page different from every other "lost
-// property" form: it covers any taxi journey, and the fee is stated up front.
+
 $heroDescription =
   'Don\'t panic - we may be able to help you get it back, even if you didn\'t travel with PowerCabs. A EUR' .
   $lostItemFee .
   ' investigation, with any retrieval cost quoted and approved before we proceed.';
 $heroBgImage = 'https://images.pexels.com/photos/12092769/pexels-photo-12092769.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; // §11: compact hero, straight into the useful content.
+$heroVariant = 'utility'; 
 require __DIR__ . '/components/shared/inner-hero.php';
 require __DIR__ . '/components/lost-item/trust-strip.php';
 require __DIR__ . '/components/lost-item/finding-driver.php';
@@ -130,13 +126,11 @@ require __DIR__ . '/components/lost-item/retrieval-steps.php';
 ?>
 
 <?php
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary;
 ?>
-<?php /* id + scroll-mt: every "tell us what happened" button on the page
-         jumps here, and the fixed header would otherwise cover the heading. */ ?>
+<?php  ?>
 <section class="tw-scroll-mt-24 <?= $pcSection ?>" id="lostItemForm">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
@@ -244,11 +238,9 @@ $submitClass = $pcBtnPrimary;
 </section>
 
 <?php
-
 require __DIR__ . '/components/lost-item/fine-print.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
-
 
 ?>

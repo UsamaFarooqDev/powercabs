@@ -45,19 +45,11 @@ $rowCount = count($compareRows);
 
     <div class="tw-mx-auto tw-max-w-[940px]">
 
-      <!-- Desktop/tablet. The PowerCabs column is deliberately lifted out of
-           the table: it sits on white with a brand ring and its own shadow, so
-           the eye reads it as the answer rather than as one of three equal
-           columns. The grid keeps all three in lockstep row by row. -->
       <div class="tw-hidden md:tw-block">
         <div class="tw-relative tw-rounded-[20px] tw-border tw-border-solid tw-border-hairline tw-bg-white tw-shadow-[0_18px_45px_-20px_rgba(28,20,16,0.28)]">
 
-          <!-- The highlighted middle column, drawn as one continuous panel
-               behind the rows rather than per-cell backgrounds -- that is what
-               stops it looking like a plain striped table. -->
           <div class="tw-pointer-events-none tw-absolute tw-bottom-0 tw-left-[46%] tw-top-0 tw-w-[27%] tw-rounded-[20px] tw-bg-white tw-shadow-[0_18px_45px_-12px_rgba(232,89,12,0.35)] tw-ring-2 tw-ring-power/[0.35]" aria-hidden="true"></div>
 
-          <!-- Header -->
           <div class="tw-relative tw-grid tw-grid-cols-[46%_27%_27%] tw-items-stretch tw-overflow-hidden tw-rounded-t-[20px] tw-bg-ink">
             <div class="tw-flex tw-items-center tw-px-6 tw-py-4">
               <span class="tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-white/45">Driver question</span>
@@ -70,7 +62,6 @@ $rowCount = count($compareRows);
             </div>
           </div>
 
-          <!-- Rows -->
           <?php foreach ($compareRows as $i => $row): ?>
             <div class="tw-relative tw-grid tw-grid-cols-[46%_27%_27%] tw-items-stretch<?= $i < $rowCount - 1
               ? ' tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.06]'
@@ -94,8 +85,6 @@ $rowCount = count($compareRows);
         </div>
       </div>
 
-      <!-- Mobile: one card per question, no horizontal scrolling. The
-           PowerCabs answer keeps its brand ring so the hierarchy survives. -->
       <div class="tw-flex tw-flex-col tw-gap-3 md:tw-hidden">
         <?php foreach ($compareRows as $row): ?>
           <div class="tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-4 tw-shadow-[0_6px_18px_-10px_rgba(28,20,16,0.22)]">

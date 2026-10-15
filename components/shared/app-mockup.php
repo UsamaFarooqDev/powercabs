@@ -4,20 +4,10 @@ $mockupFloat     = $mockupFloat ?? false;
 $mockupMaxWidth  = $mockupMaxWidth ?? '280px';
 $mockupWrapClass = $mockupWrapClass ?? '';
 $mockupImgId     = $mockupImgId ?? '';
-/* The device's own width. 260px is what every caller got until /drive's
-   onboarding section needed a phone that holds its own beside a full-height
-   column of text. Like $mockupMaxWidth above, this is composed into a class
-   name, so the scanner can never see the finished string -- ANY new value has
-   to be added to the safelist in tailwind.config.js or the utility will not
-   exist and the phone silently collapses to its content width. */
+
 $mockupWidth     = $mockupWidth ?? '260px';
 ?>
 <?php
-// pc-phone-screen stays as a bare classname with no CSS behind it:
-// components/ride/booking-steps.php reaches into it with [&_.pc-phone-screen]:
-// variants to give that page's mockup a taller screen than the default.
-// tw-animate-pc-float is the shared keyframe declared in the Tailwind config
-// (includes/header.php), not a stylesheet rule.
 ?>
 <div class="tw-relative tw-mx-auto tw-max-w-[<?= htmlspecialchars($mockupMaxWidth) ?>]<?= $mockupWrapClass
   ? ' ' . htmlspecialchars($mockupWrapClass)

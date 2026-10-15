@@ -7,7 +7,6 @@ if (window.pcPtnStepsObserver) {
   window.pcPtnStepsObserver = null;
 }
 
-/** Eased scroll parallax on the "Grow With Us" section photo. */
 function pcInitPtnGrowthParallax() {
   const section = document.getElementById('pcPtnGrowth');
   const img = document.getElementById('pcPtnGrowthImg');
@@ -58,7 +57,6 @@ function pcInitPtnGrowthParallax() {
   };
 }
 
-/** One-shot staggered reveal for the join-process steps. */
 function pcInitPtnReveal() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!('IntersectionObserver' in window)) return;

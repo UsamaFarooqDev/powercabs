@@ -1,41 +1,9 @@
 <?php
-/**
- * /business's own hero -- photograph, headline, and the account request in it.
- *
- * The third page to use this composition, after components/drive/hero.php and
- * components/ride/hero.php: full-bleed photograph, copy on the left, a white
- * card on the right carrying the one thing the page exists to do. Drive asks
- * for an application, Ride asks for a fare, Business asks for an account. Same
- * shape, three different people, which is what makes the site feel like one
- * site while each page still leads with its own job.
- *
- * THE THREE FORMS ARE NOT INTERCHANGEABLE and must not be merged. This one
- * posts to business.php itself and emails a business account request; /drive's
- * is an eight-step application against /driver-apply; /ride's is a fare
- * estimator against api/estimate_fare.php. They share a slot, nothing else.
- *
- * WHY NOT inner-hero.php: none of its five variants can hold a form, and a
- * sixth used by three pages would be a switch statement wearing a component's
- * name. Everything reusable is still shared -- the breadcrumb partial,
- * $pcH1OnDark / $pcEyebrowOnDark, and the same BreadcrumbList JSON-LD, so
- * /business is not the one page missing it.
- *
- * THE PHOTOGRAPH is landscape-native, which is the property to keep if it is
- * swapped: a portrait source in a full-height hero is a tight band out of the
- * middle of the picture and always reads as zoomed. It also has to be dark to
- * begin with -- an executive car interior is, which is why this frame works
- * where a bright office would not. The scrim is dark at both ends and open
- * through the middle, closing to near-solid ink from about 60% where the
- * card's left edge lands, so the card sits on clean dark rather than on the
- * busiest part of the frame. Recalculate that 60% if the grid split changes.
- */
 $bizHeroImgWide =
   'https://images.pexels.com/photos/5717041/pexels-photo-5717041.jpeg?auto=compress&cs=tinysrgb&w=1920';
 $bizHeroImgSmall =
   'https://images.pexels.com/photos/5717041/pexels-photo-5717041.jpeg?auto=compress&cs=tinysrgb&w=1000';
 
-/* Same structured data inner-hero.php produces, so moving off that component
-   does not silently drop /business out of the breadcrumb trail. */
 $heroBreadcrumbLabel = 'Business';
 $breadcrumbSiteUrl = $siteUrl ?? 'https://www.powercabs.ie/';
 $breadcrumbPageUrl = $canonicalUrl ?? $breadcrumbSiteUrl . ($currentPage ?? '');
@@ -48,14 +16,12 @@ $breadcrumbSchema = [
   ],
 ];
 
-// Read by components/shared/inner-hero-crumb.php.
 $heroCrumbLink = 'tw-text-white/75 hover:tw-text-white';
 $heroCrumbSep = 'tw-text-white/45';
 $heroCrumbCurrent = 'tw-text-white';
 $heroCrumbFirst = true;
 ?>
 <script type="application/ld+json"><?= json_encode($breadcrumbSchema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES) ?></script>
-<!-- ============ Business Hero ============ -->
 <section class="tw-relative tw-flex tw-items-center tw-overflow-hidden tw-bg-ink tw-pb-[clamp(3rem,6vw,4.5rem)] tw-pt-[calc(var(--pc-navbar-h,110px)+2rem)] lg:tw-min-h-screen">
   <picture>
     <source media="(max-width: 767px)" srcset="<?= htmlspecialchars($bizHeroImgSmall) ?>">
@@ -86,11 +52,7 @@ $heroCrumbFirst = true;
           ) ?></p>
         <?php endif; ?>
 
-        <?php /* Three facts, not a feature list -- the hero's job is to make
-                 the form worth filling in, and these are the three things a
-                 buyer is actually weighing. All three are stated with detail
-                 further down the page: one account and one invoice in
-                 account-benefits.php, the licence number in trust-proof.php. */ ?>
+        <?php  ?>
         <ul class="tw-m-0 tw-mt-8 tw-flex tw-list-none tw-flex-wrap tw-gap-x-8 tw-gap-y-3 tw-p-0">
           <?php foreach (['One account for the whole team', 'One monthly invoice', 'NTA licensed, Garda-vetted'] as $point): ?>
             <li class="tw-flex tw-items-center tw-gap-2 tw-text-[0.9375rem] tw-font-semibold tw-text-white/[0.88]">
@@ -111,6 +73,4 @@ $heroCrumbFirst = true;
   </div>
 </section>
 <?php
-/* Cleared so nothing further down the page inherits this hero's variables --
-   the same contract inner-hero.php keeps. */
 unset($heroEyebrow, $heroTitleLight, $heroTitleBold, $heroDescription, $heroBreadcrumbLabel);

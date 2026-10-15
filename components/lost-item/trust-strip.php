@@ -1,11 +1,4 @@
 <?php
-/**
- * Three promises, directly under the hero: this is the page's whole offer in
- * one line each, and the third one ("you approve any retrieval cost first")
- * is the reassurance that keeps the fee from reading as a trap.
- *
- * Reads $lostItemFee from lost-item-report.php.
- */
 $lostItemTrust = [
   [
     'title' => 'Any taxi journey',
@@ -25,13 +18,11 @@ $lostItemTrust = [
   ],
 ];
 ?>
-<!-- ============ Lost item: trust strip ============ -->
 <section class="tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.06] tw-bg-white tw-py-[clamp(1.75rem,3vw,2.5rem)]">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-3 sm:tw-gap-4">
       <?php foreach ($lostItemTrust as $i => $item): ?>
-        <?php /* The divider is a left border on the 2nd and 3rd cells, so it
-                 only appears once the row is actually side by side. */ ?>
+        <?php  ?>
         <div class="tw-flex tw-items-center tw-gap-3.5 <?= $i > 0
           ? 'sm:tw-border-0 sm:tw-border-l sm:tw-border-solid sm:tw-border-black/[0.07] sm:tw-pl-5'
           : '' ?>">

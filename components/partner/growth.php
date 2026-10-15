@@ -1,5 +1,3 @@
-<!-- #pcPtnGrowth / #pcPtnGrowthImg are JS hooks for partner-page.js's scroll
-     parallax (inline style.transform, untouched by this markup). -->
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(6rem,12vw,9rem)] tw-text-center tw-text-white" id="pcPtnGrowth">
   <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-overflow-hidden" aria-hidden="true">
     <img src="https://images.pexels.com/photos/8236764/pexels-photo-8236764.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" class="tw-h-full tw-w-full tw-object-cover [transform:scale(1.12)] tw-will-change-transform" loading="lazy" id="pcPtnGrowthImg">

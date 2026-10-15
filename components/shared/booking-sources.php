@@ -17,8 +17,7 @@ $sourcesItems ??= [
 if (!function_exists('pc_booking_source_icon')) {
   function pc_booking_source_icon(string $icon): void
   {
-    // One shared sizing/stroke setup; only the path changes per icon.
-    $s = 'tw-h-[1.15rem] tw-w-[1.15rem]';
+$s = 'tw-h-[1.15rem] tw-w-[1.15rem]';
     switch ($icon):
       case 'phone': ?>
         <svg class="<?= $s ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
@@ -42,15 +41,13 @@ if (!function_exists('pc_booking_source_icon')) {
         <svg class="<?= $s ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3.75 18.75V7.5a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v11.25m-16.5 0A2.25 2.25 0 006 21h12a2.25 2.25 0 002.25-2.25m-16.5 0V11.25a2.25 2.25 0 012.25-2.25h12a2.25 2.25 0 012.25 2.25v7.5M9 16.5l1.5 1.5 3.5-3.5"/></svg>
       <?php break;
       case 'paw': ?>
-        <?php /* Four toes and a pad, drawn filled -- a stroked paw at 18px
-                 closes up into a blob. */ ?>
+        <?php  ?>
         <svg class="<?= $s ?>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="7.4" cy="8.6" rx="2.1" ry="2.7"/><ellipse cx="12" cy="6.9" rx="2.2" ry="2.9"/><ellipse cx="16.6" cy="8.6" rx="2.1" ry="2.7"/><path d="M12 11.4c2.8 0 5.2 2.1 5.2 4.5 0 2.1-1.8 3.4-3.8 3.4-.9 0-1.3-.3-1.4-.3s-.5.3-1.4.3c-2 0-3.8-1.3-3.8-3.4 0-2.4 2.4-4.5 5.2-4.5z"/></svg>
       <?php break;
     endswitch;
   }
 }
 ?>
-<!-- ============ Where bookings come from ============ -->
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
 
@@ -74,5 +71,4 @@ if (!function_exists('pc_booking_source_icon')) {
   </div>
 </section>
 <?php
-// Reset, so a later include on the same page starts from the defaults again.
 unset($sourcesEyebrow, $sourcesHeading, $sourcesText, $sourcesSurface, $sourcesItems);

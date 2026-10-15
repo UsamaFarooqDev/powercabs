@@ -1,5 +1,4 @@
 <?php
-
 function pc_route_pattern_svg()
 {
   ?>
@@ -58,14 +57,7 @@ $rideSteps = [
 ];
 ?>
 
-<?php /* The soft surface is this page's main rhythm break: /ride measured 11
-         sections of which 10 were white, so nothing grouped and nothing
-         separated (§26). A decorative orange radial blob sat top-right here
-         and is gone -- §27 lists exactly that among the things "modern" is
-         not, and it was the only orange on an otherwise neutral section.
-         $pcSection/$pcContainer/$pcH2 replace a hand-rolled py-16/md:py-24,
-         max-w-[1320px] and text-3xl/md:text-4xl that predate the design
-         system and so had drifted off the shared rhythm. */ ?>
+<?php  ?>
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="<?= $pcSectionHeadCenter ?>">
@@ -76,32 +68,13 @@ $rideSteps = [
       </p>
     </div>
 
-    <!-- Bare functional hooks -- book-ride-steps.js queries #pcBookSteps and
-         .pc-book-step-tab directly, toggles .is-active, reads data-image/
-         data-alt, and clone-swipes #pcBookStepScreen. The [&_.pc-phone-screen]:
-         overrides reproduce the old #pcBookSteps .pc-phone-screen CSS override
-         (a fixed height + absolutely-positioned image) that the swipe
-         animation depends on, without touching the shared app-mockup.php
-         partial's own default sizing used elsewhere. -->
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12 [&_.pc-phone-screen]:tw-h-[519.6px] [&_.pc-phone-screen_img]:tw-absolute [&_.pc-phone-screen_img]:tw-inset-0 [&_.pc-phone-screen_img]:tw-h-full [&_.pc-phone-screen_img]:tw-w-full" id="pcBookSteps">
       <div class="lg:tw-col-span-5">
-        <?php /* lg:ml-auto pulls the step stack to the RIGHT edge of its
-                 column so the cards sit against the phone they control,
-                 instead of hugging the page margin with a gap in between. The
-                 max-width stops them stretching the full five columns, which
-                 is what made the pairing look accidental. Full width and
-                 left-aligned below lg, where there is nothing to pair with. */ ?>
+        <?php  ?>
         <div class="tw-flex tw-flex-col tw-gap-3 lg:tw-ml-auto lg:tw-max-w-[26rem]" role="tablist" aria-label="Book Your Ride steps">
           <?php foreach ($rideSteps as $i => $step): ?>
             <button type="button"
-              <?php /* Only the SELECTED step carries a surface. Every step
-                       used to sit in its own bordered white box, so five equal
-                       boxes competed and the active one was distinguished by
-                       a border colour alone -- five cards to communicate one
-                       selection (§14/§43). Now the unselected steps are plain
-                       rows and the active one lifts onto white with a hairline
-                       and a soft shadow, which is both quieter and a clearer
-                       signal of which step you are on. */ ?>
+              <?php  ?>
               class="pc-book-step-tab tw-flex tw-appearance-none tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-transparent tw-bg-transparent tw-p-3 tw-text-left tw-transition tw-duration-200 hover:tw-bg-white/70 [&.is-active]:tw-border-hairline [&.is-active]:tw-bg-white [&.is-active]:tw-shadow-[0_6px_18px_-8px_rgba(28,20,16,0.18)]<?= $i ===
               0
                 ? ' is-active'

@@ -1,14 +1,5 @@
 <?php
-/**
- * The scenario, told the way it actually happens. It sits after the form on
- * purpose: someone who arrived in a panic has already been given the button,
- * and this is for the reader still deciding whether it is worth EUR15.
- *
- * On paper rather than ink -- components/lost-item/any-taxi.php is already a
- * dark band, and two on one page turn the page into stripes.
- */
 ?>
-<!-- ============ Lost item: from lost to found ============ -->
 <section class="<?= $pcSurfacePaper ?> <?= $pcSection ?>">
   <div class="<?= $pcContainerNarrow ?>">
     <p class="<?= $pcEyebrow ?> tw-text-center">From lost to found</p>
@@ -18,9 +9,7 @@
     </h2>
 
     <div class="tw-mx-auto tw-mt-9 tw-max-w-[52ch] tw-space-y-5">
-      <?php /* The dot classes are written out in full, never assembled -- a
-               class built by interpolation ("tw-bg-power/" . $n) is invisible
-               to the Tailwind scanner and would silently not exist. */
+      <?php 
       $storyBeats = [
         ['dot' => 'tw-bg-power/40', 'line' => 'You get home after a long evening. You reach for your phone. It is gone.'],
         ['dot' => 'tw-bg-power/70', 'line' => 'You remember the taxi &mdash; but not the registration, not the driver, and not how to contact either.'],

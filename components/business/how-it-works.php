@@ -6,21 +6,11 @@ $bizHowSteps = [
 ];
 $totalBizHowSteps = count($bizHowSteps);
 ?>
-<!-- #pcBizHowItWorks / bare .pc-biz-step are JS hooks -- business-page.js's
-     IntersectionObserver toggles .is-visible as each step scrolls into
-     view, handled below via the `[&.is-visible]:` arbitrary variant. -->
-<?php /* Carries its own surface now. It used to be transparent because
-         business.php wrapped it and airport-assistance.php in one soft band;
-         that wrapper went when airport-assistance.php was removed, which would
-         have left this the only section on the page with no background of its
-         own -- and therefore whatever the page behind it happened to be. */ ?>
+<?php  ?>
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>" id="pcBizHowItWorks">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How It Works</p>
-      <!-- "Business Travel Without the Admin Headache" was this section's
-           heading and is now the page hero: it is the promise of the whole
-           page, not of these three steps. This heading describes the steps. -->
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Set up in three steps.</h2>
     </div>
 

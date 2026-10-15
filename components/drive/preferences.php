@@ -5,13 +5,7 @@
       <h2 class="<?= pc_mb($pcH2Display, 'tw-mb-3') ?>">
         Spend less on the car. <span class="tw-text-power">Earn more from it.</span>
       </h2>
-      <?php /* The supplied copy ran its perks together in one unpunctuated line
-               ("Fuel Discounts Card Terminals from just 0.8% instead of 1.69%,
-               Car Valet Discounts & Vouchers Marketing Opportunities ...").
-               Split in two here: the promise, then what it covers. The figures
-               stay off this paragraph because the tiles below already carry
-               every one of them -- repeating 0.8% here would mean two places
-               to update the day that rate changes. */ ?>
+      <?php  ?>
       <p class="<?= $pcLead ?> tw-mx-auto tw-mb-3 tw-max-w-[52ch]">
         We are always working to bring more value to the drivers on the
         platform.
@@ -24,14 +18,6 @@
     </div>
 
     <?php
-    // Live (hosted) photography reused from elsewhere in the project --
-    // not local assets/img files.
-    //
-    // 'frame' is the tile's aspect ratio. The literal class string sits in this
-    // array rather than being composed from a variable, so the Tailwind scanner
-    // still sees it -- see CLAUDE.md on why an assembled class silently does
-    // not exist. Alternating portrait/landscape down the list is what keeps the
-    // balanced columns uneven.
     $driverBenefits = [
       [
         'title' => 'Fuel Savings',
@@ -71,7 +57,6 @@
       ],
     ];
     ?>
-
     <div class="tw-columns-2 tw-gap-3 sm:tw-gap-4 lg:tw-columns-3">
       <?php foreach ($driverBenefits as $benefit): ?>
         <figure class="tw-group tw-mb-3 tw-break-inside-avoid sm:tw-mb-4">
@@ -90,10 +75,7 @@
       <?php endforeach; ?>
     </div>
 
-    <?php /* The sign-off from the supplied copy. It closes the section on the
-             point the tiles have just made rather than leaving the grid to end
-             on a photograph, and the brand line takes the same orange second
-             half as the H2 above it, so the two bookend the section. */ ?>
+    <?php  ?>
     <div class="tw-mt-10 tw-text-center md:tw-mt-12">
       <p class="<?= $pcBodySm ?> tw-mx-auto tw-mb-2.5 tw-max-w-[46ch]">
         Perks that help you maximise your earnings while you drive with us.

@@ -1,5 +1,4 @@
 <?php
-
 $old ??= [
   'name' => '',
   'business_name' => '',
@@ -19,7 +18,6 @@ $partnerBizBenefits = [
   ['title' => 'Driver Management', 'desc' => 'Onboard and manage your drivers through one simple system.'],
 ];
 
-// Canonical PowerCabs field styling -- mirrors book-ride-online.php exactly.
 $inputClass = $pcInput;
 $labelClass = $pcLabel;
 $submitClass = $pcBtnPrimary . ' tw-w-full';

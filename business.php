@@ -100,26 +100,17 @@ $supportNumber = '+353 89 958 6092';
 $supportTel = '+353899586092';
 $supportHours = 'Business support is available 24/7, every day of the year.';
 $supportWhatsapp = 'https://wa.me/353899586092';
-/* colleagues in a meeting -- this band is the BUSINESS line. The band stays dark; this only replaces the flat fill behind
-   the scrim. See components/shared/support-band.php. */
+
 $supportImage = 'https://images.pexels.com/photos/7433846/pexels-photo-7433846.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/support-band.php';
 
 require __DIR__ . '/components/business/trust-proof.php';
 
-// Replaces components/business/final-cta.php, which was a page-local copy of
-// the same closing block every other page now shares.
-/* Not "Open a business account" any more: the form section further up now
-   carries that as its heading, and the two ran as an echo a screen apart.
-   This closes on the outcome instead, which is what the page has been arguing
-   for throughout -- and it is the hero's promise said once more at the end. */
 $ctaTitle = 'Move your people, not your paperwork.';
 $ctaText = 'One account, one invoice, and a team in Dublin that answers the phone.';
 $ctaPrimary = ['href' => '/business#bizAccountForm', 'label' => 'Request an Account'];
 $ctaSecondary = ['href' => '/contact-us', 'label' => 'Talk to Sales'];
 
-/* Restructured from copy already on this page -- see
-   components/shared/faq-accordion.php on why answers may not be invented. */
 $faqItems = [
   ['q' => 'How does billing work?', 'a' => 'Keep every business journey on one consolidated invoice, with no hidden charges.'],
   ['q' => 'Can I see what the team is spending?', 'a' => 'See journeys, spend and activity across your whole organisation as it happens.'],
@@ -130,10 +121,10 @@ $faqEyebrow = 'Business travel';
 $faqHeading = 'Business questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; // alternates against the white section above it
+$faqSurface = 'soft'; 
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; // §30: this page already closes with its own CTA.
+$bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
 ?>
 

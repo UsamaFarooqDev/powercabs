@@ -13,17 +13,7 @@ $corporateBenefits = [
     <div class="<?= $pcSectionHeadCenter ?>">
       <h2 class="<?= $pcH2 ?> tw-mb-0">Everything Your Business Needs</h2>
     </div>
-    <?php /* Six icons and six words -- no boxes.
-             This was six bordered, rounded, hover-shadowed cards whose entire
-             contents were one icon and one two-word label. §14's test is
-             whether the content needs a visual BOUNDARY, and a capability list
-             does not: nothing here is selectable, comparable or separable, so
-             the boxes were drawing six rectangles to say "we also do airport
-             transfers". §44 names this shape directly.
-
-             A six-up row on desktop, three on tablet, two on a phone, and the
-             group carries ONE hairline above it instead of twenty-four border
-             edges. The icons and labels are unchanged. */ ?>
+    <?php  ?>
     <div class="<?= $pcDivider ?> tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-10 tw-pt-12 sm:tw-grid-cols-3 lg:tw-grid-cols-6">
       <?php foreach ($corporateBenefits as $item): ?>
         <div class="tw-flex tw-flex-col tw-items-center tw-text-center">

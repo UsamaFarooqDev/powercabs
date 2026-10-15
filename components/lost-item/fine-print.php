@@ -1,21 +1,6 @@
 <?php
-/**
- * The terms of the fee, in plain words, at the point they matter.
- *
- * This is the client's own wording from the brief, kept close to verbatim on
- * purpose: it is the page's consumer-facing promise about what EUR15 does and
- * does not buy. Do not soften "cannot be guaranteed" -- that sentence is the
- * one protecting both the customer and PowerCabs.
- *
- * Reads $lostItemFee from lost-item-report.php.
- */
 ?>
-<!-- ============ Lost item: fee terms ============ -->
-<?php /* The cream fades out to white over the lower half. The app-download
-         banner that follows has a torn top edge, and the page background
-         shows through those tears -- white. Without the fade, a flat cream
-         block butted straight into that white, which is the seam this
-         removes. Content sits on tw-relative above the overlay. */ ?>
+<?php  ?>
 <section class="tw-relative tw-overflow-hidden tw-py-10 md:tw-py-12">
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
 
