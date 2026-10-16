@@ -1,7 +1,7 @@
 <?php
 $termsHidden ??= true;
 ?>
-<section class="tw-pb-16 tw-pt-3 md:tw-pb-24<?= $termsHidden ? ' tw-hidden' : '' ?>" id="<?= htmlspecialchars($termsPanelId) ?>">
+<section class="tw-scroll-mt-[100px] tw-pb-16 tw-pt-3 md:tw-pb-24<?= $termsHidden ? ' tw-hidden' : '' ?>" id="<?= htmlspecialchars($termsPanelId) ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12">
 
