@@ -147,10 +147,10 @@ $supportHeading = 'Need a hand with a booking?';
 $supportText =
 
   'Fares, bookings, a driver you cannot find, or something left in the car — call and speak to the PowerCabs team directly.';
-$supportNumber = '+353 89 965 4467';
-$supportTel = '+353899654467';
+$supportNumber = '+353 89 972 8089';
+$supportTel = '+353899728089';
 $supportHours = 'Customer support is available 24/7, every day of the year.';
-$supportWhatsapp = 'https://wa.me/+353899654467';
+$supportWhatsapp = 'https://wa.me/+353899728089';
 
 $supportImage = 'https://images.pexels.com/photos/4606338/pexels-photo-4606338.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/support-band.php';

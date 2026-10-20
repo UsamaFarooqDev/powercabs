@@ -40,7 +40,7 @@ $mgServiceLevels = [
   'standard' => [
     'eyebrow' => 'Standard',
     'price' => 10,
-    'title' => 'Simple Meet &amp; Greet',
+    'title' => 'Standard Meet &amp; Greet',
     'desc' => 'A simple and convenient airport welcome.',
     'featured' => false,
     'includes' => [
@@ -69,7 +69,7 @@ $mgServiceLevels = [
       'text' =>
         'Elderly passengers, passengers with disabilities, reduced mobility, or anyone requiring additional assistance can request priority support.',
     ],
-    'excludes' => ['Flight monitoring'],
+    'excludes' => ['Flight monitoring', 'Flight delay adjustment'],
   ],
   'first_class' => [
     'eyebrow' => 'First Class',
