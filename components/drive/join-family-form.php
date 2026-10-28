@@ -39,19 +39,26 @@ $driverPrefs = [
               <div class="tw-grid tw-grid-cols-1 tw-gap-4">
                 <div>
                   <label class="<?= $labelReq ?>" for="daName">Full Name</label>
-                  <input class="<?= $pcInput ?>" id="daName" name="full_name" type="text" autocomplete="name" required>
+                  <input class="<?= $pcInput ?>" id="daName" name="full_name" type="text" autocomplete="name" required placeholder="John Murphy">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daEmail">Email Address</label>
-                  <input class="<?= $pcInput ?>" id="daEmail" name="email" type="email" autocomplete="email" required>
+                  <input class="<?= $pcInput ?>" id="daEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daPhone">Phone Number</label>
-                  <input class="<?= $pcInput ?>" id="daPhone" name="phone" type="tel" autocomplete="tel" required>
+                  <?php
+                  $phoneId = 'daPhone';
+                  $phoneValue = '';
+                  $phoneCcValue = '';
+                  $phoneClass = $pcInput;
+                  $phoneRequired = true;
+                  require __DIR__ . '/../../components/shared/phone-field.php';
+                  ?>
                 </div>
                 <div>
                   <label class="<?= $labelClass ?>" for="daReferral">Referral Code <span class="tw-font-normal tw-text-ink/45">(optional)</span></label>
-                  <input class="<?= $pcInput ?>" id="daReferral" name="referral" type="text">
+                  <input class="<?= $pcInput ?>" id="daReferral" name="referral" type="text" placeholder="Referral code, if you have one">
                 </div>
               </div>
             </fieldset>
@@ -66,7 +73,7 @@ $driverPrefs = [
               <label class="<?= $labelReq ?>" for="daCode">Verification code</label>
               <input class="<?= $pcInput ?> tw-text-center tw-text-2xl tw-font-bold tw-tracking-[0.5em]"
                 id="daCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
-                maxlength="6" pattern="[0-9]{6}" required>
+                maxlength="6" pattern="[0-9]{6}" required placeholder="The 6-digit code we emailed you">
               <?php  ?>
               <button class="tw-mt-3 tw-inline-block tw-cursor-pointer tw-appearance-none tw-border-0 tw-bg-transparent tw-p-0 tw-text-sm tw-font-semibold tw-text-power tw-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark"
                 type="button" data-app-resend>Resend OTP</button>
@@ -87,8 +94,8 @@ $driverPrefs = [
                 'tw-p-0 tw-text-ink/45 tw-transition-colors tw-duration-200 hover:tw-text-ink/70 ' .
                 'focus-visible:tw-text-power focus-visible:tw-outline-none';
               $pwFields = [
-                ['id' => 'daPassword', 'name' => 'password', 'label' => 'Password'],
-                ['id' => 'daPassword2', 'name' => 'password_confirm', 'label' => 'Confirm Password'],
+                ['id' => 'daPassword', 'name' => 'password', 'label' => 'Password', 'ph' => 'At least 8 characters'],
+                ['id' => 'daPassword2', 'name' => 'password_confirm', 'label' => 'Confirm Password', 'ph' => 'Re-enter your password'],
               ];
               ?>
               <div class="tw-grid tw-grid-cols-1 tw-gap-4">
@@ -97,7 +104,8 @@ $driverPrefs = [
                     <label class="<?= $labelReq ?>" for="<?= $field['id'] ?>"><?= $field['label'] ?></label>
                     <div class="<?= $pwWrap ?>">
                       <input class="<?= $pwInput ?>" id="<?= $field['id'] ?>" name="<?= $field['name'] ?>"
-                        type="password" autocomplete="new-password" minlength="8" required>
+                        type="password" autocomplete="new-password" minlength="8"
+                        placeholder="<?= htmlspecialchars($field['ph']) ?>" required>
                       <button class="<?= $pwToggle ?>" type="button" data-app-reveal="<?= $field['id'] ?>"
                         aria-controls="<?= $field['id'] ?>" aria-pressed="false" aria-label="Show password">
                         <svg class="tw-h-[1.15rem] tw-w-[1.15rem]" data-reveal-show viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.4 12S6 5.5 12 5.5 21.6 12 21.6 12 18 18.5 12 18.5 2.4 12 2.4 12z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -131,27 +139,27 @@ $driverPrefs = [
               <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
                 <div>
                   <label class="<?= $labelReq ?>" for="daPlate">Roof Plate No.</label>
-                  <input class="<?= $pcInput ?>" id="daPlate" name="plate_no" type="text" required>
+                  <input class="<?= $pcInput ?>" id="daPlate" name="plate_no" type="text" required placeholder="12-D-34567">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daVehNo">Vehicle Number</label>
-                  <input class="<?= $pcInput ?>" id="daVehNo" name="vehicle_number" type="text" required>
+                  <input class="<?= $pcInput ?>" id="daVehNo" name="vehicle_number" type="text" required placeholder="Vehicle number on the door">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daMake">Vehicle Make</label>
-                  <input class="<?= $pcInput ?>" id="daMake" name="vehicle_make" type="text" required>
+                  <input class="<?= $pcInput ?>" id="daMake" name="vehicle_make" type="text" required placeholder="Toyota">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daModel">Vehicle Model</label>
-                  <input class="<?= $pcInput ?>" id="daModel" name="vehicle_model" type="text" required>
+                  <input class="<?= $pcInput ?>" id="daModel" name="vehicle_model" type="text" required placeholder="Prius">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daSeats">Number of Seats</label>
-                  <input class="<?= $pcInput ?>" id="daSeats" name="no_seats" type="number" min="1" max="16" required>
+                  <input class="<?= $pcInput ?>" id="daSeats" name="no_seats" type="number" min="1" max="16" required placeholder="4">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daIban">IBAN</label>
-                  <input class="<?= $pcInput ?>" id="daIban" name="iban" type="text" autocomplete="off" required>
+                  <input class="<?= $pcInput ?>" id="daIban" name="iban" type="text" autocomplete="off" required placeholder="IE64 IRCE 9205 0112 3456 78">
                 </div>
               </div>
             </fieldset>
@@ -161,11 +169,11 @@ $driverPrefs = [
               <div class="tw-grid tw-grid-cols-1 tw-gap-4">
                 <div>
                   <label class="<?= $labelReq ?>" for="daLicNo">Driving Licence Number</label>
-                  <input class="<?= $pcInput ?>" id="daLicNo" name="license_number" type="text" required>
+                  <input class="<?= $pcInput ?>" id="daLicNo" name="license_number" type="text" required placeholder="Your SPSV licence number">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daNta">NTA Licence Number</label>
-                  <input class="<?= $pcInput ?>" id="daNta" name="nta_license_number" type="text" required>
+                  <input class="<?= $pcInput ?>" id="daNta" name="nta_license_number" type="text" required placeholder="Your NTA licence number">
                 </div>
                 <div>
                   <label class="<?= $labelReq ?>" for="daExpiry">Expiry Date</label>

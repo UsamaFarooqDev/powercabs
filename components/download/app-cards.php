@@ -9,7 +9,7 @@ $appCards = [
     'id' => 'passenger',
     'icon' => 'person',
     'title' => 'Passenger App',
-    'desc' => 'Book rides, track your driver live, and pay cashlessly -- all in a few taps.',
+    'desc' => 'Book rides, track your driver live, and pay cashlessly - all in a few taps.',
     'playStore' => 'https://play.google.com/store/apps/details?id=powercabs.dublin.taxi.passenger',
     'appStore' => 'https://apps.apple.com/us/app/powercabs-dublin-taxi-app/id6648773981',
   ],

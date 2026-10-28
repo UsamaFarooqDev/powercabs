@@ -38,7 +38,7 @@
             <label class="<?= $pcLabel ?>" for="pcDlPassword">Password</label>
             <div class="tw-relative">
               <input class="<?= $pcInput ?> tw-pr-11" type="password" id="pcDlPassword" name="password"
-                autocomplete="current-password" required>
+                autocomplete="current-password" required placeholder="Your driver app password">
               <button type="button" data-pc-password-toggle data-target="pcDlPassword"
                 class="tw-absolute tw-right-1 tw-top-1/2 tw--translate-y-1/2 tw-inline-flex tw-h-8 tw-w-9 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-md tw-border-0 tw-bg-transparent tw-text-ink/45 tw-transition-colors hover:tw-text-ink"
                 aria-label="Show password" aria-pressed="false">

@@ -1,6 +1,6 @@
 <?php
 $bizHowSteps = [
-  ['n' => '01', 'title' => 'Create Your Account', 'desc' => 'Sign up in minutes -- no paperwork, no waiting.'],
+  ['n' => '01', 'title' => 'Create Your Account', 'desc' => 'Sign up in minutes - no paperwork, no waiting.'],
   ['n' => '02', 'title' => 'Add Your Team', 'desc' => 'Add the employees who need taxi travel to your account.'],
   ['n' => '03', 'title' => 'Start Travelling', 'desc' => 'Book taxis through PowerCabs, billed straight to your business.'],
 ];

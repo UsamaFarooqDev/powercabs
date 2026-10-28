@@ -30,7 +30,7 @@ $termsNav = [
   ['id' => 'c-25', 'label' => '25. Waiting Time'],
   ['id' => 'c-26', 'label' => '26. No-Show'],
   ['id' => 'c-27', 'label' => '27. Driver Waiting and Communication'],
-  ['id' => 'c-28', 'label' => '28. M50 and Toll-Related Routing'],
+  ['id' => 'c-28', 'label' => '28. M50, Toll Tunnel and Tolls'],
   ['id' => 'c-29', 'label' => '29. Pets'],
   ['id' => 'c-30', 'label' => '30. Pet Soiling and Excessive Cleaning'],
   ['id' => 'c-31', 'label' => '31. Passenger Behaviour'],
@@ -218,6 +218,13 @@ $termsBody = <<<'PCTERMS'
           <li>another price specifically disclosed before booking.</li>
         </ul>
         <p>The booking confirmation will indicate, where applicable, whether the fare is fixed, quoted or estimated.</p>
+        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Pay Per Hour bookings</h3>
+        <p>Where a journey is booked as Pay Per Hour, the vehicle and driver are hired by time rather than by distance, at the following rates:</p>
+        <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
+          <li>small, regular or economy car: €45 per hour;</li>
+          <li>large or XL car: €50 per hour.</li>
+        </ul>
+        <p>Tolls, parking and other disclosed charges remain payable in addition to the hourly rate.</p>
 
         <h2 id="c-10" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">10. Metered Taxi Journeys</h2>
         <p>For a metered taxi journey, the final fare is calculated by the vehicle taximeter in accordance with the applicable National Maximum Taxi Fare and applicable Irish law.</p>
@@ -370,13 +377,14 @@ $termsBody = <<<'PCTERMS'
 
         <h2 id="c-25" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">25. Waiting Time</h2>
         <p>Unless a different waiting period applies:</p>
-        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Standard bookings</h3>
-        <p>The first 5 minutes of waiting may be included.</p>
-        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Airport bookings</h3>
+        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Regular bookings</h3>
+        <p>The applicable free waiting period is 3 minutes.</p>
+        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Airport, Meet &amp; Greet and preorder bookings</h3>
         <p>The applicable free waiting period is 10 minutes.</p>
-        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Meet &amp; Greet bookings</h3>
+        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Premium and First Class Meet &amp; Greet bookings</h3>
         <p>The applicable free waiting period is 15 minutes.</p>
         <p>After the applicable free waiting period, additional waiting charges may apply where permitted and disclosed.</p>
+        <p>These free waiting periods are separate from the maximum waiting period after which a booking may be treated as a no-show, which is set out in the Airport Meet &amp; Greet terms.</p>
 
         <h2 id="c-26" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">26. No-Show</h2>
         <p>If the passenger does not appear at the pickup point after the applicable waiting period, the driver may mark the booking as a no-show.</p>
@@ -389,14 +397,14 @@ $termsBody = <<<'PCTERMS'
         <p>Where a passenger expects to be delayed, they should contact the driver or PowerCabs dispatch as soon as possible.</p>
         <p>PowerCabs cannot guarantee that a driver will wait indefinitely.</p>
 
-        <h2 id="c-28" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">28. M50 and Toll-Related Routing</h2>
-        <p>The M50 may be used where:</p>
+        <h2 id="c-28" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">28. M50, Toll Tunnel and Tolls</h2>
+        <p><strong>The M50 and the Toll Tunnel must be pre-approved.</strong> Either route may be used where:</p>
         <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
           <li>it is appropriate for the journey;</li>
-          <li>the passenger has requested or approved the route; or</li>
-          <li>PowerCabs dispatch has approved the route where prior approval is required.</li>
+          <li>the passenger has requested or approved the route; and</li>
+          <li>PowerCabs dispatch has approved the route in advance.</li>
         </ul>
-        <p>Where M50 use requires prior approval from PowerCabs dispatch, the driver should obtain that approval before using the relevant route.</p>
+        <p><strong>Approval must be obtained before the ride starts, not afterwards.</strong> Where an unapproved toll route is taken, the related charge may not be passed on to the passenger.</p>
         <p>Applicable tolls or charges may be added where permitted and disclosed.</p>
 
         <h2 id="c-29" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">29. Pets</h2>
@@ -409,7 +417,13 @@ $termsBody = <<<'PCTERMS'
           <li>the passenger follows reasonable instructions from the driver.</li>
         </ul>
         <p>Passengers should disclose the presence, number and type/size of animals when booking.</p>
-        <p>Assistance dogs and other legally protected assistance animals will be dealt with in accordance with applicable law.</p>
+        <p>A pet charge applies according to the size of the animal:</p>
+        <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
+          <li>small: €3;</li>
+          <li>medium: €5;</li>
+          <li>large: €7.</li>
+        </ul>
+        <p>Assistance dogs and other legally protected assistance animals are not pet journeys, are not subject to the pet charge, and will be dealt with in accordance with applicable law.</p>
 
         <h2 id="c-30" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">30. Pet Soiling and Excessive Cleaning</h2>
         <p>Where a passenger&rsquo;s pet causes substantial soiling, contamination or cleaning requirements in a PowerCabs vehicle, a €140 cleaning/soiling charge may apply.</p>
@@ -418,6 +432,7 @@ $termsBody = <<<'PCTERMS'
         <p>The customer will be notified of the charge.</p>
         <p>The customer has 48 hours from notification to dispute the charge and provide relevant evidence.</p>
         <p>PowerCabs may review the driver&rsquo;s evidence and the passenger&rsquo;s response before confirming or adjusting the charge.</p>
+        <p><strong>On cash and card bookings the driver may collect the soiling charge directly from the passenger at the end of the journey.</strong> The passenger&rsquo;s right to dispute the charge under this clause is unaffected.</p>
 
         <h2 id="c-31" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">31. Passenger Behaviour</h2>
         <p>Passengers must behave reasonably and safely.</p>
@@ -758,9 +773,12 @@ $termsBody = <<<'PCTERMS'
           <li>€0.50 electronic payment fee may apply.</li>
           <li>Airport cancellations should normally be made at least 1 hour before pickup.</li>
           <li>Meet &amp; Greet cancellations more than 4 hours before pickup may qualify for a refund.</li>
-          <li>Standard waiting period: 5 minutes.</li>
-          <li>Airport waiting period: 10 minutes.</li>
-          <li>Meet &amp; Greet waiting period: 15 minutes.</li>
+          <li>Regular waiting period: 3 minutes.</li>
+          <li>Airport, Meet &amp; Greet and preorder waiting period: 10 minutes.</li>
+          <li>Premium and First Class Meet &amp; Greet waiting period: 15 minutes.</li>
+          <li>Pet charge: €3 small, €5 medium, €7 large.</li>
+          <li>Pay Per Hour: €45 per hour small/regular/economy, €50 per hour large/XL.</li>
+          <li>M50 and Toll Tunnel must be pre-approved before the ride starts.</li>
           <li>Standard no-show charge may be €5.</li>
           <li>Pet soiling charge may be €140.</li>
           <li>Standard Soiling Charges: €140.</li>

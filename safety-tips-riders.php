@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Safety Tips for Riders | PowerCabs';
 $pageDescription =
-  'Safety guidance for PowerCabs riders -- before, during and after every ride, plus using the emergency button, cashless payments and more.';
+  'Safety guidance for PowerCabs riders - before, during and after every ride, plus using the emergency button, cashless payments and more.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -10,7 +10,7 @@ $heroEyebrow = 'Policies & Safety';
 $heroTitleLight = 'Safety Tips';
 $heroTitleBold = 'for Riders.';
 $heroDescription =
-  'A few simple habits make every PowerCabs trip safer -- before you get in, while you ride, and after you arrive.';
+  'A few simple habits make every PowerCabs trip safer - before you get in, while you ride, and after you arrive.';
 $heroBgImage = 'https://images.pexels.com/photos/13343433/pexels-photo-13343433.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'Rider Safety';
 $heroVariant = 'split';

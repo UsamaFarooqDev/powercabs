@@ -66,37 +66,44 @@ $inputClass = $pcInput;
               <label class="tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="csName">Name</label>
               <input type="text" class="<?= $inputClass ?>" id="csName" name="name" value="<?= htmlspecialchars(
   $old['name'],
-) ?>" required>
+) ?>" required placeholder="John Murphy">
             </div>
             <div>
               <label class="tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="csEmail">Email</label>
               <input type="email" class="<?= $inputClass ?>" id="csEmail" name="email" value="<?= htmlspecialchars(
   $old['email'],
-) ?>" required>
+) ?>" required placeholder="you@example.com">
             </div>
             <div>
               <label class="tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="csBusinessName">Business Name</label>
               <input type="text" class="<?= $inputClass ?>" id="csBusinessName" name="business_name" value="<?= htmlspecialchars(
   $old['business_name'],
-) ?>" required>
+) ?>" required placeholder="Acme Ltd">
             </div>
             <div>
               <label class="tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="csEmployeeCount">Number of Employees</label>
               <input type="number" min="1" class="<?= $inputClass ?>" id="csEmployeeCount" name="employee_count" value="<?= htmlspecialchars(
   $old['employee_count'],
-) ?>">
+) ?>" placeholder="25">
             </div>
             <div>
               <label class="tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="csMobile">Mobile</label>
-              <input type="tel" class="<?= $inputClass ?>" id="csMobile" name="mobile" value="<?= htmlspecialchars(
-  $old['mobile'],
-) ?>" required>
+              <?php
+              $phoneId = 'csMobile';
+              $phoneName = 'mobile';
+              $phoneCcName = 'mobile_cc';
+              $phoneValue = $old['mobile'];
+              $phoneCcValue = $old['mobile_cc'];
+              $phoneClass = $inputClass;
+              $phoneRequired = true;
+              require __DIR__ . '/../../components/shared/phone-field.php';
+              ?>
             </div>
             <div>
               <label class="tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="csAddress">Address</label>
               <input type="text" class="<?= $inputClass ?>" id="csAddress" name="address" value="<?= htmlspecialchars(
   $old['address'],
-) ?>">
+) ?>" placeholder="12 Kylmore Road, Inchicore, Dublin 10">
             </div>
 
             <div class="tw-col-span-full tw-pt-2">
@@ -108,7 +115,7 @@ $inputClass = $pcInput;
 
             <?php if ($formStatus === 'success'): ?>
               <div class="tw-col-span-full">
-                <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your registration has been sent. Our Business Team will be in touch shortly.</div>
+                <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your registration has been sent. Our Business Team will be in touch shortly.</div>
               </div>
             <?php elseif ($formStatus === 'error'): ?>
               <div class="tw-col-span-full">

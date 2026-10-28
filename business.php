@@ -1,11 +1,12 @@
 <?php
 $pageTitle = 'Business Travel & Chauffeur Cars in Dublin | PowerCabs';
 $pageDescription =
-  'Reliable, discreet, and professional Business Rides and Limousine Services from PowerCabs -- built for executives, teams, and corporate travel across Dublin.';
+  'Reliable, discreet, and professional Business Rides and Limousine Services from PowerCabs - built for executives, teams, and corporate travel across Dublin.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
 $formError = '';
@@ -14,6 +15,7 @@ $old = [
   'business_name' => '',
   'business_email' => '',
   'phone' => '',
+  'phone_cc' => '',
   'vat_number' => '',
   'employee_count' => '',
   'message' => '',
@@ -41,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       "Contact Name: {$old['contact_name']}\n" .
       "Business Name: {$old['business_name']}\n" .
       "Business Email: {$old['business_email']}\n" .
-      "Phone Number: {$old['phone']}\n" .
+      "Phone Number: " . pc_phone_full($old['phone_cc'], $old['phone']) . "\n" .
       'VAT / Tax Number: ' .
       ($old['vat_number'] !== '' ? $old['vat_number'] : '-') .
       "\n" .

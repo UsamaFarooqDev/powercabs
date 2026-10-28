@@ -38,7 +38,7 @@ if (!$pcDriver):
           <div class="tw-mb-6">
             <label class="<?= $pcLabel ?>" for="dtPassword">Password</label>
             <div class="tw-relative">
-              <input class="<?= $pcInput ?> tw-pr-11" type="password" id="dtPassword" name="password" autocomplete="current-password" required>
+              <input class="<?= $pcInput ?> tw-pr-11" type="password" id="dtPassword" name="password" autocomplete="current-password" required placeholder="Your driver app password">
               <button type="button" data-pc-password-toggle data-target="dtPassword"
                 class="tw-absolute tw-right-1 tw-top-1/2 tw--translate-y-1/2 tw-inline-flex tw-h-8 tw-w-9 tw-cursor-pointer tw-appearance-none tw-items-center tw-justify-center tw-rounded-md tw-border-0 tw-bg-transparent tw-text-ink/45 tw-transition-colors hover:tw-text-ink"
                 aria-label="Show password" aria-pressed="false">
@@ -66,27 +66,42 @@ if (!$pcDriver):
 endif;
 
 require __DIR__ . '/includes/supabase.php';
-require __DIR__ . '/includes/driver-progress.php';
 require __DIR__ . '/includes/driver-insights.php';
-require __DIR__ . '/components/driver-training/missions.php';
+require __DIR__ . '/includes/driver-tracks.php';
 
 [$dtRow, $dtProgress] = pc_training_load((string) $pcDriver['id']);
 
+// Which module the driver is looking at. Meet & Greet is refused here as well as in the API:
+// ?track=mg before Certificate #1 exists falls back to the general track rather than erroring.
+$dtTrackId = (string) ($_GET['track'] ?? PC_TRACK_GENERAL);
+if (!pc_track($dtTrackId) || !pc_track_unlocked($dtProgress, $dtTrackId)) {
+  $dtTrackId = PC_TRACK_GENERAL;
+}
+$dtTrack = pc_track($dtTrackId);
+$dtMissions = $dtTrack['missions'];
+$dtMissionCount = count($dtMissions);
+$dtFinal = $dtTrack['final'];
+$dtBadges = $dtTrack['badges'];
+$dtIsMg = $dtTrackId === PC_TRACK_MG;
+$dtMgUnlocked = pc_track_unlocked($dtProgress, PC_TRACK_MG);
+$dtQuals = pc_training_quals($dtProgress);
+
 $dtCtx = pc_driver_insights((string) $pcDriver['id'], is_array($dtRow) ? $dtRow : []);
-$dtFacts = $dtCtx['facts'] ?? [];
+// The insight nudge points at general-track mission ids, so it has no meaning on another track.
+$dtFacts = $dtIsMg ? [] : ($dtCtx['facts'] ?? []);
 
 $dtName = trim((string) ($dtRow['full_name'] ?? $pcDriver['name'])) ?: 'Driver';
 $dtFirst = explode(' ', $dtName)[0];
 $dtDoneCount = 0;
-foreach ($pcMissions as $m) {
+foreach ($dtMissions as $m) {
   if (pc_training_mission_done($dtProgress, $m['id'])) {
     $dtDoneCount++;
   }
 }
-$dtPct = $pcMissionCount ? (int) round(($dtDoneCount / $pcMissionCount) * 100) : 0;
-$dtCurrentIdx = pc_training_current_index($dtProgress, $pcMissions);
-$dtAllDone = pc_training_all_missions_done($dtProgress, $pcMissions);
-$dtCertified = pc_training_can_certify($dtProgress, $pcMissions);
+$dtPct = $dtMissionCount ? (int) round(($dtDoneCount / $dtMissionCount) * 100) : 0;
+$dtCurrentIdx = pc_training_current_index($dtProgress, $dtMissions);
+$dtAllDone = pc_training_all_missions_done($dtProgress, $dtMissions);
+$dtCertified = pc_track_passed($dtProgress, $dtTrack);
 $dtXp = (int) $dtProgress['xp'];
 ?>
 
@@ -111,7 +126,8 @@ $dtXp = (int) $dtProgress['xp'];
 <?php  ?>
 <div class="tw-relative tw-overflow-hidden tw-bg-paper-soft tw-pb-32 lg:tw-pb-0" id="pcTrainingTop"
   data-pc-mission-root
-  data-pc-current="<?= htmlspecialchars($dtCurrentIdx < $pcMissionCount ? $pcMissions[$dtCurrentIdx]['id'] : 'final') ?>">
+  data-pc-track="<?= htmlspecialchars($dtTrackId) ?>"
+  data-pc-current="<?= htmlspecialchars($dtCurrentIdx < $dtMissionCount ? $dtMissions[$dtCurrentIdx]['id'] : 'final') ?>">
 
   <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-overflow-hidden" aria-hidden="true">
     <span class="tw-absolute tw--left-24 tw--top-24 tw-h-72 tw-w-72 tw-rounded-full tw-bg-power/[0.07] tw-blur-3xl"></span>
@@ -128,21 +144,60 @@ $dtXp = (int) $dtProgress['xp'];
   <div class="tw-relative">
   <div class="<?= $pcContainer ?> tw-pb-6 tw-pt-[calc(var(--pc-navbar-h,72px)+1.25rem)] lg:tw-pb-12 lg:tw-pt-[calc(var(--pc-navbar-h,72px)+2rem)]">
 
+    <?php /* Module switcher. Meet & Greet stays disabled until Certificate #1 exists; the
+             link carries ?track=mg and the page re-resolves (and re-checks) on load, so the
+             state survives refresh and re-login without any client-side memory. */ ?>
+    <div class="tw-mb-5 tw-flex tw-flex-wrap tw-items-center tw-gap-2" role="tablist" aria-label="Training modules">
+      <?php foreach (pc_tracks() as $tid => $t): ?>
+        <?php
+        $tActive = $tid === $dtTrackId;
+        $tOpen = pc_track_unlocked($dtProgress, $tid);
+        $tPassed = pc_track_passed($dtProgress, $t);
+        ?>
+        <?php if ($tOpen): ?>
+          <a href="<?= $assetPath ?>/driver-training?track=<?= htmlspecialchars($tid) ?>" data-no-pjax
+            role="tab" aria-selected="<?= $tActive ? 'true' : 'false' ?>"
+            class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-px-4 tw-py-2 tw-text-[0.82rem] tw-font-bold tw-no-underline tw-transition-colors tw-duration-200 <?= $tActive
+              ? 'tw-border-ink tw-bg-ink tw-text-white'
+              : 'tw-border-hairline tw-bg-white tw-text-ink/70 hover:tw-border-ink/30 hover:tw-text-ink' ?>">
+            <?php pc_dt_icon($t['icon'], 'tw-h-4 tw-w-4'); ?>
+            <?= $t['short'] ?>
+            <?php if ($tPassed): ?>
+              <span class="tw-inline-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-full <?= $tActive ? 'tw-bg-white tw-text-ink' : 'tw-bg-success tw-text-white' ?>" aria-hidden="true">
+                <svg class="tw-h-2.5 tw-w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </span>
+              <span class="tw-sr-only">&mdash; passed</span>
+            <?php endif; ?>
+          </a>
+        <?php else: ?>
+          <span role="tab" aria-selected="false" aria-disabled="true"
+            title="Finish your driver training and download Certificate #1 to unlock this module."
+            class="tw-inline-flex tw-cursor-not-allowed tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-dashed tw-border-hairline tw-bg-white/60 tw-px-4 tw-py-2 tw-text-[0.82rem] tw-font-bold tw-text-ink/35">
+            <?php pc_dt_icon('lock', 'tw-h-3.5 tw-w-3.5'); ?>
+            <?= $t['short'] ?>
+            <span class="tw-sr-only">&mdash; locked until your certificate is issued</span>
+          </span>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </div>
+
     <header class="tw-mb-6" id="pcTrainingProgress">
       <div class="tw-mb-4 tw-flex tw-flex-wrap tw-items-start tw-justify-between tw-gap-3">
         <div class="tw-min-w-0">
-          <p class="<?= pc_mb($pcEyebrow, 'tw-mb-1.5') ?>">PowerCabs Driver Academy</p>
+          <p class="<?= pc_mb($pcEyebrow, 'tw-mb-1.5') ?>">PowerCabs Driver Academy &middot; <?= $dtTrack['label'] ?></p>
           <h1 class="tw-mb-1.5 tw-text-[clamp(1.6rem,4vw,2.35rem)] tw-font-bold tw-leading-[1.1] tw-tracking-[-0.03em] tw-text-ink">
-            <?= $dtCertified ? 'You are PowerCabs Ready.' : 'Welcome, ' . htmlspecialchars($dtFirst) . '.' ?>
+            <?php if ($dtIsMg): ?>
+              <?= $dtCertified ? 'Meet &amp; Greet certified.' : 'Meet &amp; Greet module.' ?>
+            <?php else: ?>
+              <?= $dtCertified ? 'You are PowerCabs Ready.' : 'Welcome, ' . htmlspecialchars($dtFirst) . '.' ?>
+            <?php endif; ?>
           </h1>
-          <p class="<?= $pcBodySm ?> tw-mb-0 tw-max-w-[48ch]">
-            Complete your training journey and become PowerCabs Ready.
-          </p>
+          <p class="<?= $pcBodySm ?> tw-mb-0 tw-max-w-[48ch]"><?= $dtTrack['tagline'] ?></p>
           <?php  ?>
           <?php if (!empty($dtCtx['focus'])): ?>
             <?php
             $dtFocusTitle = '';
-            foreach ($pcMissions as $fm) {
+            foreach ($dtMissions as $fm) {
               if ($fm['id'] === $dtCtx['focus']) {
                 $dtFocusTitle = $fm['nav'];
                 break;
@@ -152,7 +207,7 @@ $dtXp = (int) $dtProgress['xp'];
             <?php if ($dtFocusTitle !== ''): ?>
               <p class="tw-mb-0 tw-mt-2 tw-inline-flex tw-items-center tw-gap-1.5 tw-rounded-full tw-bg-peach tw-px-3 tw-py-1 tw-text-[0.78rem] tw-font-semibold tw-text-power">
                 <?php pc_dt_icon('star', 'tw-h-3.5 tw-w-3.5'); ?>
-                Worth your attention: <?= htmlspecialchars($dtFocusTitle) ?>
+                Worth your attention: <?= $dtFocusTitle ?>
               </p>
             <?php endif; ?>
           <?php endif; ?>
@@ -170,7 +225,7 @@ $dtXp = (int) $dtProgress['xp'];
 
         <div class="tw-relative tw-mb-4 tw-flex tw-flex-wrap tw-items-end tw-justify-between tw-gap-3">
           <div>
-            <p class="tw-mb-1 tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.16em] tw-text-white/45">Your driver journey</p>
+            <p class="tw-mb-1 tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.16em] tw-text-white/45"><?= $dtIsMg ? 'Meet &amp; Greet progress' : 'Your driver journey' ?></p>
             <p class="tw-mb-0 tw-flex tw-items-baseline tw-gap-1.5">
               <span data-pc-pct class="tw-text-[2.25rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-white"><?= $dtPct ?></span>
               <span class="tw-text-[1.1rem] tw-font-bold tw-leading-none tw-text-white/50">%</span>
@@ -196,7 +251,7 @@ $dtXp = (int) $dtProgress['xp'];
 
         <p class="tw-relative tw-mb-0 tw-text-[0.85rem] tw-text-white/55">
           <strong class="tw-font-bold tw-text-white" data-pc-done-count><?= $dtDoneCount ?></strong> of
-          <strong class="tw-font-bold tw-text-white"><?= $pcMissionCount ?></strong> levels completed
+          <strong class="tw-font-bold tw-text-white"><?= $dtMissionCount ?></strong> levels completed
         </p>
 
         <?php  ?>
@@ -225,15 +280,17 @@ $dtXp = (int) $dtProgress['xp'];
 
         <?php  ?>
         <ul class="tw-relative tw-m-0 tw-mt-4 tw-flex tw-list-none tw-gap-2 tw-overflow-x-auto tw-border-0 tw-border-t tw-border-solid tw-border-white/10 tw-p-0 tw-pt-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden sm:tw-flex-wrap sm:tw-overflow-visible">
-          <?php foreach ($pcBadges as $bid => $b): ?>
+          <?php foreach ($dtBadges as $bid => $b): ?>
             <?php $earned = in_array($bid, $dtProgress['badges'], true); ?>
             <li data-pc-badge="<?= htmlspecialchars($bid) ?>"
               class="tw-inline-flex tw-shrink-0 tw-items-center tw-gap-1.5 tw-whitespace-nowrap tw-rounded-full tw-border tw-border-solid tw-px-2.5 tw-py-1 tw-text-[0.72rem] tw-font-semibold tw-transition-all tw-duration-300 <?= $earned
                 ? 'tw-border-power tw-bg-power tw-text-white tw-shadow-[0_4px_14px_-4px_rgba(249,115,22,0.8)]'
                 : 'tw-border-white/15 tw-bg-white/[0.04] tw-text-white/35' ?>"
-              title="<?= htmlspecialchars($b['desc']) ?>">
+              <?php /* Raw for the same reason as the mission titles: badge copy is authored as
+                       HTML, so escaping "Meet &amp; Greet Certified" again printed the entity. */ ?>
+              title="<?= $b['desc'] ?>">
               <?php pc_dt_icon($b['icon'], 'tw-h-3.5 tw-w-3.5'); ?>
-              <?= htmlspecialchars($b['label']) ?>
+              <?= $b['label'] ?>
               <?php  ?>
               <?php if (!$earned): ?>
                 <span class="tw-sr-only">(locked)</span>
@@ -253,12 +310,12 @@ $dtXp = (int) $dtProgress['xp'];
       <?php  ?>
       <nav class="tw-sticky tw-z-30 tw--mx-4 tw-mb-5 tw-overflow-hidden tw-bg-paper-soft tw-px-4 tw-py-2 tw-top-[var(--pc-navbar-h,72px)] lg:tw-mx-0 lg:tw-mb-0 lg:tw-overflow-visible lg:tw-rounded-2xl lg:tw-border lg:tw-border-solid lg:tw-border-hairline lg:tw-bg-white lg:tw-p-3 lg:tw-top-[calc(var(--pc-navbar-h,72px)+1.5rem)]"
         aria-label="Training path">
-        <p class="tw-mb-2 tw-hidden tw-px-2 tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-muted lg:tw-block">Your 12 levels</p>
+        <p class="tw-mb-2 tw-hidden tw-px-2 tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-muted lg:tw-block">Your <?= $dtMissionCount ?> levels</p>
         <ol class="tw-m-0 tw-flex tw-list-none tw-gap-2 tw-overflow-x-auto tw-p-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden lg:tw-max-h-[52vh] lg:tw-flex-col lg:tw-gap-0.5 lg:tw-overflow-y-auto lg:tw-overflow-x-visible">
-          <?php foreach ($pcMissions as $i => $m): ?>
+          <?php foreach ($dtMissions as $i => $m): ?>
             <?php
             $done = pc_training_mission_done($dtProgress, $m['id']);
-            $unlocked = pc_training_is_unlocked($dtProgress, $pcMissions, $m['id']);
+            $unlocked = pc_training_is_unlocked($dtProgress, $dtMissions, $m['id']);
             $state = $done ? 'done' : ($unlocked ? 'current' : 'locked');
             ?>
             <?php  ?>
@@ -279,7 +336,7 @@ $dtXp = (int) $dtProgress['xp'];
                   <span class="tw-hidden group-data-[pc-state=current]:tw-block"><?= $i + 1 ?></span>
                   <span class="tw-hidden group-data-[pc-state=locked]:tw-block"><?php pc_dt_icon('lock', 'tw-h-2.5 tw-w-2.5'); ?></span>
                 </span>
-                <span class="tw-truncate"><?= htmlspecialchars($m['nav']) ?></span>
+                <span class="tw-truncate"><?= $m['nav'] ?></span>
                 <?php  ?>
                 <span class="tw-sr-only">
                   <span class="tw-hidden group-data-[pc-state=done]:tw-inline">&mdash; completed</span>
@@ -312,10 +369,10 @@ $dtXp = (int) $dtProgress['xp'];
       </nav>
 
       <div class="tw-min-w-0" data-pc-mission-panels>
-        <?php foreach ($pcMissions as $i => $m): ?>
+        <?php foreach ($dtMissions as $i => $m): ?>
           <?php
           $done = pc_training_mission_done($dtProgress, $m['id']);
-          $unlocked = pc_training_is_unlocked($dtProgress, $pcMissions, $m['id']);
+          $unlocked = pc_training_is_unlocked($dtProgress, $dtMissions, $m['id']);
           $isCurrent = $i === $dtCurrentIdx || ($dtAllDone && $i === 0 && false);
           ?>
           <?php  ?>
@@ -336,7 +393,7 @@ $dtXp = (int) $dtProgress['xp'];
                 </span>
                 <div class="tw-min-w-0 tw-flex-1">
                   <p class="tw-mb-1 tw-flex tw-flex-wrap tw-items-center tw-gap-2 tw-text-[0.68rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-ink/45">
-                    Level <?= str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) ?> of <?= $pcMissionCount ?>
+                    Level <?= str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) ?> of <?= $dtMissionCount ?>
                     <span class="tw-hidden tw-items-center tw-gap-1 tw-rounded-full tw-bg-success tw-px-2 tw-py-0.5 tw-text-[0.62rem] tw-tracking-normal tw-text-white group-data-[pc-done=1]/mission:tw-inline-flex">
                       <svg class="tw-h-2.5 tw-w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
                       Completed
@@ -347,7 +404,10 @@ $dtXp = (int) $dtProgress['xp'];
                       +<?= pc_mission_points($m) ?> pts
                     </span>
                   </p>
-                  <h2 class="<?= pc_mb($pcH2Small, 'tw-mb-0') ?>"><?= htmlspecialchars($m['title']) ?></h2>
+                  <?php /* Raw, not htmlspecialchars: mission copy is authored as HTML (why, steps,
+                           captions and quiz text are all emitted raw too). Escaping a title that
+                           already reads "Meet &amp; Greet" printed the entity on levels 10 and 11. */ ?>
+                  <h2 class="<?= pc_mb($pcH2Small, 'tw-mb-0') ?>"><?= $m['title'] ?></h2>
                 </div>
               </div>
             </div>
@@ -483,18 +543,18 @@ $dtXp = (int) $dtProgress['xp'];
             </div>          </section>
         <?php endforeach; ?>
 
-        <section data-pc-mission="final" <?= $dtAllDone && $dtCurrentIdx >= $pcMissionCount ? '' : 'hidden' ?>
+        <section data-pc-mission="final" <?= $dtAllDone && $dtCurrentIdx >= $dtMissionCount ? '' : 'hidden' ?>
           class="tw-rounded-3xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-5 sm:tw-p-7">
           <div class="tw-mb-5">
             <p class="<?= pc_mb($pcEyebrow, 'tw-mb-1.5') ?>">Final driver challenge</p>
             <h2 class="<?= pc_mb($pcH2Small, 'tw-mb-2') ?>">Let&rsquo;s make sure you&rsquo;re ready.</h2>
             <p class="<?= $pcBodySm ?> tw-mb-0">
-              <?= count($pcFinalChallenge) ?> questions from across your training. You need <strong class="tw-text-ink"><?= PC_FINAL_PASS ?>%</strong> to pass,
+              <?= count($dtFinal) ?> questions from across your training. You need <strong class="tw-text-ink"><?= PC_FINAL_PASS ?>%</strong> to pass,
               and the safety-critical questions must be right. Unlimited retries &mdash; take your time.
             </p>
           </div>
 
-          <?php $publicFinal = pc_training_public_questions($pcFinalChallenge); ?>
+          <?php $publicFinal = pc_training_public_questions($dtFinal); ?>
           <form data-pc-quiz="final" data-no-ajax novalidate class="tw-m-0">
             <?php foreach ($publicFinal as $qi => $q): ?>
               <fieldset class="tw-m-0 tw-mb-5 tw-border-0 tw-p-0" data-pc-q="<?= $qi ?>">
@@ -534,10 +594,27 @@ $dtXp = (int) $dtProgress['xp'];
             <?php pc_dt_icon('award', 'tw-h-7 tw-w-7'); ?>
           </span>
           <h2 class="<?= pc_mb($pcH2Small, 'tw-mb-2') ?>">Congratulations!</h2>
-          <p class="<?= $pcBodySm ?> tw-mx-auto tw-mb-5 tw-max-w-[42ch]">
-            You are now <strong class="tw-text-ink">PowerCabs Ready</strong>. Your certificate has been emailed to you,
-            and you can download it any time.
+          <p class="<?= $pcBodySm ?> tw-mx-auto tw-mb-5 tw-max-w-[44ch]">
+            <?php if ($dtIsMg): ?>
+              Your <strong class="tw-text-ink">Meet &amp; Greet</strong> qualification has been added to your
+              certificate. The updated copy has been emailed to you.
+            <?php else: ?>
+              You are now <strong class="tw-text-ink">PowerCabs Ready</strong>. Your certificate has been emailed to you,
+              and you can download it any time.
+            <?php endif; ?>
           </p>
+
+          <?php /* What the PDF prints, rendered the same way so the screen and the download agree. */ ?>
+          <ul data-pc-quals class="tw-mx-auto tw-mb-5 tw-flex tw-max-w-[30rem] tw-list-none tw-flex-wrap tw-justify-center tw-gap-2 tw-p-0">
+            <?php foreach ($dtQuals as $q): ?>
+              <li class="tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-solid tw-border-power/30 tw-bg-peach tw-px-3 tw-py-1.5 tw-text-[0.78rem] tw-font-bold tw-text-ink">
+                <span class="tw-inline-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center tw-rounded-full tw-bg-power tw-text-white" aria-hidden="true">
+                  <svg class="tw-h-2.5 tw-w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
+                </span>
+                <?= $q['label'] ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
 
           <dl class="tw-mx-auto tw-mb-6 tw-grid tw-max-w-[28rem] tw-grid-cols-2 tw-gap-3 tw-text-left">
             <div class="tw-rounded-xl tw-bg-white tw-px-3.5 tw-py-2.5">
@@ -563,6 +640,24 @@ $dtXp = (int) $dtProgress['xp'];
             <a class="<?= $pcBtnGhost ?>" href="<?= $assetPath ?>/driver-certificate?download=1" data-no-pjax>Download certificate</a>
           </div>
           <p data-pc-cert-note class="tw-mb-0 tw-mt-4 tw-text-[0.8rem] tw-text-muted"></p>
+
+          <?php /* Stage 2. Rendered only once the certificate actually exists, which is the same
+                   condition pc_track_unlocked() enforces server-side on every Meet & Greet POST. */ ?>
+          <?php if (!$dtIsMg && $dtMgUnlocked && !pc_track_passed($dtProgress, pc_track(PC_TRACK_MG))): ?>
+            <div class="tw-mt-6 tw-border-0 tw-border-t tw-border-solid tw-border-success/25 tw-pt-6">
+              <span class="tw-mx-auto tw-mb-3 tw-inline-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-2xl tw-bg-ink tw-text-white" aria-hidden="true">
+                <?php pc_dt_icon('plane', 'tw-h-5 tw-w-5'); ?>
+              </span>
+              <h3 class="tw-mb-1.5 tw-text-[1.05rem] tw-font-bold tw-text-ink">Next: Meet &amp; Greet Training</h3>
+              <p class="<?= $pcBodySm ?> tw-mx-auto tw-mb-4 tw-max-w-[40ch]">
+                The airport specialism &mdash; services and bonuses, Dublin Airport meeting points, delays
+                and no-shows. Passing it adds a second badge to this certificate.
+              </p>
+              <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath ?>/driver-training?track=<?= PC_TRACK_MG ?>" data-no-pjax>
+                Start Meet &amp; Greet Training
+              </a>
+            </div>
+          <?php endif; ?>
         </section>
       </div>
     </div>

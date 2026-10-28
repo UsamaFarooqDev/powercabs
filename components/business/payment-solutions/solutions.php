@@ -23,7 +23,7 @@ $paymentSolutions = [
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Let's Save Together and Grow the Business</h2>
       <p class="tw-mb-0 tw-text-ink/60">
         PowerCabs Ireland has joined New Payment Innovation, giving drivers and merchants
-        access to the best, most affordable rates -- straightforward payment solutions
+        access to the best, most affordable rates - straightforward payment solutions
         tailored to your daily needs.
       </p>
     </div>

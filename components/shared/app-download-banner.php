@@ -13,7 +13,7 @@ $storeBadgeClass =
 $storeBadgeEyebrow =
   'tw-block tw-text-[0.6rem] tw-uppercase tw-leading-none tw-tracking-[0.02em] tw-text-white/75 max-[399px]:tw-text-[0.625rem]';
 $storeBadgeTitle =
-  'tw-block tw-text-[0.95rem] tw-font-bold tw-leading-[1.25] tw-text-white max-[399px]:tw-text-[0.72rem]';
+  'tw-block tw-text-[0.98rem] tw-font-medium tw-leading-[1.29] tw-text-white max-[399px]:tw-text-[0.72rem]';
 $storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max-[399px]:tw-w-3.5';
 ?>
 <section class="tw-bg-white <?= $pcSectionTight ?>">

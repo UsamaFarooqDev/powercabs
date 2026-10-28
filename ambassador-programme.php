@@ -5,10 +5,11 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
 $formError  = '';
-$old = ['name' => '', 'email' => '', 'phone' => '', 'affiliated_with' => '', 'registered_with_powercabs' => '', 'license_number' => ''];
+$old = ['name' => '', 'email' => '', 'phone' => '', 'phone_cc' => '', 'affiliated_with' => '', 'registered_with_powercabs' => '', 'license_number' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($old as $key => $default) {
@@ -25,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $body = "New Ambassador Programme registration.\n\n"
               . "Name: {$old['name']}\n"
               . "Email: {$old['email']}\n"
-              . "Phone: {$old['phone']}\n"
+              . "Phone: " . pc_phone_full($old['phone_cc'], $old['phone']) . "\n"
               . "Currently Affiliated With: " . ($old['affiliated_with'] !== '' ? $old['affiliated_with'] : '-') . "\n"
               . "Registered with PowerCabs: {$old['registered_with_powercabs']}\n"
               . "License Number: {$old['license_number']}\n";

@@ -186,6 +186,9 @@ $footerNav = [
 <script src="<?= $assetPath ?>assets/js/components/driver-training.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/driver-training.js',
 ) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/components/phone-field.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/phone-field.js',
+) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/pjax.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/pjax.js',
 ) ?>"></script>

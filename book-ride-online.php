@@ -6,6 +6,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 require __DIR__ . '/lib/fare_calculator.php';
 
 $rideTypeOptions = [
@@ -25,6 +26,7 @@ $old = [
   'name' => '',
   'email' => '',
   'phone' => '',
+  'phone_cc' => '',
   'ride_type' => '',
   'pickup_location' => '',
   'dropoff_location' => '',
@@ -76,7 +78,7 @@ if (
       "New online booking request from the PowerCabs website.\n\n" .
       "Name: {$old['name']}\n" .
       "Email: {$old['email']}\n" .
-      "Phone: {$old['phone']}\n" .
+      "Phone: " . pc_phone_full($old['phone_cc'], $old['phone']) . "\n" .
       "Ride Type: {$old['ride_type']}\n\n" .
       "Pickup Location: {$old['pickup_location']}\n" .
       "Drop-off Location: {$old['dropoff_location']}\n" .
@@ -202,17 +204,23 @@ require __DIR__ . '/components/shared/inner-hero.php';
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brName">Full Name</label>
             <input type="text" class="<?= $inputClass ?>" id="brName" name="name"
-              value="<?= htmlspecialchars($old['name']) ?>" required>
+              value="<?= htmlspecialchars($old['name']) ?>" required placeholder="John Murphy">
           </div>
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brEmail">Email Address</label>
             <input type="email" class="<?= $inputClass ?>" id="brEmail" name="email"
-              value="<?= htmlspecialchars($old['email']) ?>" required>
+              value="<?= htmlspecialchars($old['email']) ?>" required placeholder="you@example.com">
           </div>
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brPhone">Phone Number</label>
-            <input type="tel" class="<?= $inputClass ?>" id="brPhone" name="phone"
-              value="<?= htmlspecialchars($old['phone']) ?>" required>
+            <?php
+            $phoneId = 'brPhone';
+            $phoneValue = $old['phone'];
+            $phoneCcValue = $old['phone_cc'];
+            $phoneClass = $inputClass;
+            $phoneRequired = true;
+            require __DIR__ . '/components/shared/phone-field.php';
+            ?>
           </div>
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brRideType">Ride Type</label>
@@ -228,13 +236,13 @@ require __DIR__ . '/components/shared/inner-hero.php';
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brPickup">Pickup Location</label>
             <input type="text" class="<?= $inputClass ?>" id="brPickup" name="pickup_location"
-              value="<?= htmlspecialchars($old['pickup_location']) ?>" autocomplete="off" required>
+              value="<?= htmlspecialchars($old['pickup_location']) ?>" autocomplete="off" required placeholder="Dublin Airport, Terminal 1">
             <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="brPickupWarning">Please choose a pickup address within Dublin.</div>
           </div>
           <div>
             <label class="pc-required tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink" for="brDropoff">Drop-off Location</label>
             <input type="text" class="<?= $inputClass ?>" id="brDropoff" name="dropoff_location"
-              value="<?= htmlspecialchars($old['dropoff_location']) ?>" autocomplete="off" required>
+              value="<?= htmlspecialchars($old['dropoff_location']) ?>" autocomplete="off" required placeholder="Grafton Street, Dublin 2">
             <div class="tw-hidden tw-mt-1.5 tw-text-sm tw-text-red-600" id="brDropoffWarning">Please choose a drop-off address within Dublin.</div>
           </div>
           <div>
@@ -278,7 +286,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
           <?php if ($formStatus === 'success'): ?>
             <div class="tw-col-span-full">
-              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your booking request has been sent.
+              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your booking request has been sent.
                 We'll confirm shortly.</div>
             </div>
           <?php elseif ($formStatus === 'error'): ?>
@@ -311,7 +319,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
 <?php $bookingBenefits = [
   ['icon' => 'cash', 'title' => 'No Extra Charge', 'desc' => 'No extra charge for pre-booking your ride.'],
-  ['icon' => 'x-circle', 'title' => 'No Cancellation Fee', 'desc' => 'Plans change -- cancel with no extra cost.'],
+  ['icon' => 'x-circle', 'title' => 'No Cancellation Fee', 'desc' => 'Plans change - cancel with no extra cost.'],
   ['icon' => 'calendar', 'title' => 'Book In Advance', 'desc' => 'Schedule your ride well ahead of time.'],
   ['icon' => 'smile', 'title' => 'Hassle-Free', 'desc' => 'A smooth, stress-free journey, start to finish.'],
 ]; ?>

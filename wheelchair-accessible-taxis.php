@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Wheelchair Accessible Taxis in Dublin | PowerCabs';
 $pageDescription =
-  'Wheelchair accessible taxis in Dublin from PowerCabs -- trained drivers, secure wheelchair-ready vehicles and 24/7 availability across Ireland.';
+  'Wheelchair accessible taxis in Dublin from PowerCabs - trained drivers, secure wheelchair-ready vehicles and 24/7 availability across Ireland.';
 $assetPath = '';
 
 $pageService = [

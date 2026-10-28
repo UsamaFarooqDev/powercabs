@@ -5,10 +5,11 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
 $formError  = '';
-$old = ['name' => '', 'email' => '', 'business_name' => '', 'employee_count' => '', 'mobile' => '', 'address' => ''];
+$old = ['name' => '', 'email' => '', 'business_name' => '', 'employee_count' => '', 'mobile' => '', 'mobile_cc' => '', 'address' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($old as $key => $default) {
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               . "Email: {$old['email']}\n"
               . "Business Name: {$old['business_name']}\n"
               . "Number of Employees: " . ($old['employee_count'] !== '' ? $old['employee_count'] : '-') . "\n"
-              . "Mobile: {$old['mobile']}\n"
+              . "Mobile: " . pc_phone_full($old['mobile_cc'], $old['mobile']) . "\n"
               . "Address: " . ($old['address'] !== '' ? $old['address'] : '-') . "\n";
 
         $result = pc_send_mail(
@@ -105,7 +106,7 @@ $corporateServices = [
   <div class="tw-relative <?= $pcContainer ?>">
     <p class="<?= $pcEyebrowOnDark ?>">Our Mission</p>
     <p class="tw-mx-auto tw-mb-0 tw-max-w-[60ch] tw-text-2xl tw-text-white/85">
-      To deliver consistent, memorable corporate travel experiences -- so every client,
+      To deliver consistent, memorable corporate travel experiences - so every client,
       colleague, and guest arrives exactly as your business intends them to: on time,
       comfortable, and impressed.
     </p>

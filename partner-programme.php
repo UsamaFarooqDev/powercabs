@@ -1,11 +1,12 @@
 <?php
 $pageTitle = 'Partner Programme | PowerCabs';
 $pageDescription =
-  'Join the PowerCabs Partner Programme -- taxi operators, fleet owners and transport companies can grow their business on the PowerCabs network.';
+  'Join the PowerCabs Partner Programme - taxi operators, fleet owners and transport companies can grow their business on the PowerCabs network.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
 $formError = '';
@@ -14,6 +15,7 @@ $old = [
   'business_name' => '',
   'email' => '',
   'phone' => '',
+  'phone_cc' => '',
   'fleet_size' => '',
   'city' => '',
   'message' => '',
@@ -42,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       "Name: {$old['name']}\n" .
       "Business Name: {$old['business_name']}\n" .
       "Email: {$old['email']}\n" .
-      "Phone: {$old['phone']}\n" .
+      "Phone: " . pc_phone_full($old['phone_cc'], $old['phone']) . "\n" .
       'Fleet Size: ' .
       ($old['fleet_size'] !== '' ? $old['fleet_size'] : '-') .
       "\n" .

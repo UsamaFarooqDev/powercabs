@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Download the PowerCabs App | Passenger & Driver';
 $pageDescription =
-  'Download the PowerCabs app for Passengers or Drivers -- scan the QR code or get it directly from Google Play and the App Store.';
+  'Download the PowerCabs app for Passengers or Drivers - scan the QR code or get it directly from Google Play and the App Store.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';
@@ -10,7 +10,7 @@ $heroEyebrow = 'Get Started';
 $heroTitleLight = 'Download the';
 $heroTitleBold = 'PowerCabs App.';
 $heroDescription =
-  'Everything you need is in the app -- book a ride in seconds as a passenger, or apply and start earning as a driver. Scan a QR code below or grab it from your app store.';
+  'Everything you need is in the app - book a ride in seconds as a passenger, or apply and start earning as a driver. Scan a QR code below or grab it from your app store.';
 $heroBgImage = 'https://images.pexels.com/photos/5678243/pexels-photo-5678243.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroVariant = 'split';
 $heroImageAlt = 'The PowerCabs app open on a phone';

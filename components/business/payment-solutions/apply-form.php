@@ -111,11 +111,11 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
 
         <div>
           <label class="pc-required <?= $labelClass ?>" for="paAccountName">Account Name</label>
-          <input type="text" class="<?= $inputClass ?>" id="paAccountName" name="account_name" value="<?= htmlspecialchars($old['account_name']) ?>" required>
+          <input type="text" class="<?= $inputClass ?>" id="paAccountName" name="account_name" value="<?= htmlspecialchars($old['account_name']) ?>" required placeholder="Name on the account">
         </div>
         <div>
           <label class="pc-required <?= $labelClass ?>" for="paBank">Bank</label>
-          <input type="text" class="<?= $inputClass ?>" id="paBank" name="bank" value="<?= htmlspecialchars($old['bank']) ?>" required>
+          <input type="text" class="<?= $inputClass ?>" id="paBank" name="bank" value="<?= htmlspecialchars($old['bank']) ?>" required placeholder="Bank of Ireland">
         </div>
 
         <div>
@@ -149,7 +149,7 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
 
         <?php if ($formStatus === 'success'): ?>
           <div class="md:tw-col-span-2">
-            <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your application has been sent. Our team will be in touch shortly.</div>
+            <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your application has been sent. Our team will be in touch shortly.</div>
           </div>
         <?php elseif ($formStatus === 'error'): ?>
           <div class="md:tw-col-span-2">

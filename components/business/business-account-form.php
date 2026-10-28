@@ -15,31 +15,38 @@ $submitClass = $pcBtnPrimary;
   <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
     <div>
       <label class="<?= $labelClass ?> pc-required" for="baContactName">Contact Name</label>
-      <input type="text" class="<?= $inputClass ?>" id="baContactName" name="contact_name" value="<?= htmlspecialchars($old['contact_name']) ?>" required>
+      <input type="text" class="<?= $inputClass ?>" id="baContactName" name="contact_name" value="<?= htmlspecialchars($old['contact_name']) ?>" required placeholder="John Murphy">
     </div>
     <div>
       <label class="<?= $labelClass ?> pc-required" for="baBusinessName">Business Name</label>
-      <input type="text" class="<?= $inputClass ?>" id="baBusinessName" name="business_name" value="<?= htmlspecialchars($old['business_name']) ?>" required>
+      <input type="text" class="<?= $inputClass ?>" id="baBusinessName" name="business_name" value="<?= htmlspecialchars($old['business_name']) ?>" required placeholder="Acme Ltd">
     </div>
     <div>
       <label class="<?= $labelClass ?> pc-required" for="baBusinessEmail">Business Email</label>
-      <input type="email" class="<?= $inputClass ?>" id="baBusinessEmail" name="business_email" value="<?= htmlspecialchars($old['business_email']) ?>" required>
+      <input type="email" class="<?= $inputClass ?>" id="baBusinessEmail" name="business_email" value="<?= htmlspecialchars($old['business_email']) ?>" required placeholder="accounts@yourcompany.ie">
     </div>
     <div>
       <label class="<?= $labelClass ?> pc-required" for="baPhone">Phone Number</label>
-      <input type="tel" class="<?= $inputClass ?>" id="baPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
+      <?php
+      $phoneId = 'baPhone';
+      $phoneValue = $old['phone'];
+      $phoneCcValue = $old['phone_cc'];
+      $phoneClass = $inputClass;
+      $phoneRequired = true;
+      require __DIR__ . '/../../components/shared/phone-field.php';
+      ?>
     </div>
     <div>
       <label class="<?= $labelClass ?>" for="baVatNumber">VAT / Tax Number</label>
-      <input type="text" class="<?= $inputClass ?>" id="baVatNumber" name="vat_number" value="<?= htmlspecialchars($old['vat_number']) ?>">
+      <input type="text" class="<?= $inputClass ?>" id="baVatNumber" name="vat_number" value="<?= htmlspecialchars($old['vat_number']) ?>" placeholder="IE1234567A">
     </div>
     <div>
       <label class="<?= $labelClass ?>" for="baEmployeeCount">Number of Employees</label>
-      <input type="number" min="1" class="<?= $inputClass ?>" id="baEmployeeCount" name="employee_count" value="<?= htmlspecialchars($old['employee_count']) ?>">
+      <input type="number" min="1" class="<?= $inputClass ?>" id="baEmployeeCount" name="employee_count" value="<?= htmlspecialchars($old['employee_count']) ?>" placeholder="25">
     </div>
     <div class="md:tw-col-span-2">
       <label class="<?= $labelClass ?>" for="baMessage">Additional Details <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
-      <textarea class="<?= $inputClass ?> tw-resize-y" id="baMessage" name="message" rows="3"><?= htmlspecialchars($old['message']) ?></textarea>
+      <textarea class="<?= $inputClass ?> tw-resize-y" id="baMessage" name="message" rows="3" placeholder="Tell us how your team travels and what you need"><?= htmlspecialchars($old['message']) ?></textarea>
     </div>
 
     <div class="tw-pt-2 md:tw-col-span-2">
@@ -50,7 +57,7 @@ $submitClass = $pcBtnPrimary;
     </div>
 
     <?php if ($formStatus === 'success'): ?>
-      <div class="md:tw-col-span-2"><div class="alert-success tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your request has been sent. Our Business Team will be in touch shortly.</div></div>
+      <div class="md:tw-col-span-2"><div class="alert-success tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your request has been sent. Our Business Team will be in touch shortly.</div></div>
     <?php elseif ($formStatus === 'error'): ?>
       <div class="md:tw-col-span-2"><div class="alert-danger tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($formError) ?></div></div>
     <?php endif; ?>

@@ -1,6 +1,6 @@
 <?php
 $pageTitle       = 'Sustainability & Environmental Policy | PowerCabs';
-$pageDescription = "PowerCabs's commitment to eco-friendly design and digital solutions -- remote-first working, paperless operations, and 100% renewable-energy hosting.";
+$pageDescription = "PowerCabs's commitment to eco-friendly design and digital solutions - remote-first working, paperless operations, and 100% renewable-energy hosting.";
 $assetPath       = '';
 
 $pageBreadcrumb = ['Sustainability' => '/sustainability'];

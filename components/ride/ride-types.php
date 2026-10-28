@@ -21,7 +21,7 @@ $rideTypes = [
   [
     'img'   => 'Limousine.png',
     'title' => 'Limousine',
-    'desc'  => 'Arrive in style with a premium, chauffeur-driven experience -- perfect for special occasions and VIP travel.',
+    'desc'  => 'Arrive in style with a premium, chauffeur-driven experience - perfect for special occasions and VIP travel.',
     'specs' => [
       ['icon' => 'gem', 'label' => 'Luxury Experience'],
     ],
@@ -61,7 +61,7 @@ $rideTypes = [
   [
     'img'   => 'business-xl.png',
     'title' => 'Business XL',
-    'desc'  => 'The business experience with extra room -- ideal for executive teams and groups travelling together.',
+    'desc'  => 'The business experience with extra room - ideal for executive teams and groups travelling together.',
     'specs' => [
       ['icon' => 'people', 'label' => '7 Seats'],
       ['icon' => 'briefcase', 'label' => 'Premium XL'],

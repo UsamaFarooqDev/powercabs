@@ -44,7 +44,7 @@ $p10Reveal =
             <div class="tw-relative tw-z-[1] tw-aspect-square tw-overflow-hidden tw-rounded-[clamp(1.25rem,3vw,2rem)] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
               <img
                 src="https://img.magnific.com/free-vector/special-promo-code-get-10-percent-off_1017-53815.jpg?semt=ais_hybrid&w=740&q=80"
-                alt="Power10 promotional graphic -- use promo code POWER10 to get 10% off your PowerCabs ride"
+                alt="Power10 promotional graphic - use promo code POWER10 to get 10% off your PowerCabs ride"
                 class="tw-block tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy" width="740" height="740">
             </div>
             <span class="tw-absolute tw-bottom-[-1rem] tw-left-4 tw-z-[2] tw-inline-flex tw-items-center tw-gap-2 tw-rounded-full tw-bg-white tw-px-[0.9rem] tw-py-2 tw-text-[0.76rem] tw-font-bold tw-text-ink tw-shadow-[0_24px_48px_rgba(232,89,12,0.14)]">

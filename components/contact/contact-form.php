@@ -47,27 +47,33 @@ $submitClass = $pcBtnPrimary;
           <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
             <div>
               <label class="<?= $labelClass ?>" for="cuFirstName">First Name</label>
-              <input type="text" class="<?= $inputClass ?>" id="cuFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cuFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>" placeholder="John">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cuLastName">Last Name</label>
-              <input type="text" class="<?= $inputClass ?>" id="cuLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cuLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>" placeholder="Murphy">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="cuEmail">Email Address</label>
-              <input type="email" class="<?= $inputClass ?>" id="cuEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
+              <input type="email" class="<?= $inputClass ?>" id="cuEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required placeholder="you@example.com">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cuPhone">Phone Number</label>
-              <input type="tel" class="<?= $inputClass ?>" id="cuPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>">
+              <?php
+              $phoneId = 'cuPhone';
+              $phoneValue = $old['phone'];
+              $phoneCcValue = $old['phone_cc'];
+              $phoneClass = $inputClass;
+              require __DIR__ . '/../shared/phone-field.php';
+              ?>
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?>" for="cuSubject">Subject</label>
-              <input type="text" class="<?= $inputClass ?>" id="cuSubject" name="subject" value="<?= htmlspecialchars($old['subject']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cuSubject" name="subject" value="<?= htmlspecialchars($old['subject']) ?>" placeholder="What is your message about?">
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?> pc-required" for="cuMessage">Message</label>
-              <textarea class="<?= $inputClass ?> tw-resize-y" id="cuMessage" name="message" rows="3" required><?= htmlspecialchars($old['message']) ?></textarea>
+              <textarea class="<?= $inputClass ?> tw-resize-y" id="cuMessage" name="message" rows="3" required placeholder="How can we help?"><?= htmlspecialchars($old['message']) ?></textarea>
             </div>
             <div class="tw-pt-1 md:tw-col-span-2">
               <button type="submit" class="<?= $submitClass ?>">
@@ -77,7 +83,7 @@ $submitClass = $pcBtnPrimary;
             </div>
 
             <?php if ($formStatus === 'success'): ?>
-              <div class="md:tw-col-span-2"><div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your message has been sent. We'll get back to you shortly.</div></div>
+              <div class="md:tw-col-span-2"><div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your message has been sent. We'll get back to you shortly.</div></div>
             <?php elseif ($formStatus === 'error'): ?>
               <div class="md:tw-col-span-2"><div class="alert-danger tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($formError) ?></div></div>
             <?php endif; ?>

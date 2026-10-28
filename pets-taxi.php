@@ -18,6 +18,11 @@ $petFaqs = [
       'Yes, subject to suitable driver and vehicle availability. Select Pets Taxi when you book. Cats should normally travel in a suitable, secure carrier.',
   ],
   [
+    'q' => 'Is there a charge for travelling with a pet?',
+    'a' =>
+      'Yes. A pet charge applies according to the size of your animal: €3 Small, €5 Medium, €7 Large. Assistance dogs and other legally protected assistance animals are not pet journeys and are not subject to the pet charge.',
+  ],
+  [
     'q' => 'Are all PowerCabs taxis pet-friendly?',
     'a' =>
       'No. Not every driver accepts pets, so you must select Pets Taxi. That is what lets the app match your request with a driver who accepts pet bookings.',
@@ -35,7 +40,7 @@ $petFaqs = [
   [
     'q' => 'Can I travel with more than one pet or a large dog?',
     'a' =>
-      'It depends on vehicle and driver availability, the size and number of pets, and how many passengers are travelling. Advance coordination may be necessary, and charges can vary by booking and vehicle.',
+      'It depends on vehicle and driver availability, the size and number of pets, and how many passengers are travelling. Advance coordination may be necessary. The pet charge follows the size of the animal — €3 Small, €5 Medium, €7 Large — and other charges can vary by booking and vehicle.',
   ],
   [
     'q' => 'What if my driver cancels?',
@@ -141,7 +146,7 @@ $petTrust = [
           <?php foreach (
             [
               'Travelling for the first time? Contact us to register your pet\'s details and confirm whether your requirements can be accommodated.',
-              'Medium and large pets, multiple pets and larger groups may need advance coordination, and charges can vary by booking and vehicle.',
+              'Medium and large pets, multiple pets and larger groups may need advance coordination. The pet charge is €3 Small, €5 Medium and €7 Large.',
               'A specific driver or vehicle cannot be guaranteed. Review the applicable fare and availability before you confirm.',
             ]
             as $point

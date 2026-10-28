@@ -141,15 +141,22 @@ $rideChoicePoints = [
 
         <div class="tw-mb-4">
           <label class="<?= $labelClass ?>" for="rfModalName">Full Name</label>
-          <input type="text" class="<?= $inputClass ?>" id="rfModalName" name="name" required>
+          <input type="text" class="<?= $inputClass ?>" id="rfModalName" name="name" required placeholder="John Murphy">
         </div>
         <div class="tw-mb-4">
           <label class="<?= $labelClass ?>" for="rfModalEmail">Email Address</label>
-          <input type="email" class="<?= $inputClass ?>" id="rfModalEmail" name="email" required>
+          <input type="email" class="<?= $inputClass ?>" id="rfModalEmail" name="email" required placeholder="you@example.com">
         </div>
         <div class="tw-mb-6">
           <label class="<?= $labelClass ?>" for="rfModalPhone">Phone Number</label>
-          <input type="tel" class="<?= $inputClass ?>" id="rfModalPhone" name="phone" required>
+          <?php
+          $phoneId = 'rfModalPhone';
+          $phoneValue = '';
+          $phoneCcValue = '';
+          $phoneClass = $inputClass;
+          $phoneRequired = true;
+          require __DIR__ . '/../../components/shared/phone-field.php';
+          ?>
         </div>
 
         <div class="tw-mb-6">
@@ -182,7 +189,7 @@ $rideChoicePoints = [
         </button>
 
         <?php if ($quickBookFormStatus === 'success'): ?>
-          <div class="alert-success tw-mb-0 tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your booking request has been sent. We'll confirm shortly.</div>
+          <div class="alert-success tw-mb-0 tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your booking request has been sent. We'll confirm shortly.</div>
         <?php elseif ($quickBookFormStatus === 'error'): ?>
           <div class="alert-danger tw-mb-0 tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($quickBookFormError) ?></div>
         <?php endif; ?>

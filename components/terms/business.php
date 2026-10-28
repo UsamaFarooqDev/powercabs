@@ -226,6 +226,8 @@ $termsBody = <<<'PCTERMS'
           <li>another pricing structure expressly agreed with the business.</li>
         </ul>
         <p>The applicable booking confirmation or corporate agreement will determine the pricing method.</p>
+        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Pay Per Hour bookings</h3>
+        <p>Where a journey is booked as Pay Per Hour, the vehicle and driver are hired by time rather than by distance, at €45 per hour for a small, regular or economy car and €50 per hour for a large or XL car, unless a different corporate rate has been agreed.</p>
 
         <h2 id="b-14" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">14. Metered Journeys</h2>
         <p>Where a taxi journey is legally required or agreed to be metered, the applicable taximeter determines the final fare.</p>
@@ -276,11 +278,11 @@ $termsBody = <<<'PCTERMS'
         <p>where disclosed and applicable.</p>
 
         <h2 id="b-19" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">19. Waiting Time</h2>
-        <p>Unless otherwise agreed:</p>
+        <p>Unless otherwise agreed, the free waiting period is:</p>
         <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
-          <li>standard booking waiting: 5 minutes;</li>
-          <li>airport waiting: 10 minutes;</li>
-          <li>Meet &amp; Greet waiting: 15 minutes.</li>
+          <li>regular booking: 3 minutes;</li>
+          <li>airport, Meet &amp; Greet and preorder booking: 10 minutes;</li>
+          <li>Premium and First Class Meet &amp; Greet: 15 minutes.</li>
         </ul>
         <p>Additional waiting charges may apply after the applicable free waiting period.</p>
 
@@ -445,6 +447,8 @@ $termsBody = <<<'PCTERMS'
         <p>Pet transportation is subject to availability and driver acceptance.</p>
         <p>The business or passenger must disclose the pet when booking.</p>
         <p>Assistance animals will be dealt with according to applicable law.</p>
+
+        <p>A pet charge applies according to the size of the animal: €3 small, €5 medium, €7 large. Assistance animals are not pet bookings and are not subject to the pet charge.</p>
 
         <h2 id="b-36" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">36. Pet Soiling</h2>
         <p>Where a pet causes substantial vehicle soiling or contamination, a €140 cleaning/soiling charge may apply.</p>
@@ -743,9 +747,12 @@ $termsBody = <<<'PCTERMS'
           <li>Businesses are responsible for authorised users.</li>
           <li>€3 booking fee may apply.</li>
           <li>€0.50 electronic payment fee may apply.</li>
-          <li>Standard waiting: 5 minutes.</li>
-          <li>Airport waiting: 10 minutes.</li>
-          <li>Meet &amp; Greet waiting: 15 minutes.</li>
+          <li>Regular waiting: 3 minutes.</li>
+          <li>Airport, Meet &amp; Greet and preorder waiting: 10 minutes.</li>
+          <li>Premium and First Class Meet &amp; Greet waiting: 15 minutes.</li>
+          <li>Pet charge: €3 small, €5 medium, €7 large.</li>
+          <li>Pay Per Hour: €45 per hour small/regular/economy, €50 per hour large/XL.</li>
+          <li>M50 and Toll Tunnel must be pre-approved before the ride starts.</li>
           <li>Standard no-show charge may be €5.</li>
           <li>Airport cancellation should normally be made at least 1 hour before pickup.</li>
           <li>Meet &amp; Greet cancellation more than 4 hours before pickup may qualify for a refund.</li>

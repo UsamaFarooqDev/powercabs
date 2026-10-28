@@ -57,25 +57,30 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
               <label class="<?= $labelClass ?> pc-required" for="ptName">Name</label>
               <input type="text" class="<?= $inputClass ?>" id="ptName" name="name" value="<?= htmlspecialchars(
                 $old['name'],
-              ) ?>" required>
+              ) ?>" required placeholder="John Murphy">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="ptPhone">Phone</label>
-              <input type="tel" class="<?= $inputClass ?>" id="ptPhone" name="phone" value="<?= htmlspecialchars(
-                $old['phone'],
-              ) ?>" required>
+              <?php
+              $phoneId = 'ptPhone';
+              $phoneValue = $old['phone'];
+              $phoneCcValue = $old['phone_cc'];
+              $phoneClass = $inputClass;
+              $phoneRequired = true;
+              require __DIR__ . '/../../components/shared/phone-field.php';
+              ?>
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="ptEmail">Email Address</label>
               <input type="email" class="<?= $inputClass ?>" id="ptEmail" name="email" value="<?= htmlspecialchars(
                 $old['email'],
-              ) ?>" required>
+              ) ?>" required placeholder="you@example.com">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="ptBusinessName">Business Name</label>
               <input type="text" class="<?= $inputClass ?>" id="ptBusinessName" name="business_name" value="<?= htmlspecialchars(
                 $old['business_name'],
-              ) ?>" required>
+              ) ?>" required placeholder="Acme Ltd">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="ptFleetSize">Fleet Size <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
@@ -87,7 +92,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
               <label class="<?= $labelClass ?> pc-required" for="ptCity">City</label>
               <input type="text" class="<?= $inputClass ?>" id="ptCity" name="city" value="<?= htmlspecialchars(
                 $old['city'],
-              ) ?>" required>
+              ) ?>" required placeholder="Dublin">
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?>" for="ptMessage">Tell Us About Your Fleet <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
@@ -104,7 +109,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full';
             </div>
 
             <?php if ($formStatus === 'success'): ?>
-              <div class="md:tw-col-span-2"><div class="alert-success tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-green-200 tw-bg-green-50 tw-px-4 tw-py-3 tw-text-sm tw-text-green-800" role="alert">Thanks -- your enquiry has been sent. Our team will be in touch shortly.</div></div>
+              <div class="md:tw-col-span-2"><div class="alert-success tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-green-200 tw-bg-green-50 tw-px-4 tw-py-3 tw-text-sm tw-text-green-800" role="alert">Thanks - your enquiry has been sent. Our team will be in touch shortly.</div></div>
             <?php elseif ($formStatus === 'error'): ?>
               <div class="md:tw-col-span-2"><div class="alert-danger tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-text-red-800" role="alert"><?= htmlspecialchars(
                 $formError,

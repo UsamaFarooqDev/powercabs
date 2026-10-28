@@ -10,7 +10,7 @@
       One Network. Every Vehicle Working Harder.
     </h2>
     <p class="tw-mx-auto tw-mb-0 tw-max-w-[54ch] tw-text-[1.15rem] tw-text-white/[0.88]">
-      Every partner who joins adds capacity to the whole network -- more bookings
+      Every partner who joins adds capacity to the whole network - more bookings
       reach your vehicles, and more passengers get a reliable ride.
     </p>
   </div>

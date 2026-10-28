@@ -294,7 +294,7 @@ $megaCtaGhost =
               </li>
           </ul>
 
-          <a class="tw-mt-2 tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-px-5 tw-py-3 tw-text-[0.95rem] tw-font-semibold tw-text-white tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30 lg:tw-hidden"
+          <a class="tw-mt-2 tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-px-5 tw-py-3 tw-text-[0.95rem] tw-font-medium tw-text-white tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30 lg:tw-hidden"
             href="<?= $assetPath ?>/book-ride-online">
             <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -304,7 +304,7 @@ $megaCtaGhost =
 
         </div>
         <div class="tw-flex tw-shrink-0 tw-items-center tw-gap-2">
-          <a class="tw-group tw-hidden lg:tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-text-white tw-text-[0.86rem] tw-font-semibold tw-tracking-[-0.01em] tw-px-5 tw-py-2.5 tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30"
+          <a class="tw-group tw-hidden lg:tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-text-white tw-text-[0.86rem] tw-font-medium tw-tracking-[-0.01em] tw-px-5 tw-py-2.5 tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30"
               href="<?= $assetPath ?>/book-ride-online">
               <svg class="tw-w-4 tw-h-4 tw-shrink-0 tw-hidden sm:tw-block" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>

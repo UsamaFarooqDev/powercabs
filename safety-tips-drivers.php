@@ -27,7 +27,7 @@ $beforeRide = [
     'icon' => 'wrench',
     'title' => 'Keep Your Vehicle in Good Condition',
     'desc' =>
-      'Regularly inspect and maintain your vehicle -- brakes, tires, lights, and other essential safety components.',
+      'Regularly inspect and maintain your vehicle - brakes, tires, lights, and other essential safety components.',
   ],
   [
     'icon' => 'signpost',

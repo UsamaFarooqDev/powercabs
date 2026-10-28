@@ -1,10 +1,11 @@
 <?php
 $pageTitle       = 'Complaint Form | PowerCabs';
-$pageDescription = 'Let us know if something went wrong on a recent PowerCabs journey -- we take every complaint seriously and follow up quickly.';
+$pageDescription = 'Let us know if something went wrong on a recent PowerCabs journey - we take every complaint seriously and follow up quickly.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $criminalCategories = [
     'Lost property in a small public service vehicle',
@@ -27,7 +28,7 @@ $formStatus = null;
 $formError  = '';
 $old = [
     'service_type' => 'Taxi / Wheelchair Accessible Taxi', 'complaint_category' => '',
-    'first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'postal_address' => '',
+    'first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'phone_cc' => '', 'postal_address' => '',
     'pickup_location' => '', 'destination_location' => '', 'journey_date' => '', 'journey_time' => '', 'passengers' => '',
     'vehicle_licence_number' => '', 'driver_name' => '', 'driver_licence_number' => '', 'vehicle_registration_number' => '', 'vehicle_make_model' => '',
     'dispatch_name' => '', 'method_of_booking' => '', 'contact_information' => '', 'date_of_booking' => '', 'time_of_booking' => '',
@@ -105,7 +106,7 @@ $formStatus = 'error';
                   . "-- Contact Details --\n"
                   . "Name: {$old['first_name']} {$old['last_name']}\n"
                   . "Email: {$old['email']}\n"
-                  . "Phone: {$old['phone']}\n"
+                  . "Phone: " . pc_phone_full($old['phone_cc'], $old['phone']) . "\n"
                   . "Postal Address: " . ($old['postal_address'] !== '' ? $old['postal_address'] : '-') . "\n\n"
                   . "-- Journey Details --\n"
                   . "Pickup Location: {$old['pickup_location']}\n"
@@ -245,34 +246,41 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         <div class="tw-mb-4 tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
           <div>
             <label class="<?= $labelClass ?>" for="cfFirstName">First Name</label>
-            <input type="text" class="<?= $inputClass ?>" id="cfFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>">
+            <input type="text" class="<?= $inputClass ?>" id="cfFirstName" name="first_name" value="<?= htmlspecialchars($old['first_name']) ?>" placeholder="John">
           </div>
           <div>
             <label class="<?= $labelClass ?>" for="cfLastName">Last Name</label>
-            <input type="text" class="<?= $inputClass ?>" id="cfLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>">
+            <input type="text" class="<?= $inputClass ?>" id="cfLastName" name="last_name" value="<?= htmlspecialchars($old['last_name']) ?>" placeholder="Murphy">
           </div>
           <div>
             <label class="<?= $labelClass ?> pc-required" for="cfEmail">Email</label>
-            <input type="email" class="<?= $inputClass ?>" id="cfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
+            <input type="email" class="<?= $inputClass ?>" id="cfEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required placeholder="you@example.com">
           </div>
           <div>
             <label class="<?= $labelClass ?> pc-required" for="cfPhone">Phone / Mobile</label>
-            <input type="tel" class="<?= $inputClass ?>" id="cfPhone" name="phone" value="<?= htmlspecialchars($old['phone']) ?>" required>
+            <?php
+            $phoneId = 'cfPhone';
+            $phoneValue = $old['phone'];
+            $phoneCcValue = $old['phone_cc'];
+            $phoneClass = $inputClass;
+            $phoneRequired = true;
+            require __DIR__ . '/components/shared/phone-field.php';
+            ?>
           </div>
           <div class="md:tw-col-span-2">
             <label class="<?= $labelClass ?>" for="cfPostalAddress">Postal Address</label>
-            <input type="text" class="<?= $inputClass ?>" id="cfPostalAddress" name="postal_address" value="<?= htmlspecialchars($old['postal_address']) ?>">
+            <input type="text" class="<?= $inputClass ?>" id="cfPostalAddress" name="postal_address" value="<?= htmlspecialchars($old['postal_address']) ?>" placeholder="12 Kylmore Road, Inchicore, Dublin 10">
           </div>
         </div>
 
         <div class="tw-mb-6 tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2 lg:tw-grid-cols-3">
           <div>
             <label class="<?= $labelClass ?> pc-required" for="cfPickup">Pickup Location</label>
-            <input type="text" class="<?= $inputClass ?>" id="cfPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
+            <input type="text" class="<?= $inputClass ?>" id="cfPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required placeholder="Dublin Airport, Terminal 1">
           </div>
           <div>
             <label class="<?= $labelClass ?> pc-required" for="cfDestination">Destination Location</label>
-            <input type="text" class="<?= $inputClass ?>" id="cfDestination" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>" required>
+            <input type="text" class="<?= $inputClass ?>" id="cfDestination" name="destination_location" value="<?= htmlspecialchars($old['destination_location']) ?>" required placeholder="Grafton Street, Dublin 2">
           </div>
           <div>
             <label class="<?= $labelClass ?> pc-required" for="cfDate">Date</label>
@@ -284,7 +292,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           </div>
           <div>
             <label class="<?= $labelClass ?>" for="cfPassengers">Number of Passengers</label>
-            <input type="number" min="1" class="<?= $inputClass ?>" id="cfPassengers" name="passengers" value="<?= htmlspecialchars($old['passengers']) ?>">
+            <input type="number" min="1" class="<?= $inputClass ?>" id="cfPassengers" name="passengers" value="<?= htmlspecialchars($old['passengers']) ?>" placeholder="2">
           </div>
           <div class="md:tw-col-span-2 lg:tw-col-span-1">
             <label class="<?= $labelClass ?> pc-required" for="cfReceipt">Upload Receipt</label>
@@ -298,23 +306,23 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
             <div>
               <label class="<?= $labelClass ?>" for="cfVehicleLicence">Vehicle Licence Number</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfVehicleLicence" name="vehicle_licence_number" value="<?= htmlspecialchars($old['vehicle_licence_number']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfVehicleLicence" name="vehicle_licence_number" value="<?= htmlspecialchars($old['vehicle_licence_number']) ?>" placeholder="SPSV vehicle licence number">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfDriverName">Driver Name</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfDriverName" name="driver_name" value="<?= htmlspecialchars($old['driver_name']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfDriverName" name="driver_name" value="<?= htmlspecialchars($old['driver_name']) ?>" placeholder="Name on the driver ID">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfDriverLicence">Driver Licence Number</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfDriverLicence" name="driver_licence_number" value="<?= htmlspecialchars($old['driver_licence_number']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfDriverLicence" name="driver_licence_number" value="<?= htmlspecialchars($old['driver_licence_number']) ?>" placeholder="Driver SPSV licence number">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfVehicleReg">Vehicle Registration Number</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfVehicleReg" name="vehicle_registration_number" value="<?= htmlspecialchars($old['vehicle_registration_number']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfVehicleReg" name="vehicle_registration_number" value="<?= htmlspecialchars($old['vehicle_registration_number']) ?>" placeholder="12-D-34567">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfVehicleMakeModel">Vehicle Make / Model</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfVehicleMakeModel" name="vehicle_make_model" value="<?= htmlspecialchars($old['vehicle_make_model']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfVehicleMakeModel" name="vehicle_make_model" value="<?= htmlspecialchars($old['vehicle_make_model']) ?>" placeholder="Toyota Prius">
             </div>
           </div>
         </div>
@@ -324,15 +332,15 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2 lg:tw-grid-cols-3">
             <div>
               <label class="<?= $labelClass ?>" for="cfDispatchName">Name</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfDispatchName" name="dispatch_name" value="<?= htmlspecialchars($old['dispatch_name']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfDispatchName" name="dispatch_name" value="<?= htmlspecialchars($old['dispatch_name']) ?>" placeholder="Name of the person you spoke to">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfMethodBooking">Method of Booking</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfMethodBooking" name="method_of_booking" value="<?= htmlspecialchars($old['method_of_booking']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfMethodBooking" name="method_of_booking" value="<?= htmlspecialchars($old['method_of_booking']) ?>" placeholder="App, phone, website or WhatsApp">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfContactInfo">Contact Information</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfContactInfo" name="contact_information" value="<?= htmlspecialchars($old['contact_information']) ?>">
+              <input type="text" class="<?= $inputClass ?>" id="cfContactInfo" name="contact_information" value="<?= htmlspecialchars($old['contact_information']) ?>" placeholder="The phone or email you booked with">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="cfDateBooking">Date of Booking</label>
@@ -351,11 +359,11 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           <div class="tw-grid tw-grid-cols-1 tw-gap-3 md:tw-grid-cols-2">
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?> pc-required" for="cfExperienceDescription">Describe Your Experience</label>
-              <textarea class="<?= $inputClass ?> tw-resize-y" id="cfExperienceDescription" name="experience_description" rows="4" required><?= htmlspecialchars($old['experience_description']) ?></textarea>
+              <textarea class="<?= $inputClass ?> tw-resize-y" id="cfExperienceDescription" name="experience_description" rows="4" required placeholder="Tell us what happened, with as much detail as you can"><?= htmlspecialchars($old['experience_description']) ?></textarea>
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="cfExperienceName">Your Name</label>
-              <input type="text" class="<?= $inputClass ?>" id="cfExperienceName" name="experience_name" value="<?= htmlspecialchars($old['experience_name']) ?>" required>
+              <input type="text" class="<?= $inputClass ?>" id="cfExperienceName" name="experience_name" value="<?= htmlspecialchars($old['experience_name']) ?>" required placeholder="Name of the driver or staff member">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="cfExperienceDate">Date</label>
@@ -380,7 +388,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
       </div>
 
       <?php if ($formStatus === 'success'): ?>
-        <div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your complaint has been sent. Our support team will review it and follow up.</div>
+        <div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your complaint has been sent. Our support team will review it and follow up.</div>
       <?php elseif ($formStatus === 'error'): ?>
         <div class="alert-danger tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars($formError) ?></div>
       <?php endif; ?>

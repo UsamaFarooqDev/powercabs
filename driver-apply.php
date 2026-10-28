@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 require __DIR__ . '/includes/supabase.php';
 
 session_start();
@@ -78,7 +79,9 @@ $action = pc_app_field('action', 20);
 if ($action === 'start') {
   $name = pc_app_field('full_name', 120);
   $email = mb_strtolower(pc_app_field('email', 160));
-  $phone = pc_app_field('phone', 40);
+  // Store the number already joined to its dial code; nothing downstream has to know
+  // the two halves were posted separately.
+  $phone = pc_phone_full(pc_app_field('phone_cc', 8), pc_app_field('phone', 40));
   $referral = pc_app_field('referral', 40);
 
   if ($name === '' || $email === '' || $phone === '') {
@@ -134,7 +137,7 @@ if ($action === 'start') {
 if ($action === 'verify') {
   $state = pc_app_state();
   if (empty($state['otp_hash'])) {
-    pc_app_fail('Start the application again -- we have no code on file.');
+    pc_app_fail('Start the application again - we have no code on file.');
   }
   if (time() - (int) $state['otp_sent_at'] > PC_APP_OTP_TTL) {
     pc_app_fail('That code has expired. Request a new one.');
@@ -307,7 +310,7 @@ pc_sb_auth_delete_user((string) $account['id']);
       ($expiry !== '' ? "Licence expiry: {$expiry}\n" : '') .
       (!empty($row['referred_by_code']) ? "Referred by: {$row['referred_by_code']}\n" : '') .
       'Preferences: ' . ($prefs ? implode(', ', $prefs) : 'none selected') . "\n\n" .
-      "Status: pending -- all six documents were uploaded and are on the driver record in Supabase.\n",
+      "Status: pending - all six documents were uploaded and are on the driver record in Supabase.\n",
     ['name' => $row['full_name'], 'email' => $row['email']]
   );
 

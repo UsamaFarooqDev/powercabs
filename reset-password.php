@@ -39,7 +39,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
           <label class="<?= $labelClass ?>" for="pcResetNew">New Password</label>
           <div class="tw-relative">
             <input type="password" class="<?= $inputClass ?>" id="pcResetNew" name="password" autocomplete="new-password"
-              minlength="8" required>
+              minlength="8" required placeholder="At least 8 characters">
             <button type="button" class="pc-reset-toggle tw-absolute tw-right-1 tw-top-1/2 tw-flex tw-h-8 tw-w-8 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-transparent tw-text-ink/50 tw-transition-colors tw-duration-200 hover:tw-bg-paper hover:tw-text-power" data-target="pcResetNew" aria-label="Show password">
               <svg class="pc-icon tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.13 13.13 0 011.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0114.828 8a13.13 13.13 0 01-1.66 2.043C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 011.172 8z"/><path d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
             </button>
@@ -50,7 +50,7 @@ $submitClass = $pcBtnPrimary . ' tw-w-full disabled:tw-pointer-events-none';
           <label class="<?= $labelClass ?>" for="pcResetConfirm">Confirm New Password</label>
           <div class="tw-relative">
             <input type="password" class="<?= $inputClass ?>" id="pcResetConfirm" name="password_confirm"
-              autocomplete="new-password" minlength="8" required>
+              autocomplete="new-password" minlength="8" required placeholder="Re-enter your new password">
             <button type="button" class="pc-reset-toggle tw-absolute tw-right-1 tw-top-1/2 tw-flex tw-h-8 tw-w-8 -tw-translate-y-1/2 tw-appearance-none tw-items-center tw-justify-center tw-rounded-full tw-border-0 tw-bg-transparent tw-text-ink/50 tw-transition-colors tw-duration-200 hover:tw-bg-paper hover:tw-text-power" data-target="pcResetConfirm" aria-label="Show password">
               <svg class="pc-icon tw-h-4 tw-w-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.13 13.13 0 011.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0114.828 8a13.13 13.13 0 01-1.66 2.043C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 011.172 8z"/><path d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
             </button>

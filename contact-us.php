@@ -1,15 +1,16 @@
 <?php
 $pageTitle       = 'Contact Us | PowerCabs';
 
-$pageDescription = 'Contact the PowerCabs team in Dublin by phone, email or message -- ride support, lost property, complaints and business account enquiries.';
+$pageDescription = 'Contact the PowerCabs team in Dublin by phone, email or message - ride support, lost property, complaints and business account enquiries.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null; 
 $formError  = '';
-$old = ['first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'subject' => '', 'message' => ''];
+$old = ['first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'phone_cc' => '', 'subject' => '', 'message' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($old as $key => $default) {
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $body = "New contact form submission from the PowerCabs website.\n\n"
               . "Name: " . ($fullName !== '' ? $fullName : '-') . "\n"
               . "Email: {$old['email']}\n"
-              . "Phone: " . ($old['phone'] !== '' ? $old['phone'] : '-') . "\n"
+              . "Phone: " . (pc_phone_full($old['phone_cc'], $old['phone']) ?: '-') . "\n"
               . "Subject: " . ($old['subject'] !== '' ? $old['subject'] : '-') . "\n\n"
               . "Message:\n{$old['message']}\n";
 

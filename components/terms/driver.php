@@ -17,7 +17,7 @@ $termsNav = [
   ['id' => 'd-12', 'label' => '12. Driver Cancellation'],
   ['id' => 'd-13', 'label' => '13. Driver No-Show'],
   ['id' => 'd-14', 'label' => '14. Waiting Time'],
-  ['id' => 'd-15', 'label' => '15. M50'],
+  ['id' => 'd-15', 'label' => '15. M50 and Toll Tunnel'],
   ['id' => 'd-16', 'label' => '16. Fares and Taximeter'],
   ['id' => 'd-17', 'label' => '17. Quoted Fares'],
   ['id' => 'd-18', 'label' => '18. PowerCabs Commission'],
@@ -244,28 +244,35 @@ $termsBody = <<<'PCTERMS'
         <p>False no-show reports may be investigated.</p>
 
         <h2 id="d-14" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">14. Waiting Time</h2>
-        <p>Unless otherwise specified:</p>
+        <p>Unless otherwise specified, the free waiting period is:</p>
         <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
-          <li>standard bookings: 5 minutes;</li>
-          <li>airport bookings: 10 minutes;</li>
-          <li>Meet &amp; Greet: 15 minutes.</li>
+          <li>regular job: 3 minutes;</li>
+          <li>airport, Meet &amp; Greet and preorder job: 10 minutes;</li>
+          <li>Premium and First Class Meet &amp; Greet: 15 minutes.</li>
         </ul>
         <p>Where additional waiting payment is available, the driver must follow the applicable PowerCabs procedure.</p>
-        <p>If you have waited more than 10 minutes, you must notify PowerCabs dispatch where required.</p>
+        <p>If you have waited beyond the applicable free waiting period, you must notify PowerCabs dispatch where required.</p>
         <p>Failure to notify dispatch may result in waiting payment not being issued where the booking system requires dispatch confirmation.</p>
 
-        <h2 id="d-15" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">15. M50</h2>
-        <p>The M50 should only be used where:</p>
+        <h2 id="d-15" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">15. M50 and Toll Tunnel</h2>
+        <p><strong>M50 and Toll Tunnel must be pre-approved.</strong> Either route should only be used where:</p>
         <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
           <li>the route is appropriate;</li>
-          <li>the passenger has requested/approved it where required; or</li>
-          <li>PowerCabs dispatch has given the necessary approval.</li>
+          <li>the passenger has requested/approved it where required; and</li>
+          <li>PowerCabs dispatch has given the necessary approval in advance.</li>
         </ul>
-        <p>Where prior dispatch approval is required and the driver uses the M50 without approval, PowerCabs may calculate the driver&rsquo;s payment based on the normal approved route rather than the unapproved route.</p>
+        <p><strong>Before starting the ride, make sure you are authorised.</strong></p>
+        <p>Where prior dispatch approval is required and the driver uses the M50 or the Toll Tunnel without approval, PowerCabs may calculate the driver&rsquo;s payment based on the normal approved route rather than the unapproved route.</p>
 
         <h2 id="d-16" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">16. Fares and Taximeter</h2>
         <p>Drivers must comply with applicable fare legislation.</p>
         <p>Where a metered taxi journey applies, the taximeter must be used as legally required.</p>
+        <h3 class="tw-mb-2 tw-mt-6 tw-text-lg tw-font-bold tw-text-ink">Pay Per Hour jobs</h3>
+        <p>Where a job is booked as Pay Per Hour, the customer hires the vehicle and driver by time rather than by distance, at the following rates:</p>
+        <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
+          <li>small, regular or economy car: €45 per hour;</li>
+          <li>large or XL car: €50 per hour.</li>
+        </ul>
         <p>Drivers must not manipulate or interfere with the taximeter.</p>
         <p>Any additional charges must be lawful and properly disclosed.</p>
 
@@ -389,7 +396,13 @@ $termsBody = <<<'PCTERMS'
         <h2 id="d-27" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">27. Pet Bookings</h2>
         <p>Drivers should only accept pet bookings where their vehicle and circumstances allow.</p>
         <p>Where the driver has accepted a pet booking, the driver should follow the applicable booking instructions.</p>
-        <p>Assistance animals must be accommodated as required by law.</p>
+        <p>A pet charge applies according to the size of the animal:</p>
+        <ul class="tw-mb-4 tw-ml-5 tw-flex tw-list-disc tw-flex-col tw-gap-1.5">
+          <li>small: €3;</li>
+          <li>medium: €5;</li>
+          <li>large: €7.</li>
+        </ul>
+        <p>Assistance animals are not pet bookings, are not subject to the pet charge, and must be accommodated as required by law.</p>
 
         <h2 id="d-28" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">28. Pet Soiling</h2>
         <p>Where a passenger&rsquo;s pet causes significant soiling or contamination:</p>
@@ -403,7 +416,8 @@ $termsBody = <<<'PCTERMS'
           <li>follow PowerCabs&rsquo; instructions.</li>
         </ul>
         <p>A €140 cleaning/soiling charge may apply where the evidence supports it.</p>
-        <p>Drivers must not independently impose additional cleaning charges outside the authorised PowerCabs process unless legally entitled and expressly authorised.</p>
+        <p><strong>For cash or card rides, the driver can collect soiling charges directly from the customer. It is the driver&rsquo;s responsibility to collect the soiling charges.</strong></p>
+        <p>The driver must still record the evidence and report the matter to PowerCabs first, and must not impose any additional cleaning charge beyond the authorised amount.</p>
 
         <h2 id="d-29" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">29. Meet &amp; Greet</h2>
         <p>Drivers providing Meet &amp; Greet must:</p>
@@ -416,6 +430,10 @@ $termsBody = <<<'PCTERMS'
           <li>follow the relevant waiting period; and</li>
           <li>not enter restricted airport areas unless legally authorised.</li>
         </ul>
+        <p>Meet &amp; Greet bonuses are &euro;3 for Standard Meet &amp; Greet, &euro;13 for Meet &amp; Assist and &euro;20 for First Class. The bonus is paid in addition to the applicable fare and no PowerCabs commission is applied to it.</p>
+        <p>The free waiting period on an airport, Meet &amp; Greet or preorder booking is 10 minutes, and 15 minutes on Premium and First Class Meet &amp; Greet. The separate maximum waiting period before a booking may be treated as a no-show is set out in the Airport Meet &amp; Greet terms and is not the same figure.</p>
+        <p>The driver must not start the meter before the passengers are on board, and must record evidence of attendance at the designated meeting point where PowerCabs requires it.</p>
+        <p>Operational detail for these bookings, including the Dublin Airport meeting points and the delay and no-show procedure, is set out in the PowerCabs Meet &amp; Greet driver training module.</p>
 
         <h2 id="d-30" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">30. Airport Pickups</h2>
         <p>Airport journeys are subject to airport rules.</p>
@@ -533,6 +551,7 @@ $termsBody = <<<'PCTERMS'
           <li>cooperate with reasonable return arrangements.</li>
         </ul>
         <p>Drivers must not use passenger information to arrange unrelated private contact.</p>
+        <p>Where an item is reported and returned in accordance with this clause, a €7 bonus may be payable to the driver, subject to eligibility and the applicable PowerCabs terms.</p>
 
         <h2 id="d-38" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">38. Complaints Against Drivers</h2>
         <p>Drivers may be subject to customer complaints.</p>
@@ -789,11 +808,15 @@ $termsBody = <<<'PCTERMS'
           <li>Complete accepted bookings unless there is a legitimate reason.</li>
           <li>Report cancellations to dispatch where appropriate.</li>
           <li>Do not falsely mark passengers as no-shows.</li>
-          <li>Standard waiting: 5 minutes.</li>
-          <li>Airport waiting: 10 minutes.</li>
-          <li>Meet &amp; Greet waiting: 15 minutes.</li>
-          <li>Notify dispatch where required if waiting exceeds 10 minutes.</li>
-          <li>Obtain M50 approval where required.</li>
+          <li>Regular waiting: 3 minutes.</li>
+          <li>Airport, Meet &amp; Greet and preorder waiting: 10 minutes.</li>
+          <li>Premium and First Class Meet &amp; Greet waiting: 15 minutes.</li>
+          <li>Notify dispatch where required once the free waiting period has passed.</li>
+          <li>M50 and Toll Tunnel must be pre-approved &mdash; before starting the ride, make sure you are authorised.</li>
+          <li>Pet charge: €3 small, €5 medium, €7 large.</li>
+          <li>Pay Per Hour: €45 per hour small/regular/economy, €50 per hour large/XL.</li>
+          <li>On cash or card rides, collecting the soiling charge is the driver&rsquo;s responsibility.</li>
+          <li>Eligible lost-property return bonus: €7.</li>
           <li>PowerCabs commission remains payable on completed bookings.</li>
           <li>Cash bookings may be reconciled against driver earnings.</li>
           <li>Protect passenger data.</li>

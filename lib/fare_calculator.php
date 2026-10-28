@@ -306,7 +306,7 @@ function pc_promo_error_message(string $error, float $minFare = 0.0): string
         case 'ride_type':
             return "That code doesn't apply to this ride type.";
         case 'unavailable':
-            return "We couldn't check that code right now -- you can still book at the fare shown.";
+            return "We couldn't check that code right now - you can still book at the fare shown.";
         default:
             return "That promo code isn't valid.";
     }

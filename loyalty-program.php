@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Loyalty Program | PowerCabs';
 $pageDescription =
-  "PowerCabs's driver Loyalty Program -- earn points for completed trips and unlock Bronze, Silver and Gold rewards as you progress.";
+  "PowerCabs's driver Loyalty Program - earn points for completed trips and unlock Bronze, Silver and Gold rewards as you progress.";
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';

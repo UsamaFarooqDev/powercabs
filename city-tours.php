@@ -2,11 +2,12 @@
 $pageTitle = 'Dublin City Tours & Private Day Trips | PowerCabs';
 $pageDescription =
   
-  "Private Dublin city tours and Irish day trips with PowerCabs -- a local driver to the city's top sights, the Cliffs of Moher and Giant's Causeway.";
+  "Private Dublin city tours and Irish day trips with PowerCabs - a local driver to the city's top sights, the Cliffs of Moher and Giant's Causeway.";
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
 $formError = '';
@@ -15,6 +16,7 @@ $old = [
   'full_name' => '',
   'email' => '',
   'mobile' => '',
+  'mobile_cc' => '',
   'people_count' => '',
   'tour_date' => '',
   'pickup_location' => '',
@@ -27,6 +29,7 @@ $hourlyOld = [
   'full_name' => '',
   'email' => '',
   'mobile' => '',
+  'mobile_cc' => '',
   'people_count' => '',
   'hours' => '',
   'tour_date' => '',
@@ -60,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'pa
       "New Pay Per Hour booking request.\n\n" .
       "Full Name: {$hourlyOld['full_name']}\n" .
       "Email: {$hourlyOld['email']}\n" .
-      "Mobile Number: {$hourlyOld['mobile']}\n" .
+      "Mobile Number: " . pc_phone_full($hourlyOld['mobile_cc'], $hourlyOld['mobile']) . "\n" .
       "Number of People: {$hourlyOld['people_count']}\n" .
       "Number of Hours: {$hourlyOld['hours']}\n" .
       "Preferred Date: {$hourlyOld['tour_date']}\n" .
@@ -110,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'pa
       "Destination: {$old['destination']}\n" .
       "Full Name: {$old['full_name']}\n" .
       "Email: {$old['email']}\n" .
-      "Mobile Number: {$old['mobile']}\n" .
+      "Mobile Number: " . pc_phone_full($old['mobile_cc'], $old['mobile']) . "\n" .
       "Number of People: {$old['people_count']}\n" .
       "Preferred Tour Date: {$old['tour_date']}\n" .
       "Pickup Location: {$old['pickup_location']}\n\n" .
@@ -218,6 +221,9 @@ $ctSubmitClass = $pcBtnPrimary;
             Hire a PowerCabs driver by the hour instead &mdash; no fixed
             itinerary, and as long as you like at every stop.
           </p>
+          <p class="tw-mb-0 tw-mt-3 tw-text-[0.9rem] tw-font-semibold tw-text-white">
+            &euro;45 per hour for Small, Regular or Economy car &middot; &euro;50 per hour for a Large or XL car.
+          </p>
         </div>
         <button type="button" class="<?= $pcBtnPrimary ?> tw-shrink-0" data-pc-modal-open="#hourlyModal">
           Book Per Hour
@@ -296,7 +302,7 @@ $ctSubmitClass = $pcBtnPrimary;
             <input type="hidden" name="destination" id="tourDestinationInput" value="<?= htmlspecialchars($old['destination'] !== '' ? $old['destination'] : $reopenDestinationName) ?>">
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctFullName">Full Name</label>
-              <input type="text" class="<?= $ctInputClass ?>" id="ctFullName" name="full_name" value="<?= htmlspecialchars($old['full_name']) ?>" required>
+              <input type="text" class="<?= $ctInputClass ?>" id="ctFullName" name="full_name" value="<?= htmlspecialchars($old['full_name']) ?>" required placeholder="John Murphy">
             </div>
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctTourDate">Preferred Tour Date</label>
@@ -304,24 +310,33 @@ $ctSubmitClass = $pcBtnPrimary;
             </div>
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctEmail">Email Address</label>
-              <input type="email" class="<?= $ctInputClass ?>" id="ctEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required>
+              <input type="email" class="<?= $ctInputClass ?>" id="ctEmail" name="email" value="<?= htmlspecialchars($old['email']) ?>" required placeholder="you@example.com">
             </div>
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctMobile">Mobile Number</label>
-              <input type="tel" class="<?= $ctInputClass ?>" id="ctMobile" name="mobile" value="<?= htmlspecialchars($old['mobile']) ?>" required>
+              <?php
+              $phoneId = 'ctMobile';
+              $phoneName = 'mobile';
+              $phoneCcName = 'mobile_cc';
+              $phoneValue = $old['mobile'];
+              $phoneCcValue = $old['mobile_cc'];
+              $phoneClass = $ctInputClass;
+              $phoneRequired = true;
+              require __DIR__ . '/components/shared/phone-field.php';
+              ?>
             </div>
 
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctPeopleCount">Number of People</label>
-              <input type="number" min="1" class="<?= $ctInputClass ?>" id="ctPeopleCount" name="people_count" value="<?= htmlspecialchars($old['people_count']) ?>" required>
+              <input type="number" min="1" class="<?= $ctInputClass ?>" id="ctPeopleCount" name="people_count" value="<?= htmlspecialchars($old['people_count']) ?>" required placeholder="2">
             </div>
             <div>
               <label class="<?= $ctLabelClass ?>" for="ctPickup">Pickup Location</label>
-              <input type="text" class="<?= $ctInputClass ?>" id="ctPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required>
+              <input type="text" class="<?= $ctInputClass ?>" id="ctPickup" name="pickup_location" value="<?= htmlspecialchars($old['pickup_location']) ?>" required placeholder="Dublin Airport, Terminal 1">
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $ctLabelClass ?>" for="ctRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
-              <textarea class="<?= $ctInputClass ?> tw-py-2" id="ctRequests" name="special_requests" rows="3"><?= htmlspecialchars($old['special_requests']) ?></textarea>
+              <textarea class="<?= $ctInputClass ?> tw-py-2" id="ctRequests" name="special_requests" rows="3" placeholder="Child seat, extra luggage, anything we should know"><?= htmlspecialchars($old['special_requests']) ?></textarea>
             </div>
             <div class="md:tw-col-span-2 tw-pt-2">
               <button type="submit" class="<?= $ctSubmitClass ?>">
@@ -332,7 +347,7 @@ $ctSubmitClass = $pcBtnPrimary;
 
             <?php if ($formStatus === 'success'): ?>
               <div class="md:tw-col-span-2">
-                <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div>
+                <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your <?= htmlspecialchars($bookedDestination ?? 'tour') ?> booking request has been sent. We'll confirm shortly.</div>
               </div>
             <?php elseif ($formStatus === 'error'): ?>
               <div class="md:tw-col-span-2">
@@ -355,8 +370,10 @@ $ctSubmitClass = $pcBtnPrimary;
       </div>
       <div class="tw-px-6 tw-pb-6 tw-pt-4">
         <p class="tw-text-ink/60">
-          Book a driver by the hour -- stay as long as you like at each stop, with
-          no fixed itinerary.
+          Book a driver by the hour - stay as long as you like at each stop, with
+          no fixed itinerary. <strong class="tw-font-semibold tw-text-ink">&euro;45 per hour</strong> for a small,
+          regular or economy car and <strong class="tw-font-semibold tw-text-ink">&euro;50 per hour</strong> for a
+          large or XL car. Tolls and parking are charged in addition.
         </p>
 
         <h3 class="tw-mb-3 tw-text-base tw-font-bold tw-text-ink">Book Your Hours</h3>
@@ -364,23 +381,32 @@ $ctSubmitClass = $pcBtnPrimary;
           <input type="hidden" name="form_type" value="pay_per_hour">
           <div>
             <label class="<?= $ctLabelClass ?>" for="phFullName">Full Name</label>
-            <input type="text" class="<?= $ctInputClass ?>" id="phFullName" name="full_name" value="<?= htmlspecialchars($hourlyOld['full_name']) ?>" required>
+            <input type="text" class="<?= $ctInputClass ?>" id="phFullName" name="full_name" value="<?= htmlspecialchars($hourlyOld['full_name']) ?>" required placeholder="John Murphy">
           </div>
           <div>
             <label class="<?= $ctLabelClass ?>" for="phEmail">Email Address</label>
-            <input type="email" class="<?= $ctInputClass ?>" id="phEmail" name="email" value="<?= htmlspecialchars($hourlyOld['email']) ?>" required>
+            <input type="email" class="<?= $ctInputClass ?>" id="phEmail" name="email" value="<?= htmlspecialchars($hourlyOld['email']) ?>" required placeholder="you@example.com">
           </div>
           <div>
             <label class="<?= $ctLabelClass ?>" for="phMobile">Mobile Number</label>
-            <input type="tel" class="<?= $ctInputClass ?>" id="phMobile" name="mobile" value="<?= htmlspecialchars($hourlyOld['mobile']) ?>" required>
+            <?php
+            $phoneId = 'phMobile';
+            $phoneName = 'mobile';
+            $phoneCcName = 'mobile_cc';
+            $phoneValue = $hourlyOld['mobile'];
+            $phoneCcValue = $hourlyOld['mobile_cc'];
+            $phoneClass = $ctInputClass;
+            $phoneRequired = true;
+            require __DIR__ . '/components/shared/phone-field.php';
+            ?>
           </div>
           <div>
             <label class="<?= $ctLabelClass ?>" for="phPeopleCount">Number of People</label>
-            <input type="number" min="1" class="<?= $ctInputClass ?>" id="phPeopleCount" name="people_count" value="<?= htmlspecialchars($hourlyOld['people_count']) ?>" required>
+            <input type="number" min="1" class="<?= $ctInputClass ?>" id="phPeopleCount" name="people_count" value="<?= htmlspecialchars($hourlyOld['people_count']) ?>" required placeholder="2">
           </div>
           <div>
             <label class="<?= $ctLabelClass ?>" for="phHours">Number of Hours</label>
-            <input type="number" min="1" class="<?= $ctInputClass ?>" id="phHours" name="hours" value="<?= htmlspecialchars($hourlyOld['hours']) ?>" required>
+            <input type="number" min="1" class="<?= $ctInputClass ?>" id="phHours" name="hours" value="<?= htmlspecialchars($hourlyOld['hours']) ?>" required placeholder="3">
           </div>
           <div>
             <label class="<?= $ctLabelClass ?>" for="phDate">Preferred Date</label>
@@ -392,11 +418,11 @@ $ctSubmitClass = $pcBtnPrimary;
           </div>
           <div class="md:tw-col-span-2">
             <label class="<?= $ctLabelClass ?>" for="phPickup">Pickup Location</label>
-            <input type="text" class="<?= $ctInputClass ?>" id="phPickup" name="pickup_location" value="<?= htmlspecialchars($hourlyOld['pickup_location']) ?>" required>
+            <input type="text" class="<?= $ctInputClass ?>" id="phPickup" name="pickup_location" value="<?= htmlspecialchars($hourlyOld['pickup_location']) ?>" required placeholder="Dublin Airport, Terminal 1">
           </div>
           <div class="md:tw-col-span-2">
             <label class="<?= $ctLabelClass ?>" for="phRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
-            <textarea class="<?= $ctInputClass ?> tw-py-2" id="phRequests" name="special_requests" rows="3"><?= htmlspecialchars($hourlyOld['special_requests']) ?></textarea>
+            <textarea class="<?= $ctInputClass ?> tw-py-2" id="phRequests" name="special_requests" rows="3" placeholder="Child seat, extra luggage, anything we should know"><?= htmlspecialchars($hourlyOld['special_requests']) ?></textarea>
           </div>
           <div class="md:tw-col-span-2 tw-pt-2">
             <button type="submit" class="<?= $ctSubmitClass ?>">
@@ -407,7 +433,7 @@ $ctSubmitClass = $pcBtnPrimary;
 
           <?php if ($hourlyFormStatus === 'success'): ?>
             <div class="md:tw-col-span-2">
-              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your Pay Per Hour booking request has been sent. We'll confirm shortly.</div>
+              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your Pay Per Hour booking request has been sent. We'll confirm shortly.</div>
             </div>
           <?php elseif ($hourlyFormStatus === 'error'): ?>
             <div class="md:tw-col-span-2">

@@ -37,19 +37,24 @@ $submitClass = $pcBtnPrimary;
               <label class="<?= $labelClass ?> pc-required" for="apName">Name</label>
               <input type="text" class="<?= $inputClass ?>" id="apName" name="name" value="<?= htmlspecialchars(
                 $old['name'],
-              ) ?>" required>
+              ) ?>" required placeholder="John Murphy">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="apEmail">Email</label>
               <input type="email" class="<?= $inputClass ?>" id="apEmail" name="email" value="<?= htmlspecialchars(
                 $old['email'],
-              ) ?>" required>
+              ) ?>" required placeholder="you@example.com">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="apPhone">Phone</label>
-              <input type="tel" class="<?= $inputClass ?>" id="apPhone" name="phone" value="<?= htmlspecialchars(
-                $old['phone'],
-              ) ?>" required>
+              <?php
+              $phoneId = 'apPhone';
+              $phoneValue = $old['phone'];
+              $phoneCcValue = $old['phone_cc'];
+              $phoneClass = $inputClass;
+              $phoneRequired = true;
+              require __DIR__ . '/../../components/shared/phone-field.php';
+              ?>
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="apAffiliated">Currently Affiliated With <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
@@ -62,7 +67,7 @@ $submitClass = $pcBtnPrimary;
               <label class="<?= $labelClass ?> pc-required" for="apLicense">License Number</label>
               <input type="text" class="<?= $inputClass ?>" id="apLicense" name="license_number" value="<?= htmlspecialchars(
                 $old['license_number'],
-              ) ?>" required>
+              ) ?>" required placeholder="Your SPSV licence number">
             </div>
             <div>
               <label class="<?= $labelClass ?>" for="apRegistered">Registered with PowerCabs?</label>
@@ -83,7 +88,7 @@ $submitClass = $pcBtnPrimary;
             </div>
 
             <?php if ($formStatus === 'success'): ?>
-              <div class="md:tw-col-span-2"><div class="alert-success tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-green-200 tw-bg-green-50 tw-px-4 tw-py-3 tw-text-sm tw-text-green-800" role="alert">Thanks -- your registration has been sent. Our team will be in touch shortly.</div></div>
+              <div class="md:tw-col-span-2"><div class="alert-success tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-green-200 tw-bg-green-50 tw-px-4 tw-py-3 tw-text-sm tw-text-green-800" role="alert">Thanks - your registration has been sent. Our team will be in touch shortly.</div></div>
             <?php elseif ($formStatus === 'error'): ?>
               <div class="md:tw-col-span-2"><div class="alert-danger tw-mb-0 tw-mt-1 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-text-red-800" role="alert"><?= htmlspecialchars(
                 $formError,

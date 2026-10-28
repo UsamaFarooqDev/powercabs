@@ -9,9 +9,9 @@ $pcContainerNarrow = 'tw-mx-auto tw-w-full tw-max-w-[880px] tw-px-5 sm:tw-px-8 l
 
 $pcContainerProse = 'tw-mx-auto tw-w-full tw-max-w-reading tw-px-5 sm:tw-px-8 lg:tw-px-12 xl:tw-px-16';
 
-$pcSection = 'tw-py-16 md:tw-py-24'; 
-$pcSectionTight = 'tw-py-12 md:tw-py-16'; 
-$pcSectionLoose = 'tw-py-20 md:tw-py-28'; 
+$pcSection = 'tw-py-16 md:tw-py-24';
+$pcSectionTight = 'tw-py-12 md:tw-py-16';
+$pcSectionLoose = 'tw-py-20 md:tw-py-28';
 
 $pcEyebrow = 'tw-mb-3 tw-text-[0.8125rem] tw-font-bold tw-uppercase tw-tracking-[0.08em] tw-text-power';
 
@@ -42,7 +42,7 @@ $pcBodySm = 'tw-text-[0.9375rem] tw-leading-[1.6] tw-text-muted';
 $pcMeasure = 'tw-max-w-[65ch]';
 $pcMeasureTight = 'tw-max-w-[46ch]';
 
-$pcSectionHead = 'tw-mb-10 tw-max-w-[720px]'; 
+$pcSectionHead = 'tw-mb-10 tw-max-w-[720px]';
 $pcSectionHeadCenter = 'tw-mx-auto tw-mb-12 tw-max-w-[720px] tw-text-center';
 
 // Preflight is off: a border width utility does nothing without tw-border-solid beside it.
@@ -52,7 +52,7 @@ $pcCard =
 $pcCardHover =
   'tw-transition tw-duration-300 hover:tw-border-hairline hover:tw-shadow-[0_18px_40px_-12px_rgba(17,17,17,0.18)]' .
   ' motion-safe:hover:-tw-translate-y-1 motion-reduce:tw-transition-none';
-$pcCardGrid = 'tw-grid tw-gap-6'; 
+$pcCardGrid = 'tw-grid tw-gap-6';
 
 $pcCardService =
   'tw-group tw-relative tw-flex tw-h-full tw-flex-col tw-overflow-hidden tw-rounded-3xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-p-7 tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-[transform,box-shadow] tw-duration-300 tw-ease-out hover:-tw-translate-y-1 hover:tw-shadow-[0_18px_40px_-12px_rgba(28,20,16,0.18)] motion-reduce:tw-transition-none motion-reduce:hover:tw-translate-y-0';
@@ -96,10 +96,10 @@ $pcStatPlain = 'lg:tw-px-8 lg:first:tw-pl-0 lg:last:tw-pr-0';
 $pcDivider = 'tw-border-0 tw-border-t tw-border-solid tw-border-hairline';
 $pcDivideList = 'tw-divide-y tw-divide-solid tw-divide-hairline';
 
-$pcImgWide = 'tw-relative tw-aspect-[16/9] tw-overflow-hidden tw-bg-paper'; 
-$pcImgLandscape = 'tw-relative tw-aspect-[4/3] tw-overflow-hidden tw-bg-paper'; 
-$pcImgSquare = 'tw-relative tw-aspect-square tw-overflow-hidden tw-bg-paper'; 
-$pcImgPortrait = 'tw-relative tw-aspect-[3/4] tw-overflow-hidden tw-bg-paper'; 
+$pcImgWide = 'tw-relative tw-aspect-[16/9] tw-overflow-hidden tw-bg-paper';
+$pcImgLandscape = 'tw-relative tw-aspect-[4/3] tw-overflow-hidden tw-bg-paper';
+$pcImgSquare = 'tw-relative tw-aspect-square tw-overflow-hidden tw-bg-paper';
+$pcImgPortrait = 'tw-relative tw-aspect-[3/4] tw-overflow-hidden tw-bg-paper';
 $pcImgCover = 'tw-h-full tw-w-full tw-object-cover';
 
 $pcImgZoom =
@@ -135,6 +135,11 @@ $pcBtnSm = str_replace('tw-px-6 tw-py-2.5', 'tw-px-4 tw-py-1.5', $pcBtnBase);
 $pcBtnGhost =
   $pcBtnBase .
   ' tw-border tw-border-solid tw-border-black/15 tw-bg-transparent tw-text-ink hover:tw-border-black/30 hover:tw-bg-black/[0.03]';
+
+$pcBtnGhostOnDark =
+  $pcBtnBase .
+  ' tw-border tw-border-solid tw-border-white/30 tw-bg-white/[0.06] tw-text-white' .
+  ' hover:tw-border-white/60 hover:tw-bg-white/[0.14]';
 
 $pcBtnOutline = $pcBtnGhost;
 

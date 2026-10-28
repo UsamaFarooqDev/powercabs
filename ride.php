@@ -1,10 +1,11 @@
 <?php
 $pageTitle       = 'Ride with PowerCabs | Seamless, Comfortable Taxis in Ireland';
-$pageDescription = 'Book a seamless, comfortable ride with PowerCabs -- convenient booking, Garda-vetted drivers, affordable rates and 24/7 availability across Ireland.';
+$pageDescription = 'Book a seamless, comfortable ride with PowerCabs - convenient booking, Garda-vetted drivers, affordable rates and 24/7 availability across Ireland.';
 $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 require __DIR__ . '/lib/fare_calculator.php';
 
 $rideTypeOptions = ['Economy', 'Economy XL', 'Limousine', 'Wheelchair Taxi', 'Pets Taxi', 'Courier / Parcel', 'Business', 'Business XL'];
@@ -15,6 +16,7 @@ $quickBookOld = [
   'name'                   => '',
   'email'                  => '',
   'phone'                  => '',
+  'phone_cc'               => '',
   'ride_type'              => '',
   'pickup_location'        => '',
   'dropoff_location'       => '',
@@ -78,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $body = "New quick booking request from the PowerCabs Ride page.\n\n"
       . "Name: {$quickBookOld['name']}\n"
       . "Email: {$quickBookOld['email']}\n"
-      . "Phone: {$quickBookOld['phone']}\n"
+      . "Phone: " . pc_phone_full($quickBookOld['phone_cc'], $quickBookOld['phone']) . "\n"
       . "Ride Type: {$quickBookOld['ride_type']}\n\n"
       . "Pickup Location: {$quickBookOld['pickup_location']}\n"
       . "Drop-off Location: {$quickBookOld['dropoff_location']}\n\n"
@@ -94,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           . number_format($quickBookPromoDiscount, 2, '.', '') . ")\n";
       } elseif ($quickBookOld['promo_code'] !== '') {
         $rejectedCode = substr(preg_replace('/\s+/', ' ', $quickBookOld['promo_code']), 0, 32);
-        $body .= "Promo Code: {$rejectedCode} (NOT APPLIED -- invalid, expired or not eligible)\n";
+        $body .= "Promo Code: {$rejectedCode} (NOT APPLIED - invalid, expired or not eligible)\n";
       }
 
       $body .= "Estimated Fare: \u{20AC}{$quickBookOld['fare_eur']}\n";

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/supabase.php';
 
-const PC_TRAINING_V = 1;
+const PC_TRAINING_V = 2;
 
 function pc_training_blank(): array
 {
@@ -15,6 +15,11 @@ function pc_training_blank(): array
     'final' => null,
     'completed_at' => null,
     'certificate' => null,
+
+    // v2. Added, never removed: a v1 row loaded through array_replace() below simply gets an
+    // empty 'tracks', which reads as "no extra track started" -- correct for every existing
+    // driver. No backfill, no migration write, nothing to lose.
+    'tracks' => [],
   ];
 }
 

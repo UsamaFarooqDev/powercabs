@@ -8,6 +8,13 @@
     return document.querySelector('[data-pc-mission-root]');
   }
 
+  // Which module this page is showing. The server re-checks it on every POST -- this only
+  // tells the API which track's missions to grade against.
+  function track() {
+    var scope = root();
+    return (scope && scope.getAttribute('data-pc-track')) || 'general';
+  }
+
 function scopeLink(id) {
     var scope = root();
     return scope ? scope.querySelector('[data-pc-mission-link="' + id + '"]') : null;
@@ -209,6 +216,7 @@ function collect(form) {
 
     var body = new FormData();
     body.append('action', isFinal ? 'final' : 'mission');
+    body.append('track', track());
     if (!isFinal) body.append('mission', id);
     Object.keys(answers).forEach(function (k) {
       body.append('answers[' + k + ']', answers[k]);
@@ -287,6 +295,7 @@ window.setTimeout(function () {
 function certify() {
     var body = new FormData();
     body.append('action', 'certify');
+    body.append('track', track());
     fetch(API, { method: 'POST', body: body, credentials: 'same-origin', headers: { Accept: 'application/json' } })
       .then(function (r) {
         return r.json();

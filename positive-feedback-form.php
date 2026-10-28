@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Positive Feedback Form | PowerCabs';
 $pageDescription =
-  'Had a great ride with PowerCabs? Tell us about it -- your feedback helps us recognise excellent drivers and service.';
+  'Had a great ride with PowerCabs? Tell us about it - your feedback helps us recognise excellent drivers and service.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
@@ -90,7 +90,7 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
           </li>
           <li class="tw-flex tw-gap-3">
             <svg class="tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
-            <span class="tw-text-ink/60">Let us know if you're a rider or a driver -- helps us route it correctly.</span>
+            <span class="tw-text-ink/60">Let us know if you're a rider or a driver - helps us route it correctly.</span>
           </li>
           <li class="tw-flex tw-gap-3">
             <svg class="tw-h-5 tw-w-5 tw-shrink-0 tw-text-power" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
@@ -127,13 +127,13 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
               <label class="<?= $labelClass ?> pc-required" for="pfName">Full Name</label>
               <input type="text" class="<?= $inputClass ?>" id="pfName" name="name" value="<?= htmlspecialchars(
                 $old['name'],
-              ) ?>" required>
+              ) ?>" required placeholder="John Murphy">
             </div>
             <div>
               <label class="<?= $labelClass ?> pc-required" for="pfEmail">Email Address</label>
               <input type="email" class="<?= $inputClass ?>" id="pfEmail" name="email" value="<?= htmlspecialchars(
                 $old['email'],
-              ) ?>" required>
+              ) ?>" required placeholder="you@example.com">
             </div>
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?> pc-required tw-mb-3">Rate Your Experience</label>
@@ -162,7 +162,7 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
 
             <div class="md:tw-col-span-2">
               <label class="<?= $labelClass ?>" for="pfMessage">Your Message</label>
-              <textarea class="<?= $inputClass ?> tw-resize-y" id="pfMessage" name="message" rows="5"><?= htmlspecialchars(
+              <textarea class="<?= $inputClass ?> tw-resize-y" id="pfMessage" name="message" rows="5" placeholder="Tell us what made the trip a good one"><?= htmlspecialchars(
                 $old['message'],
               ) ?></textarea>
             </div>
@@ -174,7 +174,7 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
             </div>
 
             <?php if ($formStatus === 'success'): ?>
-              <div class="md:tw-col-span-2"><div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks for the kind words -- we'll make sure this gets seen.</div></div>
+              <div class="md:tw-col-span-2"><div class="alert-success tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks for the kind words - we'll make sure this gets seen.</div></div>
             <?php elseif ($formStatus === 'error'): ?>
               <div class="md:tw-col-span-2"><div class="alert-danger tw-mt-3 tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert"><?= htmlspecialchars(
                 $formError,

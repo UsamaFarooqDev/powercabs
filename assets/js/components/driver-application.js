@@ -193,7 +193,7 @@
         setBusy(true, 'Sending code…');
         var start = new FormData();
         start.append('action', 'start');
-        ['full_name', 'email', 'phone', 'referral'].forEach(function (name) {
+        ['full_name', 'email', 'phone', 'phone_cc', 'referral'].forEach(function (name) {
           start.append(name, form.querySelector('[name="' + name + '"]').value);
         });
         post(start).then(function (res) {
@@ -285,7 +285,7 @@
         setBusy(true, 'Sending…');
         var again = new FormData();
         again.append('action', 'start');
-        ['full_name', 'email', 'phone', 'referral'].forEach(function (name) {
+        ['full_name', 'email', 'phone', 'phone_cc', 'referral'].forEach(function (name) {
           again.append(name, form.querySelector('[name="' + name + '"]').value);
         });
         post(again).then(function (res) {

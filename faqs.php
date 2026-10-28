@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'FAQs | PowerCabs';
 $pageDescription =
-  'Answers to common questions for PowerCabs passengers and drivers -- booking, payments, tracking, documents, earnings and more.';
+  'Answers to common questions for PowerCabs passengers and drivers - booking, payments, tracking, documents, earnings and more.';
 $assetPath = '';
 
 $passengerFaqs = [

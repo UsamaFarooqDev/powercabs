@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'About Us | PowerCabs';
 $pageDescription =
-  'Your trusted partner for seamless and reliable travel across Ireland -- professional drivers, modern vehicles, and 24/7 availability.';
+  'Your trusted partner for seamless and reliable travel across Ireland - professional drivers, modern vehicles, and 24/7 availability.';
 $assetPath = '';
 
 require __DIR__ . '/includes/header.php';

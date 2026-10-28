@@ -2,11 +2,12 @@
 $pageTitle = 'Dublin Airport Transfers & Meet and Greet | PowerCabs';
 $pageDescription =
   
-  'Dublin Airport taxi transfers with PowerCabs -- flight tracking, a personal meet and greet at arrivals, luggage help and a direct transfer, 24/7.';
+  'Dublin Airport taxi transfers with PowerCabs - flight tracking, a personal meet and greet at arrivals, luggage help and a direct transfer, 24/7.';
 $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/phone-countries.php';
 
 $mgFormStatus = null;
 $mgFormError = '';
@@ -14,6 +15,7 @@ $mgOld = [
   'name' => '',
   'email' => '',
   'phone' => '',
+  'phone_cc' => '',
   'flight_number' => '',
   'service_type' => '', 
   'pickup_terminal' => '', 
@@ -164,7 +166,7 @@ $mgFormStatus = 'error';
       "New Meet & Greet enquiry from the PowerCabs website.\n\n" .
       "Name: {$mgOld['name']}\n" .
       "Email: {$mgOld['email']}\n" .
-      "Phone: {$mgOld['phone']}\n" .
+      "Phone: " . pc_phone_full($mgOld['phone_cc'], $mgOld['phone']) . "\n" .
       "Flight Number: {$mgOld['flight_number']}\n" .
       "Service Type: {$mgServiceTypeLabels[$mgOld['service_type']]}\n";
 
@@ -355,21 +357,27 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             <label class="pc-required <?= $mgLabelClass ?>" for="mgName">Full Name</label>
             <input type="text" class="<?= $mgInputClass ?>" id="mgName" name="name" value="<?= htmlspecialchars(
   $mgOld['name'],
-) ?>" required>
+) ?>" required placeholder="John Murphy">
           </div>
 
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgEmail">Email Address</label>
             <input type="email" class="<?= $mgInputClass ?>" id="mgEmail" name="email" value="<?= htmlspecialchars(
   $mgOld['email'],
-) ?>" required>
+) ?>" required placeholder="you@example.com">
           </div>
 
           <?php  ?>
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgPhone">Phone Number</label>
-            <input type="tel" class="<?= $mgInputClass ?>" id="mgPhone" name="phone" autocomplete="tel"
-              placeholder="e.g. +353 89 123 4567" value="<?= htmlspecialchars($mgOld['phone']) ?>" required>
+            <?php
+            $phoneId = 'mgPhone';
+            $phoneValue = $mgOld['phone'];
+            $phoneCcValue = $mgOld['phone_cc'];
+            $phoneClass = $mgInputClass;
+            $phoneRequired = true;
+            require __DIR__ . '/components/shared/phone-field.php';
+            ?>
           </div>
 
           <?php  ?>
@@ -455,7 +463,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           <div class="<?= $mgFieldThird ?>">
             <label class="pc-required <?= $mgLabelClass ?>" for="mgPassengers">Number of Passengers</label>
             <input type="number" min="1" max="20" class="<?= $mgInputClass ?>" id="mgPassengers" name="passengers"
-              value="<?= htmlspecialchars($mgOld['passengers']) ?>" required>
+              value="<?= htmlspecialchars($mgOld['passengers']) ?>" required placeholder="2">
           </div>
 
           <div class="<?= $mgFieldThird ?>">
@@ -474,7 +482,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
           <div class="<?= $mgFieldFull ?>">
             <label class="<?= $mgLabelClass ?>" for="mgSpecialRequirements">Special Requirements</label>
             <textarea class="<?= $mgInputClass ?> tw-py-2" id="mgSpecialRequirements" name="special_requirements"
-              rows="3"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
+              rows="3" placeholder="Child seat, extra luggage, flight number, anything we should know"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
           </div>
 
           <?php  ?>
@@ -498,7 +506,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 
           <?php if ($mgFormStatus === 'success'): ?>
             <div class="<?= $mgFieldFull ?>">
-              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks -- your Meet &amp; Greet enquiry has been sent. We'll confirm shortly.</div>
+              <div class="alert-success tw-mt-1 tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]" role="alert">Thanks - your Meet &amp; Greet enquiry has been sent. We'll confirm shortly.</div>
             </div>
           <?php elseif ($mgFormStatus === 'error'): ?>
             <div class="<?= $mgFieldFull ?>">
@@ -719,11 +727,39 @@ $ctaText = 'Flight tracked, driver waiting inside arrivals, fare fixed before yo
 $ctaPrimary = ['href' => '/meet-greet#pcMeetGreetBook', 'label' => 'Book Meet & Greet'];
 $ctaSecondary = ['href' => '/faqs', 'label' => 'See FAQs'];
 
+// Six questions, not eleven: the ones a passenger actually asks before they book. The
+// operational detail behind them lives in the Meet & Greet driver training module, linked below.
 $faqItems = [
-  ['q' => 'Where will my driver meet me?', 'a' => 'Your driver waits inside the arrivals terminal with a personalised name board.'],
-  ['q' => 'Will I get help with my luggage?', 'a' => 'Yes — professional assistance with luggage from the terminal to the vehicle.'],
-  ['q' => 'Do you track my flight?', 'a' => 'Enter your flight details when booking and your pickup is matched to the flight, so a delay does not cost you your driver.'],
-  ['q' => 'Can you take a family with extra luggage?', 'a' => 'Yes — spacious vehicles are available for families with children and extra luggage.'],
+  [
+    'q' => 'Where exactly will my driver meet me?',
+    'a' =>
+      'Inside the arrivals hall, holding a name board. At Terminal 1 that is beside Insomnia Coffee; at Terminal 2 it is beside the yellow sculpture. Your confirmation carries the meeting point for your booking.',
+  ],
+  [
+    'q' => 'What happens if my flight is delayed?',
+    'a' =>
+      'On First Class we monitor your flight and adjust the driver\'s dispatch to the updated arrival time. On Standard and Meet & Assist, tell us as soon as you know and we will do what we can.',
+  ],
+  [
+    'q' => 'How long will my driver wait for me?',
+    'a' =>
+      'Free waiting is 10 minutes on Standard Meet & Greet and Meet & Assist, and 15 minutes on First Class, from the confirmed pickup time. A longer maximum applies before a booking is treated as a no-show — see the Airport Meet & Greet terms.',
+  ],
+  [
+    'q' => 'What is the difference between the three services?',
+    'a' =>
+      'Standard is a driver meeting you inside arrivals. Meet & Assist adds a personalised name board and luggage assistance. First Class adds flight monitoring, live chat and priority dispatch support.',
+  ],
+  [
+    'q' => 'Will I get help with my luggage?',
+    'a' =>
+      'Luggage assistance is included with Meet & Assist and First Class. Tell us about oversized or unusually heavy items when you book so we can send a suitable vehicle.',
+  ],
+  [
+    'q' => 'What if I cannot find my driver?',
+    'a' =>
+      'Call the number on your booking confirmation, or contact PowerCabs, before you leave the terminal. Your driver is in the arrivals hall waiting for you.',
+  ],
 ];
 $faqEyebrow = 'Airport transfers';
 $faqHeading = 'Meet & greet questions.';
@@ -731,6 +767,27 @@ $faqLayout = 'split';
 $faqMoreHref = '/faqs';
 
 require __DIR__ . '/components/shared/faq-accordion.php';
+?>
+
+<?php /* Driver-facing, deliberately quiet: this is a customer page, and the procedures behind the
+         answers above belong in the training module rather than in the FAQ copy. */ ?>
+<section class="tw-pb-4">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-3 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-px-5 tw-py-4">
+      <div class="tw-min-w-0 tw-flex-1">
+        <p class="tw-mb-0.5 tw-text-[0.9rem] tw-font-bold tw-text-ink">Driving for PowerCabs?</p>
+        <p class="tw-mb-0 tw-text-[0.85rem] tw-leading-relaxed tw-text-ink/60">
+          Meeting points, waiting rules, delays and bonuses are covered in the Meet &amp; Greet driver module.
+        </p>
+      </div>
+      <a class="<?= $pcBtnGhost ?> tw-shrink-0" href="<?= $assetPath ?>/driver-training?track=mg" data-no-pjax>
+        Complete Meet &amp; Greet Driver Training
+      </a>
+    </div>
+  </div>
+</section>
+
+<?php
 require __DIR__ . '/components/shared/final-cta.php';
 $bannerCompact = true; 
 require __DIR__ . '/components/shared/app-download-banner.php';
