@@ -49,14 +49,14 @@
     var panel = document.createElement('div');
     panel.setAttribute('data-pc-phone-panel', '');
     panel.className =
-      'tw-absolute tw-left-0 tw-top-[calc(100%+0.35rem)] tw-z-[60] tw-w-[min(19rem,calc(100vw-2.5rem))] ' +
+      'tw-absolute tw-left-0 tw-top-[calc(100%+0.35rem)] tw-z-[60] tw-w-full tw-min-w-0 ' +
       'tw-overflow-hidden tw-rounded-xl tw-border tw-border-solid tw-border-black/10 tw-bg-white ' +
       'tw-shadow-[0_18px_44px_-12px_rgba(28,20,16,0.28)]';
 
     var search = document.createElement('input');
     search.type = 'text';
     search.setAttribute('data-pc-phone-search', '');
-    search.placeholder = 'Search country or code';
+    search.placeholder = 'Search country';
     search.autocomplete = 'off';
     search.className =
       'tw-m-0 tw-block tw-w-full tw-appearance-none tw-border-0 tw-border-b tw-border-solid tw-border-black/[0.08] ' +
@@ -91,7 +91,53 @@
     });
 
     wrap.appendChild(panel);
+
+    /* tw-w-full is a percentage of the wrapper's PADDING box, so with the field's 1px border the
+       panel lands 2px narrow and 1px in from each edge. Measure instead: the panel's border box
+       then lines up exactly with the field's, whatever border the form's recipe uses. */
+    var bw = parseFloat(getComputedStyle(wrap).borderLeftWidth) || 0;
+    panel.style.width = wrap.offsetWidth + 'px';
+    panel.style.left = -bw + 'px';
+
     return panel;
+  }
+
+  /* What actually clips the panel: the viewport, a modal's scroll box, or a section with
+     overflow:hidden -- the /drive hero is one, and it used to cut the list in half on a phone. */
+  function clipBox(el) {
+    var top = 0;
+    var bottom = window.innerHeight;
+    var p = el.parentElement;
+    while (p && p !== document.body && p !== document.documentElement) {
+      if (getComputedStyle(p).overflowY !== 'visible') {
+        var b = p.getBoundingClientRect();
+        if (b.top > top) top = b.top;
+        if (b.bottom < bottom) bottom = b.bottom;
+      }
+      p = p.parentElement;
+    }
+    return { top: top, bottom: bottom };
+  }
+
+  /* Flip above the field when there is more room there, and cap the list to the room it has, so
+     the panel is never cut off and never pushes the page into horizontal or vertical scroll. */
+  function place(wrap, panel) {
+    var f = wrap.getBoundingClientRect();
+    var clip = clipBox(wrap);
+    var GAP = 8;
+    var below = clip.bottom - f.bottom - GAP;
+    var above = f.top - clip.top - GAP;
+    var up = panel.offsetHeight > below && above > below;
+
+    var list = panel.querySelector('[role="listbox"]');
+    var search = panel.querySelector('[data-pc-phone-search]');
+    var room = Math.max(up ? above : below, 0) - (search ? search.offsetHeight : 0) - 2;
+    if (list) list.style.maxHeight = Math.max(112, Math.min(240, room)) + 'px';
+
+    if (up) {
+      panel.style.top = 'auto';
+      panel.style.bottom = 'calc(100% + 0.35rem)';
+    }
   }
 
   function rows(panel) {
@@ -127,6 +173,7 @@
 
     var panel = buildPanel(wrap);
     if (!panel) return;
+    place(wrap, panel);
     OPEN = wrap;
 
     var trigger = wrap.querySelector('[data-pc-phone-trigger]');
