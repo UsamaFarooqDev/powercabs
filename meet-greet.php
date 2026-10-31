@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Dublin Airport Transfers & Meet and Greet | PowerCabs';
 $pageDescription =
-  
+
   'Dublin Airport taxi transfers with PowerCabs - flight tracking, a personal meet and greet at arrivals, luggage help and a direct transfer, 24/7.';
 $assetPath = '';
 
@@ -17,16 +17,16 @@ $mgOld = [
   'phone' => '',
   'phone_cc' => '',
   'flight_number' => '',
-  'service_type' => '', 
-  'pickup_terminal' => '', 
-  'destination_address' => '', 
-  'pickup_address' => '', 
-  'dropoff_terminal' => '', 
+  'service_type' => '',
+  'pickup_terminal' => '',
+  'destination_address' => '',
+  'pickup_address' => '',
+  'dropoff_terminal' => '',
   'passengers' => '',
-  'pickup_date' => '', 
+  'pickup_date' => '',
   'pickup_time' => '',
   'special_requirements' => '',
-  'service_level' => '', 
+  'service_level' => '',
 ];
 
 $mgMinDate = date('Y-m-d');
@@ -769,6 +769,37 @@ $faqMoreHref = '/faqs';
 require __DIR__ . '/components/shared/faq-accordion.php';
 ?>
 
+<?php /* The escalation path, where a passenger looks once the FAQ above has not answered them.
+         It restates clause 56 of the customer terms: written contact first, and only to these two
+         channels -- anything printed on a payment slip is not monitored. */ ?>
+<section class="tw-pb-6">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-flex tw-flex-col tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-peach/50 tw-px-5 tw-py-5 sm:tw-flex-row sm:tw-items-center sm:tw-px-7">
+      <span class="<?= $pcIconChip ?> tw-shrink-0">
+        <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v3.75m0 3.75h.008M10.34 3.94L1.9 18.5A1.75 1.75 0 003.41 21h17.18a1.75 1.75 0 001.51-2.5L13.66 3.94a1.75 1.75 0 00-3.02 0z"/></svg>
+      </span>
+
+      <div class="tw-min-w-0 tw-flex-1">
+        <p class="tw-mb-1.5 tw-text-[1rem] tw-font-bold tw-leading-snug tw-text-ink">Delayed, or something gone wrong?</p>
+        <p class="tw-mb-0 tw-text-[0.9rem] tw-leading-relaxed tw-text-ink/65">
+          For any emergency delay, or if you experience any difficulty, contact us in writing as soon as
+          possible on the channels here &mdash; we may not monitor any other channel, including contact
+          details provided on payment slips. WhatsApp support is available 24/7 to discuss any issue with
+          your booking.
+        </p>
+      </div>
+
+      <div class="tw-flex tw-flex-wrap tw-gap-2 sm:tw-shrink-0">
+        <a class="<?= $pcBtnPrimary ?>" href="https://wa.me/353899728089" target="_blank" rel="noopener">
+          <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.71 14.02c-.24.68-1.38 1.3-1.9 1.38-.49.08-1.1.11-1.77-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.09-4.85-4.28-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.37.26-.28.57-.35.76-.35h.55c.18 0 .41-.07.64.49.24.57.81 1.97.88 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.04.94 1.92 1.23 2.19 1.37.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.53.72 1.79.85.26.14.44.21.5.32.07.12.07.68-.17 1.35z"/></svg>
+          WhatsApp 24/7
+        </a>
+        <a class="<?= $pcBtnGhost ?>" href="mailto:info@powercabs.ie">info@powercabs.ie</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <?php /* Driver-facing, deliberately quiet: this is a customer page, and the procedures behind the
          answers above belong in the training module rather than in the FAQ copy. */ ?>
 <section class="tw-pb-4">
@@ -789,7 +820,7 @@ require __DIR__ . '/components/shared/faq-accordion.php';
 
 <?php
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

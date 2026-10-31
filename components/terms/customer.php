@@ -760,7 +760,9 @@ $termsBody = <<<'PCTERMS'
 
         <h2 id="c-56" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">56. Contact</h2>
         <p>PowerCabs Ireland Limited<br>Kylmore Road, Inchicore<br>Dublin D10 K729<br>Ireland</p>
-        <p>Email: info@powercabs.ie<br>Telephone: +353 1 203 0727<br>NTA Dispatch Operator Licence: DH12616</p>
+        <p>Email: info@powercabs.ie<br>Telephone: +353 1 203 0727<br>WhatsApp: +353 89 972 8089<br>NTA Dispatch Operator Licence: DH12616</p>
+        <p>For any emergency delay, or if you experience any difficulty, your primary contact should be made in writing as soon as possible to the email address or WhatsApp number above, as we may not monitor any other channel, including contact details provided on payment slips or similar documents.</p>
+        <p>You can also reach us through WhatsApp support, available 24/7, to discuss any issue with your booking.</p>
 
         <h2 id="c-57" class="tw-mb-3 tw-mt-10 tw-text-2xl tw-font-bold">Customer Quick Guide</h2>
         <p>Before booking, please remember:</p>
