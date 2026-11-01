@@ -79,7 +79,7 @@ $pcPhoneShell = $pcPhoneSquash($pcPhoneShell);
       class="tw-flex tw-h-full tw-cursor-pointer tw-appearance-none tw-items-center tw-gap-1 tw-rounded-l-[inherit] tw-border-0 tw-bg-transparent tw-pl-3 tw-pr-2.5 tw-font-[inherit] tw-text-inherit tw-outline-none focus-visible:tw-bg-black/[0.04]"
       aria-haspopup="listbox" aria-expanded="false" aria-label="Country dialling code">
       <span data-pc-phone-flag class="tw-inline-flex tw-h-[0.8rem] tw-w-[1.15rem] tw-shrink-0 tw-overflow-hidden tw-rounded-[2px] tw-shadow-[0_0_0_1px_rgba(0,0,0,0.08)]" aria-hidden="true">
-        <svg viewBox="0 0 20 14" class="tw-h-full tw-w-full" focusable="false"><?= $pcPhoneSelected['svg'] ?></svg>
+        <svg viewBox="0 0 20 14" class="tw-h-full tw-w-full" focusable="false"><?= pc_phone_flag_svg($pcPhoneSelected) ?></svg>
       </span>
       <span data-pc-phone-code class="tw-text-[0.95em] tw-font-semibold tw-leading-none tw-text-ink"><?= htmlspecialchars($pcPhoneSelected['code']) ?></span>
       <svg class="tw-h-3 tw-w-3 tw-shrink-0 tw-text-ink/40 tw-transition-transform tw-duration-200 [[aria-expanded=true]_&]:tw-rotate-180" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
@@ -106,8 +106,10 @@ $pcPhoneShell = $pcPhoneSquash($pcPhoneShell);
     <?= $phoneRequired ? 'required' : '' ?>
     class="<?= $pcPhonePad ?> <?= $pcPhonePh ?> tw-m-0 tw-min-w-0 tw-flex-1 tw-appearance-none tw-rounded-r-[inherit] tw-border-0 tw-bg-transparent tw-font-[inherit] tw-text-inherit tw-outline-none">
 
-  <?php /* The flags the panel draws, keyed by ISO code. Inline, so no extra request. */ ?>
-  <script type="application/json" data-pc-phone-flags><?= json_encode(array_column($pcPhoneList, 'svg', 'iso'), JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
+  <?php /* The drawn flags the panel needs, keyed by ISO code. Inline, so no extra request. Only
+           the countries that have one: phone-field.js draws the neutral ISO chip for the rest, so
+           shipping ~190 empty strings would be pure weight. */ ?>
+  <script type="application/json" data-pc-phone-flags><?= json_encode(array_filter(array_column($pcPhoneList, 'svg', 'iso')), JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
 </div>
 <?php
 unset(

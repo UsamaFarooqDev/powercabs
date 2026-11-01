@@ -183,6 +183,13 @@ $rideChoicePoints = [
           </p>
         </div>
 
+        <?php
+        $consentId = 'rfTerms';
+        $consentChecked = $quickBookFormStatus === 'error' && !empty($_POST['terms_accepted']);
+        $consentClass = 'tw-mb-4';
+        require __DIR__ . '/../shared/terms-consent.php';
+        ?>
+
         <button type="submit" class="<?= $submitClass ?>">
           <span>Confirm Booking</span>
           <?php pc_ride_hero_icon('send', 'tw-h-3.5 tw-w-3.5'); ?>

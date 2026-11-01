@@ -9,9 +9,11 @@ declare(strict_types=1);
  *   Windows -- they fall back to the two letters, so "IE" would sit where the flag should be.
  * - An icon pack would be a new dependency and a second request for the sake of 20 rectangles.
  *
- * Each SVG is drawn in a 20x14 viewBox and simplified to the shapes that read at 20px. The list
- * is curated rather than exhaustive: Ireland first, then the nationalities that actually book
- * and drive in Dublin. Add a row here and both the dropdown and the validator pick it up.
+ * Each SVG is drawn in a 20x14 viewBox and simplified to the shapes that read at 20px. Ireland
+ * comes first, then the nationalities that actually book and drive in Dublin, then every other
+ * dialling code alphabetically. There is no API call and no build step behind this: a runtime
+ * fetch would put a third party in front of every form on the site, so the list lives here and
+ * both the dropdown and the validator read it.
  */
 function pc_phone_countries(): array
 {
@@ -32,7 +34,7 @@ function pc_phone_countries(): array
       $a, $b, $c
     );
 
-  return [
+  $curated = [
     ['iso' => 'IE', 'name' => 'Ireland', 'code' => '+353', 'svg' => $vert('#169b62', '#ffffff', '#ff883e')],
     ['iso' => 'GB', 'name' => 'United Kingdom', 'code' => '+44', 'svg' =>
       '<rect width="20" height="14" fill="#012169"/>'
@@ -100,6 +102,229 @@ function pc_phone_countries(): array
       . '<circle cx="7.6" cy="1.9" r="0.6" fill="#ffde00"/><circle cx="9.1" cy="3.4" r="0.6" fill="#ffde00"/>'
       . '<circle cx="9.1" cy="5.5" r="0.6" fill="#ffde00"/><circle cx="7.6" cy="7" r="0.6" fill="#ffde00"/>'],
   ];
+
+  // Everything else, alphabetically and without a drawn flag -- the field falls back to a neutral
+  // chip carrying the ISO code. Writing 190 more SVGs would add ~100KB to every page with a form
+  // for shapes that are 20px wide; promoting a country is just a matter of adding its svg above.
+  foreach ([
+    ['iso' => 'AF', 'name' => 'Afghanistan', 'code' => '+93'],
+    ['iso' => 'AL', 'name' => 'Albania', 'code' => '+355'],
+    ['iso' => 'DZ', 'name' => 'Algeria', 'code' => '+213'],
+    ['iso' => 'AS', 'name' => 'American Samoa', 'code' => '+1'],
+    ['iso' => 'AD', 'name' => 'Andorra', 'code' => '+376'],
+    ['iso' => 'AO', 'name' => 'Angola', 'code' => '+244'],
+    ['iso' => 'AI', 'name' => 'Anguilla', 'code' => '+1'],
+    ['iso' => 'AG', 'name' => 'Antigua and Barbuda', 'code' => '+1'],
+    ['iso' => 'AR', 'name' => 'Argentina', 'code' => '+54'],
+    ['iso' => 'AM', 'name' => 'Armenia', 'code' => '+374'],
+    ['iso' => 'AW', 'name' => 'Aruba', 'code' => '+297'],
+    ['iso' => 'AT', 'name' => 'Austria', 'code' => '+43'],
+    ['iso' => 'AZ', 'name' => 'Azerbaijan', 'code' => '+994'],
+    ['iso' => 'BS', 'name' => 'Bahamas', 'code' => '+1'],
+    ['iso' => 'BH', 'name' => 'Bahrain', 'code' => '+973'],
+    ['iso' => 'BD', 'name' => 'Bangladesh', 'code' => '+880'],
+    ['iso' => 'BB', 'name' => 'Barbados', 'code' => '+1'],
+    ['iso' => 'BY', 'name' => 'Belarus', 'code' => '+375'],
+    ['iso' => 'BZ', 'name' => 'Belize', 'code' => '+501'],
+    ['iso' => 'BJ', 'name' => 'Benin', 'code' => '+229'],
+    ['iso' => 'BM', 'name' => 'Bermuda', 'code' => '+1'],
+    ['iso' => 'BT', 'name' => 'Bhutan', 'code' => '+975'],
+    ['iso' => 'BO', 'name' => 'Bolivia', 'code' => '+591'],
+    ['iso' => 'BA', 'name' => 'Bosnia and Herzegovina', 'code' => '+387'],
+    ['iso' => 'BW', 'name' => 'Botswana', 'code' => '+267'],
+    ['iso' => 'VG', 'name' => 'British Virgin Islands', 'code' => '+1'],
+    ['iso' => 'BN', 'name' => 'Brunei', 'code' => '+673'],
+    ['iso' => 'BG', 'name' => 'Bulgaria', 'code' => '+359'],
+    ['iso' => 'BF', 'name' => 'Burkina Faso', 'code' => '+226'],
+    ['iso' => 'BI', 'name' => 'Burundi', 'code' => '+257'],
+    ['iso' => 'KH', 'name' => 'Cambodia', 'code' => '+855'],
+    ['iso' => 'CM', 'name' => 'Cameroon', 'code' => '+237'],
+    ['iso' => 'CV', 'name' => 'Cape Verde', 'code' => '+238'],
+    ['iso' => 'KY', 'name' => 'Cayman Islands', 'code' => '+1'],
+    ['iso' => 'CF', 'name' => 'Central African Republic', 'code' => '+236'],
+    ['iso' => 'TD', 'name' => 'Chad', 'code' => '+235'],
+    ['iso' => 'CL', 'name' => 'Chile', 'code' => '+56'],
+    ['iso' => 'CO', 'name' => 'Colombia', 'code' => '+57'],
+    ['iso' => 'KM', 'name' => 'Comoros', 'code' => '+269'],
+    ['iso' => 'CG', 'name' => 'Congo - Brazzaville', 'code' => '+242'],
+    ['iso' => 'CD', 'name' => 'Congo - Kinshasa', 'code' => '+243'],
+    ['iso' => 'CR', 'name' => 'Costa Rica', 'code' => '+506'],
+    ['iso' => 'CI', 'name' => 'Côte d’Ivoire', 'code' => '+225'],
+    ['iso' => 'HR', 'name' => 'Croatia', 'code' => '+385'],
+    ['iso' => 'CU', 'name' => 'Cuba', 'code' => '+53'],
+    ['iso' => 'CW', 'name' => 'Curaçao', 'code' => '+599'],
+    ['iso' => 'CY', 'name' => 'Cyprus', 'code' => '+357'],
+    ['iso' => 'CZ', 'name' => 'Czechia', 'code' => '+420'],
+    ['iso' => 'DK', 'name' => 'Denmark', 'code' => '+45'],
+    ['iso' => 'DJ', 'name' => 'Djibouti', 'code' => '+253'],
+    ['iso' => 'DM', 'name' => 'Dominica', 'code' => '+1'],
+    ['iso' => 'DO', 'name' => 'Dominican Republic', 'code' => '+1'],
+    ['iso' => 'EC', 'name' => 'Ecuador', 'code' => '+593'],
+    ['iso' => 'EG', 'name' => 'Egypt', 'code' => '+20'],
+    ['iso' => 'SV', 'name' => 'El Salvador', 'code' => '+503'],
+    ['iso' => 'GQ', 'name' => 'Equatorial Guinea', 'code' => '+240'],
+    ['iso' => 'ER', 'name' => 'Eritrea', 'code' => '+291'],
+    ['iso' => 'EE', 'name' => 'Estonia', 'code' => '+372'],
+    ['iso' => 'SZ', 'name' => 'Eswatini', 'code' => '+268'],
+    ['iso' => 'ET', 'name' => 'Ethiopia', 'code' => '+251'],
+    ['iso' => 'FO', 'name' => 'Faroe Islands', 'code' => '+298'],
+    ['iso' => 'FJ', 'name' => 'Fiji', 'code' => '+679'],
+    ['iso' => 'FI', 'name' => 'Finland', 'code' => '+358'],
+    ['iso' => 'GF', 'name' => 'French Guiana', 'code' => '+594'],
+    ['iso' => 'PF', 'name' => 'French Polynesia', 'code' => '+689'],
+    ['iso' => 'GA', 'name' => 'Gabon', 'code' => '+241'],
+    ['iso' => 'GM', 'name' => 'Gambia', 'code' => '+220'],
+    ['iso' => 'GE', 'name' => 'Georgia', 'code' => '+995'],
+    ['iso' => 'GH', 'name' => 'Ghana', 'code' => '+233'],
+    ['iso' => 'GI', 'name' => 'Gibraltar', 'code' => '+350'],
+    ['iso' => 'GR', 'name' => 'Greece', 'code' => '+30'],
+    ['iso' => 'GL', 'name' => 'Greenland', 'code' => '+299'],
+    ['iso' => 'GD', 'name' => 'Grenada', 'code' => '+1'],
+    ['iso' => 'GP', 'name' => 'Guadeloupe', 'code' => '+590'],
+    ['iso' => 'GU', 'name' => 'Guam', 'code' => '+1'],
+    ['iso' => 'GT', 'name' => 'Guatemala', 'code' => '+502'],
+    ['iso' => 'GG', 'name' => 'Guernsey', 'code' => '+44'],
+    ['iso' => 'GN', 'name' => 'Guinea', 'code' => '+224'],
+    ['iso' => 'GW', 'name' => 'Guinea-Bissau', 'code' => '+245'],
+    ['iso' => 'GY', 'name' => 'Guyana', 'code' => '+592'],
+    ['iso' => 'HT', 'name' => 'Haiti', 'code' => '+509'],
+    ['iso' => 'HN', 'name' => 'Honduras', 'code' => '+504'],
+    ['iso' => 'HK', 'name' => 'Hong Kong SAR China', 'code' => '+852'],
+    ['iso' => 'HU', 'name' => 'Hungary', 'code' => '+36'],
+    ['iso' => 'IS', 'name' => 'Iceland', 'code' => '+354'],
+    ['iso' => 'ID', 'name' => 'Indonesia', 'code' => '+62'],
+    ['iso' => 'IR', 'name' => 'Iran', 'code' => '+98'],
+    ['iso' => 'IQ', 'name' => 'Iraq', 'code' => '+964'],
+    ['iso' => 'IM', 'name' => 'Isle of Man', 'code' => '+44'],
+    ['iso' => 'IL', 'name' => 'Israel', 'code' => '+972'],
+    ['iso' => 'JM', 'name' => 'Jamaica', 'code' => '+1'],
+    ['iso' => 'JP', 'name' => 'Japan', 'code' => '+81'],
+    ['iso' => 'JE', 'name' => 'Jersey', 'code' => '+44'],
+    ['iso' => 'JO', 'name' => 'Jordan', 'code' => '+962'],
+    ['iso' => 'KZ', 'name' => 'Kazakhstan', 'code' => '+7'],
+    ['iso' => 'KE', 'name' => 'Kenya', 'code' => '+254'],
+    ['iso' => 'KI', 'name' => 'Kiribati', 'code' => '+686'],
+    ['iso' => 'KW', 'name' => 'Kuwait', 'code' => '+965'],
+    ['iso' => 'KG', 'name' => 'Kyrgyzstan', 'code' => '+996'],
+    ['iso' => 'LA', 'name' => 'Laos', 'code' => '+856'],
+    ['iso' => 'LB', 'name' => 'Lebanon', 'code' => '+961'],
+    ['iso' => 'LS', 'name' => 'Lesotho', 'code' => '+266'],
+    ['iso' => 'LR', 'name' => 'Liberia', 'code' => '+231'],
+    ['iso' => 'LY', 'name' => 'Libya', 'code' => '+218'],
+    ['iso' => 'LI', 'name' => 'Liechtenstein', 'code' => '+423'],
+    ['iso' => 'LU', 'name' => 'Luxembourg', 'code' => '+352'],
+    ['iso' => 'MO', 'name' => 'Macao SAR China', 'code' => '+853'],
+    ['iso' => 'MG', 'name' => 'Madagascar', 'code' => '+261'],
+    ['iso' => 'MW', 'name' => 'Malawi', 'code' => '+265'],
+    ['iso' => 'MY', 'name' => 'Malaysia', 'code' => '+60'],
+    ['iso' => 'MV', 'name' => 'Maldives', 'code' => '+960'],
+    ['iso' => 'ML', 'name' => 'Mali', 'code' => '+223'],
+    ['iso' => 'MT', 'name' => 'Malta', 'code' => '+356'],
+    ['iso' => 'MH', 'name' => 'Marshall Islands', 'code' => '+692'],
+    ['iso' => 'MQ', 'name' => 'Martinique', 'code' => '+596'],
+    ['iso' => 'MR', 'name' => 'Mauritania', 'code' => '+222'],
+    ['iso' => 'MU', 'name' => 'Mauritius', 'code' => '+230'],
+    ['iso' => 'MX', 'name' => 'Mexico', 'code' => '+52'],
+    ['iso' => 'FM', 'name' => 'Micronesia', 'code' => '+691'],
+    ['iso' => 'MD', 'name' => 'Moldova', 'code' => '+373'],
+    ['iso' => 'MC', 'name' => 'Monaco', 'code' => '+377'],
+    ['iso' => 'MN', 'name' => 'Mongolia', 'code' => '+976'],
+    ['iso' => 'ME', 'name' => 'Montenegro', 'code' => '+382'],
+    ['iso' => 'MS', 'name' => 'Montserrat', 'code' => '+1'],
+    ['iso' => 'MA', 'name' => 'Morocco', 'code' => '+212'],
+    ['iso' => 'MZ', 'name' => 'Mozambique', 'code' => '+258'],
+    ['iso' => 'MM', 'name' => 'Myanmar', 'code' => '+95'],
+    ['iso' => 'NA', 'name' => 'Namibia', 'code' => '+264'],
+    ['iso' => 'NR', 'name' => 'Nauru', 'code' => '+674'],
+    ['iso' => 'NP', 'name' => 'Nepal', 'code' => '+977'],
+    ['iso' => 'NC', 'name' => 'New Caledonia', 'code' => '+687'],
+    ['iso' => 'NZ', 'name' => 'New Zealand', 'code' => '+64'],
+    ['iso' => 'NI', 'name' => 'Nicaragua', 'code' => '+505'],
+    ['iso' => 'NE', 'name' => 'Niger', 'code' => '+227'],
+    ['iso' => 'KP', 'name' => 'North Korea', 'code' => '+850'],
+    ['iso' => 'MK', 'name' => 'North Macedonia', 'code' => '+389'],
+    ['iso' => 'NO', 'name' => 'Norway', 'code' => '+47'],
+    ['iso' => 'OM', 'name' => 'Oman', 'code' => '+968'],
+    ['iso' => 'PW', 'name' => 'Palau', 'code' => '+680'],
+    ['iso' => 'PS', 'name' => 'Palestine', 'code' => '+970'],
+    ['iso' => 'PA', 'name' => 'Panama', 'code' => '+507'],
+    ['iso' => 'PG', 'name' => 'Papua New Guinea', 'code' => '+675'],
+    ['iso' => 'PY', 'name' => 'Paraguay', 'code' => '+595'],
+    ['iso' => 'PE', 'name' => 'Peru', 'code' => '+51'],
+    ['iso' => 'PH', 'name' => 'Philippines', 'code' => '+63'],
+    ['iso' => 'PR', 'name' => 'Puerto Rico', 'code' => '+1'],
+    ['iso' => 'QA', 'name' => 'Qatar', 'code' => '+974'],
+    ['iso' => 'RE', 'name' => 'Réunion', 'code' => '+262'],
+    ['iso' => 'RU', 'name' => 'Russia', 'code' => '+7'],
+    ['iso' => 'RW', 'name' => 'Rwanda', 'code' => '+250'],
+    ['iso' => 'WS', 'name' => 'Samoa', 'code' => '+685'],
+    ['iso' => 'SM', 'name' => 'San Marino', 'code' => '+378'],
+    ['iso' => 'ST', 'name' => 'São Tomé and Príncipe', 'code' => '+239'],
+    ['iso' => 'SA', 'name' => 'Saudi Arabia', 'code' => '+966'],
+    ['iso' => 'SN', 'name' => 'Senegal', 'code' => '+221'],
+    ['iso' => 'RS', 'name' => 'Serbia', 'code' => '+381'],
+    ['iso' => 'SC', 'name' => 'Seychelles', 'code' => '+248'],
+    ['iso' => 'SL', 'name' => 'Sierra Leone', 'code' => '+232'],
+    ['iso' => 'SG', 'name' => 'Singapore', 'code' => '+65'],
+    ['iso' => 'SK', 'name' => 'Slovakia', 'code' => '+421'],
+    ['iso' => 'SI', 'name' => 'Slovenia', 'code' => '+386'],
+    ['iso' => 'SB', 'name' => 'Solomon Islands', 'code' => '+677'],
+    ['iso' => 'SO', 'name' => 'Somalia', 'code' => '+252'],
+    ['iso' => 'KR', 'name' => 'South Korea', 'code' => '+82'],
+    ['iso' => 'SS', 'name' => 'South Sudan', 'code' => '+211'],
+    ['iso' => 'LK', 'name' => 'Sri Lanka', 'code' => '+94'],
+    ['iso' => 'KN', 'name' => 'St Kitts and Nevis', 'code' => '+1'],
+    ['iso' => 'LC', 'name' => 'St Lucia', 'code' => '+1'],
+    ['iso' => 'VC', 'name' => 'St Vincent and the Grenadines', 'code' => '+1'],
+    ['iso' => 'SD', 'name' => 'Sudan', 'code' => '+249'],
+    ['iso' => 'SR', 'name' => 'Suriname', 'code' => '+597'],
+    ['iso' => 'CH', 'name' => 'Switzerland', 'code' => '+41'],
+    ['iso' => 'SY', 'name' => 'Syria', 'code' => '+963'],
+    ['iso' => 'TW', 'name' => 'Taiwan', 'code' => '+886'],
+    ['iso' => 'TJ', 'name' => 'Tajikistan', 'code' => '+992'],
+    ['iso' => 'TZ', 'name' => 'Tanzania', 'code' => '+255'],
+    ['iso' => 'TH', 'name' => 'Thailand', 'code' => '+66'],
+    ['iso' => 'TL', 'name' => 'Timor-Leste', 'code' => '+670'],
+    ['iso' => 'TG', 'name' => 'Togo', 'code' => '+228'],
+    ['iso' => 'TO', 'name' => 'Tonga', 'code' => '+676'],
+    ['iso' => 'TT', 'name' => 'Trinidad and Tobago', 'code' => '+1'],
+    ['iso' => 'TN', 'name' => 'Tunisia', 'code' => '+216'],
+    ['iso' => 'TR', 'name' => 'Türkiye', 'code' => '+90'],
+    ['iso' => 'TM', 'name' => 'Turkmenistan', 'code' => '+993'],
+    ['iso' => 'TC', 'name' => 'Turks and Caicos Islands', 'code' => '+1'],
+    ['iso' => 'TV', 'name' => 'Tuvalu', 'code' => '+688'],
+    ['iso' => 'UG', 'name' => 'Uganda', 'code' => '+256'],
+    ['iso' => 'UA', 'name' => 'Ukraine', 'code' => '+380'],
+    ['iso' => 'UY', 'name' => 'Uruguay', 'code' => '+598'],
+    ['iso' => 'VI', 'name' => 'US Virgin Islands', 'code' => '+1'],
+    ['iso' => 'UZ', 'name' => 'Uzbekistan', 'code' => '+998'],
+    ['iso' => 'VU', 'name' => 'Vanuatu', 'code' => '+678'],
+    ['iso' => 'VA', 'name' => 'Vatican City', 'code' => '+39'],
+    ['iso' => 'VE', 'name' => 'Venezuela', 'code' => '+58'],
+    ['iso' => 'VN', 'name' => 'Vietnam', 'code' => '+84'],
+    ['iso' => 'YE', 'name' => 'Yemen', 'code' => '+967'],
+    ['iso' => 'ZM', 'name' => 'Zambia', 'code' => '+260'],
+    ['iso' => 'ZW', 'name' => 'Zimbabwe', 'code' => '+263'],
+  ] as $c) {
+    $curated[] = $c + ['svg' => ''];
+  }
+
+  return $curated;
+}
+
+/**
+ * The flag for one row. Countries without an inline SVG get a neutral chip with their ISO code,
+ * which reads as deliberate rather than as a missing image. phone-field.js draws the same chip
+ * for the rows it builds, so the trigger and the panel always agree.
+ */
+function pc_phone_flag_svg(array $c): string
+{
+  if (($c['svg'] ?? '') !== '') {
+    return $c['svg'];
+  }
+  return '<rect width="20" height="14" rx="2" fill="#ece7e1"/>'
+    . '<text x="10" y="10.3" text-anchor="middle" font-size="7.5" font-weight="700" fill="#8a807a"'
+    . ' font-family="system-ui, -apple-system, Segoe UI, sans-serif">' . htmlspecialchars($c['iso']) . '</text>';
 }
 
 /** The dial code to pre-select. */

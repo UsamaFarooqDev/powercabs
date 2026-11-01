@@ -43,6 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($quickBookOld['email'], FILTER_VALIDATE_EMAIL)) {
     $quickBookFormStatus = 'error';
     $quickBookFormError  = 'Please enter a valid email address.';
+  } elseif (empty($_POST['terms_accepted'])) {
+    $quickBookFormStatus = 'error';
+    $quickBookFormError  = 'Please accept the Terms and Conditions to continue.';
   } else {
     $quickBookPromoDiscount = 0.0;
     $quickBookPromoApplied  = '';
@@ -157,7 +160,7 @@ $supportWhatsapp = 'https://wa.me/+353899728089';
 $supportImage = 'https://images.pexels.com/photos/4606338/pexels-photo-4606338.jpeg?auto=compress&cs=tinysrgb&w=1600';
 require __DIR__ . '/components/shared/support-band.php';
 require __DIR__ . '/components/ride/ride-faq.php';
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

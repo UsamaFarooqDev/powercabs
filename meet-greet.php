@@ -161,6 +161,9 @@ $mgFormStatus = 'error';
   } elseif (!filter_var($mgOld['email'], FILTER_VALIDATE_EMAIL)) {
     $mgFormStatus = 'error';
     $mgFormError = 'Please enter a valid email address.';
+  } elseif (empty($_POST['terms_accepted'])) {
+    $mgFormStatus = 'error';
+    $mgFormError = 'Please accept the Terms and Conditions to continue.';
   } else {
     $body =
       "New Meet & Greet enquiry from the PowerCabs website.\n\n" .
@@ -483,6 +486,14 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
             <label class="<?= $mgLabelClass ?>" for="mgSpecialRequirements">Special Requirements</label>
             <textarea class="<?= $mgInputClass ?> tw-py-2" id="mgSpecialRequirements" name="special_requirements"
               rows="3" placeholder="Child seat, extra luggage, flight number, anything we should know"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
+          </div>
+
+          <div class="<?= $mgFieldFull ?>">
+            <?php
+            $consentId = 'mgTerms';
+            $consentChecked = $mgFormStatus === 'error' && !empty($_POST['terms_accepted']);
+            require __DIR__ . '/components/shared/terms-consent.php';
+            ?>
           </div>
 
           <?php  ?>

@@ -22,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif (empty($_POST['terms_accepted'])) {
+        $formStatus = 'error';
+        $formError  = 'Please accept the Terms and Conditions to continue.';
     } else {
         $body = "New corporate account registration from the PowerCabs website.\n\n"
               . "Name: {$old['name']}\n"
@@ -126,7 +129,7 @@ $faqEyebrow = 'Corporate travel';
 $faqHeading = 'Account questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; 
+$faqSurface = 'soft';
 require __DIR__ . '/components/shared/faq-accordion.php';
 $bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';

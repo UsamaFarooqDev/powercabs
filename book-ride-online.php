@@ -61,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (empty($_POST['terms_accepted'])) {
+    $formStatus = 'error';
+    $formError = 'Please accept the Terms and Conditions to continue.';
   } else {
 if (
       $old['distance_km'] !== '' &&
@@ -134,7 +137,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <div class="tw-grid tw-grid-cols-2 tw-gap-3">
         <?php
-        
+
         $bookingSteps = [
           ['n' => 1, 'icon' => 'pin', 'title' => 'Enter Your Pickup and Drop-off Location'],
           ['n' => 2, 'icon' => 'car', 'title' => 'Select Your Ride'],
@@ -198,7 +201,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
         </div>
 
         <form method="post" action="" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
-          <?php 
+          <?php
 
           $inputClass = $pcInput; ?>
           <div>
@@ -276,6 +279,14 @@ require __DIR__ . '/components/shared/inner-hero.php';
           <input type="hidden" name="duration_min" id="pcDurationMin"
             value="<?= htmlspecialchars($old['duration_min']) ?>">
           <input type="hidden" name="fare_eur" id="pcFareEur" value="<?= htmlspecialchars($old['fare_eur']) ?>">
+
+          <div class="tw-col-span-full">
+            <?php
+            $consentId = 'broTerms';
+            $consentChecked = $formStatus === 'error' && !empty($_POST['terms_accepted']);
+            require __DIR__ . '/components/shared/terms-consent.php';
+            ?>
+          </div>
 
           <div class="tw-col-span-full tw-pt-2">
             <button type="submit" class="<?= $pcBtnPrimary ?>">

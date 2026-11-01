@@ -59,9 +59,12 @@ require __DIR__ . '/includes/header.php';
 require __DIR__ . '/components/pets-taxi/icons.php';
 
 $petBookUrl = '/book-ride-online';
-$petWhatsapp = 'https://wa.me/353899728089';
-$petTelHref = 'tel:+353899728089';
-$petTelLabel = '+353 89 972 8089';
+// Both the call and the WhatsApp button point at the office line. WhatsApp on a landline needs
+// a WhatsApp Business account registered to that number by voice verification -- if that ever
+// lapses the button dead-ends, so it is worth checking when the number changes.
+$petWhatsapp = 'https://wa.me/35312030727';
+$petTelHref = 'tel:+35312030727';
+$petTelLabel = '+353 1 203 0727';
 
 ob_start(); ?>
 <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath . $petBookUrl ?>">
@@ -351,14 +354,14 @@ $supportHeading = 'Travelling with your pet often? Talk to dispatch.';
 $supportText =
   'If your pet travels with you regularly, get in touch and tell us about them. Having your pet\'s details on file makes future bookings quicker, and we can talk through what your journeys usually need.';
 $supportNumber = $petTelLabel;
-$supportTel = '+353899728089';
+$supportTel = $petTelLabel;
 $supportWhatsapp = $petWhatsapp;
 $supportHours = 'Available 24/7, subject to suitable driver and vehicle availability.';
 
 $supportImage = $assetPath . 'assets/img/pets-taxi-band.webp';
 require __DIR__ . '/components/shared/support-band.php';
 
-$faqItems = $petFaqs; 
+$faqItems = $petFaqs;
 $faqEyebrow = 'Pet travel';
 $faqHeading = 'Pets Taxi questions.';
 $faqLayout = 'split';
@@ -406,7 +409,7 @@ require __DIR__ . '/components/shared/faq-accordion.php';
 </section>
 
 <?php
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 
 require __DIR__ . '/includes/footer.php';

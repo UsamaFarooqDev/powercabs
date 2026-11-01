@@ -161,7 +161,7 @@ $heroTitleLight  = 'Tell Us';
 $heroTitleBold   = 'What Went Wrong.';
 $heroDescription = "We're sorry your experience didn't meet our standards. Share the details below and our support team will review it and follow up.";
 $heroBgImage     = 'https://images.pexels.com/photos/6830863/pexels-photo-6830863.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; 
+$heroVariant = 'utility';
 require __DIR__ . '/components/shared/inner-hero.php';
 
 $categoryLabels = [
@@ -372,12 +372,18 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           </div>
         </div>
 
-        <div class="tw-mb-6 tw-flex tw-items-start tw-gap-2.5">
-          <input class="tw-mt-0.5 tw-h-4 tw-w-4 tw-shrink-0 tw-cursor-pointer tw-rounded tw-border tw-border-solid tw-border-[#dee2e6] tw-accent-power" type="checkbox" id="cfTerms" name="terms_agree">
-          <label class="tw-text-sm tw-text-ink" for="cfTerms">
-            I have read and agree to the <a class="tw-text-power tw-transition-colors tw-duration-200 hover:tw-text-powerdark focus-visible:tw-text-powerdark" href="<?= $assetPath ?>/terms-conditions" target="_blank" rel="noopener">Terms and Conditions</a> and <a class="tw-text-power tw-transition-colors tw-duration-200 hover:tw-text-powerdark focus-visible:tw-text-powerdark" href="<?= $assetPath ?>/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
-          </label>
-        </div>
+        <?php
+        // Not `required`: this block is display:none for the minimal categories, and Chrome will
+        // not submit a form that holds a required control it cannot focus. The handler's
+        // `$isFullForm && !$termsAgreed` check is what actually enforces it.
+        $consentId = 'cfTerms';
+        $consentName = 'terms_agree';
+        $consentRequired = false;
+        $consentPrivacy = true;
+        $consentChecked = $formStatus === 'error' && !empty($_POST['terms_agree']);
+        $consentClass = 'tw-mb-6';
+        require __DIR__ . '/components/shared/terms-consent.php';
+        ?>
       </div>
 
       <div id="complaintSubmitWrapper" class="tw-hidden">
@@ -402,7 +408,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
 ) ?>"></script>
 
 <?php
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Dublin City Tours & Private Day Trips | PowerCabs';
 $pageDescription =
-  
+
   "Private Dublin city tours and Irish day trips with PowerCabs - a local driver to the city's top sights, the Cliffs of Moher and Giant's Causeway.";
 $assetPath = '';
 
@@ -58,6 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'pa
   } elseif (!filter_var($hourlyOld['email'], FILTER_VALIDATE_EMAIL)) {
     $hourlyFormStatus = 'error';
     $hourlyFormError = 'Please enter a valid email address.';
+  } elseif (empty($_POST['terms_accepted'])) {
+    $hourlyFormStatus = 'error';
+    $hourlyFormError = 'Please accept the Terms and Conditions to continue.';
   } else {
     $body =
       "New Pay Per Hour booking request.\n\n" .
@@ -107,6 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'pa
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (empty($_POST['terms_accepted'])) {
+    $formStatus = 'error';
+    $formError = 'Please accept the Terms and Conditions to continue.';
   } else {
     $body =
       "New City Tour booking request.\n\n" .
@@ -213,8 +219,8 @@ $ctSubmitClass = $pcBtnPrimary;
         class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
       <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(100deg,rgba(10,7,5,0.93)_0%,rgba(10,7,5,0.86)_48%,rgba(10,7,5,0.72)_100%)]" aria-hidden="true"></span>
 
-      <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-gap-6 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
-        <div class="lg:tw-max-w-[62%]">
+      <div class="tw-relative tw-flex tw-flex-col tw-items-start tw-gap-7 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between lg:tw-gap-10">
+        <div class="lg:tw-max-w-[58%]">
           <p class="<?= $pcEyebrowOnDark ?>">Pay Per Hour</p>
           <h2 class="<?= $pcH2OnDark ?>">Rather set your own route?</h2>
           <p class="tw-mb-0 <?= $pcBodyOnDark ?> tw-max-w-[58ch]">
@@ -225,9 +231,26 @@ $ctSubmitClass = $pcBtnPrimary;
             &euro;45 per hour for Small, Regular or Economy car &middot; &euro;50 per hour for a Large or XL car.
           </p>
         </div>
-        <button type="button" class="<?= $pcBtnPrimary ?> tw-shrink-0" data-pc-modal-open="#hourlyModal">
-          Book Per Hour
-        </button>
+
+        <?php /* Book first, ask second. The WhatsApp pill carries the support number itself, so the
+                 band does not need a line of text repeating it -- same pill as the footer. */ ?>
+        <div class="tw-flex tw-w-full tw-flex-col tw-gap-3 sm:tw-w-auto sm:tw-flex-row lg:tw-w-auto lg:tw-shrink-0 lg:tw-flex-col lg:tw-items-stretch">
+          <button type="button" class="<?= $pcBtnPrimary ?> tw-w-full sm:tw-w-auto lg:tw-w-full" data-pc-modal-open="#hourlyModal">
+            Book Per Hour
+          </button>
+
+          <a class="tw-inline-flex tw-items-center tw-gap-2.5 tw-rounded-full tw-border tw-border-solid tw-border-white/15 tw-bg-white/[0.06] tw-py-1.5 tw-pl-1.5 tw-pr-4 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-border-[#25d366]/60 hover:tw-bg-white/10"
+            href="https://wa.me/353899728089" target="_blank" rel="noopener"
+            aria-label="Ask about Pay Per Hour on WhatsApp, +353 89 972 8089">
+            <span class="tw-flex tw-h-8 tw-w-8 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-[#25d366] tw-text-white">
+              <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.71 14.02c-.24.68-1.38 1.3-1.9 1.38-.49.08-1.1.11-1.77-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.09-4.85-4.28-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.37.26-.28.57-.35.76-.35h.55c.18 0 .41-.07.64.49.24.57.81 1.97.88 2.11.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.04.94 1.92 1.23 2.19 1.37.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.53.72 1.79.85.26.14.44.21.5.32.07.12.07.68-.17 1.35z"/></svg>
+            </span>
+            <span class="tw-flex tw-flex-col tw-leading-tight">
+              <strong class="tw-text-[0.8rem] tw-font-semibold tw-text-white">WhatsApp support</strong>
+              <small class="tw-text-[0.72rem] tw-text-white/55">+353 89 972 8089</small>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -338,6 +361,13 @@ $ctSubmitClass = $pcBtnPrimary;
               <label class="<?= $ctLabelClass ?>" for="ctRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
               <textarea class="<?= $ctInputClass ?> tw-py-2" id="ctRequests" name="special_requests" rows="3" placeholder="Child seat, extra luggage, anything we should know"><?= htmlspecialchars($old['special_requests']) ?></textarea>
             </div>
+            <div class="md:tw-col-span-2">
+              <?php
+              $consentId = 'ctTerms';
+              $consentChecked = $formStatus === 'error' && !empty($_POST['terms_accepted']);
+              require __DIR__ . '/components/shared/terms-consent.php';
+              ?>
+            </div>
             <div class="md:tw-col-span-2 tw-pt-2">
               <button type="submit" class="<?= $ctSubmitClass ?>">
                 <span>Submit Booking</span>
@@ -424,6 +454,13 @@ $ctSubmitClass = $pcBtnPrimary;
             <label class="<?= $ctLabelClass ?>" for="phRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
             <textarea class="<?= $ctInputClass ?> tw-py-2" id="phRequests" name="special_requests" rows="3" placeholder="Child seat, extra luggage, anything we should know"><?= htmlspecialchars($hourlyOld['special_requests']) ?></textarea>
           </div>
+          <div class="md:tw-col-span-2">
+            <?php
+            $consentId = 'phTerms';
+            $consentChecked = $hourlyFormStatus === 'error' && !empty($_POST['terms_accepted']);
+            require __DIR__ . '/components/shared/terms-consent.php';
+            ?>
+          </div>
           <div class="md:tw-col-span-2 tw-pt-2">
             <button type="submit" class="<?= $ctSubmitClass ?>">
               <span>Submit Booking</span>
@@ -452,6 +489,8 @@ $ctSubmitClass = $pcBtnPrimary;
 ) ?>"></script>
 
 <?php
+require __DIR__ . '/components/city-tours/testimonials.php';
+
 $faqItems = [
   ['q' => 'Is the car private to my group?', 'a' => 'Yes — a private car for your group only, with door-to-door pickup.'],
   ['q' => 'Can I choose where we go?', 'a' => 'The itinerary is flexible and can run as a full or half day.'],
@@ -462,9 +501,9 @@ $faqEyebrow = 'City tours';
 $faqHeading = 'Tour questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; 
+$faqSurface = 'soft';
 require __DIR__ . '/components/shared/faq-accordion.php';
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

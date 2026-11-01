@@ -23,9 +23,17 @@
     return wrap._pcFlags;
   }
 
+  /* Mirrors pc_phone_flag_svg() in includes/phone-countries.php: most countries have no drawn
+     flag, and a neutral chip with the ISO code reads as deliberate rather than as a broken image. */
   function flagSvg(wrap, iso) {
     var f = flagsFor(wrap)[iso];
-    return f ? '<svg viewBox="0 0 20 14" class="tw-h-full tw-w-full" focusable="false">' + f + '</svg>' : '';
+    if (!f) {
+      f =
+        '<rect width="20" height="14" rx="2" fill="#ece7e1"/>' +
+        '<text x="10" y="10.3" text-anchor="middle" font-size="7.5" font-weight="700" fill="#8a807a" ' +
+        'font-family="system-ui, -apple-system, Segoe UI, sans-serif">' + (iso || '') + '</text>';
+    }
+    return '<svg viewBox="0 0 20 14" class="tw-h-full tw-w-full" focusable="false">' + f + '</svg>';
   }
 
   /* Paint the trigger from whatever the select currently holds. */

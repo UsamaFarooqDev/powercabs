@@ -106,6 +106,14 @@ $inputClass = $pcInput;
 ) ?>" placeholder="12 Kylmore Road, Inchicore, Dublin 10">
             </div>
 
+            <div class="tw-col-span-full">
+              <?php
+              $consentId = 'csTerms';
+              $consentChecked = $formStatus === 'error' && !empty($_POST['terms_accepted']);
+              require __DIR__ . '/../shared/terms-consent.php';
+              ?>
+            </div>
+
             <div class="tw-col-span-full tw-pt-2">
               <button type="submit" class="<?= $pcBtnPrimary ?>">
                 <span>Submit</span>
