@@ -22,6 +22,11 @@ $heroVariant = $heroVariant ?? ($heroCompact ? 'utility' : 'split');
 
 $heroImages = $heroImages ?? [];
 
+// showcase only. The default leaves a flat ink column beside the photo, which suits a portrait
+// photograph. A landscape one can run wider and carry the copy itself, so the ink becomes a glow
+// behind the text instead of a panel next to it.
+$heroPhotoWide = $heroPhotoWide ?? false;
+
 if ($heroVariant === 'split' && empty($heroBgImage) && empty($heroImages)) {
   $heroVariant = 'minimal';
 }
@@ -86,7 +91,9 @@ $heroCrumbFirst = $heroVariant !== 'image';
     <?php /* Outside the container on purpose: only a direct child of the section can reach the
              viewport's right edge. The ink only runs across the photo's inner edge -- the right
              of the frame stays the photograph, unwashed. #111111 is the `ink` token. */ ?>
-    <div class="tw-relative tw-mt-9 tw-h-[clamp(17rem,66vw,27rem)] lg:tw-absolute lg:tw-inset-y-0 lg:tw-right-0 lg:tw-mt-0 lg:tw-h-auto lg:tw-w-[64%] xl:tw-w-[62%]">
+    <div class="tw-relative tw-mt-9 tw-h-[clamp(17rem,66vw,27rem)] lg:tw-absolute lg:tw-inset-y-0 lg:tw-right-0 lg:tw-mt-0 lg:tw-h-auto <?= $heroPhotoWide
+      ? 'lg:tw-w-[78%] xl:tw-w-[76%]'
+      : 'lg:tw-w-[64%] xl:tw-w-[62%]' ?>">
       <picture>
         <?php if (!empty($heroBgImageSmall)): ?>
           <source media="(max-width: 767px)" srcset="<?= htmlspecialchars($heroBgImageSmall) ?>">
@@ -96,7 +103,9 @@ $heroCrumbFirst = $heroVariant !== 'image';
           fetchpriority="high" decoding="async">
       </picture>
       <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-top-0 tw-h-24 tw-bg-[linear-gradient(to_bottom,#111111_0%,rgba(17,17,17,0.62)_48%,rgba(17,17,17,0)_100%)] lg:tw-hidden" aria-hidden="true"></span>
-      <span class="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-hidden tw-w-full tw-bg-[linear-gradient(to_right,#111111_0%,rgba(17,17,17,0.92)_22%,rgba(17,17,17,0.6)_31%,rgba(17,17,17,0.22)_39%,rgba(17,17,17,0)_48%)] lg:tw-block" aria-hidden="true"></span>
+      <span class="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-hidden tw-w-full lg:tw-block <?= $heroPhotoWide
+        ? 'tw-bg-[linear-gradient(to_right,#111111_0%,rgba(17,17,17,0.84)_16%,rgba(17,17,17,0.55)_32%,rgba(17,17,17,0.2)_48%,rgba(17,17,17,0)_62%)]'
+        : 'tw-bg-[linear-gradient(to_right,#111111_0%,rgba(17,17,17,0.92)_22%,rgba(17,17,17,0.6)_31%,rgba(17,17,17,0.22)_39%,rgba(17,17,17,0)_48%)]' ?>" aria-hidden="true"></span>
     </div>
   <?php endif; ?>
 
@@ -204,6 +213,7 @@ unset(
   $heroImageAlt,
   $heroTrust,
   $heroBgImageSmall,
+  $heroPhotoWide,
   $heroTitleLight,
   $heroTitleBold,
   $heroBreadcrumbLabel

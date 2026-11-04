@@ -4,7 +4,7 @@ $pcOrigin = 'https://www.powercabs.ie';
 // POST-only JSON endpoints belong here: a sitemap entry that 404s or 405s is a crawl error.
 $excluded = [
   '404', '410', 'reset-password', 'router', 'sitemap',
-  
+
   'driver-apply', 'driver-auth', 'driver-training-api', 'driver-certificate',
 ];
 
@@ -20,6 +20,7 @@ $profiles = [
   'wheelchair-accessible-taxis' => ['0.8', 'monthly'],
   'pets-taxi' => ['0.8', 'monthly'],
   'city-tours' => ['0.8', 'monthly'],
+  'item-collection-delivery' => ['0.8', 'monthly'],
   'download-our-app' => ['0.8', 'monthly'],
   'contact-us' => ['0.7', 'monthly'],
   'about-us' => ['0.7', 'monthly'],

@@ -131,6 +131,11 @@ $megaCtaGhost =
                           <span class="<?= $megaItemTitle ?>">City Tours</span>
                           <span class="<?= $megaItemDesc ?>">See Ireland with a local driver</span>
                         </a>
+
+                        <a class="<?= $megaItem ?>" href="<?= $assetPath ?>/item-collection-delivery">
+                          <span class="<?= $megaItemTitle ?>">Item Collection &amp; Delivery</span>
+                          <span class="<?= $megaItemDesc ?>">Send keys, bags and documents</span>
+                        </a>
                       </div>
 
                       <div class="pc-mega-col">
@@ -229,7 +234,7 @@ $megaCtaGhost =
                             <a class="<?= $megaSubitem ?>" href="<?= $assetPath ?>/safety-tips-riders">Rider Safety</a>
                           </div>
                         </div>
-                        
+
                       </div>
                     </div>
                   </div>
@@ -294,23 +299,25 @@ $megaCtaGhost =
               </li>
           </ul>
 
-          <a class="tw-mt-2 tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-px-5 tw-py-3 tw-text-[0.95rem] tw-font-medium tw-text-white tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30 lg:tw-hidden"
+          <?php /* Same pill as the desktop CTA, full width inside the open menu. */ ?>
+          <a class="tw-group tw-mt-2 tw-inline-flex tw-w-full tw-items-center tw-justify-center tw-gap-3 tw-rounded-full tw-border-0 tw-bg-ink tw-py-2 tw-pl-6 tw-pr-2 tw-text-[0.95rem] tw-font-semibold tw-text-white tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30 lg:tw-hidden"
             href="<?= $assetPath ?>/book-ride-online">
-            <svg class="tw-h-4 tw-w-4 tw-shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Book Online
+            <span>Book a Ride</span>
+            <span class="tw-inline-flex tw-h-8 tw-w-8 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-power tw-text-white tw-transition-transform tw-duration-200 motion-safe:group-hover:tw-translate-x-0.5 motion-reduce:tw-transition-none" aria-hidden="true">
+              <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
           </a>
 
         </div>
         <div class="tw-flex tw-shrink-0 tw-items-center tw-gap-2">
-          <a class="tw-group tw-hidden lg:tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-full tw-bg-ink tw-border-0 tw-text-white tw-text-[0.86rem] tw-font-medium tw-tracking-[-0.01em] tw-px-5 tw-py-2.5 tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30"
+          <?php /* Dark pill, label, then the arrow in a brand disc tucked against the right
+                   edge -- the disc nudges right on hover, which is the whole animation. */ ?>
+          <a class="tw-group tw-hidden lg:tw-inline-flex tw-items-center tw-gap-3 tw-rounded-full tw-border-0 tw-bg-ink tw-py-1.5 tw-pl-5 tw-pr-1.5 tw-text-[0.86rem] tw-font-semibold tw-tracking-[-0.01em] tw-text-white tw-no-underline tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-ink/30"
               href="<?= $assetPath ?>/book-ride-online">
-              <svg class="tw-w-4 tw-h-4 tw-shrink-0 tw-hidden sm:tw-block" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v4h2m14-6a2 2 0 0 1 2 2v4h-2m-14 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m10 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1m-14 0h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <?php  ?>
-              <span class="tw-inline-block">Book Online</span>
+              <span class="tw-whitespace-nowrap">Book a Ride</span>
+              <span class="tw-inline-flex tw-h-7 tw-w-7 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-power tw-text-white tw-transition-transform tw-duration-200 motion-safe:group-hover:tw-translate-x-0.5 motion-reduce:tw-transition-none" aria-hidden="true">
+                <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
             </a>
           <button type="button" id="pcNavToggle" class="tw-group tw-relative tw-flex tw-h-9 tw-w-9 tw-shrink-0 tw-cursor-pointer tw-appearance-none tw-flex-col tw-items-center tw-justify-center tw-gap-[5px] tw-rounded-xl tw-border-0 tw-bg-black/[0.05] tw-shadow-none tw-outline-none tw-transition-colors tw-duration-200 hover:tw-bg-black/[0.09] focus-visible:tw-bg-black/[0.09] focus-visible:tw-outline-none lg:tw-hidden"
           aria-controls="mainNav" aria-expanded="false"

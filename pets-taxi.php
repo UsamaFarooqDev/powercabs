@@ -183,6 +183,97 @@ $petTrust = [
 </section>
 
 <?php
+/* The three things people ask at the kerb, in one panel: what the pet charge is, why paying up
+   front gets you a car faster, and what gets a booking declined. The sizes carry no weight bands
+   on purpose -- dispatch decides the band, so the copy sends people to ask rather than guess. */
+$petCharges = [
+  ['Small', 3, 'Cats, small dogs, carriers'],
+  ['Medium', 5, 'Most dogs travelling on a seat'],
+  ['Large', 7, 'Large breeds needing boot or floor space'],
+];
+?>
+<section class="<?= $pcSection ?>" id="pet-charges">
+  <div class="<?= $pcContainer ?>">
+    <div class="tw-overflow-hidden tw-rounded-[2rem] tw-border tw-border-solid tw-border-hairline tw-bg-white tw-shadow-[0_26px_60px_-30px_rgba(28,20,16,0.35)]">
+
+      <?php  ?>
+      <div class="tw-grid tw-grid-cols-1 tw-gap-9 tw-p-6 sm:tw-p-9 lg:tw-grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:tw-items-center lg:tw-gap-14 lg:tw-p-11">
+
+        <div>
+          <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Charges</p>
+          <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">What a pet journey <span class="tw-text-power">costs.</span></h2>
+          <p class="<?= $pcBody ?> tw-mb-4">
+            The pet charge follows the size of your animal and is added to the fare for the journey.
+          </p>
+          <p class="<?= $pcBodySm ?> tw-mb-0">
+            Not sure which band your pet falls into? Ask dispatch before you book and we will confirm
+            it. Assistance dogs and other legally protected assistance animals are not pet journeys,
+            and no pet charge applies to them.
+          </p>
+        </div>
+
+        <?php  ?>
+        <ul class="tw-m-0 tw-list-none tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-p-0 [&>li+li]:tw-border-0 [&>li+li]:tw-border-t [&>li+li]:tw-border-solid [&>li+li]:tw-border-hairline">
+          <?php foreach ($petCharges as [$petSize, $petFee, $petSizeHint]): ?>
+            <li class="tw-flex tw-items-center tw-gap-4 tw-px-5 tw-py-4 sm:tw-px-6">
+              <span class="<?= $pcIconChip ?> tw-shrink-0" aria-hidden="true"><?php pc_pets_icon('paw'); ?></span>
+              <span class="tw-min-w-0 tw-flex-1">
+                <span class="tw-block tw-text-[0.95rem] tw-font-bold tw-leading-tight tw-text-ink"><?= htmlspecialchars($petSize) ?> pet</span>
+                <span class="tw-mt-0.5 tw-block tw-text-[0.82rem] tw-leading-snug tw-text-ink/50"><?= htmlspecialchars($petSizeHint) ?></span>
+              </span>
+              <span class="tw-shrink-0 tw-text-[1.6rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-power">&euro;<?= (int) $petFee ?></span>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+
+      </div>
+
+      <?php  ?>
+      <div class="tw-grid tw-grid-cols-1 tw-border-0 tw-border-t tw-border-solid tw-border-hairline md:tw-grid-cols-2">
+
+        <div class="tw-p-6 sm:tw-p-9">
+          <div class="tw-mb-3 tw-flex tw-items-center tw-gap-2.5">
+            <span class="tw-inline-flex tw-h-7 tw-w-7 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-lg tw-bg-success/15 tw-text-success" aria-hidden="true">
+              <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </span>
+            <span class="tw-text-[0.7rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-success">Good to know</span>
+          </div>
+          <h3 class="<?= pc_mb($pcH3, 'tw-mb-2') ?>">Prepaid pet rides get matched faster</h3>
+          <p class="<?= $pcBodySm ?> tw-mb-0">
+            A pet journey that is paid for when you book is more likely to be picked up quickly. The
+            job reaches the driver already committed, which makes it an easier one to accept &mdash;
+            and a pet booking depends on finding a driver who is happy to take an animal. If you can
+            pay up front, do.
+          </p>
+        </div>
+
+        <div class="tw-border-0 tw-border-t tw-border-solid tw-border-hairline tw-bg-peach/50 tw-p-6 sm:tw-p-9 md:tw-border-l md:tw-border-t-0">
+          <div class="tw-mb-3 tw-flex tw-items-center tw-gap-2.5">
+            <span class="tw-inline-flex tw-h-7 tw-w-7 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-lg tw-bg-power/15 tw-text-power" aria-hidden="true">
+              <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m0 3.75h.008M10.34 3.94L1.9 18.5A1.75 1.75 0 003.41 21h17.18a1.75 1.75 0 001.51-2.5L13.66 3.94a1.75 1.75 0 00-3.02 0z"/></svg>
+            </span>
+            <span class="tw-text-[0.7rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">Before you book</span>
+          </div>
+          <h3 class="<?= pc_mb($pcH3, 'tw-mb-2') ?>">Turn up prepared, or the driver can decline</h3>
+          <p class="<?= $pcBodySm ?> tw-mb-3">
+            A driver may refuse to carry a pet that arrives without a carrier, blanket or waterproof
+            seat cover, or that is travelling loose in the car. Where a booking is declined on those
+            grounds it is treated as a no-show and is
+            <strong class="tw-font-semibold tw-text-ink">not refunded</strong>.
+          </p>
+          <p class="<?= $pcBodySm ?> tw-mb-0">
+            Please read the <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/40 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-decoration-power" href="<?= $assetPath ?>/terms-conditions">Terms and Conditions</a>,
+            and <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/40 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-decoration-power" href="<?= $assetPath ?>/contact-us">check with us</a>
+            before booking if you are unsure what your pet needs for the journey.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<?php
 $petWhy = [
   [
     'icon' => 'devices',
