@@ -140,6 +140,7 @@ function pc_yes_no_toggle(string $name, string $idPrefix, string $current, bool 
           </select>
         </div>
 
+        <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/../../shared/turnstile.php'; ?>
         <div class="md:tw-col-span-2 tw-pt-2">
           <button type="submit" class="<?= $pcBtnPrimary ?>">
             <span>Submit Form</span>

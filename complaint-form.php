@@ -5,6 +5,7 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $criminalCategories = [
@@ -59,6 +60,9 @@ $formStatus = 'error';
     } elseif ($isFullForm && !filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+        $formStatus = 'error';
+        $formError  = $pcTurnstileError;
     } elseif ($isFullForm && !$termsAgreed) {
         $formStatus = 'error';
         $formError  = 'Please confirm you agree to the Terms and Conditions and Privacy Policy.';
@@ -372,6 +376,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           </div>
         </div>
 
+        <?php require __DIR__ . '/components/shared/turnstile.php'; ?>
         <?php
         // Not `required`: this block is display:none for the minimal categories, and Chrome will
         // not submit a form that holds a required control it cannot focus. The handler's

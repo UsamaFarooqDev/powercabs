@@ -106,6 +106,7 @@ $inputClass = $pcInput;
 ) ?>" placeholder="12 Kylmore Road, Inchicore, Dublin 10">
             </div>
 
+            <?php $turnstileClass = 'tw-col-span-full'; require __DIR__ . '/../shared/turnstile.php'; ?>
             <div class="tw-col-span-full">
               <?php
               $consentId = 'csTerms';

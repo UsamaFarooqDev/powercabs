@@ -5,6 +5,7 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
@@ -22,6 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+        $formStatus = 'error';
+        $formError  = $pcTurnstileError;
     } else {
         $body = "New Ambassador Programme registration.\n\n"
               . "Name: {$old['name']}\n"
@@ -65,7 +69,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <div>
   <?php
   require __DIR__ . '/components/ambassador/benefits.php';
-  
+
   require __DIR__ . '/components/shared/booking-sources.php';
   require __DIR__ . '/components/ambassador/registration.php';
   ?>
@@ -86,7 +90,7 @@ $ctaText =
 $ctaPrimary = ['href' => '/ambassador-programme#pcAmbRegister', 'label' => 'Apply Now'];
 $ctaSecondary = ['href' => '/drive', 'label' => 'Drive with PowerCabs'];
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; 
+$bannerCompact = true;
 
 $bannerTitle = 'Get the PowerCabs Driver app';
 

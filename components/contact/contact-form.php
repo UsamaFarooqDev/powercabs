@@ -75,6 +75,7 @@ $submitClass = $pcBtnPrimary;
               <label class="<?= $labelClass ?> pc-required" for="cuMessage">Message</label>
               <textarea class="<?= $inputClass ?> tw-resize-y" id="cuMessage" name="message" rows="3" required placeholder="How can we help?"><?= htmlspecialchars($old['message']) ?></textarea>
             </div>
+            <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/../shared/turnstile.php'; ?>
             <div class="tw-pt-1 md:tw-col-span-2">
               <button type="submit" class="<?= $submitClass ?>">
                 <span>Send Message</span>

@@ -6,6 +6,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $lostItemFee = 15;
@@ -49,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $formStatus = 'error';
+    $formError = $pcTurnstileError;
   } else {
     $attachments = [];
     $hasUpload = !empty($_FILES['receipt']['tmp_name']) && ($_FILES['receipt']['error'] ?? 1) === UPLOAD_ERR_OK;
@@ -277,6 +281,7 @@ $submitClass = $pcBtnPrimary;
                 $old['item_description'],
               ) ?></textarea>
             </div>
+            <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/components/shared/turnstile.php'; ?>
             <div class="tw-pt-2 md:tw-col-span-2">
               <button type="submit" class="<?= $submitClass ?>">
                 <span>Report a Lost Item</span>

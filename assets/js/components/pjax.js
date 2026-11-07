@@ -113,6 +113,8 @@ if (push) window.history.pushState({ pcPjax: true }, "", url);
 
       if (window.pcInitPhoneFields) window.pcInitPhoneFields();
 
+      if (window.pcInitTurnstile) window.pcInitTurnstile();
+
 // New globals that must survive a <main> swap get added to this list.
       if (window.pcInitDriverTraining) window.pcInitDriverTraining();
 

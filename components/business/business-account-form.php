@@ -49,6 +49,7 @@ $submitClass = $pcBtnPrimary;
       <textarea class="<?= $inputClass ?> tw-resize-y" id="baMessage" name="message" rows="3" placeholder="Tell us how your team travels and what you need"><?= htmlspecialchars($old['message']) ?></textarea>
     </div>
 
+    <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/../shared/turnstile.php'; ?>
     <div class="tw-pt-2 md:tw-col-span-2">
       <button type="submit" class="<?= $submitClass ?>">
         <span>Submit Request</span>

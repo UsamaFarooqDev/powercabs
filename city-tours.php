@@ -7,6 +7,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
@@ -58,6 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'pa
   } elseif (!filter_var($hourlyOld['email'], FILTER_VALIDATE_EMAIL)) {
     $hourlyFormStatus = 'error';
     $hourlyFormError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $hourlyFormStatus = 'error';
+    $hourlyFormError = $pcTurnstileError;
   } elseif (empty($_POST['terms_accepted'])) {
     $hourlyFormStatus = 'error';
     $hourlyFormError = 'Please accept the Terms and Conditions to continue.';
@@ -110,6 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form_type'] ?? '') === 'pa
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $formStatus = 'error';
+    $formError = $pcTurnstileError;
   } elseif (empty($_POST['terms_accepted'])) {
     $formStatus = 'error';
     $formError = 'Please accept the Terms and Conditions to continue.';
@@ -361,6 +368,7 @@ $ctSubmitClass = $pcBtnPrimary;
               <label class="<?= $ctLabelClass ?>" for="ctRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
               <textarea class="<?= $ctInputClass ?> tw-py-2" id="ctRequests" name="special_requests" rows="3" placeholder="Child seat, extra luggage, anything we should know"><?= htmlspecialchars($old['special_requests']) ?></textarea>
             </div>
+            <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/components/shared/turnstile.php'; ?>
             <div class="md:tw-col-span-2">
               <?php
               $consentId = 'ctTerms';
@@ -454,6 +462,7 @@ $ctSubmitClass = $pcBtnPrimary;
             <label class="<?= $ctLabelClass ?>" for="phRequests">Special Requests <span class="tw-font-normal tw-text-ink/50">(optional)</span></label>
             <textarea class="<?= $ctInputClass ?> tw-py-2" id="phRequests" name="special_requests" rows="3" placeholder="Child seat, extra luggage, anything we should know"><?= htmlspecialchars($hourlyOld['special_requests']) ?></textarea>
           </div>
+          <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/components/shared/turnstile.php'; ?>
           <div class="md:tw-col-span-2">
             <?php
             $consentId = 'phTerms';

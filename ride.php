@@ -5,6 +5,7 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 require __DIR__ . '/lib/fare_calculator.php';
 
@@ -43,6 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($quickBookOld['email'], FILTER_VALIDATE_EMAIL)) {
     $quickBookFormStatus = 'error';
     $quickBookFormError  = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $quickBookFormStatus = 'error';
+    $quickBookFormError  = $pcTurnstileError;
   } elseif (empty($_POST['terms_accepted'])) {
     $quickBookFormStatus = 'error';
     $quickBookFormError  = 'Please accept the Terms and Conditions to continue.';

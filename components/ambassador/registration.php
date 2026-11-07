@@ -80,6 +80,7 @@ $submitClass = $pcBtnPrimary;
               </select>
             </div>
 
+            <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/../shared/turnstile.php'; ?>
             <div class="tw-pt-2 md:tw-col-span-2">
               <button type="submit" class="<?= $submitClass ?>">
                 <span>Submit Application</span>

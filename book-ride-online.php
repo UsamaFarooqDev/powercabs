@@ -6,6 +6,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 require __DIR__ . '/lib/fare_calculator.php';
 
@@ -61,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $formStatus = 'error';
+    $formError = $pcTurnstileError;
   } elseif (empty($_POST['terms_accepted'])) {
     $formStatus = 'error';
     $formError = 'Please accept the Terms and Conditions to continue.';
@@ -280,6 +284,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
             value="<?= htmlspecialchars($old['duration_min']) ?>">
           <input type="hidden" name="fare_eur" id="pcFareEur" value="<?= htmlspecialchars($old['fare_eur']) ?>">
 
+          <?php $turnstileClass = 'tw-col-span-full'; require __DIR__ . '/components/shared/turnstile.php'; ?>
           <div class="tw-col-span-full">
             <?php
             $consentId = 'broTerms';

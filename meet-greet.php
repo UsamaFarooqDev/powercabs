@@ -7,6 +7,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $mgFormStatus = null;
@@ -161,6 +162,9 @@ $mgFormStatus = 'error';
   } elseif (!filter_var($mgOld['email'], FILTER_VALIDATE_EMAIL)) {
     $mgFormStatus = 'error';
     $mgFormError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $mgFormStatus = 'error';
+    $mgFormError = $pcTurnstileError;
   } elseif (empty($_POST['terms_accepted'])) {
     $mgFormStatus = 'error';
     $mgFormError = 'Please accept the Terms and Conditions to continue.';
@@ -488,6 +492,7 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
               rows="3" placeholder="Child seat, extra luggage, flight number, anything we should know"><?= htmlspecialchars($mgOld['special_requirements']) ?></textarea>
           </div>
 
+          <?php $turnstileClass = '<?= $mgFieldFull ?>'; require __DIR__ . '/components/shared/turnstile.php'; ?>
           <div class="<?= $mgFieldFull ?>">
             <?php
             $consentId = 'mgTerms';

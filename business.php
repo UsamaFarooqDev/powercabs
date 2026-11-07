@@ -6,6 +6,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
@@ -37,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($old['business_email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $formStatus = 'error';
+    $formError = $pcTurnstileError;
   } else {
     $body =
       "New business ride enquiry from the PowerCabs website.\n\n" .
@@ -123,10 +127,10 @@ $faqEyebrow = 'Business travel';
 $faqHeading = 'Business questions.';
 $faqLayout = 'split';
 $faqMoreHref = '/faqs';
-$faqSurface = 'soft'; 
+$faqSurface = 'soft';
 require __DIR__ . '/components/shared/faq-accordion.php';
 require __DIR__ . '/components/shared/final-cta.php';
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 ?>
 

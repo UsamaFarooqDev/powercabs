@@ -5,6 +5,7 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
 $formStatus = null;
@@ -22,6 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+        $formStatus = 'error';
+        $formError  = $pcTurnstileError;
     } elseif (empty($_POST['terms_accepted'])) {
         $formStatus = 'error';
         $formError  = 'Please accept the Terms and Conditions to continue.';

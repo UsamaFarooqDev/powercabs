@@ -183,6 +183,7 @@ $rideChoicePoints = [
           </p>
         </div>
 
+        <?php require __DIR__ . '/../shared/turnstile.php'; ?>
         <?php
         $consentId = 'rfTerms';
         $consentChecked = $quickBookFormStatus === 'error' && !empty($_POST['terms_accepted']);

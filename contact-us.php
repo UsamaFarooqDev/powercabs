@@ -6,9 +6,10 @@ $assetPath       = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 require __DIR__ . '/includes/phone-countries.php';
 
-$formStatus = null; 
+$formStatus = null;
 $formError  = '';
 $old = ['first_name' => '', 'last_name' => '', 'email' => '', 'phone' => '', 'phone_cc' => '', 'subject' => '', 'message' => ''];
 
@@ -23,6 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+        $formStatus = 'error';
+        $formError  = $pcTurnstileError;
     } else {
         $fullName = trim($old['first_name'] . ' ' . $old['last_name']);
 
@@ -58,7 +62,7 @@ $heroTitleLight  = "We're Here";
 $heroTitleBold   = 'To Help, Anytime.';
 $heroDescription = "Have a question about booking, billing, or partnering with PowerCabs? Send us a message and our team will get back to you shortly.";
 $heroBgImage     = 'https://images.pexels.com/photos/8867176/pexels-photo-8867176.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; 
+$heroVariant = 'utility';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -115,7 +119,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 </section>
 
 <?php
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

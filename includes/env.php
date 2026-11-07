@@ -49,6 +49,11 @@ define('PC_SMTP_FROM_NAME', pc_env('SMTP_FROM_NAME', 'PowerCabs Website'));
 define('PC_MAIL_TO', pc_env('MAIL_TO', ''));
 define('PC_GOOGLE_MAPS_API_KEY', pc_env('GOOGLE_MAPS_API_KEY', ''));
 
+// Cloudflare Turnstile. The site key is public and is printed into the markup; the secret is
+// server-side only and is never echoed.
+define('PC_TURNSTILE_SITE_KEY', pc_env('TURNSTILE_SITE_KEY', ''));
+define('PC_TURNSTILE_SECRET', pc_env('TURNSTILE_SECRET', ''));
+
 define('PC_SUPABASE_URL', pc_env('SUPABASE_URL', ''));
 define('PC_SUPABASE_SERVICE_KEY', pc_env('SUPABASE_SERVICE_KEY', ''));
 define('PC_SUPABASE_ANON_KEY', pc_env('SUPABASE_ANON_KEY', ''));

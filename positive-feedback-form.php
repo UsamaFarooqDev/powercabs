@@ -6,6 +6,7 @@ $assetPath = '';
 
 require __DIR__ . '/includes/env.php';
 require __DIR__ . '/includes/mailer.php';
+require __DIR__ . '/includes/turnstile.php';
 
 $formStatus = null;
 $formError = '';
@@ -24,6 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
+  } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
+    $formStatus = 'error';
+    $formError = $pcTurnstileError;
   } else {
     $body =
       "New positive feedback submission from the PowerCabs website.\n\n" .
@@ -62,7 +66,7 @@ $heroTitleBold = 'Great Experience.';
 $heroDescription =
   "Great service deserves a shout-out. Tell us what stood out and we'll make sure the right people hear about it.";
 $heroBgImage = 'https://images.pexels.com/photos/5955023/pexels-photo-5955023.jpeg?auto=format&fit=crop&w=1600&q=60';
-$heroVariant = 'utility'; 
+$heroVariant = 'utility';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -166,6 +170,7 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
                 $old['message'],
               ) ?></textarea>
             </div>
+            <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/components/shared/turnstile.php'; ?>
             <div class="tw-pt-2 md:tw-col-span-2">
               <button type="submit" class="<?= $submitClass ?>">
                 <span>Send Feedback</span>
@@ -188,7 +193,7 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
 </section>
 
 <?php
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 

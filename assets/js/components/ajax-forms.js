@@ -50,6 +50,9 @@ async function pcHandleAjaxSubmit(event) {
     window.pcToast("Network error -- please check your connection and try again.", "error");
   } finally {
     restoreBtn();
+    // A Turnstile token is single-use, so the widget needs a fresh one whether the post
+    // succeeded or failed -- form.reset() does not touch the iframe.
+    if (window.pcResetTurnstile) window.pcResetTurnstile(form);
   }
 }
 

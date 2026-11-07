@@ -96,7 +96,7 @@ $footerNav = [
 
       <?php $groupIndex = 0; ?>
       <?php foreach ($footerNav as $groupTitle => $groupLinks): ?>
-        <?php 
+        <?php
         $groupPanelId = 'pcFooterGroup' . ++$groupIndex; ?>
         <div class="tw-border-0 tw-border-b tw-border-solid tw-border-white/[0.08] md:tw-border-b-0">
           <h2 class="<?= $fColTitle ?> tw-hidden md:tw-block"><?= $groupTitle ?></h2>
@@ -188,6 +188,10 @@ $footerNav = [
 ) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/phone-field.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/phone-field.js',
+) ?>"></script>
+<?php  ?>
+<script src="<?= $assetPath ?>assets/js/components/turnstile.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/components/turnstile.js',
 ) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/pjax.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/pjax.js',
