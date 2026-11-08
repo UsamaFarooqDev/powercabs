@@ -111,6 +111,9 @@ PcModal.prototype.show = function (opener) {
     this.el.removeAttribute("aria-hidden");
     document.body.style.overflow = "hidden";
 
+    // A Turnstile widget inside a closed modal is skipped until the modal is on screen.
+    if (window.pcInitTurnstile) window.pcInitTurnstile();
+
 requestAnimationFrame(function () {
       self.backdrop.classList.add("tw-opacity-100");
       self.el.classList.add(OPEN);

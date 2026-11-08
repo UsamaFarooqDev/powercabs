@@ -21,6 +21,10 @@ function pcInitComplaintForm() {
     complaintFields.classList.toggle("tw-hidden", mode !== "full");
     experienceSection.classList.toggle("tw-hidden", mode !== "full");
     submitWrapper.classList.remove("tw-hidden");
+
+    // The security check lives beside the submit button, which appears for every category --
+    // including the two that only show the short form. Render it now that it is visible.
+    if (window.pcInitTurnstile) window.pcInitTurnstile();
   }
 
   form.querySelectorAll('input[name="complaint_category"]').forEach((el) => {

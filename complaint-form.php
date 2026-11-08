@@ -376,7 +376,6 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
           </div>
         </div>
 
-        <?php require __DIR__ . '/components/shared/turnstile.php'; ?>
         <?php
         // Not `required`: this block is display:none for the minimal categories, and Chrome will
         // not submit a form that holds a required control it cannot focus. The handler's
@@ -391,7 +390,11 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         ?>
       </div>
 
+      <?php /* Outside #complaintFields on purpose: that block is hidden for the two short-form
+               categories, but the server checks the token on every submission, so the widget has
+               to appear wherever the submit button does. */ ?>
       <div id="complaintSubmitWrapper" class="tw-hidden">
+        <?php $turnstileClass = 'tw-mb-5'; require __DIR__ . '/components/shared/turnstile.php'; ?>
         <button type="submit" id="complaintSubmitBtn" class="<?= $submitClass ?>">
           <span id="complaintSubmitLabel">Submit Complaint</span>
           <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z"/></svg>

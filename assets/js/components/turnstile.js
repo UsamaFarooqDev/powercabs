@@ -25,6 +25,9 @@
     if (!window.turnstile) return;
     widgets().forEach(function (el) {
       if (el.dataset.pcWidgetId) return;
+      // Turnstile cannot size itself inside display:none, and several widgets start life in a
+      // closed modal or a collapsed block. Leave those until whatever reveals them calls back.
+      if (!el.offsetParent && getComputedStyle(el).position !== 'fixed') return;
       try {
         el.dataset.pcWidgetId = window.turnstile.render(el, {});
       } catch (e) {

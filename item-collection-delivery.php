@@ -4,6 +4,42 @@ $pageDescription =
   'Forgotten keys, a laptop left behind, airport excess baggage or an urgent document - PowerCabs collects eligible items and delivers them, with Garda-vetted drivers and the price confirmed before you book.';
 $assetPath = '';
 
+// seo.php turns $pageFaq into FAQPage JSON-LD and runs from header.php, so the questions
+// have to exist before that include. Plain text only: faq-list.php escapes both fields.
+$idelFaqs = [
+  [
+    'q' => 'What types of items can you collect and deliver?',
+    'a' =>
+      'Luggage and oversized baggage, shopping, event and venue equipment, office files, boxes, laptops and keys, and forgotten personal belongings. We do not carry food or takeaway orders, and every booking is subject to item acceptance.',
+  ],
+  [
+    'q' => 'Can you collect oversized baggage from Dublin Airport?',
+    'a' =>
+      'Yes. Tell us which terminal your bags are at, where they need to go and when you need them delivered, and we will confirm availability and the price before the booking is accepted. It is often cheaper than an airline excess-baggage charge.',
+  ],
+  [
+    'q' => 'Do you offer shopping collection from Dublin stores?',
+    'a' =>
+      'Yes, where the shop authorises the collection. Give us the store, what is being collected and who it is for, and we will deliver it to your chosen address.',
+  ],
+  [
+    'q' => 'Can you collect forgotten items from hotels and Airbnb properties?',
+    'a' =>
+      'Yes. We collect from hotels, serviced apartments, Airbnbs, offices and venues once the property has agreed to release the item, and deliver it to you or another authorised recipient.',
+  ],
+  [
+    'q' => 'Do you provide office equipment and event equipment collections?',
+    'a' =>
+      'Yes. Files, boxes, laptops, office keys and phones move between offices, employees, clients and meeting locations, and we also collect concert, event and venue equipment from an agreed location. Business customers can ask about repeat and recurring courier arrangements.',
+  ],
+  [
+    'q' => 'How do I arrange an item collection and delivery?',
+    'a' =>
+      'Book online and choose Courier / Parcel, or contact our team for a quote. Tell us what the item is, where it is, where it needs to go and when; we confirm the service and price before your driver collects it.',
+  ],
+];
+$pageFaq = $idelFaqs;
+
 require __DIR__ . '/includes/header.php';
 
 $heroEyebrow = 'Item Collection & Delivery';
@@ -27,6 +63,14 @@ require __DIR__ . '/components/item-delivery/what-we-move.php';
 require __DIR__ . '/components/item-delivery/timing.php';
 require __DIR__ . '/components/item-delivery/care.php';
 require __DIR__ . '/components/item-delivery/how-it-works.php';
+
+$faqItems = $idelFaqs;
+$faqEyebrow = 'Collection and delivery';
+$faqHeading = 'Frequently asked questions.';
+$faqLayout = 'split';
+$faqSurface = 'soft';
+$faqMoreHref = '/faqs';
+require __DIR__ . '/components/shared/faq-accordion.php';
 
 $ctaTitle = 'Need something collected or delivered?';
 $ctaText = 'Get it where it needs to be, without making the journey yourself.';
