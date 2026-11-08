@@ -216,7 +216,7 @@ $submitClass = $pcBtnPrimary;
           <span class="tw-text-[1.35rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-success">&euro;0</span>
           <span class="tw-min-w-0 tw-flex-1 tw-text-[0.92rem] tw-leading-snug tw-text-ink/70">
             for the first search. The optional &euro;<?= $lostItemFee ?> extended investigation only happens if you ask for it &mdash;
-            <a class="tw-font-semibold tw-text-power tw-underline tw-underline-offset-2" href="#pricing">see both options</a>.
+            <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="#pricing">see both options</a>.
           </span>
         </div>
       </div>

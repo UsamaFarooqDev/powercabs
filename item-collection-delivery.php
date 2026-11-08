@@ -92,7 +92,7 @@ require __DIR__ . '/components/shared/final-cta.php';
           PowerCabs does not offer food or takeaway delivery. Bookings are subject to driver
           availability, item acceptance and the agreed collection and delivery arrangements. For
           business enquiries, recurring courier work or specialist collections,
-          <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/40 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-decoration-power" href="<?= $assetPath ?>/contact-us">contact our team</a>.
+          <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= $assetPath ?>/contact-us">contact our team</a>.
         </p>
       </div>
     </div>

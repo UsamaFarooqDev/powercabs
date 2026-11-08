@@ -60,7 +60,9 @@ $footerNav = [
 ?>
 <?php  ?>
 <?php  ?>
-<footer class="tw-relative tw-overflow-hidden tw-rounded-t-[clamp(1.5rem,3.5vw,2.75rem)] tw-bg-[radial-gradient(90%_140%_at_12%_0%,rgba(249,115,22,0.16)_0%,rgba(249,115,22,0.05)_38%,transparent_70%),linear-gradient(180deg,#333333_0%,#262626_38%,#1c1c1c_72%,#141414_100%)] tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white tw-shadow-[inset_0_1px_0_rgba(255,255,255,0.11)]">
+<?php  ?>
+<div class="tw-px-1 tw-pb-1 sm:tw-px-1.5 sm:tw-pb-1.5 lg:tw-px-2 lg:tw-pb-2">
+  <footer class="tw-relative tw-overflow-hidden tw-rounded-[clamp(1.125rem,2.5vw,2rem)] tw-bg-[radial-gradient(90%_140%_at_12%_0%,rgba(249,115,22,0.16)_0%,rgba(249,115,22,0.05)_38%,transparent_70%),linear-gradient(180deg,#333333_0%,#262626_38%,#1c1c1c_72%,#141414_100%)] tw-pb-8 tw-pt-[clamp(3.5rem,5vw,5.5rem)] tw-text-white tw-shadow-[inset_0_1px_0_rgba(255,255,255,0.11)]">
 
   <div class="tw-relative <?= $pcContainer ?>">
 
@@ -165,7 +167,8 @@ $footerNav = [
       </div>
     </div>
   </div>
-</footer>
+  </footer>
+</div>
 
 <?php require __DIR__ . '/../components/shared/scroll-indicator.php'; ?>
 

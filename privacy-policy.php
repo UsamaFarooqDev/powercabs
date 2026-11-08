@@ -57,7 +57,7 @@ $ppNav = [
           <li>Address</li>
           <li>IP address</li>
           <li>Payment information (where applicable)</li>
-          <li>Location data &mdash; see <a class="tw-font-semibold tw-text-power tw-underline tw-underline-offset-2 hover:tw-text-powerdark" href="#pp-location">Location Data</a> below</li>
+          <li>Location data &mdash; see <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="#pp-location">Location Data</a> below</li>
         </ul>
         <p class="tw-mb-2 tw-font-semibold">Non-Personal Data</p>
         <p class="tw-mb-3">PowerCabs may also collect:</p>
@@ -117,7 +117,7 @@ $ppNav = [
         <p class="tw-mb-2 tw-font-semibold">Your control</p>
         <ul class="tw-mb-4">
           <li>You can grant, restrict or withdraw location permission at any time in your device settings &mdash; Settings &rsaquo; Apps &rsaquo; PowerCabs &rsaquo; Permissions on Android, or Settings &rsaquo; Privacy &amp; Security &rsaquo; Location Services on iOS &mdash; and in your browser&rsquo;s site settings for the website.</li>
-          <li>Withdrawing permission does not affect processing already carried out, and you keep all the rights set out under <a class="tw-font-semibold tw-text-power tw-underline tw-underline-offset-2 hover:tw-text-powerdark" href="#pp-rights">Your Rights</a> below.</li>
+          <li>Withdrawing permission does not affect processing already carried out, and you keep all the rights set out under <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="#pp-rights">Your Rights</a> below.</li>
           <li>If you turn location off, parts of the service stop working: we cannot fill in your pickup point automatically, you will need to type an address instead, and a driver who turns location off cannot be offered or accept jobs.</li>
         </ul>
 

@@ -43,8 +43,8 @@ $pcConsentBox = $consentOnDark
 $pcConsentText = $consentOnDark ? 'tw-text-white/70' : 'tw-text-ink/65';
 
 $pcConsentLink = $consentOnDark
-  ? 'tw-text-white hover:tw-text-powerlight tw-decoration-white/40 hover:tw-decoration-powerlight'
-  : 'tw-text-power hover:tw-text-powerdark tw-decoration-power/30 hover:tw-decoration-powerdark';
+  ? 'tw-text-white hover:tw-text-powerlight'
+  : 'tw-text-power hover:tw-text-powerdark';
 ?>
 <div class="tw-flex tw-items-start tw-gap-3 tw-rounded-xl tw-border tw-border-solid tw-px-3.5 tw-py-3 tw-transition-colors tw-duration-200 <?= $pcConsentShell ?> <?= $consentClass ?>">
 
@@ -64,11 +64,11 @@ $pcConsentLink = $consentOnDark
     I have read and accept the
     <?php /* Same tab by design: a booking form is not worth losing to a popup blocker or a
              stranded second window. PJAX swaps <main>, so Back returns to the form. */ ?><a
-      class="tw-font-semibold tw-decoration-[1.5px] tw-transition-colors tw-duration-200 motion-reduce:tw-transition-none <?= $pcConsentLink ?>"
+      class="tw-font-semibold tw-no-underline tw-transition-colors tw-duration-200 motion-reduce:tw-transition-none <?= $pcConsentLink ?>"
       href="<?= $assetPath ?>/terms-conditions">Terms&nbsp;and&nbsp;Conditions</a><?php if (
       $consentPrivacy
     ): ?> and the <a
-      class="tw-font-semibold tw-decoration-[1.5px] tw-transition-colors tw-duration-200 motion-reduce:tw-transition-none <?= $pcConsentLink ?>"
+      class="tw-font-semibold tw-no-underline tw-transition-colors tw-duration-200 motion-reduce:tw-transition-none <?= $pcConsentLink ?>"
       href="<?= $assetPath ?>/privacy-policy">Privacy&nbsp;Policy</a><?php endif; ?> of PowerCabs Ireland Limited.
   </label>
 </div>

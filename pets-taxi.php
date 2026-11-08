@@ -206,9 +206,9 @@ $petCharges = [
             The pet charge follows the size of your animal and is added to the fare for the journey.
           </p>
           <p class="<?= $pcBodySm ?> tw-mb-0">
-            Not sure which band your pet falls into? Ask dispatch before you book and we will confirm
+            Not sure which size your pet counts as? Ask dispatch before you book and we will confirm
             it. Assistance dogs and other legally protected assistance animals are not pet journeys,
-            and no pet charge applies to them.
+            so no pet charge applies.
           </p>
         </div>
 
@@ -240,10 +240,9 @@ $petCharges = [
           </div>
           <h3 class="<?= pc_mb($pcH3, 'tw-mb-2') ?>">Prepaid pet rides get matched faster</h3>
           <p class="<?= $pcBodySm ?> tw-mb-0">
-            A pet journey that is paid for when you book is more likely to be picked up quickly. The
-            job reaches the driver already committed, which makes it an easier one to accept &mdash;
-            and a pet booking depends on finding a driver who is happy to take an animal. If you can
-            pay up front, do.
+            Every pet journey depends on finding a driver who is happy to carry an animal, and a fare
+            that is already paid is the easiest kind of job to accept. Paying when you book usually
+            means your ride is picked up sooner.
           </p>
         </div>
 
@@ -256,15 +255,15 @@ $petCharges = [
           </div>
           <h3 class="<?= pc_mb($pcH3, 'tw-mb-2') ?>">Turn up prepared, or the driver can decline</h3>
           <p class="<?= $pcBodySm ?> tw-mb-3">
-            A driver may refuse to carry a pet that arrives without a carrier, blanket or waterproof
-            seat cover, or that is travelling loose in the car. Where a booking is declined on those
-            grounds it is treated as a no-show and is
-            <strong class="tw-font-semibold tw-text-ink">not refunded</strong>.
+            Bring a carrier, or a blanket or waterproof seat cover for the seat. A driver can turn
+            away an animal that arrives without one, or that is loose in the car. A booking refused
+            for that reason is treated as a no-show, and
+            <strong class="tw-font-semibold tw-text-ink">the fare still applies</strong>.
           </p>
           <p class="<?= $pcBodySm ?> tw-mb-0">
-            Please read the <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/40 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-decoration-power" href="<?= $assetPath ?>/terms-conditions">Terms and Conditions</a>,
-            and <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/40 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-decoration-power" href="<?= $assetPath ?>/contact-us">check with us</a>
-            before booking if you are unsure what your pet needs for the journey.
+            Not sure what your pet needs for the journey? <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= $assetPath ?>/contact-us">Check with us</a>
+            before you book &mdash; the full rules are in our
+            <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= $assetPath ?>/terms-conditions">Terms and Conditions</a>.
           </p>
         </div>
 
@@ -430,7 +429,7 @@ $petTips = [
           your payment provider's requirements and applicable law.
         </p>
         <p class="<?= $pcBodySm ?> tw-mb-0 tw-border-0 tw-border-t tw-border-solid tw-border-hairline tw-pt-4">
-          Think a charge is wrong? <a class="tw-font-semibold tw-text-power tw-underline tw-decoration-power/40 tw-decoration-2 tw-underline-offset-4 tw-transition-colors tw-duration-200 hover:tw-decoration-power" href="<?= $assetPath ?>/contact-us">Contact PowerCabs</a>
+          Think a charge is wrong? <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= $assetPath ?>/contact-us">Contact PowerCabs</a>
           and we will look into it with you.
         </p>
       </div>
