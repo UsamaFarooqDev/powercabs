@@ -34,6 +34,9 @@ $old = [
     'vehicle_licence_number' => '', 'driver_name' => '', 'driver_licence_number' => '', 'vehicle_registration_number' => '', 'vehicle_make_model' => '',
     'dispatch_name' => '', 'method_of_booking' => '', 'contact_information' => '', 'date_of_booking' => '', 'time_of_booking' => '',
     'experience_description' => '', 'experience_name' => '', 'experience_date' => '',
+    // The short form's own contact fields: the full block above is still in the DOM when it is
+    // hidden, so sharing names with it would post empty values over these.
+    'minimal_name' => '', 'minimal_email' => '', 'minimal_phone' => '', 'minimal_phone_cc' => '',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,16 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $termsAgreed = isset($_POST['terms_agree']);
 
-    $isMinimalForm = in_array($old['complaint_category'], $minimalCategories, true);
-    $isFullForm    = in_array($old['complaint_category'], $fullFormCategories, true);
+    $isMinimalForm  = in_array($old['complaint_category'], $minimalCategories, true);
+    $isFullForm     = in_array($old['complaint_category'], $fullFormCategories, true);
+    $isCriminalForm = in_array($old['complaint_category'], $criminalCategories, true);
+    // The short contact block serves both: the two short categories and the Garda ones.
+    $isShortForm    = $isMinimalForm || $isCriminalForm;
 
-    if (in_array($old['complaint_category'], $criminalCategories, true)) {
-        $formStatus = 'error';
-        $formError  = 'This category relates to a matter for An Garda Siochana, not something submitted through this form. In an emergency ring 999 or 112.';
-    } elseif ($old['service_type'] === '' || $old['complaint_category'] === '') {
+    if ($old['service_type'] === '' || $old['complaint_category'] === '') {
         $formStatus = 'error';
         $formError  = 'Please select a service type and a complaint category.';
-    } elseif (!$isMinimalForm && !$isFullForm) {
+    } elseif (!$isShortForm && !$isFullForm) {
 $formStatus = 'error';
         $formError  = 'Please select a valid complaint category.';
     } elseif ($isFullForm && ($old['email'] === '' || $old['phone'] === '' || $old['pickup_location'] === '' || $old['destination_location'] === '' || $old['journey_date'] === '' || $old['journey_time'] === '' || $old['experience_description'] === '' || $old['experience_name'] === '' || $old['experience_date'] === '')) {
@@ -60,19 +63,37 @@ $formStatus = 'error';
     } elseif ($isFullForm && !filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
         $formStatus = 'error';
         $formError  = 'Please enter a valid email address.';
+    } elseif ($isShortForm && ($old['minimal_name'] === '' || $old['minimal_email'] === '' || $old['minimal_phone'] === '')) {
+        $formStatus = 'error';
+        $formError  = 'Please fill in all required fields.';
+    } elseif ($isShortForm && !filter_var($old['minimal_email'], FILTER_VALIDATE_EMAIL)) {
+        $formStatus = 'error';
+        $formError  = 'Please enter a valid email address.';
     } elseif (($pcTurnstileError = pc_turnstile_error()) !== null) {
         $formStatus = 'error';
         $formError  = $pcTurnstileError;
     } elseif ($isFullForm && !$termsAgreed) {
         $formStatus = 'error';
         $formError  = 'Please confirm you agree to the Terms and Conditions and Privacy Policy.';
-    } elseif ($isMinimalForm) {
+    } elseif ($isShortForm) {
+        $minimalPhone = pc_phone_full($old['minimal_phone_cc'], $old['minimal_phone']);
         $body = "New complaint submitted via the PowerCabs website.\n\n"
               . "Service Type: {$old['service_type']}\n"
               . "Complaint Category: {$old['complaint_category']}\n\n"
-              . "No further details were collected for this category.\n";
+              . "-- Contact Details --\n"
+              . "Name: {$old['minimal_name']}\n"
+              . "Email: {$old['minimal_email']}\n"
+              . "Phone: {$minimalPhone}\n\n"
+              . ($isCriminalForm
+                  ? "NOTE: this category is a Garda matter. The website showed the An Garda Siochana\n"
+                    . "notice before the form was sent; these are contact details only, not a report.\n"
+                  : "No further journey details are collected for this category.\n");
 
-        $result = pc_send_mail('Complaint: ' . $old['complaint_category'], $body);
+        $result = pc_send_mail(
+            'Complaint: ' . $old['complaint_category'],
+            $body,
+            ['name' => $old['minimal_name'], 'email' => $old['minimal_email']]
+        );
 
         if ($result['success']) {
             $formStatus = 'success';
@@ -238,7 +259,7 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         </div>
       </div>
 
-      <div id="criminalNotice" class="alert-danger tw-hidden tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert">
+      <div id="criminalNotice" class="tw-mb-6 tw-hidden tw-rounded-md tw-border tw-border-solid tw-border-red-200 tw-bg-red-50 tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-red-700" role="alert">
         If the matter to which your complaint relates is of a criminal nature, you should contact An Garda S&iacute;och&aacute;na. In an emergency ring 999 or 112.
       </div>
 
@@ -388,6 +409,38 @@ $cardToggleClass = 'tw-block tw-w-full tw-cursor-pointer tw-rounded-lg tw-border
         $consentClass = 'tw-mb-6';
         require __DIR__ . '/components/shared/terms-consent.php';
         ?>
+      </div>
+
+      <?php /* The two short-form categories collect no journey details, but we still need to know
+               who is complaining and how to reply. Same field recipes and the same phone control
+               as the full form above. */ ?>
+      <div id="complaintMinimalFields" class="tw-hidden">
+        <div class="tw-mb-6 tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfMinName">Full Name</label>
+            <input type="text" class="<?= $inputClass ?>" id="cfMinName" name="minimal_name"
+              value="<?= htmlspecialchars($old['minimal_name']) ?>" autocomplete="name" placeholder="John Murphy">
+          </div>
+
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfMinEmail">Email Address</label>
+            <input type="email" class="<?= $inputClass ?>" id="cfMinEmail" name="minimal_email"
+              value="<?= htmlspecialchars($old['minimal_email']) ?>" autocomplete="email" placeholder="you@example.com">
+          </div>
+
+          <div>
+            <label class="<?= $labelClass ?> pc-required" for="cfMinPhone">Phone Number</label>
+            <?php
+            $phoneId = 'cfMinPhone';
+            $phoneName = 'minimal_phone';
+            $phoneCcName = 'minimal_phone_cc';
+            $phoneValue = $old['minimal_phone'];
+            $phoneCcValue = $old['minimal_phone_cc'];
+            $phoneClass = $inputClass;
+            require __DIR__ . '/components/shared/phone-field.php';
+            ?>
+          </div>
+        </div>
       </div>
 
       <?php /* Outside #complaintFields on purpose: that block is hidden for the two short-form
