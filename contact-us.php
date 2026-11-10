@@ -74,7 +74,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainerNarrow ?>">
-    <div class="tw-mb-6 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-6 tw-text-center">
       <h2 class="<?= $pcH2 ?>">Something more specific?</h2>
       <p class="tw-mx-auto tw-mb-0 tw-max-w-[52ch] tw-text-ink/60">
         These go straight to the right team, so they are handled faster than a
@@ -82,7 +82,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
       </p>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-3">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-3">
       <?php foreach (
         [
           [

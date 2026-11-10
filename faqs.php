@@ -143,7 +143,7 @@ $heroDescription =
   "Whether you're booking a ride or driving with us, find quick answers to the most common questions from passengers and drivers alike.";
 $heroBgImage = 'https://images.pexels.com/photos/36507933/pexels-photo-36507933.jpeg?auto=format&fit=crop&w=1600&q=60';
 $heroBreadcrumbLabel = 'FAQs';
-$heroVariant = 'utility'; 
+$heroVariant = 'utility';
 require __DIR__ . '/components/shared/inner-hero.php';
 ?>
 
@@ -155,7 +155,7 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 
 <section class="tw-px-4 tw-py-16 sm:tw-px-6 md:tw-py-24 lg:tw-px-8">
   <div class="tw-mx-auto tw-w-full tw-max-w-[860px]">
-    <div class="tw-mb-10 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-10 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Frequently Asked Questions</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Passenger &amp; Driver FAQs</h2>
 
@@ -171,12 +171,12 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
       </div>
     </div>
 
-    <div id="passengerFaqAccordion">
+    <div data-motion-stagger="fade-up" id="passengerFaqAccordion">
       <?php
       $faqListItems = $passengerFaqs;
       $faqListId = 'passengerFaq';
       $faqListParent = '#passengerFaqAccordion';
-      $faqListAnswerRaw = true; 
+      $faqListAnswerRaw = true;
       require __DIR__ . '/components/shared/faq-list.php';
       ?>
     </div>
@@ -208,7 +208,7 @@ $audienceToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-roun
 <script src="<?= $assetPath ?>assets/js/components/faqs.js?v=<?= @filemtime(__DIR__ . '/assets/js/components/faqs.js') ?>"></script>
 
 <?php
-$bannerCompact = true; 
+$bannerCompact = true;
 require __DIR__ . '/components/shared/app-download-banner.php';
 require __DIR__ . '/includes/footer.php';
 ?>

@@ -12,14 +12,14 @@ $rowCount = count($compareRows);
 
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= $pcEyebrow ?>">Compare the Model</p>
       <h2 class="<?= $pcH2Display ?>">
         Look beyond the headline commission
       </h2>
     </div>
 
-    <div class="tw-mx-auto tw-mb-12 tw-max-w-[720px] md:tw-mb-14">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[720px] md:tw-mb-14">
       <p class="tw-mb-3 tw-text-center tw-text-[0.7rem] tw-font-semibold tw-uppercase tw-tracking-[0.14em] tw-text-muted">
         Example &mdash; one completed &euro;100 PowerCabs job
       </p>
@@ -43,7 +43,7 @@ $rowCount = count($compareRows);
       </p>
     </div>
 
-    <div class="tw-mx-auto tw-max-w-[940px]">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-max-w-[940px]">
 
       <div class="tw-hidden md:tw-block">
         <div class="tw-relative tw-rounded-[20px] tw-border tw-border-solid tw-border-hairline tw-bg-white tw-shadow-[0_18px_45px_-20px_rgba(28,20,16,0.28)]">

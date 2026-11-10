@@ -29,6 +29,8 @@ $old = [
   'destination_location' => '',
   'journey_datetime' => '',
   'item_description' => '',
+  'driver_consent' => '',
+  'delivery_consent' => '',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -47,6 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   ) {
     $formStatus = 'error';
     $formError = 'Please fill in all required fields.';
+  } elseif ($old['driver_consent'] !== '1' || $old['delivery_consent'] !== '1') {
+    /* Checked server-side as well as in the browser: `required` is a convenience, not a
+       guarantee, and the first of these is a consent to share a phone number. */
+    $formStatus = 'error';
+    $formError = 'Please tick both consent boxes so we can start looking for your item.';
   } elseif (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) {
     $formStatus = 'error';
     $formError = 'Please enter a valid email address.';
@@ -93,7 +100,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'Receipt attached: ' .
         ($attachments !== [] ? 'yes' : 'no') .
         "\n\n" .
-        "Item Lost Details:\n{$old['item_description']}\n";
+        "Item Lost Details:\n{$old['item_description']}\n\n" .
+        "Consent given at submission:\n" .
+        "  - Share contact number with driver communities to identify the driver: YES\n" .
+        "  - Understands arranging delivery directly with a driver may disqualify future claims: YES\n";
 
       $result = pc_send_mail(
         'Lost item report: ' . $old['name'],
@@ -280,6 +290,28 @@ $submitClass = $pcBtnPrimary;
               <textarea class="<?= $inputClass ?> tw-resize-y" id="liItem" name="item_description" rows="4" required placeholder="What it is, the colour and make, and anything that identifies it"><?= htmlspecialchars(
                 $old['item_description'],
               ) ?></textarea>
+            </div>
+            <?php /* Both are conditions of the search itself, so both are required and both are
+                     re-checked in the POST handler above and recorded in the email. */ ?>
+            <div class="tw-flex tw-flex-col tw-gap-2.5 md:tw-col-span-2">
+              <?php
+              $consentId = 'liDriverConsent';
+              $consentName = 'driver_consent';
+              $consentChecked = $old['driver_consent'] === '1';
+              $consentLabel =
+                'I consent to sharing my contact number with relevant taxi driver communities to ' .
+                'identify the driver and will notify PowerCabs if they contact me.';
+              require __DIR__ . '/components/shared/terms-consent.php';
+
+              $consentId = 'liDeliveryConsent';
+              $consentName = 'delivery_consent';
+              $consentChecked = $old['delivery_consent'] === '1';
+              $consentLabel =
+                'I understand that arranging delivery directly with the driver without PowerCabs&rsquo; ' .
+                'consent may disqualify me from future claims, and PowerCabs will not be responsible ' .
+                'if the driver disappears.';
+              require __DIR__ . '/components/shared/terms-consent.php';
+              ?>
             </div>
             <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/components/shared/turnstile.php'; ?>
             <div class="tw-pt-2 md:tw-col-span-2">

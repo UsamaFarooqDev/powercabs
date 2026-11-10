@@ -39,7 +39,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
     <?php  ?>
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-14">
 
-      <div class="lg:tw-col-span-7">
+      <div data-motion-stagger="fade-up" class="lg:tw-col-span-7">
         <h2 class="<?= $pcH2Display ?>">
           Be Your Real Boss &mdash; Not Just on Paper.
         </h2>
@@ -58,7 +58,7 @@ function pc_drive_icon(string $icon, string $cls = 'tw-h-4 tw-w-4'): void
       </div>
 
       <?php  ?>
-      <div class="lg:tw-col-span-5">
+      <div data-motion="fade-up" class="lg:tw-col-span-5">
         <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[30rem] lg:tw-max-w-none">
 
           <div class="tw-rounded-3xl tw-bg-ink tw-p-6 tw-text-white tw-shadow-[0_28px_60px_-28px_rgba(28,20,16,0.55)] sm:tw-p-7">

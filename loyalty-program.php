@@ -130,7 +130,7 @@ function pc_render_loyalty_timeline(array $items): void
 
 <div>
   <section class="tw-pb-4 tw-pt-16 tw-text-center md:tw-pt-24">
-    <div class="<?= $pcContainerProse ?>">
+    <div data-motion-stagger="fade-up" class="<?= $pcContainerProse ?>">
       <p class="tw-mb-0 tw-text-[1.12rem] tw-leading-[1.75] tw-text-ink/60">
         PowerCabs rewards drivers for their dedication through a points-based loyalty program.
         Drivers earn points for completed trips and unlock better rewards as they progress.
@@ -139,7 +139,7 @@ function pc_render_loyalty_timeline(array $items): void
   </section>
 
   <section class="tw-pb-16 tw-pt-3 md:tw-pb-24">
-    <div class="<?= $pcContainer ?>">
+    <div data-motion-stagger="fade-up" class="<?= $pcContainer ?>">
       <div class="<?= $pcSectionHeadCenter ?>">
         <p class="<?= $pcEyebrow ?>">How It Works</p>
         <h2 class="<?= $pcH2 ?>">Four steps to your first reward</h2>
@@ -157,11 +157,11 @@ function pc_render_loyalty_timeline(array $items): void
 
 <section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Membership Levels</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Drive More, Earn More</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-items-start tw-gap-8 md:tw-grid-cols-3 md:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-items-start tw-gap-8 md:tw-grid-cols-3 md:tw-gap-6">
       <?php foreach ($tiers as $tier):
 
         [$pointsValue, $pointsLabel] = pc_loyalty_split_stat($tier['items'][0] ?? '');
@@ -228,12 +228,12 @@ function pc_render_loyalty_timeline(array $items): void
 
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why It Works</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Loyalty That Actually Pays Off</h2>
     </div>
 
-    <div class="tw-grid tw-grid-cols-2 tw-gap-5 [grid-auto-rows:minmax(150px,auto)] md:tw-grid-cols-4">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-2 tw-gap-5 [grid-auto-rows:minmax(150px,auto)] md:tw-grid-cols-4">
       <div class="pc-reveal tw-translate-y-6 tw-opacity-0 tw-transition-[opacity,transform] tw-duration-[600ms] tw-ease-[cubic-bezier(0.16,1,0.3,1)] [&.is-visible]:tw-translate-y-0 [&.is-visible]:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-transition-none tw-group tw-relative tw-col-span-2 tw-aspect-[16/10] tw-overflow-hidden tw-rounded-2xl md:tw-row-span-2 md:tw-aspect-auto">
         <img src="/assets/img/loyality-programm.webp" alt="A happy PowerCabs driver at the wheel of her taxi at night" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.03]" loading="lazy">
         <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,rgba(10,7,5,0.05)_0%,rgba(10,7,5,0.7)_100%)]" aria-hidden="true"></span>

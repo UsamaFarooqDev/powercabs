@@ -18,7 +18,7 @@ if ($faqItems) {
     <div class="<?= $faqSplit ? $pcContainer : $pcContainerNarrow ?>">
       <div class="<?= $faqSplit ? 'tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-20' : '' ?>">
 
-        <div class="<?= $faqSplit ? 'lg:tw-col-span-5' : 'tw-mb-8' ?>">
+        <div data-motion="fade-up" class="<?= $faqSplit ? 'lg:tw-col-span-5' : 'tw-mb-8' ?>">
           <p class="<?= $pcEyebrow ?>"><?= htmlspecialchars($faqEyebrow) ?></p>
           <h2 class="<?= $pcH2 ?> <?= $faqSplit ? 'tw-max-w-[15ch]' : 'tw-mb-0' ?>"><?= htmlspecialchars($faqHeading) ?></h2>
           <?php if (!empty($faqLead)): ?>
@@ -33,7 +33,9 @@ if ($faqItems) {
           <?php endif; ?>
         </div>
 
-        <div class="<?= $faqSplit ? 'lg:tw-col-span-7' : '' ?>" id="<?= htmlspecialchars($faqAccordionId) ?>">
+        <div data-motion-stagger="fade-up" class="<?= $faqSplit
+          ? 'lg:tw-col-span-7'
+          : '' ?>" id="<?= htmlspecialchars($faqAccordionId) ?>">
           <?php
           $faqListItems = $faqItems;
           $faqListId = $faqAccordionId;

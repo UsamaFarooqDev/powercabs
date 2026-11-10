@@ -26,12 +26,12 @@ $idelTiming = [
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSectionLoose ?>" id="delivery-timing">
   <div class="<?= $pcContainer ?>">
 
-    <div class="<?= $pcSectionHeadCenter ?>">
+    <div data-motion="fade-up" class="<?= $pcSectionHeadCenter ?>">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Timing</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Choose when you need your delivery.</h2>
     </div>
 
-    <ol class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-6 tw-p-0 md:tw-grid-cols-3">
+    <ol data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-6 tw-p-0 md:tw-grid-cols-3">
       <?php foreach ($idelTiming as $idelStep): ?>
         <li class="tw-relative tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[1.5rem] tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-p-6 sm:tw-p-7">
           <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-top-0 tw-h-1 tw-bg-gradient-to-r tw-from-power tw-to-power/0" aria-hidden="true"></span>

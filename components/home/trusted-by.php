@@ -21,11 +21,11 @@ $trustedLogos = [
 <section class="tw-bg-white <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <?php  ?>
-    <p class="tw-mb-12 tw-text-center tw-text-[0.9375rem] tw-font-semibold tw-text-muted">
+    <p data-motion="fade-up" class="tw-mb-12 tw-text-center tw-text-[0.9375rem] tw-font-semibold tw-text-muted">
       Trusted by leading Irish brands
     </p>
 
-    <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-3 tw-items-center tw-gap-x-10 tw-gap-y-12 tw-p-0 sm:tw-grid-cols-5">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-3 tw-items-center tw-gap-x-10 tw-gap-y-12 tw-p-0 sm:tw-grid-cols-5">
       <?php foreach ($trustedLogos as $logo): ?>
         <li class="tw-flex tw-items-center tw-justify-center">
           <img src="<?= $assetPath ?>assets/img/<?= $logo['file'] ?>"

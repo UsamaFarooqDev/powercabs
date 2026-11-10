@@ -20,12 +20,12 @@ $whyItems = [
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="<?= $pcSectionHead ?>">
+    <div data-motion="fade-up" class="<?= $pcSectionHead ?>">
       <p class="<?= $pcEyebrow ?>">The power of local</p>
       <h2 class="<?= $pcH2 ?>">Ride with confidence.</h2>
     </div>
 
-    <ul class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-12 tw-gap-y-0 tw-p-0 md:tw-grid-cols-2">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-12 tw-gap-y-0 tw-p-0 md:tw-grid-cols-2">
       <?php foreach ($whyItems as $i => $item): ?>
         <?php  ?>
         <li class="tw-flex tw-gap-6 tw-border-0 tw-border-t tw-border-solid tw-border-hairline tw-py-8">

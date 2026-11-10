@@ -8,7 +8,7 @@ $ctaSecondary ??= ['href' => '/contact-us', 'label' => 'Talk to Us'];
 <?php  ?>
 <section class="tw-bg-white tw-border-0 tw-border-t tw-border-solid tw-border-hairline <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
+    <div data-motion-stagger="fade-up" class="tw-flex tw-flex-col tw-items-start tw-gap-8 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
 
       <div class="tw-max-w-[46ch]">
         <h2 class="<?= $pcH2 ?>"><?= htmlspecialchars($ctaTitle) ?></h2>

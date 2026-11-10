@@ -11,7 +11,7 @@ $totalWhyBusinesses = count($whyBusinesses);
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
-      <div>
+      <div data-motion-stagger="fade-up">
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Why Businesses Choose PowerCabs</h2>
         <p class="tw-mb-4 tw-max-w-[46ch] tw-text-lg tw-text-ink/60">
           A corporate account built around how your business actually runs -
@@ -20,7 +20,7 @@ $totalWhyBusinesses = count($whyBusinesses);
         <a class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-ink tw-px-6 tw-py-2 tw-text-sm tw-font-semibold tw-text-white tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black" href="#corporate-account-form">Open Your Corporate Account</a>
       </div>
 
-      <div>
+      <div data-motion-stagger="fade-up">
         <?php foreach ($whyBusinesses as $i => $item): ?>
           <?php $isLast = $i === $totalWhyBusinesses - 1; ?>
           <div class="tw-flex">

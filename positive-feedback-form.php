@@ -10,7 +10,7 @@ require __DIR__ . '/includes/turnstile.php';
 
 $formStatus = null;
 $formError = '';
-$old = ['role' => 'driver', 'name' => '', 'email' => '', 'rating' => '', 'message' => ''];
+$old = ['role' => 'driver', 'name' => '', 'email' => '', 'rating' => '', 'message' => '', 'share_consent' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $old['role'] = in_array($_POST['role'] ?? '', ['driver', 'passenger'], true) ? $_POST['role'] : 'driver';
@@ -18,6 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $old['email'] = trim($_POST['email'] ?? '');
   $old['rating'] = trim($_POST['rating'] ?? '');
   $old['message'] = trim($_POST['message'] ?? '');
+  /* Optional on purpose: this is consent to use someone's name and photo in marketing, and
+     consent that is a condition of sending feedback is not freely given. The answer either
+     way is recorded in the email, which is the record that matters. */
+  $old['share_consent'] = ($_POST['share_consent'] ?? '') === '1' ? '1' : '';
 
   if ($old['name'] === '' || $old['email'] === '' || $old['rating'] === '') {
     $formStatus = 'error';
@@ -41,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       "\n\n" .
       "Feedback:\n" .
       ($old['message'] !== '' ? $old['message'] : '-') .
+      "\n\n" .
+      'Consents to sharing their name and picture to help PowerCabs grow: ' .
+      ($old['share_consent'] === '1' ? 'YES' : 'NO') .
       "\n";
 
     $result = pc_send_mail('Positive feedback: ' . $old['name'], $body, [
@@ -50,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result['success']) {
       $formStatus = 'success';
-      $old = ['role' => 'driver', 'name' => '', 'email' => '', 'rating' => '', 'message' => ''];
+      $old = ['role' => 'driver', 'name' => '', 'email' => '', 'rating' => '', 'message' => '', 'share_consent' => ''];
     } else {
       $formStatus = 'error';
       $formError = 'Sorry, something went wrong sending your feedback. Please try again or call us directly.';
@@ -169,6 +176,16 @@ $pillToggleClass = 'tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-
               <textarea class="<?= $inputClass ?> tw-resize-y" id="pfMessage" name="message" rows="5" placeholder="Tell us what made the trip a good one"><?= htmlspecialchars(
                 $old['message'],
               ) ?></textarea>
+            </div>
+            <div class="md:tw-col-span-2">
+              <?php
+              $consentId = 'pfShareConsent';
+              $consentName = 'share_consent';
+              $consentRequired = false;
+              $consentChecked = $old['share_consent'] === '1';
+              $consentLabel = 'I consent to sharing my name and picture to help PowerCabs grow.';
+              require __DIR__ . '/components/shared/terms-consent.php';
+              ?>
             </div>
             <?php $turnstileClass = 'md:tw-col-span-2'; require __DIR__ . '/components/shared/turnstile.php'; ?>
             <div class="tw-pt-2 md:tw-col-span-2">

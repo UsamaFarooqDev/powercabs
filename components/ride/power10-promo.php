@@ -4,7 +4,7 @@ $p10Reveal =
 ?>
 <section class="<?= $pcSection ?> tw-relative tw-overflow-hidden tw-py-[clamp(1.5rem,4vw,3rem)]">
   <div class="tw-relative <?= $pcContainer ?>">
-    <div class="tw-relative tw-overflow-hidden tw-rounded-[clamp(1.5rem,3vw,2.25rem)] tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-[clamp(1.75rem,4vw,3.5rem)] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
+    <div data-motion-stagger="fade-up" class="tw-relative tw-overflow-hidden tw-rounded-[clamp(1.5rem,3vw,2.25rem)] tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-[clamp(1.75rem,4vw,3.5rem)] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)]">
       <span class="tw-pointer-events-none tw-absolute tw-right-[-10%] tw-top-[-18%] tw-z-0 tw-h-[26rem] tw-w-[26rem] tw-rounded-full tw-bg-[radial-gradient(circle,rgba(220,38,38,0.08)_0%,transparent_70%)]" aria-hidden="true"></span>
       <span class="tw-pointer-events-none tw-absolute tw-bottom-[-22%] tw-left-[-8%] tw-z-0 tw-h-80 tw-w-80 tw-rounded-full tw-bg-[radial-gradient(circle,#fbe4cf_0%,transparent_70%)] tw-opacity-60" aria-hidden="true"></span>
 

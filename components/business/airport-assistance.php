@@ -2,7 +2,7 @@
 <section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-bg-peach tw-shadow-[0_8px_20px_rgba(28,20,16,0.12)] tw-rounded-2xl tw-p-6 md:tw-p-10">
-      <div class="tw-flex tw-flex-col tw-items-start tw-gap-4 md:tw-flex-row md:tw-items-center">
+      <div data-motion-stagger="fade-up" class="tw-flex tw-flex-col tw-items-start tw-gap-4 md:tw-flex-row md:tw-items-center">
         <div class="tw-flex tw-flex-1 tw-items-start tw-gap-4">
           <span class="tw-hidden tw-h-16 tw-w-16 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-full tw-bg-powerlight tw-text-white md:tw-inline-flex">
             <svg class="tw-h-7 tw-w-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12.5a1.5 1.5 0 01.485-1.104l3.516-3.516a.75.75 0 011.06 0l1.42 1.42a.75.75 0 001.06 0l4.5-4.5a.75.75 0 011.06 0l1.5 1.5a.75.75 0 010 1.06l-4.5 4.5a.75.75 0 000 1.06l1.42 1.42a.75.75 0 010 1.06l-3.516 3.516A1.5 1.5 0 0110 20.5a1.5 1.5 0 01-1.06-.44L2.69 13.81a1.5 1.5 0 01-.44-1.06z" clip-rule="evenodd"/></svg>

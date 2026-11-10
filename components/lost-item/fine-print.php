@@ -5,7 +5,7 @@
   <span class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(255,255,255,0.55)_45%,rgba(255,255,255,0.88)_78%,#ffffff_100%)]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainerNarrow ?>">
-    <div class="tw-flex tw-flex-col tw-gap-4 sm:tw-flex-row">
+    <div data-motion-stagger="fade-up" class="tw-flex tw-flex-col tw-gap-4 sm:tw-flex-row">
       <span class="<?= $pcIconChip ?> tw-shrink-0">
         <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
       </span>

@@ -51,13 +51,13 @@ $s = 'tw-h-[1.15rem] tw-w-[1.15rem]';
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
 
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[620px] tw-text-center">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[620px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>"><?= $sourcesEyebrow ?></p>
       <h2 class="<?= pc_mb($pcH2Small, 'tw-mb-3') ?>"><?= $sourcesHeading ?></h2>
       <p class="<?= $pcBody ?> tw-mb-0"><?= $sourcesText ?></p>
     </div>
 
-    <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-3 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-3 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($sourcesItems as $item): ?>
         <li class="tw-group tw-flex tw-items-center tw-gap-3 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-px-4 tw-py-3.5 tw-shadow-[0_1px_2px_rgba(28,20,16,0.04)] tw-transition tw-duration-300 hover:tw--translate-y-0.5 hover:tw-border-power/25 hover:tw-shadow-[0_14px_30px_-14px_rgba(28,20,16,0.22)] motion-reduce:tw-transform-none motion-reduce:tw-transition-none">
           <span class="tw-inline-flex tw-h-9 tw-w-9 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-peach tw-text-power tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none">

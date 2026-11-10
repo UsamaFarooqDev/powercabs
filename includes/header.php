@@ -66,6 +66,21 @@ $megaCtaGhost =
   <link rel="stylesheet"
     href="<?= $assetPath ?>assets/css/base.css?v=<?= @filemtime(__DIR__ . '/../assets/css/base.css') ?>">
 
+  <link rel="stylesheet"
+    href="<?= $assetPath ?>assets/css/motion.css?v=<?= @filemtime(__DIR__ . '/../assets/css/motion.css') ?>">
+
+  <?php /* Set before first paint so a reveal never flashes visible first: motion.css hides
+           [data-motion] only under this class. The timer is the safety net -- if motion-core.js
+           never loads, nothing would ever add .pc-motion-in and the page would stay blank, so
+           the class is dropped again after 3s. The engine clears the timer on its first run.
+           Net effect of a failed script: a site with no entrance animation, not an empty one. */ ?>
+  <script>
+    document.documentElement.classList.add('pc-motion-ready');
+    window.pcMotionFuse = setTimeout(function () {
+      document.documentElement.classList.remove('pc-motion-ready');
+    }, 3000);
+  </script>
+
   <?php require __DIR__ . '/tailwind.php'; ?>
 
 </head>
@@ -331,4 +346,18 @@ $megaCtaGhost =
       </div>
     </div>
   </header>
+
+  <?php /* --pc-navbar-h, measured the moment the header exists rather than at DOMContentLoaded.
+           Every hero's top padding is a calc() on that variable with a 110px fallback, and the
+           fallback is ~38px taller than the real header on desktop -- so when main.js finally
+           set the variable the whole page jumped up 38px. That was the site's last layout shift
+           (0.023 CLS on measurement, and it got worse as more scripts were added before it).
+           main.js still owns the variable and re-runs this on resize; this is only about doing
+           it before the first paint. */ ?>
+  <script>
+    (function () {
+      var h = document.querySelector('header');
+      if (h) document.documentElement.style.setProperty('--pc-navbar-h', h.getBoundingClientRect().height + 'px');
+    })();
+  </script>
   <main>

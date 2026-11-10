@@ -12,7 +12,7 @@ $coverageShots = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2 lg:tw-gap-16">
 
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="<?= $pcEyebrow ?>">Coverage</p>
         <h2 class="<?= $pcH2 ?> tw-max-w-[16ch]">
           From Dublin Airport to the city centre &mdash; and beyond.
@@ -38,7 +38,7 @@ $coverageShots = [
       </div>
 
       <?php  ?>
-      <div class="tw-grid tw-grid-cols-2 tw-gap-1.5 lg:tw-mx-auto lg:tw-max-w-[440px]">
+      <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-2 tw-gap-1.5 lg:tw-mx-auto lg:tw-max-w-[440px]">
         <?php foreach ($coverageShots as $shot): ?>
           <div class="tw-group tw-relative tw-aspect-[4/3] tw-overflow-hidden tw-rounded-lg tw-bg-ink/[0.04]">
             <img src="https://images.pexels.com/photos/<?= $shot['id'] ?>/pexels-photo-<?= $shot['id'] ?>.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"

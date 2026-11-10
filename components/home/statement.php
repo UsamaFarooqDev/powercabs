@@ -8,14 +8,14 @@ $statementProof = [
 <section class="tw-bg-[radial-gradient(75%_50%_at_50%_50%,rgba(249,115,22,0.055)_0%,transparent_72%),linear-gradient(180deg,#ffffff_0%,#fbf8f4_16%,#fbf8f4_84%,#ffffff_100%)] <?= $pcSectionLoose ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16">
-      <div class="lg:tw-col-span-7">
+      <div data-motion="fade-up" class="lg:tw-col-span-7">
         <p class="<?= $pcEyebrow ?>">More than a taxi</p>
         <h2 class="<?= $pcH2Display ?> tw-max-w-[18ch]">
           A better way to move around Dublin.
         </h2>
       </div>
 
-      <div class="lg:tw-col-span-5 lg:tw-pt-2">
+      <div data-motion-stagger="fade-up" class="lg:tw-col-span-5 lg:tw-pt-2">
         <?php  ?>
         <p class="tw-mb-4 tw-max-w-[33rem] tw-text-[1.1875rem] tw-leading-[1.65] tw-tracking-[-0.005em] tw-text-ink/[0.82]">
           PowerCabs is more than a taxi app &mdash; we&rsquo;re an

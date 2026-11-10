@@ -36,7 +36,7 @@ $services = [
 ]; ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-14 tw-grid tw-grid-cols-1 tw-items-end tw-gap-8 lg:tw-mb-20 lg:tw-grid-cols-12">
+    <div data-motion="fade-up" class="tw-mb-14 tw-grid tw-grid-cols-1 tw-items-end tw-gap-8 lg:tw-mb-20 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-5') ?>">Services We Offer</p>
         <h2 class="<?= $pcH2 ?>">Wherever you're heading</h2>
@@ -52,7 +52,7 @@ $services = [
       </div>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 xl:tw-grid-cols-4 xl:tw-items-start xl:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 xl:tw-grid-cols-4 xl:tw-items-start xl:tw-gap-6">
       <?php foreach ($services as $i => $service): ?>
         <?php
         

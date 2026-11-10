@@ -1,10 +1,10 @@
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-8">
+    <div data-motion="fade-up" class="tw-mb-8">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?> tw-relative tw-inline-block tw-pb-3 after:tw-absolute after:tw-bottom-0 after:tw-left-0 after:tw-h-px after:tw-w-14 after:tw-rounded-full after:tw-bg-power after:tw-content-['']">Our Dublin Story</h2>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-6 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-auto-rows-[minmax(56px,auto)]">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-6 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-auto-rows-[minmax(56px,auto)]">
       <div class="tw-rounded-[30px] tw-bg-paper tw-p-6 tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)] lg:[grid-column:1] lg:[grid-row:1/span_4]">
         <svg class="tw-mb-3 tw-h-7 tw-w-7 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
         <h3 class="tw-mb-2.5 tw-text-[1.1875rem] tw-font-bold tw-leading-snug tw-text-ink">Dublin Roots</h3>

@@ -15,13 +15,13 @@ $revealDelays = ['tw-delay-0', 'tw-delay-75', 'tw-delay-150', 'tw-delay-200'];
 
   <div class="tw-relative <?= $pcContainer ?>">
 
-    <div class="tw-mb-14 tw-max-w-[38ch] tw-animate-pc-fade-up-slow motion-reduce:tw-animate-none md:tw-mb-20">
+    <div data-motion="fade-up" class="tw-mb-14 tw-max-w-[38ch] tw-animate-pc-fade-up-slow motion-reduce:tw-animate-none md:tw-mb-20">
       <h2 class="<?= $pcH2Display ?> tw-text-white [text-shadow:0_4px_26px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.3)]">
         Built for every Journey
       </h2>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-x-10 tw-gap-y-12 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-x-10 tw-gap-y-12 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($whyChooseItems as $index => $item): ?>
         <div class="pc-why-item tw-translate-y-6 tw-opacity-0 tw-transition-all tw-duration-500 tw-ease-out <?= $revealDelays[
           $index

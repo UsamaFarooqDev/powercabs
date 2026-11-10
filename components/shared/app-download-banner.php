@@ -7,18 +7,15 @@ $bannerCompact = null;
 $bannerTitle ??= 'Get the PowerCabs app';
 $bannerText ??= 'Book in seconds, track your driver door to door, and pay the fare you were quoted.';
 
-$storeBadgeClass =
-  'tw-inline-flex tw-w-fit tw-items-center tw-gap-[0.65rem] tw-rounded-lg tw-bg-ink tw-py-[0.65rem] tw-pl-[0.65rem] tw-pr-6 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-bg-black';
-
-$storeBadgeEyebrow =
-  'tw-block tw-text-[0.6rem] tw-uppercase tw-leading-none tw-tracking-[0.02em] tw-text-white/75 max-[399px]:tw-text-[0.625rem]';
-$storeBadgeTitle =
-  'tw-block tw-text-[0.98rem] tw-font-medium tw-leading-[1.29] tw-text-white max-[399px]:tw-text-[0.72rem]';
-$storeBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max-[399px]:tw-w-3.5';
+/* The shared recipe, from design-system.php. */
+$storeBadgeClass = $pcStoreBadge;
+$storeBadgeEyebrow = $pcStoreBadgeEyebrow;
+$storeBadgeTitle = $pcStoreBadgeTitle;
+$storeBadgeGlyph = $pcStoreBadgeGlyph;
 ?>
 <section class="tw-bg-white <?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="<?= $pcDivider ?> tw-flex tw-flex-col tw-gap-6 tw-pt-10 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
+    <div data-motion-stagger="fade-up" class="<?= $pcDivider ?> tw-flex tw-flex-col tw-gap-6 tw-pt-10 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
       <div>
         <p class="tw-mb-1 tw-text-[1.0625rem] tw-font-bold tw-text-ink"><?= htmlspecialchars($bannerTitle) ?></p>
         <p class="<?= $pcBodySm ?> tw-mb-0 tw-max-w-[46ch]"><?= htmlspecialchars($bannerText) ?></p>

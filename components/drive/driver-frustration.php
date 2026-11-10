@@ -26,7 +26,7 @@ function pc_frustration_icon(string $icon): void
 ?>
 <section class="<?= $pcSurfaceWhite ?> tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-items-start tw-gap-x-12 tw-gap-y-8 lg:tw-grid-cols-12">
+    <div data-motion="fade-up" class="tw-grid tw-grid-cols-1 tw-items-start tw-gap-x-12 tw-gap-y-8 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-5">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">The Driver Frustration</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-4') ?>">Tired of Saver fares?</h2>
@@ -48,7 +48,7 @@ function pc_frustration_icon(string $icon): void
       </figure>
     </div>
 
-    <div class="tw-mt-12 tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-9 sm:tw-grid-cols-4 sm:tw-gap-x-0 md:tw-mt-16">
+    <div data-motion-stagger="fade-up" class="tw-mt-12 tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-9 sm:tw-grid-cols-4 sm:tw-gap-x-0 md:tw-mt-16">
       <?php foreach ($frustrationPoints as $i => $point): ?>
         <div class="sm:tw-px-7 sm:first:tw-pl-0 sm:last:tw-pr-0<?= $i > 0
           ? ' sm:tw-border-0 sm:tw-border-l sm:tw-border-solid sm:tw-border-hairline'

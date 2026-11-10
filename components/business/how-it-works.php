@@ -9,12 +9,12 @@ $totalBizHowSteps = count($bizHowSteps);
 <?php  ?>
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>" id="pcBizHowItWorks">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How It Works</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Set up in three steps.</h2>
     </div>
 
-    <div class="tw-relative tw-grid tw-grid-cols-1 tw-gap-8 lg:tw-grid-cols-3 lg:tw-gap-4">
+    <div data-motion-stagger="fade-up" class="tw-relative tw-grid tw-grid-cols-1 tw-gap-8 lg:tw-grid-cols-3 lg:tw-gap-4">
       <span class="tw-pointer-events-none tw-absolute tw-left-[16.667%] tw-right-[16.667%] tw-top-[1.625rem] tw-z-0 tw-hidden tw-h-px tw-bg-black/10 lg:tw-block" aria-hidden="true"></span>
       <?php foreach ($bizHowSteps as $i => $step): ?>
         <?php $isLast = $i === $totalBizHowSteps - 1; ?>

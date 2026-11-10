@@ -20,7 +20,7 @@ $petFaqs = [
   [
     'q' => 'Is there a charge for travelling with a pet?',
     'a' =>
-      'Yes. A pet charge applies according to the size of your animal: €3 Small, €5 Medium, €7 Large. Assistance dogs and other legally protected assistance animals are not pet journeys and are not subject to the pet charge.',
+      'Yes. A pet charge applies according to the size of your animal: €8 Small, €10 Medium, €15 Large. Each of those includes one passenger, and every extra person adds €1 — so a small pet travelling with two people is €9. Assistance dogs and other legally protected assistance animals are not pet journeys and are not subject to the pet charge.',
   ],
   [
     'q' => 'Are all PowerCabs taxis pet-friendly?',
@@ -40,7 +40,7 @@ $petFaqs = [
   [
     'q' => 'Can I travel with more than one pet or a large dog?',
     'a' =>
-      'It depends on vehicle and driver availability, the size and number of pets, and how many passengers are travelling. Advance coordination may be necessary. The pet charge follows the size of the animal — €3 Small, €5 Medium, €7 Large — and other charges can vary by booking and vehicle.',
+      'It depends on vehicle and driver availability, the size and number of pets, and how many passengers are travelling. Advance coordination may be necessary. The pet charge follows the size of the animal — €8 Small, €10 Medium, €15 Large, each including one passenger and €1 for every extra person — and other charges can vary by booking and vehicle.',
   ],
   [
     'q' => 'What if my driver cancels?',
@@ -111,7 +111,7 @@ $petTrust = [
 <section class="<?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
     <?php  ?>
-    <ul class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-10 tw-gap-y-8 tw-p-0 md:tw-grid-cols-3">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-10 tw-gap-y-8 tw-p-0 md:tw-grid-cols-3">
       <?php foreach ($petTrust as $t): ?>
         <li class="<?= $pcFeature ?> tw-border-0 tw-border-t-2 tw-border-solid tw-border-hairline tw-pt-5">
           <span class="<?= $pcFeatureIcon ?>" aria-hidden="true"><?php pc_pets_icon($t['icon']); ?></span>
@@ -127,15 +127,15 @@ $petTrust = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2 lg:tw-gap-16">
 
-      <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[480px]">
+      <div data-motion="fade-up" class="tw-relative tw-mx-auto tw-w-full tw-max-w-[480px]">
         <div class="<?= $pcImgLandscape ?> tw-rounded-2xl tw-shadow-[0_20px_45px_-18px_rgba(28,20,16,0.3)]">
-          <img src="<?= $assetPath ?>assets/img/pets-taxi-backseat.webp"
-            alt="A golden retriever in a travel harness sitting on a protective seat cover in the back of a PowerCabs taxi"
-            width="839" height="629" class="<?= $pcImgCover ?>" loading="lazy" decoding="async">
+          <img src="<?= $assetPath ?>assets/img/pets-taxi-together.webp"
+            alt="A passenger travelling with her golden retriever settled beside her on the back seat of a taxi"
+            width="640" height="480" class="<?= $pcImgCover ?>" loading="lazy" decoding="async">
         </div>
       </div>
 
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="<?= $pcEyebrow ?>">Travel together</p>
         <h2 class="<?= $pcH2 ?>">Select <span class="tw-text-power">Pets Taxi</span> when you book.</h2>
         <p class="<?= $pcBody ?> tw-mb-4 tw-max-w-[52ch]">
@@ -149,7 +149,7 @@ $petTrust = [
           <?php foreach (
             [
               'Travelling for the first time? Contact us to register your pet\'s details and confirm whether your requirements can be accommodated.',
-              'Medium and large pets, multiple pets and larger groups may need advance coordination. The pet charge is €3 Small, €5 Medium and €7 Large.',
+              'Medium and large pets, multiple pets and larger groups may need advance coordination. The pet charge is €8 Small, €10 Medium and €15 Large, each including one passenger.',
               'A specific driver or vehicle cannot be guaranteed. Review the applicable fare and availability before you confirm.',
             ]
             as $point
@@ -183,13 +183,15 @@ $petTrust = [
 </section>
 
 <?php
-/* The three things people ask at the kerb, in one panel: what the pet charge is, why paying up
-   front gets you a car faster, and what gets a booking declined. The sizes carry no weight bands
-   on purpose -- dispatch decides the band, so the copy sends people to ask rather than guess. */
+/* What people ask at the kerb, in one panel: what the pet charge is, how pet bookings are
+   taken, why paying up front gets you a car faster, and what gets a booking declined. The
+   sizes carry no weight bands on purpose -- dispatch decides the band, so the copy sends
+   people to ask rather than guess.
+   Every charge includes one passenger; the per-head addition is the row under the table. */
 $petCharges = [
-  ['Small', 3, 'Cats, small dogs, carriers'],
-  ['Medium', 5, 'Most dogs travelling on a seat'],
-  ['Large', 7, 'Large breeds needing boot or floor space'],
+  ['Small', 8, 'Cats, small dogs, carriers'],
+  ['Medium', 10, 'Most dogs travelling on a seat'],
+  ['Large', 15, 'Large breeds needing boot or floor space'],
 ];
 ?>
 <section class="<?= $pcSection ?>" id="pet-charges">
@@ -197,13 +199,14 @@ $petCharges = [
     <div class="tw-overflow-hidden tw-rounded-[2rem] tw-border tw-border-solid tw-border-hairline tw-bg-white tw-shadow-[0_26px_60px_-30px_rgba(28,20,16,0.35)]">
 
       <?php  ?>
-      <div class="tw-grid tw-grid-cols-1 tw-gap-9 tw-p-6 sm:tw-p-9 lg:tw-grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:tw-items-center lg:tw-gap-14 lg:tw-p-11">
+      <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-9 tw-p-6 sm:tw-p-9 lg:tw-grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:tw-items-center lg:tw-gap-14 lg:tw-p-11">
 
         <div>
           <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Charges</p>
           <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">What a pet journey <span class="tw-text-power">costs.</span></h2>
           <p class="<?= $pcBody ?> tw-mb-4">
             The pet charge follows the size of your animal and is added to the fare for the journey.
+            Each charge includes one passenger.
           </p>
           <p class="<?= $pcBodySm ?> tw-mb-0">
             Not sure which size your pet counts as? Ask dispatch before you book and we will confirm
@@ -224,12 +227,24 @@ $petCharges = [
               <span class="tw-shrink-0 tw-text-[1.6rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-power">&euro;<?= (int) $petFee ?></span>
             </li>
           <?php endforeach; ?>
+
+          <?php /* Not a size, so it sits outside the loop and reads as an addition. */ ?>
+          <li class="tw-flex tw-items-center tw-gap-4 tw-bg-white tw-px-5 tw-py-4 sm:tw-px-6">
+            <span class="tw-inline-flex tw-h-10 tw-w-10 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-xl tw-bg-ink/[0.06] tw-text-ink/60" aria-hidden="true">
+              <svg class="tw-h-[1.15rem] tw-w-[1.15rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19.5v-1.5a3 3 0 00-3-3H6a3 3 0 00-3 3v1.5M9 11.25a3 3 0 100-6 3 3 0 000 6zM18 8.25v4.5M20.25 10.5h-4.5"/></svg>
+            </span>
+            <span class="tw-min-w-0 tw-flex-1">
+              <span class="tw-block tw-text-[0.95rem] tw-font-bold tw-leading-tight tw-text-ink">Each extra passenger</span>
+              <span class="tw-mt-0.5 tw-block tw-text-[0.82rem] tw-leading-snug tw-text-ink/50">A small pet with two people is &euro;9</span>
+            </span>
+            <span class="tw-shrink-0 tw-text-[1.6rem] tw-font-extrabold tw-leading-none tw-tracking-[-0.03em] tw-text-ink">+&euro;1</span>
+          </li>
         </ul>
 
       </div>
 
       <?php  ?>
-      <div class="tw-grid tw-grid-cols-1 tw-border-0 tw-border-t tw-border-solid tw-border-hairline md:tw-grid-cols-2">
+      <div data-motion="fade-up" class="tw-grid tw-grid-cols-1 tw-border-0 tw-border-t tw-border-solid tw-border-hairline md:tw-grid-cols-2">
 
         <div class="tw-p-6 sm:tw-p-9">
           <div class="tw-mb-3 tw-flex tw-items-center tw-gap-2.5">
@@ -254,11 +269,14 @@ $petCharges = [
             <span class="tw-text-[0.7rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">Before you book</span>
           </div>
           <h3 class="<?= pc_mb($pcH3, 'tw-mb-2') ?>">Turn up prepared, or the driver can decline</h3>
+          <p class="tw-mb-3 tw-rounded-xl tw-border tw-border-solid tw-border-power/30 tw-bg-white tw-px-4 tw-py-3 tw-text-[0.9375rem] tw-font-bold tw-leading-snug tw-text-ink">
+            Your pet must be on a lead or in a carrier and you must have a seat cover with you.
+            Without them the driver can cancel the trip, and the fare is not refunded.
+          </p>
           <p class="<?= $pcBodySm ?> tw-mb-3">
-            Bring a carrier, or a blanket or waterproof seat cover for the seat. A driver can turn
-            away an animal that arrives without one, or that is loose in the car. A booking refused
-            for that reason is treated as a no-show, and
-            <strong class="tw-font-semibold tw-text-ink">the fare still applies</strong>.
+            A blanket or waterproof cover for the seat is enough. A driver can turn away an animal
+            that arrives without one, or that is loose in the car, and a booking refused for that
+            reason is treated as a no-show.
           </p>
           <p class="<?= $pcBodySm ?> tw-mb-0">
             Not sure what your pet needs for the journey? <a class="tw-font-semibold tw-text-power tw-no-underline tw-transition-colors tw-duration-200 hover:tw-text-powerdark" href="<?= $assetPath ?>/contact-us">Check with us</a>
@@ -267,6 +285,42 @@ $petCharges = [
           </p>
         </div>
 
+      </div>
+
+      <?php /* How a pet booking is actually taken. These three decide whether we can carry the
+               animal at all, so they sit in the charges card rather than further down. */ ?>
+      <div class="tw-border-0 tw-border-t tw-border-solid tw-border-hairline tw-bg-paper-soft tw-p-6 sm:tw-p-9">
+        <div class="tw-mb-4 tw-flex tw-items-center tw-gap-2.5">
+          <span class="tw-inline-flex tw-h-7 tw-w-7 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-lg tw-bg-ink/10 tw-text-ink" aria-hidden="true">
+            <svg class="tw-h-4 tw-w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 11.25h1.5v5.25m-1.5 0h3M12 7.5h.008M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span class="tw-text-[0.7rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-ink/70">How pet bookings work</span>
+        </div>
+
+        <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 md:tw-grid-cols-3 md:tw-gap-8">
+          <?php foreach (
+            [
+              [
+                'Prepaid bookings only',
+                'We only accommodate prepaid pet bookings, and every one is subject to a suitable driver and vehicle being available.',
+              ],
+              [
+                'Booking with cash in the app',
+                'If you are paying cash in the app, contact PowerCabs first to register your pet and pay the fare in advance. The journey cannot be offered until that is done.',
+              ],
+              [
+                'Not an emergency service',
+                'We cannot provide an emergency service. Our pet-friendly drivers are limited and may not be available when your pet&rsquo;s life is in danger, so please arrange urgent veterinary travel another way.',
+              ],
+            ]
+            as [$petPolicyTitle, $petPolicyBody]
+          ): ?>
+            <li class="tw-border-0 tw-border-t-2 tw-border-solid tw-border-hairline tw-pt-4">
+              <p class="<?= pc_mb($pcH4, 'tw-mb-1.5') ?>"><?= $petPolicyTitle ?></p>
+              <p class="<?= $pcBodySm ?> tw-mb-0"><?= $petPolicyBody ?></p>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       </div>
     </div>
   </div>
@@ -298,13 +352,13 @@ $petWhy = [
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="<?= $pcSectionHeadCenter ?>">
+    <div data-motion="fade-up" class="<?= $pcSectionHeadCenter ?>">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why PowerCabs</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Why choose PowerCabs Pets Taxi</h2>
     </div>
 
     <?php  ?>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4 lg:tw-gap-5">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4 lg:tw-gap-5">
       <?php foreach ($petWhy as $w): ?>
         <div class="tw-group <?= $pcFeature ?> tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-6 tw-shadow-[0_1px_2px_rgba(28,20,16,0.04)] tw-transition tw-duration-300 hover:tw--translate-y-0.5 hover:tw-border-power/25 hover:tw-shadow-[0_14px_30px_-14px_rgba(28,20,16,0.22)] motion-reduce:tw-transform-none motion-reduce:tw-transition-none">
           <span class="<?= $pcFeatureIcon ?> tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none" aria-hidden="true">
@@ -328,7 +382,7 @@ $petSteps = [
 ?>
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="<?= $pcSectionHead ?>">
+    <div data-motion-stagger="fade-up" class="<?= $pcSectionHead ?>">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How to book</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Four steps, start to finish.</h2>
       <p class="<?= $pcBody ?> tw-mb-0 <?= $pcMeasure ?>">
@@ -337,7 +391,7 @@ $petSteps = [
     </div>
 
     <?php  ?>
-    <ol class="tw-m-0 tw-list-none tw-p-0 <?= $pcStepGrid ?>">
+    <ol data-motion-stagger="fade-up" class="tw-m-0 tw-list-none tw-p-0 <?= $pcStepGrid ?>">
       <?php foreach ($petSteps as $i => [$title, $desc]): ?>
         <li class="<?= $pcStepItem ?>">
           <span class="<?= $pcStepNum ?>"><?= str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) ?></span>
@@ -347,7 +401,7 @@ $petSteps = [
       <?php endforeach; ?>
     </ol>
 
-    <div class="tw-mt-10">
+    <div data-motion="fade-up" class="tw-mt-10">
       <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath . $petBookUrl ?>">
         <?php pc_pets_icon('paw', 'tw-h-4 tw-w-4'); ?>
         Book a Pets Taxi
@@ -368,7 +422,7 @@ $petTips = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:tw-gap-16">
 
-      <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[440px] lg:tw-order-2">
+      <div data-motion="fade-up" class="tw-relative tw-mx-auto tw-w-full tw-max-w-[440px] lg:tw-order-2">
         <div class="<?= $pcImgLandscape ?> tw-rounded-2xl tw-shadow-[0_20px_45px_-18px_rgba(28,20,16,0.3)]">
           <img src="<?= $assetPath ?>assets/img/pets-taxi-carrier.webp"
             alt="A tabby cat resting in a secure pet carrier strapped onto the back seat of a taxi"
@@ -376,7 +430,7 @@ $petTips = [
         </div>
       </div>
 
-      <div class="lg:tw-order-1">
+      <div data-motion-stagger="fade-up" class="lg:tw-order-1">
         <p class="<?= $pcEyebrow ?>">Before you travel</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-8') ?>">Four things that make the trip easier.</h2>
 
@@ -399,7 +453,7 @@ $petTips = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-2 lg:tw-gap-16">
 
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="<?= $pcEyebrow ?>">Safety and cleanliness</p>
         <h2 class="<?= $pcH2 ?>">A clean car for the next passenger.</h2>
         <p class="<?= $pcBody ?> tw-mb-4 <?= $pcMeasure ?>">
@@ -415,7 +469,7 @@ $petTips = [
       </div>
 
       <?php  ?>
-      <div class="tw-rounded-3xl tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-p-6 sm:tw-p-8">
+      <div data-motion-stagger="fade-up" class="tw-rounded-3xl tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-p-6 sm:tw-p-8">
         <span class="<?= $pcIconChip ?> tw-mb-4" aria-hidden="true"><?php pc_pets_icon('euro', 'tw-h-[1.35rem] tw-w-[1.35rem]'); ?></span>
         <h2 class="<?= pc_mb($pcH2Small, 'tw-mb-3') ?>">Cleaning and soiling charges</h2>
         <p class="<?= $pcBodySm ?> tw-mb-4">
@@ -465,7 +519,7 @@ require __DIR__ . '/components/shared/faq-accordion.php';
   <div class="<?= $pcContainer ?>">
     <div class="tw-flex tw-flex-col tw-items-start tw-gap-8 lg:tw-flex-row lg:tw-items-center lg:tw-justify-between">
 
-      <div class="tw-max-w-[46ch]">
+      <div data-motion-stagger="fade-up" class="tw-max-w-[46ch]">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?> tw-inline-flex tw-items-center tw-gap-1.5">
           <?php pc_pets_icon('paw', 'tw-h-3.5 tw-w-3.5'); ?>
           Pets Taxi
@@ -476,7 +530,7 @@ require __DIR__ . '/components/shared/faq-accordion.php';
         </p>
       </div>
 
-      <div class="tw-flex tw-flex-wrap tw-gap-3">
+      <div data-motion-stagger="fade-up" class="tw-flex tw-flex-wrap tw-gap-3">
         <a class="<?= $pcBtnPrimary ?>" href="<?= $assetPath . $petBookUrl ?>">
           <?php pc_pets_icon('paw', 'tw-h-4 tw-w-4'); ?>
           Book a Pets Taxi

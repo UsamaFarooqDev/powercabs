@@ -21,12 +21,12 @@ $carEarnCards = [
 ]; ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Your Car Can Earn More</p>
       <h2 class="<?= $pcH2Display ?>">Drive. Advertise. <span class="tw-text-power">Earn.</span></h2>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 lg:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3 lg:tw-gap-6">
       <?php  ?>
       <?php foreach ($carEarnCards as $card): ?>
         <div class="tw-group tw-relative tw-block tw-aspect-[3/2] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.08] tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)] tw-transition-[transform,box-shadow,border-color] tw-duration-[450ms] tw-ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:tw-transition-none">
@@ -55,7 +55,7 @@ $carEarnCards = [
       <?php endforeach; ?>
     </div>
 
-    <div class="tw-mx-auto tw-mt-10 tw-max-w-[640px] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mt-10 tw-max-w-[640px] tw-text-center">
       <p class="<?= $pcBody ?> tw-mb-5">
         Eligible drivers can participate in approved vehicle marketing campaigns
         and potentially earn <strong class="tw-text-ink">&euro;100+ per month</strong>,

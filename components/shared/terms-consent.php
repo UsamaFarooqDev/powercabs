@@ -21,6 +21,9 @@
  *                    submit a form holding a required control it cannot focus, and the server
  *                    check is the one that counts anyway       (default true)
  *   $consentPrivacy  also link the privacy policy              (default false)
+ *   $consentLabel    replaces the whole label with this HTML, for a consent that is not
+ *                    about the Terms. Authored in the page, so it is printed unescaped --
+ *                    never pass user input to it.
  *   $consentOnDark   light text, for a dark panel
  *   $consentClass    extra classes on the wrapper
  */
@@ -29,6 +32,7 @@ $consentName ??= 'terms_accepted';
 $consentChecked ??= false;
 $consentRequired ??= true;
 $consentPrivacy ??= false;
+$consentLabel ??= '';
 $consentOnDark ??= false;
 $consentClass ??= '';
 
@@ -61,6 +65,7 @@ $pcConsentLink = $consentOnDark
   </span>
 
   <label class="tw-cursor-pointer tw-text-[0.875rem] tw-leading-snug <?= $pcConsentText ?>" for="<?= htmlspecialchars($consentId) ?>">
+    <?php if ($consentLabel !== ''): ?><?= $consentLabel ?><?php else: ?>
     I have read and accept the
     <?php /* Same tab by design: a booking form is not worth losing to a popup blocker or a
              stranded second window. PJAX swaps <main>, so Back returns to the form. */ ?><a
@@ -70,6 +75,7 @@ $pcConsentLink = $consentOnDark
     ): ?> and the <a
       class="tw-font-semibold tw-no-underline tw-transition-colors tw-duration-200 motion-reduce:tw-transition-none <?= $pcConsentLink ?>"
       href="<?= $assetPath ?>/privacy-policy">Privacy&nbsp;Policy</a><?php endif; ?> of PowerCabs Ireland Limited.
+    <?php endif; ?>
   </label>
 </div>
 <?php
@@ -79,6 +85,7 @@ unset(
   $consentChecked,
   $consentRequired,
   $consentPrivacy,
+  $consentLabel,
   $consentOnDark,
   $consentClass,
   $pcConsentShell,

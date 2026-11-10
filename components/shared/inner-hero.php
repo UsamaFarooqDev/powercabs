@@ -114,7 +114,9 @@ $heroCrumbFirst = $heroVariant !== 'image';
       ? 'tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16'
       : '' ?>">
 
-      <div class="<?= [
+      <?php /* rise, not fade-up: this column holds the H1, which is the LCP element on most
+               inner pages. See the note in motion.css. */ ?>
+      <div data-motion-stagger="rise" class="<?= [
         'split' => 'lg:tw-col-span-6',
         // Stops where the ink starts to lift, so no line of type ends on the bright half.
         'showcase' => 'lg:tw-w-[55%] xl:tw-w-[51%]',

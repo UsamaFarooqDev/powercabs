@@ -10,7 +10,7 @@ $safetyPoints = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-16">
 
-      <div class="lg:tw-col-span-5">
+      <div data-motion-stagger="fade-up" class="lg:tw-col-span-5">
         <span class="tw-mb-4 tw-inline-flex tw-items-center tw-gap-2 tw-rounded-pill tw-bg-info/[0.08] tw-px-3.5 tw-py-1.5 tw-text-[0.75rem] tw-font-bold tw-uppercase tw-tracking-[0.08em] tw-text-info">
           <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           Safety
@@ -23,7 +23,7 @@ $safetyPoints = [
         </a>
       </div>
 
-      <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-x-10 tw-gap-y-0 tw-p-0 sm:tw-grid-cols-2 lg:tw-col-span-7">
+      <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-x-10 tw-gap-y-0 tw-p-0 sm:tw-grid-cols-2 lg:tw-col-span-7">
         <?php foreach ($safetyPoints as $point): ?>
           <li class="tw-border-0 tw-border-t tw-border-solid tw-border-hairline tw-py-6">
             <h3 class="tw-mb-1.5 tw-text-[1.0625rem] tw-font-bold tw-leading-snug tw-text-ink"><?= htmlspecialchars($point['title']) ?></h3>

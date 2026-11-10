@@ -30,7 +30,7 @@ $idelCare = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-12 lg:tw-grid-cols-12 lg:tw-gap-20">
 
-      <div class="lg:tw-col-span-5">
+      <div data-motion-stagger="fade-up" class="lg:tw-col-span-5">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why PowerCabs</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Your belongings deserve care.</h2>
         <p class="<?= $pcBody ?> tw-mb-7 <?= $pcMeasureTight ?>">
@@ -47,7 +47,7 @@ $idelCare = [
         </div>
       </div>
 
-      <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 lg:tw-col-span-7">
+      <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 lg:tw-col-span-7">
         <?php foreach ($idelCare as $idelPoint): ?>
           <li class="<?= $pcCard ?> tw-bg-white">
             <span class="<?= $pcIconChip ?> tw-mb-4" aria-hidden="true">

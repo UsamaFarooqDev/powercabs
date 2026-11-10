@@ -631,12 +631,12 @@ $mgLabelClass = str_replace('tw-block', 'tw-flex tw-items-center tw-gap-1', $pcL
 
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What's Included</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Our Meet &amp; Greet Services</h2>
     </div>
     <?php  ?>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-5">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-5">
       <?php foreach ($meetGreetServices as $s): ?>
         <div class="tw-group <?= $pcFeature ?> tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-6 tw-shadow-[0_1px_2px_rgba(28,20,16,0.04)] tw-transition tw-duration-300 hover:tw--translate-y-0.5 hover:tw-border-power/25 hover:tw-shadow-[0_14px_30px_-14px_rgba(28,20,16,0.22)] motion-reduce:tw-transform-none motion-reduce:tw-transition-none">
           <span class="<?= $pcFeatureIcon ?> tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none">
@@ -712,7 +712,7 @@ require __DIR__ . '/components/shared/scroll-scene.php';
 <?php  ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[720px] tw-text-center md:tw-mb-12">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[720px] tw-text-center md:tw-mb-12">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why Choose Us</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">
         Why travellers <span class="tw-text-power">choose PowerCabs.</span>
@@ -723,7 +723,7 @@ require __DIR__ . '/components/shared/scroll-scene.php';
     </div>
 
     <?php  ?>
-    <ul class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-10 tw-gap-y-7 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-grid-cols-1 tw-list-none tw-gap-x-10 tw-gap-y-7 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($whyChoose as $item): ?>
         <li class="tw-group tw-relative tw-flex tw-items-start tw-gap-3 tw-pt-5 before:tw-absolute before:tw-left-0 before:tw-top-0 before:tw-h-0.5 before:tw-w-full before:tw-bg-gradient-to-r before:tw-from-hairline before:tw-to-hairline/0 before:tw-content-[''] after:tw-absolute after:tw-left-0 after:tw-top-0 after:tw-h-0.5 after:tw-w-full after:tw-bg-gradient-to-r after:tw-from-power after:tw-to-power/0 after:tw-opacity-0 after:tw-transition-opacity after:tw-duration-300 after:tw-content-[''] hover:after:tw-opacity-100 motion-reduce:after:tw-transition-none">
           <span class="tw-mt-0.5 tw-inline-flex tw-h-5 tw-w-5 tw-shrink-0 tw-items-center tw-justify-center tw-rounded-md tw-bg-peach tw-text-power tw-transition-colors tw-duration-300 group-hover:tw-bg-power group-hover:tw-text-white motion-reduce:tw-transition-none" aria-hidden="true">
@@ -790,7 +790,7 @@ require __DIR__ . '/components/shared/faq-accordion.php';
          channels -- anything printed on a payment slip is not monitored. */ ?>
 <section class="tw-pb-6">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-flex tw-flex-col tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-peach/50 tw-px-5 tw-py-5 sm:tw-flex-row sm:tw-items-center sm:tw-px-7">
+    <div data-motion-stagger="fade-up" class="tw-flex tw-flex-col tw-gap-4 tw-rounded-2xl tw-border tw-border-solid tw-border-power/20 tw-bg-peach/50 tw-px-5 tw-py-5 sm:tw-flex-row sm:tw-items-center sm:tw-px-7">
       <span class="<?= $pcIconChip ?> tw-shrink-0">
         <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v3.75m0 3.75h.008M10.34 3.94L1.9 18.5A1.75 1.75 0 003.41 21h17.18a1.75 1.75 0 001.51-2.5L13.66 3.94a1.75 1.75 0 00-3.02 0z"/></svg>
       </span>
@@ -820,7 +820,7 @@ require __DIR__ . '/components/shared/faq-accordion.php';
          answers above belong in the training module rather than in the FAQ copy. */ ?>
 <section class="tw-pb-4">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-3 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-px-5 tw-py-4">
+    <div data-motion-stagger="fade-up" class="tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-3 tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-paper-soft tw-px-5 tw-py-4">
       <div class="tw-min-w-0 tw-flex-1">
         <p class="tw-mb-0.5 tw-text-[0.9rem] tw-font-bold tw-text-ink">Driving for PowerCabs?</p>
         <p class="tw-mb-0 tw-text-[0.85rem] tw-leading-relaxed tw-text-ink/60">

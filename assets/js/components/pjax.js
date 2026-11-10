@@ -115,6 +115,9 @@ if (push) window.history.pushState({ pcPjax: true }, "", url);
 
       if (window.pcInitTurnstile) window.pcInitTurnstile();
 
+      // Tears the previous observer and GSAP context down before building new ones.
+      if (window.pcInitMotion) window.pcInitMotion();
+
 // New globals that must survive a <main> swap get added to this list.
       if (window.pcInitDriverTraining) window.pcInitDriverTraining();
 

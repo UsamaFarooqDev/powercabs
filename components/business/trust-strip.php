@@ -20,11 +20,11 @@ $bizTrustLogos = [
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <?php  ?>
-    <p class="tw-mx-auto tw-mb-12 tw-max-w-[42ch] tw-text-center tw-text-[1.0625rem] tw-font-semibold tw-text-ink">
+    <p data-motion="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[42ch] tw-text-center tw-text-[1.0625rem] tw-font-semibold tw-text-ink">
       Businesses across Ireland already move their people with PowerCabs.
     </p>
 
-    <ul class="tw-m-0 tw-grid tw-list-none tw-grid-cols-3 tw-items-center tw-gap-x-10 tw-gap-y-12 tw-p-0 sm:tw-grid-cols-5">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-3 tw-items-center tw-gap-x-10 tw-gap-y-12 tw-p-0 sm:tw-grid-cols-5">
       <?php foreach ($bizTrustLogos as $logo): ?>
         <li class="tw-flex tw-items-center tw-justify-center">
           <img src="<?= $assetPath ?>assets/img/<?= $logo['file'] ?>"

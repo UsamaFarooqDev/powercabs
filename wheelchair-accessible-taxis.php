@@ -56,12 +56,12 @@ function pc_wc_icon(string $icon): void
 
 <section class="tw-relative tw-overflow-hidden tw-bg-white <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
       <!-- <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Why Choose PowerCabs</p> -->
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Accessible Travel, Done Right</h2>
     </div>
 
-    <div class="tw-mx-auto tw-mb-4 tw-grid tw-max-w-[1320px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 md:tw-grid-cols-3">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-4 tw-grid tw-max-w-[1320px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 md:tw-grid-cols-3">
       <?php foreach (array_slice($whyChoose, 0, 3) as $item): ?>
         <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
           <?php pc_wc_icon($item['icon']); ?>
@@ -71,7 +71,7 @@ function pc_wc_icon(string $icon): void
       <?php endforeach; ?>
     </div>
 
-    <div class="tw-mx-auto tw-grid tw-max-w-[700px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-grid tw-max-w-[700px] tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2">
       <?php foreach (array_slice($whyChoose, 3, 2) as $item): ?>
         <div class="tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)]">
           <?php pc_wc_icon($item['icon']); ?>
@@ -87,14 +87,14 @@ function pc_wc_icon(string $icon): void
   <div class="tw-relative <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
       <?php  ?>
-      <div class="tw-relative tw-mx-auto tw-w-full tw-max-w-[440px]">
+      <div data-motion="fade-up" class="tw-relative tw-mx-auto tw-w-full tw-max-w-[440px]">
         <div class="tw-relative tw-z-[1] tw-aspect-[3/2] tw-overflow-hidden tw-rounded-2xl tw-shadow-[0_20px_45px_-18px_rgba(28,20,16,0.3)] sm:tw-aspect-auto sm:tw-min-h-[330px]">
           <img src="<?= $assetPath ?>assets/img/wheelchair-accessible.webp"
             alt="PowerCabs wheelchair accessible taxi in Dublin" class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
         </div>
       </div>
 
-      <div>
+      <div data-motion-stagger="fade-up">
         <h2 class="<?= $pcH2 ?>">
           Mobility for <span class="tw-text-power">everyone.</span>
         </h2>

@@ -158,6 +158,17 @@ $pcInput =
 $pcLabel = 'tw-mb-1.5 tw-block tw-text-sm tw-font-medium tw-text-ink';
 $pcFormGrid = 'tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2';
 
+/* App store badges. One recipe: the homepage download section and the banner that closes
+ * 25 inner pages were two hand-rolled copies at different sizes (54px vs 51px tall, 16px vs
+ * 0.98rem label), which read as a mistake when you moved between pages. */
+$pcStoreBadge =
+  'tw-inline-flex tw-w-fit tw-items-center tw-gap-[0.65rem] tw-rounded-lg tw-bg-ink tw-py-[0.65rem] tw-pl-[0.65rem] tw-pr-6 tw-no-underline tw-transition-colors tw-duration-200 hover:tw-bg-black focus-visible:tw-bg-black';
+$pcStoreBadgeEyebrow =
+  'tw-block tw-text-[0.6rem] tw-uppercase tw-leading-none tw-tracking-[0.02em] tw-text-white/75 max-[399px]:tw-text-[0.625rem]';
+$pcStoreBadgeTitle =
+  'tw-block tw-text-[0.98rem] tw-font-medium tw-leading-[1.29] tw-text-white max-[399px]:tw-text-[0.72rem]';
+$pcStoreBadgeGlyph = 'tw-h-[22px] tw-w-[22px] tw-shrink-0 max-[399px]:tw-h-3.5 max-[399px]:tw-w-3.5';
+
 $pcAlertOk =
   'alert-success tw-rounded-xl tw-border tw-border-solid tw-border-[rgba(25,135,84,0.25)] tw-bg-[rgba(25,135,84,0.1)] tw-px-4 tw-py-3 tw-text-sm tw-font-semibold tw-text-[#146c43]';
 $pcAlertErr =

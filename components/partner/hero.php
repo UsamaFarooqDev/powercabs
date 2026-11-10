@@ -2,7 +2,7 @@
 
   <div class="tw-relative tw-z-[1] <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12">
-      <div class="lg:tw-col-span-7">
+      <div data-motion-stagger="rise" class="lg:tw-col-span-7">
 
         <h2 class="<?= $pcH2Display ?> tw-mt-4 tw-max-w-[15ch]">Turn every vehicle into more bookings.</h2>
         <p class="tw-mb-6 tw-max-w-[52ch] tw-text-[1.12rem] tw-text-ink/60">

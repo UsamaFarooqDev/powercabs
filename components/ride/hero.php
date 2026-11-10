@@ -35,7 +35,7 @@ $heroCrumbFirst = true;
   <div class="tw-relative tw-z-[1] tw-w-full <?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-12 xl:tw-gap-16">
 
-      <div class="lg:tw-col-span-6 xl:tw-col-span-7">
+      <div data-motion-stagger="rise" class="lg:tw-col-span-6 xl:tw-col-span-7">
         <?php require __DIR__ . '/../shared/inner-hero-crumb.php'; ?>
 
         <?php if (!empty($heroEyebrow)): ?>

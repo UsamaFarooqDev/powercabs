@@ -18,7 +18,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-grid-cols-2">
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Who We Are</p>
         <?php  ?>
         <h2 class="<?= $pcH2 ?>">An Irish company, not a franchise</h2>
@@ -34,7 +34,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
       <?php  ?>
       <?php  ?>
-      <div class="tw-flex tw-justify-center">
+      <div data-motion="fade-up" class="tw-flex tw-justify-center">
         <div class="tw-relative tw-aspect-[4/3] tw-w-full tw-max-w-[400px] tw-overflow-hidden tw-rounded-2xl tw-bg-white tw-shadow-[0_10px_28px_-12px_rgba(28,20,16,0.18)] lg:tw-max-w-[440px]">
           <img src="<?= $assetPath ?>assets/img/services_rides.webp"
             alt="A PowerCabs account manager reviewing a city route plan with a business team"
@@ -56,7 +56,7 @@ $aboutHighlights = [
 <?php  ?>
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="<?= $pcStepGrid ?>">
+    <div data-motion-stagger="fade-up" class="<?= $pcStepGrid ?>">
       <?php foreach ($aboutHighlights as $item): ?>
         <div class="<?= $pcStepItem ?>">
           <span class="<?= $pcFeatureIcon ?> tw-mb-4">
@@ -88,14 +88,14 @@ $aboutHighlights = [
 <section class="tw-pb-16 md:tw-pb-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-relative tw-overflow-hidden tw-rounded-[2rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] tw-aspect-[3/4] sm:tw-aspect-[16/9] lg:tw-aspect-[21/9]">
-      <iframe
+      <iframe data-motion="fade-up"
         src="https://www.google.com/maps?q=53.3498,-6.2603(PowerCabs+Dublin)&z=11&output=embed"
         class="tw-h-full tw-w-full tw-border-0"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         title="PowerCabs coverage across Dublin"
       ></iframe>
-      <div class="tw-absolute tw-bottom-4 tw-left-1/2 tw-z-[2] tw-w-[91%] -tw-translate-x-1/2 tw-rounded-[2rem] tw-bg-white tw-p-[1.1rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] sm:tw-bottom-auto sm:tw-left-6 sm:tw-top-1/2 sm:tw-w-[240px] sm:-tw-translate-y-1/2 sm:tw-translate-x-0 lg:tw-left-8 lg:tw-w-[320px] lg:tw-p-6">
+      <div data-motion-stagger="fade-up" class="tw-absolute tw-bottom-4 tw-left-1/2 tw-z-[2] tw-w-[91%] -tw-translate-x-1/2 tw-rounded-[2rem] tw-bg-white tw-p-[1.1rem] tw-shadow-[0_30px_70px_rgba(28,20,16,0.18)] sm:tw-bottom-auto sm:tw-left-6 sm:tw-top-1/2 sm:tw-w-[240px] sm:-tw-translate-y-1/2 sm:tw-translate-x-0 lg:tw-left-8 lg:tw-w-[320px] lg:tw-p-6">
         <h3 class="tw-mb-2.5 tw-text-[1.1875rem] tw-font-bold tw-leading-snug tw-text-ink">Serving Every Corner</h3>
         <p class="tw-mb-4 tw-text-[1.0625rem] tw-leading-[1.7] tw-text-ink/[0.62]">
           From Dublin Airport to D&uacute;n Laoghaire, and the IFSC to Dundrum. Wherever you

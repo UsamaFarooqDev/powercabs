@@ -18,12 +18,12 @@ $driverPoints = [
 
   <div class="tw-relative <?= $pcContainer ?>">
 
-    <div class="tw-mb-12 tw-max-w-[46ch]">
+    <div data-motion="fade-up" class="tw-mb-12 tw-max-w-[46ch]">
       <p class="<?= $pcEyebrowOnDark ?>">Work with us</p>
       <!-- <h2 class="<?= pc_mb($pcH2OnDark, 'tw-mb-0') ?>">Two ways to work with PowerCabs.</h2> -->
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-2 lg:tw-gap-16">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-2 lg:tw-gap-16">
 
       <div class="tw-border-0 tw-border-t tw-border-solid tw-border-white/15 tw-pt-8 lg:tw-border-t-0 lg:tw-border-r lg:tw-pr-16 lg:tw-pt-0">
         <span class="tw-mb-5 tw-inline-flex tw-h-12 tw-w-12 tw-items-center tw-justify-center tw-rounded-2xl tw-border tw-border-solid tw-border-white/[0.14] tw-bg-white/[0.06] tw-text-powerlight tw-backdrop-blur-md" aria-hidden="true">

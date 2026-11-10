@@ -35,7 +35,7 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= $pcEyebrow ?>">Why PowerCabs?</p>
       <h2 class="<?= $pcH2Display ?>">
         Big-app convenience. <span class="tw-text-power">Local Irish service.</span>
@@ -46,7 +46,7 @@ $whyLabels = ['check' => 'Included', 'varies-strong' => 'Sometimes', 'varies' =>
       </p>
     </div>
 
-    <div class="tw-mx-auto tw-max-w-[940px]">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-max-w-[940px]">
 
       <div class="tw-hidden md:tw-block">
         <div class="tw-relative tw-rounded-[20px] tw-border tw-border-solid tw-border-black/[0.07] tw-bg-white tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">

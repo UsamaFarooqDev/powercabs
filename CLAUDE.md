@@ -138,14 +138,15 @@ them.
 ## Client-side architecture
 
 Global scripts load at the end of [includes/footer.php](includes/footer.php): `main.js`, `ui.js`, `toast.js`,
-`ajax-forms.js`, `pjax.js`, `page-loader.js`. Page-specific scripts are `<script src>` tags at the
+`ajax-forms.js`, `motion-config.js`, `motion-core.js`, `pjax.js`, `page-loader.js`. Page-specific scripts are `<script src>` tags at the
 bottom of the page or component that needs them (e.g. `book-ride-map.js` in `book-ride-online.php`,
 `ride-fare-estimate.js` in `components/ride/hero-fare-section.php`).
 
 **PJAX is the constraint that shapes everything else.** [assets/js/components/pjax.js](assets/js/components/pjax.js)
 intercepts same-origin link clicks and swaps only `<main>`'s innerHTML, then re-executes scripts inside it and
 manually re-runs a fixed list of globals: `highlightActiveNavLink`, `syncFooterHeightVar`, `initHeroParallax`,
-`initWhyChooseReveal`, `initScrollReveal`, `initLoopVideos`, `pcInitAjaxForms`, `pcInitUi`, `pcInitScrollScenes`.
+`initWhyChooseReveal`, `initScrollReveal`, `initLoopVideos`, `pcInitAjaxForms`, `pcInitUi`, `pcInitScrollScenes`,
+`pcInitMotion`.
 Consequences for any new code:
 
 - Header, footer, nav and mega-menus live **outside** `<main>` and survive navigation — anything stateful there
@@ -224,11 +225,14 @@ Cascade order matters, and is fixed: [reboot.css](assets/css/reboot.css) (elemen
 [variables.css](assets/css/variables.css) (`--pc-*` brand tokens, plus the `--bs-*` overrides Reboot reads) →
 [base.css](assets/css/base.css) (brand type, scrollbar, `.pc-required`, and at its
 end the Google Places `.pac-*` rules — that markup is injected by the Maps SDK and has no hook of ours to style,
-so it is the one place plain CSS is unavoidable) → `tailwind.css` (the compiled utilities).
+so it is the one place plain CSS is unavoidable) → [motion.css](assets/css/motion.css) (the entrance-animation
+layer, see **Motion** below) → `tailwind.css` (the compiled utilities).
 
-**Four stylesheets, not five** — `components.css` is gone; its six `.pac-*` selectors did not warrant a file and
-a request of their own. If something belongs to "how a bare `<p>` or `<input>` behaves", it is Reboot's job --
-do not re-add it to base.css.
+**Five stylesheets, and the fifth had to earn it** — `components.css` is gone; its six `.pac-*` selectors did
+not warrant a file and a request of their own, and they live at the end of base.css instead. `motion.css` is a
+file because its rules are a *layer* -- a pre-animation state that must load before the utilities so a utility
+on the markup can always beat it -- and it is 5KB. If something belongs to "how a bare `<p>` or `<input>`
+behaves", it is Reboot's job -- do not re-add it to base.css.
 
 - Component styling that JS builds (`custom-select.js`, `custom-datetime.js`, `toast.js`, `pjax.js`, `ui.js`)
   is written as Tailwind class strings inside those files — see the `CLS` block in `custom-datetime.js`.
@@ -246,6 +250,54 @@ do not re-add it to base.css.
   `syncFooterHeightVar()` survives as an empty shim only because PJAX re-runs it by name.
 - Prettier config: 120 cols, 2-space indent, single quotes. Existing PHP files mix 2- and 4-space indentation;
   match the file you are editing.
+
+## Motion
+
+Entrance animation is a site-wide system driven by **data attributes, not classes**, so adding it to a
+section needs no Tailwind rebuild. [assets/js/motion/motion-core.js](assets/js/motion/motion-core.js)
+(the engine, loaded once from the footer), [motion-config.js](assets/js/motion/motion-config.js)
+(durations/easing/distances) and [assets/css/motion.css](assets/css/motion.css) (the hidden state).
+Each rule below is there because measuring it the other way was worse -- the measurements
+themselves are not kept in the repo.
+
+```html
+<div data-motion="fade-up">…</div>              <!-- one block -->
+<div data-motion-stagger="fade-up">…</div>      <!-- its children, ramped 80ms apart -->
+```
+
+Variants: `fade-up` (the default) · `fade-down` · `fade-left` · `fade-right` · `fade-in` · `scale-in` ·
+`text-up` · `image-up` · **`rise`** · `rise-left`.
+
+- **Above the fold, use `rise`, never `fade-*`.** Chrome does not accept an element at `opacity: 0` as an
+  LCP candidate, so fading a hero in postpones LCP by the whole delay plus duration. `rise` travels at full
+  opacity: painted on the first frame, and transform movement is excluded from CLS. Every hero copy column
+  (`inner-hero.php` and the four bespoke dark heroes) uses it.
+- **Never put either on a form, a field, or legal text.** A field that is still fading in is a field the
+  user cannot type into, and revealing clauses on scroll is hostile to anyone reading them. `/terms-conditions`,
+  `/privacy-policy`, `/gdpr`, `/driver-training` and every `<form>` body are deliberately empty of motion; the
+  attribute pass skips any container holding a `<form>`.
+- **The engine removes `data-motion` once an entrance finishes**, and every hidden-state selector in
+  motion.css carries `:not(.pc-motion-in)` so the element stays visible afterwards. That is not tidiness:
+  while the attribute is there, motion.css's `transition` is more specific than `tw-transition`, so a card
+  would hover at the motion curve instead of its own. Keep both halves of that contract.
+- A stagger's children are hidden **by motion.css**, keyed on the parent's attribute -- not by the engine --
+  so a page that paints before `DOMContentLoaded` never flashes the group and then hides it. The engine only
+  adds the per-child delay. It skips children that are `.tw-sr-only`, `aria-hidden`, zero-area or absolutely
+  positioned: the first three can never satisfy an intersection threshold and would stay invisible; the last
+  is a decorative glow carrying its own `tw-opacity-*`.
+- `.pc-motion-ready` on `<html>` is what arms the whole hidden layer. `header.php` sets it before first paint
+  **and arms a 3s fuse that removes it again**; the engine disarms the fuse on its first line. A motion script
+  that fails to load must leave a site with no animation, never a blank one — keep that fuse.
+- GSAP + ScrollTrigger are vendored in `assets/vendor/gsap/` and loaded **only** if a page carries
+  `data-motion-scroll` on `<main>` *and* a `[data-motion-parallax]` layer inside it. **No page does today**:
+  the pair measured 115.6KB raw / 45.7KB gzipped, and the three scroll-linked effects the site already has
+  (`initHeroParallax` in main.js, `scroll-scene.js`, the growth parallax in `partner-page.js`) are hand-rolled,
+  idempotent and already run at 60fps. Switching a page on buys nothing those do not already do, at 45.7KB.
+  If that trade is never taken, `assets/vendor/gsap/` and the two paths in `motion-config.js` can go.
+- `--pc-navbar-h` is set by an inline script right after `</header>`, not just by `main.js` at
+  `DOMContentLoaded`. Every hero's top padding is a `calc()` on it with a 110px fallback against a ~72px real
+  header, so setting it late moved the page 38px after first paint. Don't move that script.
+
 
 ## Design system
 

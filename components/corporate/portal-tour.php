@@ -54,7 +54,7 @@ $pcPortalArrow =
   <div class="<?= $pcContainer ?>">
 
     <?php  ?>
-    <div class="tw-mb-9 tw-grid tw-grid-cols-1 tw-gap-5 lg:tw-grid-cols-12 lg:tw-items-end lg:tw-gap-12">
+    <div data-motion="fade-up" class="tw-mb-9 tw-grid tw-grid-cols-1 tw-gap-5 lg:tw-grid-cols-12 lg:tw-items-end lg:tw-gap-12">
       <div class="lg:tw-col-span-7">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Corporate Fleet Portal</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?> tw-max-w-[20ch]">
@@ -70,7 +70,7 @@ $pcPortalArrow =
     </div>
 
     <?php  ?>
-    <div class="tw-mx-auto tw-max-w-[900px]" data-pc-portal-slider>
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-max-w-[900px]" data-pc-portal-slider>
 
       <?php  ?>
       <div class="tw--mx-4 tw-mb-5 tw-overflow-x-auto tw-px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden sm:tw-mx-0 sm:tw-px-0">

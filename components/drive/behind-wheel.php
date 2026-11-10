@@ -11,7 +11,7 @@ $driveSteps = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2 lg:tw-gap-16">
 
-      <div class="tw-order-2 [&_.pc-phone-screen]:tw-min-h-[520px] lg:tw-order-1">
+      <div data-motion="fade-up" class="tw-order-2 [&_.pc-phone-screen]:tw-min-h-[520px] lg:tw-order-1">
         <?php
         $mockupImage = 'driver-go-online.webp';
         $mockupAlt = 'The PowerCabs app open on a phone, showing a route across Dublin';
@@ -20,7 +20,7 @@ $driveSteps = [
         ?>
       </div>
 
-      <div class="tw-order-1 lg:tw-order-2">
+      <div data-motion-stagger="fade-up" class="tw-order-1 lg:tw-order-2">
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Approved and driving in days</h2>
         <p class="<?= $pcBody ?> tw-mb-8 tw-max-w-[48ch]">
           Upload your PSV licence, vehicle documents and insurance in the Driver

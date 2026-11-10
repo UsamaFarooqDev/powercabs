@@ -26,7 +26,7 @@ $appCards = [
 
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-justify-center tw-gap-6 md:tw-grid-cols-2 md:tw-max-w-[880px] md:tw-mx-auto">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-justify-center tw-gap-6 md:tw-grid-cols-2 md:tw-max-w-[880px] md:tw-mx-auto">
       <?php foreach ($appCards as $card): ?>
         <div class="tw-flex tw-h-full tw-flex-col tw-items-center tw-rounded-3xl tw-border tw-border-solid tw-border-black/[0.06] tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_8px_20px_rgba(28,20,16,0.1)] sm:tw-p-8">
           <span class="tw-mb-4 tw-inline-flex tw-h-14 tw-w-14 tw-items-center tw-justify-center tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-text-power">

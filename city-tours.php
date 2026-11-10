@@ -220,7 +220,7 @@ $ctSubmitClass = $pcBtnPrimary;
 <section class="<?= $pcSectionTight ?>">
   <div class="<?= $pcContainer ?>">
     <?php  ?>
-    <div class="tw-relative tw-overflow-hidden tw-rounded-[28px] tw-bg-ink tw-p-6 sm:tw-p-10">
+    <div data-motion-stagger="fade-up" class="tw-relative tw-overflow-hidden tw-rounded-[28px] tw-bg-ink tw-p-6 sm:tw-p-10">
       <img src="https://images.pexels.com/photos/38635694/pexels-photo-38635694.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400"
         alt="" aria-hidden="true" loading="lazy" decoding="async"
         class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
@@ -265,11 +265,11 @@ $ctSubmitClass = $pcBtnPrimary;
 
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Featured Destinations</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Where Would You Like to Go?</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($destinations as $i => $d): ?>
         <?php $isLead = $i < 2; ?>
         <div class="tw-group tw-flex tw-flex-col tw-overflow-hidden tw-rounded-[28px] tw-border tw-border-solid tw-border-hairline tw-bg-white <?= $isLead

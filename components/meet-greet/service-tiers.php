@@ -7,7 +7,7 @@ $mgTierCross =
 <section class="<?= $pcSurfaceSoft ?> <?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
 
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[640px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?> tw-inline-flex tw-items-center tw-gap-1.5">
         <svg class="tw-h-3.5 tw-w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4-1 4 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
         Dublin Airport
@@ -17,7 +17,7 @@ $mgTierCross =
     </div>
 
     <?php  ?>
-    <div class="tw-mx-auto tw-grid tw-max-w-[1100px] tw-grid-cols-1 tw-items-stretch tw-gap-5 md:tw-grid-cols-3 lg:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-grid tw-max-w-[1100px] tw-grid-cols-1 tw-items-stretch tw-gap-5 md:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($mgServiceLevels as $mgKey => $mgTier): ?>
         <?php $mgFeatured = !empty($mgTier['featured']); ?>
         <div class="tw-relative tw-flex tw-h-full tw-flex-col tw-rounded-2xl tw-p-6 sm:tw-p-7 <?= $mgFeatured

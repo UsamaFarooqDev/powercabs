@@ -1,6 +1,6 @@
 <section class="<?= $pcSurfaceWhite ?> tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[680px] tw-text-center md:tw-mb-12">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[680px] tw-text-center md:tw-mb-12">
       <p class="<?= $pcEyebrow ?>">Driver Benefits</p>
       <h2 class="<?= pc_mb($pcH2Display, 'tw-mb-3') ?>">
         Spend less on the car. <span class="tw-text-power">Earn more from it.</span>
@@ -57,7 +57,7 @@
       ],
     ];
     ?>
-    <div class="tw-columns-2 tw-gap-3 sm:tw-gap-4 lg:tw-columns-3">
+    <div data-motion-stagger="fade-up" class="tw-columns-2 tw-gap-3 sm:tw-gap-4 lg:tw-columns-3">
       <?php foreach ($driverBenefits as $benefit): ?>
         <figure class="tw-group tw-mb-3 tw-break-inside-avoid sm:tw-mb-4">
           <div class="<?= $benefit['frame'] ?> tw-relative tw-overflow-hidden tw-rounded-xl tw-bg-paper">
@@ -76,7 +76,7 @@
     </div>
 
     <?php  ?>
-    <div class="tw-mt-10 tw-text-center md:tw-mt-12">
+    <div data-motion="fade-up" class="tw-mt-10 tw-text-center md:tw-mt-12">
       <p class="<?= $pcBodySm ?> tw-mx-auto tw-mb-2.5 tw-max-w-[46ch]">
         Perks that help you maximise your earnings while you drive with us.
       </p>

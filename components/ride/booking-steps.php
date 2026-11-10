@@ -60,7 +60,7 @@ $rideSteps = [
 <?php  ?>
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
-    <div class="<?= $pcSectionHeadCenter ?>">
+    <div data-motion="fade-up" class="<?= $pcSectionHeadCenter ?>">
       <h2 class="<?= $pcH2 ?>">Simple Steps to Book Your Ride</h2>
       <p class="<?= $pcBody ?> tw-mx-auto tw-mb-0 tw-max-w-[60ch]">
         Book your ride easily through our app or website and enjoy a seamless journey
@@ -68,7 +68,7 @@ $rideSteps = [
       </p>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12 [&_.pc-phone-screen]:tw-h-[519.6px] [&_.pc-phone-screen_img]:tw-absolute [&_.pc-phone-screen_img]:tw-inset-0 [&_.pc-phone-screen_img]:tw-h-full [&_.pc-phone-screen_img]:tw-w-full" id="pcBookSteps">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-12 [&_.pc-phone-screen]:tw-h-[519.6px] [&_.pc-phone-screen_img]:tw-absolute [&_.pc-phone-screen_img]:tw-inset-0 [&_.pc-phone-screen_img]:tw-h-full [&_.pc-phone-screen_img]:tw-w-full" id="pcBookSteps">
       <div class="lg:tw-col-span-5">
         <?php  ?>
         <div class="tw-flex tw-flex-col tw-gap-3 lg:tw-ml-auto lg:tw-max-w-[26rem]" role="tablist" aria-label="Book Your Ride steps">

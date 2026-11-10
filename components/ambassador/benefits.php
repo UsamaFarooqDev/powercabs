@@ -39,12 +39,12 @@ function pc_amb_icon(string $icon, string $cls): void
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-opacity-[0.035] tw-bg-[url('data:image/svg+xml,%3Csvg_xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter_id=%27n%27%3E%3CfeTurbulence_type=%27fractalNoise%27_baseFrequency=%270.85%27_numOctaves=%272%27_stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect_width=%27100%25%27_height=%27100%25%27_filter=%27url(%23n)%27/%3E%3C/svg%3E')]" aria-hidden="true"></span>
 
   <div class="tw-relative <?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
+    <div data-motion="fade-up" class="tw-mx-auto tw-mb-10 tw-max-w-[60ch] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Benefits</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Everything You Get as an Ambassador</h2>
     </div>
 
-    <div class="tw-relative tw-z-[1] tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-4 lg:[grid-auto-flow:dense] lg:[grid-auto-rows:minmax(170px,auto)]">
+    <div data-motion-stagger="fade-up" class="tw-relative tw-z-[1] tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-4 lg:[grid-auto-flow:dense] lg:[grid-auto-rows:minmax(170px,auto)]">
       <?php foreach ($benefits as $i => $b): ?>
         <?php
         $span = $bizAmbSpans[$i] ?? 'normal';

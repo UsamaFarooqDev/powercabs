@@ -1,0 +1,142 @@
+/* Motion: the pre-animation state and the transition that resolves it.
+ *
+ * Loads after base.css and before tailwind.css, so a utility written on an element always wins
+ * over anything here.
+ *
+ * Everything is scoped to .pc-motion-ready, which a one-line inline script in header.php sets on
+ * <html> before first paint. That gate is the whole safety story: if motion-core.js 404s or a
+ * browser refuses it, the class is still set but nothing ever adds .pc-motion-in -- so the rule
+ * below would hide the page. To stop that, the inline script ALSO arms a 3s fuse that removes the
+ * class again, and the engine disarms the fuse on its first line. Net effect: a broken script
+ * leaves a site with no entrance animation, never a blank one. */
+
+:root {
+  --pc-motion-t: 0.6s;
+  --pc-motion-e: cubic-bezier(0.22, 1, 0.36, 1);
+  --pc-motion-d: 24px;
+}
+
+@media (max-width: 1023.98px) {
+  :root {
+    --pc-motion-d: 14px;
+  }
+}
+
+/* ---------------------------------------------------------------- the hidden state --- */
+
+/* Every hidden-state selector carries :not(.pc-motion-in), and that is what makes a landed
+   element permanent. motion-core.js removes the data-motion attribute once an entrance has
+   finished, so the element goes back to using its OWN tw-transition on hover -- and without
+   this :not(), the stagger rule below keys off the PARENT's attribute and would hide the child
+   straight back again. */
+
+.pc-motion-ready [data-motion]:not(.pc-motion-in) {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.pc-motion-ready [data-motion='fade-up']:not(.pc-motion-in) {
+  transform: translate3d(0, var(--pc-motion-d), 0);
+}
+.pc-motion-ready [data-motion='fade-down']:not(.pc-motion-in) {
+  transform: translate3d(0, calc(var(--pc-motion-d) * -1), 0);
+}
+.pc-motion-ready [data-motion='fade-left']:not(.pc-motion-in) {
+  transform: translate3d(calc(var(--pc-motion-d) * -1), 0, 0);
+}
+.pc-motion-ready [data-motion='fade-right']:not(.pc-motion-in) {
+  transform: translate3d(var(--pc-motion-d), 0, 0);
+}
+.pc-motion-ready [data-motion='scale-in']:not(.pc-motion-in) {
+  transform: scale(0.96);
+}
+
+/* Text and image variants travel a little less and a little slower: a heading that slides as far
+   as a card reads as sloppy, and a photograph that moves fast reads as a glitch. */
+.pc-motion-ready [data-motion='text-up']:not(.pc-motion-in) {
+  transform: translate3d(0, calc(var(--pc-motion-d) * 0.6), 0);
+}
+.pc-motion-ready [data-motion='image-up']:not(.pc-motion-in) {
+  transform: translate3d(0, calc(var(--pc-motion-d) * 0.5), 0) scale(1.02);
+}
+
+/* TRANSFORM ONLY, DELIBERATELY -- this is the variant for anything above the fold.
+ *
+ * A hero H1 or hero photo is routinely the page's LCP element, and Chrome does not accept an
+ * element at opacity 0 as an LCP candidate at all: fading one in moves LCP by the whole
+ * delay + duration. The measured baseline for these pages is 320-1824ms, and the budget allows
+ * +5%. So first-screen content settles into place at full opacity instead -- it is painted on the
+ * first frame, LCP is untouched, and transform movement is excluded from CLS by definition.
+ *
+ * Never put fade-* on hero copy or a hero image. Use rise. */
+.pc-motion-ready [data-motion='rise']:not(.pc-motion-in) {
+  opacity: 1;
+  transform: translate3d(0, 18px, 0);
+}
+.pc-motion-ready [data-motion='rise-left']:not(.pc-motion-in) {
+  opacity: 1;
+  transform: translate3d(14px, 0, 0);
+}
+
+/* ------------------------------------------------------------------------ staggers --- */
+
+/* The children of a stagger parent are hidden by CSS, not by the engine. motion-core.js also
+   stamps data-motion on each child, but it can only do that once it has run -- and on a slow page
+   the browser may paint before DOMContentLoaded, which would show the whole group and then hide
+   it. These rules mean the group starts hidden with the stylesheet, so there is no flash. */
+.pc-motion-ready [data-motion-stagger] > *:not(.pc-motion-in) {
+  opacity: 0;
+  transform: translate3d(0, var(--pc-motion-d), 0);
+}
+.pc-motion-ready [data-motion-stagger='fade-in'] > *:not(.pc-motion-in) {
+  transform: none;
+}
+.pc-motion-ready [data-motion-stagger='fade-left'] > *:not(.pc-motion-in) {
+  transform: translate3d(calc(var(--pc-motion-d) * -1), 0, 0);
+}
+.pc-motion-ready [data-motion-stagger='fade-right'] > *:not(.pc-motion-in) {
+  transform: translate3d(var(--pc-motion-d), 0, 0);
+}
+.pc-motion-ready [data-motion-stagger='scale-in'] > *:not(.pc-motion-in) {
+  transform: scale(0.96);
+}
+.pc-motion-ready [data-motion-stagger='image-up'] > *:not(.pc-motion-in) {
+  transform: translate3d(0, calc(var(--pc-motion-d) * 0.5), 0) scale(1.02);
+}
+/* Above the fold: same reasoning as [data-motion="rise"]. */
+.pc-motion-ready [data-motion-stagger='rise'] > *:not(.pc-motion-in) {
+  opacity: 1;
+  transform: translate3d(0, 18px, 0);
+}
+
+/* ----------------------------------------------------------------------- the landing --- */
+
+[data-motion].pc-motion-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--pc-motion-t) var(--pc-motion-e),
+    transform var(--pc-motion-t) var(--pc-motion-e);
+}
+
+[data-motion='image-up'].pc-motion-in,
+[data-motion='text-up'].pc-motion-in {
+  --pc-motion-t: 0.75s;
+}
+
+/* Stop paying for the layer once the element has settled. */
+[data-motion].pc-motion-done {
+  will-change: auto;
+}
+
+/* ------------------------------------------------------------------- reduced motion --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-motion-ready [data-motion],
+  .pc-motion-ready [data-motion-stagger] > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}

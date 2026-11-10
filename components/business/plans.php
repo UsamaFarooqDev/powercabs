@@ -28,7 +28,7 @@ $bizPlans = [
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Business Plans</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Built for Businesses of All Sizes</h2>
       <p class="<?= $pcBody ?> tw-mx-auto tw-mb-0 tw-max-w-[56ch]">
@@ -37,7 +37,7 @@ $bizPlans = [
       </p>
     </div>
 
-    <div class="tw-mx-auto tw-grid tw-max-w-[1100px] tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-3 lg:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-grid tw-max-w-[1100px] tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($bizPlans as $plan): ?>
         <?php $featured = $plan['featured']; ?>
         <div class="tw-flex tw-h-full tw-flex-col tw-rounded-2xl tw-p-7 tw-transition-shadow tw-duration-300 motion-reduce:tw-transition-none sm:tw-p-8 <?= $featured

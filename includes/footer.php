@@ -193,6 +193,14 @@ $footerNav = [
   __DIR__ . '/../assets/js/components/phone-field.js',
 ) ?>"></script>
 <?php  ?>
+<?php /* Loaded here, outside <main>, so it is executed exactly once: the engine keeps its
+         observer at module level and PJAX re-runs it by name. */ ?>
+<script src="<?= $assetPath ?>assets/js/motion/motion-config.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/motion/motion-config.js',
+) ?>"></script>
+<script src="<?= $assetPath ?>assets/js/motion/motion-core.js?v=<?= @filemtime(
+  __DIR__ . '/../assets/js/motion/motion-core.js',
+) ?>"></script>
 <script src="<?= $assetPath ?>assets/js/components/turnstile.js?v=<?= @filemtime(
   __DIR__ . '/../assets/js/components/turnstile.js',
 ) ?>"></script>

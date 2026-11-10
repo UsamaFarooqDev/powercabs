@@ -9,14 +9,14 @@ $joinProcess = [
 
 <section class="<?= $pcSection ?>" id="pcPtnProcess">
   <div class="<?= $pcContainer ?>">
-    <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Simple From Day One</p>
-    <h2 class="<?= $pcH2Display ?>">How the Partner Programme Works.</h2>
-    <p class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
+    <p data-motion="fade-up" class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Simple From Day One</p>
+    <h2 data-motion="fade-up" class="<?= $pcH2Display ?>">How the Partner Programme Works.</h2>
+    <p data-motion="fade-up" class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
       No complicated setup. Join, get verified, get on the road and stay
       eligible for a steady stream of bookings.
     </p>
 
-    <div class="pc-ptn-step-grid tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <div data-motion-stagger="fade-up" class="pc-ptn-step-grid tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($joinProcess as $step): ?>
         <div class="pc-ptn-step-card tw-rounded-xl tw-border tw-border-solid tw-border-black/[0.08] tw-bg-white tw-p-6 tw-opacity-0 tw-translate-y-4 tw-transition-all tw-duration-500 tw-ease-out [&.is-visible]:tw-opacity-100 [&.is-visible]:tw-translate-y-0 motion-reduce:tw-opacity-100 motion-reduce:tw-translate-y-0 motion-reduce:tw-transition-none">
           <span class="tw-mb-6 tw-inline-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-md tw-bg-[#fbe6d4] tw-font-extrabold tw-text-power"><?= htmlspecialchars($step['n']) ?></span>

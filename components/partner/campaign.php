@@ -29,14 +29,14 @@ function pc_ptn_join_icon(string $icon): void
 ?>
 <section class="<?= $pcSurfaceSoft ?> tw-scroll-mt-24 <?= $pcSection ?>" id="pcPtnCampaign">
   <div class="<?= $pcContainer ?>">
-    <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Partner Programme</p>
-    <h2 class="<?= $pcH2Display ?>">More miles. More visibility.</h2>
-    <p class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
+    <p data-motion="fade-up" class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Partner Programme</p>
+    <h2 data-motion="fade-up" class="<?= $pcH2Display ?>">More miles. More visibility.</h2>
+    <p data-motion="fade-up" class="tw-mb-10 tw-max-w-[62ch] tw-text-[1.08rem] tw-text-ink/60">
       Join the network, follow a simple set of steps to get onboarded, and start
       receiving more consistent bookings across the PowerCabs platform.
     </p>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-6 lg:tw-grid-cols-12">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-6 lg:tw-grid-cols-12">
       <div class="lg:tw-col-span-7">
         <article class="tw-relative tw-h-full tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.07] tw-bg-surface tw-p-[clamp(1.75rem,3vw,2.5rem)]">
           <span class="tw-absolute tw-inset-x-0 tw-top-0 tw-h-[5px] tw-bg-power" aria-hidden="true"></span>

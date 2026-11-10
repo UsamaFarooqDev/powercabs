@@ -34,7 +34,7 @@ function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
 
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Your Business Account</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Your business. Your account. Your taxi service.</h2>
       <p class="<?= $pcBody ?> tw-mb-0">
@@ -43,7 +43,7 @@ function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
       </p>
     </div>
 
-    <ul class="tw-m-0 tw-mb-14 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 tw-lg:gap-6 lg:tw-grid-cols-4">
+    <ul data-motion-stagger="fade-up" class="tw-m-0 tw-mb-14 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 tw-lg:gap-6 lg:tw-grid-cols-4">
       <?php foreach ($bizAccountBenefits as $benefit): ?>
         <li class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-p-6 tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_14px_34px_-14px_rgba(28,20,16,0.2)] motion-reduce:tw-transition-none">
           <span class="<?= $pcFeatureIcon ?> tw-mb-4">
@@ -57,7 +57,7 @@ function pc_biz_icon(string $icon, string $cls = 'tw-h-5 tw-w-5'): void
       <?php endforeach; ?>
     </ul>
 
-    <div class="tw-grid tw-grid-cols-1">
+    <div data-motion="fade-up" class="tw-grid tw-grid-cols-1">
       <div>
         <div class="tw-mx-auto tw-w-full tw-max-w-[560px] tw-rounded-2xl tw-border tw-border-solid tw-border-hairline tw-bg-white tw-p-[clamp(1.5rem,3vw,2rem)] tw-shadow-[0_24px_60px_-20px_rgba(28,20,16,0.28)]">
           <div class="tw-mb-6 tw-flex tw-items-center tw-justify-between tw-gap-3">

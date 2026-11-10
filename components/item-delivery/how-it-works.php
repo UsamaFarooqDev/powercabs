@@ -21,12 +21,12 @@ $idelSteps = [
 <section class="<?= $pcSurfaceWhite ?> <?= $pcSectionLoose ?>" id="how-it-works">
   <div class="<?= $pcContainer ?>">
 
-    <div class="<?= $pcSectionHeadCenter ?>">
+    <div data-motion="fade-up" class="<?= $pcSectionHeadCenter ?>">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">How it works</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Four steps, start to finish.</h2>
     </div>
 
-    <ol class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-x-8 tw-gap-y-10 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <ol data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-x-8 tw-gap-y-10 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($idelSteps as $idelI => $idelStep): ?>
         <li class="tw-relative tw-pt-7">
           <?php /* The rule runs between the numbers, not past the last one. */ ?>

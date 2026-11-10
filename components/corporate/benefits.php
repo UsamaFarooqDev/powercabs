@@ -10,11 +10,11 @@ $corporateBenefits = [
 ?>
 <section class="tw-relative tw-overflow-hidden <?= $pcSection ?>">
   <div class="tw-relative <?= $pcContainer ?>">
-    <div class="<?= $pcSectionHeadCenter ?>">
+    <div data-motion="fade-up" class="<?= $pcSectionHeadCenter ?>">
       <h2 class="<?= $pcH2 ?> tw-mb-0">Everything Your Business Needs</h2>
     </div>
     <?php  ?>
-    <div class="<?= $pcDivider ?> tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-10 tw-pt-12 sm:tw-grid-cols-3 lg:tw-grid-cols-6">
+    <div data-motion-stagger="fade-up" class="<?= $pcDivider ?> tw-grid tw-grid-cols-2 tw-gap-x-6 tw-gap-y-10 tw-pt-12 sm:tw-grid-cols-3 lg:tw-grid-cols-6">
       <?php foreach ($corporateBenefits as $item): ?>
         <div class="tw-flex tw-flex-col tw-items-center tw-text-center">
           <?php switch ($item['icon']):

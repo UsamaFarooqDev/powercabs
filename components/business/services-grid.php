@@ -39,7 +39,7 @@ function pc_biz_service_icon(string $icon): void
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
+    <div data-motion-stagger="fade-up" class="tw-mx-auto tw-mb-12 tw-max-w-[680px] tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What We Cover</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Everything Your Business Needs</h2>
       <p class="<?= $pcBody ?> tw-mb-0">
@@ -47,7 +47,7 @@ function pc_biz_service_icon(string $icon): void
       </p>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($bizServiceModules as $service): ?>
         <?php
         $svcLink = $service['href'] ?? '';

@@ -83,7 +83,7 @@ $idelCategories = [
 <section class="<?= $pcSectionLoose ?>" id="what-we-move">
   <div class="<?= $pcContainer ?>">
 
-    <div class="<?= $pcSectionHeadCenter ?>">
+    <div data-motion-stagger="fade-up" class="<?= $pcSectionHeadCenter ?>">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">What we move</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">What can we collect and deliver?</h2>
       <p class="<?= $pcBody ?> tw-mb-0">
@@ -94,7 +94,7 @@ $idelCategories = [
 
     <?php /* Asymmetric collage: a tall feature beside a wide tile over two squares. The grid
              collapses to a 2-up mosaic on tablets and a single column on phones. */ ?>
-    <ul id="idel-collage" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-2 tw-gap-4 tw-p-0 lg:tw-grid-cols-12 lg:tw-gap-5">
+    <ul data-motion-stagger="fade-up" id="idel-collage" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-2 tw-gap-4 tw-p-0 lg:tw-grid-cols-12 lg:tw-gap-5">
       <?php foreach ($idelCollage as $idelTile): ?>
         <li class="tw-group tw-relative tw-overflow-hidden tw-rounded-[1.25rem] tw-bg-paper <?= $idelTile['cell'] ?>">
           <img src="<?= $assetPath ?>/assets/img/<?= htmlspecialchars($idelTile['src']) ?>"
@@ -143,7 +143,7 @@ $idelCategories = [
   <div class="<?= $pcContainer ?>">
 
     <div class="tw-mt-20 tw-grid tw-grid-cols-1 tw-items-center tw-gap-10 lg:tw-mt-28 lg:tw-grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:tw-gap-20">
-      <div class="tw-mx-auto tw-w-full tw-max-w-[440px]">
+      <div data-motion="fade-up" class="tw-mx-auto tw-w-full tw-max-w-[440px]">
         <div class="<?= $pcImgLandscape ?> tw-rounded-2xl tw-shadow-[0_20px_45px_-18px_rgba(28,20,16,0.3)]">
           <img src="<?= $assetPath ?>/assets/img/item-delivery-forgotten.webp"
             alt="A driver carrying a parcel along a city street beside parked cars"
@@ -152,7 +152,7 @@ $idelCategories = [
         </div>
       </div>
 
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Forgotten items &amp; lost property</p>
         <h3 class="<?= pc_mb($pcH2Small, 'tw-mb-3') ?>">Left something behind? We&rsquo;ll help you get it back.</h3>
         <p class="<?= $pcBody ?> tw-mb-5 <?= $pcMeasureTight ?>">

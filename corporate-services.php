@@ -87,10 +87,10 @@ $corporateServices = [
 ?>
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-10 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-10 tw-text-center">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Services Overview</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-3">
       <?php foreach ($corporateServices as $service): ?>
         <a href="#corporate-account-form" class="tw-group tw-relative tw-block tw-aspect-square tw-overflow-hidden tw-rounded-[20px] tw-border tw-border-solid tw-border-white/[0.08] tw-no-underline tw-shadow-[0_2px_4px_rgba(0,0,0,0.075)]">
           <img src="<?= $assetPath . $service['img'] ?>" alt="<?= htmlspecialchars($service['alt']) ?>" class="tw-block tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-500 tw-ease-out group-hover:tw-scale-105 motion-reduce:tw-transition-none" loading="lazy">
@@ -110,7 +110,7 @@ $corporateServices = [
 <section class="tw-relative tw-overflow-hidden tw-py-[clamp(4rem,8vw,6rem)] tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/9520551/pexels-photo-9520551.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover tw-object-center" loading="lazy">
   <span class="tw-absolute tw-inset-0 tw-z-0 tw-bg-[rgba(10,7,5,0.72)]" aria-hidden="true"></span>
-  <div class="tw-relative <?= $pcContainer ?>">
+  <div data-motion-stagger="fade-up" class="tw-relative <?= $pcContainer ?>">
     <p class="<?= $pcEyebrowOnDark ?>">Our Mission</p>
     <p class="tw-mx-auto tw-mb-0 tw-max-w-[60ch] tw-text-2xl tw-text-white/85">
       To deliver consistent, memorable corporate travel experiences - so every client,

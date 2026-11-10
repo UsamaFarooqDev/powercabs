@@ -83,7 +83,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2 lg:tw-gap-16">
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#2e7d32]">Our Commitment</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-4') ?>">Exceptional Service, Lower Impact</h2>
         <p class="<?= $pcBody ?> tw-mb-0 tw-max-w-[56ch]">
@@ -93,7 +93,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
         </p>
       </div>
 
-      <div class="tw-flex tw-justify-center">
+      <div data-motion="fade-up" class="tw-flex tw-justify-center">
         <div class="tw-relative tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl tw-bg-paper tw-shadow-[0_18px_40px_-20px_rgba(46,125,50,0.45)]">
           <img src="https://images.pexels.com/photos/32062124/pexels-photo-32062124.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"
             alt="A winding road through the green hills of the Gap of Dunloe, County Kerry"
@@ -111,7 +111,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
     class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover tw-object-center">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-bg-[linear-gradient(180deg,rgba(11,35,18,0.82)_0%,rgba(11,35,18,0.74)_50%,rgba(11,35,18,0.86)_100%)]" aria-hidden="true"></span>
 
-  <div class="tw-relative <?= $pcContainer ?>">
+  <div data-motion-stagger="fade-up" class="tw-relative <?= $pcContainer ?>">
     <p class="tw-mb-2 tw-text-sm tw-font-semibold tw-uppercase tw-tracking-[0.06em] tw-text-[#9ad7a3]">How We Reduce Our Impact</p>
     <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?> tw-text-white">Six Ways We Keep It Green</h2>
   </div>
@@ -119,7 +119,7 @@ require __DIR__ . '/components/shared/inner-hero.php';
 
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-6">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-5 md:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-6">
       <?php foreach ($ecoAreas as $area): ?>
         <div class="tw-h-full tw-rounded-2xl tw-border tw-border-solid tw-border-[rgba(46,125,50,0.16)] tw-bg-white tw-p-6 tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] tw-transition-shadow tw-duration-300 hover:tw-shadow-[0_14px_34px_-14px_rgba(46,125,50,0.3)] motion-reduce:tw-transition-none">
           <span class="tw-mb-4 tw-inline-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-xl tw-bg-[rgba(76,175,80,0.14)] tw-text-[#2e7d32]">

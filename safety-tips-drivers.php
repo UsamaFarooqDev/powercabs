@@ -132,7 +132,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
-      <div>
+      <div data-motion-stagger="fade-up">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Before the Ride</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">Set Yourself Up for a Safe Shift</h2>
         <div class="tw-flex tw-flex-col tw-gap-6">
@@ -147,7 +147,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
           <?php endforeach; ?>
         </div>
       </div>
-      <div>
+      <div data-motion="fade-up">
         <div class="tw-mx-auto tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl">
           <img src="https://images.pexels.com/photos/5835467/pexels-photo-5835467.jpeg?auto=format&fit=crop&w=1200&q=60" alt="A driver checking passenger details on their phone before a ride" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>
@@ -158,11 +158,11 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 
 <section class="tw-bg-white tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">During the Ride</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Stay Alert, Stay in Control</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.08] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] sm:tw-grid-cols-2 lg:tw-grid-cols-5">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-divide-x tw-divide-y tw-divide-solid tw-divide-black/[0.08] tw-overflow-hidden tw-rounded-2xl tw-border tw-border-solid tw-border-black/[0.08] sm:tw-grid-cols-2 lg:tw-grid-cols-5">
       <?php foreach ($duringRide as $item): ?>
         <div class="tw-flex tw-flex-col tw-items-center tw-px-3 tw-py-8 tw-text-center md:tw-py-10">
           <span class="tw-mb-3 tw-text-power"><?php pc_safety_icon($item['icon'], 'tw-h-8 tw-w-8'); ?></span>
@@ -177,18 +177,18 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="tw-relative tw-min-h-[280px] tw-overflow-hidden tw-text-center tw-text-white">
   <img src="https://images.pexels.com/photos/5834921/pexels-photo-5834921.jpeg?auto=format&fit=crop&w=1600&q=60" alt="" aria-hidden="true" class="tw-absolute tw-inset-0 tw-z-0 tw-h-full tw-w-full tw-object-cover" loading="lazy">
   <span class="tw-pointer-events-none tw-absolute tw-inset-0 tw-z-0 tw-bg-ink-soft/[0.65]" aria-hidden="true"></span>
-  <div class="tw-relative tw-z-[1] tw-flex tw-min-h-[280px] tw-items-center tw-justify-center <?= $pcContainer ?>">
+  <div data-motion-stagger="fade-up" class="tw-relative tw-z-[1] tw-flex tw-min-h-[280px] tw-items-center tw-justify-center <?= $pcContainer ?>">
     <p class="tw-mb-0 tw-max-w-[46ch] tw-text-xl tw-font-bold tw-text-white md:tw-text-2xl">Well-lit, busy pickup points keep every trip safer, day or night.</p>
   </div>
 </section>
 
 <section class="tw-py-16 md:tw-py-24">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-12 tw-text-center">
+    <div data-motion="fade-up" class="tw-mb-12 tw-text-center">
       <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">After the Ride</p>
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-0') ?>">Carry the Same Care Into Your Next Trip</h2>
     </div>
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <div data-motion-stagger="fade-up" class="tw-grid tw-grid-cols-1 tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($afterRide as $item): ?>
         <div class="tw-h-full tw-rounded-2xl tw-bg-white tw-p-6 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)]">
           <span class="tw-mb-3 tw-inline-block tw-text-power"><?php pc_safety_icon($item['icon'], 'tw-h-7 tw-w-7'); ?></span>
@@ -203,7 +203,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
 <section class="<?= $pcSection ?>">
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-items-center tw-gap-12 lg:tw-grid-cols-2">
-      <div class="lg:tw-order-2">
+      <div data-motion-stagger="fade-up" class="lg:tw-order-2">
         <p class="<?= pc_mb($pcEyebrow, 'tw-mb-2') ?>">Additional Tips</p>
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-6') ?>">A Few More Habits Worth Building</h2>
         <ul class="tw-m-0 tw-flex tw-list-none tw-flex-col tw-gap-4 tw-p-0">
@@ -215,7 +215,7 @@ function pc_safety_icon(string $icon, string $cls = 'tw-h-6 tw-w-6'): void
           <?php endforeach; ?>
         </ul>
       </div>
-      <div class="lg:tw-order-1">
+      <div data-motion="fade-up" class="lg:tw-order-1">
         <div class="tw-mx-auto tw-aspect-[4/3] tw-w-full tw-max-w-[440px] tw-overflow-hidden tw-rounded-2xl">
           <img src="https://images.pexels.com/photos/7709231/pexels-photo-7709231.jpeg?auto=format&fit=crop&w=1200&q=60" alt="PowerCabs 24/7 support ready to help drivers" class="tw-h-full tw-w-full tw-object-cover" loading="lazy">
         </div>

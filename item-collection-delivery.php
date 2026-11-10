@@ -82,7 +82,7 @@ require __DIR__ . '/components/shared/final-cta.php';
 <?php  ?>
 <section class="tw-bg-white tw-pb-10 md:tw-pb-14">
   <div class="<?= $pcContainerNarrow ?>">
-    <div class="tw-flex tw-flex-col tw-gap-4 sm:tw-flex-row">
+    <div data-motion-stagger="fade-up" class="tw-flex tw-flex-col tw-gap-4 sm:tw-flex-row">
       <span class="<?= $pcIconChip ?> tw-shrink-0" aria-hidden="true">
         <svg class="tw-h-5 tw-w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 11.25l.04-.02a.75.75 0 011.07.85l-.71 2.84a.75.75 0 001.06.85l.04-.02M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.01v.01H12V8.25z"/></svg>
       </span>

@@ -40,7 +40,7 @@ $lostItemResults = [
   <div class="<?= $pcContainer ?>">
     <div class="tw-grid tw-grid-cols-1 tw-gap-10 lg:tw-grid-cols-12 lg:tw-gap-14">
 
-      <div class="lg:tw-col-span-7">
+      <div data-motion-stagger="fade-up" class="lg:tw-col-span-7">
         <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">Why Choose PowerCabs Lost Item Recovery?</h2>
         <p class="<?= $pcBody ?> tw-mb-8 <?= $pcMeasureTight ?>">
           We&rsquo;re not just another taxi company. We&rsquo;re a team that genuinely cares about helping
@@ -62,7 +62,7 @@ $lostItemResults = [
         </ul>
       </div>
 
-      <div class="lg:tw-col-span-5">
+      <div data-motion-stagger="fade-up" class="lg:tw-col-span-5">
         <div class="tw-overflow-hidden tw-rounded-[1.75rem] tw-border tw-border-solid tw-border-hairline tw-bg-white lg:tw-sticky lg:tw-top-28">
           <div class="tw-border-0 tw-border-b tw-border-solid tw-border-hairline tw-bg-gradient-to-br tw-from-peach tw-to-white tw-px-6 tw-py-5 sm:tw-px-7">
             <p class="tw-mb-0 tw-text-[0.7rem] tw-font-bold tw-uppercase tw-tracking-[0.14em] tw-text-power">Lost item recovery</p>

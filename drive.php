@@ -43,7 +43,7 @@ require __DIR__ . '/components/drive/drive-faq.php';
 <section class="tw-pb-16 md:tw-pb-24">
   <div class="<?= $pcContainer ?>">
     <div class="tw-mx-auto tw-w-full tw-max-w-[860px]">
-      <div class="tw-rounded-2xl tw-bg-paper tw-p-6 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] sm:tw-p-8 md:tw-p-11">
+      <div data-motion-stagger="fade-up" class="tw-rounded-2xl tw-bg-paper tw-p-6 tw-text-center tw-shadow-[0_1px_3px_rgba(28,20,16,0.06)] sm:tw-p-8 md:tw-p-11">
         <svg class="tw-mx-auto tw-mb-3 tw-h-9 tw-w-9 tw-text-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l3-3m0 0l-3-3m3 3h-7.5M6 20.25h12A2.25 2.25 0 0020.25 18V9.75L14.25 3.75H6a2.25 2.25 0 00-2.25 2.25v12A2.25 2.25 0 006 20.25z"/></svg>
         <h3 class="tw-mb-2 tw-text-lg tw-font-bold tw-text-ink">Want the Full Driver FAQ?</h3>
         <p class="tw-mb-6 tw-text-ink/60">Get every answer in one place &mdash; registration, documents, payments and more &mdash; in our complete Driver FAQ guide.</p>

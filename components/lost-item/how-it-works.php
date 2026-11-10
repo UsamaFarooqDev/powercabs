@@ -46,12 +46,12 @@ $lostItemHow = [
 ?>
 <section class="<?= $pcSection ?>" id="how-it-works">
   <div class="<?= $pcContainer ?>">
-    <div class="tw-mb-10 tw-max-w-[58ch]">
+    <div data-motion="fade-up" class="tw-mb-10 tw-max-w-[58ch]">
       <h2 class="<?= pc_mb($pcH2, 'tw-mb-3') ?>">How Our Lost Item Recovery Service Works</h2>
       <p class="<?= $pcBody ?> tw-mb-0">A simple process. A free first search. You decide what happens next.</p>
     </div>
 
-    <ol class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
+    <ol data-motion-stagger="fade-up" class="tw-m-0 tw-grid tw-list-none tw-grid-cols-1 tw-gap-5 tw-p-0 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
       <?php foreach ($lostItemHow as $i => $step): ?>
         <li class="<?= $pcCard ?> tw-flex tw-flex-col tw-bg-white">
           <div class="tw-mb-4 tw-flex tw-items-center tw-gap-3">
